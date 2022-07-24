@@ -1,4 +1,5 @@
 #include "YWindows.h"
+#include "YDirectX.h"
 #include "DInput.h"
 #include "Keys.h"
 
@@ -7,6 +8,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// Windows 初期化
 	YWindows* win = YWindows::GetInstance();
 	win->Create(L"LE2A_ヤマナカ_ルイ_AL3");
+
+	// DirectX 初期化
+	YDirectX* dx = YDirectX::GetInstance();
+	if (dx->Init(win->HandleWindow()) == -1) return 0;
 
 	// Input 初期化
 	DInput* input = DInput::GetInstance();
@@ -33,7 +38,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// ------------------------------------------------ //
 
-		//if (dx->PostDraw() == -1) return 0; // 描画後処理
+		if (dx->PostDraw() == -1) return 0; // 描画後処理
 
 		// ---------------------------------- //
 

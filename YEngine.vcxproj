@@ -140,22 +140,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DInput.cpp" />
-    <ClCompile Include="DXResult.cpp" />
+    <ClCompile Include="DXAdapter.cpp" />
+    <ClCompile Include="DXCommandList.cpp" />
+    <ClCompile Include="DXCommandQueue.cpp" />
+    <ClCompile Include="DXDebugLayer.cpp" />
+    <ClCompile Include="DXDescriptorHeap.cpp" />
+    <ClCompile Include="DXDevice.cpp" />
+    <ClCompile Include="DXFence.cpp" />
+    <ClCompile Include="DXRenderTargetView.cpp" />
+    <ClCompile Include="DXResourceBarrier.cpp" />
+    <ClCompile Include="DXSwapChain.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
     <ClCompile Include="Vec4.cpp" />
+    <ClCompile Include="YDirectX.cpp" />
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h" />
     <ClInclude Include="DInput.h" />
-    <ClInclude Include="DXResult.h" />
+    <ClInclude Include="DXAdapter.h" />
+    <ClInclude Include="DXCommandList.h" />
+    <ClInclude Include="DXCommandQueue.h" />
+    <ClInclude Include="DXDebugLayer.h" />
+    <ClInclude Include="DXDescriptorHeap.h" />
+    <ClInclude Include="DXDevice.h" />
+    <ClInclude Include="DXFence.h" />
+    <ClInclude Include="DXRenderTargetView.h" />
+    <ClInclude Include="DXResourceBarrier.h" />
+    <ClInclude Include="DXSwapChain.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />
+    <ClInclude Include="YDirectX.h" />
     <ClInclude Include="YWindows.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,4 +1,4 @@
-#include "DXResult.h"
+#include "Result.h"
 #include <cassert>
 
 bool Result::Check(const HRESULT& result)

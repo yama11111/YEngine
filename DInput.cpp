@@ -1,5 +1,5 @@
 #include "DInput.h"
-#include "DXResult.h"
+#include "Result.h"
 
 DInput* DInput::GetInstance()
 {

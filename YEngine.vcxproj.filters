@@ -31,6 +31,12 @@
     <Filter Include="ヘッダー ファイル\DX">
       <UniqueIdentifier>{fe033482-bbfd-44fa-9bbb-4b80e96992ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\DX\初期化">
+      <UniqueIdentifier>{b6cdd42a-ed1a-425a-90bd-f375fc74d646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX\初期化">
+      <UniqueIdentifier>{d44ec9ac-8d60-44c8-86d4-ea9c0558d76e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,11 +57,44 @@
     <ClCompile Include="DInput.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
-    <ClCompile Include="DXResult.cpp">
+    <ClCompile Include="Result.cpp">
       <Filter>ソース ファイル\DX</Filter>
     </ClCompile>
     <ClCompile Include="Keys.cpp">
       <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="YDirectX.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDevice.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXAdapter.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDebugLayer.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXCommandList.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXCommandQueue.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXSwapChain.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRenderTargetView.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDescriptorHeap.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DXFence.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DXResourceBarrier.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,11 +116,44 @@
     <ClInclude Include="DInput.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
-    <ClInclude Include="DXResult.h">
+    <ClInclude Include="Result.h">
       <Filter>ヘッダー ファイル\DX</Filter>
     </ClInclude>
     <ClInclude Include="Keys.h">
       <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="YDirectX.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDevice.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXAdapter.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDebugLayer.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXCommandList.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXCommandQueue.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXSwapChain.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDescriptorHeap.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DXFence.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXResourceBarrier.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DXRenderTargetView.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
