@@ -19,7 +19,7 @@ int YDirectX::Init(const HWND& hwnd)
 	Result::Assert(dev->Device() != nullptr);
 
 	// エラー時止まるように
-	debugLayer.Severity();
+	//debugLayer.Severity();
 
 	// コマンドリスト生成
 	cmdList = DXCommandList::GetInstance();

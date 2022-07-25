@@ -31,7 +31,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// ------------------------------------------------ //
 
-		//if (dx->PreDraw() == -1) return 0; // •`‰æ€”õ
+		if (dx->PreDraw() == -1) return 0; // •`‰æ€”õ
 
 		// --------------------- Draw --------------------- //
 
