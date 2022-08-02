@@ -39,5 +39,5 @@ ID3D12Device* DXDevice::Device()
 DXDevice* DXDevice::GetInstance()
 {
 	static DXDevice instance;
-	return &instance;;
+	return &instance;
 }

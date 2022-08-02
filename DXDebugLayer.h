@@ -5,8 +5,6 @@
 
 class DXDebugLayer
 {
-private:
-	ID3D12Debug1* debugController = nullptr;
 public:
 	void Enable(const bool isValidate);
 	void Severity();
