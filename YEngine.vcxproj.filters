@@ -37,6 +37,18 @@
     <Filter Include="ヘッダー ファイル\DX\初期化">
       <UniqueIdentifier>{d44ec9ac-8d60-44c8-86d4-ea9c0558d76e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\DX\描画">
+      <UniqueIdentifier>{bc3444f9-5b85-44e3-90df-518f912fca40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX\描画">
+      <UniqueIdentifier>{39679ecf-d604-4a86-a3f4-7bab0e2b0785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DX\汎用">
+      <UniqueIdentifier>{99f61fb2-4073-4436-8ba7-2da1bc9ca80d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX\汎用">
+      <UniqueIdentifier>{7b7ca9c1-f587-4e23-a642-cb5c66475ecd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,9 +68,6 @@
     </ClCompile>
     <ClCompile Include="DInput.cpp">
       <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Result.cpp">
-      <Filter>ソース ファイル\DX</Filter>
     </ClCompile>
     <ClCompile Include="Keys.cpp">
       <Filter>ソース ファイル\Input</Filter>
@@ -87,26 +96,53 @@
     <ClCompile Include="DXRenderTargetView.cpp">
       <Filter>ソース ファイル\DX\初期化</Filter>
     </ClCompile>
-    <ClCompile Include="DXDescriptorHeap.cpp">
-      <Filter>ソース ファイル\DX</Filter>
-    </ClCompile>
     <ClCompile Include="DXFence.cpp">
       <Filter>ソース ファイル\DX\初期化</Filter>
     </ClCompile>
     <ClCompile Include="DXResourceBarrier.cpp">
       <Filter>ソース ファイル\DX\初期化</Filter>
     </ClCompile>
-    <ClCompile Include="Vertices.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="DXDrawDesc.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDescriptorHeap.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
     </ClCompile>
     <ClCompile Include="DXResource.cpp">
-      <Filter>ソース ファイル\DX</Filter>
+      <Filter>ソース ファイル\DX\汎用</Filter>
     </ClCompile>
     <ClCompile Include="DXResourceInfo.cpp">
-      <Filter>ソース ファイル\DX</Filter>
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="Result.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
     </ClCompile>
     <ClCompile Include="VertexIndex.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertices.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="DXViewport.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXScissorRect.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXShaderManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRootSignature.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRootParameterManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXVertexLayoutManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXPipelineState.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +191,6 @@
     <ClInclude Include="DXSwapChain.h">
       <Filter>ヘッダー ファイル\DX\初期化</Filter>
     </ClInclude>
-    <ClInclude Include="DXDescriptorHeap.h">
-      <Filter>ヘッダー ファイル\DX</Filter>
-    </ClInclude>
     <ClInclude Include="DXFence.h">
       <Filter>ヘッダー ファイル\DX\初期化</Filter>
     </ClInclude>
@@ -167,17 +200,52 @@
     <ClInclude Include="DXRenderTargetView.h">
       <Filter>ヘッダー ファイル\DX\初期化</Filter>
     </ClInclude>
-    <ClInclude Include="Vertices.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="DXResource.h">
-      <Filter>ヘッダー ファイル\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DXResourceInfo.h">
-      <Filter>ヘッダー ファイル\DX</Filter>
+    <ClInclude Include="DXDrawDesc.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
     </ClInclude>
     <ClInclude Include="VertexIndex.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
     </ClInclude>
+    <ClInclude Include="Vertices.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDescriptorHeap.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="DXResource.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="DXResourceInfo.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="DXViewport.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXScissorRect.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXShaderManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXRootSignature.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXRootParameterManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXVertexLayoutManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXPipelineState.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="BasicVS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="BasicPS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

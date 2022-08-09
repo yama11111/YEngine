@@ -146,12 +146,20 @@
     <ClCompile Include="DXDebugLayer.cpp" />
     <ClCompile Include="DXDescriptorHeap.cpp" />
     <ClCompile Include="DXDevice.cpp" />
+    <ClCompile Include="DXDrawDesc.cpp" />
     <ClCompile Include="DXFence.cpp" />
+    <ClCompile Include="DXPipelineState.cpp" />
     <ClCompile Include="DXRenderTargetView.cpp" />
     <ClCompile Include="DXResource.cpp" />
     <ClCompile Include="DXResourceBarrier.cpp" />
     <ClCompile Include="DXResourceInfo.cpp" />
+    <ClCompile Include="DXRootParameterManager.cpp" />
+    <ClCompile Include="DXRootSignature.cpp" />
+    <ClCompile Include="DXScissorRect.cpp" />
+    <ClCompile Include="DXShaderManager.cpp" />
     <ClCompile Include="DXSwapChain.cpp" />
+    <ClCompile Include="DXVertexLayoutManager.cpp" />
+    <ClCompile Include="DXViewport.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
@@ -172,12 +180,20 @@
     <ClInclude Include="DXDebugLayer.h" />
     <ClInclude Include="DXDescriptorHeap.h" />
     <ClInclude Include="DXDevice.h" />
+    <ClInclude Include="DXDrawDesc.h" />
     <ClInclude Include="DXFence.h" />
+    <ClInclude Include="DXPipelineState.h" />
     <ClInclude Include="DXRenderTargetView.h" />
     <ClInclude Include="DXResource.h" />
     <ClInclude Include="DXResourceBarrier.h" />
     <ClInclude Include="DXResourceInfo.h" />
+    <ClInclude Include="DXRootParameterManager.h" />
+    <ClInclude Include="DXRootSignature.h" />
+    <ClInclude Include="DXScissorRect.h" />
+    <ClInclude Include="DXShaderManager.h" />
     <ClInclude Include="DXSwapChain.h" />
+    <ClInclude Include="DXVertexLayoutManager.h" />
+    <ClInclude Include="DXViewport.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Vec2.h" />
@@ -187,6 +203,20 @@
     <ClInclude Include="Vertices.h" />
     <ClInclude Include="YDirectX.h" />
     <ClInclude Include="YWindows.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="BasicPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="BasicVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
