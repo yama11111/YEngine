@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="DInput.cpp" />
     <ClCompile Include="DXAdapter.cpp" />
     <ClCompile Include="DXCommandList.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DInput.h" />
     <ClInclude Include="DXAdapter.h" />

@@ -144,6 +144,9 @@
     <ClCompile Include="DXPipelineState.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
+    <ClCompile Include="ConstBuffer.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="DXPipelineState.h">
       <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstBuffer.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

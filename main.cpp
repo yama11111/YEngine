@@ -1,6 +1,7 @@
 #include "YWindows.h"
 #include "YDirectX.h"
 #include "VertexIndex.h"
+#include "ConstBuffer.h"
 #include "DXDrawDesc.h"
 #include "DInput.h"
 #include "Keys.h"
@@ -96,6 +97,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	);
 	vtIdx.Init();
 
+	ConstBuffer cb;
+
 	DXDrawDesc drawDesc;
 	drawDesc.Create();
 
@@ -121,10 +124,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		drawDesc.SetCommand();
 
 		vert.SetCommand();
+		cb.SetCommand();
 		vert.Draw();
 
-		vtIdx.SetCommand();
-		vtIdx.Draw();
+		//vtIdx.SetCommand();
+		//vtIdx.Draw();
 
 		// ------------------------------------------------ //
 
