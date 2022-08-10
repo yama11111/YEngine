@@ -97,6 +97,22 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	);
 	vtIdx.Init();
 
+	VertexIndex vtIdx2(
+		{
+			// 前
+			{{ -0.4f, -0.7f, 0.0f }, { 0.0f, 1.0f }}, // 左下
+			{{ -0.4f,  0.7f, 0.0f }, { 0.0f, 0.0f }}, // 左上
+			{{  0.4f, -0.7f, 0.0f }, { 1.0f, 1.0f }}, // 右下
+			{{  0.4f,  0.7f, 0.0f }, { 1.0f, 0.0f }}, // 右上
+		},
+		{
+			// 前
+			0, 1, 2, // 三角形1つ目
+			2, 1, 3, // 三角形2つ目
+		}
+	);
+	vtIdx2.Init();
+
 	ConstBuffer cb;
 
 	DXDrawDesc drawDesc;
@@ -123,12 +139,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		drawDesc.SetCommand();
 
-		vert.SetCommand();
-		cb.SetCommand();
-		vert.Draw();
+		//vert.SetCommand();
+		//cb.SetCommand();
+		//vert.Draw();
 
-		//vtIdx.SetCommand();
-		//vtIdx.Draw();
+		vtIdx2.SetCommand();
+		cb.SetCommand();
+		vtIdx2.Draw();
 
 		// ------------------------------------------------ //
 
