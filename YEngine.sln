@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YEngine", "YEngine.vcxproj", "{4D9297E9-E3A3-4154-9DAC-123EEC023B9E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "DirectXTex\DirectXTex_Windows10_2022.vcxproj", "{FB3F52B5-BFE8-43FD-836F-363735DAB738}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj", "{371B9FA9-4C90-4AC6-A123-ACED756D6C77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{4D9297E9-E3A3-4154-9DAC-123EEC023B9E}.Debug|x64.Build.0 = Debug|x64
 		{4D9297E9-E3A3-4154-9DAC-123EEC023B9E}.Release|x64.ActiveCfg = Release|x64
 		{4D9297E9-E3A3-4154-9DAC-123EEC023B9E}.Release|x64.Build.0 = Release|x64
-		{FB3F52B5-BFE8-43FD-836F-363735DAB738}.Debug|x64.ActiveCfg = Debug|x64
-		{FB3F52B5-BFE8-43FD-836F-363735DAB738}.Debug|x64.Build.0 = Debug|x64
-		{FB3F52B5-BFE8-43FD-836F-363735DAB738}.Release|x64.ActiveCfg = Release|x64
-		{FB3F52B5-BFE8-43FD-836F-363735DAB738}.Release|x64.Build.0 = Release|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Debug|x64.ActiveCfg = Debug|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Debug|x64.Build.0 = Debug|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x64.ActiveCfg = Release|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

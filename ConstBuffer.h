@@ -19,6 +19,6 @@ private:
 	DXCommandList* cmdList = nullptr;
 public:
 	ConstBuffer();
-	void Create(const Vec4& color);
+	void Create(const Vec4& color = {1.0f,1.0f,1.0f,1.0f});
 	void SetCommand();
 };

@@ -63,32 +63,70 @@ void Texture::Create(const Vec4& color)
 	index = srvH->SetSRV(texBuff.buff, srvDesc);
 }
 
-void Texture::Load(const wchar_t* imageName)
+void Texture::Load(const wchar_t* fileName)
 {
-	TexMetadata metadata{};
-	ScratchImage scratchImg{};
+	DirectX::TexMetadata metadata{};
+	DirectX::ScratchImage scratchImg{};
 	// WICテクスチャのロード
-	Result::Check(LoadFromWICFile(L"Resources/mario.jpg",
-		WIC_FLAGS_NONE, &metadata, scratchImg));
+	Result::Check(LoadFromWICFile(fileName,
+		DirectX::WIC_FLAGS_NONE, &metadata, scratchImg));
 
-	ScratchImage mipChain{};
+	DirectX::ScratchImage mipChain{};
 	// ミップマップ生成
 	if (Result::Check(GenerateMipMaps(scratchImg.GetImages(),
 		scratchImg.GetImageCount(), scratchImg.GetMetadata(),
-		TEX_FILTER_DEFAULT, 0, mipChain)))
+		DirectX::TEX_FILTER_DEFAULT, 0, mipChain)))
 	{
 		scratchImg = std::move(mipChain);
 		metadata = scratchImg.GetMetadata();
 	}
 
 	//読み込んだディフューズテクスチャを SRGB として扱う
-	metadata.format = MakeSRGB(metadata.format);
+	metadata.format = DirectX::MakeSRGB(metadata.format);
 
-	TexMetadata metadata2{};
-	ScratchImage scratchImg2{};
-	// WICテクスチャのロード
-	Result::Check(LoadFromWICFile(L"Resources/reimu.png",
-		WIC_FLAGS_NONE, &metadata2, scratchImg2));
+	// ヒープ設定
+	texInfo.heapProp;
+	texInfo.heapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
+	texInfo.heapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
+	texInfo.heapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
+	// リソース設定
+	texInfo.resDesc;
+	texInfo.resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+	texInfo.resDesc.Format = metadata.format;
+	texInfo.resDesc.Width = metadata.width;   // 幅
+	texInfo.resDesc.Height = (UINT)metadata.height; // 高さ
+	texInfo.resDesc.DepthOrArraySize = (UINT16)metadata.arraySize;
+	texInfo.resDesc.MipLevels = (UINT16)metadata.mipLevels;
+	texInfo.resDesc.SampleDesc.Count = 1;
+
+	texBuff.Create(texInfo);
+
+	// テクスチャバッファにデータ転送
+	//全ミップマップについて
+	for (size_t i = 0; i < metadata.mipLevels; i++)
+	{
+		// ミップマップを指定してイメージ取得
+		const DirectX::Image* img = scratchImg.GetImage(i, 0, 0);
+		// テクスチャバッファにデータ転送
+		Result::Check(texBuff.buff->WriteToSubresource(
+			(UINT)i,
+			nullptr, // 全領域へコピー
+			img->pixels, // 元データアドレス
+			(UINT)img->rowPitch, // 1ラインサイズ
+			(UINT)img->slicePitch // 1枚サイズ
+		));
+	}
+
+	// シェーダリソースビュー設定
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+	srvDesc.Format = texInfo.resDesc.Format;
+	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dテクスチャ
+	srvDesc.Texture2D.MipLevels = texInfo.resDesc.MipLevels;
+
+	srvH = DXSRVHeap::GetInstance();
+	index = srvH->SetSRV(texBuff.buff, srvDesc);
+
 }
 
 void Texture::SetCommand()

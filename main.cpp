@@ -9,7 +9,6 @@
 #include "DInput.h"
 #include "Keys.h"
 
-#include <DirectXTex.h>
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -119,10 +118,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	vtIdx2.Init();
 
 	ConstBuffer cb;
-	cb.Create({});
+	cb.Create();
 
 	Texture tex;
 	tex.Create();
+
+	Texture tex2;
+	tex2.Load(L"Resources/player.png");
 
 	DXSRVHeap* srvH = DXSRVHeap::GetInstance();
 
@@ -137,7 +139,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	DXRootParameterManager* rpM = DXRootParameterManager::GetInstance();
 	cb.index  = rpM->PushBackCBV();
 	srvH->rpIndex = rpM->PushBackDescriptorTable(descriptorRange);
-
 
 	DXDrawDesc drawDesc;
 	drawDesc.Create();
@@ -170,6 +171,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		vtIdx2.SetCommand();
 		cb.SetCommand();
 		tex.SetCommand();
+		tex2.SetCommand();
 		vtIdx2.Draw();
 
 		// ------------------------------------------------ //
