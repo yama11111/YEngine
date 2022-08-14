@@ -9,10 +9,11 @@ class DXRootParameterManager
 public:
 	std::vector<D3D12_ROOT_PARAMETER> rp;
 private:
-	int cbvNum = 0;
+	UINT cbvNum = 0;
+	UINT index = 0;
 public:
-	int PushBackCBV();
-	void PushBackDescTable(const D3D12_DESCRIPTOR_RANGE& descriptorRange);
+	UINT PushBackCBV();
+	UINT PushBackDescriptorTable(const D3D12_DESCRIPTOR_RANGE& descriptorRange);
 public:
 	static DXRootParameterManager* GetInstance();
 private:

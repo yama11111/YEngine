@@ -12,13 +12,13 @@ class ConstBuffer
 {
 public:
 	ConstBufferDataMaterial* cMapMate = nullptr;
+	UINT index = 0;
 private:
 	DXResourceInfo cbInfo;
 	DXResource cbMate;
-	UINT index = 0;
 	DXCommandList* cmdList = nullptr;
 public:
 	ConstBuffer();
-	void Init();
+	void Create(const Vec4& color);
 	void SetCommand();
 };

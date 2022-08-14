@@ -5,5 +5,6 @@
 void DXDescriptorHeap::Create()
 {
 	DXDevice* dev = DXDevice::GetInstance();
-	dev->Device()->CreateDescriptorHeap(&hDesc, IID_PPV_ARGS(&heap));
+	Result::Check(dev->Device()->
+		CreateDescriptorHeap(&hDesc, IID_PPV_ARGS(&heap)));
 }

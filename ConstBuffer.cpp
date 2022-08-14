@@ -1,13 +1,11 @@
 #include "ConstBuffer.h"
-#include "DXRootParameterManager.h"
 #include "Result.h"
 
 ConstBuffer::ConstBuffer()
 {
-	Init();
 }
 
-void ConstBuffer::Init()
+void ConstBuffer::Create(const Vec4& color)
 {
 	cbInfo.heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;
 	cbInfo.resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
@@ -23,10 +21,7 @@ void ConstBuffer::Init()
 	// 定数バッファのマッピング
 	Result::Check(cbMate.buff->Map(0, nullptr, (void**)&cMapMate));
 	// 値を書きこむと自動的に転送される
-	cMapMate->color = Vec4(1, 1, 1, 1);
-	// ルートパラメータの設定
-	DXRootParameterManager* rootParams = DXRootParameterManager::GetInstance();
-	index = rootParams->PushBackCBV();
+	cMapMate->color = color;
 
 	cmdList = DXCommandList::GetInstance();
 }

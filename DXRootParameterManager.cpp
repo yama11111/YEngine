@@ -1,6 +1,6 @@
 #include "DXRootParameterManager.h"
 
-int DXRootParameterManager::PushBackCBV()
+UINT DXRootParameterManager::PushBackCBV()
 {
 	// 定数バッファ
 	D3D12_ROOT_PARAMETER rootParam{};
@@ -9,25 +9,31 @@ int DXRootParameterManager::PushBackCBV()
 	rootParam.Descriptor.RegisterSpace = 0;                   // デフォルト値
 	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
 
-	int result = cbvNum;
+	UINT result = index;
 
 	rp.push_back(rootParam);
+	index++;
 	cbvNum++;
 
 	return result;
 }
 
-void DXRootParameterManager::PushBackDescTable(
+UINT DXRootParameterManager::PushBackDescriptorTable(
 	const D3D12_DESCRIPTOR_RANGE& descriptorRange)
 {
 	// テクスチャレジスタ
 	D3D12_ROOT_PARAMETER rootParam{};
 	rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 	rootParam.DescriptorTable.pDescriptorRanges = &descriptorRange;
-	rootParam.DescriptorTable.NumDescriptorRanges = 1;              // デフォルト値
-	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;		// 全てのシェーダから見える
+	rootParam.DescriptorTable.NumDescriptorRanges = 1;
+	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
+
+	UINT result = index;
 
 	rp.push_back(rootParam);
+	index++;
+
+	return result;
 }
 
 DXRootParameterManager* DXRootParameterManager::GetInstance()

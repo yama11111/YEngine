@@ -147,6 +147,15 @@
     <ClCompile Include="ConstBuffer.cpp">
       <Filter>ソース ファイル\DX\汎用</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="DXSRVHeap.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DXSampleDescManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
@@ -244,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="ConstBuffer.h">
       <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="DXSRVHeap.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DXSampleDescManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
