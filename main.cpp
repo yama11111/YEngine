@@ -9,6 +9,8 @@
 #include "DInput.h"
 #include "Keys.h"
 
+#include <DirectXTex.h>
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -135,6 +137,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	DXRootParameterManager* rpM = DXRootParameterManager::GetInstance();
 	cb.index  = rpM->PushBackCBV();
 	srvH->rpIndex = rpM->PushBackDescriptorTable(descriptorRange);
+
 
 	DXDrawDesc drawDesc;
 	drawDesc.Create();

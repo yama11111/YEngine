@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include "DXSRVHeap.h"
 #include "Result.h"
+#include <DirectXTex.h>
 
 void Texture::Create(const Vec4& color)
 {
@@ -60,6 +61,34 @@ void Texture::Create(const Vec4& color)
 
 	srvH = DXSRVHeap::GetInstance();
 	index = srvH->SetSRV(texBuff.buff, srvDesc);
+}
+
+void Texture::Load(const wchar_t* imageName)
+{
+	TexMetadata metadata{};
+	ScratchImage scratchImg{};
+	// WICテクスチャのロード
+	Result::Check(LoadFromWICFile(L"Resources/mario.jpg",
+		WIC_FLAGS_NONE, &metadata, scratchImg));
+
+	ScratchImage mipChain{};
+	// ミップマップ生成
+	if (Result::Check(GenerateMipMaps(scratchImg.GetImages(),
+		scratchImg.GetImageCount(), scratchImg.GetMetadata(),
+		TEX_FILTER_DEFAULT, 0, mipChain)))
+	{
+		scratchImg = std::move(mipChain);
+		metadata = scratchImg.GetMetadata();
+	}
+
+	//読み込んだディフューズテクスチャを SRGB として扱う
+	metadata.format = MakeSRGB(metadata.format);
+
+	TexMetadata metadata2{};
+	ScratchImage scratchImg2{};
+	// WICテクスチャのロード
+	Result::Check(LoadFromWICFile(L"Resources/reimu.png",
+		WIC_FLAGS_NONE, &metadata2, scratchImg2));
 }
 
 void Texture::SetCommand()

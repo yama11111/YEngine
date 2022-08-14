@@ -13,6 +13,7 @@ private:
 	DXSRVHeap* srvH = nullptr;
 public:
 	void Create(const Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+	void Load(const wchar_t* imageName);
 	void SetCommand();
 };
 
