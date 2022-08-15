@@ -1,11 +1,16 @@
 #include "YWindows.h"
 #include "YDirectX.h"
+#include "DInput.h"
+#include "Keys.h"
 #include "VertexIndex.h"
 #include "ConstBufferManager.h"
 #include "TextureManager.h"
 #include "DXDrawDesc.h"
-#include "DInput.h"
-#include "Keys.h"
+
+#include "MatWorld.h"
+#include "MatView.h"
+#include "MatProjection.h"
+#include "Calc.h"
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -99,12 +104,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	vtIdx.Init();
 
 	VertexIndex vtIdx2(
+		//{
+		//	// 前
+		//	{{   0.0f, 100.0f, 0.0f }, { 0.0f, 1.0f }}, // 左下
+		//	{{   0.0f,   0.0f, 0.0f }, { 0.0f, 0.0f }}, // 左上
+		//	{{ 100.0f, 100.0f, 0.0f }, { 1.0f, 1.0f }}, // 右下
+		//	{{ 100.0f,   0.0f, 0.0f }, { 1.0f, 0.0f }}, // 右上
+		//},
 		{
 			// 前
-			{{ -0.4f, -0.7f, 0.0f }, { 0.0f, 1.0f }}, // 左下
-			{{ -0.4f,  0.7f, 0.0f }, { 0.0f, 0.0f }}, // 左上
-			{{  0.4f, -0.7f, 0.0f }, { 1.0f, 1.0f }}, // 右下
-			{{  0.4f,  0.7f, 0.0f }, { 1.0f, 0.0f }}, // 右上
+			{{ -50.0f, -50.0f, 0.0f }, { 0.0f, 1.0f }}, // 左下
+			{{ -50.0f,  50.0f, 0.0f }, { 0.0f, 0.0f }}, // 左上
+			{{  50.0f, -50.0f, 0.0f }, { 1.0f, 1.0f }}, // 右下
+			{{  50.0f,  50.0f, 0.0f }, { 1.0f, 0.0f }}, // 右上
 		},
 		{
 			// 前
@@ -120,9 +132,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	ConstBufferMaterial cb;
 	cbM->CreateCB(cb);
+	ConstBufferTransform cb2;
+	cbM->CreateCB(cb2);
+
+	MatWorld mW;
+	MatView mV;
+	MatProjection mP(MatProjection::Perspective);
+
+	cb2.cMapTrfm->mat = mW.m * mV.m * mP.m;
 
 	UINT tex = texM->Create();
-	UINT tex2= texM->Load(L"Resources/player.png");
+	UINT tex2 = texM->Load(L"Resources/player.png");
 
 	texM->SetRootParameter();
 
@@ -152,6 +172,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		vtIdx2.SetCommand();
 		cbM->SetCommand(cb);
+		cbM->SetCommand(cb2);
 		texM->SetCommand(tex);
 		texM->SetCommand(tex2);
 		vtIdx2.Draw();

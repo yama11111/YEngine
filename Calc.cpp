@@ -1,4 +1,6 @@
 #include "Calc.h"
+#include "DirectXMath.h"
+#include "Def.h"
 #include <cmath>
 
 Mat4 MatScale(const Vec3& s)
@@ -12,7 +14,7 @@ Mat4 MatScale(const Vec3& s)
 	return matScale;
 }
 
-Mat4 MatRotateX(float angle)
+Mat4 MatRotationX(float angle)
 {
 	Mat4 matRota({
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -23,7 +25,7 @@ Mat4 MatRotateX(float angle)
 	return matRota;
 }
 
-Mat4 MatRotateY(float angle)
+Mat4 MatRotationY(float angle)
 {
 	Mat4 matRota({
 		(float)cos(angle), 0.0f, (float)-sin(angle), 0.0f,
@@ -34,7 +36,7 @@ Mat4 MatRotateY(float angle)
 	return matRota;
 }
 
-Mat4 MatRotateZ(float angle)
+Mat4 MatRotationZ(float angle)
 {
 	Mat4 matRota({
 		(float)cos(angle), (float)sin(angle), 0.0f, 0.0f,
@@ -45,7 +47,15 @@ Mat4 MatRotateZ(float angle)
 	return matRota;
 }
 
-Mat4 MatTranslate(const Vec3& t)
+Mat4 MatRotation(const Vec3& r)
+{
+	Mat4 m = Mat4::Identity();
+	m *= MatRotationZ(r.z) * MatRotationX(r.x) * MatRotationY(r.y);
+
+	return m;
+}
+
+Mat4 MatTranslation(const Vec3& t)
 {
 	Mat4 matMove({
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -71,4 +81,54 @@ Vec3 MatTransform(const Vec3& v, const Mat4& m)
 Vec3 operator*(const Vec3& v, const Mat4& m)
 {
 	return MatTransform(v, m);
+}
+
+static Mat4 ConvertMatrix(const DirectX::XMMATRIX mat)
+{
+	Mat4 r;
+	for (size_t i = 0; i < 4; i++)
+	{
+		for (size_t j = 0; j < 4; j++) 
+		{
+			r.m[i][j] = mat.r[i].m128_f32[j];
+		}
+	}
+	return r;
+}
+
+Mat4 MatOrthoGraphic()
+{
+	DirectX::XMMATRIX mat =
+		DirectX::XMMatrixOrthographicOffCenterLH(
+			0.0f, WIN_SIZE.x, // 左端, 右端
+			WIN_SIZE.y, 0.0f, // 下端, 上端
+			0.0f, 1.0f        // 前端, 奥端
+		);
+	return ConvertMatrix(mat);
+}
+
+Mat4 MatPerspective()
+{
+	DirectX::XMMATRIX mat =
+		DirectX::XMMatrixPerspectiveFovLH(
+			DirectX::XMConvertToRadians(45.0f), // 上下画角45度
+			(float)WIN_SIZE.x / WIN_SIZE.y,		// アスペクト比 (画面横幅/画面縦幅)
+			0.1f, 1000.0f						// 前端, 奥端
+		);
+	return ConvertMatrix(mat);
+}
+
+static DirectX::XMVECTOR ConvertXMVector(const Vec3& vec) 
+{
+	DirectX::XMVECTOR vector = { vec.x, vec.y, vec.z };
+	return vector;
+}
+
+Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
+{
+	DirectX::XMMATRIX mat =
+		DirectX::XMMatrixLookAtLH(
+			ConvertXMVector(eye), ConvertXMVector(target), ConvertXMVector(up));
+
+	return ConvertMatrix(mat);
 }

@@ -168,6 +168,9 @@
     <ClCompile Include="DXVertexLayoutManager.cpp" />
     <ClCompile Include="DXViewport.cpp" />
     <ClCompile Include="Mat4.cpp" />
+    <ClCompile Include="MatProjection.cpp" />
+    <ClCompile Include="MatView.cpp" />
+    <ClCompile Include="MatWorld.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
@@ -210,6 +213,9 @@
     <ClInclude Include="DXVertexLayoutManager.h" />
     <ClInclude Include="DXViewport.h" />
     <ClInclude Include="Mat4.h" />
+    <ClInclude Include="MatProjection.h" />
+    <ClInclude Include="MatView.h" />
+    <ClInclude Include="MatWorld.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Texture.h" />

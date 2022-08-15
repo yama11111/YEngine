@@ -3,7 +3,7 @@ struct Mat4
 {
 	float m[4][4];
 
-	Mat4() = default;
+	Mat4();
 	struct InitState
 	{
 		float m00 = 0.0f; float m01 = 0.0f; float m02 = 0.0f; float m03 = 0.0f;
