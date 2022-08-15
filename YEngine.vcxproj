@@ -141,7 +141,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Calc.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
+    <ClCompile Include="ConstBufferManager.cpp" />
     <ClCompile Include="DInput.cpp" />
     <ClCompile Include="DXAdapter.cpp" />
     <ClCompile Include="DXCommandList.cpp" />
@@ -165,10 +167,12 @@
     <ClCompile Include="DXSwapChain.cpp" />
     <ClCompile Include="DXVertexLayoutManager.cpp" />
     <ClCompile Include="DXViewport.cpp" />
+    <ClCompile Include="Mat4.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
     <ClCompile Include="Vec4.cpp" />
@@ -178,7 +182,9 @@
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calc.h" />
     <ClInclude Include="ConstBuffer.h" />
+    <ClInclude Include="ConstBufferManager.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DInput.h" />
     <ClInclude Include="DXAdapter.h" />
@@ -203,9 +209,11 @@
     <ClInclude Include="DXSwapChain.h" />
     <ClInclude Include="DXVertexLayoutManager.h" />
     <ClInclude Include="DXViewport.h" />
+    <ClInclude Include="Mat4.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />

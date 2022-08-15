@@ -24,7 +24,7 @@ DXSRVHeap::DXSRVHeap()
 	cmdList = DXCommandList::GetInstance();
 }
 
-int DXSRVHeap::SetSRV(ID3D12Resource* texBuff, D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc)
+UINT DXSRVHeap::SetSRV(ID3D12Resource* texBuff, D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc)
 {
 	DXDevice* dev = DXDevice::GetInstance();
 
@@ -34,7 +34,7 @@ int DXSRVHeap::SetSRV(ID3D12Resource* texBuff, D3D12_SHADER_RESOURCE_VIEW_DESC& 
 	// 一つハンドルを進める
 	srvHandle.ptr += incrementSize;
 
-	int result = index;
+	UINT result = index;
 	index++;
 
 	return result;
@@ -46,7 +46,7 @@ void DXSRVHeap::SetCommand()
 	cmdList->List()->SetDescriptorHeaps(1, &srvHeap.heap);
 }
 
-void DXSRVHeap::SetRootParameter(const int index) 
+void DXSRVHeap::SetRootParameter(const UINT index) 
 {
 	// SRVヒープの先頭ハンドルを取得 (SRVを指定しているはず)
 	D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle = 

@@ -156,6 +156,18 @@
     <ClCompile Include="DXSampleDescManager.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
+    <ClCompile Include="Mat4.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Calc.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstBufferManager.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
@@ -175,9 +187,6 @@
     </ClInclude>
     <ClInclude Include="DInput.h">
       <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Result.h">
-      <Filter>ヘッダー ファイル\DX</Filter>
     </ClInclude>
     <ClInclude Include="Keys.h">
       <Filter>ヘッダー ファイル\Input</Filter>
@@ -262,6 +271,21 @@
     </ClInclude>
     <ClInclude Include="DXSampleDescManager.h">
       <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="Mat4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Calc.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstBufferManager.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>ヘッダー ファイル\DX\汎用</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

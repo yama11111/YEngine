@@ -1,24 +1,37 @@
 #pragma once
 #include "DXResource.h"
-#include "DXCommandList.h"
 #include "Vec4.h"
+#include "Mat4.h"
 
+// 定数バッファ用データ構造体 (マテリアル)
 struct ConstBufferDataMaterial
 {
-	Vec4 color;
+	Vec4 color; // 色 (RGBA)
+};
+// 定数バッファ用データ構造体 (3D変換行列)
+struct ConstBufferDataTransform
+{
+	Mat4 mat; // 3D変換行列
 };
 
-class ConstBuffer
+class ConstBuffer 
+{
+public:
+	DXResource cbMate;
+};
+
+class ConstBufferMaterial : public ConstBuffer
 {
 public:
 	ConstBufferDataMaterial* cMapMate = nullptr;
-	UINT index = 0;
-private:
-	DXResourceInfo cbInfo;
-	DXResource cbMate;
-	DXCommandList* cmdList = nullptr;
 public:
-	ConstBuffer();
-	void Create(const Vec4& color = {1.0f,1.0f,1.0f,1.0f});
-	void SetCommand();
+	void Color(const Vec4& color);
+};
+
+class ConstBufferTransform : public ConstBuffer
+{
+public:
+	ConstBufferDataTransform* cMapTrfm = nullptr;
+public:
+	void Mat(const Mat4& mat);
 };

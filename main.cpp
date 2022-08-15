@@ -1,14 +1,11 @@
 #include "YWindows.h"
 #include "YDirectX.h"
 #include "VertexIndex.h"
-#include "ConstBuffer.h"
-#include "Texture.h"
-#include "DXSRVHeap.h"
-#include "DXRootParameterManager.h"
+#include "ConstBufferManager.h"
+#include "TextureManager.h"
 #include "DXDrawDesc.h"
 #include "DInput.h"
 #include "Keys.h"
-
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -117,28 +114,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	);
 	vtIdx2.Init();
 
-	ConstBuffer cb;
-	cb.Create();
-
-	Texture tex;
-	tex.Create();
-
-	Texture tex2;
-	tex2.Load(L"Resources/player.png");
-
+	ConstBufferManager* cbM = ConstBufferManager::GetInstance();
+	TextureManager* texM = TextureManager::GetInstance();
 	DXSRVHeap* srvH = DXSRVHeap::GetInstance();
 
-	// デスクリプタレンジの設定
-	D3D12_DESCRIPTOR_RANGE descriptorRange{};
-	descriptorRange.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
-	descriptorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-	descriptorRange.BaseShaderRegister = 0; // テクスチャレジスタ0番
-	descriptorRange.OffsetInDescriptorsFromTableStart =
-		D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+	ConstBufferMaterial cb;
+	cbM->CreateCB(cb);
 
-	DXRootParameterManager* rpM = DXRootParameterManager::GetInstance();
-	cb.index  = rpM->PushBackCBV();
-	srvH->rpIndex = rpM->PushBackDescriptorTable(descriptorRange);
+	UINT tex = texM->Create();
+	UINT tex2= texM->Load(L"Resources/player.png");
+
+	texM->SetRootParameter();
 
 	DXDrawDesc drawDesc;
 	drawDesc.Create();
@@ -164,14 +150,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		drawDesc.SetCommand();
 		srvH->SetCommand();
 
-		//vert.SetCommand();
-		//cb.SetCommand();
-		//vert.Draw();
-
 		vtIdx2.SetCommand();
-		cb.SetCommand();
-		tex.SetCommand();
-		tex2.SetCommand();
+		cbM->SetCommand(cb);
+		texM->SetCommand(tex);
+		texM->SetCommand(tex2);
 		vtIdx2.Draw();
 
 		// ------------------------------------------------ //
