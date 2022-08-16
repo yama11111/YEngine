@@ -13,9 +13,9 @@ void DXRootSignature::Create(ID3DBlob* errorBlob)
 	// ルートシグネチャの設定
 	rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 	rootSignatureDesc.pParameters = rootParams->rp.data(); // ルートパラメータの先頭アドレス
-	rootSignatureDesc.NumParameters = rootParams->rp.size();// ルートパラメータ数
+	rootSignatureDesc.NumParameters = (UINT)rootParams->rp.size();// ルートパラメータ数
 	rootSignatureDesc.pStaticSamplers = sampleDesc->sd.data();
-	rootSignatureDesc.NumStaticSamplers = sampleDesc->sd.size();
+	rootSignatureDesc.NumStaticSamplers = (UINT)sampleDesc->sd.size();
 
 	// ルートシグネチャのシリアライズ
 	ID3DBlob* rootSigBlob = nullptr; // ルートシグネチャオブジェクト

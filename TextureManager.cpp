@@ -1,5 +1,4 @@
 #include "TextureManager.h"
-#include "DXRootParameterManager.h"
 #include "DXResource.h"
 #include "Result.h"
 #include <DirectXTex.h>
@@ -138,22 +137,9 @@ UINT TextureManager::Load(const wchar_t* fileName)
 	return srvH->SetSRV(texBuff.buff, srvDesc);
 }
 
-void TextureManager::SetRootParameter()
+void TextureManager::SetCommand(const UINT index)
 {
-	// デスクリプタレンジの設定
-	descriptorRange.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
-	descriptorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-	descriptorRange.BaseShaderRegister = 0; // テクスチャレジスタ0番
-	descriptorRange.OffsetInDescriptorsFromTableStart =
-		D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-
-	DXRootParameterManager* rpM = DXRootParameterManager::GetInstance();
-	srvH->rpIndex = rpM->PushBackDescriptorTable(descriptorRange);
-}
-
-void TextureManager::SetCommand(UINT& index)
-{
-	srvH->SetRootParameter(index);
+	srvH->SetCommand(index);
 }
 
 TextureManager* TextureManager::GetInstance()

@@ -49,6 +49,36 @@
     <Filter Include="ヘッダー ファイル\DX\汎用">
       <UniqueIdentifier>{7b7ca9c1-f587-4e23-a642-cb5c66475ecd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{93900f36-01ba-4567-a140-f4026c5f9416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\行列">
+      <UniqueIdentifier>{f6b1568e-9b32-4362-92f5-805a9d1ac323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game">
+      <UniqueIdentifier>{14b0a698-8ebd-40ae-bf67-e108a8fddfa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\行列">
+      <UniqueIdentifier>{8ce4dc27-d9c2-437a-8ffc-f6ff5d19a7ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\リソース">
+      <UniqueIdentifier>{f7b595c0-8e33-41c9-844d-466d83f54ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\リソース">
+      <UniqueIdentifier>{177db288-a7b3-4420-a537-8f855cdb9e03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\2D">
+      <UniqueIdentifier>{c75573f8-1992-4da4-9fd3-b6fce37cd72d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\3D">
+      <UniqueIdentifier>{d749b602-2381-48a7-9d5b-cfa8e287d74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\2D">
+      <UniqueIdentifier>{87ef38d8-71bf-4028-9e72-c1ecd293c16a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\3D">
+      <UniqueIdentifier>{18521754-9bea-4403-862a-3aa0ceef9da8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -105,24 +135,6 @@
     <ClCompile Include="DXDrawDesc.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
-    <ClCompile Include="DXDescriptorHeap.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="DXResource.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="DXResourceInfo.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="Result.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexIndex.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertices.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
     <ClCompile Include="DXViewport.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
@@ -144,12 +156,6 @@
     <ClCompile Include="DXPipelineState.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
-    <ClCompile Include="ConstBuffer.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
     <ClCompile Include="DXSRVHeap.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
@@ -162,20 +168,59 @@
     <ClCompile Include="Calc.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="ConstBufferManager.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>ソース ファイル\DX\汎用</Filter>
-    </ClCompile>
     <ClCompile Include="MatView.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\行列</Filter>
     </ClCompile>
     <ClCompile Include="MatProjection.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\行列</Filter>
     </ClCompile>
     <ClCompile Include="MatWorld.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\行列</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertices.cpp">
+      <Filter>ソース ファイル\Game\リソース</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>ソース ファイル\Game\リソース</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexIndex.cpp">
+      <Filter>ソース ファイル\Game\リソース</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\Game\リソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstBufferManager.cpp">
+      <Filter>ソース ファイル\Game\リソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstBuffer.cpp">
+      <Filter>ソース ファイル\Game\リソース</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDescriptorHeap.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="DXResource.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="DXResourceInfo.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="Result.cpp">
+      <Filter>ソース ファイル\DX\汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="Object2D.cpp">
+      <Filter>ソース ファイル\Game\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Object3D.cpp">
+      <Filter>ソース ファイル\Game\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>ソース ファイル\Game\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>ソース ファイル\Game\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="MatViewProjection.cpp">
+      <Filter>ソース ファイル\Game\行列</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,12 +278,6 @@
     <ClInclude Include="DXDrawDesc.h">
       <Filter>ヘッダー ファイル\DX\描画</Filter>
     </ClInclude>
-    <ClInclude Include="VertexIndex.h">
-      <Filter>ヘッダー ファイル\DX\汎用</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertices.h">
-      <Filter>ヘッダー ファイル\DX\汎用</Filter>
-    </ClInclude>
     <ClInclude Include="DXDescriptorHeap.h">
       <Filter>ヘッダー ファイル\DX\汎用</Filter>
     </ClInclude>
@@ -269,12 +308,6 @@
     <ClInclude Include="DXPipelineState.h">
       <Filter>ヘッダー ファイル\DX\描画</Filter>
     </ClInclude>
-    <ClInclude Include="ConstBuffer.h">
-      <Filter>ヘッダー ファイル\DX\汎用</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ヘッダー ファイル\DX\汎用</Filter>
-    </ClInclude>
     <ClInclude Include="DXSRVHeap.h">
       <Filter>ヘッダー ファイル\DX\描画</Filter>
     </ClInclude>
@@ -290,20 +323,47 @@
     <ClInclude Include="Calc.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="ConstBufferManager.h">
-      <Filter>ヘッダー ファイル\DX\汎用</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>ヘッダー ファイル\DX\汎用</Filter>
+    <ClInclude Include="MatProjection.h">
+      <Filter>ヘッダー ファイル\Game\行列</Filter>
     </ClInclude>
     <ClInclude Include="MatView.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MatProjection.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\行列</Filter>
     </ClInclude>
     <ClInclude Include="MatWorld.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Game\行列</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertices.h">
+      <Filter>ヘッダー ファイル\Game\リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexIndex.h">
+      <Filter>ヘッダー ファイル\Game\リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>ヘッダー ファイル\Game\リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Game\リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstBufferManager.h">
+      <Filter>ヘッダー ファイル\Game\リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstBuffer.h">
+      <Filter>ヘッダー ファイル\Game\リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="Object2D.h">
+      <Filter>ヘッダー ファイル\Game\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Object3D.h">
+      <Filter>ヘッダー ファイル\Game\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>ヘッダー ファイル\Game\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>ヘッダー ファイル\Game\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="MatViewProjection.h">
+      <Filter>ヘッダー ファイル\Game\行列</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

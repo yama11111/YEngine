@@ -1,5 +1,6 @@
 #include "DXSRVHeap.h"
 #include "DXDevice.h"
+#include "DXRootParameterManager.h"
 
 DXSRVHeap::DXSRVHeap()
 {
@@ -22,6 +23,13 @@ DXSRVHeap::DXSRVHeap()
 		GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	cmdList = DXCommandList::GetInstance();
+
+	// デスクリプタレンジの設定
+	descriptorRange.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
+	descriptorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorRange.BaseShaderRegister = 0; // テクスチャレジスタ0番
+	descriptorRange.OffsetInDescriptorsFromTableStart =
+		D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 }
 
 UINT DXSRVHeap::SetSRV(ID3D12Resource* texBuff, D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc)
@@ -40,13 +48,19 @@ UINT DXSRVHeap::SetSRV(ID3D12Resource* texBuff, D3D12_SHADER_RESOURCE_VIEW_DESC&
 	return result;
 }
 
-void DXSRVHeap::SetCommand()
+void DXSRVHeap::SetDescriptorHeaps()
 {
 	// SRVヒープの設定コマンド
 	cmdList->List()->SetDescriptorHeaps(1, &srvHeap.heap);
 }
 
-void DXSRVHeap::SetRootParameter(const UINT index) 
+void DXSRVHeap::SetRootParameter()
+{
+	DXRootParameterManager* rpM = DXRootParameterManager::GetInstance();
+	rpIndex = rpM->PushBackDescriptorTable(descriptorRange);
+}
+
+void DXSRVHeap::SetCommand(const UINT index) 
 {
 	// SRVヒープの先頭ハンドルを取得 (SRVを指定しているはず)
 	D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle = 

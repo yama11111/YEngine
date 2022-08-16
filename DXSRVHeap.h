@@ -12,10 +12,12 @@ private:
 	UINT incrementSize = 0;
 	UINT index = 0;
 	DXCommandList* cmdList = nullptr;
+	D3D12_DESCRIPTOR_RANGE descriptorRange;
 public:
 	UINT SetSRV(ID3D12Resource* texBuff, D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc);
-	void SetCommand();
-	void SetRootParameter(const UINT index);
+	void SetDescriptorHeaps();
+	void SetRootParameter();
+	void SetCommand(const UINT index);
 public:
 	static DXSRVHeap* GetInstance();
 private:
