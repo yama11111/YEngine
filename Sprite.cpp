@@ -7,10 +7,10 @@ TextureManager* Sprite::texManager = nullptr;
 Sprite::Sprite(const Vec2& size) :
 	vtIdx(VertexIndex(
 		{
-			{{   0.0f, size.y, 0.0f }, {}, { 0.0f, 1.0f }}, // 左下
-			{{   0.0f,   0.0f, 0.0f }, {}, { 0.0f, 0.0f }}, // 左上
-			{{ size.x, size.y, 0.0f }, {}, { 1.0f, 1.0f }}, // 右下
-			{{ size.x,   0.0f, 0.0f }, {}, { 1.0f, 0.0f }}, // 右上
+			{{   0.0f, size.y, 0.0f }, {0.0f, 0.0f, -1.0f}, { 0.0f, 1.0f }}, // 左下
+			{{   0.0f,   0.0f, 0.0f }, {0.0f, 0.0f, -1.0f}, { 0.0f, 0.0f }}, // 左上
+			{{ size.x, size.y, 0.0f }, {0.0f, 0.0f, -1.0f}, { 1.0f, 1.0f }}, // 右下
+			{{ size.x,   0.0f, 0.0f }, {0.0f, 0.0f, -1.0f}, { 1.0f, 0.0f }}, // 右上
 		},
 		{
 			0, 1, 2, // 三角形1つ目
@@ -18,7 +18,7 @@ Sprite::Sprite(const Vec2& size) :
 		}
 		))
 {
-	vtIdx.Init();
+	vtIdx.Init(false);
 	cbManager->CreateCB(cbM);
 	cbManager->CreateCB(cbT);
 }

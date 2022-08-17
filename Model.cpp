@@ -69,7 +69,7 @@ Model::Model() :
 		}
 		))
 {
-	vtIdx.Init();
+	vtIdx.Init(true);
 
 	cbManager->CreateCB(cbM);
 	cbManager->CreateCB(cbT);

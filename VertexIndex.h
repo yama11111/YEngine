@@ -13,7 +13,7 @@ public:
 	VertexIndex(const std::vector<VertexData> v, const std::vector<uint16_t> i);
 	void SetCommand();
 	void Draw();
-	void Init();
+	void Init(const bool normalized);
 private:
 	void CalcNormal();
 };
