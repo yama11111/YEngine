@@ -6,5 +6,6 @@ struct DXResource
 	ID3D12Resource* buff = nullptr; // バッファ
 
 	void Create(const DXResourceInfo& rscInfo);
+	void Create(const DXResourceInfo2& rscInfo);
 };
 

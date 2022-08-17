@@ -5,10 +5,11 @@ class Object2D
 {
 public:
 	MatWorld mW;
-	Sprite sprite;
+	Sprite* sprite;
 public:
-	Object2D(const Vec2& size);
+	Object2D();
+	Object2D(Sprite* pSprite);
+	void SetSprite(Sprite* pSprite);
 	void Update();
 	void Draw(const UINT tex);
-	void Affine();
 };

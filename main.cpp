@@ -6,7 +6,6 @@
 #include "Object3D.h"
 #include "DXDrawDesc.h"
 
-
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
@@ -28,9 +27,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Model::StaticInit();
 	Sprite::StaticInit();
 
+	Sprite s1({ 128.0f, 128.0f });
+	Model m1{};
 
-	Object2D obj({ 128.0f, 128.0f });
-	Object3D obj2;
+	Object2D obj(&s1);
+	Object3D obj2(&m1);
 	MatViewProjection vp;
 
 	UINT tex2 = texM->Load(L"Resources/player.png");
@@ -50,6 +51,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		keys->Update();
 
 		// -------------------- Update -------------------- //
+
+		obj2.mW.rota.x += keys->Vertical() * 0.05f;
+		obj2.mW.rota.y -= keys->Horizontal() * 0.05f;
 
 		obj.Update();
 		obj2.Update();

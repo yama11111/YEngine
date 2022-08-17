@@ -9,3 +9,8 @@ struct DXResourceInfo
 	D3D12_RESOURCE_DESC resDesc{}; // リソース設定
 };
 
+// 深度用
+struct DXResourceInfo2 : public DXResourceInfo
+{
+	D3D12_CLEAR_VALUE clearValue{}; // 深度値のクリア設定
+};

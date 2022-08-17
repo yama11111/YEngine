@@ -152,6 +152,7 @@
     <ClCompile Include="DXDescriptorHeap.cpp" />
     <ClCompile Include="DXDevice.cpp" />
     <ClCompile Include="DXDrawDesc.cpp" />
+    <ClCompile Include="DXDSVHeap.cpp" />
     <ClCompile Include="DXFence.cpp" />
     <ClCompile Include="DXPipelineState.cpp" />
     <ClCompile Include="DXRenderTargetView.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="DXDescriptorHeap.h" />
     <ClInclude Include="DXDevice.h" />
     <ClInclude Include="DXDrawDesc.h" />
+    <ClInclude Include="DXDSVHeap.h" />
     <ClInclude Include="DXFence.h" />
     <ClInclude Include="DXPipelineState.h" />
     <ClInclude Include="DXRenderTargetView.h" />

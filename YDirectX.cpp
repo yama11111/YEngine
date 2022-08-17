@@ -35,6 +35,8 @@ int YDirectX::Init(const HWND& hwnd)
 	// レンダーターゲットビュー生成
 	rtv.Create(swpChain.SwapChain(), swpChain.Desc());
 
+	dsvHeap.Create();
+
 	// フェンス生成
 	fence.Create();
 
@@ -53,11 +55,13 @@ int YDirectX::PreDraw()
 	DXDescriptorHeap _rtv = rtv.RenderTargetView();
 	// レンダーターゲットビューのハンドルを取得
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = _rtv.heap->GetCPUDescriptorHandleForHeapStart();
-	rtvHandle.ptr += bbIndex * dev->Device()->GetDescriptorHandleIncrementSize(_rtv.hDesc.Type);
-	cmdList->List()->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+	rtvHandle.ptr += (SIZE_T)bbIndex * dev->Device()->GetDescriptorHandleIncrementSize(_rtv.hDesc.Type);
+	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvHeap.dsvHeap.heap->GetCPUDescriptorHandleForHeapStart();
+	cmdList->List()->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
 
 	// 3.画面クリア {R, G, B, A}
 	cmdList->CrearRTV(rtvHandle); // 青っぽい色
+	cmdList->CrearDSV(dsvHandle);
 
 	return 0;
 }

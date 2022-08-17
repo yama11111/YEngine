@@ -12,6 +12,7 @@ public:
 	void Create();
 	void ClearAndPrepare();
 	void CrearRTV(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle);
+	void CrearDSV(D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle);
 	ID3D12GraphicsCommandList* List();
 	ID3D12CommandAllocator* Allocator();
 public:

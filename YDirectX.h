@@ -4,6 +4,7 @@
 #include "DXCommandQueue.h"
 #include "DXSwapChain.h"
 #include "DXRenderTargetView.h"
+#include "DXDSVHeap.h"
 #include "DXFence.h"
 #include "DXResourceBarrier.h"
 #include "DXDebugLayer.h"
@@ -17,6 +18,7 @@ private:
 	DXCommandQueue cmdQue;
 	DXSwapChain swpChain;
 	DXRenderTargetView rtv;
+	DXDSVHeap dsvHeap;
 	DXFence fence;
 	DXResourceBarrier rscBarrier;
 	DXDebugLayer debugLayer;

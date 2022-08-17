@@ -32,6 +32,11 @@ void DXCommandList::CrearRTV(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
 	commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 }
 
+void DXCommandList::CrearDSV(D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle)
+{
+	commandList->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+}
+
 ID3D12GraphicsCommandList* DXCommandList::List()
 {
 	return commandList;

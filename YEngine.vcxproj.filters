@@ -222,6 +222,9 @@
     <ClCompile Include="MatViewProjection.cpp">
       <Filter>ソース ファイル\Game\行列</Filter>
     </ClCompile>
+    <ClCompile Include="DXDSVHeap.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
@@ -364,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="MatViewProjection.h">
       <Filter>ヘッダー ファイル\Game\行列</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDSVHeap.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
