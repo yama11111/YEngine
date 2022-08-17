@@ -13,7 +13,8 @@ DXVertexLayoutManager::DXVertexLayoutManager() :
 	//	 *一度に描画するインスタンス数 (0 でいい)
 	//}
 
-	D3D12_INPUT_ELEMENT_DESC layout[2] =
+	const int aryNum = 3;
+	D3D12_INPUT_ELEMENT_DESC layout[aryNum] =
 	{
 		{
 			"POSITION",
@@ -24,15 +25,15 @@ DXVertexLayoutManager::DXVertexLayoutManager() :
 			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
 			0
 		},
-		//{
-		//	"NORMAL",
-		//	0,
-		//	DXGI_FORMAT_R32G32B32_FLOAT,
-		//	0,
-		//	D3D12_APPEND_ALIGNED_ELEMENT,
-		//	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-		//	0
-		//},
+		{
+			"NORMAL",
+			0,
+			DXGI_FORMAT_R32G32B32_FLOAT,
+			0,
+			D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			0
+		},
 		{
 			"TEXCOORD",
 			0,
@@ -44,7 +45,7 @@ DXVertexLayoutManager::DXVertexLayoutManager() :
 		}
 	};
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < aryNum; i++)
 	{
 		inputLayout.push_back(layout[i]);
 	}

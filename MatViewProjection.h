@@ -9,6 +9,7 @@ public:
 	MatProjection pro;
 public:
 	MatViewProjection();
+	MatViewProjection(const MatView::InitStatus& init);
 	void Update();
 };
 

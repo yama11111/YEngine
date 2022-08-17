@@ -3,8 +3,7 @@
 
 Vertices::Vertices()
 {
-	v.push_back({ { 0.0f,0.0f,0.0f },{ 0.0f,0.0f } });
-	//v.push_back({ { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f } });
+	v.push_back({ { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f } });
 }
 
 Vertices::Vertices(const std::vector<VertexData> v) :
