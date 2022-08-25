@@ -24,10 +24,10 @@ struct Vec2
     constexpr Vec2 operator/(float s) const;
 
     // ‘ã“ü‰‰Zq
-    constexpr Vec2& operator+=(const Vec2& v);
-    constexpr Vec2& operator-=(const Vec2& v);
-    constexpr Vec2& operator*=(float s);
-    constexpr Vec2& operator/=(float s);
+    Vec2& operator+=(const Vec2& v);
+    Vec2& operator-=(const Vec2& v);
+    Vec2& operator*=(float s);
+    Vec2& operator/=(float s);
 };
 
 // “ñ€‰‰Zq

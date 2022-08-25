@@ -26,10 +26,10 @@ struct Vec3
 	constexpr Vec3 operator/(float s) const;
 
 	// ‘ã“ü‰‰Zq
-	constexpr Vec3& operator+=(const Vec3& v);
-	constexpr Vec3& operator-=(const Vec3& v);
-	constexpr Vec3& operator*=(float s);
-	constexpr Vec3& operator/=(float s);
+	Vec3& operator+=(const Vec3& v);
+	Vec3& operator-=(const Vec3& v);
+	Vec3& operator*=(float s);
+	Vec3& operator/=(float s);
 };
 
 // “ñ€‰‰Zq

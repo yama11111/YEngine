@@ -62,25 +62,25 @@ constexpr Vec2 Vec2::operator/(float s) const
 	return{ x / s, y / s };
 }
 
-constexpr Vec2& Vec2::operator+=(const Vec2& v)
+Vec2& Vec2::operator+=(const Vec2& v)
 {
 	x += v.x;
 	y += v.y;
 	return *this;
 }
-constexpr Vec2& Vec2::operator-=(const Vec2& v)
+Vec2& Vec2::operator-=(const Vec2& v)
 {
 	x -= v.x;
 	y -= v.y;
 	return *this;
 }
-constexpr Vec2& Vec2::operator*=(float s)
+Vec2& Vec2::operator*=(float s)
 {
 	x *= s;
 	y *= s;
 	return *this;
 }
-constexpr Vec2& Vec2::operator/=(float s)
+Vec2& Vec2::operator/=(float s)
 {
 	x /= s;
 	y /= s;

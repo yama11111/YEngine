@@ -24,7 +24,6 @@ Mat4 MatRotationX(float angle)
 		});
 	return matRota;
 }
-
 Mat4 MatRotationY(float angle)
 {
 	Mat4 matRota({
@@ -35,7 +34,6 @@ Mat4 MatRotationY(float angle)
 		});
 	return matRota;
 }
-
 Mat4 MatRotationZ(float angle)
 {
 	Mat4 matRota({
@@ -46,7 +44,6 @@ Mat4 MatRotationZ(float angle)
 		});
 	return matRota;
 }
-
 Mat4 MatRotation(const Vec3& r)
 {
 	Mat4 m = Mat4::Identity();
@@ -77,10 +74,20 @@ Vec3 MatTransform(const Vec3& v, const Mat4& m)
 	};
 	return result;
 }
-
 Vec3 operator*(const Vec3& v, const Mat4& m)
 {
 	return MatTransform(v, m);
+}
+
+Vec3 MultVec3Mat4(const Vec3& v, const Mat4& m)
+{
+	Vec3 result
+	{
+		v.x * m.m[0][0] + v.y * m.m[1][0] + v.z * m.m[2][0],
+		v.x * m.m[0][1] + v.y * m.m[1][1] + v.z * m.m[2][1],
+		v.x * m.m[0][2] + v.y * m.m[1][2] + v.z * m.m[2][2]
+	};
+	return result;
 }
 
 static Mat4 ConvertMatrix(const DirectX::XMMATRIX mat)
@@ -95,7 +102,6 @@ static Mat4 ConvertMatrix(const DirectX::XMMATRIX mat)
 	}
 	return r;
 }
-
 Mat4 MatOrthoGraphic()
 {
 	DirectX::XMMATRIX mat =
@@ -106,7 +112,6 @@ Mat4 MatOrthoGraphic()
 		);
 	return ConvertMatrix(mat);
 }
-
 Mat4 MatPerspective()
 {
 	DirectX::XMMATRIX mat =
@@ -123,7 +128,6 @@ static DirectX::XMVECTOR ConvertXMVector(const Vec3& vec)
 	DirectX::XMVECTOR vector = { vec.x, vec.y, vec.z };
 	return vector;
 }
-
 Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 {
 	DirectX::XMMATRIX mat =
@@ -131,4 +135,46 @@ Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 			ConvertXMVector(eye), ConvertXMVector(target), ConvertXMVector(up));
 
 	return ConvertMatrix(mat);
+}
+
+Vec3 AdjustAngle(Vec3& velocity)
+{
+	Vec3 result{};
+	result.y = std::atan2(velocity.x, velocity.z);
+	Vec3 v = { velocity.x, 0.0f, velocity.z };
+	float xz = v.Length();
+	result.x = std::atan2(-velocity.y, xz);
+	return result;
+}
+
+Vec3 Lerp(const Vec3& v1, const Vec3& v2, float t)
+{
+	Vec3 result = v2 - v1;
+	result *= t;
+	result += v1;
+	return result;
+}
+Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t)
+{
+	float dot = v1.Dot(v2);
+	if (dot >= 1.0 || dot <= -1.0) return v1;
+
+	float theta = acosf(dot);
+	float sTheta = sinf(theta);
+	float sf = sinf((1 - t) * theta);
+	float st = sinf(t * theta);
+
+	float aS = v1.Length();
+	float bS = v2.Length();
+	float s = aS + t * (bS - aS);
+
+	Vec3 from = v1;
+	from *= sf;
+	Vec3 to = v2;
+	to *= st;
+	to /= sTheta;
+	Vec3 e = from;
+	e += to;
+	e *= s;
+	return e;
 }

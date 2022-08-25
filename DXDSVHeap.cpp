@@ -7,8 +7,8 @@ void DXDSVHeap::Create()
 {
 	DXResourceInfo2 depthInfo{};
 	depthInfo.resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-	depthInfo.resDesc.Width = WIN_SIZE.x; // レンダーターゲットに合わせる
-	depthInfo.resDesc.Height = WIN_SIZE.y; // レンダーターゲットに合わせる
+	depthInfo.resDesc.Width = (UINT16)WIN_SIZE.x; // レンダーターゲットに合わせる
+	depthInfo.resDesc.Height = (UINT)WIN_SIZE.y; // レンダーターゲットに合わせる
 	depthInfo.resDesc.DepthOrArraySize = 1;
 	depthInfo.resDesc.Format = DXGI_FORMAT_D32_FLOAT; // 深度値フォーマット
 	depthInfo.resDesc.SampleDesc.Count = 1;

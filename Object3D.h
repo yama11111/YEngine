@@ -1,15 +1,23 @@
 #pragma once
-#include "Model.h"
+#include "ConstBufferManager.h"
+#include "MatWorld.h"
+#include "MatViewProjection.h"
 
 class Object3D
 {
 public:
 	MatWorld mW;
-	Model* model;
+	ConstBufferMaterial cbM;
+	ConstBufferTransform cbT;
+	MatWorld* parent = nullptr;
 public:
 	Object3D();
-	Object3D(Model* pModel);
-	void SetModel(Model* pModel);
 	void Update();
-	void Draw(MatViewProjection& mVP, const UINT tex);
+	void SetCommand();
+	void Affine(MatViewProjection& mVP);
+	void SetParent(MatWorld* parent);
+private:
+	static ConstBufferManager* cbManager;
+public:
+	static void StaticInit();
 };

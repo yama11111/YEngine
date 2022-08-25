@@ -70,7 +70,7 @@ UINT TextureManager::Create(const Vec4& color)
 	return srvH->SetSRV(texBuff.buff, srvDesc);
 }
 
-UINT TextureManager::Load(const wchar_t* fileName)
+UINT TextureManager::Load(const wchar_t* fileName, const bool mipMap)
 {
 	DirectX::TexMetadata metadata{};
 	DirectX::ScratchImage scratchImg{};
@@ -80,12 +80,15 @@ UINT TextureManager::Load(const wchar_t* fileName)
 
 	DirectX::ScratchImage mipChain{};
 	// ミップマップ生成
-	if (Result::Check(GenerateMipMaps(scratchImg.GetImages(),
-		scratchImg.GetImageCount(), scratchImg.GetMetadata(),
-		DirectX::TEX_FILTER_DEFAULT, 0, mipChain)))
+	if (mipMap)
 	{
-		scratchImg = std::move(mipChain);
-		metadata = scratchImg.GetMetadata();
+		if (Result::Check(GenerateMipMaps(scratchImg.GetImages(),
+			scratchImg.GetImageCount(), scratchImg.GetMetadata(),
+			DirectX::TEX_FILTER_DEFAULT, 0, mipChain)))
+		{
+			scratchImg = std::move(mipChain);
+			metadata = scratchImg.GetMetadata();
+		}
 	}
 
 	//読み込んだディフューズテクスチャを SRGB として扱う

@@ -142,6 +142,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Calc.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="ConstBufferManager.cpp" />
     <ClCompile Include="DInput.cpp" />
@@ -168,6 +170,9 @@
     <ClCompile Include="DXSwapChain.cpp" />
     <ClCompile Include="DXVertexLayoutManager.cpp" />
     <ClCompile Include="DXViewport.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Mat4.cpp" />
     <ClCompile Include="MatProjection.cpp" />
     <ClCompile Include="MatView.cpp" />
@@ -176,12 +181,18 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object2D.cpp" />
     <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScrewBullet.cpp" />
+    <ClCompile Include="SlashBullet.cpp" />
+    <ClCompile Include="SphereBullet.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TimedCall.cpp" />
     <ClCompile Include="Vec2.cpp" />
     <ClCompile Include="Vec3.cpp" />
     <ClCompile Include="Vec4.cpp" />
@@ -192,6 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calc.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="CollisionConfig.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="ConstBufferManager.h" />
     <ClInclude Include="Def.h" />
@@ -219,6 +233,9 @@
     <ClInclude Include="DXSwapChain.h" />
     <ClInclude Include="DXVertexLayoutManager.h" />
     <ClInclude Include="DXViewport.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBullet.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Mat4.h" />
     <ClInclude Include="MatProjection.h" />
     <ClInclude Include="MatView.h" />
@@ -227,11 +244,17 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Object2D.h" />
     <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
+    <ClInclude Include="ScrewBullet.h" />
+    <ClInclude Include="SlashBullet.h" />
+    <ClInclude Include="SphereBullet.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TimedCall.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />

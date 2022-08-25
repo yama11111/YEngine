@@ -72,28 +72,28 @@ constexpr Vec3 Vec3::operator/(float s) const
 	return { x / s, y / s, z / s };
 }
 
-constexpr Vec3& Vec3::operator+=(const Vec3& v)
+Vec3& Vec3::operator+=(const Vec3& v)
 {
 	x += v.x;
 	y += v.y;
 	z += v.z;
 	return *this;
 }
-constexpr Vec3& Vec3::operator-=(const Vec3& v)
+Vec3& Vec3::operator-=(const Vec3& v)
 {
 	x -= v.x;
 	y -= v.y;
 	z -= v.z;
 	return *this;
 }
-constexpr Vec3& Vec3::operator*=(float s)
+Vec3& Vec3::operator*=(float s)
 {
 	x *= s;
 	y *= s;
 	z *= s;
 	return *this;
 }
-constexpr Vec3& Vec3::operator/=(float s)
+Vec3& Vec3::operator/=(float s)
 {
 	x /= s;
 	y /= s;

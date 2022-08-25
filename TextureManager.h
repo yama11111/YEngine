@@ -8,7 +8,7 @@ private:
 	DXSRVHeap* srvH = nullptr;
 public:
 	UINT Create(const Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
-	UINT Load(const wchar_t* fileName);
+	UINT Load(const wchar_t* fileName, const bool mipMap = true);
 	void SetCommand(const UINT index);
 public:
 	static TextureManager* GetInstance();

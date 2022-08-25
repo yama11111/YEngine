@@ -1,6 +1,4 @@
 #include "Model.h"
-
-ConstBufferManager* Model::cbManager = nullptr;
 TextureManager* Model::texManager = nullptr;
 
 Model::Model() :
@@ -70,23 +68,18 @@ Model::Model() :
 		))
 {
 	vtIdx.Init(true);
-
-	cbManager->CreateCB(cbM);
-	cbManager->CreateCB(cbT);
 }
 
-void Model::Draw(MatWorld& mW, MatViewProjection& mVP, const UINT tex)
+void Model::Draw(Object3D& obj, MatViewProjection& mVP, const UINT tex)
 {
-	cbT.cMapTrfm->mat = mW.m * mVP.view.m * mVP.pro.m;
+	obj.Affine(mVP);
 	vtIdx.SetCommand();
-	cbManager->SetCommand(cbM);
-	cbManager->SetCommand(cbT);
+	obj.SetCommand();
 	texManager->SetCommand(tex);
 	vtIdx.Draw();
 }
 
 void Model::StaticInit() 
 {
-	cbManager = ConstBufferManager::GetInstance();
 	texManager = TextureManager::GetInstance();
 }
