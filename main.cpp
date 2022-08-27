@@ -19,6 +19,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	DInput* input = DInput::GetInstance();
 	input->Init(win->HandleWindowInstance(), win->HandleWindow());
 	Keys* keys = Keys::GetInstance();
+	Mouse* mouse = Mouse::GetInstance();
 
 	DXSRVHeap* srvH = DXSRVHeap::GetInstance();
 	Sprite::StaticInit();
@@ -40,6 +41,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		// キーボード
 		keys->Update();
+		// マウス
+		mouse->Update(win->HandleWindow());
 
 		// -------------------- Update -------------------- //
 

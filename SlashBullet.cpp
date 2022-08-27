@@ -7,7 +7,7 @@ void SlashBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* model
 	this->model = model;
 	this->tex = tex;
 	obj.mW.pos = pos;
-	obj.mW.scale = { 3.0f, 0.25f, 0.5f };
+	obj.mW.scale = { 15.0f, 1.25f, 2.5f };
 	obj.cbM.Color({ 0.25,0.5,0.75,1.0 });
 	obj.mW.rota = AdjustAngle(this->velocity);
 	SetRad(3.0f);

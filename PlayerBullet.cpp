@@ -5,7 +5,7 @@ void PlayerBullet::Initialize(Model* model, const Vec3& pos, const Vec3& velocit
 	this->model = model;
 	this->tex = tex;
 	obj.mW.pos = pos;
-	obj.mW.scale = { 0.5f, 0.5f, 0.5f };
+	obj.mW.scale = { 2.5f, 2.5f, 2.5f };
 	obj.cbM.Color({ 1.0,0.0,1.0,1.0 });
 	this->velocity = velocity;
 	SetRad(5.0f);

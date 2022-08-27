@@ -11,6 +11,7 @@ void Player::Initialize(Model* model, const UINT tex, const UINT bulletTex)
 	this->bulletTex = bulletTex;
 	keys = Keys::GetInstance();
 	obj.mW.pos = { 0, 0, 50 };
+	obj.mW.scale = { 5.0, 5.0, 5.0 };
 	SetRad(3.0f);
 	SetAttribute(COLL_ATTRIBUTE_PLAYER);
 	SetMask(~COLL_ATTRIBUTE_PLAYER);

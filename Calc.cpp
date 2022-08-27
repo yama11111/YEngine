@@ -92,16 +92,36 @@ Vec3 MultVec3Mat4(const Vec3& v, const Mat4& m)
 
 static Mat4 ConvertMatrix(const DirectX::XMMATRIX mat)
 {
-	Mat4 r;
-	for (size_t i = 0; i < 4; i++)
-	{
-		for (size_t j = 0; j < 4; j++) 
+	Mat4 r = Mat4(
 		{
-			r.m[i][j] = mat.r[i].m128_f32[j];
+			mat.r[0].m128_f32[0], mat.r[0].m128_f32[1], mat.r[0].m128_f32[2], mat.r[0].m128_f32[3],
+			mat.r[1].m128_f32[0], mat.r[1].m128_f32[1], mat.r[1].m128_f32[2], mat.r[1].m128_f32[3],
+			mat.r[2].m128_f32[0], mat.r[2].m128_f32[1], mat.r[2].m128_f32[2], mat.r[2].m128_f32[3],
+			mat.r[3].m128_f32[0], mat.r[3].m128_f32[1], mat.r[3].m128_f32[2], mat.r[3].m128_f32[3]
 		}
-	}
+	);
 	return r;
 }
+
+static DirectX::XMMATRIX ConvertMat4(const Mat4& mat)
+{
+	DirectX::XMMATRIX r = DirectX::XMMATRIX(
+		mat.m[0][0], mat.m[0][1], mat.m[0][2], mat.m[0][3],
+		mat.m[1][0], mat.m[1][1], mat.m[1][2], mat.m[1][3],
+		mat.m[2][0], mat.m[2][1], mat.m[2][2], mat.m[2][3],
+		mat.m[3][0], mat.m[3][1], mat.m[3][2], mat.m[3][3]
+	);
+	return r;
+}
+
+Mat4 InverceMat4(const Mat4& m)
+{
+	DirectX::XMMATRIX mat = ConvertMat4(m);
+	DirectX::XMMATRIX inv = DirectX::XMMatrixInverse(nullptr, mat);
+
+	return ConvertMatrix(inv);
+}
+
 Mat4 MatOrthoGraphic()
 {
 	DirectX::XMMATRIX mat =

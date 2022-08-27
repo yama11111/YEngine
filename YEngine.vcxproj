@@ -179,10 +179,12 @@
     <ClCompile Include="MatViewProjection.cpp" />
     <ClCompile Include="MatWorld.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object2D.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
@@ -242,10 +244,12 @@
     <ClInclude Include="MatViewProjection.h" />
     <ClInclude Include="MatWorld.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object2D.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="ScrewBullet.h" />

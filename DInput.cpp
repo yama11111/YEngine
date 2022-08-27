@@ -14,6 +14,7 @@ void DInput::Init(const HINSTANCE hInstance, const HWND hwnd)
 		hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
 		(void**)&directInput, nullptr));
 	CreateKeyboard(hwnd);
+	CreateMouse(hwnd);
 }
 
 void DInput::CreateKeyboard(const HWND hwnd)
@@ -26,6 +27,19 @@ void DInput::CreateKeyboard(const HWND hwnd)
 
 	// 排他制御レベルセット
 	Result::Check(keyboard->SetCooperativeLevel(
+		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
+}
+
+void DInput::CreateMouse(const HWND hwnd)
+{
+	// キーボードデバイス 生成
+	Result::Check(directInput->CreateDevice(GUID_SysMouse, &mouse, NULL));
+
+	// 入力データ形式セット
+	Result::Check(mouse->SetDataFormat(&c_dfDIMouse));
+
+	// 排他制御レベルセット
+	Result::Check(mouse->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
 }
 
@@ -42,6 +56,20 @@ void DInput::GetKeyboardState(BYTE keys[256])
 		keys[i] = key[i];
 		keys[i] >>= 7;
 	}
+}
+
+void DInput::GetMouseState(MyMouseState& mouseState, const HWND hwnd)
+{
+	mouse->Acquire();
+	mouse->Poll();
+	mouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseState.state);
+
+	POINT pos;
+
+	GetCursorPos(&pos);
+	ScreenToClient(hwnd, &pos);
+	mouseState.pos.x = static_cast<float>(pos.x);
+	mouseState.pos.y = static_cast<float>(pos.y);
 }
 
 DInput::~DInput()

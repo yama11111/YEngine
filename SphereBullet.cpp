@@ -7,7 +7,7 @@ void SphereBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* mode
 	this->model = model;
 	this->tex = tex;
 	obj.mW.pos = pos;
-	obj.mW.scale = { 1.0f, 1.0f, 1.0f };
+	obj.mW.scale = { 5.0f, 5.0f, 5.0f };
 	obj.cbM.Color({ 0.25,0.0,0.25,1.0 });
 	obj.mW.rota = AdjustAngle(this->velocity);
 	SetRad(3.0f);

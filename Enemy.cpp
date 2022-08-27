@@ -15,6 +15,7 @@ void Enemy::Initialize(const Vec3& pos, const int& species,
 	this->bulletTex = bulletTex;
 	this->species = species;
 	obj.mW.pos = pos;
+	obj.mW.scale = { 5.0, 5.0, 5.0 };
 	FireAndReset();
 	SetRad(1.0f);
 	SetAttribute(COLL_ATTRIBUTE_ENEMY);

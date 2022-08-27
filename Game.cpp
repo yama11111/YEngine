@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "DInput.h"
+#include "Calc.h"
 
 Game::Game() {}
 
@@ -11,6 +11,7 @@ Game::~Game()
 void Game::Initialize()
 {
 	keys = Keys::GetInstance();
+	mouse = Mouse::GetInstance();
 	texM = TextureManager::GetInstance();
 
 	enemyTex = texM->Load(L"Resources/enemy.png");
@@ -45,12 +46,13 @@ void Game::Initialize()
 
 void Game::Update()
 {
-	switch (scene)
+	if (scene == Scene::Title)
 	{
-	case Game::Scene::Title:
 		if (keys->IsTrigger(DIK_K)) scene = Scene::Play;
-		break;
-	case Game::Scene::Play:
+
+	}
+	else if (scene == Scene::Play)
+	{
 		if (keys->IsTrigger(DIK_K)) scene = Scene::Title;
 		
 		player->Update();
@@ -59,28 +61,21 @@ void Game::Update()
 			enemy->Update();
 		}
 		Collision();
-		break;
-	default:
-		break;
 	}
-
 }
 
 void Game::Draw()
 {
-	switch (scene)
+	if (scene == Scene::Title)
 	{
-	case Game::Scene::Title:
-		break;
-	case Game::Scene::Play:
+	}
+	else if (scene == Scene::Play)
+	{
 		player->Draw(vp);
 		for (std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Draw(vp);
 		}
-		break;
-	default:
-		break;
 	}
 }
 

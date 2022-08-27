@@ -1,5 +1,4 @@
 #include "Keys.h"
-#include "DInput.h"
 
 Keys* Keys::GetInstance()
 {
@@ -12,10 +11,10 @@ void Keys::Update()
 	// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
 	for (int i = 0; i < 256; i++)
 	{
-		elderkeys[i] = keys[i];
+		elderKeys[i] = keys[i];
 	}
 	// 最新のキーボード情報を取得
-	DInput::GetInstance()->GetKeyboardState(keys);
+	input->GetKeyboardState(keys);
 }
 
 bool Keys::IsDown(const int key)
@@ -24,15 +23,15 @@ bool Keys::IsDown(const int key)
 }
 bool Keys::IsTrigger(const int key)
 {
-	return (keys[key] && !elderkeys[key]);
+	return (keys[key] && !elderKeys[key]);
 }
 bool Keys::IsLongPress(const int key)
 {
-	return (keys[key] && elderkeys[key]);
+	return (keys[key] && elderKeys[key]);
 }
 bool Keys::IsRelease(const int key)
 {
-	return (!keys[key] && elderkeys[key]);
+	return (!keys[key] && elderKeys[key]);
 }
 int Keys::Horizontal()
 {
@@ -49,12 +48,13 @@ int Keys::Vertical()
 
 Keys::Keys() :
 	keys(new unsigned char[256]),
-	elderkeys(new unsigned char[256])
+	elderKeys(new unsigned char[256]),
+	input(DInput::GetInstance())
 {
 	for (int i = 0; i < 256; i++)
 	{
 		keys[i] = 0;
-		elderkeys[i] = 0;
+		elderKeys[i] = 0;
 	}
 }
 
@@ -62,6 +62,6 @@ Keys::~Keys()
 {
 	delete keys;
 	keys = 0;
-	delete elderkeys;
-	elderkeys = 0;
+	delete elderKeys;
+	elderKeys = 0;
 }

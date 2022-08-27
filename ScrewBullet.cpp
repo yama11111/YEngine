@@ -12,7 +12,7 @@ void ScrewBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* model
 	parent.rota = AdjustAngle(this->velocity);
 
 	Screw();
-	const float S = 0.5f;
+	const float S = 2.5f;
 
 	obj.mW.scale = { S, S, S };
 	obj.cbM.Color({ 0.75,0.75,1.0,1.0 });

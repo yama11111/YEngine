@@ -1,11 +1,13 @@
 #pragma once
+#include "DInput.h"
+
 class Keys
 {
 public:
 	unsigned char* keys;
-	unsigned char* elderkeys;
+	unsigned char* elderKeys;
+	DInput* input;
 public:
-	static Keys* GetInstance();
 	void Update();
 	bool IsDown(const int key);
 	bool IsTrigger(const int key);
@@ -13,6 +15,8 @@ public:
 	bool IsRelease(const int key);
 	int Horizontal();
 	int Vertical();
+public:
+	static Keys* GetInstance();
 private:
 	Keys();
 	~Keys();

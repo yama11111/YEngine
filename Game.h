@@ -1,5 +1,6 @@
 #pragma once
 #include "Keys.h"
+#include "Mouse.h"
 #include "Sprite.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -9,6 +10,7 @@ class Game
 {
 public:
 	Keys* keys = nullptr;
+	Mouse* mouse = nullptr;
 	TextureManager* texM = nullptr;
 
 	UINT enemyTex = 0;
