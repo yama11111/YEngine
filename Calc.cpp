@@ -90,6 +90,18 @@ Vec3 MultVec3Mat4(const Vec3& v, const Mat4& m)
 	return result;
 }
 
+Vec4 MultVec4Mat4(const Vec4& v, const Mat4& m)
+{
+	Vec4 result
+	{
+		v.r * m.m[0][0] + v.g * m.m[1][0] + v.b * m.m[2][0] + v.a * m.m[3][0],
+		v.r * m.m[0][1] + v.g * m.m[1][1] + v.b * m.m[2][1] + v.a * m.m[3][1],
+		v.r * m.m[0][2] + v.g * m.m[1][2] + v.b * m.m[2][2] + v.a * m.m[3][2],
+		v.r * m.m[0][2] + v.g * m.m[1][2] + v.b * m.m[2][2] + v.a * m.m[3][3]
+	};
+	return result;
+}
+
 static Mat4 ConvertMatrix(const DirectX::XMMATRIX mat)
 {
 	Mat4 r = Mat4(
@@ -142,6 +154,17 @@ Mat4 MatPerspective()
 		);
 	return ConvertMatrix(mat);
 }
+Mat4 MatViewPort()
+{
+	Mat4 result = Mat4::Identity();
+	result.m[0][0] = WIN_SIZE.x / 2.0f;
+	result.m[3][0] = -WIN_SIZE.x / 2.0f;
+	result.m[1][1] = WIN_SIZE.y / 2.0f;
+	result.m[3][1] = WIN_SIZE.y / 2.0f;
+	result.m[2][2] = 1000.0f - 0.1f;
+	result.m[3][2] = 0.1f;
+	return result;
+}
 
 static DirectX::XMVECTOR ConvertXMVector(const Vec3& vec) 
 {
@@ -155,6 +178,20 @@ Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 			ConvertXMVector(eye), ConvertXMVector(target), ConvertXMVector(up));
 
 	return ConvertMatrix(mat);
+}
+
+Vec3 WorldPos(const Vec2& screen, const MatViewProjection& vp)
+{
+	Mat4 iView = InverceMat4(vp.view.m);
+	Mat4 iPro = InverceMat4(vp.pro.m);
+	Mat4 iVP = InverceMat4(MatViewPort());
+	Mat4 inv = iVP * iPro * iView;
+	Vec4 pos(screen.x - WIN_SIZE.x / 2.0f, screen.y - WIN_SIZE.y / 2.0f, 0.1f, 1.0f);
+	Vec4 r = MultVec4Mat4(pos, inv);
+	Vec3 result(pos.r, -pos.g, pos.b);
+	result /= r.a;
+
+	return result;
 }
 
 Vec3 AdjustAngle(Vec3& velocity)

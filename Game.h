@@ -2,6 +2,7 @@
 #include "Keys.h"
 #include "Mouse.h"
 #include "Sprite.h"
+#include "Ray.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "CollisionManager.h"
@@ -15,9 +16,11 @@ public:
 
 	UINT enemyTex = 0;
 	UINT playerTex = 0;
-	UINT bulletTex = 0;
+	UINT plainTex = 0;
 
 	Model* m1 = nullptr;
+
+	std::unique_ptr<Ray> ray;
 
 	std::unique_ptr<Player> player;
 	std::list<std::unique_ptr<Enemy>> enemys;
@@ -30,7 +33,7 @@ public:
 		Play
 	};
 
-	Scene scene = Scene::Play;
+	Scene scene = Scene::Title;
 public:
 	Game();
 	~Game();

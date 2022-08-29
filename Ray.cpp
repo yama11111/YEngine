@@ -2,13 +2,24 @@
 #include "Calc.h"
 #include <cassert>
 
-void Ray::Initialize(Vec3& start, Vec3& velocity, Model* model, const UINT tex)
+void Ray::Initialize(const InitRay& init, Model* model, const UINT tex)
 {
 	assert(model);
-	this->start = start;
-	this->velocity = velocity;
+	this->start = init.start;
+	this->velocity = init.velocity;
+	this->velocity.Normalized();
+	this->length = init.length;
 	this->model = model;
 	this->tex = tex;
+	obj.cbM.Color({ 1,0,0,1 });
+}
+
+void Ray::InitState(const InitRay& init)
+{
+	this->start = init.start;
+	this->velocity = init.velocity;
+	this->velocity.Normalized();
+	this->length = init.length;
 }
 
 void Ray::Update()
@@ -17,14 +28,20 @@ void Ray::Update()
 	obj.Update();
 }
 
-void Ray::SetStart(Vec3& start)
+void Ray::SetStart(const Vec3& start)
 {
 	this->start = start;
 }
 
-void Ray::SetVelocity(Vec3& velocity)
+void Ray::SetVelocity(const Vec3& velocity)
 {
 	this->velocity = velocity;
+	this->velocity.Normalized();
+}
+
+void Ray::SetLength(const float length)
+{
+	this->length = length;
 }
 
 void Ray::Draw(MatViewProjection& vP)
@@ -32,12 +49,18 @@ void Ray::Draw(MatViewProjection& vP)
 	model->Draw(obj, vP, tex);
 }
 
+Ray::Ray() :
+	start({})
+{
+}
+
 void Ray::Adjust()
 {
 	obj.mW.pos = start;
-	obj.mW.pos.x = velocity.x * obj.mW.scale.x;
-	obj.mW.pos.y = velocity.y * obj.mW.scale.y;
-	obj.mW.pos.z = velocity.z * obj.mW.scale.z;
+	Vec3 move = velocity;
+	move *= (length / 2.0f);
+	obj.mW.pos += move;
+	obj.mW.scale.z = length;
 
 	obj.mW.rota = AdjustAngle(velocity);
 }

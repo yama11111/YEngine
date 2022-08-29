@@ -10,23 +10,30 @@ Game::~Game()
 
 void Game::Initialize()
 {
+	ShowCursor(false);
+
 	keys = Keys::GetInstance();
 	mouse = Mouse::GetInstance();
 	texM = TextureManager::GetInstance();
 
 	enemyTex = texM->Load(L"Resources/enemy.png");
 	playerTex = texM->Load(L"Resources/player.png");
-	bulletTex = texM->Load(L"Resources/white.png", false);
+	plainTex = texM->Load(L"Resources/white.png", false);
 
 	m1 = new Model();
 
+	Ray* newRay = new Ray();
+	newRay->Initialize({}, m1, plainTex);
+	newRay->SetLength(20.0f);
+	ray.reset(newRay);
+
 	Player* newPlayer = new Player();
-	newPlayer->Initialize(m1, playerTex, bulletTex);
+	newPlayer->Initialize(m1, playerTex, plainTex);
 	player.reset(newPlayer);
 
 	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
 	newEnemy->SetPlayer(player.get());
-	newEnemy->Initialize({ 0, 40, 100 }, 0, m1, enemyTex, bulletTex);
+	newEnemy->Initialize({ 0, 40, 100 }, 0, m1, enemyTex, plainTex);
 	enemys.push_back(std::move(newEnemy));
 
 	//std::unique_ptr<Enemy> newEnemy2 = std::make_unique<Enemy>();
@@ -48,8 +55,9 @@ void Game::Update()
 {
 	if (scene == Scene::Title)
 	{
-		if (keys->IsTrigger(DIK_K)) scene = Scene::Play;
-
+		//if (mouse->IsTrigger(DIM_LEFT)) scene = Scene::Play;
+		ray->SetStart(WorldPos(mouse->Pos(), vp));
+		ray->Update();
 	}
 	else if (scene == Scene::Play)
 	{
@@ -68,6 +76,7 @@ void Game::Draw()
 {
 	if (scene == Scene::Title)
 	{
+		ray->Draw(vp);
 	}
 	else if (scene == Scene::Play)
 	{

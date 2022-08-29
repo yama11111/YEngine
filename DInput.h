@@ -10,6 +10,17 @@ struct MyMouseState
 {
 	DIMOUSESTATE state;
 	Vec2 pos;
+	MyMouseState() 
+	{
+		state.lX = 0;
+		state.lY = 0;
+		state.lZ = 0;
+		for (size_t i = 0; i < 4; i++)
+		{
+			state.rgbButtons[i] = 0;
+		}
+		pos = Vec2(0, 0);
+	}
 };
 
 class DInput

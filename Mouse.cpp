@@ -12,23 +12,23 @@ void Mouse::Update(const HWND hwnd)
 	input->GetMouseState(*mouse, hwnd);
 }
 
-bool Mouse::IsDown(const BYTE button)
+bool Mouse::IsDown(const int button)
 {
 	return mouse->state.rgbButtons[button];
 }
-bool Mouse::IsTrigger(const BYTE button)
+bool Mouse::IsTrigger(const int button)
 {
-	return	(mouse->state.rgbButtons[button] || 
+	return	(mouse->state.rgbButtons[button] && 
 			!elderMouse->state.rgbButtons[button]);
 }
-bool Mouse::IsLongPress(const BYTE button)
+bool Mouse::IsLongPress(const int button)
 {
-	return	(mouse->state.rgbButtons[button] ||
+	return	(mouse->state.rgbButtons[button] &&
 			elderMouse->state.rgbButtons[button]);
 }
-bool Mouse::IsRelease(const BYTE button)
+bool Mouse::IsRelease(const int button)
 {
-	return	(!mouse->state.rgbButtons[button] ||
+	return	(!mouse->state.rgbButtons[button] &&
 			elderMouse->state.rgbButtons[button]);
 }
 

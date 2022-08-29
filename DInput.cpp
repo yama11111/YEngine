@@ -63,6 +63,10 @@ void DInput::GetMouseState(MyMouseState& mouseState, const HWND hwnd)
 	mouse->Acquire();
 	mouse->Poll();
 	mouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseState.state);
+	for (int i = 0; i < 4; i++)
+	{
+		mouseState.state.rgbButtons[i] >>= 7;
+	}
 
 	POINT pos;
 

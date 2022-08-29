@@ -1,6 +1,13 @@
 #pragma once
 #include "DInput.h"
 
+enum MouseInputNumber
+{
+	DIM_LEFT = 0,
+	DIM_RIGHT = 1,
+	DIM_MIDDLE = 2,
+};
+
 class Mouse
 {
 public:
@@ -9,10 +16,10 @@ public:
 	DInput* input;
 public:
 	void Update(const HWND hwnd);
-	bool IsDown(const BYTE button);
-	bool IsTrigger(const BYTE button);
-	bool IsLongPress(const BYTE button);
-	bool IsRelease(const BYTE button);
+	bool IsDown(const int button);
+	bool IsTrigger(const int button);
+	bool IsLongPress(const int button);
+	bool IsRelease(const int button);
 	Vec2 Pos() { return mouse->pos; }
 public:
 	static Mouse* GetInstance();
