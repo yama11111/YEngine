@@ -32,3 +32,5 @@ Vec3 AdjustAngle(Vec3& velocity);
 
 Vec3 Lerp (const Vec3& v1, const Vec3& v2, float t);
 Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t);
+
+Vec4 GetColor(const Vec4& color);

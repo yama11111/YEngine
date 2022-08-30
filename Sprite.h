@@ -1,23 +1,20 @@
 #pragma once
-#include "VertexIndex.h"
-#include "ConstBufferManager.h"
+#include "Object2D.h"
+#include "Vertices.h"
 #include "TextureManager.h"
-#include "MatWorld.h"
 #include "MatProjection.h"
 
 class Sprite
 {
 public:
-	ConstBufferMaterial cbM;
-	ConstBufferTransform cbT;
+	const Vec2 size;
 private:
-	VertexIndex vtIdx;
+	Vertices2D vt;
 public:
 	Sprite(const Vec2& size);
-	void Draw(MatWorld& mW, const UINT tex);
+	void Draw(Object2D& obj, const UINT tex);
 private:
 	static MatProjection mP;
-	static ConstBufferManager* cbManager;
 	static TextureManager* texManager;
 public:
 	static void StaticInit();

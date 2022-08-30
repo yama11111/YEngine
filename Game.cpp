@@ -6,6 +6,10 @@ Game::Game() {}
 Game::~Game()
 {
 	delete m1;
+	for (size_t i = 0; i < Cursor::CursorTexNum::Num; i++)
+	{
+		delete s[i];
+	}
 }
 
 void Game::Initialize()
@@ -15,12 +19,28 @@ void Game::Initialize()
 	keys = Keys::GetInstance();
 	mouse = Mouse::GetInstance();
 	texM = TextureManager::GetInstance();
+	srvH = DXSRVHeap::GetInstance();
+	srvH->SetRootParameter();
+	pplnSet2D.Create2D();
+	pplnSet3D.Create3D();
 
 	enemyTex = texM->Load(L"Resources/enemy.png");
 	playerTex = texM->Load(L"Resources/player.png");
 	plainTex = texM->Load(L"Resources/white.png", false);
 
+	cursorTex[0] = texM->Load(L"Resources/cursor.png", false);
+	cursorTex[1] = cursorTex[0];
+	cursorShadowTex[0] = texM->Load(L"Resources/cursor_shadow.png", false);
+	cursorShadowTex[1] = cursorShadowTex[0];
+
 	m1 = new Model();
+
+	s[0] = new Sprite({128, 128});
+	s[1] = new Sprite({128, 128});
+
+	Cursor* newCursor = new Cursor();
+	newCursor->Initialize(s, cursorTex, cursorShadowTex);
+	cursor.reset(newCursor);
 
 	Ray* newRay = new Ray();
 	newRay->Initialize({}, m1, plainTex);
@@ -55,7 +75,10 @@ void Game::Update()
 {
 	if (scene == Scene::Title)
 	{
-		//if (mouse->IsTrigger(DIM_LEFT)) scene = Scene::Play;
+		if (mouse->IsTrigger(DIM_LEFT)) cursor->SetShot(true);
+		cursor->pos = mouse->Pos();
+		cursor->Update();
+		
 		ray->SetStart(WorldPos(mouse->Pos(), vp));
 		ray->Update();
 	}
@@ -74,6 +97,15 @@ void Game::Update()
 
 void Game::Draw()
 {
+	pplnSet2D.SetCommand2D();
+	srvH->SetDescriptorHeaps();
+	// ----- 背景スプライト ----- //
+	
+	// -------------------------- //
+	pplnSet3D.SetCommand3D();
+	srvH->SetDescriptorHeaps();
+	// --------- モデル --------- //
+
 	if (scene == Scene::Title)
 	{
 		ray->Draw(vp);
@@ -86,6 +118,15 @@ void Game::Draw()
 			enemy->Draw(vp);
 		}
 	}
+
+	// -------------------------- //
+	pplnSet2D.SetCommand2D();
+	srvH->SetDescriptorHeaps();
+	// ----- 前景スプライト ----- //
+
+	cursor->Draw();
+
+	// -------------------------- //
 }
 
 void Game::Collision()

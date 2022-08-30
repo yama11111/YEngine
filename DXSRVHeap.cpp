@@ -2,6 +2,12 @@
 #include "DXDevice.h"
 #include "DXRootParameterManager.h"
 
+DXSRVHeap* DXSRVHeap::GetInstance()
+{
+	static DXSRVHeap instance;
+	return &instance;
+}
+
 DXSRVHeap::DXSRVHeap()
 {
 	// SRV‚ÌÅ‘åŒÂ”
@@ -75,10 +81,4 @@ void DXSRVHeap::SetCommand(const UINT index)
 	}
 
 	cmdList->List()->SetGraphicsRootDescriptorTable(rpIndex, srvGpuHandle);
-}
-
-DXSRVHeap* DXSRVHeap::GetInstance()
-{
-	static DXSRVHeap instance;
-	return &instance;
 }

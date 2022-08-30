@@ -2,6 +2,7 @@
 #include "YDirectX.h"
 #include "DInput.h"
 #include "Game.h"
+#include "DXPipelineSet.h"
 #include "DXDrawDesc.h"
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
@@ -21,18 +22,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Keys* keys = Keys::GetInstance();
 	Mouse* mouse = Mouse::GetInstance();
 
-	DXSRVHeap* srvH = DXSRVHeap::GetInstance();
 	Sprite::StaticInit();
 	Model::StaticInit();
+	Object2D::StaticInit();
 	Object3D::StaticInit();
 
 	Game game;
 	game.Initialize();
 
-	srvH->SetRootParameter();
-
 	DXDrawDesc drawDesc;
-	drawDesc.Create();
+	drawDesc.Set();
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while (true)
@@ -53,9 +52,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		if (dx->PreDraw() == -1) return 0; // •`‰æ€”õ
 
 		// --------------------- Draw --------------------- //
-
 		drawDesc.SetCommand();
-		srvH->SetDescriptorHeaps();
 
 		game.Draw();
 

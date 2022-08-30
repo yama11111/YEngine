@@ -146,6 +146,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ConstBuffer.cpp" />
     <ClCompile Include="ConstBufferManager.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DInput.cpp" />
     <ClCompile Include="DXAdapter.cpp" />
     <ClCompile Include="DXCommandList.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="DXDrawDesc.cpp" />
     <ClCompile Include="DXDSVHeap.cpp" />
     <ClCompile Include="DXFence.cpp" />
+    <ClCompile Include="DXPipelineSet.cpp" />
     <ClCompile Include="DXPipelineState.cpp" />
     <ClCompile Include="DXRenderTargetView.cpp" />
     <ClCompile Include="DXResource.cpp" />
@@ -210,6 +212,7 @@
     <ClInclude Include="CollisionConfig.h" />
     <ClInclude Include="ConstBuffer.h" />
     <ClInclude Include="ConstBufferManager.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DInput.h" />
     <ClInclude Include="DXAdapter.h" />
@@ -221,6 +224,7 @@
     <ClInclude Include="DXDrawDesc.h" />
     <ClInclude Include="DXDSVHeap.h" />
     <ClInclude Include="DXFence.h" />
+    <ClInclude Include="DXPipelineSet.h" />
     <ClInclude Include="DXPipelineState.h" />
     <ClInclude Include="DXRenderTargetView.h" />
     <ClInclude Include="DXResource.h" />
@@ -268,13 +272,25 @@
     <ClInclude Include="YWindows.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="BasicPS.hlsl">
+    <FxCompile Include="ModelPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="BasicVS.hlsl">
+    <FxCompile Include="ModelVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="SpritePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="SpriteVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -282,7 +298,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic.hlsli" />
+    <None Include="Model.hlsli" />
+    <None Include="Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

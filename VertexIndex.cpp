@@ -7,7 +7,7 @@ VertexIndex::VertexIndex() :
 	idx.push_back(0);
 }
 
-VertexIndex::VertexIndex(const std::vector<VertexData> v, const std::vector<uint16_t> i) :
+VertexIndex::VertexIndex(const std::vector<VertexData3D> v, const std::vector<uint16_t> i) :
 	vert(v), idx(i)
 {
 }

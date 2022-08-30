@@ -1,29 +1,38 @@
 #include "Object2D.h"
 #include "Result.h"
 
+ConstBufferManager* Object2D::cbManager = nullptr;
+
 Object2D::Object2D() :
-	mW(MatWorld()), sprite(nullptr)
+	mW(MatWorld())
 {
-}
-
-Object2D::Object2D(Sprite* pSprite) :
-	mW(MatWorld()), sprite(pSprite)
-{
-}
-
-void Object2D::SetSprite(Sprite* pSprite)
-{
-	this->sprite = pSprite;
+	cbManager->CreateCB(cbM);
+	cbManager->CreateCB(cbT);
 }
 
 void Object2D::Update()
 {
 	mW.Update();
+	if (parent)
+	{
+		mW.m *= parent->m;
+	}
 }
 
-void Object2D::Draw(const UINT tex)
+void Object2D::SetCommand()
 {
-	Result::Assert(sprite != nullptr);
-	sprite->Draw(mW, tex);
+	cbManager->SetCommand(cbM);
+	cbManager->SetCommand(cbT);
+}
+
+void Object2D::SetParent(MatWorld* parent)
+{
+	if (parent == nullptr) return;
+	this->parent = parent;
+}
+
+void Object2D::StaticInit()
+{
+	cbManager = ConstBufferManager::GetInstance();
 }
 

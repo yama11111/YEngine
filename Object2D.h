@@ -1,15 +1,21 @@
 #pragma once
-#include "Sprite.h"
+#include "ConstBufferManager.h"
+#include "MatWorld.h"
 
 class Object2D
 {
 public:
 	MatWorld mW;
-	Sprite* sprite;
+	ConstBufferMaterial cbM;
+	ConstBufferTransform cbT;
+	MatWorld* parent = nullptr;
 public:
 	Object2D();
-	Object2D(Sprite* pSprite);
-	void SetSprite(Sprite* pSprite);
 	void Update();
-	void Draw(const UINT tex);
+	void SetCommand();
+	void SetParent(MatWorld* parent);
+private:
+	static ConstBufferManager* cbManager;
+public:
+	static void StaticInit();
 };

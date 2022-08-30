@@ -10,7 +10,8 @@ public:
 	ID3DBlob* psBlob = nullptr; // ピクセルシェーダオブジェクト
 	ID3DBlob* errorBlob = nullptr; // エラーオブジェクト
 public:
-	void Load();
+	void Load2D();
+	void Load3D();
 private:
 	void LoadShader(const wchar_t* fileName, const char* entryPoint,
 		const char* target, ID3DBlob*& object);

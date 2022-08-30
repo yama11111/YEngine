@@ -1,7 +1,13 @@
 #include "DXVertexLayoutManager.h"
 
+DXVertexLayoutManager* DXVertexLayoutManager::GetInstance()
+{
+	static DXVertexLayoutManager instance;
+	return &instance;
+}
+
 DXVertexLayoutManager::DXVertexLayoutManager() :
-	inputLayout()
+	spriteIL(), modelIL()
 {
 	//{
 	//	 セマンティック名,
@@ -13,8 +19,7 @@ DXVertexLayoutManager::DXVertexLayoutManager() :
 	//	 *一度に描画するインスタンス数 (0 でいい)
 	//}
 
-	const int aryNum = 3;
-	D3D12_INPUT_ELEMENT_DESC layout[aryNum] =
+	D3D12_INPUT_ELEMENT_DESC layout[3] =
 	{
 		{
 			"POSITION",
@@ -45,9 +50,12 @@ DXVertexLayoutManager::DXVertexLayoutManager() :
 		}
 	};
 
-	for (int i = 0; i < aryNum; i++)
-	{
-		inputLayout.push_back(layout[i]);
-	}
+	// ----- sprite ----- //
+	spriteIL.push_back(layout[0]);
+	spriteIL.push_back(layout[2]);
 
+	// ----- model -----//
+	modelIL.push_back(layout[0]);
+	modelIL.push_back(layout[1]);
+	modelIL.push_back(layout[2]);
 }

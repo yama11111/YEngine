@@ -235,3 +235,14 @@ Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t)
 	e *= s;
 	return e;
 }
+
+Vec4 GetColor(const Vec4& color)
+{
+	Vec4 result = color;
+	result.r /= 255.0f;
+	result.g /= 255.0f;
+	result.b /= 255.0f;
+	result.a /= 255.0f;
+
+	return result;
+}

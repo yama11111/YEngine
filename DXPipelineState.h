@@ -16,7 +16,9 @@ public:
 	DXDevice* dev = nullptr;
 public:
 	DXPipelineState();
-	void Create(ID3D12RootSignature* rootSignature, DXShaderManager& shaderM,
+	void Create2D(ID3D12RootSignature* rootSignature, DXShaderManager& shaderM,
+		std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout);
+	void Create3D(ID3D12RootSignature* rootSignature, DXShaderManager& shaderM,
 		std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout);
 	void ChangeSolid();
 	void ChangeWire();

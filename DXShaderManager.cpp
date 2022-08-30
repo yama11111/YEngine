@@ -5,12 +5,20 @@
 
 #pragma comment(lib, "d3dcompiler.lib")
 
-void DXShaderManager::Load()
+void DXShaderManager::Load2D()
 {
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"BasicVS.hlsl", "main", "vs_5_0", vsBlob);
+	LoadShader(L"SpriteVS.hlsl", "main", "vs_5_0", vsBlob);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"BasicPS.hlsl", "main", "ps_5_0", psBlob);
+	LoadShader(L"SpritePS.hlsl", "main", "ps_5_0", psBlob);
+}
+
+void DXShaderManager::Load3D()
+{
+	// 頂点シェーダの読み込みとコンパイル
+	LoadShader(L"ModelVS.hlsl", "main", "vs_5_0", vsBlob);
+	// ピクセルシェーダの読み込みとコンパイル
+	LoadShader(L"ModelPS.hlsl", "main", "ps_5_0", psBlob);
 }
 
 void DXShaderManager::LoadShader(const wchar_t* fileName, const char* entryPoint,
