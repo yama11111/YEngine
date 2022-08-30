@@ -17,10 +17,11 @@ public:
 	};
 	enum Species
 	{
-		A = 0,
-		B = 1,
-		C = 2,
+		MonoEye = 0,
+		WaveAngler = 1,
+		Croan = 2,
 	};
+	float seekRad = 0.0f;
 private:
 	Object3D obj;
 	std::list<std::unique_ptr<EnemyBullet>> bullets;

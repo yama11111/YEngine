@@ -7,18 +7,17 @@ void Ray::Initialize(const InitRay& init, Model* model, const UINT tex)
 	assert(model);
 	this->start = init.start;
 	this->velocity = init.velocity;
-	this->velocity.Normalized();
+	this->velocity = this->velocity.Normalized();
 	this->length = init.length;
 	this->model = model;
 	this->tex = tex;
-	obj.cbM.Color({ 1,0,0,1 });
 }
 
 void Ray::InitState(const InitRay& init)
 {
 	this->start = init.start;
 	this->velocity = init.velocity;
-	this->velocity.Normalized();
+	this->velocity = this->velocity.Normalized();
 	this->length = init.length;
 }
 
@@ -36,7 +35,7 @@ void Ray::SetStart(const Vec3& start)
 void Ray::SetVelocity(const Vec3& velocity)
 {
 	this->velocity = velocity;
-	this->velocity.Normalized();
+	this->velocity = this->velocity.Normalized();
 }
 
 void Ray::SetLength(const float length)

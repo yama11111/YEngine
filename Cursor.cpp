@@ -40,14 +40,15 @@ void Cursor::Draw()
 	sprite[General]->Draw(obj[1], cursorTex[General]);
 	if (charge)
 	{
-		sprite[Charge]->Draw(obj[0], shadowTex[Charge]);
-		sprite[Charge]->Draw(obj[1], cursorTex[Charge]);
+		sprite[Charge]->Draw(obj[2], shadowTex[Charge]);
+		sprite[Charge]->Draw(obj[3], cursorTex[Charge]);
 	}
 }
 
 void Cursor::ObjUpdate()
 {
 	obj[1].cbM.Color(GetColor(color));
+	obj[3].cbM.Color(GetColor(color));
 	for (size_t i = 0; i < 2; i++)
 	{
 		obj[i].mW.pos = {pos.x - 64.0f, pos.y - 64.0f, 0.0f};

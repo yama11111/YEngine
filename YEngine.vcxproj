@@ -190,6 +190,7 @@
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scope.cpp" />
     <ClCompile Include="ScrewBullet.cpp" />
     <ClCompile Include="SlashBullet.cpp" />
     <ClCompile Include="SphereBullet.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
+    <ClInclude Include="Scope.h" />
     <ClInclude Include="ScrewBullet.h" />
     <ClInclude Include="SlashBullet.h" />
     <ClInclude Include="SphereBullet.h" />

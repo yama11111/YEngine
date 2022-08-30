@@ -17,6 +17,7 @@ void Enemy::Initialize(const Vec3& pos, const int& species,
 	obj.mW.pos = pos;
 	obj.mW.scale = { 5.0, 5.0, 5.0 };
 	FireAndReset();
+	seekRad = 15.0f;
 	SetRad(1.0f);
 	SetAttribute(COLL_ATTRIBUTE_ENEMY);
 	SetMask(~COLL_ATTRIBUTE_ENEMY);
@@ -87,14 +88,14 @@ void Enemy::Fire()
 	std::unique_ptr<EnemyBullet> newBullet;
 	switch (species)
 	{
-	case Species::A:
+	case Species::MonoEye:
 	default:
 		newBullet = std::make_unique<SphereBullet>();
 		break;
-	case Species::B:
+	case Species::WaveAngler:
 		newBullet = std::make_unique<SlashBullet>();
 		break;
-	case Species::C:
+	case Species::Croan:
 		newBullet = std::make_unique<ScrewBullet>();
 		break;
 	}
@@ -109,14 +110,14 @@ void Enemy::FireAndReset()
 	uint32_t time = 0;
 	switch (species)
 	{
-	case Species::A:
+	case Species::MonoEye:
 	default:
 		time = 80;
 		break;
-	case Species::B:
+	case Species::WaveAngler:
 		time = 120;
 		break;
-	case Species::C:
+	case Species::Croan:
 		time = 60;
 		break;
 	}

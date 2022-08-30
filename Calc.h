@@ -26,7 +26,7 @@ Mat4 MatViewPort();
 
 Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up);
 
-Vec3 WorldPos(const Vec2& screen, const MatViewProjection& vp);
+Vec3 WorldPos(const Vec2& screen, float z, const MatViewProjection& vp);
 
 Vec3 AdjustAngle(Vec3& velocity);
 
@@ -34,3 +34,6 @@ Vec3 Lerp (const Vec3& v1, const Vec3& v2, float t);
 Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t);
 
 Vec4 GetColor(const Vec4& color);
+
+bool CollRaySphere(	const Vec3& ray, const Vec3& velocity,
+					const Vec3& sphere, const float rad, Vec3& start);

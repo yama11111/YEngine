@@ -180,13 +180,13 @@ Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 	return ConvertMatrix(mat);
 }
 
-Vec3 WorldPos(const Vec2& screen, const MatViewProjection& vp)
+Vec3 WorldPos(const Vec2& screen, float z, const MatViewProjection& vp)
 {
 	Mat4 iView = InverceMat4(vp.view.m);
 	Mat4 iPro = InverceMat4(vp.pro.m);
 	Mat4 iVP = InverceMat4(MatViewPort());
 	Mat4 inv = iVP * iPro * iView;
-	Vec4 pos(screen.x - WIN_SIZE.x / 2.0f, screen.y - WIN_SIZE.y / 2.0f, 0.1f, 1.0f);
+	Vec4 pos(screen.x - WIN_SIZE.x / 2.0f, screen.y - WIN_SIZE.y / 2.0f, z, 1.0f);
 	Vec4 r = MultVec4Mat4(pos, inv);
 	Vec3 result(pos.r, -pos.g, pos.b);
 	result /= r.a;
@@ -245,4 +245,30 @@ Vec4 GetColor(const Vec4& color)
 	result.a /= 255.0f;
 
 	return result;
+}
+
+bool CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
+					const Vec3& sphere, const float rad, Vec3& start)
+{
+	Vec3 p = sphere;
+	p -= ray;
+
+	float a = velocity.Dot(velocity);
+	if (a == 0.0f) return false;
+	float b = velocity.Dot(p);
+	float c = p.Dot(p) - (rad * rad);
+
+	float s = b * b - a * c;
+	if (s < 0.0f) return false;
+
+	float a1 = (b - sqrtf(s)) / a;
+	float a2 = (b + sqrtf(s)) / a;
+
+	if (a1 < 0.0f || a2 < 0.0f) return false;
+
+	start.x = ray.x + a1 * velocity.x;
+	start.y = ray.y + a1 * velocity.y;
+	start.z = ray.z + a1 * velocity.z;
+
+	return true;
 }

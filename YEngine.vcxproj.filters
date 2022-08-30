@@ -294,6 +294,9 @@
     <ClCompile Include="DXPipelineSet.cpp">
       <Filter>ソース ファイル\DX\描画</Filter>
     </ClCompile>
+    <ClCompile Include="Scope.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="DXPipelineSet.h">
       <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="Scope.h">
+      <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

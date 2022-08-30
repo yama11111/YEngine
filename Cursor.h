@@ -17,7 +17,7 @@ public:
 		Num = 2,
 	};
 private:
-	Object2D obj[2];
+	Object2D obj[4];
 	Sprite* sprite[Num];
 	UINT cursorTex[Num];
 	UINT shadowTex[Num];
