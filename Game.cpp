@@ -26,10 +26,6 @@ void Game::Initialize()
 
 	m1 = new Model();
 
-	Scope* newScope = new Scope();
-	newScope->Initialize(m1, plainTex);
-	scope.reset(newScope);
-
 	Player* newPlayer = new Player();
 	newPlayer->Initialize(m1, playerTex, plainTex);
 	player.reset(newPlayer);
@@ -58,21 +54,21 @@ void Game::Update()
 {
 	if (scene == Scene::Title)
 	{
+		if (keys->IsTrigger(DIK_K)) scene = Scene::Play;
 	}
 	else if (scene == Scene::Play)
 	{
 		if (keys->IsTrigger(DIK_K)) scene = Scene::Title;
 		
-		player->Update();
+		player->Update(vp);
 		for (std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
 			Vec3 pos;
-			bool b = CollRaySphere(scope->ray->start, scope->ray->velocity, 
-				enemy->GetWorldPos(), enemy->seekRad, pos);
-			scope->cursor->SetTarget(b);
+			//bool b = CollRaySphere(scope->ray->start, scope->ray->velocity, 
+			//	enemy->GetWorldPos(), enemy->seekRad, pos);
+			//scope->cursor->SetTarget(b);
 		}
-		scope->Update(mouse->Pos(), vp);
 		Collision();
 	}
 }
@@ -94,7 +90,6 @@ void Game::Draw()
 	}
 	else if (scene == Scene::Play)
 	{
-		scope->Draw3D(vp);
 		player->Draw(vp);
 		for (std::unique_ptr<Enemy>& enemy : enemys)
 		{
@@ -107,7 +102,7 @@ void Game::Draw()
 	srvH->SetDescriptorHeaps();
 	// ----- 前景スプライト ----- //
 
-	scope->Draw2D();
+	player->Draw2D();
 	
 	// -------------------------- //
 }

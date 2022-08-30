@@ -236,6 +236,20 @@ Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t)
 	return e;
 }
 
+float lerp(const float a, const float b, const float t)
+{
+	return a + t * (b - a);
+}
+float EaseIn(const float start, const float end, const float time, const float power)
+{
+	return lerp(start, end, pow(time, power));
+}
+float EaseOut(const float start, const float end, const float time, const float power)
+{
+	return lerp(start, end, 1 - pow(1 - time, power));
+}
+
+
 Vec4 GetColor(const Vec4& color)
 {
 	Vec4 result = color;

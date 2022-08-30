@@ -9,7 +9,7 @@ void EnemyBullet::Update() {}
 
 void EnemyBullet::Draw(MatViewProjection& mVP) {}
 
-void EnemyBullet::OnCollision() { isDead = true; }
+void EnemyBullet::OnCollision(const int damange) { isDead = true; }
 
 void EnemyBullet::Homing() 
 {

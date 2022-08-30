@@ -3,7 +3,6 @@
 #include "Mouse.h"
 #include "DXPipelineSet.h"
 #include "Sprite.h"
-#include "Scope.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "CollisionManager.h"
@@ -24,7 +23,6 @@ public:
 
 	Model* m1 = nullptr;
 
-	std::unique_ptr<Scope> scope;
 	std::unique_ptr<Player> player;
 	std::list<std::unique_ptr<Enemy>> enemys;
 	std::unique_ptr<CollisionManager> collManager;

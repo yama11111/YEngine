@@ -65,7 +65,10 @@ void Enemy::Approach()
 	//obj.mW.pos += velocity;
 }
 
-void Enemy::OnCollision() { obj.cbM.Color({ 1.0,0.0,0.0,1.0 }); }
+void Enemy::OnCollision(const int damage)
+{ 
+	obj.cbM.Color({ 1.0,0.0,0.0,1.0 }); 
+}
 
 void Enemy::Leave() 
 {

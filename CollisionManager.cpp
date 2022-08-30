@@ -25,8 +25,8 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* collide
 	Vec3 dist = posB - posA;
 	if (dist.Length() <= colliderA->GetRad() + colliderB->GetRad()) 
 	{
-		colliderA->OnCollision();
-		colliderB->OnCollision();
+		colliderA->OnCollision(colliderB->GetDamage());
+		colliderB->OnCollision(colliderA->GetDamage());
 	}
 }
 

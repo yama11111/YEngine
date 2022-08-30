@@ -39,7 +39,7 @@ public:
 	void Draw(MatViewProjection& mVP);
 	void SetPlayer(Player* player) { this->player = player; }
 	Vec3 GetWorldPos() override;
-	void OnCollision() override;
+	void OnCollision(const int damage) override;
 	const std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets; }
 private:
 	void Approach();

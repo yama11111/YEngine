@@ -195,6 +195,7 @@
     <ClCompile Include="SlashBullet.cpp" />
     <ClCompile Include="SphereBullet.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Status.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TimedCall.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="SlashBullet.h" />
     <ClInclude Include="SphereBullet.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Status.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TimedCall.h" />

@@ -17,6 +17,6 @@ public:
 	void Update();
 	void Draw(MatViewProjection& mVP);
 	bool IsDead() const { return isDead; }
-	void OnCollision() override;
+	void OnCollision(const int damange) override;
 	Vec3 GetWorldPos() override;
 };

@@ -24,7 +24,7 @@ public:
 	virtual void Draw(MatViewProjection& mVP);
 	bool IsDead() const { return isDead; }
 	void SetPlayer(Player* player) { this->player = player; }
-	void OnCollision() override;
+	void OnCollision(const int damange) override;
 protected:
 	virtual void Homing();
 };

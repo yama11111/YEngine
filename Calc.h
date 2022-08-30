@@ -33,6 +33,10 @@ Vec3 AdjustAngle(Vec3& velocity);
 Vec3 Lerp (const Vec3& v1, const Vec3& v2, float t);
 Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t);
 
+float lerp(const float a, const float b, const float t);
+float EaseIn(const float start, const float end, const float time, const float power);
+float EaseOut(const float start, const float end, const float time, const float power);
+
 Vec4 GetColor(const Vec4& color);
 
 bool CollRaySphere(	const Vec3& ray, const Vec3& velocity,

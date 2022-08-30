@@ -297,6 +297,9 @@
     <ClCompile Include="Scope.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Status.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
@@ -493,6 +496,9 @@
     </ClInclude>
     <ClInclude Include="Scope.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

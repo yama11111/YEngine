@@ -25,7 +25,7 @@ void PlayerBullet::Draw(MatViewProjection& mVP)
 	model->Draw(obj, mVP, tex);
 }
 
-void PlayerBullet::OnCollision() { isDead = true; }
+void PlayerBullet::OnCollision(const int damange) { isDead = true; }
 
 Vec3 PlayerBullet::GetWorldPos() 
 {

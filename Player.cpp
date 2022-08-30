@@ -10,18 +10,27 @@ void Player::Initialize(Model* model, const UINT tex, const UINT bulletTex)
 	this->tex = tex;
 	this->bulletTex = bulletTex;
 	keys = Keys::GetInstance();
+	mouse = Mouse::GetInstance();
+	Scope* newScope = new Scope();
+	newScope->Initialize(model, bulletTex);
+	scope.reset(newScope);
+
 	obj.mW.pos = { 0, 0, 50 };
 	obj.mW.scale = { 5.0, 5.0, 5.0 };
+	velocity = { 0,0,1 };
+	status.Initialize(100, 2.0f);
 	SetRad(3.0f);
+	SetDamage(0);
 	SetAttribute(COLL_ATTRIBUTE_PLAYER);
 	SetMask(~COLL_ATTRIBUTE_PLAYER);
 }
 
-void Player::Update() 
+void Player::Update(MatViewProjection& vP)
 {
+	scope->Update(mouse->Pos(), vP);
 	bullets.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {return bullet->IsDead();});
 	Move();
-	Rotate();
+	Adjust();
 	obj.Update();
 	if (camera) obj.mW.m *= *camera;
 	Attack();
@@ -33,6 +42,7 @@ void Player::Update()
 
 void Player::Draw(MatViewProjection& vP) 
 {
+	scope->Draw3D(vP);
 	model->Draw(obj, vP, tex);
 	for (std::unique_ptr<PlayerBullet>& bullet : bullets) 
 	{
@@ -40,28 +50,19 @@ void Player::Draw(MatViewProjection& vP)
 	}
 }
 
-//void Player::DebugText(const Vector2& leftTop) 
-//{
-//	debugText->SetPos(leftTop.x, leftTop.y);
-//	debugText->Printf("Player");
-//	debugText->SetPos(leftTop.x + 20, leftTop.y + 20);
-//	debugText->Printf("translation : (%f, %f, %f)",
-//		wt.translation_.x, wt.translation_.y, wt.translation_.z);
-//	debugText->SetPos(leftTop.x + 20, leftTop.y + 40);
-//	debugText->Printf("rotation : (%f, %f, %f)",
-//		wt.rotation_.x, wt.rotation_.y, wt.rotation_.z);
-//}
+void Player::Draw2D()
+{
+	scope->Draw2D();
+}
 
 void Player::Move() 
 {
-	Vec3 move = { 0, 0, 0 };
-	const float power = 1.0f;
-	if (keys->IsDown(DIK_W)) move.y += power;
-	if (keys->IsDown(DIK_S)) move.y -= power;
-	if (keys->IsDown(DIK_D)) move.x += power;
-	if (keys->IsDown(DIK_A)) move.x -= power;
+	TimerUpdate();
+	float p = 2.0f;
+	status.speed.x = EaseIn(0.0f, status.power, t1.x, p) - EaseIn(0.0f, status.power, t2.x, p);
+	status.speed.y = EaseIn(0.0f, status.power, t1.y, p) - EaseIn(0.0f, status.power, t2.y, p);
 
-	obj.mW.pos += move;
+	obj.mW.pos += status.speed;
 
 	const float LIMIT_X = 80;
 	const float LIMIT_Y = 50;
@@ -72,14 +73,55 @@ void Player::Move()
 	obj.mW.pos.y = min(obj.mW.pos.y,  LIMIT_Y);
 }
 
-void Player::Rotate() 
+void Player::TimerUpdate()
 {
-	Vec3 rota = { 0, 0, 0 };
-	const float power = 0.05f;
-	if (keys->IsDown(DIK_E)) rota.y += power;
-	if (keys->IsDown(DIK_Q)) rota.y -= power;
+	float p = 0.1f;
+	float d = 0.05f;
+	if (keys->IsDown(DIK_RIGHT) || keys->IsDown(DIK_D))
+	{
+		t1.x += p;
+		if (t1.x >= 1.0f) t1.x = 1.0f;
+	}
+	else 
+	{
+		t1.x -= d; 
+		if (t1.x <= 0.0f) t1.x = 0.0f;
+	}
+	if (keys->IsDown(DIK_LEFT) || keys->IsDown(DIK_A))
+	{
+		t2.x += p;
+		if (t2.x >= 1.0f) t2.x = 1.0f;
+	}
+	else
+	{
+		t2.x -= d;
+		if (t2.x <= 0.0f) t2.x = 0.0f;
+	}
+	if (keys->IsDown(DIK_UP) || keys->IsDown(DIK_W))
+	{
+		t1.y += p;
+		if (t1.y >= 1.0f) t1.y = 1.0f;
+	}
+	else
+	{
+		t1.y -= d;
+		if (t1.y <= 0.0f) t1.y = 0.0f;
+	}
+	if (keys->IsDown(DIK_DOWN) || keys->IsDown(DIK_S))
+	{
+		t2.y += p;
+		if (t2.y >= 1.0f) t2.y = 1.0f;
+	}
+	else
+	{
+		t2.y -= d;
+		if (t2.y <= 0.0f) t2.y = 0.0f;
+	}
+}
 
-	obj.mW.rota += rota;
+void Player::Adjust() 
+{
+	obj.mW.rota = AdjustAngle(velocity);
 }
 
 Vec3 Player::GetWorldPos() 
@@ -90,18 +132,37 @@ Vec3 Player::GetWorldPos()
 
 void Player::Attack() 
 {
-	if (keys->IsTrigger(DIK_SPACE)) 
+	float increase = 0.2f;
+	float interval = 1.0f;
+	if (scope->cursor->shot)
 	{
+		shotT += increase;
+		if (interval <= shotT)
+		{
+			shotT = 0.0f;
+			scope->cursor->SetShot(false);
+		}
+		else return;
+	}
+	if (mouse->IsDown(DIM_LEFT)) 
+	{
+		scope->cursor->SetShot(true);
 		const float SPEED = 10.0f;
-		Vec3 velocity(0, 0, SPEED);
+		Vec3 v = velocity;
+		v *= SPEED;
 
-		velocity = MultVec3Mat4(velocity, obj.mW.m);
+		v = MultVec3Mat4(v, obj.mW.m);
 		Vec3 pos = MultVec3Mat4(obj.mW.pos, obj.mW.m);
 
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(model, pos, velocity, bulletTex);
+		newBullet->Initialize(model, pos, v, bulletTex);
 		bullets.push_back(std::move(newBullet));
 	}
 }
 
-void Player::OnCollision() { obj.cbM.Color({ 1.0,0.0,0.0,1.0 }); }
+void Player::OnCollision(const int damage) 
+{
+	status.hp -= damage;
+	status.CalcHp();
+	obj.cbM.Color({ 1.0,0.0,0.0,1.0 });
+}

@@ -46,6 +46,14 @@ int Keys::Vertical()
 	return down - up;
 }
 
+bool Keys::isMove()
+{
+	return 	IsDown(DIK_RIGHT) || IsDown(DIK_D) ||
+			IsDown(DIK_LEFT)  || IsDown(DIK_A) ||
+			IsDown(DIK_DOWN)  || IsDown(DIK_S) ||
+			IsDown(DIK_UP)	  || IsDown(DIK_W);
+}
+
 Keys::Keys() :
 	keys(new unsigned char[256]),
 	elderKeys(new unsigned char[256]),
