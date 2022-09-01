@@ -1,16 +1,17 @@
 #pragma once
-#include "Vec3.h"
+
 class Status
 {
 public:
-	int hp;
-	bool isDeath;
-	Vec3 direction;
-	Vec3 speed;
-	float power;
+	int hp = 0;
+	bool isDeath = false;
+	bool isHit = false;
+	int limit = 0;
+	int invT = 0;
+	bool isInvisible = false;
 public:
 	Status();
-	void Initialize(const int hp, const float power);
-	void CalcHp();
-	void CalcSpeed();
+	void Initialize(const int hp, const int limit);
+	void Update();
+	void Damage(const int damage);
 };

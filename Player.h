@@ -1,37 +1,47 @@
 #pragma once
-#include "PlayerBullet.h"
 #include "Status.h"
+#include "Speed.h"
+#include "PlayerBullet.h"
 #include "Scope.h"
 #include "Mouse.h"
 #include "Keys.h"
+#include "Timer.h"
+#include "RailCamera.h"
 #include <memory>
 #include <list>
 
 class Player : public Collider 
 {
+public:
+	std::unique_ptr<Scope> scope;
+	Vec3 target{};
 private:
 	Object3D obj{};
-	Vec3 velocity{};
 	Status status{};
-	Vec2 t1{};
-	Vec2 t2{};
-	float shotT = 0.0f;
+	Speed speed{};
+	Vec3 velocity{};
+	Vec3 previous{};
+	Ease ease[4] = { {}, {}, {}, {} };
 
-	std::unique_ptr<Scope> scope;
+	Timer shotT{};
+	Timer chargeT{};
+	Timer coolT{};
+	bool cool = false;
 	std::list<std::unique_ptr<PlayerBullet>> bullets;
+
+	Mat4* camera = nullptr;
 
 	Model* model = nullptr;
 	UINT tex = 0;
 	UINT bulletTex = 0;
-	Mat4* camera = nullptr;
 	Keys* keys = nullptr;
 	Mouse* mouse = nullptr;
 public:
 	void Initialize(Model* model, const UINT tex, const UINT bulletTex);
-	void Update(MatViewProjection& vP);
+	void InitStatus();
+	void Update(RailCamera& rCamera);
 	void Draw(MatViewProjection& vP);
 	void Draw2D();
-	void SetVelocity(const Vec3& velocity) { this->velocity = velocity; }
 	void Damege(const int damage) { status.hp -= damage; }
 	void SetCamera(Mat4* camera) { this->camera = camera; }
 	Vec3 GetWorldPos() override;
@@ -39,7 +49,7 @@ public:
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets; }
 private:
 	void Move();
-	void TimerUpdate();
 	void Adjust();
+	void CalcVelocity();
 	void Attack();
 };

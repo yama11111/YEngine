@@ -11,7 +11,7 @@ private:
 public:
 	float GetRad() { return radius; }
 	void SetRad(const float radius) { this->radius = radius; }
-	float GetDamage() { return damage; }
+	int GetDamage() { return damage; }
 	void SetDamage(const int damage) { this->damage = damage; }
 	virtual Vec3 GetWorldPos() = 0;
 	virtual void OnCollision(const int damage) {}

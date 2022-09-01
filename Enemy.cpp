@@ -6,49 +6,30 @@
 #include "Calc.h"
 #include <cassert>
 
-void Enemy::Initialize(const Vec3& pos, const int& species,
-	Model* model, const UINT tex, const UINT bulletTex)
+void Enemy::FollowEyes()
 {
-	assert(model);
-	this->model = model;
-	this->tex = tex;
-	this->bulletTex = bulletTex;
-	this->species = species;
-	obj.mW.pos = pos;
-	obj.mW.scale = { 5.0, 5.0, 5.0 };
-	FireAndReset();
-	seekRad = 15.0f;
-	SetRad(1.0f);
-	SetAttribute(COLL_ATTRIBUTE_ENEMY);
-	SetMask(~COLL_ATTRIBUTE_ENEMY);
+	Vec3 v = player->GetWorldPos();
+	v -= obj.mW.pos;
+	v.Normalized();
+	obj.mW.rota = AdjustAngle(v);
 }
 
-void Enemy::Update() 
+void Enemy::SetTarget()
 {
-	timedCalls.remove_if([](std::unique_ptr<TimedCall>& timedCall) {return timedCall->IsFinished(); });
-
-	for (std::unique_ptr<TimedCall>& timedCall : timedCalls) 
+	if (CollRaySphere(player->scope->ray->start, player->scope->ray->velocity, obj.mW.pos, seekRad))
 	{
-		timedCall->Update();
-	}
+		if (player->scope->cursor->target)
+		{
+			Vec3 dist1 = player->target; // ‘O
+			dist1 -= player->GetWorldPos();
 
-	bullets.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {return bullet->IsDead(); });
+			Vec3 dist2 = obj.mW.pos; // ¡
+			dist2 -= player->GetWorldPos();
 
-	(this->*spUpdateTable[static_cast<size_t>(phase)])();
-	obj.Update();
-
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets) 
-	{
-		bullet->Update();
-	}
-}
-
-void Enemy::Draw(MatViewProjection& mVP)
-{
-	model->Draw(obj, mVP, tex);
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets) 
-	{
-		bullet->Draw(mVP);
+			if (dist1.Length() <= dist2.Length()) return;	
+		}
+		player->target = obj.mW.pos;
+		player->scope->cursor->target = true;
 	}
 }
 
@@ -58,78 +39,45 @@ Vec3 Enemy::GetWorldPos()
 	return pos;
 }
 
-void Enemy::Approach() 
-{
-	const float SPEED = -0.05f;
-	Vec3 velocity = { 0, 0, SPEED };
-	//obj.mW.pos += velocity;
-}
-
 void Enemy::OnCollision(const int damage)
-{ 
-	obj.cbM.Color({ 1.0,0.0,0.0,1.0 }); 
-}
-
-void Enemy::Leave() 
 {
-	const float SPEED = 1.0f;
-	Vec3 velocity = { 0, 0, SPEED };
-	obj.mW.pos += velocity;
-}
-
-void Enemy::Fire() 
-{
-	assert(player);
-
-	const float SPEED = -0.5f;
-
-	Vec3 velocity = GetWorldPos();
-	velocity -= player->GetWorldPos();
-	velocity = velocity.Normalized();
-	velocity *= SPEED;
-
-	std::unique_ptr<EnemyBullet> newBullet;
-	switch (species)
+	if (!status.isDeath)
 	{
-	case Species::MonoEye:
-	default:
-		newBullet = std::make_unique<SphereBullet>();
-		break;
-	case Species::WaveAngler:
-		newBullet = std::make_unique<SlashBullet>();
-		break;
-	case Species::Croan:
-		newBullet = std::make_unique<ScrewBullet>();
-		break;
+		status.Damage(damage);
+		status.isHit = true;
+		if (status.isDeath) shake.Shaking(2.0, 0.3);
+		else shake.Shaking(0.5, 0.1);
 	}
-	newBullet->Initialize(obj.mW.pos, velocity, model, bulletTex);
-	newBullet->SetPlayer(player);
-	bullets.push_back(std::move(newBullet));
 }
 
-void Enemy::FireAndReset() 
+void Enemy::HitAnimation()
 {
-	Fire();
-	uint32_t time = 0;
-	switch (species)
+	if (status.isHit)
 	{
-	case Species::MonoEye:
-	default:
-		time = 80;
-		break;
-	case Species::WaveAngler:
-		time = 120;
-		break;
-	case Species::Croan:
-		time = 60;
-		break;
+		obj.mW.pos += shake.GetValue();
+		obj.cbM.Color(GetColor({ 255, 0, 255, 255 }));
+		status.isHit = shake.GetValue().IsZero();
 	}
-	timedCalls.push_back(std::make_unique<TimedCall>(
-		std::bind(&Enemy::FireAndReset, this), time));
-
+	else
+	{
+		obj.cbM.Color({ 1,1,1,1 });
+	}
 }
 
-void (Enemy::* Enemy::spUpdateTable[])() = {
-	&Enemy::Approach,
-	&Enemy::Leave,
-};
+void Enemy::DeathAnimation()
+{
+	if (status.isDeath)
+	{
+		obj.mW.pos += shake.GetValue();
+		obj.cbM.Color({ 1,1,1,shake.Ratio()});
+		isDead = shake.GetValue().IsZero();
+	}
+}
+
+Object3D Enemy::GetObjD()
+{
+	Object3D result = obj;
+	result.mW.pos += shake.GetValue();
+	result.Update();
+	return result;
+}

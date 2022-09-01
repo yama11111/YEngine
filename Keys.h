@@ -15,7 +15,11 @@ public:
 	bool IsRelease(const int key);
 	int Horizontal();
 	int Vertical();
-	bool isMove();
+	bool IsRight();
+	bool IsLeft();
+	bool IsUp();
+	bool IsUnder();
+	bool IsMove();
 public:
 	static Keys* GetInstance();
 private:

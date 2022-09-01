@@ -40,4 +40,8 @@ float EaseOut(const float start, const float end, const float time, const float 
 Vec4 GetColor(const Vec4& color);
 
 bool CollRaySphere(	const Vec3& ray, const Vec3& velocity,
-					const Vec3& sphere, const float rad, Vec3& start);
+					const Vec3& sphere, const float rad);
+
+bool CollRaySphere(	const Vec3& ray, const Vec3& velocity,
+					const Vec3& sphere, const float rad, 
+					Vec3& start, Vec3& end);

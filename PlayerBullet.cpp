@@ -1,14 +1,30 @@
 #include "PlayerBullet.h"
+#include "Calc.h"
 
-void PlayerBullet::Initialize(Model* model, const Vec3& pos, const Vec3& velocity, const UINT tex)
+static const float SCALE1 = 2.5f;
+static const float SCALE2 = 10.0f;
+
+void PlayerBullet::Initialize(	const Vec3& pos, const Vec3& velocity, const bool charge,
+								Model* model, const UINT tex)
 {
 	this->model = model;
 	this->tex = tex;
 	obj.mW.pos = pos;
-	obj.mW.scale = { 2.5f, 2.5f, 2.5f };
-	obj.cbM.Color({ 1.0,0.0,1.0,1.0 });
 	this->velocity = velocity;
-	SetRad(5.0f);
+	this->charge = charge;
+
+	if (charge) obj.mW.scale = { SCALE2 / 1.25f, SCALE2 / 1.25f, SCALE2 };
+	else obj.mW.scale = { SCALE1, SCALE1, SCALE1 };
+
+	if (charge) obj.cbM.Color({ 1.0,0.0,0.0,1.0 });
+	else obj.cbM.Color({ 1.0,0.0,1.0,1.0 });
+
+	if (charge) SetRad(5.0f);
+	else SetRad(10.0f);
+
+	if (charge) SetDamage(20);
+	else SetDamage(1);
+
 	SetAttribute(COLL_ATTRIBUTE_PLAYER);
 	SetMask(~COLL_ATTRIBUTE_PLAYER);
 }
@@ -17,6 +33,7 @@ void PlayerBullet::Update()
 {
 	if (--deathT <= 0) isDead = true;
 	obj.mW.pos += velocity;
+	obj.mW.rota = AdjustAngle(velocity);
 	obj.Update();
 }
 
@@ -25,7 +42,10 @@ void PlayerBullet::Draw(MatViewProjection& mVP)
 	model->Draw(obj, mVP, tex);
 }
 
-void PlayerBullet::OnCollision(const int damange) { isDead = true; }
+void PlayerBullet::OnCollision(const int damange) 
+{ 
+	isDead = !charge; 
+}
 
 Vec3 PlayerBullet::GetWorldPos() 
 {

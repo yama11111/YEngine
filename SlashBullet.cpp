@@ -1,6 +1,12 @@
 #include "SlashBullet.h"
 #include "Calc.h"
 
+static const float INDUCTIVE = 0.001f;
+static const float SPEED = 1.0f;
+static const float RAD = 3.0f;
+
+static const int32_t LIFE_T = 60 * 5;
+
 void SlashBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* model, const UINT tex)
 {
 	this->velocity = velocity;
@@ -10,9 +16,18 @@ void SlashBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* model
 	obj.mW.scale = { 15.0f, 1.25f, 2.5f };
 	obj.cbM.Color({ 0.25,0.5,0.75,1.0 });
 	obj.mW.rota = AdjustAngle(this->velocity);
-	SetRad(3.0f);
+
+	inductive = INDUCTIVE;
+	speed = SPEED;
+
+	SetDamage(20);
+
+	SetRad(RAD);
 	SetAttribute(COLL_ATTRIBUTE_ENEMY);
 	SetMask(~COLL_ATTRIBUTE_ENEMY);
+
+	deathT = LIFE_T;
+	homT.Initialize(LIFE_T, 5);
 }
 
 void SlashBullet::Update()
@@ -26,10 +41,4 @@ void SlashBullet::Update()
 void SlashBullet::Draw(MatViewProjection& mVP)
 {
 	model->Draw(obj, mVP, tex);
-}
-
-Vec3 SlashBullet::GetWorldPos()
-{
-	Vec3 pos = obj.mW.pos;
-	return pos;
 }

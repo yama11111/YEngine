@@ -7,10 +7,12 @@ void CollisionManager::Initialize() {}
 void CollisionManager::Update() { CheckAllCollisions(); }
 
 void CollisionManager::PushBack(Collider* collider) { colliders.push_back(collider); }
+void CollisionManager::PushBack2(Collider* collider) { colliders2.push_back(collider); }
 
 void CollisionManager::Clear() 
 {
 	if (!colliders.empty()) colliders.clear();
+	if (!colliders2.empty()) colliders2.clear();
 }
 
 void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* colliderB) 
@@ -44,6 +46,21 @@ void CollisionManager::CheckAllCollisions()
 		{
 			Collider* colB = *itrB;
 			CheckCollisionPair(colA, colB);
+		}
+	}
+
+	std::list<Collider*>::iterator itrA2 = colliders2.begin();
+	for (; itrA2 != colliders2.end(); ++itrA2)
+	{
+		Collider* colA2 = *itrA2;
+
+		std::list<Collider*>::iterator itrB2 = itrA2;
+		itrB2++;
+
+		for (; itrB2 != colliders2.end(); ++itrB2)
+		{
+			Collider* colB2 = *itrB2;
+			CheckCollisionPair(colA2, colB2);
 		}
 	}
 }

@@ -2,6 +2,32 @@
 #include <cassert>
 #include "DInput.h"
 #include "Calc.h"
+#include "Shake.h"
+
+static const Vec3 POS = { 0, 0, 50 };
+static const Vec3 SCALE = { 5.0f, 5.0f, 5.0f };
+static const float RAD = 3.0f;
+
+static const int HP = 100;
+static const int LIMIT = 60 * 1.5;
+
+static const float POWER = 2.0f;
+static const float INC_S = 0.1f;
+static const float DEC_S = 0.05f;
+
+static const float LIMIT_X = 80.0f;
+static const float LIMIT_Y = 50.0f;
+
+static const float SPEED_B = 20.0f;
+static const float INTERVAL = 5.0f;
+
+static const float SPEED_C = 10.0f;
+static const float CHARGE = 90.0f;
+static const float COOL = 20.0f;
+
+static const float INC_T = 1.0f;
+
+static const float SPEED_R = PI / 180.0f;
 
 void Player::Initialize(Model* model, const UINT tex, const UINT bulletTex)
 {
@@ -15,22 +41,42 @@ void Player::Initialize(Model* model, const UINT tex, const UINT bulletTex)
 	newScope->Initialize(model, bulletTex);
 	scope.reset(newScope);
 
-	obj.mW.pos = { 0, 0, 50 };
-	obj.mW.scale = { 5.0, 5.0, 5.0 };
+	InitStatus();
+}
+
+void Player::InitStatus()
+{
+	obj.mW.pos = POS;
+	obj.mW.scale = SCALE;
 	velocity = { 0,0,1 };
-	status.Initialize(100, 2.0f);
-	SetRad(3.0f);
+	previous = { 0,0,1 };
+
+	status.Initialize(HP, LIMIT);
+	speed.Initialize({}, POWER);
+	for (size_t i = 0; i < 4; i++)
+	{
+		ease[i].Initialize(INC_S, DEC_S);
+	}
+	shotT.Initialize(INTERVAL, INC_T);
+	chargeT.Initialize(CHARGE, INC_T);
+	coolT.Initialize(COOL, INC_T);
+	cool = false;
+	target = { 0,0,0 };
+
+	SetRad(RAD);
 	SetDamage(0);
 	SetAttribute(COLL_ATTRIBUTE_PLAYER);
 	SetMask(~COLL_ATTRIBUTE_PLAYER);
+	scope->InitStatus();
 }
 
-void Player::Update(MatViewProjection& vP)
+void Player::Update(RailCamera& rCamera)
 {
-	scope->Update(mouse->Pos(), vP);
 	bullets.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {return bullet->IsDead();});
+	scope->Update(mouse->Pos(), rCamera.GetViewProjection());
 	Move();
 	Adjust();
+	CalcVelocity();
 	obj.Update();
 	if (camera) obj.mW.m *= *camera;
 	Attack();
@@ -38,11 +84,26 @@ void Player::Update(MatViewProjection& vP)
 	{
 		bullet->Update();
 	}
+
+	if (status.isHit) 
+	{
+		rCamera.Shaking(2.5, 0.5);
+		status.isHit = false;
+	}
+	if (status.isInvisible)
+	{
+		obj.cbM.Color(GetColor({ 255, 0, 0, 255 }));
+	}
+	else
+	{
+		obj.cbM.Color({ 1,1,1,1 });
+	}
+	status.Update();
 }
 
 void Player::Draw(MatViewProjection& vP) 
 {
-	scope->Draw3D(vP);
+	//scope->Draw3D(vP);
 	model->Draw(obj, vP, tex);
 	for (std::unique_ptr<PlayerBullet>& bullet : bullets) 
 	{
@@ -57,15 +118,15 @@ void Player::Draw2D()
 
 void Player::Move() 
 {
-	TimerUpdate();
-	float p = 2.0f;
-	status.speed.x = EaseIn(0.0f, status.power, t1.x, p) - EaseIn(0.0f, status.power, t2.x, p);
-	status.speed.y = EaseIn(0.0f, status.power, t1.y, p) - EaseIn(0.0f, status.power, t2.y, p);
+	ease[0].Update(keys->IsRight());
+	ease[1].Update(keys->IsLeft());
+	ease[2].Update(keys->IsUp());
+	ease[3].Update(keys->IsUnder());
 
-	obj.mW.pos += status.speed;
+	speed.value.x = ease[0].In(0.0f, speed.power, 2.0f) - ease[1].In(0.0f, speed.power, 2.0f);
+	speed.value.y = ease[2].In(0.0f, speed.power, 2.0f) - ease[3].In(0.0f, speed.power, 2.0f);
 
-	const float LIMIT_X = 80;
-	const float LIMIT_Y = 50;
+	obj.mW.pos += speed.value;
 
 	obj.mW.pos.x = max(obj.mW.pos.x, -LIMIT_X);
 	obj.mW.pos.x = min(obj.mW.pos.x,  LIMIT_X);
@@ -73,55 +134,136 @@ void Player::Move()
 	obj.mW.pos.y = min(obj.mW.pos.y,  LIMIT_Y);
 }
 
-void Player::TimerUpdate()
+void Player::Adjust() 
 {
-	float p = 0.1f;
-	float d = 0.05f;
-	if (keys->IsDown(DIK_RIGHT) || keys->IsDown(DIK_D))
+	if (previous.x != velocity.x)
 	{
-		t1.x += p;
-		if (t1.x >= 1.0f) t1.x = 1.0f;
+		if (previous.x < velocity.x)
+		{
+			previous.x += SPEED_R;
+			if (previous.x >= velocity.x) previous.x = velocity.x;
+		}
+		if (previous.x > velocity.x) 
+		{
+			previous.x -= SPEED_R;
+			if (previous.x <= velocity.x) previous.x = velocity.x;
+		}
 	}
-	else 
+	if (previous.y != velocity.y)
 	{
-		t1.x -= d; 
-		if (t1.x <= 0.0f) t1.x = 0.0f;
+		if (previous.y < velocity.y)
+		{
+			previous.y += SPEED_R;
+			if (previous.y >= velocity.y) previous.y = velocity.y;
+		}
+		if (previous.y > velocity.y)
+		{
+			previous.y -= SPEED_R;
+			if (previous.y <= velocity.y) previous.y = velocity.y;
+		}
 	}
-	if (keys->IsDown(DIK_LEFT) || keys->IsDown(DIK_A))
+	if (previous.z != velocity.z)
 	{
-		t2.x += p;
-		if (t2.x >= 1.0f) t2.x = 1.0f;
+		if (previous.z < velocity.z)
+		{
+			previous.z += SPEED_R;
+			if (previous.z >= velocity.z) previous.z = velocity.z;
+		}
+		if (previous.z > velocity.z)
+		{
+			previous.z -= SPEED_R;
+			if (previous.z <= velocity.z) previous.z = velocity.z;
+		}
+	}
+
+	obj.mW.rota = AdjustAngle(previous);
+}
+
+void Player::CalcVelocity()
+{
+	if (scope->cursor->target)
+	{
+		velocity = target;
+		velocity -= GetWorldPos();
+		velocity = velocity.Normalized();
+		scope->cursor->target = false;
 	}
 	else
 	{
-		t2.x -= d;
-		if (t2.x <= 0.0f) t2.x = 0.0f;
-	}
-	if (keys->IsDown(DIK_UP) || keys->IsDown(DIK_W))
-	{
-		t1.y += p;
-		if (t1.y >= 1.0f) t1.y = 1.0f;
-	}
-	else
-	{
-		t1.y -= d;
-		if (t1.y <= 0.0f) t1.y = 0.0f;
-	}
-	if (keys->IsDown(DIK_DOWN) || keys->IsDown(DIK_S))
-	{
-		t2.y += p;
-		if (t2.y >= 1.0f) t2.y = 1.0f;
-	}
-	else
-	{
-		t2.y -= d;
-		if (t2.y <= 0.0f) t2.y = 0.0f;
+		velocity = scope->worldPos;
+		velocity -= GetWorldPos();
+		velocity = velocity.Normalized();
 	}
 }
 
-void Player::Adjust() 
+void Player::Attack() 
 {
-	obj.mW.rota = AdjustAngle(velocity);
+	if (!scope->cursor->shot)
+	{
+		chargeT.Update();
+		if (chargeT.IsEnd())
+		{
+			scope->cursor->charge = true;
+		}
+	}
+
+	if (cool)
+	{
+		coolT.Update();
+		if (coolT.IsEnd())
+		{
+			cool = false;
+		}
+	}
+
+	if (scope->cursor->charge)
+	{
+		if (mouse->IsDown(DIM_LEFT))
+		{
+			scope->cursor->SetShot(true);
+			Vec3 v = velocity;
+			v *= SPEED_C;
+
+			//v = MultVec3Mat4(v, obj.mW.m);
+			//Vec3 pos = MultVec3Mat4(obj.mW.pos, obj.mW.m);
+
+			std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+			newBullet->Initialize(GetWorldPos(), v, true, model, bulletTex);
+			bullets.push_back(std::move(newBullet));
+
+			scope->cursor->charge = false;
+			chargeT.Reset();
+			cool = true;
+		}
+	}
+	else if (!cool)
+	{
+		if (scope->cursor->shot)
+		{
+			shotT.Update();
+			if (shotT.IsEnd())
+			{
+				scope->cursor->SetShot(false);
+				shotT.Reset();
+			}
+			else return;
+		}
+		if (mouse->IsDown(DIM_LEFT))
+		{
+			scope->cursor->SetShot(true);
+			Vec3 v = velocity;
+			v *= SPEED_B;
+
+			//v = MultVec3Mat4(v, obj.mW.m);
+			//Vec3 pos = MultVec3Mat4(obj.mW.pos, obj.mW.m);
+
+			std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+			newBullet->Initialize(GetWorldPos(), v, false, model, bulletTex);
+			bullets.push_back(std::move(newBullet));
+
+			chargeT.Reset();
+		}
+	}
 }
 
 Vec3 Player::GetWorldPos() 
@@ -130,39 +272,8 @@ Vec3 Player::GetWorldPos()
 	return pos;
 }
 
-void Player::Attack() 
-{
-	float increase = 0.2f;
-	float interval = 1.0f;
-	if (scope->cursor->shot)
-	{
-		shotT += increase;
-		if (interval <= shotT)
-		{
-			shotT = 0.0f;
-			scope->cursor->SetShot(false);
-		}
-		else return;
-	}
-	if (mouse->IsDown(DIM_LEFT)) 
-	{
-		scope->cursor->SetShot(true);
-		const float SPEED = 10.0f;
-		Vec3 v = velocity;
-		v *= SPEED;
-
-		v = MultVec3Mat4(v, obj.mW.m);
-		Vec3 pos = MultVec3Mat4(obj.mW.pos, obj.mW.m);
-
-		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(model, pos, v, bulletTex);
-		bullets.push_back(std::move(newBullet));
-	}
-}
-
 void Player::OnCollision(const int damage) 
 {
-	status.hp -= damage;
-	status.CalcHp();
-	obj.cbM.Color({ 1.0,0.0,0.0,1.0 });
+	status.Damage(damage);
+	status.isHit = true;
 }

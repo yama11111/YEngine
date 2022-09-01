@@ -46,12 +46,30 @@ int Keys::Vertical()
 	return down - up;
 }
 
-bool Keys::isMove()
+bool Keys::IsRight()
 {
-	return 	IsDown(DIK_RIGHT) || IsDown(DIK_D) ||
-			IsDown(DIK_LEFT)  || IsDown(DIK_A) ||
-			IsDown(DIK_DOWN)  || IsDown(DIK_S) ||
-			IsDown(DIK_UP)	  || IsDown(DIK_W);
+	return IsDown(DIK_RIGHT) || IsDown(DIK_D);
+}
+
+bool Keys::IsLeft()
+{
+	return IsDown(DIK_LEFT) || IsDown(DIK_A);
+}
+
+bool Keys::IsUp()
+{
+	return IsDown(DIK_UP) || IsDown(DIK_W);
+}
+
+bool Keys::IsUnder()
+{
+	return IsDown(DIK_DOWN) || IsDown(DIK_S);
+}
+
+bool Keys::IsMove()
+{
+	return 	IsRight() || IsLeft() ||
+			IsUp() || IsUnder();
 }
 
 Keys::Keys() :

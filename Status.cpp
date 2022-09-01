@@ -1,28 +1,44 @@
 #include "Status.h"
 
 Status::Status() :
-	hp(0), isDeath(false), direction({0,0,0}), speed(), power(0.0f)
+	hp(0), isDeath(false)
 {
 }
 
-void Status::Initialize(const int hp, const float power)
+void Status::Initialize(const int hp, const int limit)
 {
 	this->hp = hp;
+	this->limit = limit;
+	invT = limit;
 	isDeath = false;
-	direction = { 0,0,0 };
-	this->power = power;
+	isHit = false;
+	isInvisible = false;
 }
 
-void Status::CalcHp()
+void Status::Update()
 {
-	if (hp <= 0)
+	if (isInvisible)
 	{
-		isDeath = true;
-		hp = 0;
+		invT--;
+		if (invT <= 0) 
+		{
+			invT = limit;
+			isInvisible = false;
+		}
 	}
 }
-void Status::CalcSpeed()
+
+void Status::Damage(const int damage)
 {
-	speed = direction.Normalized();
-	speed *= power;
+	if (!isInvisible)
+	{
+		if (limit != 0) isInvisible = true;
+		hp -= damage;
+		if (hp <= 0)
+		{
+			isDeath = true;
+			hp = 0;
+		}
+		else isDeath = false;
+	}
 }

@@ -34,8 +34,7 @@ void Ray::SetStart(const Vec3& start)
 
 void Ray::SetVelocity(const Vec3& velocity)
 {
-	this->velocity = velocity;
-	this->velocity = this->velocity.Normalized();
+	this->velocity = velocity.Normalized();
 }
 
 void Ray::SetLength(const float length)

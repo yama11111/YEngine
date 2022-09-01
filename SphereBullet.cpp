@@ -1,6 +1,12 @@
 #include "SphereBullet.h"
 #include "Calc.h"
 
+static const float INDUCTIVE = 0.0005f;
+static const float SPEED = 2.0f;
+static const float RAD = 3.0f;
+
+static const int32_t LIFE_T = 60 * 5;
+
 void SphereBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* model, const UINT tex)
 {
 	this->velocity = velocity;
@@ -10,9 +16,18 @@ void SphereBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* mode
 	obj.mW.scale = { 5.0f, 5.0f, 5.0f };
 	obj.cbM.Color({ 0.25,0.0,0.25,1.0 });
 	obj.mW.rota = AdjustAngle(this->velocity);
-	SetRad(3.0f);
+
+	inductive = INDUCTIVE;
+	speed = SPEED;
+
+	SetDamage(5);
+
+	SetRad(RAD);
 	SetAttribute(COLL_ATTRIBUTE_ENEMY);
 	SetMask(~COLL_ATTRIBUTE_ENEMY);
+
+	deathT = LIFE_T;
+	homT.Initialize(LIFE_T, 5);
 }
 
 void SphereBullet::Update()
@@ -28,8 +43,3 @@ void SphereBullet::Draw(MatViewProjection& mVP)
 	model->Draw(obj, mVP, tex);
 }
 
-Vec3 SphereBullet::GetWorldPos()
-{
-	Vec3 pos = obj.mW.pos;
-	return pos;
-}

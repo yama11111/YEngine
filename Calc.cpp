@@ -97,7 +97,7 @@ Vec4 MultVec4Mat4(const Vec4& v, const Mat4& m)
 		v.r * m.m[0][0] + v.g * m.m[1][0] + v.b * m.m[2][0] + v.a * m.m[3][0],
 		v.r * m.m[0][1] + v.g * m.m[1][1] + v.b * m.m[2][1] + v.a * m.m[3][1],
 		v.r * m.m[0][2] + v.g * m.m[1][2] + v.b * m.m[2][2] + v.a * m.m[3][2],
-		v.r * m.m[0][2] + v.g * m.m[1][2] + v.b * m.m[2][2] + v.a * m.m[3][3]
+		v.r * m.m[0][3] + v.g * m.m[1][3] + v.b * m.m[2][3] + v.a * m.m[3][3]
 	};
 	return result;
 }
@@ -157,12 +157,11 @@ Mat4 MatPerspective()
 Mat4 MatViewPort()
 {
 	Mat4 result = Mat4::Identity();
+
 	result.m[0][0] = WIN_SIZE.x / 2.0f;
-	result.m[3][0] = -WIN_SIZE.x / 2.0f;
-	result.m[1][1] = WIN_SIZE.y / 2.0f;
+	result.m[3][0] = WIN_SIZE.x / 2.0f;
+	result.m[1][1] = -WIN_SIZE.y / 2.0f;
 	result.m[3][1] = WIN_SIZE.y / 2.0f;
-	result.m[2][2] = 1000.0f - 0.1f;
-	result.m[3][2] = 0.1f;
 	return result;
 }
 
@@ -182,14 +181,10 @@ Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 
 Vec3 WorldPos(const Vec2& screen, float z, const MatViewProjection& vp)
 {
-	Mat4 iView = InverceMat4(vp.view.m);
-	Mat4 iPro = InverceMat4(vp.pro.m);
-	Mat4 iVP = InverceMat4(MatViewPort());
-	Mat4 inv = iVP * iPro * iView;
-	Vec4 pos(screen.x - WIN_SIZE.x / 2.0f, screen.y - WIN_SIZE.y / 2.0f, z, 1.0f);
-	Vec4 r = MultVec4Mat4(pos, inv);
-	Vec3 result(pos.r, -pos.g, pos.b);
-	result /= r.a;
+	Mat4 inv = InverceMat4(vp.view.m * vp.pro.m * MatViewPort());
+	Vec3 pos(screen.x, screen.y, z);
+	Vec3 r = MatTransform(pos, inv);
+	Vec3 result(r.x, r.y, r.z);
 
 	return result;
 }
@@ -262,7 +257,7 @@ Vec4 GetColor(const Vec4& color)
 }
 
 bool CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
-					const Vec3& sphere, const float rad, Vec3& start)
+					const Vec3& sphere, const float rad)
 {
 	Vec3 p = sphere;
 	p -= ray;
@@ -277,12 +272,37 @@ bool CollRaySphere(	const Vec3& ray, const Vec3& velocity,
 
 	float a1 = (b - sqrtf(s)) / a;
 	float a2 = (b + sqrtf(s)) / a;
+	if (a1 < 0.0f || a2 < 0.0f) return false;
 
+	return true;
+}
+
+bool CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
+					const Vec3& sphere, const float rad,
+					Vec3& start, Vec3& end)
+{
+	Vec3 p = sphere;
+	p -= ray;
+
+	float a = velocity.Dot(velocity);
+	if (a == 0.0f) return false;
+	float b = velocity.Dot(p);
+	float c = p.Dot(p) - (rad * rad);
+
+	float s = b * b - a * c;
+	if (s < 0.0f) return false;
+
+	float a1 = (b - sqrtf(s)) / a;
+	float a2 = (b + sqrtf(s)) / a;
 	if (a1 < 0.0f || a2 < 0.0f) return false;
 
 	start.x = ray.x + a1 * velocity.x;
 	start.y = ray.y + a1 * velocity.y;
 	start.z = ray.z + a1 * velocity.z;
+
+	end.x = ray.x + a2 * velocity.x;
+	end.y = ray.y + a2 * velocity.y;
+	end.z = ray.z + a2 * velocity.z;
 
 	return true;
 }
