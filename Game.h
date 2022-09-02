@@ -19,14 +19,37 @@ public:
 	DXPipelineSet pplnSet2D;
 	DXPipelineSet pplnSet3D;
 
-	UINT enemyTex = 0;
-	UINT playerTex = 0;
 	UINT plainTex = 0;
-	UINT skyTex = 0;
 
 	Model* m1 = nullptr;
+
+	UINT titleTex = 0;
+	Sprite* titleS = nullptr;
+	Object2D title{};
+
+	UINT pushTex = 0;
+	Sprite* pushS = nullptr;
+	Object2D push{};
+	
+	UINT instructTex = 0;
+	Sprite* instructS = nullptr;
+	Object2D instruct{};
+
+	UINT resetTex = 0;
+	Sprite* resetS = nullptr;
+	Object2D reset{};
+
+	UINT skyTex = 0;
 	Sprite* s1 = nullptr;
 	Object2D sky{};
+
+	Sprite* curten = nullptr;
+	Object2D curtenF{};
+	Object2D curtenB{};
+
+	UINT doorTex = 0;
+	Sprite* doorS = nullptr;
+	Object2D door{};
 
 	std::unique_ptr<Player> player;
 	std::list<std::unique_ptr<Enemy>> enemys;
@@ -42,9 +65,16 @@ public:
 		Play
 	};
 
-	Scene scene = Scene::Play;
+	Scene scene = Scene::Title;
+	bool change = false;
+	bool start = false;
+	bool flash = false;
+	bool dark = false;
+	float pos = 0.0f;
+	int t1 = 0;
 
 	int num = 0;
+	int count = 0;
 public:
 	Game();
 	~Game();
@@ -52,6 +82,7 @@ public:
 	void Update();
 	void Draw();
 private:
+	void SceneInit();
 	void WaveInit();
 	void WaveUpdate();
 	void Move();

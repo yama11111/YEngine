@@ -9,7 +9,7 @@ void EnemyManager::Initialize(Player* player, Model* model, const UINT plainTex)
 {
 	std::unique_ptr<Enemy> newEnemy = std::make_unique<Croan>();
 	newEnemy->SetPlayer(player);
-	newEnemy->Initialize({ 0, 40, 100 }, model, plainTex, plainTex);
+	newEnemy->Initialize({ 0, 40, 100 }, model, plainTex);
 	enemys.push_back(std::move(newEnemy));
 
 	//std::unique_ptr<Enemy> newEnemy2 = std::make_unique<Enemy>();

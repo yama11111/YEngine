@@ -5,7 +5,7 @@
 #include "Shake.h"
 
 static const Vec3 POS = { 0, 0, 50 };
-static const Vec3 SCALE = { 5.0f, 5.0f, 5.0f };
+static const Vec3 SCALE = { 1.0f, 1.0f, 1.0f };
 static const float RAD = 3.0f;
 
 static const int HP = 100;
@@ -29,16 +29,15 @@ static const float INC_T = 1.0f;
 
 static const float SPEED_R = PI / 180.0f;
 
-void Player::Initialize(Model* model, const UINT tex, const UINT bulletTex)
+void Player::Initialize(Model* model, const UINT tex)
 {
 	assert(model);
 	this->model = model;
 	this->tex = tex;
-	this->bulletTex = bulletTex;
 	keys = Keys::GetInstance();
 	mouse = Mouse::GetInstance();
 	Scope* newScope = new Scope();
-	newScope->Initialize(model, bulletTex);
+	newScope->Initialize(model, tex);
 	scope.reset(newScope);
 
 	InitStatus();
@@ -68,18 +67,26 @@ void Player::InitStatus()
 	SetAttribute(COLL_ATTRIBUTE_PLAYER);
 	SetMask(~COLL_ATTRIBUTE_PLAYER);
 	scope->InitStatus();
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		body[i].SetParent(&obj.mW);
+	}
+	ModelInit();
+	play = false;
 }
 
-void Player::Update(RailCamera& rCamera)
+void Player::Update(RailCamera& rCamera, const bool play)
 {
 	bullets.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {return bullet->IsDead();});
-	scope->Update(mouse->Pos(), rCamera.GetViewProjection());
-	Move();
+	this->play = play;
+	if (play) scope->Update(mouse->Pos(), rCamera.GetViewProjection());
+	if (play) Move();
 	Adjust();
-	CalcVelocity();
+	if (play) CalcVelocity();
 	obj.Update();
 	if (camera) obj.mW.m *= *camera;
-	Attack();
+	if (play) Attack();
 	for (std::unique_ptr<PlayerBullet>& bullet : bullets) 
 	{
 		bullet->Update();
@@ -105,6 +112,11 @@ void Player::Draw(MatViewProjection& vP)
 {
 	//scope->Draw3D(vP);
 	model->Draw(obj, vP, tex);
+	for (size_t i = 0; i < 3; i++)
+	{
+		body[i].Update();
+		model->Draw(body[i], vP, tex);
+	}
 	for (std::unique_ptr<PlayerBullet>& bullet : bullets) 
 	{
 		bullet->Draw(vP);
@@ -113,7 +125,7 @@ void Player::Draw(MatViewProjection& vP)
 
 void Player::Draw2D()
 {
-	scope->Draw2D();
+	if (play)scope->Draw2D();
 }
 
 void Player::Move() 
@@ -196,7 +208,7 @@ void Player::CalcVelocity()
 	}
 }
 
-void Player::Attack() 
+void Player::Attack()
 {
 	if (!scope->cursor->shot)
 	{
@@ -228,7 +240,7 @@ void Player::Attack()
 			//Vec3 pos = MultVec3Mat4(obj.mW.pos, obj.mW.m);
 
 			std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-			newBullet->Initialize(GetWorldPos(), v, true, model, bulletTex);
+			newBullet->Initialize(GetWorldPos(), v, true, model, tex);
 			bullets.push_back(std::move(newBullet));
 
 			scope->cursor->charge = false;
@@ -258,12 +270,31 @@ void Player::Attack()
 			//Vec3 pos = MultVec3Mat4(obj.mW.pos, obj.mW.m);
 
 			std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-			newBullet->Initialize(GetWorldPos(), v, false, model, bulletTex);
+			newBullet->Initialize(GetWorldPos(), v, false, model, tex);
 			bullets.push_back(std::move(newBullet));
 
 			chargeT.Reset();
 		}
 	}
+}
+
+void Player::ModelInit()
+{
+	// body
+	body[0].mW.scale = { 5.0,5.0,5.0 };
+	body[0].cbM.Color(GetColor({ 250, 250, 30, 255 }));
+
+	// wing a
+	body[1].mW.scale = { 5.0,1.0,3.0 };
+	body[1].mW.pos = { 7.0,6.0,-1.0 };
+	body[1].mW.rota = { 0.0f,0.0f,PI / 8.0f };
+	body[1].cbM.Color(GetColor({ 255, 255, 255, 255 }));
+
+	// wing b
+	body[2].mW.scale = { 5.0,1.0,3.0 };
+	body[2].mW.pos = { -7.0,6.0,-1.0 };
+	body[2].mW.rota = { 0.0f,0.0f,-PI / 8.0f };
+	body[2].cbM.Color(GetColor({ 255, 255, 255, 255 }));
 }
 
 Vec3 Player::GetWorldPos() 

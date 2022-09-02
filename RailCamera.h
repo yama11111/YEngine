@@ -14,7 +14,8 @@ private:
 public:
 	void Initialize(const Vec3& pos);
 	void Update();
-	void Shaking(const bool swing, const bool dekey);
+	void Shaking(const float swing, const float dekey);
+	Vec3 ShakeValue() { return shake.GetValue(); }
 	MatViewProjection GetViewProjection() { return vp; }
 	MatViewProjection GetViewProjectionD();
 	Mat4* GetMatWorld() { return &mW.m; }

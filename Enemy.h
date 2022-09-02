@@ -24,11 +24,12 @@ protected:
 
 	Player* player = nullptr;
 
+	Object3D draw{};
 	Model* model = nullptr;
 	UINT tex = 0;
-	UINT bulletTex = 0;
 public:
-	virtual void Initialize(const Vec3& pos, Model* model, const UINT tex, const UINT bulletTex) = 0;
+	virtual void Initialize(const Vec3& pos, Model* model, const UINT tex) = 0;
+	virtual void ModelInit() = 0;
 	virtual void Update() = 0;
 	virtual void Draw(MatViewProjection& mVP) = 0;
 

@@ -13,8 +13,8 @@ void SlashBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* model
 	this->model = model;
 	this->tex = tex;
 	obj.mW.pos = pos;
-	obj.mW.scale = { 15.0f, 1.25f, 2.5f };
-	obj.cbM.Color({ 0.25,0.5,0.75,1.0 });
+	obj.mW.scale = { 25.0f, 2.5f, 4.0f };
+	obj.cbM.Color(GetColor({ 40, 235, 90, 255 }));
 	obj.mW.rota = AdjustAngle(this->velocity);
 
 	inductive = INDUCTIVE;

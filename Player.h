@@ -31,19 +31,23 @@ private:
 
 	Mat4* camera = nullptr;
 
+	Object3D body[3];
 	Model* model = nullptr;
 	UINT tex = 0;
-	UINT bulletTex = 0;
 	Keys* keys = nullptr;
 	Mouse* mouse = nullptr;
+	bool play = false;
 public:
-	void Initialize(Model* model, const UINT tex, const UINT bulletTex);
+	void Initialize(Model* model, const UINT tex);
 	void InitStatus();
-	void Update(RailCamera& rCamera);
+	void Update(RailCamera& rCamera, const bool play);
 	void Draw(MatViewProjection& vP);
 	void Draw2D();
 	void Damege(const int damage) { status.hp -= damage; }
 	void SetCamera(Mat4* camera) { this->camera = camera; }
+	void SetVelocity(const Vec3& vel) { this->velocity = vel; }
+	void SetPre(const Vec3& pre) { this->previous = pre; }
+	void SetPos(const Vec3& pos) { this->obj.mW.pos = pos; }
 	Vec3 GetWorldPos() override;
 	void OnCollision(const int damage) override;
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets; }
@@ -52,4 +56,5 @@ private:
 	void Adjust();
 	void CalcVelocity();
 	void Attack();
+	void ModelInit();
 };

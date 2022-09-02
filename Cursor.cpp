@@ -118,6 +118,11 @@ void Cursor::ColorChange()
 		color.r = ease.In(255, 230, 2.0f);
 		color.g = ease.In(255, 230, 2.0f);
 		color.b = ease.In(255, 20, 2.0f);
+		if (shot)
+		{
+			color = { 230, 0, 20, 255 };
+			cc = false;
+		}
 	}
 	if (rock && dist == 64.0f) cc = false;
 }

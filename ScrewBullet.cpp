@@ -6,7 +6,7 @@ static const float INDUCTIVE = 0.01f;
 static const float SPEED = 1.0f;
 static const float RAD = 0.5f;
 
-static const float SCALE = 2.0f;
+static const float SCALE = 3.0f;
 static const float INC_RADIAN = PI / 18.0f;
 
 static const int32_t LIFE_T = 60 * 5;
@@ -27,7 +27,7 @@ void ScrewBullet::Initialize2(	const Vec3& pos, const Vec3& velocity,
 	obj.mW.pos = { cosf(radian),sinf(radian),0 };
 	obj.mW.pos *= radius;
 	obj.mW.scale = { SCALE, SCALE, SCALE };
-	obj.cbM.Color({ 0.75,0.75,1.0,1.0 });
+	obj.cbM.Color(GetColor({ 245, 90, 25, 255 }));
 	obj.SetParent(&nucleus);
 
 	nucleus.pos = pos;
@@ -85,7 +85,7 @@ void ScrewBullet::Homing()
 
 		velocity = Lerp(fromVel, toPlayer, inductive);
 		velocity = velocity.Normalized();
-		nucleus.rota = AdjustAngle(velocity);
+		//nucleus.rota = AdjustAngle(velocity);
 		velocity *= speed;
 	}
 }

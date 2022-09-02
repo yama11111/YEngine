@@ -14,7 +14,7 @@ void SphereBullet::Initialize(const Vec3& pos, const Vec3& velocity, Model* mode
 	this->tex = tex;
 	obj.mW.pos = pos;
 	obj.mW.scale = { 5.0f, 5.0f, 5.0f };
-	obj.cbM.Color({ 0.25,0.0,0.25,1.0 });
+	obj.cbM.Color(GetColor( { 90, 15, 95, 255 }));
 	obj.mW.rota = AdjustAngle(this->velocity);
 
 	inductive = INDUCTIVE;

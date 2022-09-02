@@ -18,7 +18,7 @@ void RailCamera::Update()
 	vpUpdate();
 }
 
-void RailCamera::Shaking(const bool swing, const bool dekey)
+void RailCamera::Shaking(const float swing, const float dekey)
 {
 	shake.Shaking(swing, dekey);
 }

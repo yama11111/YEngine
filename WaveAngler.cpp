@@ -6,15 +6,20 @@
 
 static const uint32_t TIME = 300;
 
-void WaveAngler::Initialize(const Vec3& pos, Model* model, const UINT tex, const UINT bulletTex)
+void WaveAngler::Initialize(const Vec3& pos, Model* model, const UINT tex)
 {
 	assert(model);
 	this->model = model;
 	this->tex = tex;
-	this->bulletTex = bulletTex;
 
 	obj.mW.pos = pos;
-	obj.mW.scale = { 5.0, 5.0, 5.0 };
+	obj.mW.scale = { 1.0, 1.0, 1.0 };
+	for (size_t i = 0; i < ARY; i++)
+	{
+		body[i].SetParent(&draw.mW);
+	}
+	ModelInit();
+
 	FireAndReset();
 
 	status.Initialize(25, 0);
@@ -23,6 +28,43 @@ void WaveAngler::Initialize(const Vec3& pos, Model* model, const UINT tex, const
 	SetRad(1.0f);
 	SetAttribute(COLL_ATTRIBUTE_ENEMY);
 	SetMask(~COLL_ATTRIBUTE_ENEMY);
+}
+
+void WaveAngler::ModelInit()
+{
+	// body
+	body[0].mW.scale = { 12.0,3.0,12.0 };
+	body[0].cbM.Color(GetColor({ 150, 190, 30, 255 }));
+
+	// eye a
+	body[1].mW.scale = { 4.0,4.0,4.0 };
+	body[1].mW.pos = { 10.0,2.0,10.0 };
+	body[1].cbM.Color(GetColor({ 80, 150, 30, 255 }));
+
+	// eye b
+	body[2].mW.scale = { 4.0,4.0,4.0 };
+	body[2].mW.pos = { -10.0,2.0,10.0 };
+	body[2].cbM.Color(GetColor({ 80, 150, 30, 255 }));
+
+	// fin a
+	body[3].mW.scale = { 4.0,2.0,6.0 };
+	body[3].mW.pos = { 15.0,0.0,0.0 };
+	body[3].cbM.Color(GetColor({ 150, 190, 30, 255 }));
+
+	// fin b
+	body[4].mW.scale = { 4.0,2.0,6.0 };
+	body[4].mW.pos = { -15.0,0.0,0.0 };
+	body[4].cbM.Color(GetColor({ 150, 190, 30, 255 }));
+
+	// fin c
+	body[5].mW.scale = { 6.0,2.0,10.0 };
+	body[5].mW.pos = { 0.0,0.0,-10.0 };
+	body[5].cbM.Color(GetColor({ 220, 70, 120, 255 }));
+
+	// fin d
+	body[6].mW.scale = { 2.0,8.0,6.0 };
+	body[6].mW.pos = { 0.0,6.0,0.0 };
+	body[6].cbM.Color(GetColor({ 220, 70, 120, 255 }));
 }
 
 void WaveAngler::Update()
@@ -34,6 +76,10 @@ void WaveAngler::Update()
 	{
 		timedCall->Update();
 	}
+
+	shake.Update();
+	HitAnimation();
+	DeathAnimation();
 
 	FollowEyes();
 	obj.Update();
@@ -48,7 +94,13 @@ void WaveAngler::Update()
 
 void WaveAngler::Draw(MatViewProjection& mVP)
 {
-	model->Draw(obj, mVP, tex);
+	draw = GetObjD();
+	model->Draw(draw, mVP, tex);
+	for (size_t i = 0; i < ARY; i++)
+	{
+		body[i].Update();
+		model->Draw(body[i], mVP, tex);
+	}
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets)
 	{
 		bullet->Draw(mVP);
@@ -65,7 +117,7 @@ void WaveAngler::Fire()
 
 	std::unique_ptr<EnemyBullet> newBullet;
 	newBullet = std::make_unique<SlashBullet>();
-	newBullet->Initialize(obj.mW.pos, velocity, model, bulletTex);
+	newBullet->Initialize(obj.mW.pos, velocity, model, tex);
 	newBullet->SetPlayer(player);
 	bullets.push_back(std::move(newBullet));
 }

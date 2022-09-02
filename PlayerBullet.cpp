@@ -16,14 +16,14 @@ void PlayerBullet::Initialize(	const Vec3& pos, const Vec3& velocity, const bool
 	if (charge) obj.mW.scale = { SCALE2 / 1.25f, SCALE2 / 1.25f, SCALE2 };
 	else obj.mW.scale = { SCALE1, SCALE1, SCALE1 };
 
-	if (charge) obj.cbM.Color({ 1.0,0.0,0.0,1.0 });
-	else obj.cbM.Color({ 1.0,0.0,1.0,1.0 });
+	if (charge) obj.cbM.Color(GetColor({ 175, 0, 235, 255 }));
+	else obj.cbM.Color(GetColor({ 175, 0, 235, 255 }));
 
-	if (charge) SetRad(5.0f);
+	if (charge) SetRad(25.0f);
 	else SetRad(10.0f);
 
 	if (charge) SetDamage(20);
-	else SetDamage(1);
+	else SetDamage(2);
 
 	SetAttribute(COLL_ATTRIBUTE_PLAYER);
 	SetMask(~COLL_ATTRIBUTE_PLAYER);
