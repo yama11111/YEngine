@@ -1,10 +1,11 @@
 #include "YWindows.h"
-#include "YDirectX/YDirectX.h"
-#include "DInput.h"
+#include "YDirectX.h"
+#include "InputManager.h"
 #include "Game.h"
-#include "YDirectX/DrawDesc.h"
+#include "ScreenDesc.h"
 
 using namespace DX;
+using namespace Input;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -18,7 +19,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	if (!dx->Initialize(win->HandleWindow())) return 0;
 
 	// Input ‰Šú‰»
-	DInput* input = DInput::GetInstance();
+	InputManager* input = InputManager::GetInstance();
 	input->Init(win->HandleWindowInstance(), win->HandleWindow());
 	Keys* keys = Keys::GetInstance();
 	Mouse* mouse = Mouse::GetInstance();
@@ -31,8 +32,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Game game;
 	game.Initialize();
 
-	DrawDesc drawDesc;
-	drawDesc.Set();
+	ScreenDesc screenDesc;
+	screenDesc.Set();
 
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while (true)
@@ -53,7 +54,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		dx->PreDraw(); // •`‰æ€”õ
 
 		// --------------------- Draw --------------------- //
-		drawDesc.SetCommand();
+		screenDesc.SetCommand();
 
 		game.Draw();
 

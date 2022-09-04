@@ -46,14 +46,8 @@
     <Filter Include="ソース ファイル\Game">
       <UniqueIdentifier>{93900f36-01ba-4567-a140-f4026c5f9416}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\行列">
-      <UniqueIdentifier>{f6b1568e-9b32-4362-92f5-805a9d1ac323}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Game">
       <UniqueIdentifier>{14b0a698-8ebd-40ae-bf67-e108a8fddfa6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\行列">
-      <UniqueIdentifier>{8ce4dc27-d9c2-437a-8ffc-f6ff5d19a7ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Game\Coll">
       <UniqueIdentifier>{15a4ccc0-4332-4777-89ae-0c3e2bedddd7}</UniqueIdentifier>
@@ -103,17 +97,29 @@
     <Filter Include="ヘッダー ファイル\DX\Utility">
       <UniqueIdentifier>{7b7ca9c1-f587-4e23-a642-cb5c66475ecd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\2D">
-      <UniqueIdentifier>{87ef38d8-71bf-4028-9e72-c1ecd293c16a}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Obj">
+      <UniqueIdentifier>{70ef4f10-5248-43b8-8f32-d54e52384a92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\3D">
-      <UniqueIdentifier>{18521754-9bea-4403-862a-3aa0ceef9da8}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Obj\行列">
+      <UniqueIdentifier>{f6b1568e-9b32-4362-92f5-805a9d1ac323}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\2D">
+    <Filter Include="ソース ファイル\Obj\3D">
+      <UniqueIdentifier>{d749b602-2381-48a7-9d5b-cfa8e287d74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Obj\2D">
       <UniqueIdentifier>{c75573f8-1992-4da4-9fd3-b6fce37cd72d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\3D">
-      <UniqueIdentifier>{d749b602-2381-48a7-9d5b-cfa8e287d74a}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Obj">
+      <UniqueIdentifier>{0d517c4a-f2b2-408c-ba6a-a1e7460e84b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Obj\行列">
+      <UniqueIdentifier>{8ce4dc27-d9c2-437a-8ffc-f6ff5d19a7ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Obj\2D">
+      <UniqueIdentifier>{87ef38d8-71bf-4028-9e72-c1ecd293c16a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Obj\3D">
+      <UniqueIdentifier>{18521754-9bea-4403-862a-3aa0ceef9da8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,35 +129,29 @@
     <ClCompile Include="YWindows.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="DInput.cpp">
-      <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Keys.cpp">
-      <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
     <ClCompile Include="MatView.cpp">
-      <Filter>ソース ファイル\Game\行列</Filter>
+      <Filter>ソース ファイル\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="MatProjection.cpp">
-      <Filter>ソース ファイル\Game\行列</Filter>
+      <Filter>ソース ファイル\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="MatWorld.cpp">
-      <Filter>ソース ファイル\Game\行列</Filter>
+      <Filter>ソース ファイル\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="Object2D.cpp">
-      <Filter>ソース ファイル\2D</Filter>
+      <Filter>ソース ファイル\Obj\2D</Filter>
     </ClCompile>
     <ClCompile Include="Object3D.cpp">
-      <Filter>ソース ファイル\3D</Filter>
+      <Filter>ソース ファイル\Obj\3D</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>ソース ファイル\2D</Filter>
+      <Filter>ソース ファイル\Obj\2D</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>ソース ファイル\3D</Filter>
+      <Filter>ソース ファイル\Obj\3D</Filter>
     </ClCompile>
     <ClCompile Include="MatViewProjection.cpp">
-      <Filter>ソース ファイル\Game\行列</Filter>
+      <Filter>ソース ファイル\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル\Game</Filter>
@@ -171,11 +171,8 @@
     <ClCompile Include="PlayerBullet.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Ray.cpp">
-      <Filter>ソース ファイル\3D</Filter>
+      <Filter>ソース ファイル\Obj\3D</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
@@ -225,107 +222,38 @@
     <ClCompile Include="CircleBullet.cpp">
       <Filter>ソース ファイル\Game\Enemy\弾</Filter>
     </ClCompile>
-    <ClCompile Include="Shake.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Adapter.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\CommandList.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\CommandQueue.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\DebugLayer.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\DepthStencilView.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Device.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Fence.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\RenderTargetView.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\ResourceBarrier.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\SwapChain.cpp">
-      <Filter>ソース ファイル\DX\初期化</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Utility\DescriptorHeap.cpp">
-      <Filter>ソース ファイル\DX\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Utility\Resource.cpp">
-      <Filter>ソース ファイル\DX\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Utility\Result.cpp">
-      <Filter>ソース ファイル\DX\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\PipelineSet.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\PipelineState.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\RootParameterManager.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\RootSignature.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\SampleDescManager.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\ScissorRect.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\ShaderResourceView.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\VertexLayoutManager.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\YDirectX.cpp">
-      <Filter>ソース ファイル\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\DrawDesc.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\Viewport.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
-    <ClCompile Include="YDirectX\ShaderManager.cpp">
-      <Filter>ソース ファイル\DX\描画</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\ConstBuffer.cpp">
+    <ClCompile Include="DX\GPUResource\ConstBuffer.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\ConstBufferManager.cpp">
+    <ClCompile Include="DX\GPUResource\ConstBufferManager.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\TextureManager.cpp">
+    <ClCompile Include="DX\GPUResource\TextureManager.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\VertexIndex.cpp">
+    <ClCompile Include="DX\GPUResource\VertexIndex.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\Vertices.cpp">
+    <ClCompile Include="DX\GPUResource\Vertices.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\Vertices2D.cpp">
+    <ClCompile Include="DX\GPUResource\Vertices2D.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
     </ClCompile>
-    <ClCompile Include="YDirectX\GPUResource\Vertices3D.cpp">
+    <ClCompile Include="DX\GPUResource\Vertices3D.cpp">
       <Filter>ソース ファイル\DX\GPUリソース</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Utility\DescriptorHeap.cpp">
+      <Filter>ソース ファイル\DX\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Utility\Resource.cpp">
+      <Filter>ソース ファイル\DX\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Utility\Result.cpp">
+      <Filter>ソース ファイル\DX\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Math\Calc.cpp">
       <Filter>ソース ファイル\Math</Filter>
@@ -339,6 +267,9 @@
     <ClCompile Include="Math\Random.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Timer.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
     <ClCompile Include="Math\Vec2.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
@@ -348,46 +279,139 @@
     <ClCompile Include="Math\Vec4.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Timer.cpp">
+    <ClCompile Include="Math\Shake.cpp">
       <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputManager.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Keys.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Mouse.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Adapter.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\CommandList.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\CommandQueue.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\DebugLayer.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\DepthStencilView.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Device.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Fence.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\RenderTargetView.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ResourceBarrier.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\SwapChain.cpp">
+      <Filter>ソース ファイル\DX\初期化</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\YDirectX.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Viewport.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\VertexLayoutManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ShaderResourceView.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ShaderManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ScissorRect.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\SampleDescManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\RootSignature.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\RootParameterManager.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\PipelineState.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\PipelineSet.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ScreenDesc.cpp">
+      <Filter>ソース ファイル\DX\描画</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\MatProjection.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\MatView.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\MatViewProjection.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\MatWorld.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Model.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Object2D.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Object3D.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Ray.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Sprite.cpp">
+      <Filter>ソース ファイル\Obj\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YWindows.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Def.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="DInput.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Keys.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
     <ClInclude Include="MatProjection.h">
-      <Filter>ヘッダー ファイル\Game\行列</Filter>
+      <Filter>ヘッダー ファイル\Obj\行列</Filter>
     </ClInclude>
     <ClInclude Include="MatView.h">
-      <Filter>ヘッダー ファイル\Game\行列</Filter>
+      <Filter>ヘッダー ファイル\Obj\行列</Filter>
     </ClInclude>
     <ClInclude Include="MatWorld.h">
-      <Filter>ヘッダー ファイル\Game\行列</Filter>
+      <Filter>ヘッダー ファイル\Obj\行列</Filter>
     </ClInclude>
     <ClInclude Include="Object2D.h">
-      <Filter>ヘッダー ファイル\2D</Filter>
+      <Filter>ヘッダー ファイル\Obj\2D</Filter>
     </ClInclude>
     <ClInclude Include="Object3D.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
+      <Filter>ヘッダー ファイル\Obj\3D</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>ヘッダー ファイル\2D</Filter>
+      <Filter>ヘッダー ファイル\Obj\2D</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
+      <Filter>ヘッダー ファイル\Obj\3D</Filter>
     </ClInclude>
     <ClInclude Include="MatViewProjection.h">
-      <Filter>ヘッダー ファイル\Game\行列</Filter>
+      <Filter>ヘッダー ファイル\Obj\行列</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル\Game</Filter>
@@ -410,11 +434,8 @@
     <ClInclude Include="PlayerBullet.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Ray.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
+      <Filter>ヘッダー ファイル\Obj\3D</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>ヘッダー ファイル\Game\Player</Filter>
@@ -464,110 +485,8 @@
     <ClInclude Include="CircleBullet.h">
       <Filter>ヘッダー ファイル\Game\Enemy\弾</Filter>
     </ClInclude>
-    <ClInclude Include="Shake.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Adapter.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\CommandList.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\CommandQueue.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\DebugLayer.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\DepthStencilView.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Device.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Utility\Result.h">
-      <Filter>ヘッダー ファイル\DX\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Utility\DescriptorHeap.h">
-      <Filter>ヘッダー ファイル\DX\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Utility\ResourceInfo.h">
-      <Filter>ヘッダー ファイル\DX\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Utility\Resource.h">
-      <Filter>ヘッダー ファイル\DX\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Fence.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\RenderTargetView.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\ResourceBarrier.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\SwapChain.h">
-      <Filter>ヘッダー ファイル\DX\初期化</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\YDirectX.h">
-      <Filter>ヘッダー ファイル\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\VertexLayoutManager.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\ShaderResourceView.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\ScissorRect.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\SampleDescManager.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\RootSignature.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\RootParameterManager.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\PipelineSet.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\PipelineState.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\DrawDesc.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\ShaderManager.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\Viewport.h">
-      <Filter>ヘッダー ファイル\DX\描画</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>ヘッダー ファイル\Game\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\ConstBuffer.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\ConstBufferManager.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\TextureManager.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\Vertices.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\Vertices2D.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\Vertices3D.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
-    </ClInclude>
-    <ClInclude Include="YDirectX\GPUResource\VertexIndex.h">
-      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
     </ClInclude>
     <ClInclude Include="Math\Calc.h">
       <Filter>ヘッダー ファイル\Math</Filter>
@@ -592,6 +511,147 @@
     </ClInclude>
     <ClInclude Include="Math\Timer.h">
       <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\ConstBuffer.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\ConstBufferManager.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\TextureManager.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\VertexIndex.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\Vertices.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\Vertices2D.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource\Vertices3D.h">
+      <Filter>ヘッダー ファイル\DX\GPUリソース</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Utility\DescriptorHeap.h">
+      <Filter>ヘッダー ファイル\DX\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Utility\Resource.h">
+      <Filter>ヘッダー ファイル\DX\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Utility\ResourceInfo.h">
+      <Filter>ヘッダー ファイル\DX\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Utility\Result.h">
+      <Filter>ヘッダー ファイル\DX\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Def.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Shake.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputManager.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Keys.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Mouse.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Adapter.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\CommandList.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\CommandQueue.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\DebugLayer.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\DepthStencilView.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Device.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Fence.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\RenderTargetView.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ResourceBarrier.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\SwapChain.h">
+      <Filter>ヘッダー ファイル\DX\初期化</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\YDirectX.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Viewport.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\VertexLayoutManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ShaderResourceView.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ShaderManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ScissorRect.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\SampleDescManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\RootSignature.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\RootParameterManager.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\PipelineState.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\PipelineSet.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ScreenDesc.h">
+      <Filter>ヘッダー ファイル\DX\描画</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\MatProjection.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\MatView.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\MatViewProjection.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\MatWorld.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Model.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Object2D.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Object3D.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Ray.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Sprite.h">
+      <Filter>ソース ファイル\Obj\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

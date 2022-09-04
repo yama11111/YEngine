@@ -1,10 +1,15 @@
 #include "Vec2.h"
 #include <math.h>
 
+using Math::Vec2;
+
+constexpr Vec2::Vec2() :
+	x(0.0f), y(0.0f)
+{}
+
 constexpr Vec2::Vec2(const float x, const float y)
 	:x(x), y(y)
-{
-}
+{}
 
 float Vec2::Length() const
 {
@@ -87,7 +92,7 @@ Vec2& Vec2::operator/=(float s)
 	return *this;
 }
 
-inline constexpr Vec2 operator*(float s, const Vec2& v)
+inline constexpr Vec2 Math::operator*(float s, const Vec2& v)
 {
 	return { s * v.x, s * v.y };
 }

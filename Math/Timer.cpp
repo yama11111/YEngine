@@ -1,5 +1,7 @@
 #include "Timer.h"
 
+using Math::Timer;
+
 Timer::Timer() :
 	timer(0.0f), maxTime(0.0f), increase(0.0f), isEnd(false)
 {

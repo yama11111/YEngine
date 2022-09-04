@@ -1,9 +1,13 @@
 #include "Calc.h"
 #include "DirectXMath.h"
-#include "../Def.h"
+#include "Def.h"
 #include <cmath>
 
-Mat4 MatScale(const Vec3& s)
+using Math::Vec3;
+using Math::Vec4;
+using Math::Mat4;
+
+Mat4 Math::MatScale(const Vec3& s)
 {
 	Mat4 matScale({
 	s.x, 0.0f, 0.0f, 0.0f,
@@ -14,7 +18,7 @@ Mat4 MatScale(const Vec3& s)
 	return matScale;
 }
 
-Mat4 MatRotationX(float angle)
+Mat4 Math::MatRotationX(float angle)
 {
 	Mat4 matRota({
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -24,7 +28,7 @@ Mat4 MatRotationX(float angle)
 		});
 	return matRota;
 }
-Mat4 MatRotationY(float angle)
+Mat4 Math::MatRotationY(float angle)
 {
 	Mat4 matRota({
 		(float)cos(angle), 0.0f, (float)-sin(angle), 0.0f,
@@ -34,7 +38,7 @@ Mat4 MatRotationY(float angle)
 		});
 	return matRota;
 }
-Mat4 MatRotationZ(float angle)
+Mat4 Math::MatRotationZ(float angle)
 {
 	Mat4 matRota({
 		(float)cos(angle), (float)sin(angle), 0.0f, 0.0f,
@@ -44,7 +48,7 @@ Mat4 MatRotationZ(float angle)
 		});
 	return matRota;
 }
-Mat4 MatRotation(const Vec3& r)
+Mat4 Math::MatRotation(const Vec3& r)
 {
 	Mat4 m = Mat4::Identity();
 	m *= MatRotationZ(r.z) * MatRotationX(r.x) * MatRotationY(r.y);
@@ -52,7 +56,7 @@ Mat4 MatRotation(const Vec3& r)
 	return m;
 }
 
-Mat4 MatTranslation(const Vec3& t)
+Mat4 Math::MatTranslation(const Vec3& t)
 {
 	Mat4 matMove({
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -63,7 +67,7 @@ Mat4 MatTranslation(const Vec3& t)
 	return matMove;
 }
 
-Vec3 MatTransform(const Vec3& v, const Mat4& m)
+Vec3 Math::MatTransform(const Vec3& v, const Mat4& m)
 {
 	float w = v.x * m.m[0][3] + v.y * m.m[1][3] + v.z * m.m[2][3] + m.m[3][3];
 	Vec3 result
@@ -74,12 +78,12 @@ Vec3 MatTransform(const Vec3& v, const Mat4& m)
 	};
 	return result;
 }
-Vec3 operator*(const Vec3& v, const Mat4& m)
+Vec3 Math::operator*(const Vec3& v, const Mat4& m)
 {
 	return MatTransform(v, m);
 }
 
-Vec3 MultVec3Mat4(const Vec3& v, const Mat4& m)
+Vec3 Math::MultVec3Mat4(const Vec3& v, const Mat4& m)
 {
 	Vec3 result
 	{
@@ -90,7 +94,7 @@ Vec3 MultVec3Mat4(const Vec3& v, const Mat4& m)
 	return result;
 }
 
-Vec4 MultVec4Mat4(const Vec4& v, const Mat4& m)
+Vec4 Math::MultVec4Mat4(const Vec4& v, const Mat4& m)
 {
 	Vec4 result
 	{
@@ -126,7 +130,7 @@ static DirectX::XMMATRIX ConvertMat4(const Mat4& mat)
 	return r;
 }
 
-Mat4 InverceMat4(const Mat4& m)
+Mat4 Math::InverceMat4(const Mat4& m)
 {
 	DirectX::XMMATRIX mat = ConvertMat4(m);
 	DirectX::XMMATRIX inv = DirectX::XMMatrixInverse(nullptr, mat);
@@ -134,7 +138,7 @@ Mat4 InverceMat4(const Mat4& m)
 	return ConvertMatrix(inv);
 }
 
-Mat4 MatOrthoGraphic()
+Mat4 Math::MatOrthoGraphic()
 {
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixOrthographicOffCenterLH(
@@ -144,7 +148,7 @@ Mat4 MatOrthoGraphic()
 		);
 	return ConvertMatrix(mat);
 }
-Mat4 MatPerspective()
+Mat4 Math::MatPerspective()
 {
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixPerspectiveFovLH(
@@ -154,7 +158,7 @@ Mat4 MatPerspective()
 		);
 	return ConvertMatrix(mat);
 }
-Mat4 MatViewPort()
+Mat4 Math::MatViewPort()
 {
 	Mat4 result = Mat4::Identity();
 
@@ -170,7 +174,7 @@ static DirectX::XMVECTOR ConvertXMVector(const Vec3& vec)
 	DirectX::XMVECTOR vector = { vec.x, vec.y, vec.z };
 	return vector;
 }
-Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
+Mat4 Math::MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 {
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixLookAtLH(
@@ -179,7 +183,7 @@ Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 	return ConvertMatrix(mat);
 }
 
-Vec3 WorldPos(const Vec2& screen, float z, const MatViewProjection& vp)
+Vec3 Math::WorldPos(const Vec2& screen, float z, const MatViewProjection& vp)
 {
 	Mat4 inv = InverceMat4(vp.view.m * vp.pro.m * MatViewPort());
 	Vec3 pos(screen.x, screen.y, z);
@@ -189,7 +193,7 @@ Vec3 WorldPos(const Vec2& screen, float z, const MatViewProjection& vp)
 	return result;
 }
 
-Vec3 AdjustAngle(Vec3& velocity)
+Vec3 Math::AdjustAngle(Vec3& velocity)
 {
 	Vec3 result{};
 	result.y = std::atan2(velocity.x, velocity.z);
@@ -199,14 +203,14 @@ Vec3 AdjustAngle(Vec3& velocity)
 	return result;
 }
 
-Vec3 Lerp(const Vec3& v1, const Vec3& v2, float t)
+Vec3 Math::Lerp(const Vec3& v1, const Vec3& v2, float t)
 {
 	Vec3 result = v2 - v1;
 	result *= t;
 	result += v1;
 	return result;
 }
-Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t)
+Vec3 Math::Slerp(const Vec3& v1, const Vec3& v2, float t)
 {
 	float dot = v1.Dot(v2);
 	if (dot >= 1.0 || dot <= -1.0) return v1;
@@ -231,21 +235,21 @@ Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t)
 	return e;
 }
 
-float lerp(const float a, const float b, const float t)
+float Math::lerp(const float a, const float b, const float t)
 {
 	return a + t * (b - a);
 }
-float EaseIn(const float start, const float end, const float time, const float power)
+float Math::EaseIn(const float start, const float end, const float time, const float power)
 {
 	return lerp(start, end, pow(time, power));
 }
-float EaseOut(const float start, const float end, const float time, const float power)
+float Math::EaseOut(const float start, const float end, const float time, const float power)
 {
 	return lerp(start, end, 1 - pow(1 - time, power));
 }
 
 
-Vec4 GetColor(const Vec4& color)
+Vec4 Math::GetColor(const Vec4& color)
 {
 	Vec4 result = color;
 	result.r /= 255.0f;
@@ -256,7 +260,7 @@ Vec4 GetColor(const Vec4& color)
 	return result;
 }
 
-bool CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
+bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
 					const Vec3& sphere, const float rad)
 {
 	Vec3 p = sphere;
@@ -277,7 +281,7 @@ bool CollRaySphere(	const Vec3& ray, const Vec3& velocity,
 	return true;
 }
 
-bool CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
+bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
 					const Vec3& sphere, const float rad,
 					Vec3& start, Vec3& end)
 {

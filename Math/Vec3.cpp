@@ -1,10 +1,15 @@
 #include "Vec3.h"
 #include <math.h>
 
+using Math::Vec3;
+
+constexpr Vec3::Vec3() :
+	x(0.0f), y(0.0f), z(0.0f)
+{}
+
 constexpr Vec3::Vec3(const float x, const float y, const float z) :
 	x(x), y(y), z(z)
-{
-}
+{}
 
 float Vec3::Length() const
 {
@@ -101,7 +106,7 @@ Vec3& Vec3::operator/=(float s)
 	return *this;
 }
 
-inline constexpr Vec3 operator*(float s, const Vec3& v)
+inline constexpr Vec3 Math::operator*(float s, const Vec3& v)
 {
 	return { s * v.x, s * v.y, s * v.z };
 }

@@ -1,5 +1,7 @@
 #include "Mat4.h"
 
+using Math::Mat4;
+
 Mat4::Mat4()
 {
 	m[0][0] = 0.0f, m[0][1] = 0.0f, m[0][2] = 0.0f, m[0][3] = 0.0f;
@@ -47,7 +49,7 @@ Mat4 Mat4::Identity()
 	return m;
 }
 
-Mat4& operator*=(Mat4& m1, const Mat4& m2)
+Mat4& Math::operator*=(Mat4& m1, const Mat4& m2)
 {
 	Mat4 m = Mat4();
 	for (int i = 0; i < 4; i++) 

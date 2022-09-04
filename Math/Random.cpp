@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+using Math::Random;
 
 Random::Random() {
 	engine.seed(seed_gen());
