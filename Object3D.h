@@ -1,5 +1,5 @@
 #pragma once
-#include "ConstBufferManager.h"
+#include "YDirectX/GPUResource/ConstBufferManager.h"
 #include "MatWorld.h"
 #include "MatViewProjection.h"
 
@@ -7,8 +7,8 @@ class Object3D
 {
 public:
 	MatWorld mW;
-	ConstBufferMaterial cbM;
-	ConstBufferTransform cbT;
+	DX::GPUResource::ConstBufferMaterial cbM;
+	DX::GPUResource::ConstBufferTransform cbT;
 	MatWorld* parent = nullptr;
 public:
 	Object3D();
@@ -17,7 +17,7 @@ public:
 	void Affine(MatViewProjection& mVP);
 	void SetParent(MatWorld* parent);
 private:
-	static ConstBufferManager* cbManager;
+	static DX::GPUResource::ConstBufferManager* cbManager;
 public:
 	static void StaticInit();
 };

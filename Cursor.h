@@ -1,6 +1,6 @@
 #pragma once
 #include "Sprite.h"
-#include "Ease.h"
+#include "Math/Ease.h"
 
 class Cursor
 {

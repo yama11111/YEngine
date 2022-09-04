@@ -1,10 +1,10 @@
 #include "Scope.h"
-#include "Calc.h"
-#include "TextureManager.h"
+#include "Math/Calc.h"
+#include "YDirectX/GPUResource/TextureManager.h"
 
 void Scope::Initialize(Model* model, const UINT tex)
 {
-	TextureManager* texM = TextureManager::GetInstance();
+	DX::GPUResource::TextureManager* texM = DX::GPUResource::TextureManager::GetInstance();
 	UINT cursorTex[Cursor::CursorTexNum::Num];
 	UINT shadowTex[Cursor::CursorTexNum::Num];
 	cursorTex[0] = texM->Load(L"Resources/cursor.png", false);

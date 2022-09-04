@@ -1,5 +1,5 @@
 #include "SphereBullet.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 
 static const float INDUCTIVE = 0.0005f;
 static const float SPEED = 2.0f;

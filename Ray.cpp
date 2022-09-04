@@ -1,5 +1,5 @@
 #include "Ray.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include <cassert>
 
 void Ray::Initialize(const InitRay& init, Model* model, const UINT tex)

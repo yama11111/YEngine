@@ -1,7 +1,7 @@
 #include "WaveAngler.h"
 #include "SlashBullet.h"
 #include "Player.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include <cassert>
 
 static const uint32_t TIME = 300;

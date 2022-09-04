@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include "MonoEye.h"
 #include "WaveAngler.h"
 #include "Croan.h"
@@ -21,11 +21,11 @@ void Game::Initialize()
 	keys = Keys::GetInstance();
 	mouse = Mouse::GetInstance();
 	rand = Random::GetInstance();
-	texM = TextureManager::GetInstance();
-	srvH = DXSRVHeap::GetInstance();
+	texM = DX::GPUResource::TextureManager::GetInstance();
+	srvH = DX::ShaderResourceView::GetInstance();
 	srvH->SetRootParameter();
-	pplnSet2D.Create2D();
-	pplnSet3D.Create3D();
+	pplnSet2D.Create(DX::PipelineSet::Dimension::Two);
+	pplnSet3D.Create(DX::PipelineSet::Dimension::Three);
 
 	plainTex = texM->Load(L"Resources/white.png", false);
 	titleTex = texM->Load(L"Resources/title.png", false);
@@ -185,7 +185,7 @@ void Game::Update()
 
 void Game::Draw()
 {
-	pplnSet2D.SetCommand2D();
+	pplnSet2D.SetCommand();
 	srvH->SetDescriptorHeaps();
 	// ----- 背景スプライト ----- //
 
@@ -198,7 +198,7 @@ void Game::Draw()
 	doorS->Draw(door, doorTex);
 
 	// -------------------------- //
-	pplnSet3D.SetCommand3D();
+	pplnSet3D.SetCommand();
 	srvH->SetDescriptorHeaps();
 	// --------- モデル --------- //
 
@@ -216,7 +216,7 @@ void Game::Draw()
 	}
 
 	// -------------------------- //
-	pplnSet2D.SetCommand2D();
+	pplnSet2D.SetCommand();
 	srvH->SetDescriptorHeaps();
 	// ----- 前景スプライト ----- //
 

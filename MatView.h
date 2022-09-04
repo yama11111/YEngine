@@ -1,6 +1,6 @@
 #pragma once
-#include "Vec3.h"
-#include "Mat4.h"
+#include "Math/Vec3.h"
+#include "Math/Mat4.h"
 
 struct MatView
 {

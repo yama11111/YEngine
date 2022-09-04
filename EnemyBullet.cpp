@@ -1,5 +1,5 @@
 #include "EnemyBullet.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include <cmath>
 #include "Player.h"
 

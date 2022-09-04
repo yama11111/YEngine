@@ -1,5 +1,5 @@
 #include "SlashBullet.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 
 static const float INDUCTIVE = 0.001f;
 static const float SPEED = 1.0f;

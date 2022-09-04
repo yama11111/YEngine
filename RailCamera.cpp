@@ -1,5 +1,5 @@
 #include "RailCamera.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 
 void RailCamera::Initialize(const Vec3& pos)
 {

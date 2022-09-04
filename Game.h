@@ -1,7 +1,7 @@
 #pragma once
 #include "Keys.h"
 #include "Mouse.h"
-#include "DXPipelineSet.h"
+#include "YDirectX/PipelineSet.h"
 #include "Sprite.h"
 #include "Player.h"
 #include "EnemyManager.h"
@@ -14,10 +14,10 @@ public:
 	Keys* keys = nullptr;
 	Mouse* mouse = nullptr;
 	Random* rand = nullptr;
-	TextureManager* texM = nullptr;
-	DXSRVHeap* srvH = nullptr;
-	DXPipelineSet pplnSet2D;
-	DXPipelineSet pplnSet3D;
+	DX::GPUResource::TextureManager* texM = nullptr;
+	DX::ShaderResourceView* srvH = nullptr;
+	DX::PipelineSet pplnSet2D;
+	DX::PipelineSet pplnSet3D;
 
 	UINT plainTex = 0;
 

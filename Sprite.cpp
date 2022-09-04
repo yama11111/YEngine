@@ -1,11 +1,17 @@
 #include "Sprite.h"
 
 MatProjection Sprite::mP = MatProjection();
-TextureManager* Sprite::texManager = nullptr;
+DX::GPUResource::TextureManager* Sprite::texManager = nullptr;
+
+void Sprite::StaticInit()
+{
+	mP = MatProjection(MatProjection::OrthoGraphic);
+	texManager = DX::GPUResource::TextureManager::GetInstance();
+}
 
 Sprite::Sprite(const Vec2& size) :
 	size(size),
-	vt(Vertices2D(
+	vt(DX::GPUResource::Vertices2D(
 		{
 			{{   0.0f, size.y, 0.0f }, { 0.0f, 1.0f }}, // ¶‰º
 			{{   0.0f,   0.0f, 0.0f }, { 0.0f, 0.0f }}, // ¶ã
@@ -14,7 +20,7 @@ Sprite::Sprite(const Vec2& size) :
 		})
 	)
 {
-	vt.Init();
+	vt.Initialize();
 }
 
 void Sprite::Draw(Object2D& obj, const UINT tex)
@@ -24,10 +30,4 @@ void Sprite::Draw(Object2D& obj, const UINT tex)
 	obj.SetCommand();
 	texManager->SetCommand(tex);
 	vt.Draw();
-}
-
-void Sprite::StaticInit()
-{
-	mP = MatProjection(MatProjection::OrthoGraphic);
-	texManager = TextureManager::GetInstance();
 }

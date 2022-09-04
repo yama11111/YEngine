@@ -3,7 +3,7 @@
 #include "SlashBullet.h"
 #include "ScrewBullet.h"
 #include "Player.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include <cassert>
 
 void Enemy::FollowEyes()

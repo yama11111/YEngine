@@ -1,5 +1,5 @@
 #pragma once
-#include "Vec3.h"
+#include "Math/Vec3.h"
 #include "CollisionConfig.h"
 class Collider 
 {

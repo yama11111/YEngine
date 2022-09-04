@@ -1,5 +1,5 @@
 #include "MatView.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 
 MatView::MatView() :
 	eye(0.0f, 0.0f, -100.0f), 

@@ -1,9 +1,10 @@
 #include "YWindows.h"
-#include "YDirectX.h"
+#include "YDirectX/YDirectX.h"
 #include "DInput.h"
 #include "Game.h"
-#include "DXPipelineSet.h"
-#include "DXDrawDesc.h"
+#include "YDirectX/DrawDesc.h"
+
+using namespace DX;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -14,7 +15,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	// DirectX ‰Šú‰»
 	YDirectX* dx = YDirectX::GetInstance();
-	if (dx->Init(win->HandleWindow()) == -1) return 0;
+	if (!dx->Initialize(win->HandleWindow())) return 0;
 
 	// Input ‰Šú‰»
 	DInput* input = DInput::GetInstance();
@@ -30,7 +31,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Game game;
 	game.Initialize();
 
-	DXDrawDesc drawDesc;
+	DrawDesc drawDesc;
 	drawDesc.Set();
 
 	// ƒQ[ƒ€ƒ‹[ƒv
@@ -49,7 +50,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		// ------------------------------------------------ //
 
-		if (dx->PreDraw() == -1) return 0; // •`‰æ€”õ
+		dx->PreDraw(); // •`‰æ€”õ
 
 		// --------------------- Draw --------------------- //
 		drawDesc.SetCommand();
@@ -58,7 +59,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		// ------------------------------------------------ //
 
-		if (dx->PostDraw() == -1) return 0; // •`‰æŒãˆ—
+		dx->PostDraw(); // •`‰æŒãˆ—
 
 		// ---------------------------------- //
 

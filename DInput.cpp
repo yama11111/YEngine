@@ -1,5 +1,7 @@
 #include "DInput.h"
-#include "Result.h"
+#include "YDirectX/Utility/Result.h"
+
+using DX::Utility::Result;
 
 DInput* DInput::GetInstance()
 {

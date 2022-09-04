@@ -1,7 +1,11 @@
 #include "Object3D.h"
-#include "Result.h"
 
-ConstBufferManager* Object3D::cbManager = nullptr;
+DX::GPUResource::ConstBufferManager* Object3D::cbManager = nullptr;
+
+void Object3D::StaticInit()
+{
+	cbManager = DX::GPUResource::ConstBufferManager::GetInstance();
+}
 
 Object3D::Object3D() :
 	mW(MatWorld())
@@ -34,9 +38,4 @@ void Object3D::SetParent(MatWorld* parent)
 {
 	if (parent == nullptr) return;
 	this->parent = parent;
-}
-
-void Object3D::StaticInit()
-{
-	cbManager = ConstBufferManager::GetInstance();
 }

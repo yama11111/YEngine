@@ -1,5 +1,5 @@
 #include "CircleBullet.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 
 static const float INDUCTIVE = 0.01f;
 static const float SPEED = 1.0f;

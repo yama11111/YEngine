@@ -1,5 +1,5 @@
 #include "Cursor.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include <cassert>
 
 static const float INC = 0.05f;

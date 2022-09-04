@@ -1,6 +1,6 @@
 #pragma once
-#include "Vec3.h"
-#include "Random.h"
+#include "Math/Vec3.h"
+#include "Math/Random.h"
 
 class Shake {
 private:

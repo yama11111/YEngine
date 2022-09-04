@@ -1,6 +1,6 @@
 #pragma once
-#include "Vec2.h"
-#include "Vec4.h"
+#include "Math/Vec2.h"
+#include "Math/Vec4.h"
 
 // ウィンドウサイズ 
 const Vec2 WIN_SIZE = { 1280, 720 }; // (横, 縦)

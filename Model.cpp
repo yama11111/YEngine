@@ -1,8 +1,14 @@
 #include "Model.h"
-TextureManager* Model::texManager = nullptr;
+
+DX::GPUResource::TextureManager* Model::texManager = nullptr;
+
+void Model::StaticInit() 
+{
+	texManager = DX::GPUResource::TextureManager::GetInstance();
+}
 
 Model::Model() :
-	vtIdx(VertexIndex(
+	vtIdx(DX::GPUResource::VertexIndex(
 		{
 			// ëO
 			{{ -1.0f, -1.0f, -1.0f }, {}, {0.0f, 1.0f}}, // ç∂â∫
@@ -79,7 +85,3 @@ void Model::Draw(Object3D& obj, MatViewProjection& mVP, const UINT tex)
 	vtIdx.Draw();
 }
 
-void Model::StaticInit() 
-{
-	texManager = TextureManager::GetInstance();
-}

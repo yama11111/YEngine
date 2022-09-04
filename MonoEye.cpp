@@ -1,7 +1,7 @@
 #include "MonoEye.h"
 #include "SphereBullet.h"
 #include "Player.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include <cassert>
 
 static const uint32_t TIME = 200;

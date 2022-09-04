@@ -1,7 +1,11 @@
 #include "Object2D.h"
-#include "Result.h"
 
-ConstBufferManager* Object2D::cbManager = nullptr;
+DX::GPUResource::ConstBufferManager* Object2D::cbManager = nullptr;
+
+void Object2D::StaticInit()
+{
+	cbManager = DX::GPUResource::ConstBufferManager::GetInstance();
+}
 
 Object2D::Object2D() :
 	mW(MatWorld())
@@ -29,10 +33,5 @@ void Object2D::SetParent(MatWorld* parent)
 {
 	if (parent == nullptr) return;
 	this->parent = parent;
-}
-
-void Object2D::StaticInit()
-{
-	cbManager = ConstBufferManager::GetInstance();
 }
 

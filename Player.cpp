@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <cassert>
 #include "DInput.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 #include "Shake.h"
 
 static const Vec3 POS = { 0, 0, 50 };

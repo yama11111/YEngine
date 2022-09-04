@@ -78,11 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)DirectXTex;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)DirectXTex;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)DirectXTex;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)DirectXTex;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)YDirectX;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)YDirectX;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,46 +143,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Calc.cpp" />
     <ClCompile Include="CircleBullet.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="ConstBuffer.cpp" />
-    <ClCompile Include="ConstBufferManager.cpp" />
     <ClCompile Include="Croan.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DInput.cpp" />
-    <ClCompile Include="DXAdapter.cpp" />
-    <ClCompile Include="DXCommandList.cpp" />
-    <ClCompile Include="DXCommandQueue.cpp" />
-    <ClCompile Include="DXDebugLayer.cpp" />
-    <ClCompile Include="DXDescriptorHeap.cpp" />
-    <ClCompile Include="DXDevice.cpp" />
-    <ClCompile Include="DXDrawDesc.cpp" />
-    <ClCompile Include="DXDSVHeap.cpp" />
-    <ClCompile Include="DXFence.cpp" />
-    <ClCompile Include="DXPipelineSet.cpp" />
-    <ClCompile Include="DXPipelineState.cpp" />
-    <ClCompile Include="DXRenderTargetView.cpp" />
-    <ClCompile Include="DXResource.cpp" />
-    <ClCompile Include="DXResourceBarrier.cpp" />
-    <ClCompile Include="DXResourceInfo.cpp" />
-    <ClCompile Include="DXRootParameterManager.cpp" />
-    <ClCompile Include="DXRootSignature.cpp" />
-    <ClCompile Include="DXSampleDescManager.cpp" />
-    <ClCompile Include="DXScissorRect.cpp" />
-    <ClCompile Include="DXShaderManager.cpp" />
-    <ClCompile Include="DXSRVHeap.cpp" />
-    <ClCompile Include="DXSwapChain.cpp" />
-    <ClCompile Include="DXVertexLayoutManager.cpp" />
-    <ClCompile Include="DXViewport.cpp" />
-    <ClCompile Include="Ease.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCollider.cpp" />
-    <ClCompile Include="Mat4.cpp" />
+    <ClCompile Include="Math\Calc.cpp" />
+    <ClCompile Include="Math\Ease.cpp" />
+    <ClCompile Include="Math\Mat4.cpp" />
+    <ClCompile Include="Math\Random.cpp" />
+    <ClCompile Include="Math\Timer.cpp" />
+    <ClCompile Include="Math\Vec2.cpp" />
+    <ClCompile Include="Math\Vec3.cpp" />
+    <ClCompile Include="Math\Vec4.cpp" />
     <ClCompile Include="MatProjection.cpp" />
     <ClCompile Include="MatView.cpp" />
     <ClCompile Include="MatViewProjection.cpp" />
@@ -194,9 +175,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="RailCamera.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="Result.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scope.cpp" />
@@ -207,62 +186,64 @@
     <ClCompile Include="SphereBullet.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Status.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TimedCall.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Vec2.cpp" />
-    <ClCompile Include="Vec3.cpp" />
-    <ClCompile Include="Vec4.cpp" />
-    <ClCompile Include="VertexIndex.cpp" />
-    <ClCompile Include="Vertices.cpp" />
     <ClCompile Include="WaveAngler.cpp" />
-    <ClCompile Include="YDirectX.cpp" />
+    <ClCompile Include="YDirectX\Adapter.cpp" />
+    <ClCompile Include="YDirectX\CommandList.cpp" />
+    <ClCompile Include="YDirectX\CommandQueue.cpp" />
+    <ClCompile Include="YDirectX\DebugLayer.cpp" />
+    <ClCompile Include="YDirectX\DepthStencilView.cpp" />
+    <ClCompile Include="YDirectX\Device.cpp" />
+    <ClCompile Include="YDirectX\DrawDesc.cpp" />
+    <ClCompile Include="YDirectX\Fence.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\ConstBuffer.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\ConstBufferManager.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\TextureManager.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\VertexIndex.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\Vertices.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\Vertices2D.cpp" />
+    <ClCompile Include="YDirectX\GPUResource\Vertices3D.cpp" />
+    <ClCompile Include="YDirectX\PipelineSet.cpp" />
+    <ClCompile Include="YDirectX\PipelineState.cpp" />
+    <ClCompile Include="YDirectX\RenderTargetView.cpp" />
+    <ClCompile Include="YDirectX\ResourceBarrier.cpp" />
+    <ClCompile Include="YDirectX\RootParameterManager.cpp" />
+    <ClCompile Include="YDirectX\RootSignature.cpp" />
+    <ClCompile Include="YDirectX\SampleDescManager.cpp" />
+    <ClCompile Include="YDirectX\ScissorRect.cpp" />
+    <ClCompile Include="YDirectX\ShaderManager.cpp" />
+    <ClCompile Include="YDirectX\ShaderResourceView.cpp" />
+    <ClCompile Include="YDirectX\SwapChain.cpp" />
+    <ClCompile Include="YDirectX\Utility\DescriptorHeap.cpp" />
+    <ClCompile Include="YDirectX\Utility\Resource.cpp" />
+    <ClCompile Include="YDirectX\Utility\Result.cpp" />
+    <ClCompile Include="YDirectX\VertexLayoutManager.cpp" />
+    <ClCompile Include="YDirectX\Viewport.cpp" />
+    <ClCompile Include="YDirectX\YDirectX.cpp" />
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Calc.h" />
     <ClInclude Include="CircleBullet.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CollisionConfig.h" />
-    <ClInclude Include="ConstBuffer.h" />
-    <ClInclude Include="ConstBufferManager.h" />
     <ClInclude Include="Croan.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DInput.h" />
-    <ClInclude Include="DXAdapter.h" />
-    <ClInclude Include="DXCommandList.h" />
-    <ClInclude Include="DXCommandQueue.h" />
-    <ClInclude Include="DXDebugLayer.h" />
-    <ClInclude Include="DXDescriptorHeap.h" />
-    <ClInclude Include="DXDevice.h" />
-    <ClInclude Include="DXDrawDesc.h" />
-    <ClInclude Include="DXDSVHeap.h" />
-    <ClInclude Include="DXFence.h" />
-    <ClInclude Include="DXPipelineSet.h" />
-    <ClInclude Include="DXPipelineState.h" />
-    <ClInclude Include="DXRenderTargetView.h" />
-    <ClInclude Include="DXResource.h" />
-    <ClInclude Include="DXResourceBarrier.h" />
-    <ClInclude Include="DXResourceInfo.h" />
-    <ClInclude Include="DXRootParameterManager.h" />
-    <ClInclude Include="DXRootSignature.h" />
-    <ClInclude Include="DXSampleDescManager.h" />
-    <ClInclude Include="DXScissorRect.h" />
-    <ClInclude Include="DXShaderManager.h" />
-    <ClInclude Include="DXSRVHeap.h" />
-    <ClInclude Include="DXSwapChain.h" />
-    <ClInclude Include="DXVertexLayoutManager.h" />
-    <ClInclude Include="DXViewport.h" />
-    <ClInclude Include="Ease.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCollider.h" />
-    <ClInclude Include="Mat4.h" />
+    <ClInclude Include="Math\Calc.h" />
+    <ClInclude Include="Math\Ease.h" />
+    <ClInclude Include="Math\Mat4.h" />
+    <ClInclude Include="Math\Random.h" />
+    <ClInclude Include="Math\Timer.h" />
+    <ClInclude Include="Math\Vec2.h" />
+    <ClInclude Include="Math\Vec3.h" />
+    <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="MatProjection.h" />
     <ClInclude Include="MatView.h" />
     <ClInclude Include="MatViewProjection.h" />
@@ -276,9 +257,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="RailCamera.h" />
-    <ClInclude Include="Random.h" />
     <ClInclude Include="Ray.h" />
-    <ClInclude Include="Result.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Scope.h" />
     <ClInclude Include="ScrewBullet.h" />
@@ -288,53 +267,77 @@
     <ClInclude Include="SphereBullet.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Status.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TimedCall.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Vec2.h" />
-    <ClInclude Include="Vec3.h" />
-    <ClInclude Include="Vec4.h" />
-    <ClInclude Include="VertexIndex.h" />
-    <ClInclude Include="Vertices.h" />
     <ClInclude Include="WaveAngler.h" />
-    <ClInclude Include="YDirectX.h" />
+    <ClInclude Include="YDirectX\Adapter.h" />
+    <ClInclude Include="YDirectX\CommandList.h" />
+    <ClInclude Include="YDirectX\CommandQueue.h" />
+    <ClInclude Include="YDirectX\DebugLayer.h" />
+    <ClInclude Include="YDirectX\DepthStencilView.h" />
+    <ClInclude Include="YDirectX\Device.h" />
+    <ClInclude Include="YDirectX\DrawDesc.h" />
+    <ClInclude Include="YDirectX\Fence.h" />
+    <ClInclude Include="YDirectX\GPUResource\ConstBuffer.h" />
+    <ClInclude Include="YDirectX\GPUResource\ConstBufferManager.h" />
+    <ClInclude Include="YDirectX\GPUResource\TextureManager.h" />
+    <ClInclude Include="YDirectX\GPUResource\VertexIndex.h" />
+    <ClInclude Include="YDirectX\GPUResource\Vertices.h" />
+    <ClInclude Include="YDirectX\GPUResource\Vertices2D.h" />
+    <ClInclude Include="YDirectX\GPUResource\Vertices3D.h" />
+    <ClInclude Include="YDirectX\PipelineSet.h" />
+    <ClInclude Include="YDirectX\PipelineState.h" />
+    <ClInclude Include="YDirectX\RenderTargetView.h" />
+    <ClInclude Include="YDirectX\ResourceBarrier.h" />
+    <ClInclude Include="YDirectX\RootParameterManager.h" />
+    <ClInclude Include="YDirectX\RootSignature.h" />
+    <ClInclude Include="YDirectX\SampleDescManager.h" />
+    <ClInclude Include="YDirectX\ScissorRect.h" />
+    <ClInclude Include="YDirectX\ShaderManager.h" />
+    <ClInclude Include="YDirectX\ShaderResourceView.h" />
+    <ClInclude Include="YDirectX\SwapChain.h" />
+    <ClInclude Include="YDirectX\Utility\DescriptorHeap.h" />
+    <ClInclude Include="YDirectX\Utility\Resource.h" />
+    <ClInclude Include="YDirectX\Utility\ResourceInfo.h" />
+    <ClInclude Include="YDirectX\Utility\Result.h" />
+    <ClInclude Include="YDirectX\VertexLayoutManager.h" />
+    <ClInclude Include="YDirectX\Viewport.h" />
+    <ClInclude Include="YDirectX\YDirectX.h" />
     <ClInclude Include="YWindows.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="ModelPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="ModelVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="SpritePS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="SpriteVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Model.hlsli" />
-    <None Include="Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\Model.hlsli" />
+    <None Include="Resources\Shaders\Sprite.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

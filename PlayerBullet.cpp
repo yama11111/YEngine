@@ -1,5 +1,5 @@
 #include "PlayerBullet.h"
-#include "Calc.h"
+#include "Math/Calc.h"
 
 static const float SCALE1 = 2.5f;
 static const float SCALE2 = 10.0f;
