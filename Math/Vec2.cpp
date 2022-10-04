@@ -3,11 +3,11 @@
 
 using Math::Vec2;
 
-constexpr Vec2::Vec2() :
+Vec2::Vec2() :
 	x(0.0f), y(0.0f)
 {}
 
-constexpr Vec2::Vec2(const float x, const float y)
+Vec2::Vec2(float x, float y)
 	:x(x), y(y)
 {}
 
@@ -42,29 +42,13 @@ float Vec2::Distance(const Vec2& v) const
 	return (v - *this).Length();
 }
 
-constexpr Vec2 Vec2::operator+() const
+Vec2 Vec2::operator+() const
 {
 	return *this;
 }
-constexpr Vec2 Vec2::operator-() const
+Vec2 Vec2::operator-() const
 {
 	return { -x,-y };
-}
-constexpr Vec2 Vec2::operator+(const Vec2& v) const
-{
-	return{ x + v.x, y + v.y };
-}
-constexpr Vec2 Vec2::operator-(const Vec2& v) const
-{
-	return{ x - v.x, y - v.y };
-}
-constexpr Vec2 Vec2::operator*(float s) const
-{
-	return{ x * s, y * s };
-}
-constexpr Vec2 Vec2::operator/(float s) const
-{
-	return{ x / s, y / s };
 }
 
 Vec2& Vec2::operator+=(const Vec2& v)
@@ -92,7 +76,23 @@ Vec2& Vec2::operator/=(float s)
 	return *this;
 }
 
-inline constexpr Vec2 Math::operator*(float s, const Vec2& v)
+inline Vec2 Math::operator+(const Vec2& v1, const Vec2& v2)
+{
+	return{ v1.x + v2.x, v1.y + v2.y };
+}
+inline Vec2 Math::operator-(const Vec2& v1, const Vec2& v2)
+{
+	return{ v1.x - v2.x, v1.y - v2.y };
+}
+inline Vec2 Math::operator*(const Vec2& v, float s)
+{
+	return{ v.x * s, v.y * s };
+}
+inline Vec2 Math::operator*(float s, const Vec2& v)
 {
 	return { s * v.x, s * v.y };
+}
+inline Vec2 Math::operator/(const Vec2& v, float s)
+{
+	return{ v.x / s, v.y / s };
 }

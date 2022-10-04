@@ -9,8 +9,8 @@ namespace Math
 		float y;
 		float z;
 	public:
-		constexpr Vec3(); // 零ベクトル
-		constexpr Vec3(const float x, const float y, const float z);
+		Vec3(); // 零ベクトル
+		Vec3(float x, float y, float z);
 
 		float Length() const;					// ノルム(長さ)
 		constexpr float LengthSquare() const;	// 長さ 2乗
@@ -22,12 +22,8 @@ namespace Math
 		float Distance(const Vec3& v) const; // 距離
 	public:
 		// 単項演算子
-		constexpr Vec3 operator+() const;
-		constexpr Vec3 operator-() const;
-		constexpr Vec3 operator+(const Vec3& v) const;
-		constexpr Vec3 operator-(const Vec3& v) const;
-		constexpr Vec3 operator*(float s) const;
-		constexpr Vec3 operator/(float s) const;
+		Vec3 operator+() const;
+		Vec3 operator-() const;
 
 		// 代入演算子
 		Vec3& operator+=(const Vec3& v);
@@ -37,5 +33,9 @@ namespace Math
 	};
 
 	// 二項演算子
-	inline constexpr Vec3 operator *(float s, const Vec3& v);
+	inline Vec3 operator+(const Vec3& v1, const Vec3& v2);
+	inline Vec3 operator-(const Vec3& v1, const Vec3& v2);
+	inline Vec3 operator*(const Vec3& v, float s);
+	inline Vec3 operator*(float s, const Vec3& v);
+	inline Vec3 operator/(const Vec3& v, float s);
 }

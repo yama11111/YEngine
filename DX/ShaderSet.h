@@ -5,7 +5,7 @@
 
 namespace DX
 {
-	class ShaderManager
+	class ShaderSet
 	{
 	public:
 		ID3DBlob* vsBlob = nullptr; // 頂点シェーダオブジェクト

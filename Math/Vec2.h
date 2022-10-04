@@ -8,8 +8,8 @@ namespace Math
         float x;
         float y;
     public:
-        constexpr Vec2(); // 零ベクトル
-        constexpr Vec2(const float x, const float y);
+        Vec2(); // 零ベクトル
+        Vec2(float x, float y);
 
         float Length() const;                   // ノルム(長さ)
         constexpr float LengthSquare() const;   // 長さ 2乗
@@ -20,12 +20,8 @@ namespace Math
         float Distance(const Vec2& v) const; // 距離
     public:
         // 単項演算子
-        constexpr Vec2 operator+() const;
-        constexpr Vec2 operator-() const;
-        constexpr Vec2 operator+(const Vec2& v) const;
-        constexpr Vec2 operator-(const Vec2& v) const;
-        constexpr Vec2 operator*(float s) const;
-        constexpr Vec2 operator/(float s) const;
+        Vec2 operator+() const;
+        Vec2 operator-() const;
 
         // 代入演算子
         Vec2& operator+=(const Vec2& v);
@@ -35,5 +31,9 @@ namespace Math
     };
 
     // 二項演算子
-    inline constexpr Vec2 operator *(float s, const Vec2& v);
+    inline Vec2 operator+(const Vec2& v1, const Vec2& v2);
+    inline Vec2 operator-(const Vec2& v1, const Vec2& v2);
+    inline Vec2 operator*(const Vec2& v, float s);
+    inline Vec2 operator*(float s, const Vec2& v);
+    inline Vec2 operator/(const Vec2& v, float s);
 }

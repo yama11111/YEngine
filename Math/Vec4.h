@@ -10,7 +10,7 @@ namespace Math
 		float b;
 		float a;
 	public:
-		constexpr Vec4();
-		constexpr Vec4(const float r, const float g, const float b, const float a);
+		Vec4();
+		Vec4(float r, float g, float b, float a);
 	};
 }

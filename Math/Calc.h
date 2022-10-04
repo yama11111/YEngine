@@ -1,7 +1,8 @@
 #pragma once
 #include "Vec2.h"
+#include "Vec3.h"
 #include "Vec4.h"
-#include "MatViewProjection.h"
+#include "Mat4.h"
 #define PI 3.141592f
 
 namespace Math
@@ -28,16 +29,14 @@ namespace Math
 
 	Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up);
 
-	Vec3 WorldPos(const Vec2& screen, float z, const MatViewProjection& vp);
+	Vec3 WorldPos(const Vec2& screen, float z, const Mat4& view, const Mat4& projection);
 
 	Vec3 AdjustAngle(Vec3& velocity);
 
+	float Lerp(const float a, const float b, const float t);
+
 	Vec3 Lerp(const Vec3& v1, const Vec3& v2, float t);
 	Vec3 Slerp(const Vec3& v1, const Vec3& v2, float t);
-
-	float lerp(const float a, const float b, const float t);
-	float EaseIn(const float start, const float end, const float time, const float power);
-	float EaseOut(const float start, const float end, const float time, const float power);
 
 	Vec4 GetColor(const Vec4& color);
 

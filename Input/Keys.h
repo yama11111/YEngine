@@ -5,7 +5,7 @@ namespace Input
 {
 	class Keys
 	{
-	public:
+	private:
 		unsigned char* keys;
 		unsigned char* elderKeys;
 		InputManager* input;
@@ -15,6 +15,7 @@ namespace Input
 		bool IsTrigger(const int key);
 		bool IsLongPress(const int key);
 		bool IsRelease(const int key);
+	public:
 		int Horizontal();
 		int Vertical();
 		bool IsRight();

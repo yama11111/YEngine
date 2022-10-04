@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Obj;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Obj;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,11 +143,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CircleBullet.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="Croan.cpp" />
-    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DX\Adapter.cpp" />
     <ClCompile Include="DX\CommandList.cpp" />
     <ClCompile Include="DX\CommandQueue.cpp" />
@@ -171,7 +166,7 @@
     <ClCompile Include="DX\RootSignature.cpp" />
     <ClCompile Include="DX\SampleDescManager.cpp" />
     <ClCompile Include="DX\ScissorRect.cpp" />
-    <ClCompile Include="DX\ShaderManager.cpp" />
+    <ClCompile Include="DX\ShaderSet.cpp" />
     <ClCompile Include="DX\ShaderResourceView.cpp" />
     <ClCompile Include="DX\SwapChain.cpp" />
     <ClCompile Include="DX\Utility\DescriptorHeap.cpp" />
@@ -180,11 +175,7 @@
     <ClCompile Include="DX\VertexLayoutManager.cpp" />
     <ClCompile Include="DX\Viewport.cpp" />
     <ClCompile Include="DX\YDirectX.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyBullet.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameCollider.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
@@ -197,47 +188,18 @@
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
-    <ClCompile Include="MatProjection.cpp" />
-    <ClCompile Include="MatView.cpp" />
-    <ClCompile Include="MatViewProjection.cpp" />
-    <ClCompile Include="MatWorld.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="MonoEye.cpp" />
-    <ClCompile Include="Object2D.cpp" />
-    <ClCompile Include="Object3D.cpp" />
-    <ClCompile Include="Obj\MatProjection.cpp" />
-    <ClCompile Include="Obj\MatView.cpp" />
-    <ClCompile Include="Obj\MatViewProjection.cpp" />
-    <ClCompile Include="Obj\MatWorld.cpp" />
-    <ClCompile Include="Obj\Model.cpp" />
-    <ClCompile Include="Obj\Object2D.cpp" />
-    <ClCompile Include="Obj\Object3D.cpp" />
-    <ClCompile Include="Obj\Ray.cpp" />
-    <ClCompile Include="Obj\Sprite.cpp" />
-    <ClCompile Include="Octos.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerBullet.cpp" />
-    <ClCompile Include="RailCamera.cpp" />
-    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Object\MatProjection.cpp" />
+    <ClCompile Include="Object\MatView.cpp" />
+    <ClCompile Include="Object\MatViewProjection.cpp" />
+    <ClCompile Include="Object\MatWorld.cpp" />
+    <ClCompile Include="Object\Model.cpp" />
+    <ClCompile Include="Object\Transform.cpp" />
+    <ClCompile Include="Object\Ray.cpp" />
+    <ClCompile Include="Object\Sprite.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scope.cpp" />
-    <ClCompile Include="ScrewBullet.cpp" />
-    <ClCompile Include="SlashBullet.cpp" />
-    <ClCompile Include="Speed.cpp" />
-    <ClCompile Include="SphereBullet.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Status.cpp" />
-    <ClCompile Include="TimedCall.cpp" />
-    <ClCompile Include="WaveAngler.cpp" />
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CircleBullet.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="CollisionConfig.h" />
-    <ClInclude Include="Croan.h" />
-    <ClInclude Include="Cursor.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DX\Adapter.h" />
     <ClInclude Include="DX\CommandList.h" />
@@ -262,7 +224,7 @@
     <ClInclude Include="DX\RootSignature.h" />
     <ClInclude Include="DX\SampleDescManager.h" />
     <ClInclude Include="DX\ScissorRect.h" />
-    <ClInclude Include="DX\ShaderManager.h" />
+    <ClInclude Include="DX\ShaderSet.h" />
     <ClInclude Include="DX\ShaderResourceView.h" />
     <ClInclude Include="DX\SwapChain.h" />
     <ClInclude Include="DX\Utility\DescriptorHeap.h" />
@@ -272,11 +234,7 @@
     <ClInclude Include="DX\VertexLayoutManager.h" />
     <ClInclude Include="DX\Viewport.h" />
     <ClInclude Include="DX\YDirectX.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyBullet.h" />
-    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameCollider.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />
     <ClInclude Include="Input\Mouse.h" />
@@ -289,37 +247,14 @@
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
-    <ClInclude Include="MatProjection.h" />
-    <ClInclude Include="MatView.h" />
-    <ClInclude Include="MatViewProjection.h" />
-    <ClInclude Include="MatWorld.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="MonoEye.h" />
-    <ClInclude Include="Object2D.h" />
-    <ClInclude Include="Object3D.h" />
-    <ClInclude Include="Obj\MatProjection.h" />
-    <ClInclude Include="Obj\MatView.h" />
-    <ClInclude Include="Obj\MatViewProjection.h" />
-    <ClInclude Include="Obj\MatWorld.h" />
-    <ClInclude Include="Obj\Model.h" />
-    <ClInclude Include="Obj\Object2D.h" />
-    <ClInclude Include="Obj\Object3D.h" />
-    <ClInclude Include="Obj\Ray.h" />
-    <ClInclude Include="Obj\Sprite.h" />
-    <ClInclude Include="Octos.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerBullet.h" />
-    <ClInclude Include="RailCamera.h" />
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="Scope.h" />
-    <ClInclude Include="ScrewBullet.h" />
-    <ClInclude Include="SlashBullet.h" />
-    <ClInclude Include="Speed.h" />
-    <ClInclude Include="SphereBullet.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Status.h" />
-    <ClInclude Include="TimedCall.h" />
-    <ClInclude Include="WaveAngler.h" />
+    <ClInclude Include="Object\MatProjection.h" />
+    <ClInclude Include="Object\MatView.h" />
+    <ClInclude Include="Object\MatViewProjection.h" />
+    <ClInclude Include="Object\MatWorld.h" />
+    <ClInclude Include="Object\Model.h" />
+    <ClInclude Include="Object\Transform.h" />
+    <ClInclude Include="Object\Ray.h" />
+    <ClInclude Include="Object\Sprite.h" />
     <ClInclude Include="YWindows.h" />
   </ItemGroup>
   <ItemGroup>
@@ -337,24 +272,32 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

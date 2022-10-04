@@ -3,11 +3,11 @@
 
 using Math::Vec3;
 
-constexpr Vec3::Vec3() :
+Vec3::Vec3() :
 	x(0.0f), y(0.0f), z(0.0f)
 {}
 
-constexpr Vec3::Vec3(const float x, const float y, const float z) :
+Vec3::Vec3(float x, float y, float z) :
 	x(x), y(y), z(z)
 {}
 
@@ -52,29 +52,13 @@ float Vec3::Distance(const Vec3& v) const
 	return (v - *this).Length();
 }
 
-constexpr Vec3 Vec3::operator+() const
+Vec3 Vec3::operator+() const
 {
 	return *this;
 }
-constexpr Vec3 Vec3::operator-() const
+Vec3 Vec3::operator-() const
 {
 	return { -x, -y, -z };
-}
-constexpr Vec3 Vec3::operator+(const Vec3& v) const
-{
-	return { x + v.x, y + v.y, z + v.z };
-}
-constexpr Vec3 Vec3::operator-(const Vec3& v) const
-{
-	return { x - v.x, y - v.y, z - v.z };
-}
-constexpr Vec3 Vec3::operator*(float s) const
-{
-	return { x * s, y * s, z * s };
-}
-constexpr Vec3 Vec3::operator/(float s) const
-{
-	return { x / s, y / s, z / s };
 }
 
 Vec3& Vec3::operator+=(const Vec3& v)
@@ -106,7 +90,23 @@ Vec3& Vec3::operator/=(float s)
 	return *this;
 }
 
-inline constexpr Vec3 Math::operator*(float s, const Vec3& v)
+inline Vec3 Math::operator+(const Vec3& v1, const Vec3& v2)
+{
+	return { v1.x + v2.x, v1.y + v2.y, v1.z + v2.z };
+}
+inline Vec3 Math::operator-(const Vec3& v1, const Vec3& v2)
+{
+	return { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
+}
+inline Vec3 Math::operator*(const Vec3& v, float s)
+{
+	return { v.x * s, v.y * s, v.z * s };
+}
+inline Vec3 Math::operator*(float s, const Vec3& v)
 {
 	return { s * v.x, s * v.y, s * v.z };
+}
+inline Vec3 Math::operator/(const Vec3& v, float s)
+{
+	return { v.x / s, v.y / s, v.z / s };
 }

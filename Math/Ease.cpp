@@ -1,22 +1,32 @@
 #include "Ease.h"
 #include "Calc.h"
+#include <cmath>
 
 using Math::Ease;
 using Math::Ease2;
+using Math::Ease3;
+
+float Math::EaseIn(const float start, const float end, const float time, const float power)
+{
+	return Lerp(start, end, pow(time, power));
+}
+float Math::EaseOut(const float start, const float end, const float time, const float power)
+{
+	return Lerp(start, end, 1 - pow(1 - time, power));
+}
 
 Ease::Ease() :
-	ratio(0.0f), increase(0.0f), decrease(0.0f)
+	ratio(0.0f), increase(0.0f)
 {}
 
-Ease::Ease(const float increase, const float decrease) :
-	ratio(0.0f), increase(increase), decrease(decrease)
+Ease::Ease(const float increase) :
+	ratio(0.0f), increase(increase)
 {}
 
-void Ease::Initialize(const float increase, const float decrease)
+void Ease::Initialize(const float increase)
 {
 	this->ratio = 0.0f;
 	this->increase = increase;
-	this->decrease = decrease;
 }
 
 void Ease::Update(const bool isEase)
@@ -25,11 +35,6 @@ void Ease::Update(const bool isEase)
 	{
 		ratio += increase;
 		if (ratio >= 1.0f) ratio = 1.0f;
-	}
-	else
-	{
-		ratio -= decrease;
-		if (ratio <= 0.0f) ratio = 0.0f;
 	}
 }
 
@@ -44,10 +49,42 @@ float Ease::Out(const float start, const float end, const float power)
 }
 
 Ease2::Ease2() :
-	back(0.0f), pass(1.0f), extra(None)
+	decrease(0)
 {}
 
-Ease2::Ease2(const float increase, const float decrease, const float value, const Extra extra) :
+Ease2::Ease2(const float increase, const float decrease)
+{
+	this->ratio = 0.0f;
+	this->increase = increase;
+	this->decrease = decrease;
+}
+
+void Ease2::Initialize(const float increase, const float decrease)
+{
+	this->ratio = 0.0f;
+	this->increase = increase;
+	this->decrease = decrease;
+}
+
+void Ease2::Update(const bool isEase)
+{
+	if (isEase)
+	{
+		ratio += increase;
+		if (ratio >= 1.0f) ratio = 1.0f;
+	}
+	else
+	{
+		ratio -= decrease;
+		if (ratio <= 0.0f) ratio = 0.0f;
+	}
+}
+
+Ease3::Ease3() :
+	back(0.0f), pass(1.0f), extra(Extra::None)
+{}
+
+Ease3::Ease3(const float increase, const float decrease, const float value, const Extra extra) :
 	extra(extra)
 {
 	this->ratio = 0.0f;
@@ -56,13 +93,13 @@ Ease2::Ease2(const float increase, const float decrease, const float value, cons
 
 	switch (extra)
 	{
-	case Back:
+	case Extra::Back:
 		back = -value;
 			break;
-	case Pass:
+	case Extra::Pass:
 		pass = 1.0f + value;
 		break;
-	case None:
+	case Extra::None:
 		back = 0.0f;
 		pass = 1.0f;
 	default:
@@ -70,7 +107,7 @@ Ease2::Ease2(const float increase, const float decrease, const float value, cons
 	}
 }
 
-void Ease2::Initialize(const float increase, const float decrease, const float value, const Extra extra)
+void Ease3::Initialize(const float increase, const float decrease, const float value, const Extra extra)
 {
 	this->ratio = 0.0f;
 	this->increase = increase;
@@ -80,7 +117,7 @@ void Ease2::Initialize(const float increase, const float decrease, const float v
 	this->extra = extra;
 }
 
-void Ease2::Update(const bool isEase)
+void Ease3::Update(const bool isEase)
 {
 	//if (isEase)
 	//{

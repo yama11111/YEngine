@@ -13,7 +13,6 @@ namespace DX
 		D3D12_RECT scissorRect{};
 		static ID3D12GraphicsCommandList* pCmdList;
 	public:
-		static void StaticInit(ID3D12GraphicsCommandList* pCommandList);
 		struct SetStatus
 		{
 			Math::Vec2 topLeft;
@@ -21,5 +20,7 @@ namespace DX
 		};
 		void Set(const SetStatus& set);
 		void Stack();
+	public:
+		static void StaticInit(ID3D12GraphicsCommandList* pCommandList);
 	};
 }

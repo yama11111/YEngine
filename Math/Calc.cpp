@@ -183,12 +183,11 @@ Mat4 Math::MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up)
 	return ConvertMatrix(mat);
 }
 
-Vec3 Math::WorldPos(const Vec2& screen, float z, const MatViewProjection& vp)
+Vec3 Math::WorldPos(const Vec2& screen, float z, const Mat4& view, const Mat4& projection)
 {
-	Mat4 inv = InverceMat4(vp.view.m * vp.pro.m * MatViewPort());
+	Mat4 inv = InverceMat4(view * projection * MatViewPort());
 	Vec3 pos(screen.x, screen.y, z);
-	Vec3 r = MatTransform(pos, inv);
-	Vec3 result(r.x, r.y, r.z);
+	Vec3 result = MatTransform(pos, inv);
 
 	return result;
 }
@@ -203,51 +202,38 @@ Vec3 Math::AdjustAngle(Vec3& velocity)
 	return result;
 }
 
-Vec3 Math::Lerp(const Vec3& v1, const Vec3& v2, float t)
-{
-	Vec3 result = v2 - v1;
-	result *= t;
-	result += v1;
-	return result;
-}
-Vec3 Math::Slerp(const Vec3& v1, const Vec3& v2, float t)
-{
-	float dot = v1.Dot(v2);
-	if (dot >= 1.0 || dot <= -1.0) return v1;
-
-	float theta = acosf(dot);
-	float sTheta = sinf(theta);
-	float sf = sinf((1 - t) * theta);
-	float st = sinf(t * theta);
-
-	float aS = v1.Length();
-	float bS = v2.Length();
-	float s = aS + t * (bS - aS);
-
-	Vec3 from = v1;
-	from *= sf;
-	Vec3 to = v2;
-	to *= st;
-	to /= sTheta;
-	Vec3 e = from;
-	e += to;
-	e *= s;
-	return e;
-}
-
-float Math::lerp(const float a, const float b, const float t)
+float Math::Lerp(const float a, const float b, const float t)
 {
 	return a + t * (b - a);
 }
-float Math::EaseIn(const float start, const float end, const float time, const float power)
-{
-	return lerp(start, end, pow(time, power));
-}
-float Math::EaseOut(const float start, const float end, const float time, const float power)
-{
-	return lerp(start, end, 1 - pow(1 - time, power));
-}
 
+Vec3 Math::Lerp(const Vec3& v1, const Vec3& v2, float t)
+{
+	//Vec3 result = ((v2 - v1) * t) + v1;
+	//return result;
+	return Vec3();
+}
+Vec3 Math::Slerp(const Vec3& v1, const Vec3& v2, float t)
+{
+	//float dot = v1.Dot(v2);
+	//if (dot >= 1.0 || dot <= -1.0) return v1;
+
+	//float theta = acosf(dot);
+	//float sTheta = sinf(theta);
+	//float sf = sinf((1 - t) * theta);
+	//float st = sinf(t * theta);
+
+	//float aS = v1.Length();
+	//float bS = v2.Length();
+	//float s = aS + t * (bS - aS);
+
+	//Vec3 from = v1 * sf;
+	//Vec3 to = v2 * st / sTheta;
+	//Vec3 result = (from + to) * s;
+	//return result;
+
+	return Vec3();
+}
 
 Vec4 Math::GetColor(const Vec4& color)
 {
@@ -263,8 +249,7 @@ Vec4 Math::GetColor(const Vec4& color)
 bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
 					const Vec3& sphere, const float rad)
 {
-	Vec3 p = sphere;
-	p -= ray;
+	Vec3 p = sphere - ray;
 
 	float a = velocity.Dot(velocity);
 	if (a == 0.0f) return false;
@@ -285,8 +270,7 @@ bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity,
 					const Vec3& sphere, const float rad,
 					Vec3& start, Vec3& end)
 {
-	Vec3 p = sphere;
-	p -= ray;
+	Vec3 p = sphere - ray;
 
 	float a = velocity.Dot(velocity);
 	if (a == 0.0f) return false;

@@ -1,13 +1,13 @@
-#include "ShaderManager.h"
+#include "ShaderSet.h"
 #include <d3dcompiler.h>
 #include <string>
 #include "Utility/Result.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 
-using DX::ShaderManager;
+using DX::ShaderSet;
 
-void ShaderManager::Load2D()
+void ShaderSet::Load2D()
 {
 	// 頂点シェーダの読み込みとコンパイル
 	LoadShader(L"Resources/Shaders/SpriteVS.hlsl", "main", "vs_5_0", vsBlob);
@@ -15,7 +15,7 @@ void ShaderManager::Load2D()
 	LoadShader(L"Resources/Shaders/SpritePS.hlsl", "main", "ps_5_0", psBlob);
 }
 
-void ShaderManager::Load3D()
+void ShaderSet::Load3D()
 {
 	// 頂点シェーダの読み込みとコンパイル
 	LoadShader(L"Resources/Shaders/ModelVS.hlsl", "main", "vs_5_0", vsBlob);
@@ -23,7 +23,7 @@ void ShaderManager::Load3D()
 	LoadShader(L"Resources/Shaders/ModelPS.hlsl", "main", "ps_5_0", psBlob);
 }
 
-void ShaderManager::LoadShader(const wchar_t* fileName, const char* entryPoint,
+void ShaderSet::LoadShader(const wchar_t* fileName, const char* entryPoint,
 	const char* target, ID3DBlob*& object)
 {
 	if (Utility::Result::IsFailed(D3DCompileFromFile(
@@ -39,7 +39,7 @@ void ShaderManager::LoadShader(const wchar_t* fileName, const char* entryPoint,
 	}
 }
 
-void ShaderManager::LoadShaderErrorProcess()
+void ShaderSet::LoadShaderErrorProcess()
 {
 	// errorBlobからエラー内容をstring型にコピー
 	std::string error;

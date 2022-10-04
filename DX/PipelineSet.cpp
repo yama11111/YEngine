@@ -3,6 +3,7 @@
 #include <assert.h>
 
 using DX::PipelineSet;
+using DX::PipelineState;
 
 ID3D12GraphicsCommandList* PipelineSet::pCmdList = nullptr;
 
@@ -18,17 +19,17 @@ void PipelineSet::Create(const int dimension)
 
 	switch (dimension)
 	{
-	case Two:
-		shdrM.Load2D();
-		rootSig.Create(shdrM.errorBlob);
-		pplnState.Create2D(rootSig.Get(), shdrM, layout->spriteIL);
-		d = Two;
+	case PipelineState::Dimension::Two:
+		shdrs.Load2D();
+		rootSig.Create(shdrs.errorBlob);
+		pplnState.Create(rootSig.Get(), shdrs, layout->spriteIL, PipelineState::Dimension::Two);
+		d = PipelineState::Dimension::Two;
 		break;
-	case Three:
-		shdrM.Load3D();
-		rootSig.Create(shdrM.errorBlob);
-		pplnState.Create3D(rootSig.Get(), shdrM, layout->modelIL);
-		d = Three;
+	case PipelineState::Dimension::Three:
+		shdrs.Load3D();
+		rootSig.Create(shdrs.errorBlob);
+		pplnState.Create(rootSig.Get(), shdrs, layout->modelIL, PipelineState::Dimension::Three);
+		d = PipelineState::Dimension::Three;
 		break;
 	default:
 		assert(false);
@@ -39,18 +40,18 @@ void PipelineSet::Create(const int dimension)
 void PipelineSet::SetCommand()
 {
 	// パイプラインステートの設定コマンド
-	pCmdList->SetPipelineState(pplnState.pplnState);
+	pCmdList->SetPipelineState(pplnState.Get());
 
 	// ルートシグネチャの設定コマンド
 	pCmdList->SetGraphicsRootSignature(rootSig.Get());
 	switch (d)
 	{
-	case Two:
+	case PipelineState::Dimension::Two:
 		// プリミティブ形状の設定コマンド
 		pCmdList->IASetPrimitiveTopology(
 			D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); // 三角形ストリップ
 		break;
-	case Three:
+	case PipelineState::Dimension::Three:
 		// プリミティブ形状の設定コマンド
 		pCmdList->IASetPrimitiveTopology(
 			D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // 三角形リスト

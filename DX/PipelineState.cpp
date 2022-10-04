@@ -2,6 +2,7 @@
 #include "Utility/Result.h"
 
 using DX::PipelineState;
+using DX::Utility::Result;
 
 DX::Device* PipelineState::dev = nullptr;
 
@@ -15,14 +16,14 @@ void DX::PipelineState::StaticInit()
 	dev = Device::GetInstance();
 }
 
-void DX::PipelineState::InitDesc(ID3D12RootSignature* rootSignature,
-	ShaderManager& shaderM, std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout)
+void DX::PipelineState::Create(ID3D12RootSignature* rootSignature, ShaderSet& shaders,
+	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout, const int dimension)
 {
 	// シェーダーの設定
-	desc.VS.pShaderBytecode = shaderM.vsBlob->GetBufferPointer();
-	desc.VS.BytecodeLength = shaderM.vsBlob->GetBufferSize();
-	desc.PS.pShaderBytecode = shaderM.psBlob->GetBufferPointer();
-	desc.PS.BytecodeLength = shaderM.psBlob->GetBufferSize();
+	desc.VS.pShaderBytecode = shaders.vsBlob->GetBufferPointer();
+	desc.VS.BytecodeLength = shaders.vsBlob->GetBufferSize();
+	desc.PS.pShaderBytecode = shaders.psBlob->GetBufferPointer();
+	desc.PS.BytecodeLength = shaders.psBlob->GetBufferSize();
 
 	// サンプルマスクの設定
 	desc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK; // 標準設定
@@ -59,39 +60,32 @@ void DX::PipelineState::InitDesc(ID3D12RootSignature* rootSignature,
 
 	// パイプラインにルートシグネチャをセット
 	desc.pRootSignature = rootSignature;
-}
 
-void PipelineState::Create2D(ID3D12RootSignature* rootSignature,
-	ShaderManager& shaderM, std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout)
-{
-	// グラフィックスパイプライン設定
-	InitDesc(rootSignature, shaderM, inputLayout);
+	switch (dimension)
+	{
+	case Two:
+		// ラスタライザの設定
+		desc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
 
-	// ラスタライザの設定
-	desc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
+		// デプスステンシルステートの設定
+		desc.DepthStencilState.DepthEnable = false; // 深度テストしない
+		desc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS; // 常に上書き
+		break;
+	case Three:
+		// ラスタライザの設定
+		desc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK; // 背面をカリング
 
-	// デプスステンシルステートの設定
-	desc.DepthStencilState.DepthEnable = false; // 深度テストしない
-	desc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS; // 常に上書き
-
-	// パイプランステートの生成
-	CreateState();
-}
-
-void PipelineState::Create3D(ID3D12RootSignature* rootSignature, 
-	ShaderManager& shaderM, std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout)
-{
-	// グラフィックスパイプライン設定
-	InitDesc(rootSignature, shaderM, inputLayout);
-
-	// ラスタライザの設定
-	desc.RasterizerState.CullMode = D3D12_CULL_MODE_BACK; // 背面をカリング
-
-	// デプスステンシルステートの設定
-	desc.DepthStencilState.DepthEnable = true; // 深度テスト
-	desc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL; // 書き込み許可
-	desc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS; // 小さければ合格
-	desc.DSVFormat = DXGI_FORMAT_D32_FLOAT; // 深度フォーマット
+		// デプスステンシルステートの設定
+		desc.DepthStencilState.DepthEnable = true; // 深度テスト
+		desc.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL; // 書き込み許可
+		desc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS; // 小さければ合格
+		desc.DSVFormat = DXGI_FORMAT_D32_FLOAT; // 深度フォーマット
+		break;
+	default:
+		Result::Assert(false);
+		return;
+		break;
+	}
 
 	// パイプランステートの生成
 	CreateState();
@@ -143,9 +137,14 @@ void PipelineState::SetBlendAlpha()
 	CreateState();
 }
 
+ID3D12PipelineState* DX::PipelineState::Get()
+{
+	return pplnState.Get();
+}
+
 void PipelineState::CreateState()
 {
 	// パイプランステートの生成
-	Utility::Result::Check(dev->Get()->
+	Result::Check(dev->Get()->
 		CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(&pplnState)));
 }
