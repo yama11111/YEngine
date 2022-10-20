@@ -68,6 +68,7 @@ void ShaderResourceView::SetDescriptorHeaps()
 	// SRVヒープの設定コマンド
 	ID3D12DescriptorHeap* ppHeaps[] = { srv.Get() };
 	pCmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
+	//pCmdList->SetDescriptorHeaps(1, srv.heap.GetAddressOf());
 }
 
 void ShaderResourceView::SetRootParameter()

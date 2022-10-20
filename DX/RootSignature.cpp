@@ -20,7 +20,7 @@ void RootSignature::Create(ID3DBlob* errorBlob)
 	desc.NumStaticSamplers = (UINT)sampleDesc->sd.size();
 
 	// ルートシグネチャのシリアライズ
-	ID3DBlob* rootSigBlob = nullptr; // ルートシグネチャオブジェクト
+	Microsoft::WRL::ComPtr<ID3DBlob> rootSigBlob = nullptr; // ルートシグネチャオブジェクト
 	Utility::Result::Check(D3D12SerializeRootSignature(&desc, D3D_ROOT_SIGNATURE_VERSION_1_0,
 		&rootSigBlob, &errorBlob));
 	Utility::Result::Check(dev->Get()->

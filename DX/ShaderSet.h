@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d12.h>
+#include <wrl.h>
 
 #pragma comment(lib, "d3d12.lib")
 
@@ -8,9 +9,9 @@ namespace DX
 	class ShaderSet
 	{
 	public:
-		ID3DBlob* vsBlob = nullptr; // 頂点シェーダオブジェクト
-		ID3DBlob* psBlob = nullptr; // ピクセルシェーダオブジェクト
-		ID3DBlob* errorBlob = nullptr; // エラーオブジェクト
+		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob = nullptr; // 頂点シェーダオブジェクト
+		Microsoft::WRL::ComPtr<ID3DBlob> psBlob = nullptr; // ピクセルシェーダオブジェクト
+		Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr; // エラーオブジェクト
 	public:
 		void Load2D();
 		void Load3D();

@@ -9,18 +9,30 @@ using DX::ShaderSet;
 
 void ShaderSet::Load2D()
 {
+	ID3DBlob* vs;
+	ID3DBlob* ps;
+
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/SpriteVS.hlsl", "main", "vs_5_0", vsBlob);
+	LoadShader(L"Resources/Shaders/SpriteVS.hlsl", "main", "vs_5_0", vs);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/SpritePS.hlsl", "main", "ps_5_0", psBlob);
+	LoadShader(L"Resources/Shaders/SpritePS.hlsl", "main", "ps_5_0", ps);
+
+	vsBlob = vs;
+	psBlob = ps;
 }
 
 void ShaderSet::Load3D()
 {
+	ID3DBlob* vs;
+	ID3DBlob* ps;
+
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/ModelVS.hlsl", "main", "vs_5_0", vsBlob);
+	LoadShader(L"Resources/Shaders/ModelVS.hlsl", "main", "vs_5_0", vs);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/ModelPS.hlsl", "main", "ps_5_0", psBlob);
+	LoadShader(L"Resources/Shaders/ModelPS.hlsl", "main", "ps_5_0", ps);
+
+	vsBlob = vs;
+	psBlob = ps;
 }
 
 void ShaderSet::LoadShader(const wchar_t* fileName, const char* entryPoint,

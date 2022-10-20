@@ -13,7 +13,7 @@ namespace DX
 		public:
 			// デスクリプタヒープ設定
 			D3D12_DESCRIPTOR_HEAP_DESC desc{};
-		private:
+		//private:
 			Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> heap = nullptr;
 		public:
 			void Create();

@@ -50,12 +50,14 @@ void Game::Draw()
 	srvH->SetDescriptorHeaps();
 	// --------- モデル --------- //
 
-	//m1->Draw(t, vp, plainTex);
+	m1->Draw(t, vp, plainTex);
 
 	// -------------------------- //
 	pplnSet2D.SetCommand();
 	srvH->SetDescriptorHeaps();
 	// ----- 前景スプライト ----- //
+
+	//s1->Draw(t, plainTex);
 	
 	// -------------------------- //
 }

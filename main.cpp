@@ -16,7 +16,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 {
 	// Windows 初期化
 	YWindows* win = YWindows::GetInstance();
-	win->Create(L"LE2A_ヤマナカ_ルイ_PIT SHOOTING");
+	win->Create(L"LE2A_ヤマナカ_ルイ");
 
 	// DirectX 初期化
 	YDirectX* dx = YDirectX::GetInstance();

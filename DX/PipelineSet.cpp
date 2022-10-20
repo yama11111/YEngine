@@ -21,13 +21,13 @@ void PipelineSet::Create(const int dimension)
 	{
 	case PipelineState::Dimension::Two:
 		shdrs.Load2D();
-		rootSig.Create(shdrs.errorBlob);
+		rootSig.Create(shdrs.errorBlob.Get());
 		pplnState.Create(rootSig.Get(), shdrs, layout->spriteIL, PipelineState::Dimension::Two);
 		d = PipelineState::Dimension::Two;
 		break;
 	case PipelineState::Dimension::Three:
 		shdrs.Load3D();
-		rootSig.Create(shdrs.errorBlob);
+		rootSig.Create(shdrs.errorBlob.Get());
 		pplnState.Create(rootSig.Get(), shdrs, layout->modelIL, PipelineState::Dimension::Three);
 		d = PipelineState::Dimension::Three;
 		break;
