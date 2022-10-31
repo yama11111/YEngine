@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Base\WindowsApp.cpp" />
     <ClCompile Include="DX\Adapter.cpp" />
     <ClCompile Include="DX\CommandList.cpp" />
     <ClCompile Include="DX\CommandQueue.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base\WindowsApp.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DX\Adapter.h" />
     <ClInclude Include="DX\CommandList.h" />
