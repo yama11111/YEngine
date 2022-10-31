@@ -1,18 +1,19 @@
 #pragma once
 #include <windows.h>
 
-class WindowsApp
+class YWindowsApp
 {
 private:
 	// ウィンドウクラス設定
-	WNDCLASSEX w{};
+	WNDCLASSEX wDesc_{};
 	// ウィンドウオブジェクト
-	HWND hwnd;
+	HWND hwnd_;
 	// メッセージ
-	MSG msg{};
+	MSG msg_{};
 public:
 	// ウィンドウプロシージャ
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+public:
 	// ウィンドウ生成
 	void Create(const wchar_t* titleName = L"DirectXGame", 
 				const int width = 1280, const int height = 720);

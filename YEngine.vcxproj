@@ -143,7 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Base\WindowsApp.cpp" />
+    <ClCompile Include="Base\YDirectX.cpp" />
+    <ClCompile Include="Base\YWindowsApp.cpp" />
     <ClCompile Include="DX\Adapter.cpp" />
     <ClCompile Include="DX\CommandList.cpp" />
     <ClCompile Include="DX\CommandQueue.cpp" />
@@ -175,7 +176,7 @@
     <ClCompile Include="DX\Utility\Result.cpp" />
     <ClCompile Include="DX\VertexLayoutManager.cpp" />
     <ClCompile Include="DX\Viewport.cpp" />
-    <ClCompile Include="DX\YDirectX.cpp" />
+    <ClCompile Include="DX\YDirectX2.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
@@ -198,10 +199,12 @@
     <ClCompile Include="Object\Ray.cpp" />
     <ClCompile Include="Object\Sprite.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="YAssert.cpp" />
     <ClCompile Include="YWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\WindowsApp.h" />
+    <ClInclude Include="Base\YDirectX.h" />
+    <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DX\Adapter.h" />
     <ClInclude Include="DX\CommandList.h" />
@@ -235,7 +238,7 @@
     <ClInclude Include="DX\Utility\Result.h" />
     <ClInclude Include="DX\VertexLayoutManager.h" />
     <ClInclude Include="DX\Viewport.h" />
-    <ClInclude Include="DX\YDirectX.h" />
+    <ClInclude Include="DX\YDirectX2.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />
@@ -257,6 +260,7 @@
     <ClInclude Include="Object\Transform.h" />
     <ClInclude Include="Object\Ray.h" />
     <ClInclude Include="Object\Sprite.h" />
+    <ClInclude Include="YAssert.h" />
     <ClInclude Include="YWindows.h" />
   </ItemGroup>
   <ItemGroup>

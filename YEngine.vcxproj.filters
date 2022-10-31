@@ -201,7 +201,7 @@
     <ClCompile Include="DX\SwapChain.cpp">
       <Filter>a\s\DX\初期化</Filter>
     </ClCompile>
-    <ClCompile Include="DX\YDirectX.cpp">
+    <ClCompile Include="DX\YDirectX2.cpp">
       <Filter>a\s\DX</Filter>
     </ClCompile>
     <ClCompile Include="DX\Viewport.cpp">
@@ -267,8 +267,14 @@
     <ClCompile Include="YWindows.cpp">
       <Filter>a\s</Filter>
     </ClCompile>
-    <ClCompile Include="Base\WindowsApp.cpp">
+    <ClCompile Include="Base\YWindowsApp.cpp">
       <Filter>ソース ファイル\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\YDirectX.cpp">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="YAssert.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,7 +377,7 @@
     <ClInclude Include="DX\SwapChain.h">
       <Filter>a\h\DX\初期化</Filter>
     </ClInclude>
-    <ClInclude Include="DX\YDirectX.h">
+    <ClInclude Include="DX\YDirectX2.h">
       <Filter>a\h\DX</Filter>
     </ClInclude>
     <ClInclude Include="DX\Viewport.h">
@@ -431,16 +437,22 @@
     <ClInclude Include="Object\Transform.h">
       <Filter>a\h\Obj</Filter>
     </ClInclude>
-    <ClInclude Include="Def.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>a\h</Filter>
     </ClInclude>
     <ClInclude Include="YWindows.h">
       <Filter>a\h</Filter>
     </ClInclude>
-    <ClInclude Include="Base\WindowsApp.h">
+    <ClInclude Include="Base\YDirectX.h">
+      <Filter>ヘッダー ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="YAssert.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Def.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\YWindowsApp.h">
       <Filter>ヘッダー ファイル\Base</Filter>
     </ClInclude>
   </ItemGroup>

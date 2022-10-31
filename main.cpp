@@ -1,8 +1,9 @@
-#include "WindowsApp.h"
-//#include "YDirectX.h"
+#include "YWindowsApp.h"
+#include "YDirectX.h"
 //#include "InputManager.h"
 //#include "Game.h"
 //#include "ScreenDesc.h"
+#include "Def.h"
 
 //using namespace DX;
 //using namespace DX::GPUResource;
@@ -15,12 +16,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	// Windows 初期化
-	WindowsApp window;
-	window.Create(L"LE2A_ヤマナカ_ルイ");
+	YWindowsApp window;
+	window.Create(L"LE2A_ヤマナカ_ルイ", WIN_SIZE.x, WIN_SIZE.y);
 
-	//// DirectX 初期化
-	//YDirectX* dx = YDirectX::GetInstance();
-	//if (!dx->Initialize(win->HandleWindow())) return 0;
+	// DirectX 初期化
+	YDirectX dx;
+	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE.x, WIN_SIZE.y)) return 0;
 
 	//// Input 初期化
 	//InputManager* input = InputManager::GetInstance();
@@ -52,31 +53,31 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	// ゲームループ
 	while (true)
 	{
-		//// ----- DirectX 毎フレーム処理 ----- //
+		// ----- DirectX 毎フレーム処理 ----- //
 
 		//// キーボード
 		//keys->Update();
 		//// マウス
 		//mouse->Update(win->HandleWindow());
 
-		//// -------------------- Update -------------------- //
+		// -------------------- Update -------------------- //
 
 		//game.Update();
 
-		//// ------------------------------------------------ //
+		// ------------------------------------------------ //
 
-		//dx->PreDraw(); // 描画準備
+		dx.PreDraw(CLEAR_COLOR.r, CLEAR_COLOR.g ,CLEAR_COLOR.b ,CLEAR_COLOR.a); // 描画準備
 
-		//// --------------------- Draw --------------------- //
+		// --------------------- Draw --------------------- //
 		//screenDesc.SetCommand();
 
 		//game.Draw();
 
-		//// ------------------------------------------------ //
+		// ------------------------------------------------ //
 
-		//dx->PostDraw(); // 描画後処理
+		dx.PostDraw(); // 描画後処理
 
-		//// ---------------------------------- //
+		// ---------------------------------- //
 
 		// ×ボタンで終了メッセージ
 		if (window.CheckMessage()) break;
