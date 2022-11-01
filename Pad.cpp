@@ -27,7 +27,7 @@ void Pad::PadState::Initialize()
 
 void Pad::PadState::Connect(const DWORD index)
 {
-	if (0 <= index && index <= 3)
+	if (index < 0 && 3 < index)
 	{
 		assert(false);
 		return;
