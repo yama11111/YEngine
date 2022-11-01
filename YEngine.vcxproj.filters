@@ -100,6 +100,12 @@
     <Filter Include="ヘッダー ファイル\Base">
       <UniqueIdentifier>{f88a1592-601d-4229-a1ea-dfa7ef938383}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Input">
+      <UniqueIdentifier>{7b3e2857-56b2-48e0-83b0-d4e7380dc3a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Input">
+      <UniqueIdentifier>{26584a69-3aa4-473d-a320-a4bc84da9203}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,15 +167,6 @@
     </ClCompile>
     <ClCompile Include="Math\Shake.cpp">
       <Filter>a\s\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputManager.cpp">
-      <Filter>a\s\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Keys.cpp">
-      <Filter>a\s\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Mouse.cpp">
-      <Filter>a\s\Input</Filter>
     </ClCompile>
     <ClCompile Include="DX\Adapter.cpp">
       <Filter>a\s\DX\初期化</Filter>
@@ -276,6 +273,15 @@
     <ClCompile Include="YAssert.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Input\Mouse.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Keys.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputManager.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Calc.h">
@@ -337,15 +343,6 @@
     </ClInclude>
     <ClInclude Include="Math\Shake.h">
       <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputManager.h">
-      <Filter>a\h\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Keys.h">
-      <Filter>a\h\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Mouse.h">
-      <Filter>a\h\Input</Filter>
     </ClInclude>
     <ClInclude Include="DX\Adapter.h">
       <Filter>a\h\DX\初期化</Filter>
@@ -454,6 +451,15 @@
     </ClInclude>
     <ClInclude Include="Base\YWindowsApp.h">
       <Filter>ヘッダー ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputManager.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Keys.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Mouse.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

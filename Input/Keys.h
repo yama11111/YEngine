@@ -1,16 +1,23 @@
 #pragma once
-#include "InputManager.h"
+#include <dinput.h>
+#include <memory>
+
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
 
 namespace Input
 {
 	class Keys
 	{
 	private:
-		unsigned char* keys;
-		unsigned char* elderKeys;
-		InputManager* input;
+		IDirectInputDevice8* keyDevice = nullptr;
+		std::unique_ptr<unsigned char> keys[256];
+		std::unique_ptr<unsigned char> elderKeys[256];
 	public:
+		void Create(const HWND hwnd, IDirectInput8* directInput);
+		void Initialize();
 		void Update();
+	public:
 		bool IsDown(const int key);
 		bool IsTrigger(const int key);
 		bool IsLongPress(const int key);
@@ -26,8 +33,8 @@ namespace Input
 	public:
 		static Keys* GetInstance();
 	private:
-		Keys();
-		~Keys();
+		Keys() = default;
+		~Keys() = default;
 		Keys(const Keys&) = delete;
 		const Keys& operator=(const Keys&) = delete;
 	};

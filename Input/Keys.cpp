@@ -1,4 +1,5 @@
 #include "Keys.h"
+#include "YAssert.h"
 
 using Input::Keys;
 
@@ -8,32 +9,73 @@ Keys* Keys::GetInstance()
 	return &instance;
 }
 
-void Keys::Update()
+void Keys::Create(const HWND hwnd, IDirectInput8* directInput)
 {
-	// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
+	// 生成
+	for (size_t i = 0; i < 256; i++)
+	{
+		keys[i] = std::make_unique<unsigned char>();
+		elderKeys[i] = std::make_unique<unsigned char>();
+	}
+
+	// キーボードデバイス 生成
+	Result(directInput->CreateDevice(GUID_SysKeyboard, &keyDevice, NULL));
+
+	// 入力データ形式セット
+	Result(keyDevice->SetDataFormat(&c_dfDIKeyboard));
+
+	// 排他制御レベルセット
+	Result(keyDevice->SetCooperativeLevel(
+		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
+
+	Initialize();
+}
+
+void Keys::Initialize()
+{
 	for (int i = 0; i < 256; i++)
 	{
-		elderKeys[i] = keys[i];
+		*keys[i] = 0;
+		*elderKeys[i] = 0;
 	}
-	// 最新のキーボード情報を取得
-	input->GetKeyboardState(keys);
+}
+
+void Keys::Update()
+{
+	// 1フレーム前の情報を保存
+	for (int i = 0; i < 256; i++)
+	{
+		*elderKeys[i] = *keys[i];
+	}
+
+	// 最新の情報を取得
+	keyDevice->Acquire();
+
+	// 入力状態を取得
+	BYTE key[256];
+	keyDevice->GetDeviceState(sizeof(key), key);
+
+	for (int i = 0; i < 256; i++)
+	{
+		*keys[i] = key[i];
+	}
 }
 
 bool Keys::IsDown(const int key)
 {
-	return keys[key];
+	return *keys[key];
 }
 bool Keys::IsTrigger(const int key)
 {
-	return (keys[key] && !elderKeys[key]);
+	return (*keys[key] && !*elderKeys[key]);
 }
 bool Keys::IsLongPress(const int key)
 {
-	return (keys[key] && elderKeys[key]);
+	return (*keys[key] && *elderKeys[key]);
 }
 bool Keys::IsRelease(const int key)
 {
-	return (!keys[key] && elderKeys[key]);
+	return (!*keys[key] && *elderKeys[key]);
 }
 int Keys::Horizontal()
 {
@@ -72,24 +114,4 @@ bool Keys::IsMove()
 {
 	return 	IsRight() || IsLeft() ||
 			IsUp() || IsUnder();
-}
-
-Keys::Keys() :
-	keys(new unsigned char[256]),
-	elderKeys(new unsigned char[256]),
-	input(InputManager::GetInstance())
-{
-	for (int i = 0; i < 256; i++)
-	{
-		keys[i] = 0;
-		elderKeys[i] = 0;
-	}
-}
-
-Keys::~Keys()
-{
-	delete keys;
-	keys = 0;
-	delete elderKeys;
-	elderKeys = 0;
 }

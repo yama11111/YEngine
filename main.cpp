@@ -1,16 +1,12 @@
 #include "YWindowsApp.h"
 #include "YDirectX.h"
-//#include "InputManager.h"
+#include "InputManager.h"
 //#include "Game.h"
 //#include "ScreenDesc.h"
 #include "Def.h"
 
 //using namespace DX;
-//using namespace DX::GPUResource;
-//using namespace DX::Utility;
-//using namespace Input;
-//using namespace Math;
-//using namespace Object;
+using namespace Input;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -21,13 +17,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	// DirectX 初期化
 	YDirectX dx;
-	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE.x, WIN_SIZE.y)) return 0;
+	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE.x, WIN_SIZE.y)) { return 0; }
 
-	//// Input 初期化
-	//InputManager* input = InputManager::GetInstance();
-	//input->Init(win->HandleWindowInstance(), win->HandleWindow());
-	//Keys* keys = Keys::GetInstance();
-	//Mouse* mouse = Mouse::GetInstance();
+	// Input 初期化
+	InputManager* input = InputManager::GetInstance();
+	input->Create(window.HandleWindowInstance(), window.HandleWindow());
 
 	//PipelineState::StaticInit();
 	//PipelineSet::StaticInit(dx->GetCommandList());
@@ -55,10 +49,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	{
 		// ----- DirectX 毎フレーム処理 ----- //
 
-		//// キーボード
-		//keys->Update();
-		//// マウス
-		//mouse->Update(win->HandleWindow());
+		// input
+		input->Update(window.HandleWindow());
 
 		// -------------------- Update -------------------- //
 
@@ -80,10 +72,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		// ---------------------------------- //
 
 		// ×ボタンで終了メッセージ
-		if (window.CheckMessage()) break;
+		if (window.CheckMessage()) { break; }
 
 		// ESCキーで終了
-		//if (keys->IsTrigger(DIK_ESCAPE)) break;
+		if (input->keys->IsTrigger(DIK_ESCAPE)) { break; }
 	}
 
 	// ウィンドウクラスを登録解除

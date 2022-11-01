@@ -1,5 +1,10 @@
 #pragma once
-#include "InputManager.h"
+#include <dinput.h>
+#include <memory>
+#include "Vec2.h"
+
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
 
 namespace Input
 {
@@ -12,12 +17,22 @@ namespace Input
 
 	class Mouse
 	{
+	private:
+		struct MouseState
+		{
+			DIMOUSESTATE state;
+			Math::Vec2 pos;
+			void Initialize();
+		};
 	public:
-		MyMouseState* mouse;
-		MyMouseState* elderMouse;
-		InputManager* input;
+		IDirectInputDevice8* mouseDevice = nullptr;
+		std::unique_ptr<MouseState> mouse;
+		std::unique_ptr<MouseState> elderMouse;
 	public:
+		void Create(const HWND hwnd, IDirectInput8* directInput);
+		void Initialize();
 		void Update(const HWND hwnd);
+	public:
 		bool IsDown(const int button);
 		bool IsTrigger(const int button);
 		bool IsLongPress(const int button);
@@ -26,8 +41,8 @@ namespace Input
 	public:
 		static Mouse* GetInstance();
 	private:
-		Mouse();
-		~Mouse();
+		Mouse() = default;
+		~Mouse() = default;
 		Mouse(const Mouse&) = delete;
 		const Mouse& operator=(const Mouse&) = delete;
 	};
