@@ -27,7 +27,7 @@ namespace Input
 		struct MouseState
 		{
 			// î•ñ
-			DIMOUSESTATE state_;
+			DIMOUSESTATE state_{};
 			// ˆÊ’u
 			Math::Vec2 pos_;
 			// ‰Šú‰»

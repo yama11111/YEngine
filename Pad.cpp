@@ -45,6 +45,10 @@ void Pad::Create()
 	pad_ = std::make_unique<PadState>();
 	elderPad_ = std::make_unique<PadState>();
 
+	dZone_[0] = XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+	dZone_[1] = XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
+	dZone_[2] = XINPUT_GAMEPAD_TRIGGER_THRESHOLD;
+
 	Initialize();
 
 	pad_->Connect(0);
@@ -74,51 +78,101 @@ void Input::Pad::Update()
 }
 
 bool Pad::IsDown(const int button)
-{
-	return	(pad_->state_.Gamepad.wButtons & button);
+{	
+	if (button == XIP_LT) 
+	{
+		return	(pad_->state_.Gamepad.bLeftTrigger  >= dZone_[2]); 
+	}
+	if (button == XIP_RT) 
+	{
+		return	(pad_->state_.Gamepad.bRightTrigger >= dZone_[2]); 
+	}
+	return (pad_->state_.Gamepad.wButtons & button);
 }
 bool Pad::IsTrigger(const int button)
 {
+	if (button == XIP_LT)
+	{
+		return	(pad_->state_.Gamepad.bLeftTrigger >= dZone_[2]) &&
+				!(elderPad_->state_.Gamepad.bLeftTrigger >= dZone_[2]);
+	}
+	if (button == XIP_RT)
+	{
+		return	(pad_->state_.Gamepad.bLeftTrigger >= dZone_[2]) &&
+				!(elderPad_->state_.Gamepad.bLeftTrigger >= dZone_[2]);
+	}
 	return	(pad_->state_.Gamepad.wButtons & button) && 
 			!(elderPad_->state_.Gamepad.wButtons & button);
 }
 bool Pad::IsLongPress(const int button)
 {
+	if (button == XIP_LT)
+	{
+		return	(pad_->state_.Gamepad.bLeftTrigger >= dZone_[2]) &&
+				(elderPad_->state_.Gamepad.bLeftTrigger >= dZone_[2]);
+	}
+	if (button == XIP_RT)
+	{
+		return	(pad_->state_.Gamepad.bLeftTrigger >= dZone_[2]) &&
+				(elderPad_->state_.Gamepad.bLeftTrigger >= dZone_[2]);
+	}
 	return	(pad_->state_.Gamepad.wButtons & button) &&
 			(elderPad_->state_.Gamepad.wButtons & button);
 }
 bool Pad::IsRelease(const int button)
 {
+	if (button == XIP_LT)
+	{
+		return	!(pad_->state_.Gamepad.bLeftTrigger >= dZone_[2]) &&
+				(elderPad_->state_.Gamepad.bLeftTrigger >= dZone_[2]);
+	}
+	if (button == XIP_RT)
+	{
+		return	!(pad_->state_.Gamepad.bLeftTrigger >= dZone_[2]) &&
+				(elderPad_->state_.Gamepad.bLeftTrigger >= dZone_[2]);
+	}
 	return	!(pad_->state_.Gamepad.wButtons & button) &&
 			(elderPad_->state_.Gamepad.wButtons & button);
 }
 
-bool Pad::IsLeft()
+bool Pad::IsLeft(const int stick)
 {
-	return pad_->state_.Gamepad.sThumbLX >=  XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+	bool result = false;
+	if (stick == LStick) { result = (pad_->state_.Gamepad.sThumbLX <= -dZone_[stick]); }
+	if (stick == RStick) { result = (pad_->state_.Gamepad.sThumbRX <= -dZone_[stick]); }
+	return result;
 }
-bool Pad::IsRight()
+bool Pad::IsRight(const int stick)
 {
-	return pad_->state_.Gamepad.sThumbLX <= -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+	bool result = false;
+	if (stick == LStick) { result = (pad_->state_.Gamepad.sThumbLX >=  dZone_[stick]); }
+	if (stick == RStick) { result = (pad_->state_.Gamepad.sThumbRX >=  dZone_[stick]); }
+	return result;
 }
-bool Pad::IsUp()
+bool Pad::IsUp(const int stick)
 {
-	return pad_->state_.Gamepad.sThumbLY >=  XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+	bool result = false;
+	if (stick == LStick) { result = (pad_->state_.Gamepad.sThumbLY >=  dZone_[stick]); }
+	if (stick == RStick) { result = (pad_->state_.Gamepad.sThumbRY >=  dZone_[stick]); }
+	return result;
 }
-bool Pad::IsUnder()
+bool Pad::IsUnder(const int stick)
 {
-	return pad_->state_.Gamepad.sThumbLY <= -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+	bool result = false;
+	if (stick == LStick) { result = (pad_->state_.Gamepad.sThumbLY <= -dZone_[stick]); }
+	if (stick == RStick) { result = (pad_->state_.Gamepad.sThumbRY <= -dZone_[stick]); }
+	return result;
 }
 
-int Pad::Horizontal()
+int Pad::Horizontal(const int stick)
 {
-	return IsRight() - IsLeft();
+	return IsRight(stick) - IsLeft(stick);
 }
-int Pad::Vertical()
+int Pad::Vertical(const int stick)
 {
-	return IsUnder() - IsUp();
+	return IsUnder(stick) - IsUp(stick);
 }
-bool Pad::IsMove()
+bool Pad::IsMove(const int stick)
 {
-	return IsRight() || IsLeft() || IsUp() || IsUnder();
+	return IsRight(stick) || IsLeft(stick) || IsUp(stick) || IsUnder(stick);
 }

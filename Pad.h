@@ -41,6 +41,17 @@ namespace Input
 		XIP_X = XINPUT_GAMEPAD_X,
 		// Y ボタン
 		XIP_Y = XINPUT_GAMEPAD_Y,
+
+		// LT ボタン
+		XIP_LT = -1,
+		// RT ボタン
+		XIP_RT = -2,
+	};
+	// パッドスティック
+	enum PadStick 
+	{
+		LStick,
+		RStick,
 	};
 
 	class Pad
@@ -51,11 +62,11 @@ namespace Input
 		{
 		public:
 			// 情報
-			XINPUT_STATE state_;
+			XINPUT_STATE state_{};
 			// 振動
-			XINPUT_VIBRATION vibration_;
+			XINPUT_VIBRATION vibration_{};
 			// パッド番号 (0 ～ 3)
-			DWORD index_;
+			DWORD index_ = 0;
 			// 接続されているか
 			bool isConnect_ = false;
 		public:
@@ -69,6 +80,8 @@ namespace Input
 		std::unique_ptr<PadState> pad_ = nullptr;
 		// 1F前
 		std::unique_ptr<PadState> elderPad_ = nullptr;
+		// DeadZone (LStick, RStick, Trigger)
+		int dZone_[3]{};
 	public:
 		// 生成 (最初に1回呼ぶ)
 		void Create();
@@ -87,19 +100,19 @@ namespace Input
 		bool IsRelease(const int button);
 	public:
 		// 左
-		bool IsLeft();
+		bool IsLeft(const int stick);
 		// 右
-		bool IsRight();
+		bool IsRight(const int stick);
 		// 上
-		bool IsUp();
+		bool IsUp(const int stick);
 		// 下
-		bool IsUnder();
+		bool IsUnder(const int stick);
 		// 左(-1) 右(+1)
-		int Horizontal();
+		int Horizontal(const int stick);
 		// 上(-1) 下(+1)
-		int Vertical();
+		int Vertical(const int stick);
 		// 移動しているか
-		bool IsMove();
+		bool IsMove(const int stick);
 	public:
 		static Pad* GetInstance();
 	private:
