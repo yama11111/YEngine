@@ -14,18 +14,18 @@ void Keys::Create(const HWND hwnd, IDirectInput8* directInput)
 	// 生成
 	for (size_t i = 0; i < 256; i++)
 	{
-		keys[i] = std::make_unique<unsigned char>();
-		elderKeys[i] = std::make_unique<unsigned char>();
+		keys_[i] = std::make_unique<unsigned char>();
+		elderKeys_[i] = std::make_unique<unsigned char>();
 	}
 
 	// キーボードデバイス 生成
-	DX::Result(directInput->CreateDevice(GUID_SysKeyboard, &keyDevice, NULL));
+	DX::Result(directInput->CreateDevice(GUID_SysKeyboard, &device_, NULL));
 
 	// 入力データ形式セット
-	DX::Result(keyDevice->SetDataFormat(&c_dfDIKeyboard));
+	DX::Result(device_->SetDataFormat(&c_dfDIKeyboard));
 
 	// 排他制御レベルセット
-	DX::Result(keyDevice->SetCooperativeLevel(
+	DX::Result(device_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
 
 	Initialize();
@@ -35,83 +35,68 @@ void Keys::Initialize()
 {
 	for (int i = 0; i < 256; i++)
 	{
-		*keys[i] = 0;
-		*elderKeys[i] = 0;
+		*keys_[i] = *elderKeys_[i] = 0;
 	}
 }
 
 void Keys::Update()
 {
 	// 1フレーム前の情報を保存
-	for (int i = 0; i < 256; i++)
-	{
-		*elderKeys[i] = *keys[i];
-	}
+	for (int i = 0; i < 256; i++) { *elderKeys_[i] = *keys_[i]; }
 
 	// 最新の情報を取得
-	keyDevice->Acquire();
+	device_->Acquire();
 
 	// 入力状態を取得
 	BYTE key[256];
-	keyDevice->GetDeviceState(sizeof(key), key);
+	device_->GetDeviceState(sizeof(key), key);
 
-	for (int i = 0; i < 256; i++)
-	{
-		*keys[i] = key[i];
-	}
+	for (int i = 0; i < 256; i++) { *keys_[i] = key[i]; }
 }
 
 bool Keys::IsDown(const int key)
 {
-	return *keys[key];
+	return *keys_[key];
 }
 bool Keys::IsTrigger(const int key)
 {
-	return (*keys[key] && !*elderKeys[key]);
+	return (*keys_[key] && !*elderKeys_[key]);
 }
 bool Keys::IsLongPress(const int key)
 {
-	return (*keys[key] && *elderKeys[key]);
+	return (*keys_[key] && *elderKeys_[key]);
 }
 bool Keys::IsRelease(const int key)
 {
-	return (!*keys[key] && *elderKeys[key]);
-}
-int Keys::Horizontal()
-{
-	bool right = IsDown(DIK_RIGHT) || IsDown(DIK_D);
-	bool left = IsDown(DIK_LEFT) || IsDown(DIK_A);
-	return right - left;
-}
-int Keys::Vertical()
-{
-	bool up = IsDown(DIK_DOWN) || IsDown(DIK_S);
-	bool down = IsDown(DIK_UP) || IsDown(DIK_W);
-	return down - up;
+	return (!*keys_[key] && *elderKeys_[key]);
 }
 
 bool Keys::IsLeft()
 {
 	return IsDown(DIK_LEFT) || IsDown(DIK_A);
 }
-
 bool Keys::IsRight()
 {
 	return IsDown(DIK_RIGHT) || IsDown(DIK_D);
 }
-
 bool Keys::IsUp()
 {
 	return IsDown(DIK_UP) || IsDown(DIK_W);
 }
-
 bool Keys::IsUnder()
 {
 	return IsDown(DIK_DOWN) || IsDown(DIK_S);
 }
 
+int Keys::Horizontal()
+{
+	return IsRight() - IsLeft();
+}
+int Keys::Vertical()
+{
+	return IsUnder() - IsUp();
+}
 bool Keys::IsMove()
 {
-	return 	IsRight() || IsLeft() ||
-			IsUp() || IsUnder();
+	return IsRight() || IsLeft() || IsUp() || IsUnder();
 }

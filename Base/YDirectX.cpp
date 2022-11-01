@@ -4,7 +4,7 @@
 
 using DX::YDirectX;
 
-bool YDirectX::Initialize(const HWND& hwnd, const int width, const int height)
+bool YDirectX::Initialize(const HWND& hwnd, const Math::Vec2& size)
 {
 	// ----- デバッグレイヤーを有効に ----- //
 #ifdef _DEBUG
@@ -129,8 +129,8 @@ bool YDirectX::Initialize(const HWND& hwnd, const int width, const int height)
 
 	// ----- スワップチェーン生成 ----- //
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{}; // 設定
-	swapChainDesc.Width = (UINT)width;
-	swapChainDesc.Height = (UINT)height;
+	swapChainDesc.Width = (UINT)size.x;
+	swapChainDesc.Height = (UINT)size.y;
 	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;		  // 色情報の書式
 	swapChainDesc.SampleDesc.Count = 1;						  // マルチサンプルしない
 	swapChainDesc.BufferUsage = DXGI_USAGE_BACK_BUFFER;		  // バックバッファ用
@@ -181,8 +181,8 @@ bool YDirectX::Initialize(const HWND& hwnd, const int width, const int height)
 	// ----- デプスステンシルビュー生成 ----- //
 	D3D12_RESOURCE_DESC dsvResDesc{}; // リソース設定
 	dsvResDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-	dsvResDesc.Width = (UINT16)width; // レンダーターゲットに合わせる
-	dsvResDesc.Height = (UINT)height; // レンダーターゲットに合わせる
+	dsvResDesc.Width = (UINT16)size.x; // レンダーターゲットに合わせる
+	dsvResDesc.Height = (UINT)size.y; // レンダーターゲットに合わせる
 	dsvResDesc.DepthOrArraySize = 1;
 	dsvResDesc.Format = DXGI_FORMAT_D32_FLOAT; // 深度値フォーマット
 	dsvResDesc.SampleDesc.Count = 1;
@@ -229,7 +229,7 @@ bool YDirectX::Initialize(const HWND& hwnd, const int width, const int height)
 	return true;
 }
 
-void YDirectX::PreDraw(const float r, const float g, const float b, const float a)
+void YDirectX::PreDraw(const Math::Vec4& clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
 	UINT bbIndex = swapChain_->GetCurrentBackBufferIndex(); // バックバッファの番号を取得(0番か1番)
@@ -248,8 +248,8 @@ void YDirectX::PreDraw(const float r, const float g, const float b, const float 
 	cmdList_->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
 
 	// 3.画面クリア {R, G, B, A}
-	FLOAT clearColor[] = { r,g,b,a };
-	cmdList_->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr); // 青っぽい色
+	FLOAT clear[] = { clearColor.r,clearColor.g,clearColor.b,clearColor.a };
+	cmdList_->ClearRenderTargetView(rtvHandle, clear, 0, nullptr); // 青っぽい色
 	cmdList_->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 }
 

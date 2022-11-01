@@ -279,6 +279,9 @@
     <ClCompile Include="Input\InputManager.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Pad.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Calc.h">
@@ -453,6 +456,9 @@
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
     <ClInclude Include="Input\Mouse.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Pad.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
   </ItemGroup>

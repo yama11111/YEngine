@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include "Vec2.h"
 
 class YWindowsApp
 {
@@ -15,8 +16,7 @@ public:
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 public:
 	// ウィンドウ生成
-	void Create(const wchar_t* titleName = L"DirectXGame", 
-				const int width = 1280, const int height = 720);
+	void Create(const wchar_t* titleName = L"DirectXGame", const Math::Vec2& size = { 1280, 720 });
 	// メッセージ確認
 	bool CheckMessage();
 	// 終了処理

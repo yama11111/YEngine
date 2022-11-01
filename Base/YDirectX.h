@@ -27,8 +27,8 @@ namespace DX
 		Microsoft::WRL::ComPtr<ID3D12Fence> fence_ = nullptr;
 		UINT64 fenceValue_ = 0;
 	public:
-		bool Initialize(const HWND& hwnd, const int width = 1280, const int height = 720);
-		void PreDraw(const float r, const float g, const float b, const float a);
+		bool Initialize(const HWND& hwnd, const Math::Vec2& size = { 1280, 720 });
+		void PreDraw(const Math::Vec4& clearColor);
 		void PostDraw();
 		ID3D12Device* Device() { return device_.Get(); }
 		ID3D12GraphicsCommandList* CommandList() { return cmdList_.Get(); }

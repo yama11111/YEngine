@@ -16,7 +16,7 @@ LRESULT YWindowsApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpara
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-void YWindowsApp::Create(const wchar_t* titleName, const int width, const int height)
+void YWindowsApp::Create(const wchar_t* titleName, const Math::Vec2& size)
 {
 	wDesc_.cbSize = sizeof(WNDCLASSEX);
 	wDesc_.lpfnWndProc = (WNDPROC)WindowProc;	  // ウィンドウプロシージャ設定
@@ -26,7 +26,7 @@ void YWindowsApp::Create(const wchar_t* titleName, const int width, const int he
 	// ウィンドウクラスをOSに登録
 	RegisterClassEx(&wDesc_);
 	// ウィンドウサイズ {x, y, width，height}
-	RECT wrc = { 0, 0, (LONG)width, (LONG)height };
+	RECT wrc = { 0, 0, (LONG)size.x, (LONG)size.y };
 	// 自動でサイスを補正
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 	// ------- ウィンドウ生成 ------- //

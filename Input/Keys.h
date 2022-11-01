@@ -1,5 +1,6 @@
 #pragma once
 #include <dinput.h>
+#include <wrl.h>
 #include <memory>
 
 #pragma comment(lib, "dinput8.lib")
@@ -11,11 +12,11 @@ namespace Input
 	{
 	private:
 		// デバイス
-		IDirectInputDevice8* keyDevice = nullptr;
+		Microsoft::WRL::ComPtr<IDirectInputDevice8> device_ = nullptr;
 		// 最新
-		std::unique_ptr<unsigned char> keys[256];
+		std::unique_ptr<unsigned char> keys_[256];
 		// 1F前
-		std::unique_ptr<unsigned char> elderKeys[256];
+		std::unique_ptr<unsigned char> elderKeys_[256];
 	public:
 		// 生成 (最初に1回呼ぶ)
 		void Create(const HWND hwnd, IDirectInput8* directInput);
@@ -33,10 +34,6 @@ namespace Input
 		// 離した瞬間
 		bool IsRelease(const int key);
 	public:
-		// 左(-1) 右(+1)
-		int Horizontal();
-		// 上(-1) 下(+1)
-		int Vertical();
 		// 左
 		bool IsLeft();
 		// 右
@@ -45,6 +42,10 @@ namespace Input
 		bool IsUp();
 		// 下
 		bool IsUnder();
+		// 左(-1) 右(+1)
+		int Horizontal();
+		// 上(-1) 下(+1)
+		int Vertical();
 		// 移動しているか
 		bool IsMove();
 	public:

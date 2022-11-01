@@ -11,26 +11,30 @@ InputManager* InputManager::GetInstance()
 
 void InputManager::Create(const HINSTANCE hInstance, const HWND hwnd)
 {
-	keys = Keys::GetInstance();
-	mouse = Mouse::GetInstance();
+	keys_ = Keys::GetInstance();
+	mouse_ = Mouse::GetInstance();
+	pad_ = Pad::GetInstance();
 
 	// DirectInput ¶¬
 	DX::Result(DirectInput8Create(
 		hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
-		(void**)&directInput, nullptr));
+		(void**)&directInput_, nullptr));
 
-	keys->Create(hwnd, directInput);
-	mouse->Create(hwnd, directInput);
+	keys_->Create(hwnd, directInput_.Get());
+	mouse_->Create(hwnd, directInput_.Get());
+	pad_->Create();
 }
 
 void InputManager::Initialize()
 {
-	keys->Initialize();
-	mouse->Initialize();
+	keys_->Initialize();
+	mouse_->Initialize();
+	pad_->Initialize();
 }
 
 void InputManager::Update(const HWND hwnd)
 {
-	keys->Update();
-	mouse->Update(hwnd);
+	keys_->Update();
+	mouse_->Update(hwnd);
+	pad_->Update();
 }

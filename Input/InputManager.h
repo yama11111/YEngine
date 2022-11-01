@@ -2,16 +2,18 @@
 #define DIRECTINPUT_VERSION 0x0800 // DirectInputのバージョン指定
 #include "Keys.h"
 #include "Mouse.h"
+#include "Pad.h"
 
 namespace Input
 {
 	class InputManager
 	{
 	private:
-		IDirectInput8* directInput = nullptr;
+		Microsoft::WRL::ComPtr<IDirectInput8> directInput_ = nullptr;
 	public:
-		Keys* keys = nullptr;
-		Mouse* mouse = nullptr;
+		Keys* keys_ = nullptr;
+		Mouse* mouse_ = nullptr;
+		Pad* pad_ = nullptr;
 	public:
 		// 生成 (最初に1回呼ぶ)
 		void Create(const HINSTANCE hInstance, const HWND hwnd);
