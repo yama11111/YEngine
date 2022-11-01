@@ -28,13 +28,13 @@ void Mouse::Create(const HWND hwnd, IDirectInput8* directInput)
 	elderMouse = std::make_unique<MouseState>();
 
 	// キーボードデバイス 生成
-	Result(directInput->CreateDevice(GUID_SysMouse, &mouseDevice, NULL));
+	DX::Result(directInput->CreateDevice(GUID_SysMouse, &mouseDevice, NULL));
 
 	// 入力データ形式セット
-	Result(mouseDevice->SetDataFormat(&c_dfDIMouse));
+	DX::Result(mouseDevice->SetDataFormat(&c_dfDIMouse));
 
 	// 排他制御レベルセット
-	Result(mouseDevice->SetCooperativeLevel(
+	DX::Result(mouseDevice->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
 
 	Initialize();

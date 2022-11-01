@@ -15,7 +15,7 @@ void InputManager::Create(const HINSTANCE hInstance, const HWND hwnd)
 	mouse = Mouse::GetInstance();
 
 	// DirectInput ê∂ê¨
-	Result(DirectInput8Create(
+	DX::Result(DirectInput8Create(
 		hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
 		(void**)&directInput, nullptr));
 

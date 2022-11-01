@@ -19,13 +19,13 @@ void Keys::Create(const HWND hwnd, IDirectInput8* directInput)
 	}
 
 	// キーボードデバイス 生成
-	Result(directInput->CreateDevice(GUID_SysKeyboard, &keyDevice, NULL));
+	DX::Result(directInput->CreateDevice(GUID_SysKeyboard, &keyDevice, NULL));
 
 	// 入力データ形式セット
-	Result(keyDevice->SetDataFormat(&c_dfDIKeyboard));
+	DX::Result(keyDevice->SetDataFormat(&c_dfDIKeyboard));
 
 	// 排他制御レベルセット
-	Result(keyDevice->SetCooperativeLevel(
+	DX::Result(keyDevice->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
 
 	Initialize();

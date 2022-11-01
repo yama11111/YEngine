@@ -176,7 +176,6 @@
     <ClCompile Include="DX\Utility\Result.cpp" />
     <ClCompile Include="DX\VertexLayoutManager.cpp" />
     <ClCompile Include="DX\Viewport.cpp" />
-    <ClCompile Include="DX\YDirectX2.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
@@ -238,7 +237,6 @@
     <ClInclude Include="DX\Utility\Result.h" />
     <ClInclude Include="DX\VertexLayoutManager.h" />
     <ClInclude Include="DX\Viewport.h" />
-    <ClInclude Include="DX\YDirectX2.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />

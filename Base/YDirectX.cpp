@@ -2,6 +2,8 @@
 #include "YAssert.h"
 #include <wrl/client.h>
 
+using DX::YDirectX;
+
 bool YDirectX::Initialize(const HWND& hwnd, const int width, const int height)
 {
 	// ----- デバッグレイヤーを有効に ----- //

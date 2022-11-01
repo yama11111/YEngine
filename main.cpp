@@ -5,7 +5,7 @@
 //#include "ScreenDesc.h"
 #include "Def.h"
 
-//using namespace DX;
+using namespace DX;
 using namespace Input;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
