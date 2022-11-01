@@ -8,34 +8,52 @@
 
 namespace Input
 {
+	// マウス入力
 	enum MouseInputNumber
 	{
-		DIM_LEFT = 0,
-		DIM_RIGHT = 1,
-		DIM_MIDDLE = 2,
+		// 左クリック
+		DIM_LEFT,
+		// 右クリック
+		DIM_RIGHT,
+		// ホイールクリック
+		DIM_MIDDLE,
 	};
 
 	class Mouse
 	{
 	private:
+		// マウス情報構造体
 		struct MouseState
 		{
+			// 情報
 			DIMOUSESTATE state;
+			// 位置
 			Math::Vec2 pos;
+			// 初期化
 			void Initialize();
 		};
 	public:
+		// デバイス
 		IDirectInputDevice8* mouseDevice = nullptr;
+		// 最新
 		std::unique_ptr<MouseState> mouse;
+		// 1F前
 		std::unique_ptr<MouseState> elderMouse;
 	public:
+		// 生成 (最初に1回呼ぶ)
 		void Create(const HWND hwnd, IDirectInput8* directInput);
+		// 入力情報 初期化
 		void Initialize();
+		// 更新処理
 		void Update(const HWND hwnd);
 	public:
+		// 押している
 		bool IsDown(const int button);
+		// 押した瞬間
 		bool IsTrigger(const int button);
+		// 押し続けている
 		bool IsLongPress(const int button);
+		// 離した瞬間
 		bool IsRelease(const int button);
 		Math::Vec2 Pos() { return mouse->pos; }
 	public:

@@ -13,8 +13,11 @@ namespace Input
 		Keys* keys = nullptr;
 		Mouse* mouse = nullptr;
 	public:
+		// ¶¬ (Å‰‚É1‰ñŒÄ‚Ô)
 		void Create(const HINSTANCE hInstance, const HWND hwnd);
+		// “ü—Íî•ñ ‰Šú‰»
 		void Initialize();
+		// XVˆ—
 		void Update(const HWND hwnd);
 	public:
 		static InputManager* GetInstance();

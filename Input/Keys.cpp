@@ -90,14 +90,14 @@ int Keys::Vertical()
 	return down - up;
 }
 
-bool Keys::IsRight()
-{
-	return IsDown(DIK_RIGHT) || IsDown(DIK_D);
-}
-
 bool Keys::IsLeft()
 {
 	return IsDown(DIK_LEFT) || IsDown(DIK_A);
+}
+
+bool Keys::IsRight()
+{
+	return IsDown(DIK_RIGHT) || IsDown(DIK_D);
 }
 
 bool Keys::IsUp()
