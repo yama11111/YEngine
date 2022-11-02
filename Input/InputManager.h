@@ -10,17 +10,18 @@ namespace Input
 	{
 	private:
 		Microsoft::WRL::ComPtr<IDirectInput8> directInput_ = nullptr;
+		HWND* pHwnd = nullptr;
 	public:
 		Keys* keys_ = nullptr;
 		Mouse* mouse_ = nullptr;
 		Pad* pad_ = nullptr;
 	public:
 		// ¶¬ (Å‰‚É1‰ñŒÄ‚Ô)
-		void Create(const HINSTANCE hInstance, const HWND hwnd);
+		void Create(const HINSTANCE hInstance, HWND* hwnd);
 		// “ü—Íî•ñ ‰Šú‰»
 		void Initialize();
 		// XVˆ—
-		void Update(const HWND hwnd);
+		void Update();
 	public:
 		static InputManager* GetInstance();
 	private:

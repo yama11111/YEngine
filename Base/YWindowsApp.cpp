@@ -68,13 +68,3 @@ void YWindowsApp::FinalProcess()
 	// ウィンドウクラスを登録解除
 	UnregisterClass(wDesc_.lpszClassName, wDesc_.hInstance);
 }
-
-HWND YWindowsApp::HandleWindow()
-{
-	return hwnd_;
-}
-
-HINSTANCE YWindowsApp::HandleWindowInstance()
-{
-	return wDesc_.hInstance;
-}

@@ -2,7 +2,7 @@
 #include "YDirectX.h"
 #include "InputManager.h"
 //#include "Game.h"
-//#include "ScreenDesc.h"
+#include "ScreenDesc.h"
 #include "Def.h"
 
 using namespace DX;
@@ -19,9 +19,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	YDirectX dx;
 	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE)) { return 0; }
 
+	// スクリーン設定
+	ScreenDesc::StaticInitialize(dx.CommandList());
+	ScreenDesc screenDesc;
+	screenDesc.Initialize({0,0}, WIN_SIZE);
+
 	// Input 初期化
 	InputManager* input = InputManager::GetInstance();
-	input->Create(window.HandleWindowInstance(), window.HandleWindow());
+	input->Create(window.HandleWindowInstance(), window.PointerHandleWindow());
 
 	//PipelineState::StaticInit();
 	//PipelineSet::StaticInit(dx->GetCommandList());
@@ -36,10 +41,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	//Sprite::StaticInit();
 	//Model::StaticInit();
 
-	//ScissorRect::StaticInit(dx->GetCommandList());
-	//Viewport::StaticInit(dx->GetCommandList());
-	//ScreenDesc screenDesc;
-	//screenDesc.Set();
 
 	//Game game;
 	//game.Initialize();
@@ -47,10 +48,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	// ゲームループ
 	while (true)
 	{
-		// ----- DirectX 毎フレーム処理 ----- //
+		// ----- 毎フレーム処理 ----- //
 
-		// input
-		input->Update(window.HandleWindow());
+		input->Update(); // input更新
 
 		// -------------------- Update -------------------- //
 
@@ -60,8 +60,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		dx.PreDraw(CLEAR_COLOR); // 描画準備
 
+		screenDesc.SetCommand(); // スクリーン設定セット
+		
 		// --------------------- Draw --------------------- //
-		//screenDesc.SetCommand();
 
 		//game.Draw();
 

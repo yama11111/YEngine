@@ -22,8 +22,10 @@ public:
 	// èIóπèàóù
 	void FinalProcess();
 	// HWND getter
-	HWND HandleWindow();
+	HWND HandleWindow() { return hwnd_; }
+	// pHWND getter
+	HWND* PointerHandleWindow() { return &hwnd_; }
 	// HINSTANCE getter
-	HINSTANCE HandleWindowInstance();
+	HINSTANCE HandleWindowInstance() { return wDesc_.hInstance; }
 };
 
