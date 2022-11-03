@@ -25,26 +25,8 @@
     <Filter Include="a\h">
       <UniqueIdentifier>{b5bba216-4188-4d04-a021-62274fe89b76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\s">
-      <UniqueIdentifier>{6c74f644-5555-487b-83e7-b46484b1419e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\s\Math">
-      <UniqueIdentifier>{f0c42a62-79b9-4f7b-a9c1-db9e1e0c8608}</UniqueIdentifier>
-    </Filter>
     <Filter Include="a\h\Math">
       <UniqueIdentifier>{e016803d-185b-4297-982c-7e61a623ba46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\s\Obj">
-      <UniqueIdentifier>{70ef4f10-5248-43b8-8f32-d54e52384a92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\s\Obj\行列">
-      <UniqueIdentifier>{f6b1568e-9b32-4362-92f5-805a9d1ac323}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\s\Obj\3D">
-      <UniqueIdentifier>{d749b602-2381-48a7-9d5b-cfa8e287d74a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\s\Obj\2D">
-      <UniqueIdentifier>{c75573f8-1992-4da4-9fd3-b6fce37cd72d}</UniqueIdentifier>
     </Filter>
     <Filter Include="a\h\Obj">
       <UniqueIdentifier>{0d517c4a-f2b2-408c-ba6a-a1e7460e84b7}</UniqueIdentifier>
@@ -79,67 +61,79 @@
     <Filter Include="b">
       <UniqueIdentifier>{35c9ce0c-3143-43a3-bcb3-3597bad09333}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Math">
+      <UniqueIdentifier>{97323698-597a-4745-91c4-3bf4ef5441c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Math">
+      <UniqueIdentifier>{a5dd05ca-6984-4848-b971-6c1d277d883e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="a\c">
+      <UniqueIdentifier>{6c74f644-5555-487b-83e7-b46484b1419e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="a\c\Math">
+      <UniqueIdentifier>{f0c42a62-79b9-4f7b-a9c1-db9e1e0c8608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="a\c\Obj">
+      <UniqueIdentifier>{70ef4f10-5248-43b8-8f32-d54e52384a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="a\c\Obj\行列">
+      <UniqueIdentifier>{f6b1568e-9b32-4362-92f5-805a9d1ac323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="a\c\Obj\3D">
+      <UniqueIdentifier>{d749b602-2381-48a7-9d5b-cfa8e287d74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="a\c\Obj\2D">
+      <UniqueIdentifier>{c75573f8-1992-4da4-9fd3-b6fce37cd72d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Math\Calc.cpp">
-      <Filter>a\s\Math</Filter>
+      <Filter>a\c\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Ease.cpp">
-      <Filter>a\s\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Mat4.cpp">
-      <Filter>a\s\Math</Filter>
+      <Filter>a\c\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Random.cpp">
-      <Filter>a\s\Math</Filter>
+      <Filter>a\c\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Timer.cpp">
-      <Filter>a\s\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vec2.cpp">
-      <Filter>a\s\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vec3.cpp">
-      <Filter>a\s\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vec4.cpp">
-      <Filter>a\s\Math</Filter>
+      <Filter>a\c\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Shake.cpp">
-      <Filter>a\s\Math</Filter>
+      <Filter>a\c\Math</Filter>
     </ClCompile>
     <ClCompile Include="Object\Sprite.cpp">
-      <Filter>a\s\Obj\2D</Filter>
+      <Filter>a\c\Obj\2D</Filter>
     </ClCompile>
     <ClCompile Include="Object\Model.cpp">
-      <Filter>a\s\Obj\3D</Filter>
+      <Filter>a\c\Obj\3D</Filter>
     </ClCompile>
     <ClCompile Include="Object\Ray.cpp">
-      <Filter>a\s\Obj\3D</Filter>
+      <Filter>a\c\Obj\3D</Filter>
     </ClCompile>
     <ClCompile Include="Object\MatProjection.cpp">
-      <Filter>a\s\Obj\行列</Filter>
+      <Filter>a\c\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="Object\MatView.cpp">
-      <Filter>a\s\Obj\行列</Filter>
+      <Filter>a\c\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="Object\MatViewProjection.cpp">
-      <Filter>a\s\Obj\行列</Filter>
+      <Filter>a\c\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="Object\MatWorld.cpp">
-      <Filter>a\s\Obj\行列</Filter>
+      <Filter>a\c\Obj\行列</Filter>
     </ClCompile>
     <ClCompile Include="Object\Transform.cpp">
-      <Filter>a\s\Obj</Filter>
+      <Filter>a\c\Obj</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>a\s</Filter>
+      <Filter>a\c</Filter>
     </ClCompile>
     <ClCompile Include="YWindows.cpp">
-      <Filter>a\s</Filter>
+      <Filter>a\c</Filter>
     </ClCompile>
     <ClCompile Include="Base\YWindowsApp.cpp">
       <Filter>ソース ファイル\Base</Filter>
@@ -162,28 +156,13 @@
     <ClCompile Include="preDX\CommandList.cpp">
       <Filter>b</Filter>
     </ClCompile>
-    <ClCompile Include="preDX\CommandQueue.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\DebugLayer.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\DepthStencilView.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
     <ClCompile Include="preDX\Device.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\Fence.cpp">
       <Filter>b</Filter>
     </ClCompile>
     <ClCompile Include="preDX\PipelineSet.cpp">
       <Filter>b</Filter>
     </ClCompile>
     <ClCompile Include="preDX\PipelineState.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\RenderTargetView.cpp">
       <Filter>b</Filter>
     </ClCompile>
     <ClCompile Include="preDX\ResourceBarrier.cpp">
@@ -202,9 +181,6 @@
       <Filter>b</Filter>
     </ClCompile>
     <ClCompile Include="preDX\ShaderSet.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\SwapChain.cpp">
       <Filter>b</Filter>
     </ClCompile>
     <ClCompile Include="preDX\VertexLayoutManager.cpp">
@@ -249,6 +225,18 @@
     <ClCompile Include="DX\ScreenDesc.cpp">
       <Filter>ソース ファイル\DX</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Vec3.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vec2.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vec4.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Mat4.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Calc.h">
@@ -257,19 +245,7 @@
     <ClInclude Include="Math\Ease.h">
       <Filter>a\h\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Mat4.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Random.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec2.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec3.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec4.h">
       <Filter>a\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Timer.h">
@@ -332,28 +308,13 @@
     <ClInclude Include="preDX\CommandList.h">
       <Filter>b</Filter>
     </ClInclude>
-    <ClInclude Include="preDX\CommandQueue.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\DebugLayer.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\DepthStencilView.h">
-      <Filter>b</Filter>
-    </ClInclude>
     <ClInclude Include="preDX\Device.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\Fence.h">
       <Filter>b</Filter>
     </ClInclude>
     <ClInclude Include="preDX\PipelineSet.h">
       <Filter>b</Filter>
     </ClInclude>
     <ClInclude Include="preDX\PipelineState.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\RenderTargetView.h">
       <Filter>b</Filter>
     </ClInclude>
     <ClInclude Include="preDX\ResourceBarrier.h">
@@ -372,9 +333,6 @@
       <Filter>b</Filter>
     </ClInclude>
     <ClInclude Include="preDX\ShaderSet.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\SwapChain.h">
       <Filter>b</Filter>
     </ClInclude>
     <ClInclude Include="preDX\VertexLayoutManager.h">
@@ -421,6 +379,18 @@
     </ClInclude>
     <ClInclude Include="DX\ScreenDesc.h">
       <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec3.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec2.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Mat4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

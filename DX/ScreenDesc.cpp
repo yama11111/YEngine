@@ -13,7 +13,7 @@ void ScreenDesc::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 
 void ScreenDesc::Initialize(const Math::Vec2& topLeft, const Math::Vec2& bottomRight)
 {
-	// ビューポート設定コマンド
+	// ビューポート設定
 	viewport_.Width    = bottomRight.x - topLeft.x; // 横幅
 	viewport_.Height   = bottomRight.y - topLeft.y; // 縦幅
 	viewport_.TopLeftX = topLeft.x; // 左上 X
@@ -21,7 +21,7 @@ void ScreenDesc::Initialize(const Math::Vec2& topLeft, const Math::Vec2& bottomR
 	viewport_.MinDepth = 0; // 縮小深度 (0 でいい)
 	viewport_.MaxDepth = 1; // 拡大深度 (1 でいい)
 
-	// シザー矩形
+	// シザー矩形設定
 	scissorRect_.left	 = (LONG)topLeft.x;     // 切り抜き座標 左
 	scissorRect_.top	 = (LONG)topLeft.y;     // 切り抜き座標 上
 	scissorRect_.right	 = (LONG)bottomRight.x; // 切り抜き座標 右
