@@ -19,33 +19,6 @@
     <Filter Include="リソース ファイル\Sprite用">
       <UniqueIdentifier>{624c73ed-8d9c-41b8-b975-672f5fd10eee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a">
-      <UniqueIdentifier>{c49d7705-2620-4ab4-8656-edf69a0ba694}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\h">
-      <UniqueIdentifier>{b5bba216-4188-4d04-a021-62274fe89b76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\h\Math">
-      <UniqueIdentifier>{e016803d-185b-4297-982c-7e61a623ba46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\h\Obj">
-      <UniqueIdentifier>{0d517c4a-f2b2-408c-ba6a-a1e7460e84b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\h\Obj\行列">
-      <UniqueIdentifier>{8ce4dc27-d9c2-437a-8ffc-f6ff5d19a7ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\h\Obj\2D">
-      <UniqueIdentifier>{87ef38d8-71bf-4028-9e72-c1ecd293c16a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="a\h\Obj\3D">
-      <UniqueIdentifier>{18521754-9bea-4403-862a-3aa0ceef9da8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Base">
-      <UniqueIdentifier>{40ac4754-3e2b-479a-b478-52e929ef38b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Base">
-      <UniqueIdentifier>{f88a1592-601d-4229-a1ea-dfa7ef938383}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Input">
       <UniqueIdentifier>{7b3e2857-56b2-48e0-83b0-d4e7380dc3a0}</UniqueIdentifier>
     </Filter>
@@ -58,85 +31,40 @@
     <Filter Include="ヘッダー ファイル\DX">
       <UniqueIdentifier>{7b6a00c8-611a-4fae-b889-2f22a46654ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="b">
-      <UniqueIdentifier>{35c9ce0c-3143-43a3-bcb3-3597bad09333}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Math">
       <UniqueIdentifier>{97323698-597a-4745-91c4-3bf4ef5441c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Math">
       <UniqueIdentifier>{a5dd05ca-6984-4848-b971-6c1d277d883e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\c">
-      <UniqueIdentifier>{6c74f644-5555-487b-83e7-b46484b1419e}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Math\Matrix">
+      <UniqueIdentifier>{bc3d8b70-54d2-4626-83dc-273ed8bbd415}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\c\Math">
-      <UniqueIdentifier>{f0c42a62-79b9-4f7b-a9c1-db9e1e0c8608}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Math\Matrix">
+      <UniqueIdentifier>{9fcf4b1d-1ca7-4948-8564-bbdb4fb93499}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\c\Obj">
-      <UniqueIdentifier>{70ef4f10-5248-43b8-8f32-d54e52384a92}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Object">
+      <UniqueIdentifier>{dfe96a20-54a4-457f-9dde-51ab4662136f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\c\Obj\行列">
-      <UniqueIdentifier>{f6b1568e-9b32-4362-92f5-805a9d1ac323}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Object\2D">
+      <UniqueIdentifier>{ed070bde-3726-4245-9b66-38441ac89e65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\c\Obj\3D">
-      <UniqueIdentifier>{d749b602-2381-48a7-9d5b-cfa8e287d74a}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Object\3D">
+      <UniqueIdentifier>{75c68552-5c2c-4977-ab5c-4647cbdefa60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="a\c\Obj\2D">
-      <UniqueIdentifier>{c75573f8-1992-4da4-9fd3-b6fce37cd72d}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{ca459bd6-b3b5-4610-9aeb-17ba60c918c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object\2D">
+      <UniqueIdentifier>{e2ae0920-baaf-44b5-af23-c03975007531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object\3D">
+      <UniqueIdentifier>{cc53a894-e477-400e-82e1-5aea749c9514}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Calc.cpp">
-      <Filter>a\c\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Ease.cpp">
-      <Filter>a\c\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Random.cpp">
-      <Filter>a\c\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Timer.cpp">
-      <Filter>a\c\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Shake.cpp">
-      <Filter>a\c\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Sprite.cpp">
-      <Filter>a\c\Obj\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Model.cpp">
-      <Filter>a\c\Obj\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Ray.cpp">
-      <Filter>a\c\Obj\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\MatProjection.cpp">
-      <Filter>a\c\Obj\行列</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\MatView.cpp">
-      <Filter>a\c\Obj\行列</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\MatViewProjection.cpp">
-      <Filter>a\c\Obj\行列</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\MatWorld.cpp">
-      <Filter>a\c\Obj\行列</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Transform.cpp">
-      <Filter>a\c\Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>a\c</Filter>
-    </ClCompile>
-    <ClCompile Include="YWindows.cpp">
-      <Filter>a\c</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\YWindowsApp.cpp">
-      <Filter>ソース ファイル\Base</Filter>
     </ClCompile>
     <ClCompile Include="Input\Mouse.cpp">
       <Filter>ソース ファイル\Input</Filter>
@@ -150,77 +78,8 @@
     <ClCompile Include="Input\Pad.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
-    <ClCompile Include="preDX\Adapter.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\CommandList.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\Device.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\PipelineSet.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\PipelineState.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\ResourceBarrier.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\RootParameterManager.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\RootSignature.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\SampleDescManager.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\ShaderResourceView.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\ShaderSet.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\VertexLayoutManager.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\Utility\DescriptorHeap.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\Utility\Resource.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\Utility\Result.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\ConstBuffer.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\ConstBufferManager.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\TextureManager.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\VertexIndex.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\Vertices.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\Vertices2D.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
-    <ClCompile Include="preDX\GPUResource\Vertices3D.cpp">
-      <Filter>b</Filter>
-    </ClCompile>
     <ClCompile Include="DX\YAssert.cpp">
       <Filter>ソース ファイル\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\YDirectX.cpp">
-      <Filter>ソース ファイル\Base</Filter>
     </ClCompile>
     <ClCompile Include="DX\ScreenDesc.cpp">
       <Filter>ソース ファイル\DX</Filter>
@@ -235,60 +94,66 @@
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
+      <Filter>ソース ファイル\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Transform.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Sprite.cpp">
+      <Filter>ソース ファイル\Object\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Model.cpp">
+      <Filter>ソース ファイル\Object\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Calc.cpp">
       <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="YWindowsApp.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ConstBufferManager.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\GPUResource.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\PipelineSet.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\RootParameterManager.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\ShaderSet.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\TextureManager.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\Vertices.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\YDirectX.cpp">
+      <Filter>ソース ファイル\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MatProjection.cpp">
+      <Filter>ソース ファイル\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MatView.cpp">
+      <Filter>ソース ファイル\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MatViewProjection.cpp">
+      <Filter>ソース ファイル\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MatWorld.cpp">
+      <Filter>ソース ファイル\Math\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math\Calc.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Ease.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Random.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Timer.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Shake.h">
-      <Filter>a\h\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Sprite.h">
-      <Filter>a\h\Obj\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Model.h">
-      <Filter>a\h\Obj\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Ray.h">
-      <Filter>a\h\Obj\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\MatProjection.h">
-      <Filter>a\h\Obj\行列</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\MatView.h">
-      <Filter>a\h\Obj\行列</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\MatViewProjection.h">
-      <Filter>a\h\Obj\行列</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\MatWorld.h">
-      <Filter>a\h\Obj\行列</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Transform.h">
-      <Filter>a\h\Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>a\h</Filter>
-    </ClInclude>
-    <ClInclude Include="YWindows.h">
-      <Filter>a\h</Filter>
-    </ClInclude>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\YWindowsApp.h">
-      <Filter>ヘッダー ファイル\Base</Filter>
     </ClInclude>
     <ClInclude Include="Input\InputManager.h">
       <Filter>ヘッダー ファイル\Input</Filter>
@@ -302,80 +167,8 @@
     <ClInclude Include="Input\Pad.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
-    <ClInclude Include="preDX\Adapter.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\CommandList.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\Device.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\PipelineSet.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\PipelineState.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\ResourceBarrier.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\RootParameterManager.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\RootSignature.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\SampleDescManager.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\ShaderResourceView.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\ShaderSet.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\VertexLayoutManager.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\Utility\DescriptorHeap.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\Utility\Resource.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\Utility\ResourceInfo.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\Utility\Result.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\ConstBuffer.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\ConstBufferManager.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\TextureManager.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\VertexIndex.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\Vertices.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\Vertices2D.h">
-      <Filter>b</Filter>
-    </ClInclude>
-    <ClInclude Include="preDX\GPUResource\Vertices3D.h">
-      <Filter>b</Filter>
-    </ClInclude>
     <ClInclude Include="DX\YAssert.h">
       <Filter>ヘッダー ファイル\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\YDirectX.h">
-      <Filter>ヘッダー ファイル\Base</Filter>
     </ClInclude>
     <ClInclude Include="DX\ScreenDesc.h">
       <Filter>ヘッダー ファイル\DX</Filter>
@@ -390,7 +183,61 @@
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Mat4.h">
+      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Transform.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Sprite.h">
+      <Filter>ヘッダー ファイル\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Model.h">
+      <Filter>ヘッダー ファイル\Object\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Calc.h">
       <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="YWindowsApp.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ConstBufferManager.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\GPUResource.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\PipelineSet.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\RootParameterManager.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ShaderSet.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\TextureManager.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\Vertices.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\YDirectX.h">
+      <Filter>ヘッダー ファイル\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatProjection.h">
+      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatView.h">
+      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatViewProjection.h">
+      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatWorld.h">
+      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

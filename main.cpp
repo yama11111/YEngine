@@ -1,12 +1,14 @@
 #include "YWindowsApp.h"
 #include "YDirectX.h"
 #include "InputManager.h"
-//#include "Game.h"
+#include "Game.h"
 #include "ScreenDesc.h"
 #include "Def.h"
 
 using namespace DX;
 using namespace Input;
+using namespace Math;
+using namespace Object;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -28,22 +30,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	InputManager* input = InputManager::GetInstance();
 	input->Create(window.HandleWindowInstance(), window.PointerHandleWindow());
 
-	//PipelineState::StaticInit();
-	//PipelineSet::StaticInit(dx->GetCommandList());
-	//ShaderResourceView::StaticInit(dx->GetCommandList());
+	GPUResource::StaticInitialize(dx.Device());
+	ConstBufferManager::StaticInitialize(dx.CommandList());
+	TextureManager::StaticInitialize(dx.Device(), dx.CommandList());
+	PipelineSet::StaticInitialize(dx.Device(), dx.CommandList());
+	
+	Vertices<SpriteVData>::StaticInitialize(dx.CommandList());
+	Vertices<ModelVData>::StaticInitialize(dx.CommandList());
 
-	//ConstBufferManager::StaticInit(dx->GetCommandList());
-	//TextureManager::StaticInit();
-	//Vertices::StaticInit(dx->GetCommandList());
-	//Vertices2D::StaticInit(dx->GetCommandList());
-	//Vertices3D::StaticInit(dx->GetCommandList());
-	//Transform::StaticInit();
-	//Sprite::StaticInit();
-	//Model::StaticInit();
-
-
-	//Game game;
-	//game.Initialize();
+	Game game;
+	game.Initialize();
 
 	// ゲームループ
 	while (true)
@@ -54,17 +50,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		// -------------------- Update -------------------- //
 
-		//game.Update();
+		game.Update();
 
 		// ------------------------------------------------ //
 
 		dx.PreDraw(CLEAR_COLOR); // 描画準備
 
-		screenDesc.SetCommand(); // スクリーン設定セット
+		screenDesc.SetDrawCommand(); // スクリーン設定セット
 		
 		// --------------------- Draw --------------------- //
 
-		//game.Draw();
+		game.Draw();
 
 		// ------------------------------------------------ //
 

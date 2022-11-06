@@ -2,62 +2,78 @@
 #include "Calc.h"
 #include "Def.h"
 
-using namespace Input;
 using namespace DX;
+using namespace Input;
 using namespace Math;
 using namespace Object;
 
 Game::Game() {}
 
-Game::~Game()
-{
-	delete m1;
-	delete s1;
-}
+Game::~Game() {}
 
 void Game::Initialize()
 {
+	// ----- Input ----- //
 	keys = Keys::GetInstance();
 	mouse = Mouse::GetInstance();
-	texM = GPUResource::TextureManager::GetInstance();
-	srvH = ShaderResourceView::GetInstance();
-	srvH->SetRootParameter();
-	pplnSet2D.Create(PipelineState::Dimension::Two);
-	pplnSet3D.Create(PipelineState::Dimension::Three);
+	pad = Pad::GetInstance();
+	// ----------------- //
 
-	plainTex = texM->Load(L"Resources/white.png", false);
+	// ----- Pipeline ----- //
+	texM.Initialize();
+	texM.SetRootParameterIndex(rpM.PushBackTR());
+	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
+	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
 
-	m1 = new Model();
-	s1 = new Sprite({ 64,64 });
+	Transform::StaticInitialize(&cbM);
+	Sprite::StaticInitialize(&texM);
+	Model::StaticInitialize(&texM);
+
+	pplnSet2D.Initialize(PipelineSet::Type::SpriteT, rpM.Get());
+	pplnSet3D.Initialize(PipelineSet::Type::ModelT, rpM.Get());
+	// -------------------- //
+
+	plainTex = texM.Load(L"Resources/white.png", false);
+
+	m1.reset(new Model());
+	s1.reset(new Sprite({ 64,64 }));
+
+	t1.Initialize({});
+	t2.Initialize({});
+	t3.Initialize({});
+
+	vp.Initialize({});
 }
 
 void Game::Update()
 {
-	t.Update();
+	t1.Update();
+	t2.Update();
+	t3.Update();
 	vp.Update();
 }
 
 void Game::Draw()
 {
-	pplnSet2D.SetCommand();
-	srvH->SetDescriptorHeaps();
+	texM.SetSRVDrawCommand();
+
+	// -------------------------- //
+	pplnSet2D.SetDrawCommand();
 	// ----- 背景スプライト ----- //
 
-	s1->Draw(t, plainTex);
+	s1->Draw(t1, plainTex);
 
 	// -------------------------- //
-	pplnSet3D.SetCommand();
-	srvH->SetDescriptorHeaps();
+	pplnSet3D.SetDrawCommand();
 	// --------- モデル --------- //
 
-	m1->Draw(t, vp, plainTex);
+	m1->Draw(t2, vp, plainTex);
 
 	// -------------------------- //
-	pplnSet2D.SetCommand();
-	srvH->SetDescriptorHeaps();
+	pplnSet2D.SetDrawCommand();
 	// ----- 前景スプライト ----- //
 
-	//s1->Draw(t, plainTex);
+	s1->Draw(t3, plainTex);
 	
 	// -------------------------- //
 }

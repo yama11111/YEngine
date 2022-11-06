@@ -14,15 +14,15 @@ namespace DX
 		// シザー矩形
 		D3D12_RECT scissorRect_{};
 	public:
-		// 
+		// 初期化 (引数 : 左上, 右下)
 		void Initialize(const Math::Vec2& topLeft, const Math::Vec2& bottomRight);
 		// 描画前コマンド
-		void SetCommand();
+		void SetDrawCommand();
 	private:
-		// コマンドリストポインタ
+		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* pCmdList_;
 	public:
-		// スタティックイニシャライズ
+		// 静的メンバ初期化
 		static void StaticInitialize(ID3D12GraphicsCommandList* pCommandList);
 	};
 }

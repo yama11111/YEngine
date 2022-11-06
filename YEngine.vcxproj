@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)DX;$(ProjectDir)preDX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)DX;$(ProjectDir)preDX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,109 +143,66 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Base\YDirectX.cpp" />
-    <ClCompile Include="Base\YWindowsApp.cpp" />
+    <ClCompile Include="DX\ConstBufferManager.cpp" />
+    <ClCompile Include="DX\GPUResource.cpp" />
+    <ClCompile Include="DX\PipelineSet.cpp" />
+    <ClCompile Include="DX\RootParameterManager.cpp" />
     <ClCompile Include="DX\ScreenDesc.cpp" />
+    <ClCompile Include="DX\ShaderSet.cpp" />
+    <ClCompile Include="DX\TextureManager.cpp" />
+    <ClCompile Include="DX\Vertices.cpp" />
     <ClCompile Include="DX\YAssert.cpp" />
+    <ClCompile Include="DX\YDirectX.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="Math\Calc.cpp" />
-    <ClCompile Include="Math\Ease.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
-    <ClCompile Include="Math\Random.cpp" />
-    <ClCompile Include="Math\Shake.cpp" />
-    <ClCompile Include="Math\Timer.cpp" />
+    <ClCompile Include="Math\MatProjection.cpp" />
+    <ClCompile Include="Math\MatView.cpp" />
+    <ClCompile Include="Math\MatViewProjection.cpp" />
+    <ClCompile Include="Math\MatWorld.cpp" />
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
-    <ClCompile Include="Object\MatProjection.cpp" />
-    <ClCompile Include="Object\MatView.cpp" />
-    <ClCompile Include="Object\MatViewProjection.cpp" />
-    <ClCompile Include="Object\MatWorld.cpp" />
     <ClCompile Include="Object\Model.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
-    <ClCompile Include="Object\Ray.cpp" />
     <ClCompile Include="Object\Sprite.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="preDX\Adapter.cpp" />
-    <ClCompile Include="preDX\CommandList.cpp" />
-    <ClCompile Include="preDX\Device.cpp" />
-    <ClCompile Include="preDX\GPUResource\ConstBuffer.cpp" />
-    <ClCompile Include="preDX\GPUResource\ConstBufferManager.cpp" />
-    <ClCompile Include="preDX\GPUResource\TextureManager.cpp" />
-    <ClCompile Include="preDX\GPUResource\VertexIndex.cpp" />
-    <ClCompile Include="preDX\GPUResource\Vertices.cpp" />
-    <ClCompile Include="preDX\GPUResource\Vertices2D.cpp" />
-    <ClCompile Include="preDX\GPUResource\Vertices3D.cpp" />
-    <ClCompile Include="preDX\PipelineSet.cpp" />
-    <ClCompile Include="preDX\PipelineState.cpp" />
-    <ClCompile Include="preDX\ResourceBarrier.cpp" />
-    <ClCompile Include="preDX\RootParameterManager.cpp" />
-    <ClCompile Include="preDX\RootSignature.cpp" />
-    <ClCompile Include="preDX\SampleDescManager.cpp" />
-    <ClCompile Include="preDX\ShaderResourceView.cpp" />
-    <ClCompile Include="preDX\ShaderSet.cpp" />
-    <ClCompile Include="preDX\Utility\DescriptorHeap.cpp" />
-    <ClCompile Include="preDX\Utility\Resource.cpp" />
-    <ClCompile Include="preDX\Utility\Result.cpp" />
-    <ClCompile Include="preDX\VertexLayoutManager.cpp" />
-    <ClCompile Include="YWindows.cpp" />
+    <ClCompile Include="YWindowsApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\YDirectX.h" />
-    <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Def.h" />
+    <ClInclude Include="DX\ConstBufferManager.h" />
+    <ClInclude Include="DX\GPUResource.h" />
+    <ClInclude Include="DX\PipelineSet.h" />
+    <ClInclude Include="DX\RootParameterManager.h" />
     <ClInclude Include="DX\ScreenDesc.h" />
+    <ClInclude Include="DX\ShaderSet.h" />
+    <ClInclude Include="DX\TextureManager.h" />
+    <ClInclude Include="DX\Vertices.h" />
     <ClInclude Include="DX\YAssert.h" />
+    <ClInclude Include="DX\YDirectX.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Calc.h" />
-    <ClInclude Include="Math\Ease.h" />
     <ClInclude Include="Math\Mat4.h" />
-    <ClInclude Include="Math\Random.h" />
-    <ClInclude Include="Math\Shake.h" />
-    <ClInclude Include="Math\Timer.h" />
+    <ClInclude Include="Math\MatProjection.h" />
+    <ClInclude Include="Math\MatView.h" />
+    <ClInclude Include="Math\MatViewProjection.h" />
+    <ClInclude Include="Math\MatWorld.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
-    <ClInclude Include="Object\MatProjection.h" />
-    <ClInclude Include="Object\MatView.h" />
-    <ClInclude Include="Object\MatViewProjection.h" />
-    <ClInclude Include="Object\MatWorld.h" />
     <ClInclude Include="Object\Model.h" />
     <ClInclude Include="Object\Transform.h" />
-    <ClInclude Include="Object\Ray.h" />
     <ClInclude Include="Object\Sprite.h" />
-    <ClInclude Include="preDX\Adapter.h" />
-    <ClInclude Include="preDX\CommandList.h" />
-    <ClInclude Include="preDX\Device.h" />
-    <ClInclude Include="preDX\GPUResource\ConstBuffer.h" />
-    <ClInclude Include="preDX\GPUResource\ConstBufferManager.h" />
-    <ClInclude Include="preDX\GPUResource\TextureManager.h" />
-    <ClInclude Include="preDX\GPUResource\VertexIndex.h" />
-    <ClInclude Include="preDX\GPUResource\Vertices.h" />
-    <ClInclude Include="preDX\GPUResource\Vertices2D.h" />
-    <ClInclude Include="preDX\GPUResource\Vertices3D.h" />
-    <ClInclude Include="preDX\PipelineSet.h" />
-    <ClInclude Include="preDX\PipelineState.h" />
-    <ClInclude Include="preDX\ResourceBarrier.h" />
-    <ClInclude Include="preDX\RootParameterManager.h" />
-    <ClInclude Include="preDX\RootSignature.h" />
-    <ClInclude Include="preDX\SampleDescManager.h" />
-    <ClInclude Include="preDX\ShaderResourceView.h" />
-    <ClInclude Include="preDX\ShaderSet.h" />
-    <ClInclude Include="preDX\Utility\DescriptorHeap.h" />
-    <ClInclude Include="preDX\Utility\Resource.h" />
-    <ClInclude Include="preDX\Utility\ResourceInfo.h" />
-    <ClInclude Include="preDX\Utility\Result.h" />
-    <ClInclude Include="preDX\VertexLayoutManager.h" />
-    <ClInclude Include="YWindows.h" />
+    <ClInclude Include="YWindowsApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

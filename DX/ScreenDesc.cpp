@@ -28,7 +28,7 @@ void ScreenDesc::Initialize(const Math::Vec2& topLeft, const Math::Vec2& bottomR
 	scissorRect_.bottom	 = (LONG)bottomRight.y; // 切り抜き座標 下
 }
 
-void ScreenDesc::SetCommand() 
+void ScreenDesc::SetDrawCommand() 
 {
 	// ビューポート設定コマンド
 	pCmdList_->RSSetViewports(1, &viewport_);

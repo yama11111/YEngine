@@ -1,16 +1,19 @@
 #include "Model.h"
+#include <cassert>
 
 using Object::Model;
 
-DX::GPUResource::TextureManager* Model::texManager = nullptr;
+DX::TextureManager* Model::pTexManager_ = nullptr;
 
-void Model::StaticInit() 
+void Model::StaticInitialize(DX::TextureManager* pTexManager)
 {
-	texManager = DX::GPUResource::TextureManager::GetInstance();
+	assert(pTexManager != nullptr);
+	pTexManager_ = pTexManager;
 }
 
-Model::Model() :
-	vtIdx(DX::GPUResource::VertexIndex(
+Model::Model()
+{
+	vtIdx.Initialize(
 		{
 			// 前
 			{{ -1.0f, -1.0f, -1.0f }, {}, {0.0f, 1.0f}}, // 左下
@@ -73,17 +76,13 @@ Model::Model() :
 			22, 23, 20, // 三角形1つ目
 			20, 23, 21, // 三角形2つ目
 		}
-		))
-{
-	vtIdx.Initialize(true);
+		);
 }
 
-void Model::Draw(Transform& trfm, MatViewProjection& vp, const UINT tex)
+void Model::Draw(Transform& trfm, Math::MatViewProjection& vp, const UINT tex)
 {
-	trfm.Affine(vp.view.m, vp.pro.m);
-	vtIdx.SetCommand();
-	trfm.SetCommand();
-	texManager->SetCommand(tex);
+	pTexManager_->SetDrawCommand(tex);
+	trfm.SetDrawCommand(vp.view_.m_, vp.pro_.m_);
 	vtIdx.Draw();
 }
 

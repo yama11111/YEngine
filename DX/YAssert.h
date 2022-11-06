@@ -4,6 +4,7 @@
 
 namespace DX
 {
+	// 成功チェック
 	bool Result(const HRESULT& result);
 	// false -> 警告
 	void Assert(const bool test);

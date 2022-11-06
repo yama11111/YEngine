@@ -1,21 +1,26 @@
 #pragma once
 #include "Transform.h"
 #include "MatViewProjection.h"
-#include "GPUResource/VertexIndex.h"
-#include "GPUResource/TextureManager.h"
+#include "Vertices.h"
+#include "TextureManager.h"
 
 namespace Object
 {
 	class Model
 	{
 	private:
-		DX::GPUResource::VertexIndex vtIdx;
+		// 頂点インデックス
+		DX::VertexIndex3D vtIdx;
 	public:
+		// コンストラクタ
 		Model();
-		void Draw(Transform& trfm, MatViewProjection& vp, const UINT tex);
+		// 描画
+		void Draw(Transform& trfm, Math::MatViewProjection& vp, const UINT tex);
 	private:
-		static DX::GPUResource::TextureManager* texManager;
+		// 静的テクスチャマネージャーポインタ
+		static DX::TextureManager* pTexManager_;
 	public:
-		static void StaticInit();
+		// 静的初期化
+		static void StaticInitialize(DX::TextureManager* pTexManager);
 	};
 }

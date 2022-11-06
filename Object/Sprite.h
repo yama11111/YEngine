@@ -1,24 +1,31 @@
 #pragma once
 #include "Transform.h"
-#include "GPUResource/Vertices2D.h"
-#include "GPUResource/TextureManager.h"
 #include "MatProjection.h"
+#include "Vertices.h"
+#include "TextureManager.h"
 
 namespace Object
 {
 	class Sprite
 	{
 	public:
-		const Math::Vec2 size;
+		// サイズ
+		const Math::Vec2 size_;
 	private:
-		DX::GPUResource::Vertices2D vt;
+		// 頂点データ
+		DX::Vertices<DX::SpriteVData> vt_;
 	public:
+		// コンストラクタ
 		Sprite(const Math::Vec2& size);
+		// 描画
 		void Draw(Transform& trfm, const UINT tex);
 	private:
-		static MatProjection mP;
-		static DX::GPUResource::TextureManager* texManager;
+		// 静的射影変換行列(平行投影)
+		static Math::MatProjection mp_;
+		// 静的テクスチャマネージャーポインタ
+		static DX::TextureManager* pTexManager_;
 	public:
-		static void StaticInit();
+		// 静的初期化
+		static void StaticInitialize(DX::TextureManager* pTexManager);
 	};
 }
