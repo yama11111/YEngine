@@ -163,7 +163,6 @@
     <ClCompile Include="Math\MatProjection.cpp" />
     <ClCompile Include="Math\MatView.cpp" />
     <ClCompile Include="Math\MatViewProjection.cpp" />
-    <ClCompile Include="Math\MatWorld.cpp" />
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
@@ -195,7 +194,6 @@
     <ClInclude Include="Math\MatProjection.h" />
     <ClInclude Include="Math\MatView.h" />
     <ClInclude Include="Math\MatViewProjection.h" />
-    <ClInclude Include="Math\MatWorld.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />

@@ -1,54 +1,54 @@
 #pragma once
 #include "ConstBufferManager.h"
-#include "MatWorld.h"
+#include "Vec3.h"
+#include "Mat4.h"
 
 namespace Object
 {
 	class Transform
 	{
+	public:
+		// 行列
+		Math::Mat4 m_;
+		// 位置
+		Math::Vec3 pos_;
+		// 回転
+		Math::Vec3 rota_;
+		// 大きさ
+		Math::Vec3 scale_;
 	private:
-		// 転送用行列
-		Math::MatWorld mw_;
 		// 定数バッファ(マテリアル)
 		DX::ConstBuffer<DX::MaterialData> cbMtrl_;
 		// 定数バッファ(3D変換行列)
 		DX::ConstBuffer<DX::TransformData> cbTrfm_;
 		// 親行列
-		Math::MatWorld* parent_ = nullptr;
+		Math::Mat4* parent_ = nullptr;
+	public:
+		// 設定用ステータス(位置、回転、大きさ)
+		struct Status
+		{
+			Math::Vec3 pos_ = { 0.0f, 0.0f, 0.0f };
+			Math::Vec3 rota_ = { 0.0f, 0.0f, 0.0f };
+			Math::Vec3 scale_ = { 1.0f, 1.0f, 1.0f };
+		};
 	public:
 		// コンストラクタ
 		Transform();
 		// コンストラクタ(引数有)
-		Transform(const Math::MatWorld::InitStatus& init, const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+		Transform(const Status& state, const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// 初期化
-		void Initialize(const Math::MatWorld::InitStatus& init, const Math::Vec4& color = {1.0f,1.0f,1.0f,1.0f});
+		void Initialize(const Status& state, const Math::Vec4& color = {1.0f,1.0f,1.0f,1.0f});
 		// アフィン変換→ビュープロジェクション変換→転送
 		void Update();
 		// 演出用特殊変換
-		void UniqueUpdate(const Math::MatWorld::InitStatus& state);
+		void UniqueUpdate(const Status& state);
 		// 描画前コマンド
 		void SetDrawCommand(const Math::Mat4& view, const Math::Mat4& projection);
 	public:
-		// ----- getter ----- //
-		// 位置取得
-		Math::Vec3 Pos() { return mw_.pos_; }
-		// 角度取得
-		Math::Vec3 Rota() { return mw_.rota_; }
-		// 大きさ取得
-		Math::Vec3 Scale() { return mw_.scale_; }
-		// ワールド行列取得
-		Math::MatWorld World() { return mw_; }
-		// ----- setter ----- //
-		// 位置設定
-		void SetPos(const Math::Vec3& pos) { mw_.pos_ = pos; }
-		// 角度設定
-		void SetRota(const Math::Vec3& rota) { mw_.rota_ = rota; }
-		// 大きさ設定
-		void SetScale(const Math::Vec3& scale) { mw_.scale_ = scale; }
 		// 親行列設定
-		void SetParent(Math::MatWorld* parent);
+		void SetParent(Math::Mat4* parent);
 		// 色設定
-		void SetColor(const Math::Vec4& color) { cbMtrl_.map_->color_ = color; }
+		void SetColor(const Math::Vec4& color);
 	private:
 		// 静的定数バッファマネージャーポインタ
 		static DX::ConstBufferManager* pCBManager_;

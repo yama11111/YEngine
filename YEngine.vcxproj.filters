@@ -147,9 +147,6 @@
     <ClCompile Include="Math\MatViewProjection.cpp">
       <Filter>ソース ファイル\Math\Matrix</Filter>
     </ClCompile>
-    <ClCompile Include="Math\MatWorld.cpp">
-      <Filter>ソース ファイル\Math\Matrix</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -234,9 +231,6 @@
       <Filter>ヘッダー ファイル\Math\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="Math\MatViewProjection.h">
-      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\MatWorld.h">
       <Filter>ヘッダー ファイル\Math\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
