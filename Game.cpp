@@ -47,6 +47,10 @@ void Game::Initialize()
 
 void Game::Update()
 {
+	//Vec3 p = t1.Pos();
+	//p += Vec3(1, 1, 0);
+	//t1.SetPos(p);
+
 	t1.Update();
 	t2.Update();
 	t3.Update();

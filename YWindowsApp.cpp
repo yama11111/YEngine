@@ -1,5 +1,7 @@
 #include "YWindowsApp.h"
 
+#pragma comment(lib, "winmm.lib")
+
 LRESULT YWindowsApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	// メッセージ毎にゲーム固有の処理
@@ -46,6 +48,8 @@ void YWindowsApp::Create(const wchar_t* titleName, const Math::Vec2& size)
 	// ウィンドウを表示状態にする
 	ShowWindow(hwnd_, SW_SHOW);
 	// ------------------------------ //
+	// システムタイマーの分解能を上げる
+	timeBeginPeriod(1);
 }
 
 bool YWindowsApp::CheckMessage()

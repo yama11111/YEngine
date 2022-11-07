@@ -1,14 +1,30 @@
 #include "YDirectX.h"
 #include "YAssert.h"
 #include <wrl/client.h>
+#include <thread>
 
 using DX::YDirectX;
+using std::chrono::steady_clock;
+using std::chrono::microseconds;
+
+microseconds YDirectX::MinTime_ = microseconds(uint64_t(1000000.0f / 60.0f));
+microseconds YDirectX::MinCheckTime_ = microseconds(uint64_t(1000000.0f / 65.0f));
+
+void  YDirectX::SetFPS(const float fps)
+{
+	MinTime_ = microseconds(uint64_t(1000000.0f / fps));
+	MinCheckTime_ = microseconds(uint64_t(1000000.0f / (fps + 5.0f)));
+}
 
 bool YDirectX::Initialize(const HWND& hwnd, const Math::Vec2& size)
 {
+	// ----- FPS固定関連 ----- //
+	// 現在時間を記録
+	timeRef_ = steady_clock::now();
+
 	// ----- デバッグレイヤーを有効に ----- //
 #ifdef _DEBUG
-	Microsoft::WRL::ComPtr<ID3D12Debug1> debugController;
+	ComPtr<ID3D12Debug1> debugController;
 	//デバッグレイヤーをオンに
 	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController))))
 	{
@@ -22,9 +38,9 @@ bool YDirectX::Initialize(const HWND& hwnd, const Math::Vec2& size)
 
 	// ----- デバイス生成 ----- //
 	// アダプターの列挙用
-	std::vector<Microsoft::WRL::ComPtr<IDXGIAdapter4>> adapters;
+	std::vector<ComPtr<IDXGIAdapter4>> adapters;
 	// ここに特定の名前を持つアダプターオブジェクトが入る
-	Microsoft::WRL::ComPtr<IDXGIAdapter4> tmpAdapter = nullptr;
+	ComPtr<IDXGIAdapter4> tmpAdapter = nullptr;
 
 	// パフォーマンスが高いものから順に、全てのアダプターを列挙
 	for (UINT i = 0;
@@ -138,7 +154,7 @@ bool YDirectX::Initialize(const HWND& hwnd, const Math::Vec2& size)
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // フリップ後は破棄
 	swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	Microsoft::WRL::ComPtr<IDXGISwapChain1> swapChain1;
+	ComPtr<IDXGISwapChain1> swapChain1;
 
 	Result(dxgiFactory_->CreateSwapChainForHwnd(
 		cmdQueue_.Get(),
@@ -287,6 +303,25 @@ void YDirectX::PostDraw()
 		WaitForSingleObject(event, INFINITE);
 		CloseHandle(event);
 	}
+
+	// 現在時間を取得
+	steady_clock::time_point now = steady_clock::now();
+	// 前回からの経過時間を取得
+	microseconds elpsed = std::chrono::duration_cast<microseconds>(now - timeRef_);
+
+	// 調整用fps分経っていない場合
+	if (elpsed < MinCheckTime_)
+	{
+		// 固定時fps分経過するまで微小なスリープを繰り返す
+		while (steady_clock::now() - timeRef_ < MinTime_)
+		{
+			// 1マイクロ秒スリープ
+			std::this_thread::sleep_for(microseconds(1));
+		}
+	}
+
+	// 現在時間を記録
+	timeRef_ = steady_clock::now();
 
 	// キューをクリア
 	Result(cmdAllocator_->Reset());

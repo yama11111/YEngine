@@ -18,6 +18,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	window.Create(L"LE2A_ヤマナカ_ルイ", WIN_SIZE);
 
 	// DirectX 初期化
+	YDirectX::SetFPS(FIX_FPS);
 	YDirectX dx;
 	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE)) { return 0; }
 
