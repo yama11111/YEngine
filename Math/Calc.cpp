@@ -246,8 +246,9 @@ Vec4 Math::GetColor(const Vec4& color)
 	return result;
 }
 
-bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
-					const Vec3& sphere, const float rad)
+bool Math::CollRaySphere(
+	const Vec3& ray, const Vec3& velocity, 
+	const Vec3& sphere, const float rad)
 {
 	Vec3 p = sphere - ray;
 
@@ -266,9 +267,10 @@ bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity,
 	return true;
 }
 
-bool Math::CollRaySphere(	const Vec3& ray, const Vec3& velocity, 
-					const Vec3& sphere, const float rad,
-					Vec3& start, Vec3& end)
+bool Math::CollRaySphere(
+	const Vec3& ray, const Vec3& velocity, 
+	const Vec3& sphere, const float rad,
+	Vec3& start, Vec3& end)
 {
 	Vec3 p = sphere - ray;
 

@@ -29,6 +29,16 @@ namespace Object
 		// 描画前コマンド
 		void SetDrawCommand(const Math::Mat4& view, const Math::Mat4& projection);
 	public:
+		// ----- getter ----- //
+		// 位置取得
+		Vec3 Pos() { return mw_.pos_; }
+		// 角度取得
+		Vec3 Rota() { return mw_.rota_; }
+		// 大きさ取得
+		Vec3 Scale() { return mw_.scale_; }
+		// ワールド行列取得
+		MatWorld World() { return mw_; }
+		// ----- setter ----- //
 		// 位置設定
 		void SetPos(const Math::Vec3& pos) { mw_.pos_ = pos; }
 		// 角度設定
