@@ -1,6 +1,5 @@
 #pragma once
 #include "Transform.h"
-#include "MatProjection.h"
 #include "Vertices.h"
 #include "TextureManager.h"
 
@@ -21,7 +20,7 @@ namespace Object
 		void Draw(Transform& trfm, const UINT tex);
 	private:
 		// 静的射影変換行列(平行投影)
-		static Math::MatProjection mp_;
+		static Math::Mat4 projection_;
 		// 静的テクスチャマネージャーポインタ
 		static DX::TextureManager* pTexManager_;
 	public:

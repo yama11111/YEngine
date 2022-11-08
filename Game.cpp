@@ -52,6 +52,7 @@ void Game::Update()
 	t1.Update();
 	t2.Update();
 	t3.Update();
+
 	vp.Update();
 }
 

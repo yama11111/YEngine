@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ViewProjection.cpp" />
     <ClCompile Include="DX\ConstBufferManager.cpp" />
     <ClCompile Include="DX\GPUResource.cpp" />
     <ClCompile Include="DX\PipelineSet.cpp" />
@@ -160,9 +161,6 @@
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="Math\Calc.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
-    <ClCompile Include="Math\MatProjection.cpp" />
-    <ClCompile Include="Math\MatView.cpp" />
-    <ClCompile Include="Math\MatViewProjection.cpp" />
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
@@ -173,6 +171,7 @@
     <ClCompile Include="YWindowsApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ViewProjection.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DX\ConstBufferManager.h" />
     <ClInclude Include="DX\GPUResource.h" />
@@ -191,9 +190,6 @@
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Calc.h" />
     <ClInclude Include="Math\Mat4.h" />
-    <ClInclude Include="Math\MatProjection.h" />
-    <ClInclude Include="Math\MatView.h" />
-    <ClInclude Include="Math\MatViewProjection.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />

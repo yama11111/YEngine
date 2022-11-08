@@ -46,7 +46,7 @@ public:
 	Object::Transform t3;
 
 	// 転送用ビュープロジェクション
-	Math::MatViewProjection vp;
+	Object::ViewProjection vp;
 
 public:
 	// 初期化

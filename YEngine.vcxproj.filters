@@ -37,12 +37,6 @@
     <Filter Include="ヘッダー ファイル\Math">
       <UniqueIdentifier>{a5dd05ca-6984-4848-b971-6c1d277d883e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Math\Matrix">
-      <UniqueIdentifier>{bc3d8b70-54d2-4626-83dc-273ed8bbd415}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Math\Matrix">
-      <UniqueIdentifier>{9fcf4b1d-1ca7-4948-8564-bbdb4fb93499}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Object">
       <UniqueIdentifier>{dfe96a20-54a4-457f-9dde-51ab4662136f}</UniqueIdentifier>
     </Filter>
@@ -93,9 +87,6 @@
     <ClCompile Include="Math\Vec4.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Mat4.cpp">
-      <Filter>ソース ファイル\Math\Matrix</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Transform.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
@@ -138,14 +129,11 @@
     <ClCompile Include="DX\YDirectX.cpp">
       <Filter>ソース ファイル\DX</Filter>
     </ClCompile>
-    <ClCompile Include="Math\MatProjection.cpp">
-      <Filter>ソース ファイル\Math\Matrix</Filter>
+    <ClCompile Include="ViewProjection.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Math\MatView.cpp">
-      <Filter>ソース ファイル\Math\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\MatViewProjection.cpp">
-      <Filter>ソース ファイル\Math\Matrix</Filter>
+    <ClCompile Include="Math\Mat4.cpp">
+      <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="Math\Vec4.h">
       <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Mat4.h">
-      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="Object\Transform.h">
       <Filter>ヘッダー ファイル\Object</Filter>
@@ -224,14 +209,11 @@
     <ClInclude Include="DX\YDirectX.h">
       <Filter>ヘッダー ファイル\DX</Filter>
     </ClInclude>
-    <ClInclude Include="Math\MatProjection.h">
-      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
+    <ClInclude Include="ViewProjection.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Math\MatView.h">
-      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\MatViewProjection.h">
-      <Filter>ヘッダー ファイル\Math\Matrix</Filter>
+    <ClInclude Include="Math\Mat4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -79,10 +79,10 @@ Model::Model()
 		);
 }
 
-void Model::Draw(Transform& trfm, Math::MatViewProjection& vp, const UINT tex)
+void Model::Draw(Transform& trfm, ViewProjection& vp, const UINT tex)
 {
 	pTexManager_->SetDrawCommand(tex);
-	trfm.SetDrawCommand(vp.view_.m_, vp.pro_.m_);
+	trfm.SetDrawCommand(vp.view_, vp.pro_);
 	vtIdx.Draw();
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Transform.h"
-#include "MatViewProjection.h"
+#include "ViewProjection.h"
 #include "Vertices.h"
 #include "TextureManager.h"
 
@@ -15,7 +15,7 @@ namespace Object
 		// コンストラクタ
 		Model();
 		// 描画
-		void Draw(Transform& trfm, Math::MatViewProjection& vp, const UINT tex);
+		void Draw(Transform& trfm, ViewProjection& vp, const UINT tex);
 	private:
 		// 静的テクスチャマネージャーポインタ
 		static DX::TextureManager* pTexManager_;

@@ -1,14 +1,14 @@
 #include "Sprite.h"
+#include "Calc.h"
 
 using Object::Sprite;
-using Math::MatProjection;
 
-MatProjection Sprite::mp_ = MatProjection(MatProjection::OrthoGraphic);
+Math::Mat4 Sprite::projection_ = Math::Mat4::Identity();
 DX::TextureManager* Sprite::pTexManager_ = nullptr;
 
 void Sprite::StaticInitialize(DX::TextureManager* pTexManager)
 {
-	mp_ = MatProjection(MatProjection::OrthoGraphic);
+	projection_ = Math::MatOrthoGraphic();
 	pTexManager_ = pTexManager;
 }
 
@@ -27,7 +27,7 @@ Sprite::Sprite(const Math::Vec2& size) :
 
 void Sprite::Draw(Transform& trfm, const UINT tex)
 {
-	trfm.SetDrawCommand(Math::Mat4::Identity(), mp_.m_);
+	trfm.SetDrawCommand(Math::Mat4::Identity(), projection_);
 	pTexManager_->SetDrawCommand(tex);
 	vt_.Draw();
 }
