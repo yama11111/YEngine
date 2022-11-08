@@ -32,7 +32,7 @@ namespace Math
 	// ‹ts—ñ
 	Mat4 InverceMat4(const Mat4& m);
 
-	// Ë‰e•ÏŠ·s—ñ
+	// •½s“Š‰e•ÏŠ·s—ñ
 	Mat4 MatOrthoGraphic();
 	// “§‹“Š‰e•ÏŠ·s—ñ
 	Mat4 MatPerspective();
