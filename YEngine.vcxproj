@@ -143,7 +143,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ViewProjection.cpp" />
     <ClCompile Include="DX\ConstBufferManager.cpp" />
     <ClCompile Include="DX\GPUResource.cpp" />
     <ClCompile Include="DX\PipelineSet.cpp" />
@@ -168,10 +167,10 @@
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Object\Sprite.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object\ViewProjection.cpp" />
     <ClCompile Include="YWindowsApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ViewProjection.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="DX\ConstBufferManager.h" />
     <ClInclude Include="DX\GPUResource.h" />
@@ -196,6 +195,7 @@
     <ClInclude Include="Object\Model.h" />
     <ClInclude Include="Object\Transform.h" />
     <ClInclude Include="Object\Sprite.h" />
+    <ClInclude Include="Object\ViewProjection.h" />
     <ClInclude Include="YWindowsApp.h" />
   </ItemGroup>
   <ItemGroup>
