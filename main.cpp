@@ -1,8 +1,9 @@
 #include "YWindowsApp.h"
 #include "YDirectX.h"
-#include "InputManager.h"
-#include "GameScene.h"
 #include "ScreenDesc.h"
+#include "InputManager.h"
+#include "RootParameterManager.h"
+#include "GameScene.h"
 #include "Def.h"
 
 using namespace DX;
