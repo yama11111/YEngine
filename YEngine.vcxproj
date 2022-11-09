@@ -159,6 +159,7 @@
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="Math\Calc.cpp" />
+    <ClCompile Include="Math\Lerp.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="Math\Vec3.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Calc.h" />
+    <ClInclude Include="Math\Lerp.h" />
     <ClInclude Include="Math\Mat4.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
