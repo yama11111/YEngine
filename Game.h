@@ -11,20 +11,6 @@
 class Game
 {
 public:
-	// ----- Input ----- //
-	Input::Keys* keys = nullptr;
-	Input::Mouse* mouse = nullptr;
-	Input::Pad* pad = nullptr;
-	// ----------------- //
-
-	// ----- Pipeline ----- //
-	DX::RootParameterManager rpM;
-	DX::ConstBufferManager cbM;
-	DX::PipelineSet pplnSet2D;
-	DX::PipelineSet pplnSet3D;
-	DX::TextureManager texM;
-	// -------------------- //
-
 	// ----- リソース ----- //
 	
 	// 無地画像
@@ -60,5 +46,18 @@ public:
 	Game();
 	// デストラクタ
 	~Game();
+private:
+	// キー(シングルトン)
+	static Input::Keys* keys_;
+	// マウス(シングルトン)
+	static Input::Mouse* mouse_;
+	// パッド(シングルトン)
+	static Input::Pad* pad_;
+private:
+	// 静的テクスチャマネージャーポインタ
+	static DX::TextureManager* pTexManager_;
+public:
+	// 静的初期化
+	static void StaticInitialize(DX::TextureManager* pTexManager);
 };
 

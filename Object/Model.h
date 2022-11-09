@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "ViewProjection.h"
 #include "Vertices.h"
+#include "PipelineSet.h"
 #include "TextureManager.h"
 
 namespace Object
@@ -17,10 +18,14 @@ namespace Object
 		// 描画
 		void Draw(Transform& trfm, ViewProjection& vp, const UINT tex);
 	private:
+		// パイプライン設定
+		static DX::PipelineSet pplnSet_;
 		// 静的テクスチャマネージャーポインタ
 		static DX::TextureManager* pTexManager_;
 	public:
 		// 静的初期化
-		static void StaticInitialize(DX::TextureManager* pTexManager);
+		static void StaticInitialize(DX::TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
+		// 静的描画コマンド
+		static void StaticSetDrawCommand();
 	};
 }

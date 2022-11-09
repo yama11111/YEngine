@@ -7,29 +7,17 @@ using Math::Vec4;
 
 ID3D12Device* TextureManager::pDevice_ = nullptr;
 ID3D12GraphicsCommandList*  TextureManager::pCmdList_ = nullptr;
+DX::SRVHeap* TextureManager::pSrvHeap_ = nullptr;
 
-void TextureManager::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList)
+void TextureManager::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, SRVHeap* pSrvHeap)
 {
 	Assert(pDevice != nullptr);
 	Assert(pCommandList != nullptr);
+	Assert(pSrvHeap != nullptr);
 
 	pDevice_ = pDevice;
 	pCmdList_ = pCommandList;
-}
-
-void TextureManager::Initialize()
-{
-	// デスクリプタヒープ設定
-	D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
-	heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-	heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE; // シェーダーから見えるように
-	heapDesc.NumDescriptors = MaxSRVCount_;
-
-	// 設定をもとにSRV用デスクリプタヒープを生成
-	Result(pDevice_->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&srvHeap_)));
-
-	// SRVヒープの先頭ハンドル(CPU)を取得
-	srvCpuHandle_ = srvHeap_->GetCPUDescriptorHandleForHeapStart();
+	pSrvHeap_ = pSrvHeap;
 }
 
 UINT TextureManager::CreateTex(const Math::Vec4& color)
@@ -177,34 +165,26 @@ UINT TextureManager::Load(const wchar_t* fileName, const bool mipMap)
 void TextureManager::SetTexture(Texture& tex, D3D12_SHADER_RESOURCE_VIEW_DESC* srvDesc)
 {
 	// SRVヒープの先頭ハンドル(CPU)を取得
-	srvCpuHandle_ = srvHeap_->GetCPUDescriptorHandleForHeapStart();
+	tex.srvCpuHandle_ = pSrvHeap_->CPUHandleStart();
 
 	// SRVヒープの先頭ハンドル(GPU)を取得
-	tex.srvGpuHandle_ = srvHeap_->GetGPUDescriptorHandleForHeapStart();
+	tex.srvGpuHandle_ = pSrvHeap_->GPUHandleStart();
 
 	// インクリメントサイズ獲得
 	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	// テクスチャがある分だけハンドルを進める
-	srvCpuHandle_.ptr += (incSize * texs_.size());
+	tex.srvCpuHandle_.ptr += (incSize * texs_.size());
 
 	// テクスチャがある分だけハンドルを進める
 	tex.srvGpuHandle_.ptr += (incSize * texs_.size());
 
 	// ハンドルの指す位置にシェーダーリソースビュー作成
-	pDevice_->CreateShaderResourceView(tex.buff_.Get(), srvDesc, srvCpuHandle_);
+	pDevice_->CreateShaderResourceView(tex.buff_.Get(), srvDesc, tex.srvCpuHandle_);
 }
 
 void TextureManager::SetDrawCommand(const UINT texIndex)
 {
 	Assert((0 <= texIndex && texIndex < texs_.size()));
 	pCmdList_->SetGraphicsRootDescriptorTable(rpIndex_, texs_[texIndex].srvGpuHandle_);
-}
-
-void TextureManager::SetSRVDrawCommand()
-{
-	// SRVヒープの設定コマンド
-	ID3D12DescriptorHeap* ppHeaps[] = { srvHeap_.Get() };
-	pCmdList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
-	//pCmdList->SetDescriptorHeaps(1, srv.heap.GetAddressOf());
 }

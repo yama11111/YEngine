@@ -149,6 +149,7 @@
     <ClCompile Include="DX\RootParameterManager.cpp" />
     <ClCompile Include="DX\ScreenDesc.cpp" />
     <ClCompile Include="DX\ShaderSet.cpp" />
+    <ClCompile Include="DX\SRVHeap.cpp" />
     <ClCompile Include="DX\TextureManager.cpp" />
     <ClCompile Include="DX\Vertices.cpp" />
     <ClCompile Include="DX\YAssert.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="DX\RootParameterManager.h" />
     <ClInclude Include="DX\ScreenDesc.h" />
     <ClInclude Include="DX\ShaderSet.h" />
+    <ClInclude Include="DX\SRVHeap.h" />
     <ClInclude Include="DX\TextureManager.h" />
     <ClInclude Include="DX\Vertices.h" />
     <ClInclude Include="DX\YAssert.h" />

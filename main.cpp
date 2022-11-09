@@ -32,48 +32,68 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	input->Create(window.HandleWindowInstance(), window.PointerHandleWindow());
 
 	GPUResource::StaticInitialize(dx.Device());
+
+	RootParameterManager rpM;
+
 	ConstBufferManager::StaticInitialize(dx.CommandList());
-	TextureManager::StaticInitialize(dx.Device(), dx.CommandList());
+	ConstBufferManager cbM;
+	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
+	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
+
+	SRVHeap::StaticInitialize(dx.Device(), dx.CommandList());
+	SRVHeap srvHeap;
+	srvHeap.Create();
+	TextureManager::StaticInitialize(dx.Device(), dx.CommandList(), &srvHeap);
+	TextureManager texM;
+	texM.SetRootParameterIndex(rpM.PushBackTR());
+
 	PipelineSet::StaticInitialize(dx.Device(), dx.CommandList());
-	
+
 	Vertices<SpriteVData>::StaticInitialize(dx.CommandList());
 	Vertices<ModelVData>::StaticInitialize(dx.CommandList());
 
+	Transform::StaticInitialize(&cbM);
+	Sprite::StaticInitialize(&texM, rpM.Get());
+	Model::StaticInitialize(&texM, rpM.Get());
+
+	Game::StaticInitialize(&texM);
 	Game game;
 	game.Initialize();
 
 	// ゲームループ
 	while (true)
 	{
-		// ----- 毎フレーム処理 ----- //
+		// -------------------- Update -------------------- //
 
 		input->Update(); // input更新
 
-		// -------------------- Update -------------------- //
-
-		game.Update();
+		game.Update(); // ゲームシーン更新
 
 		// ------------------------------------------------ //
+
+		// --------------------- Draw --------------------- //
 
 		dx.PreDraw(CLEAR_COLOR); // 描画準備
 
 		screenDesc.SetDrawCommand(); // スクリーン設定セット
+
+		srvHeap.SetDrawCommand(); // SRVヒープセット
 		
-		// --------------------- Draw --------------------- //
-
-		game.Draw();
-
-		// ------------------------------------------------ //
+		game.Draw(); // ゲームシーン描画
 
 		dx.PostDraw(); // 描画後処理
 
-		// ---------------------------------- //
+		// ------------------------------------------------ //
+
+		// ------------------- 終了処理 ------------------- //
 
 		// ×ボタンで終了メッセージ
 		if (window.CheckMessage()) { break; }
 
 		// ESCキーで終了
 		if (input->keys_->IsTrigger(DIK_ESCAPE)) { break; }
+
+		// ------------------------------------------------ //
 	}
 
 	// ウィンドウクラスを登録解除

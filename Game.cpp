@@ -1,11 +1,27 @@
 #include "Game.h"
 #include "Calc.h"
 #include "Def.h"
+#include <cassert>
 
 using namespace DX;
 using namespace Input;
 using namespace Math;
 using namespace Object;
+
+Keys* Game::keys_ = nullptr;
+Mouse* Game::mouse_ = nullptr;
+Pad* Game::pad_ = nullptr;
+TextureManager* Game::pTexManager_ = nullptr;
+
+void Game::StaticInitialize(TextureManager* pTexManager)
+{
+	assert(pTexManager != nullptr);
+	pTexManager_ = pTexManager;
+
+	keys_ = Keys::GetInstance();
+	mouse_ = Mouse::GetInstance();
+	pad_ = Pad::GetInstance();
+}
 
 Game::Game() {}
 
@@ -13,27 +29,7 @@ Game::~Game() {}
 
 void Game::Initialize()
 {
-	// ----- Input ----- //
-	keys = Keys::GetInstance();
-	mouse = Mouse::GetInstance();
-	pad = Pad::GetInstance();
-	// ----------------- //
-
-	// ----- Pipeline ----- //
-	texM.Initialize();
-	texM.SetRootParameterIndex(rpM.PushBackTR());
-	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
-	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
-
-	Transform::StaticInitialize(&cbM);
-	Sprite::StaticInitialize(&texM);
-	Model::StaticInitialize(&texM);
-
-	pplnSet2D.Initialize(PipelineSet::Type::SpriteT, rpM.Get());
-	pplnSet3D.Initialize(PipelineSet::Type::ModelT, rpM.Get());
-	// -------------------- //
-
-	plainTex = texM.Load(L"Resources/white.png", false);
+	plainTex = pTexManager_->Load(L"Resources/white.png", false);
 
 	m1.reset(new Model());
 	s1.reset(new Sprite({ 64,64 }));
@@ -47,8 +43,6 @@ void Game::Initialize()
 
 void Game::Update()
 {
-	t1.pos_ += Vec3(1, 1, 0);
-
 	t1.Update();
 	t2.Update();
 	t3.Update();
@@ -58,22 +52,20 @@ void Game::Update()
 
 void Game::Draw()
 {
-	texM.SetSRVDrawCommand();
-
 	// -------------------------- //
-	pplnSet2D.SetDrawCommand();
+	Sprite::StaticSetDrawCommand();
 	// ----- 背景スプライト ----- //
 
 	s1->Draw(t1, plainTex);
 
 	// -------------------------- //
-	pplnSet3D.SetDrawCommand();
+	Model::StaticSetDrawCommand();
 	// --------- モデル --------- //
 
 	m1->Draw(t2, vp, plainTex);
 
 	// -------------------------- //
-	pplnSet2D.SetDrawCommand();
+	Sprite::StaticSetDrawCommand();
 	// ----- 前景スプライト ----- //
 
 	s1->Draw(t3, plainTex);

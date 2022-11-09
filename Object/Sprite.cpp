@@ -1,15 +1,24 @@
 #include "Sprite.h"
 #include "Calc.h"
+#include <cassert>
 
 using Object::Sprite;
 
 Math::Mat4 Sprite::projection_ = Math::Mat4::Identity();
+DX::PipelineSet Sprite::pplnSet_;
 DX::TextureManager* Sprite::pTexManager_ = nullptr;
 
-void Sprite::StaticInitialize(DX::TextureManager* pTexManager)
+void Sprite::StaticInitialize(DX::TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
 {
-	projection_ = Math::MatOrthoGraphic();
+	assert(pTexManager != nullptr);
 	pTexManager_ = pTexManager;
+	projection_ = Math::MatOrthoGraphic();
+	pplnSet_.Initialize(DX::PipelineSet::Type::SpriteT, rootParams);
+}
+
+void Sprite::StaticSetDrawCommand()
+{
+	pplnSet_.SetDrawCommand();
 }
 
 Sprite::Sprite(const Math::Vec2& size) :
