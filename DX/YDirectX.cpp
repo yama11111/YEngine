@@ -71,7 +71,7 @@ bool YDirectX::Initialize(const HWND& hwnd, const Math::Vec2& size)
 	// アダプターが無いなら終了
 	if (tmpAdapter == nullptr)
 	{
-		Assert(false);
+		assert(false);
 		return false;
 	}
 
@@ -101,7 +101,7 @@ bool YDirectX::Initialize(const HWND& hwnd, const Math::Vec2& size)
 	// デバイスが無いなら終了
 	if (device_ == nullptr)
 	{
-		Assert(false);
+		assert(false);
 		return false;
 	}
 
@@ -297,7 +297,7 @@ void YDirectX::PostDraw()
 		fence_->SetEventOnCompletion(fenceValue_, event);
 		if (event == 0) 
 		{
-			Assert(false);
+			assert(false);
 			return;
 		}
 		WaitForSingleObject(event, INFINITE);

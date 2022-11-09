@@ -8,8 +8,8 @@ ID3D12GraphicsCommandList* SRVHeap::pCmdList_ = nullptr;
 
 void SRVHeap::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList)
 {
-	Assert(pDevice != nullptr);
-	Assert(pCommandList != nullptr);
+	assert(pDevice);
+	assert(pCommandList);
 
 	pDevice_ = pDevice;
 	pCmdList_ = pCommandList;

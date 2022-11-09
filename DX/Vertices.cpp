@@ -11,7 +11,7 @@ ID3D12GraphicsCommandList* Vertices<T>::pCmdList_ = nullptr;
 template <typename T>
 void Vertices<T>::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 {
-	Assert(pCommandList);
+	assert(pCommandList);
 	pCmdList_ = pCommandList;
 }
 

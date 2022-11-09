@@ -7,7 +7,7 @@ ID3D12GraphicsCommandList* ConstBufferManager::pCmdList_ = nullptr;
 
 void ConstBufferManager::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 {
-	Assert(pCommandList != nullptr);
+	assert(pCommandList);
 	pCmdList_ = pCommandList;
 }
 

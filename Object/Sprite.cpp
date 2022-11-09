@@ -6,11 +6,11 @@ using Object::Sprite;
 
 Math::Mat4 Sprite::projection_ = Math::Mat4::Identity();
 DX::PipelineSet Sprite::pplnSet_;
-DX::TextureManager* Sprite::pTexManager_ = nullptr;
+Object::TextureManager* Sprite::pTexManager_ = nullptr;
 
-void Sprite::StaticInitialize(DX::TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
+void Sprite::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
 {
-	assert(pTexManager != nullptr);
+	assert(pTexManager);
 	pTexManager_ = pTexManager;
 	projection_ = Math::MatOrthoGraphic();
 	pplnSet_.Initialize(DX::PipelineSet::Type::SpriteT, rootParams);

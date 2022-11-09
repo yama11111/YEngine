@@ -7,7 +7,7 @@ ID3D12Device* GPUResource::pDevice_ = nullptr;
 
 void GPUResource::StaticInitialize(ID3D12Device* pDevice)
 {
-	Assert(pDevice);
+	assert(pDevice);
 	pDevice_ = pDevice;
 }
 

@@ -7,7 +7,7 @@ ID3D12GraphicsCommandList* ScreenDesc::pCmdList_ = nullptr;
 
 void ScreenDesc::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 {
-	assert(pCommandList != nullptr);
+	assert(pCommandList);
 	pCmdList_ = pCommandList;
 }
 

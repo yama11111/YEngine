@@ -1,7 +1,7 @@
 #include "YWindowsApp.h"
 #include "YDirectX.h"
 #include "InputManager.h"
-#include "Game.h"
+#include "GameScene.h"
 #include "ScreenDesc.h"
 #include "Def.h"
 
@@ -22,8 +22,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	YDirectX dx;
 	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE)) { return 0; }
 
+	ID3D12Device* pDev = dx.Device();
+	ID3D12GraphicsCommandList* pCmdList = dx.CommandList();
+
 	// スクリーン設定
-	ScreenDesc::StaticInitialize(dx.CommandList());
+	ScreenDesc::StaticInitialize(pCmdList);
 	ScreenDesc screenDesc;
 	screenDesc.Initialize({0,0}, WIN_SIZE);
 
@@ -31,33 +34,33 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	InputManager* input = InputManager::GetInstance();
 	input->Create(window.HandleWindowInstance(), window.PointerHandleWindow());
 
-	GPUResource::StaticInitialize(dx.Device());
+	GPUResource::StaticInitialize(pDev);
 
 	RootParameterManager rpM;
 
-	ConstBufferManager::StaticInitialize(dx.CommandList());
+	ConstBufferManager::StaticInitialize(pCmdList);
 	ConstBufferManager cbM;
 	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
 	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
 
-	SRVHeap::StaticInitialize(dx.Device(), dx.CommandList());
+	SRVHeap::StaticInitialize(pDev, pCmdList);
 	SRVHeap srvHeap;
 	srvHeap.Create();
-	TextureManager::StaticInitialize(dx.Device(), dx.CommandList(), &srvHeap);
+	TextureManager::StaticInitialize(pDev, pCmdList, &srvHeap);
 	TextureManager texM;
 	texM.SetRootParameterIndex(rpM.PushBackTR());
 
-	PipelineSet::StaticInitialize(dx.Device(), dx.CommandList());
+	PipelineSet::StaticInitialize(pDev, pCmdList);
 
-	Vertices<SpriteVData>::StaticInitialize(dx.CommandList());
-	Vertices<ModelVData>::StaticInitialize(dx.CommandList());
+	Vertices<SpriteVData>::StaticInitialize(pCmdList);
+	Vertices<ModelVData>::StaticInitialize(pCmdList);
 
 	Transform::StaticInitialize(&cbM);
 	Sprite::StaticInitialize(&texM, rpM.Get());
 	Model::StaticInitialize(&texM, rpM.Get());
 
-	Game::StaticInitialize(&texM);
-	Game game;
+	GameScene::StaticInitialize(&texM);
+	GameScene game;
 	game.Initialize();
 
 	// ゲームループ

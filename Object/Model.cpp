@@ -4,11 +4,11 @@
 using Object::Model;
 
 DX::PipelineSet Model::pplnSet_;
-DX::TextureManager* Model::pTexManager_ = nullptr;
+Object::TextureManager* Model::pTexManager_ = nullptr;
 
-void Model::StaticInitialize(DX::TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
+void Model::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
 {
-	assert(pTexManager != nullptr);
+	assert(pTexManager);
 	pTexManager_ = pTexManager;
 	pplnSet_.Initialize(DX::PipelineSet::Type::SpriteT, rootParams);
 }

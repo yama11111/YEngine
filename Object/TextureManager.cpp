@@ -2,18 +2,20 @@
 #include <DirectXTex.h>
 #include "YAssert.h"
 
-using DX::TextureManager;
+using Object::TextureManager;
+using DX::GPUResource;
 using Math::Vec4;
+using DX::Result;
 
 ID3D12Device* TextureManager::pDevice_ = nullptr;
 ID3D12GraphicsCommandList*  TextureManager::pCmdList_ = nullptr;
 DX::SRVHeap* TextureManager::pSrvHeap_ = nullptr;
 
-void TextureManager::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, SRVHeap* pSrvHeap)
+void TextureManager::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, DX::SRVHeap* pSrvHeap)
 {
-	Assert(pDevice != nullptr);
-	Assert(pCommandList != nullptr);
-	Assert(pSrvHeap != nullptr);
+	assert(pDevice);
+	assert(pCommandList);
+	assert(pSrvHeap);
 
 	pDevice_ = pDevice;
 	pCmdList_ = pCommandList;
@@ -185,6 +187,6 @@ void TextureManager::SetTexture(Texture& tex, D3D12_SHADER_RESOURCE_VIEW_DESC* s
 
 void TextureManager::SetDrawCommand(const UINT texIndex)
 {
-	Assert((0 <= texIndex && texIndex < texs_.size()));
+	assert((0 <= texIndex && texIndex < texs_.size()));
 	pCmdList_->SetGraphicsRootDescriptorTable(rpIndex_, texs_[texIndex].srvGpuHandle_);
 }

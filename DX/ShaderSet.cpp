@@ -38,7 +38,7 @@ void IShaderSet::LoadShaderErrorProcess(ID3DBlob* errorBlob)
 	error += "\n";
 	// エラー内容を出力ウィンドウに表示
 	OutputDebugStringA(error.c_str());
-	Assert(false);
+	assert(false);
 }
 
 void SpriteShaderSet::Load(ID3DBlob* errorBlob)

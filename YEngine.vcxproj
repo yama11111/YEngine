@@ -150,11 +150,10 @@
     <ClCompile Include="DX\ScreenDesc.cpp" />
     <ClCompile Include="DX\ShaderSet.cpp" />
     <ClCompile Include="DX\SRVHeap.cpp" />
-    <ClCompile Include="DX\TextureManager.cpp" />
     <ClCompile Include="DX\Vertices.cpp" />
     <ClCompile Include="DX\YAssert.cpp" />
     <ClCompile Include="DX\YDirectX.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
@@ -166,6 +165,7 @@
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
     <ClCompile Include="Object\Model.cpp" />
+    <ClCompile Include="Object\TextureManager.cpp" />
     <ClCompile Include="Object\Transform.cpp" />
     <ClCompile Include="Object\Sprite.cpp" />
     <ClCompile Include="main.cpp" />
@@ -181,11 +181,10 @@
     <ClInclude Include="DX\ScreenDesc.h" />
     <ClInclude Include="DX\ShaderSet.h" />
     <ClInclude Include="DX\SRVHeap.h" />
-    <ClInclude Include="DX\TextureManager.h" />
     <ClInclude Include="DX\Vertices.h" />
     <ClInclude Include="DX\YAssert.h" />
     <ClInclude Include="DX\YDirectX.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />
     <ClInclude Include="Input\Mouse.h" />
@@ -197,6 +196,7 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Object\Model.h" />
+    <ClInclude Include="Object\TextureManager.h" />
     <ClInclude Include="Object\Transform.h" />
     <ClInclude Include="Object\Sprite.h" />
     <ClInclude Include="Object\ViewProjection.h" />

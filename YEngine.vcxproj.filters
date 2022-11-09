@@ -141,11 +141,8 @@
     <ClCompile Include="YWindowsApp.cpp">
       <Filter>Engine\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\TextureManager.cpp">
-      <Filter>ソース ファイル\Game\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Object\Transform.cpp">
       <Filter>ソース ファイル\Game\Utility</Filter>
@@ -155,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="DX\SRVHeap.cpp">
       <Filter>Engine\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\TextureManager.cpp">
+      <Filter>ソース ファイル\Game\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,11 +227,8 @@
     <ClInclude Include="YWindowsApp.h">
       <Filter>Engine\h</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="GameScene.h">
       <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\TextureManager.h">
-      <Filter>ヘッダー ファイル\Game\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Object\Transform.h">
       <Filter>ヘッダー ファイル\Game\Utility</Filter>
@@ -241,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="DX\SRVHeap.h">
       <Filter>Engine\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\TextureManager.h">
+      <Filter>ヘッダー ファイル\Game\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -25,10 +25,10 @@ namespace Object
 		// パイプライン設定
 		static DX::PipelineSet pplnSet_;
 		// 静的テクスチャマネージャーポインタ
-		static DX::TextureManager* pTexManager_;
+		static TextureManager* pTexManager_;
 	public:
 		// 静的初期化
-		static void StaticInitialize(DX::TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
+		static void StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
 		// 静的描画コマンド
 		static void StaticSetDrawCommand();
 	};

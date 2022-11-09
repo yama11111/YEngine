@@ -151,8 +151,8 @@ void PipelineSet::ModelPipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 
 void PipelineSet::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList)
 {
-	Assert(pDevice != nullptr);
-	Assert(pCommandList != nullptr);
+	assert(pDevice);
+	assert(pCommandList);
 
 	pDevice_ = pDevice;
 	pCmdList_ = pCommandList;

@@ -8,7 +8,7 @@
 #include "Model.h"
 #include <memory>
 
-class Game
+class GameScene
 {
 public:
 	// ----- リソース ----- //
@@ -43,9 +43,9 @@ public:
 	void Draw();
 public:
 	// コンストラクタ
-	Game();
+	GameScene();
 	// デストラクタ
-	~Game();
+	~GameScene();
 private:
 	// キー(シングルトン)
 	static Input::Keys* keys_;
@@ -55,9 +55,9 @@ private:
 	static Input::Pad* pad_;
 private:
 	// 静的テクスチャマネージャーポインタ
-	static DX::TextureManager* pTexManager_;
+	static Object::TextureManager* pTexManager_;
 public:
 	// 静的初期化
-	static void StaticInitialize(DX::TextureManager* pTexManager);
+	static void StaticInitialize(Object::TextureManager* pTexManager);
 };
 

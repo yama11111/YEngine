@@ -4,13 +4,13 @@
 #include <vector>
 #include "Vec4.h"
 
-namespace DX
+namespace Object
 {
 	// テクスチャ構造体
 	struct Texture 
 	{
 		// テクスチャバッファ
-		GPUResource buff_;
+		DX::GPUResource buff_;
 		// SRV先頭ハンドル (CPU)
 		D3D12_CPU_DESCRIPTOR_HANDLE srvCpuHandle_{};
 		// SRV先頭ハンドル (GPU)
@@ -50,10 +50,10 @@ namespace DX
 		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* pCmdList_;
 		// 静的シェーダーリソースヒープクラス
-		static SRVHeap* pSrvHeap_;
+		static DX::SRVHeap* pSrvHeap_;
 	public:
 		// 静的初期化
-		static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, SRVHeap* pSrvHeap);
+		static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, DX::SRVHeap* pSrvHeap);
 	};
 }
 

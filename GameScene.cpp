@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "GameScene.h"
 #include "Calc.h"
 #include "Def.h"
 #include <cassert>
@@ -8,14 +8,14 @@ using namespace Input;
 using namespace Math;
 using namespace Object;
 
-Keys* Game::keys_ = nullptr;
-Mouse* Game::mouse_ = nullptr;
-Pad* Game::pad_ = nullptr;
-TextureManager* Game::pTexManager_ = nullptr;
+Keys* GameScene::keys_ = nullptr;
+Mouse* GameScene::mouse_ = nullptr;
+Pad* GameScene::pad_ = nullptr;
+TextureManager* GameScene::pTexManager_ = nullptr;
 
-void Game::StaticInitialize(TextureManager* pTexManager)
+void GameScene::StaticInitialize(TextureManager* pTexManager)
 {
-	assert(pTexManager != nullptr);
+	assert(pTexManager);
 	pTexManager_ = pTexManager;
 
 	keys_ = Keys::GetInstance();
@@ -23,11 +23,11 @@ void Game::StaticInitialize(TextureManager* pTexManager)
 	pad_ = Pad::GetInstance();
 }
 
-Game::Game() {}
+GameScene::GameScene() {}
 
-Game::~Game() {}
+GameScene::~GameScene() {}
 
-void Game::Initialize()
+void GameScene::Initialize()
 {
 	plainTex = pTexManager_->Load(L"Resources/white.png", false);
 
@@ -41,7 +41,7 @@ void Game::Initialize()
 	vp.Initialize({});
 }
 
-void Game::Update()
+void GameScene::Update()
 {
 	t1.Update();
 	t2.Update();
@@ -50,7 +50,7 @@ void Game::Update()
 	vp.Update();
 }
 
-void Game::Draw()
+void GameScene::Draw()
 {
 	// -------------------------- //
 	Sprite::StaticSetDrawCommand();
