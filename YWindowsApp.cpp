@@ -28,7 +28,7 @@ void YWindowsApp::Create(const wchar_t* titleName, const Math::Vec2& size)
 	// ウィンドウクラスをOSに登録
 	RegisterClassEx(&wDesc_);
 	// ウィンドウサイズ {x, y, width，height}
-	RECT wrc = { 0, 0, (LONG)size.x, (LONG)size.y };
+	RECT wrc = { 0, 0, (LONG)size.x_, (LONG)size.y_ };
 	// 自動でサイスを補正
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 	// ------- ウィンドウ生成 ------- //

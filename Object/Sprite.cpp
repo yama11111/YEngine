@@ -17,10 +17,10 @@ Sprite::Sprite(const Math::Vec2& size) :
 {
 	vt_.Initialize(
 		{
-			{{   0.0f, size.y, 0.0f }, { 0.0f, 1.0f }}, // 左下
+			{{   0.0f, size.y_, 0.0f }, { 0.0f, 1.0f }}, // 左下
 			{{   0.0f,   0.0f, 0.0f }, { 0.0f, 0.0f }}, // 左上
-			{{ size.x, size.y, 0.0f }, { 1.0f, 1.0f }}, // 右下
-			{{ size.x,   0.0f, 0.0f }, { 1.0f, 0.0f }}, // 右上
+			{{ size.x_, size.y_, 0.0f }, { 1.0f, 1.0f }}, // 右下
+			{{ size.x_,   0.0f, 0.0f }, { 1.0f, 0.0f }}, // 右上
 		}
 	);
 }

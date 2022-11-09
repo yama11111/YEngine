@@ -4,11 +4,11 @@
 using Math::Vec3;
 
 Vec3::Vec3() :
-	x(0.0f), y(0.0f), z(0.0f)
+	x_(0.0f), y_(0.0f), z_(0.0f)
 {}
 
 Vec3::Vec3(float x, float y, float z) :
-	x(x), y(y), z(z)
+	x_(x), y_(y), z_(z)
 {}
 
 float Vec3::Length() const
@@ -29,21 +29,21 @@ Vec3 Vec3::Normalized() const
 
 constexpr bool Vec3::IsZero() const
 {
-	return x == 0.0f && y == 0.0f && z == 0.0f;
+	return x_ == 0.0f && y_ == 0.0f && z_ == 0.0f;
 }
 
 constexpr float Vec3::Dot(const Vec3& v) const
 {
-	return x * v.x + y * v.y + z * v.z;
+	return x_ * v.x_ + y_ * v.y_ + z_ * v.z_;
 }
 
 Vec3 Vec3::Cross(const Vec3& v)
 {
 	return
 	{
-		y * v.z - z * v.y,
-		z * v.x - x * v.z,
-		x * v.y - y * v.x
+		y_ * v.z_ - z_ * v.y_,
+		z_ * v.x_ - x_ * v.z_,
+		x_ * v.y_ - y_ * v.x_
 	};
 }
 
@@ -58,55 +58,34 @@ Vec3 Vec3::operator+() const
 }
 Vec3 Vec3::operator-() const
 {
-	return { -x, -y, -z };
+	return { -x_, -y_, -z_ };
 }
 
 Vec3& Vec3::operator+=(const Vec3& v)
 {
-	x += v.x;
-	y += v.y;
-	z += v.z;
+	x_ += v.x_;
+	y_ += v.y_;
+	z_ += v.z_;
 	return *this;
 }
 Vec3& Vec3::operator-=(const Vec3& v)
 {
-	x -= v.x;
-	y -= v.y;
-	z -= v.z;
+	x_ -= v.x_;
+	y_ -= v.y_;
+	z_ -= v.z_;
 	return *this;
 }
 Vec3& Vec3::operator*=(float s)
 {
-	x *= s;
-	y *= s;
-	z *= s;
+	x_ *= s;
+	y_ *= s;
+	z_ *= s;
 	return *this;
 }
 Vec3& Vec3::operator/=(float s)
 {
-	x /= s;
-	y /= s;
-	z /= s;
+	x_ /= s;
+	y_ /= s;
+	z_ /= s;
 	return *this;
-}
-
-inline Vec3 Math::operator+(const Vec3& v1, const Vec3& v2)
-{
-	return { v1.x + v2.x, v1.y + v2.y, v1.z + v2.z };
-}
-inline Vec3 Math::operator-(const Vec3& v1, const Vec3& v2)
-{
-	return { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
-}
-inline Vec3 Math::operator*(const Vec3& v, float s)
-{
-	return { v.x * s, v.y * s, v.z * s };
-}
-inline Vec3 Math::operator*(float s, const Vec3& v)
-{
-	return { s * v.x, s * v.y, s * v.z };
-}
-inline Vec3 Math::operator/(const Vec3& v, float s)
-{
-	return { v.x / s, v.y / s, v.z / s };
 }

@@ -4,11 +4,11 @@
 using Math::Vec2;
 
 Vec2::Vec2() :
-	x(0.0f), y(0.0f)
+	x_(0.0f), y_(0.0f)
 {}
 
 Vec2::Vec2(float x, float y)
-	:x(x), y(y)
+	:x_(x), y_(y)
 {}
 
 float Vec2::Length() const
@@ -29,12 +29,12 @@ Vec2 Vec2::Normalized() const
 
 constexpr bool Vec2::IsZero() const
 {
-	return x == 0.0f && y == 0.0f;
+	return x_ == 0.0f && y_ == 0.0f;
 }
 
 constexpr float Vec2::Dot(const Vec2& v) const
 {
-	return x * v.x + y * v.y;
+	return x_ * v.x_ + y_ * v.y_;
 }
 
 float Vec2::Distance(const Vec2& v) const
@@ -48,51 +48,30 @@ Vec2 Vec2::operator+() const
 }
 Vec2 Vec2::operator-() const
 {
-	return { -x,-y };
+	return { -x_,-y_ };
 }
 
 Vec2& Vec2::operator+=(const Vec2& v)
 {
-	x += v.x;
-	y += v.y;
+	x_ += v.x_;
+	y_ += v.y_;
 	return *this;
 }
 Vec2& Vec2::operator-=(const Vec2& v)
 {
-	x -= v.x;
-	y -= v.y;
+	x_ -= v.x_;
+	y_ -= v.y_;
 	return *this;
 }
 Vec2& Vec2::operator*=(float s)
 {
-	x *= s;
-	y *= s;
+	x_ *= s;
+	y_ *= s;
 	return *this;
 }
 Vec2& Vec2::operator/=(float s)
 {
-	x /= s;
-	y /= s;
+	x_ /= s;
+	y_ /= s;
 	return *this;
-}
-
-inline Vec2 Math::operator+(const Vec2& v1, const Vec2& v2)
-{
-	return{ v1.x + v2.x, v1.y + v2.y };
-}
-inline Vec2 Math::operator-(const Vec2& v1, const Vec2& v2)
-{
-	return{ v1.x - v2.x, v1.y - v2.y };
-}
-inline Vec2 Math::operator*(const Vec2& v, float s)
-{
-	return{ v.x * s, v.y * s };
-}
-inline Vec2 Math::operator*(float s, const Vec2& v)
-{
-	return { s * v.x, s * v.y };
-}
-inline Vec2 Math::operator/(const Vec2& v, float s)
-{
-	return{ v.x / s, v.y / s };
 }

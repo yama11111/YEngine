@@ -43,10 +43,10 @@ UINT TextureManager::CreateTex(const Math::Vec4& color)
 	// 全ピクセルの色を初期化
 	for (size_t i = 0; i < imageDataCount; i++)
 	{
-		imageData[i].r = color.r; // R
-		imageData[i].g = color.g; // G
-		imageData[i].b = color.b; // B
-		imageData[i].a = color.a; // A
+		imageData[i].r_ = color.r_; // R
+		imageData[i].g_ = color.g_; // G
+		imageData[i].b_ = color.b_; // B
+		imageData[i].a_ = color.a_; // A
 	}
 
 	// 生成用情報
