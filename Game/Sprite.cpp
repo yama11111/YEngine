@@ -2,11 +2,11 @@
 #include "Calc.h"
 #include <cassert>
 
-using Object::Sprite;
+using Game::Sprite;
 
 Math::Mat4 Sprite::projection_ = Math::Mat4::Identity();
 DX::PipelineSet Sprite::pplnSet_;
-Object::TextureManager* Sprite::pTexManager_ = nullptr;
+Game::TextureManager* Sprite::pTexManager_ = nullptr;
 
 void Sprite::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
 {

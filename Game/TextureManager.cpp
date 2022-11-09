@@ -2,7 +2,7 @@
 #include <DirectXTex.h>
 #include "YAssert.h"
 
-using Object::TextureManager;
+using Game::TextureManager;
 using DX::GPUResource;
 using Math::Vec4;
 using DX::Result;

@@ -17,22 +17,22 @@ public:
 	UINT plainTex = 0;
 	
 	// model
-	std::unique_ptr<Object::Model> m1 = nullptr;
+	std::unique_ptr<Game::Model> m1 = nullptr;
 	
 	// sprite
-	std::unique_ptr<Object::Sprite> s1 = nullptr;
+	std::unique_ptr<Game::Sprite> s1 = nullptr;
 
 	// ----- オブジェクト ----- //
 
 	// Transform1
-	Object::Transform t1;
+	Game::Transform t1;
 	// Transform2
-	Object::Transform t2;
+	Game::Transform t2;
 	// Transform3
-	Object::Transform t3;
+	Game::Transform t3;
 
 	// 転送用ビュープロジェクション
-	Object::ViewProjection vp;
+	Game::ViewProjection vp;
 
 public:
 	// 初期化
@@ -55,9 +55,9 @@ private:
 	static Input::Pad* pad_;
 private:
 	// 静的テクスチャマネージャーポインタ
-	static Object::TextureManager* pTexManager_;
+	static Game::TextureManager* pTexManager_;
 public:
 	// 静的初期化
-	static void StaticInitialize(Object::TextureManager* pTexManager);
+	static void StaticInitialize(Game::TextureManager* pTexManager);
 };
 

@@ -1,10 +1,10 @@
 #include "Model.h"
 #include <cassert>
 
-using Object::Model;
+using Game::Model;
 
 DX::PipelineSet Model::pplnSet_;
-Object::TextureManager* Model::pTexManager_ = nullptr;
+Game::TextureManager* Model::pTexManager_ = nullptr;
 
 void Model::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
 {

@@ -4,7 +4,7 @@
 #include <vector>
 #include "Vec4.h"
 
-namespace Object
+namespace Game
 {
 	// テクスチャ構造体
 	struct Texture 

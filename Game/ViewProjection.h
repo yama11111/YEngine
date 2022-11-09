@@ -2,7 +2,7 @@
 #include "Vec3.h"
 #include "Mat4.h"
 
-namespace Object
+namespace Game
 {
 	class ViewProjection
 	{

@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base/DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Object;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base/DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,17 +143,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DX\ConstBufferManager.cpp" />
-    <ClCompile Include="DX\GPUResource.cpp" />
-    <ClCompile Include="DX\PipelineSet.cpp" />
-    <ClCompile Include="DX\RootParameterManager.cpp" />
-    <ClCompile Include="DX\ScreenDesc.cpp" />
-    <ClCompile Include="DX\ShaderSet.cpp" />
-    <ClCompile Include="DX\SRVHeap.cpp" />
-    <ClCompile Include="DX\Vertices.cpp" />
-    <ClCompile Include="DX\YAssert.cpp" />
-    <ClCompile Include="DX\YDirectX.cpp" />
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Base\DX\ConstBufferManager.cpp" />
+    <ClCompile Include="Base\DX\GPUResource.cpp" />
+    <ClCompile Include="Base\DX\PipelineSet.cpp" />
+    <ClCompile Include="Base\DX\RootParameterManager.cpp" />
+    <ClCompile Include="Base\DX\ScreenDesc.cpp" />
+    <ClCompile Include="Base\DX\ShaderSet.cpp" />
+    <ClCompile Include="Base\DX\SRVHeap.cpp" />
+    <ClCompile Include="Base\DX\Vertices.cpp" />
+    <ClCompile Include="Base\DX\YAssert.cpp" />
+    <ClCompile Include="Base\DX\YDirectX.cpp" />
+    <ClCompile Include="Base\YWindowsApp.cpp" />
+    <ClCompile Include="Game\GameScene.cpp" />
+    <ClCompile Include="Game\Model.cpp" />
+    <ClCompile Include="Game\Sprite.cpp" />
+    <ClCompile Include="Game\TextureManager.cpp" />
+    <ClCompile Include="Game\Transform.cpp" />
+    <ClCompile Include="Game\ViewProjection.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
@@ -164,27 +170,27 @@
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
-    <ClCompile Include="Object\Model.cpp" />
-    <ClCompile Include="Object\TextureManager.cpp" />
-    <ClCompile Include="Object\Transform.cpp" />
-    <ClCompile Include="Object\Sprite.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object\ViewProjection.cpp" />
-    <ClCompile Include="YWindowsApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base\DX\ConstBufferManager.h" />
+    <ClInclude Include="Base\DX\GPUResource.h" />
+    <ClInclude Include="Base\DX\PipelineSet.h" />
+    <ClInclude Include="Base\DX\RootParameterManager.h" />
+    <ClInclude Include="Base\DX\ScreenDesc.h" />
+    <ClInclude Include="Base\DX\ShaderSet.h" />
+    <ClInclude Include="Base\DX\SRVHeap.h" />
+    <ClInclude Include="Base\DX\Vertices.h" />
+    <ClInclude Include="Base\DX\YAssert.h" />
+    <ClInclude Include="Base\DX\YDirectX.h" />
+    <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Def.h" />
-    <ClInclude Include="DX\ConstBufferManager.h" />
-    <ClInclude Include="DX\GPUResource.h" />
-    <ClInclude Include="DX\PipelineSet.h" />
-    <ClInclude Include="DX\RootParameterManager.h" />
-    <ClInclude Include="DX\ScreenDesc.h" />
-    <ClInclude Include="DX\ShaderSet.h" />
-    <ClInclude Include="DX\SRVHeap.h" />
-    <ClInclude Include="DX\Vertices.h" />
-    <ClInclude Include="DX\YAssert.h" />
-    <ClInclude Include="DX\YDirectX.h" />
-    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Game\GameScene.h" />
+    <ClInclude Include="Game\Model.h" />
+    <ClInclude Include="Game\Sprite.h" />
+    <ClInclude Include="Game\TextureManager.h" />
+    <ClInclude Include="Game\Transform.h" />
+    <ClInclude Include="Game\ViewProjection.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />
     <ClInclude Include="Input\Mouse.h" />
@@ -195,12 +201,6 @@
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
-    <ClInclude Include="Object\Model.h" />
-    <ClInclude Include="Object\TextureManager.h" />
-    <ClInclude Include="Object\Transform.h" />
-    <ClInclude Include="Object\Sprite.h" />
-    <ClInclude Include="Object\ViewProjection.h" />
-    <ClInclude Include="YWindowsApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

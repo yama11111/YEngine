@@ -31,9 +31,6 @@
     <Filter Include="ヘッダー ファイル\Math">
       <UniqueIdentifier>{a5dd05ca-6984-4848-b971-6c1d277d883e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{5a382acc-5315-4be1-92c9-10990adbe78e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game">
       <UniqueIdentifier>{ca459bd6-b3b5-4610-9aeb-17ba60c918c8}</UniqueIdentifier>
     </Filter>
@@ -58,17 +55,20 @@
     <Filter Include="ヘッダー ファイル\Game\Utility">
       <UniqueIdentifier>{5c9bbe41-09d1-483e-a632-d862f9550efd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\cpp">
+    <Filter Include="Base">
+      <UniqueIdentifier>{5a382acc-5315-4be1-92c9-10990adbe78e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\cpp">
       <UniqueIdentifier>{9ab26084-601e-480b-ba26-029db6d9f8fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\cpp\DX">
-      <UniqueIdentifier>{33fb1464-6389-4435-9fd3-b3f97894f19c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\h">
+    <Filter Include="Base\h">
       <UniqueIdentifier>{a1dae98e-84da-4427-a15a-d047df22707c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\h\DX">
-      <UniqueIdentifier>{7b6a00c8-611a-4fae-b889-2f22a46654ba}</UniqueIdentifier>
+    <Filter Include="Base\cpp\DX">
+      <UniqueIdentifier>{162f3654-aee6-48b6-89a1-faf4a383ed0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\h\DX">
+      <UniqueIdentifier>{cb486c97-ddf3-4f9b-b528-12ceb7db5859}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,12 +87,6 @@
     <ClCompile Include="Input\Pad.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
-    <ClCompile Include="DX\YAssert.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\ScreenDesc.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Vec3.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
@@ -102,35 +96,8 @@
     <ClCompile Include="Math\Vec4.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Sprite.cpp">
-      <Filter>ソース ファイル\Game\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Model.cpp">
-      <Filter>ソース ファイル\Game\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Calc.cpp">
       <Filter>ソース ファイル\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\ConstBufferManager.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\GPUResource.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\PipelineSet.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\RootParameterManager.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\ShaderSet.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\Vertices.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="DX\YDirectX.cpp">
-      <Filter>Engine\cpp\DX</Filter>
     </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
       <Filter>ソース ファイル\Math</Filter>
@@ -138,23 +105,56 @@
     <ClCompile Include="Math\Lerp.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="YWindowsApp.cpp">
-      <Filter>Engine\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
+    <ClCompile Include="Game\GameScene.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Transform.cpp">
+    <ClCompile Include="Game\Model.cpp">
+      <Filter>ソース ファイル\Game\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Sprite.cpp">
+      <Filter>ソース ファイル\Game\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TextureManager.cpp">
       <Filter>ソース ファイル\Game\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Object\ViewProjection.cpp">
+    <ClCompile Include="Game\Transform.cpp">
       <Filter>ソース ファイル\Game\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="DX\SRVHeap.cpp">
-      <Filter>Engine\cpp\DX</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\TextureManager.cpp">
+    <ClCompile Include="Game\ViewProjection.cpp">
       <Filter>ソース ファイル\Game\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\YWindowsApp.cpp">
+      <Filter>Base\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\ConstBufferManager.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\GPUResource.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\PipelineSet.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\RootParameterManager.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\ScreenDesc.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\ShaderSet.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\SRVHeap.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\Vertices.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\YAssert.cpp">
+      <Filter>Base\cpp\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\YDirectX.cpp">
+      <Filter>Base\cpp\DX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,12 +173,6 @@
     <ClInclude Include="Input\Pad.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
-    <ClInclude Include="DX\YAssert.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\ScreenDesc.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Vec3.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
@@ -188,35 +182,8 @@
     <ClInclude Include="Math\Vec4.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Sprite.h">
-      <Filter>ヘッダー ファイル\Game\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Model.h">
-      <Filter>ヘッダー ファイル\Game\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Calc.h">
       <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\ConstBufferManager.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\GPUResource.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\PipelineSet.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\RootParameterManager.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\ShaderSet.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\Vertices.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="DX\YDirectX.h">
-      <Filter>Engine\h\DX</Filter>
     </ClInclude>
     <ClInclude Include="Math\Mat4.h">
       <Filter>ヘッダー ファイル\Math</Filter>
@@ -224,23 +191,56 @@
     <ClInclude Include="Math\Lerp.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="YWindowsApp.h">
-      <Filter>Engine\h</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
+    <ClInclude Include="Game\GameScene.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Transform.h">
+    <ClInclude Include="Game\Model.h">
+      <Filter>ヘッダー ファイル\Game\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TextureManager.h">
       <Filter>ヘッダー ファイル\Game\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Object\ViewProjection.h">
+    <ClInclude Include="Game\Sprite.h">
+      <Filter>ヘッダー ファイル\Game\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Transform.h">
       <Filter>ヘッダー ファイル\Game\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="DX\SRVHeap.h">
-      <Filter>Engine\h\DX</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\TextureManager.h">
+    <ClInclude Include="Game\ViewProjection.h">
       <Filter>ヘッダー ファイル\Game\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\YWindowsApp.h">
+      <Filter>Base\h</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\ConstBufferManager.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\GPUResource.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\PipelineSet.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\RootParameterManager.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\ScreenDesc.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\ShaderSet.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\Vertices.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\SRVHeap.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\YAssert.h">
+      <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\YDirectX.h">
+      <Filter>Base\h\DX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

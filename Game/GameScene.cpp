@@ -6,7 +6,7 @@
 using namespace DX;
 using namespace Input;
 using namespace Math;
-using namespace Object;
+using namespace Game;
 
 Keys* GameScene::keys_ = nullptr;
 Mouse* GameScene::mouse_ = nullptr;

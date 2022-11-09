@@ -1,7 +1,7 @@
 #include "Transform.h"
 #include "Calc.h"
 
-using Object::Transform;
+using Game::Transform;
 using DX::ConstBufferManager;
 using Math::Mat4;
 using Math::Vec4;

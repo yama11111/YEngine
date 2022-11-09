@@ -1,23 +1,27 @@
 #pragma once
 #include "Transform.h"
-#include "ViewProjection.h"
 #include "Vertices.h"
 #include "PipelineSet.h"
 #include "TextureManager.h"
 
-namespace Object
+namespace Game
 {
-	class Model
+	class Sprite
 	{
+	public:
+		// サイズ
+		const Math::Vec2 size_;
 	private:
-		// 頂点インデックス
-		DX::VertexIndex3D vtIdx;
+		// 頂点データ
+		DX::Vertices<DX::SpriteVData> vt_;
 	public:
 		// コンストラクタ
-		Model();
+		Sprite(const Math::Vec2& size);
 		// 描画
-		void Draw(Transform& trfm, ViewProjection& vp, const UINT tex);
+		void Draw(Transform& trfm, const UINT tex);
 	private:
+		// 静的射影変換行列(平行投影)
+		static Math::Mat4 projection_;
 		// パイプライン設定
 		static DX::PipelineSet pplnSet_;
 		// 静的テクスチャマネージャーポインタ
