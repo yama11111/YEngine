@@ -28,8 +28,6 @@ namespace Game
 	public:
 		// コンストラクタ
 		ViewProjection();
-		// コンストラクタ (引数有)
-		ViewProjection(const InitStatus& state);
 		// 初期化
 		void Initialize(const InitStatus& state);
 		// ビュー変換 + プロジェクション変換

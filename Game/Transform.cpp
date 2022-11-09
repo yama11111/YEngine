@@ -20,13 +20,6 @@ Transform::Transform()
 	Initialize({});
 }
 
-Transform::Transform(const Status& state, const Vec4& color)
-{
-	pCBManager_->CreateCB(cbMtrl_, color);
-	pCBManager_->CreateCB(cbTrfm_);
-	Initialize(state, color);
-}
-
 void Transform::Initialize(const Status& state, const Vec4& color)
 {
 	pos_ = state.pos_;

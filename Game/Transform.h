@@ -32,10 +32,6 @@ namespace Game
 			Math::Vec3 scale_ = { 1.0f, 1.0f, 1.0f };
 		};
 	public:
-		// コンストラクタ
-		Transform();
-		// コンストラクタ(引数有)
-		Transform(const Status& state, const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// 初期化
 		void Initialize(const Status& state, const Math::Vec4& color = {1.0f,1.0f,1.0f,1.0f});
 		// アフィン変換→ビュープロジェクション変換→転送
@@ -49,6 +45,9 @@ namespace Game
 		void SetParent(Math::Mat4* parent);
 		// 色設定
 		void SetColor(const Math::Vec4& color);
+	public:
+		// コンストラクタ
+		Transform();
 	private:
 		// 静的定数バッファマネージャーポインタ
 		static DX::ConstBufferManager* pCBManager_;
