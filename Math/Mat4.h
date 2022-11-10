@@ -20,5 +20,5 @@ namespace Math
 		static Mat4 Identity();
 	};
 
-	Mat4& operator*=(Mat4& cubeM_, const Mat4& m2);
+	Mat4& operator*=(Mat4& m1_, const Mat4& m2);
 }

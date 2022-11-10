@@ -49,7 +49,7 @@ Mat4 Mat4::Identity()
 	return m;
 }
 
-Mat4& Math::operator*=(Mat4& cubeM_, const Mat4& m2)
+Mat4& Math::operator*=(Mat4& m1_, const Mat4& m2)
 {
 	Mat4 m = Mat4();
 	for (int i = 0; i < 4; i++) 
@@ -58,11 +58,11 @@ Mat4& Math::operator*=(Mat4& cubeM_, const Mat4& m2)
 		{
 			for (int k = 0; k < 4; k++) 
 			{
-				m.m[i][j] += cubeM_.m[i][k] * m2.m[k][j];
+				m.m[i][j] += m1_.m[i][k] * m2.m[k][j];
 			}
 		}
 	}
 
-	cubeM_ = m;
-	return cubeM_;
+	m1_ = m;
+	return m1_;
 }
