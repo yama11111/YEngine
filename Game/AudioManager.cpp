@@ -50,7 +50,7 @@ UINT AudioManager::Load(const char* fileName)
 	assert(strncmp(format.chunk_.id_, "fmt ", 4) == 0);
 	// チャンク本体の読み込み
 	assert(format.chunk_.size_ <= sizeof(format.fmt_));
-	file.read((char*)&format, format.chunk_.size_);
+	file.read((char*)&format.fmt_, format.chunk_.size_);
 
 	// Dataチャンクの読み込み
 	ChunkHeader data;
@@ -120,7 +120,7 @@ void AudioManager::Play(const UINT audioIndex)
 	Result(xAudio2_->CreateSourceVoice(&pSourceVoice, &audios_[audioIndex].wfex_));
 
 	// 再生する波形データの設定
-	XAUDIO2_BUFFER buff;
+	XAUDIO2_BUFFER buff{};
 	buff.pAudioData = audios_[audioIndex].pBuff_;
 	buff.AudioBytes = audios_[audioIndex].buffSize_;
 	buff.Flags = XAUDIO2_END_OF_STREAM;
