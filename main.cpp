@@ -60,7 +60,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Sprite::StaticInitialize(&texM, rpM.Get());
 	Model::StaticInitialize(&texM, rpM.Get());
 
-	GameScene::StaticInitialize(&texM);
+	AudioManager audioM;
+	audioM.Initialize();
+
+	GameScene::StaticInitialize(&texM, &audioM);
 	GameScene game;
 	game.Initialize();
 

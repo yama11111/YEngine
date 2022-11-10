@@ -154,6 +154,7 @@
     <ClCompile Include="Base\DX\YAssert.cpp" />
     <ClCompile Include="Base\DX\YDirectX.cpp" />
     <ClCompile Include="Base\YWindowsApp.cpp" />
+    <ClCompile Include="Game\AudioManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Model.cpp" />
     <ClCompile Include="Game\Sprite.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Base\DX\YDirectX.h" />
     <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Def.h" />
+    <ClInclude Include="Game\AudioManager.h" />
     <ClInclude Include="Game\GameScene.h" />
     <ClInclude Include="Game\Model.h" />
     <ClInclude Include="Game\Sprite.h" />

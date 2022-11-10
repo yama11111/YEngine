@@ -4,6 +4,7 @@
 #include "Pad.h"
 #include "Sprite.h"
 #include "Model.h"
+#include "AudioManager.h"
 #include <memory>
 
 namespace Game
@@ -14,13 +15,15 @@ namespace Game
 		// ----- リソース ----- //
 
 		// 無地画像
-		UINT plainTex = 0;
+		UINT plainT_ = 0;
+
+		UINT aA_ = 0;
 
 		// model
-		std::unique_ptr<Model> m1 = nullptr;
+		std::unique_ptr<Model> cubeM_ = nullptr;
 
 		// sprite
-		std::unique_ptr<Sprite> s1 = nullptr;
+		std::unique_ptr<Sprite> quadS_ = nullptr;
 
 		// ----- オブジェクト ----- //
 
@@ -32,7 +35,7 @@ namespace Game
 		Transform t3;
 
 		// 転送用ビュープロジェクション
-		ViewProjection vp;
+		ViewProjection vp_;
 	public:
 		// 初期化
 		void Initialize();
@@ -55,8 +58,10 @@ namespace Game
 	private:
 		// 静的テクスチャマネージャーポインタ
 		static TextureManager* pTexManager_;
+		// 静的オーディオマネージャーポインタ
+		static AudioManager* pAudioManager_;
 	public:
 		// 静的初期化
-		static void StaticInitialize(TextureManager* pTexManager);
+		static void StaticInitialize(TextureManager* pTexManager, AudioManager* pAudioManager);
 	};
 }

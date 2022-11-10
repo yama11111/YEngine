@@ -156,6 +156,9 @@
     <ClCompile Include="Base\DX\YDirectX.cpp">
       <Filter>Base\cpp\DX</Filter>
     </ClCompile>
+    <ClCompile Include="Game\AudioManager.cpp">
+      <Filter>ソース ファイル\Game\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -241,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="Base\DX\YDirectX.h">
       <Filter>Base\h\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AudioManager.h">
+      <Filter>ヘッダー ファイル\Game\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@ namespace Game
 	public:
 		// テクスチャ生成
 		UINT CreateTex(const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
-		// テクスチャロード
+		// テクスチャ読み込み
 		UINT Load(const wchar_t* fileName, const bool mipMap = true);
 		// テクスチャ描画前コマンド 
 		void SetDrawCommand(const UINT texIndex);
