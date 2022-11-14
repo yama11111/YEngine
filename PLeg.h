@@ -1,5 +1,8 @@
 #pragma once
 #include "Model.h"
+#include "Lerp.h"
+#include "Power.h"
+#include "Timer.h"
 
 class PLeg
 {
@@ -20,15 +23,20 @@ private:
 	Trfm foot_;
 	// 足首
 	Trfm ankle_;
+private:
+	// 歩きモーション
+	Math::Ease<Math::Vec3> walkPE_[2];
+	Math::Ease<Math::Vec3> walkRE_[2];
+	Math::Power* pWalkP_ = nullptr;
 public:
 	// 初期化
-	void Initialize(Math::Mat4* pParent);
+	void Initialize(Math::Mat4* pParent, Math::Power* pWalkP);
 	// リセット
 	void Reset(Trfm::Status state);
 	// 転送用リセット
 	void ResetTransfer();
 	// 更新
-	void Update();
+	void Update(const bool isFB);
 	// 描画
 	void Draw(Game::ViewProjection& vp, const UINT tex);
 public:

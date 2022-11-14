@@ -1,6 +1,7 @@
 #include "PlayerDrawer.h"
 #include <cassert>
 #include "Calc.h"
+#include "DrawerDef.h"
 
 Game::Model* PlayerDrawer::pModel_ = nullptr;
 UINT PlayerDrawer::tex_;
@@ -23,11 +24,12 @@ void PlayerDrawer::Initialize(Math::Mat4* pPlayer)
 
 	core_.SetParent(pPlayer);
 	
-	body_.Initialize(&core_.m_);
-	sword_.Initialize(&core_.m_);
+	body_.Initialize(&core_.m_, &idlePP_, &walkPendPP_);
+
+	sword_.Initialize(&core_.m_, &idlePP_, &walkPendPP_);
 	for (size_t i = 0; i < 2; i++)
 	{
-		legs_[i].Initialize(&core_.m_);
+		legs_[i].Initialize(&core_.m_, &walkLegP_);
 	}
 
 	Reset();
@@ -50,52 +52,34 @@ void PlayerDrawer::Reset()
 
 	// 立ちモーション
 	{
-		const float p = 2.0f;
-		const int ps = 20;
-
 		isIdle_ = false;
 		isSwitchI_ = false;
 
-		idlePP_.Initialize(ps);
-
-		idleBPE_.Initialize({}, Math::Vec3(0, 0.2f, 0), p);
-		idleSPE_.Initialize({}, Math::Vec3(0, 0.1f, 0), p);
+		idlePP_.Initialize(PlayerSecond::IdleS);
 	}
 
 	// 歩きモーション
 	{
-		const float p = 1.2f;
-		const int ps = 10;
-		const int rs = 8;
-
 		isWalk_ = false;
 		isSwitchW_ = false;
 
-		walkPP_.Initialize(ps);
-		walkRP_.Initialize(rs);
+		walkPP_.Initialize(PlayerSecond::WalkS);
+		walkPE_.Initialize({}, { 0.0f,0.4f,0.0f }, PlayerPower::WalkP);
 
-		walkPE_.Initialize({}, { 0.0f,0.4f,0.0f }, p);
-		walkRE_.Initialize({}, { (PI / 6.0f),0.0f,0.0f }, p);
+		walkRP_.Initialize(PlayerSecond::WalkS);
+		walkRE_.Initialize({}, { (PI / 6.0f),0.0f,0.0f }, PlayerPower::WalkP);
+
 
 		isSwitchLeg_ = false;
 		isFB = false;
-		walkLegP_.Initialize(ps);
-		for (size_t i = 0; i < 2; i++)
-		{
-			walkLegFPE_[i].Initialize({}, +Math::Vec3(0, +0.75f, 2.0f), p);
-			walkLegBPE_[i].Initialize({}, -Math::Vec3(0, -0.50f, 1.5f), p);
 
-			walkLegFRE_[i].Initialize({}, -Math::Vec3((PI / 4.0f), 0, 0), p);
-			walkLegBRE_[i].Initialize({}, +Math::Vec3((PI / 2.5f), 0, 0), p);
-		}
+		walkLegP_.Initialize(PlayerSecond::WalkS);
+
 
 		walkJumpCount_ = 0;
-		isSwitchJump_ = false;
+		isSwitchPend_ = false;
 
-		walkJumpPP_.Initialize(ps);
-
-		walkJumpBPE_.Initialize({}, Math::Vec3(0, 0.3f, +0.2f), p);
-		walkJumpSPE_.Initialize({}, Math::Vec3(0, 0.2f, -0.2f), p);
+		walkPendPP_.Initialize(PlayerSecond::WalkS);
 	}
 
 	Update();
@@ -109,9 +93,6 @@ void PlayerDrawer::UpdateIdle()
 	if (idlePP_.IsZero()) { isSwitchI_ = true; }
 
 	idlePP_.Update(isSwitchI_ && isIdle_);
-
-	body_.tPos_  += idleBPE_.In(idlePP_.Ratio());
-	sword_.tPos_ += idleSPE_.In(idlePP_.Ratio());
 }
 
 void PlayerDrawer::UpdateWalking()
@@ -134,12 +115,6 @@ void PlayerDrawer::UpdateWalking()
 
 	walkLegP_.Update(isSwitchLeg_ && isWalk_);
 
-	legs_[ isFB].tPos_  += walkLegFPE_[ isFB].In(walkLegP_.Ratio());
-	legs_[ isFB].tRota_ += walkLegFRE_[ isFB].In(walkLegP_.Ratio());
-
-	legs_[!isFB].tPos_  += walkLegBPE_[!isFB].In(walkLegP_.Ratio());
-	legs_[!isFB].tRota_ += walkLegBRE_[!isFB].In(walkLegP_.Ratio());
-
 	bool isAct = false;
 	if (isWalk_)
 	{
@@ -156,14 +131,11 @@ void PlayerDrawer::UpdateWalking()
 
 	if (isAct)
 	{
-		if (walkJumpPP_.IsMax()) { isSwitchJump_ = false; }
-		if (walkJumpPP_.IsZero()) { isSwitchJump_ = true; }
+		if (walkPendPP_.IsMax()) { isSwitchPend_ = false; }
+		if (walkPendPP_.IsZero()) { isSwitchPend_ = true; }
 	}
 
-	walkJumpPP_.Update(isSwitchJump_ && isWalk_);
-
-	body_.tPos_  += walkJumpBPE_.In(walkJumpPP_.Ratio());
-	sword_.tPos_ += walkJumpSPE_.In(walkJumpPP_.Ratio());
+	walkPendPP_.Update(isSwitchPend_ && isWalk_);
 }
 
 void PlayerDrawer::UpdateAttack()
@@ -190,10 +162,8 @@ void PlayerDrawer::Update()
 	core_.Update();
 	body_.Update();
 	sword_.Update();
-	for (size_t i = 0; i < 2; i++) 
-	{
-		legs_[i].Update();
-	}
+	legs_[0].Update(isFB);
+	legs_[1].Update(!isFB);
 
 	UpdateFinal();
 }

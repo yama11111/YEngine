@@ -1,6 +1,7 @@
 #include "EWing.h"
 #include <cassert>
 #include "Calc.h"
+#include "DrawerDef.h"
 
 Game::Model* EWing::pModel_ = nullptr;
 
@@ -11,11 +12,15 @@ void EWing::StaticInitialize(Game::Model* pModel)
 	pModel_ = pModel;
 }
 
-void EWing::Initialize(Math::Mat4* pParent)
+void EWing::Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkFlyPP)
 {
 	assert(pParent);
+	assert(pIdlePP);
+	assert(pWalkFlyPP);
 
 	core_.SetParent(pParent);
+	pIdlePP_ = pIdlePP;
+	pWalkFlyPP_ = pWalkFlyPP;
 
 	for (size_t i = 0; i < 3; i++)
 	{
@@ -23,12 +28,16 @@ void EWing::Initialize(Math::Mat4* pParent)
 		blade2_[i].SetParent(&core_.m_);
 	}
 
-	Reset({}, {});
+	Reset({});
 }
 
-void EWing::Reset(Trfm::Status state, Math::Vec3 focus)
+void EWing::Reset(Trfm::Status state)
 {
-	tPos_ = tRota_ = tScale_ = {};
+	assert(pIdlePP_);
+	assert(pIdlePP_);
+	assert(pWalkFlyPP_);
+
+	ResetTransfer();
 
 	core_.Initialize(state);
 
@@ -38,7 +47,7 @@ void EWing::Reset(Trfm::Status state, Math::Vec3 focus)
 	const float x = 1.0f;
 	const float y = 0.5f;
 
-	focus_ = focus;
+	focus_ = { 0,3.0f,1.0f };
 
 	for (size_t i = 0; i < 3; i++)
 	{
@@ -54,6 +63,12 @@ void EWing::Reset(Trfm::Status state, Math::Vec3 focus)
 		blade2_[i].Initialize({ p2,r2,bladeS, }, color);
 	}
 
+
+	// —§‚¿ƒ‚[ƒVƒ‡ƒ“
+	idlePE_.Initialize({}, Math::Vec3(0, 0.6f, 0), EnemyPower::IdleP);
+	idleFE_.Initialize(focus_, focus_ + Math::Vec3(0, 0.3f, 0), EnemyPower::IdleP);
+
+
 	Update();
 }
 
@@ -64,6 +79,9 @@ void EWing::ResetTransfer()
 
 void EWing::Update()
 {
+	tPos_ = idlePE_.In(pIdlePP_->Ratio());
+	focus_ = idleFE_.In(pIdlePP_->Ratio());
+
 	core_.UniqueUpdate({ tPos_, tRota_, tScale_ });
 	for (size_t i = 0; i < 3; i++)
 	{

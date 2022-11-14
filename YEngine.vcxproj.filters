@@ -326,6 +326,9 @@
     <ClInclude Include="EWing.h">
       <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="DrawerDef.h">
+      <Filter>ヘッダー ファイル\Drawer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Model.hlsli">

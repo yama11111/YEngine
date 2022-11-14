@@ -2,9 +2,6 @@
 #include "EBody.h"
 #include "EWing.h"
 #include "EWeapon.h"
-#include "Lerp.h"
-#include "Power.h"
-#include "Timer.h"
 
 class EnemyDrawer
 {
@@ -25,11 +22,7 @@ private:
 	bool isIdle_ = false;
 
 	bool isSwitchI_ = false;
-	Math::Ease<Math::Vec3> idleBPE_;
-	Math::Ease<Math::Vec3> idleWPE_;
-	Math::Ease<Math::Vec3> idleWFE_;
-	Math::Ease<Math::Vec3> idleSPE_[2];
-	Math::Ease<Math::Vec3> idleSTE_[2];
+
 	Math::Power idlePP_;
 
 	// •à‚«ƒ‚[ƒVƒ‡ƒ“
@@ -38,10 +31,7 @@ private:
 	Math::Ease<Math::Vec3> walkRE_;
 	Math::Power walkRP_;
 
-	Math::Ease<Math::Vec3> walkFlySPE_;
-	Math::Ease<Math::Vec3> walkFlySTE_[2];
 	Math::Power walkFlyPP_;
-
 public:
 	// ‰Šú‰»
 	void Initialize(Math::Mat4* pEnemy);

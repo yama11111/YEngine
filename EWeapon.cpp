@@ -1,6 +1,7 @@
 #include "EWeapon.h"
 #include <cassert>
 #include "Calc.h"
+#include "DrawerDef.h"
 
 Game::Model* EWeapon::pModel_ = nullptr;
 
@@ -11,11 +12,15 @@ void EWeapon::StaticInitialize(Game::Model* pModel)
 	pModel_ = pModel;
 }
 
-void EWeapon::Initialize(Math::Mat4* pParent)
+void EWeapon::Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkFlyPP)
 {
 	assert(pParent);
+	assert(pIdlePP);
+	assert(pWalkFlyPP);
 
 	core_.SetParent(pParent);
+	pIdlePP_ = pIdlePP;
+	pWalkFlyPP_ = pWalkFlyPP;
 
 	blade_.SetParent(&core_.m_);
 	guard_.SetParent(&core_.m_);
@@ -84,6 +89,15 @@ void EWeapon::Reset(Trfm::Status state, Math::Vec3 pith, Math::Vec3 top)
 		color
 	);
 
+	idlePE_.Initialize({}, { 0, 0.2f, 0 }, EnemyPower::IdleP);
+	float px = -0.2f;
+	if (top.x_ <= 0) { px *= -1; }
+	idleTE_.Initialize({}, { px, -0.2f, 0 }, EnemyPower::IdleP);
+
+	walkFlyPE_.Initialize({}, { 0, 0.5f, -1.0f }, EnemyPower::WalkP);
+	walkFlyTE_.Initialize({}, { 0, 4.0f, 0 }, EnemyPower::WalkP);
+
+
 	Update();
 }
 
@@ -94,8 +108,16 @@ void EWeapon::ResetTransfer()
 
 void EWeapon::Update()
 {
+	Math::Vec3 t = top_;
+
+	tPos_ += idlePE_.In(pIdlePP_->Ratio());
+	t += idleTE_.In(pIdlePP_->Ratio());
+
+	tPos_ += walkFlyPE_.In(pWalkFlyPP_->Ratio());
+	t += walkFlyTE_.In(pWalkFlyPP_->Ratio());
+
 	core_.pos_ = pith_;
-	core_.rota_ = Math::AdjustAngle((top_ - pith_).Normalized());
+	core_.rota_ = Math::AdjustAngle((t - pith_).Normalized());
 
 	core_.UniqueUpdate({ tPos_, tRota_, tScale_ });
 	blade_.Update();

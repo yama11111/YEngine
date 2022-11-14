@@ -1,6 +1,7 @@
 #include "PWeapon.h"
 #include <cassert>
 #include "Calc.h"
+#include "DrawerDef.h"
 
 Game::Model* PWeapon::pModel_ = nullptr;
 
@@ -11,11 +12,15 @@ void PWeapon::StaticInitialize(Game::Model* pModel)
 	pModel_ = pModel;
 }
 
-void PWeapon::Initialize(Math::Mat4* pParent)
+void PWeapon::Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkPendPP)
 {
 	assert(pParent);
+	assert(pIdlePP);
+	assert(pWalkPendPP);
 
 	core_.SetParent(pParent);
+	pIdlePP_ = pIdlePP;
+	pWalkPendPP_ = pWalkPendPP;
 
 	blade_.SetParent(&core_.m_);
 	guard_.SetParent(&core_.m_);
@@ -26,7 +31,10 @@ void PWeapon::Initialize(Math::Mat4* pParent)
 
 void PWeapon::Reset(Trfm::Status state, Math::Vec3 pith, Math::Vec3 top)
 {
-	tPos_ = tRota_ = tScale_ = {};
+	assert(pIdlePP_);
+	assert(pWalkPendPP_);
+
+	ResetTransfer();
 	top_ = top;
 	pith_ = pith;
 
@@ -62,6 +70,11 @@ void PWeapon::Reset(Trfm::Status state, Math::Vec3 pith, Math::Vec3 top)
 		color
 	);
 
+
+	idlePE_.Initialize({}, Math::Vec3(0, 0.1f, 0), PlayerPower::IdleP);
+
+	walkPendPE_.Initialize({}, Math::Vec3(0, 0.2f, -0.2f), PlayerPower::WalkP);
+
 	Update();
 }
 
@@ -72,6 +85,9 @@ void PWeapon::ResetTransfer()
 
 void PWeapon::Update()
 {
+	tPos_ += idlePE_.In(pIdlePP_->Ratio());
+	tPos_ += walkPendPE_.In(pWalkPendPP_->Ratio());
+
 	core_.pos_ = pith_;
 	core_.rota_ = Math::AdjustAngle((top_ - pith_).Normalized());
 

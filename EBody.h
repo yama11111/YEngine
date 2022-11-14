@@ -1,5 +1,8 @@
 #pragma once
 #include "Model.h"
+#include "Lerp.h"
+#include "Power.h"
+#include "Timer.h"
 
 class EBody
 {
@@ -23,9 +26,16 @@ private:
 	// 耳
 	Trfm ears1_[2];
 	Trfm ears2_[2];
+private:
+	// 立ちモーション
+	Math::Ease<Math::Vec3> idlePE_;
+	Math::Power* pIdlePP_ = nullptr;
+	// 歩きモーション
+	Math::Ease<Math::Vec3> walkRE_;
+	Math::Power* pWalkRP_ = nullptr;
 public:
 	// 初期化
-	void Initialize(Math::Mat4* pParent);
+	void Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkRP);
 	// リセット
 	void Reset(Trfm::Status state);
 	// 転送用リセット

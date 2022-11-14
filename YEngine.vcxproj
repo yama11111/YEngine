@@ -196,6 +196,7 @@
     <ClInclude Include="Base\DX\YDirectX.h" />
     <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Def.h" />
+    <ClInclude Include="DrawerDef.h" />
     <ClInclude Include="EBody.h" />
     <ClInclude Include="EnemyDrawer.h" />
     <ClInclude Include="EWeapon.h" />

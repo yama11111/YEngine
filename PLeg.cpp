@@ -1,5 +1,7 @@
 #include "PLeg.h"
 #include <cassert>
+#include "Calc.h"
+#include "DrawerDef.h"
 
 Game::Model* PLeg::pModel_ = nullptr;
 
@@ -10,11 +12,13 @@ void PLeg::StaticInitialize(Game::Model* pModel)
 	pModel_ = pModel;
 }
 
-void PLeg::Initialize(Math::Mat4* pParent)
+void PLeg::Initialize(Math::Mat4* pParent, Math::Power* pWalkP)
 {
 	assert(pParent);
+	assert(pWalkP);
 
 	core_.SetParent(pParent);
+	pWalkP_ = pWalkP;
 
 	foot_.SetParent(&core_.m_);
 	ankle_.SetParent(&core_.m_);
@@ -24,7 +28,9 @@ void PLeg::Initialize(Math::Mat4* pParent)
 
 void PLeg::Reset(Trfm::Status state)
 {
-	tPos_ = tRota_ = tScale_ = {};
+	assert(pWalkP_);
+
+	ResetTransfer();
 
 	core_.Initialize(state);
 
@@ -51,7 +57,13 @@ void PLeg::Reset(Trfm::Status state)
 		color
 	);
 
-	Update();
+	walkPE_[0].Initialize({}, +Math::Vec3(0, +0.75f, 2.0f), PlayerPower::WalkP);
+	walkRE_[0].Initialize({}, -Math::Vec3((PI / 4.0f), 0, 0), PlayerPower::WalkP);
+
+	walkPE_[1].Initialize({}, -Math::Vec3(0, -0.50f, 1.5f), PlayerPower::WalkP);
+	walkRE_[1].Initialize({}, +Math::Vec3((PI / 2.5f), 0, 0), PlayerPower::WalkP);
+
+	Update(false);
 }
 
 void PLeg::ResetTransfer()
@@ -59,8 +71,11 @@ void PLeg::ResetTransfer()
 	tPos_ = tRota_ = tScale_ = {};
 }
 
-void PLeg::Update()
+void PLeg::Update(const bool isFB)
 {
+	tPos_ += walkPE_[isFB].In(pWalkP_->Ratio());
+	tRota_ += walkRE_[isFB].In(pWalkP_->Ratio());
+
 	core_.UniqueUpdate({ tPos_, tRota_, tScale_ });
 	foot_.Update();
 	ankle_.Update();

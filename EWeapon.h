@@ -1,5 +1,8 @@
 #pragma once
 #include "Model.h"
+#include "Lerp.h"
+#include "Power.h"
+#include "Timer.h"
 
 class EWeapon
 {
@@ -28,9 +31,18 @@ private:
 	Trfm sub_[2];
 	// 持ち手
 	Trfm grip_;
+private:
+	// 立ちモーション
+	Math::Ease<Math::Vec3> idlePE_;
+	Math::Ease<Math::Vec3> idleTE_;
+	Math::Power* pIdlePP_ = nullptr;
+	// 歩きモーション
+	Math::Ease<Math::Vec3> walkFlyPE_;
+	Math::Ease<Math::Vec3> walkFlyTE_;
+	Math::Power* pWalkFlyPP_ = nullptr;
 public:
 	// 初期化
-	void Initialize(Math::Mat4* pParent);
+	void Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkFlyPP);
 	// リセット
 	void Reset(Trfm::Status state, Math::Vec3 pith, Math::Vec3 top);
 	// 転送用リセット

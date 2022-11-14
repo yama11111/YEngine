@@ -2,9 +2,6 @@
 #include "PBody.h"
 #include "PWeapon.h"
 #include "PLeg.h"
-#include "Lerp.h"
-#include "Power.h"
-#include "Timer.h"
 
 class PlayerDrawer
 {
@@ -25,8 +22,6 @@ private:
 	bool isIdle_ = false;
 
 	bool isSwitchI_ = false;
-	Math::Ease<Math::Vec3> idleBPE_;
-	Math::Ease<Math::Vec3> idleSPE_;
 	Math::Power idlePP_;
 
 	// ï‡Ç´ÉÇÅ[ÉVÉáÉì
@@ -40,17 +35,11 @@ private:
 
 	bool isSwitchLeg_ = false;
 	bool isFB = false;
-	Math::Ease<Math::Vec3> walkLegFPE_[2];
-	Math::Ease<Math::Vec3> walkLegBPE_[2];
-	Math::Ease<Math::Vec3> walkLegFRE_[2];
-	Math::Ease<Math::Vec3> walkLegBRE_[2];
 	Math::Power walkLegP_;
 
 	int walkJumpCount_ = 0;
-	bool isSwitchJump_ = false;
-	Math::Ease<Math::Vec3> walkJumpBPE_;
-	Math::Ease<Math::Vec3> walkJumpSPE_;
-	Math::Power walkJumpPP_;
+	bool isSwitchPend_ = false;
+	Math::Power walkPendPP_;
 
 public:
 	// èâä˙âª

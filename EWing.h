@@ -1,5 +1,8 @@
 #pragma once
 #include "Model.h"
+#include "Lerp.h"
+#include "Power.h"
+#include "Timer.h"
 
 class EWing
 {
@@ -13,19 +16,26 @@ public:
 	Math::Vec3 tRota_;
 	// 転送用Scale
 	Math::Vec3 tScale_;
-	// 焦点
-	Math::Vec3 focus_;
 private:
 	// 核
 	Trfm core_;
+	// 焦点
+	Math::Vec3 focus_;
 	// 羽
 	Trfm blade1_[3];
 	Trfm blade2_[3];
+private:
+	// 立ちモーション
+	Math::Ease<Math::Vec3> idlePE_;
+	Math::Ease<Math::Vec3> idleFE_;
+	Math::Power* pIdlePP_ = nullptr;
+	// 走りモーション
+	Math::Power* pWalkFlyPP_ = nullptr;
 public:
 	// 初期化
-	void Initialize(Math::Mat4* pParent);
+	void Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkFlyPP);
 	// リセット
-	void Reset(Trfm::Status state, Math::Vec3 focus);
+	void Reset(Trfm::Status state);
 	// 転送用リセット
 	void ResetTransfer();
 	// 更新

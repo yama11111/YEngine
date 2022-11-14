@@ -1,6 +1,7 @@
 #include "EBody.h"
 #include <cassert>
 #include "Calc.h"
+#include "DrawerDef.h"
 
 Game::Model* EBody::pModel_ = nullptr;
 
@@ -11,11 +12,15 @@ void EBody::StaticInitialize(Game::Model* pModel)
 	pModel_ = pModel;
 }
 
-void EBody::Initialize(Math::Mat4* pParent)
+void EBody::Initialize(Math::Mat4* pParent, Math::Power* pIdlePP, Math::Power* pWalkRP)
 {
 	assert(pParent);
+	assert(pIdlePP);
+	assert(pWalkRP);
 
 	core_.SetParent(pParent);
+	pIdlePP_ = pIdlePP;
+	pWalkRP_ = pWalkRP;
 
 	body_.SetParent(&core_.m_);
 	horn_.SetParent(&core_.m_);
@@ -30,23 +35,20 @@ void EBody::Initialize(Math::Mat4* pParent)
 
 void EBody::Reset(Trfm::Status state)
 {
-	tPos_ = tRota_ = tScale_ = {};
+	assert(pIdlePP_);
+	assert(pIdlePP_);
+	assert(pWalkRP_);
+
+	ResetTransfer();
 
 	core_.Initialize(state);
 
 	const Math::Vec3 bodyS = { 0.750f, 0.750f, 0.750f };
-	const Math::Vec3 hornS = { 0.200f, 0.200f, 0.750f };
+	const Math::Vec3 hornS = { 0.200f, 0.250f, 0.750f };
 	const Math::Vec3 earS  = { 0.200f, 0.200f, 0.500f };
 	const Math::Vec4 color = { 0.40f,0.10f,0.80f,1.0f };
 
-	body_.Initialize(
-		{
-			{},
-			{},
-			bodyS,
-		},
-		color
-		);
+	body_.Initialize({ {},{},bodyS, }, color);
 
 	horn_.Initialize(
 		{
@@ -66,6 +68,7 @@ void EBody::Reset(Trfm::Status state)
 			px *= -1;
 			ry *= -1;
 		}
+
 		ears1_[i].Initialize(
 			{
 				{px,0.8f,-0.5f},
@@ -74,17 +77,7 @@ void EBody::Reset(Trfm::Status state)
 			},
 			color
 			);
-	}
 
-	for (size_t i = 0; i < 2; i++)
-	{
-		float px = 0.7f;
-		float ry = -PI / 6;
-		if (i)
-		{
-			px *= -1;
-			ry *= -1;
-		}
 		ears2_[i].Initialize(
 			{
 				{px,0.2f,-0.5f},
@@ -94,6 +87,9 @@ void EBody::Reset(Trfm::Status state)
 			color
 			);
 	}
+
+	idlePE_.Initialize({}, { 0, 0.4f, 0 }, EnemyPower::IdleP);
+	walkRE_.Initialize({}, { -(PI / 8), 0, 0 }, EnemyPower::WalkP);
 
 	Update();
 }
@@ -105,6 +101,9 @@ void EBody::ResetTransfer()
 
 void EBody::Update()
 {
+	tPos_ += idlePE_.In(pIdlePP_->Ratio());
+	tRota_ += walkRE_.In(pWalkRP_->Ratio());
+
 	core_.UniqueUpdate({ tPos_, tRota_, tScale_ });
 	body_.Update();
 	horn_.Update();
