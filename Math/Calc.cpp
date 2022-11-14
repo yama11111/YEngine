@@ -190,7 +190,7 @@ Vec3 Math::WorldPos(const Vec2& screen, float z, const Mat4& view, const Mat4& p
 	return result;
 }
 
-Vec3 Math::AdjustAngle(Vec3& velocity)
+Vec3 Math::AdjustAngle(const Vec3& velocity)
 {
 	Vec3 result{};
 	result.y_ = std::atan2(velocity.x_, velocity.z_);

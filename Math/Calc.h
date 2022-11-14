@@ -47,7 +47,7 @@ namespace Math
 	Vec3 WorldPos(const Vec2& screen, float z, const Mat4& view, const Mat4& projection);
 
 	// Šp“x’²®
-	Vec3 AdjustAngle(Vec3& velocity);
+	Vec3 AdjustAngle(const Vec3& velocity);
 	
 	// F•ÏŠ·((0`255)¨(0.0`1.0))
 	Vec4 GetColor(const Vec4& color);

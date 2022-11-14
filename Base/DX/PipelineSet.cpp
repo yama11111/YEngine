@@ -62,7 +62,7 @@ void PipelineSet::SpritePipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 		pplnDesc_.PS.BytecodeLength = shdrs.psBlob_.Get()->GetBufferSize();
 
 		// ラスタライザの設定
-		pplnDesc_.RasterizerState.CullMode = D3D12_CULL_MODE_BACK; // 背面をカリング
+		pplnDesc_.RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
 
 		// デプスステンシルステートの設定
 		pplnDesc_.DepthStencilState.DepthEnable = false; // 深度テストしない
@@ -136,7 +136,7 @@ void PipelineSet::ModelPipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 		pplnDesc_.PS.BytecodeLength = shdrs.psBlob_.Get()->GetBufferSize();
 
 		// ラスタライザの設定
-		pplnDesc_.RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
+		pplnDesc_.RasterizerState.CullMode = D3D12_CULL_MODE_BACK; // 背面をカリング
 	
 		// デプスステンシルステートの設定
 		pplnDesc_.DepthStencilState.DepthEnable = true; // 深度テスト

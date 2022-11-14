@@ -7,6 +7,9 @@
 #include "AudioManager.h"
 #include <memory>
 
+#include "PlayerDrawer.h"
+#include "EnemyDrawer.h"
+
 namespace Game
 {
 	class GameScene
@@ -26,13 +29,14 @@ namespace Game
 		std::unique_ptr<Sprite> quadS_ = nullptr;
 
 		// ----- オブジェクト ----- //
+		std::vector<std::vector<Transform>> floor;
 
-		// Transform1
-		Transform t1;
-		// Transform2
-		Transform t2;
-		// Transform3
-		Transform t3;
+		// Transform
+		Transform player_;
+		Transform enemy_;
+
+		PlayerDrawer pd_;
+		EnemyDrawer ed_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;

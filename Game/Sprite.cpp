@@ -30,7 +30,8 @@ Sprite::Sprite(const Math::Vec2& size) :
 			{{   0.0f,   0.0f, 0.0f }, { 0.0f, 0.0f }}, // ç∂è„
 			{{ size.x_, size.y_, 0.0f }, { 1.0f, 1.0f }}, // âEâ∫
 			{{ size.x_,   0.0f, 0.0f }, { 1.0f, 0.0f }}, // âEè„
-		}
+		},
+		false
 	);
 }
 

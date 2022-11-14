@@ -16,17 +16,17 @@ void Vertices<T>::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 }
 
 template <typename T>
-void Vertices<T>::Initialize(const std::vector<T> v)
+void Vertices<T>::Initialize(const std::vector<T> v, const bool mapping)
 {
 	// 頂点情報をコピー
 	v_ = v;
 
 	// バッファとビュー作成
-	Create();
+	Create(mapping);
 }
 
 template<typename T>
-void Vertices<T>::Create()
+void Vertices<T>::Create(const bool mapping)
 {
 	// 頂点サイズ
 	UINT dataSize = static_cast <UINT> (sizeof(v_[0]) * v_.size());
@@ -56,7 +56,7 @@ void Vertices<T>::Create()
 		vertMap[i] = v_[i]; // 座標をコピー
 	}
 	// 繋がりを解除
-	buffer_.Get()->Unmap(0, nullptr);
+	if (!mapping) { buffer_.Get()->Unmap(0, nullptr); }
 
 	// 頂点バッファビューの作成
 	// GPU仮想アドレス
@@ -79,7 +79,8 @@ void Vertices<T>::Draw()
 template class Vertices<DX::SpriteVData>;
 template class Vertices<DX::ModelVData>;
 
-void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx)
+void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, 
+	const bool normalized, const bool mapping)
 {
 	// 頂点情報をコピー
 	v_ = v;
@@ -87,11 +88,11 @@ void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vecto
 	idx_ = idx;
 
 	// 法線計算
-	Normalized();
+	if (normalized) { Normalized(); }
 
 	// ----- vertices ----- //
 
-	Create();
+	Create(mapping);
 
 	// ----- index ----- //
 
@@ -123,7 +124,7 @@ void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vecto
 		idxMap[i] = idx_[i];
 	}
 	// 繋がりを解除
-	idxBuffer_.Get()->Unmap(0, nullptr);
+	if (!mapping) { idxBuffer_.Get()->Unmap(0, nullptr); }
 
 	// インデックスバッファビューの作成
 	// GPU仮想アドレス

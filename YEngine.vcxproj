@@ -154,6 +154,10 @@
     <ClCompile Include="Base\DX\YAssert.cpp" />
     <ClCompile Include="Base\DX\YDirectX.cpp" />
     <ClCompile Include="Base\YWindowsApp.cpp" />
+    <ClCompile Include="EBody.cpp" />
+    <ClCompile Include="EnemyDrawer.cpp" />
+    <ClCompile Include="EWeapon.cpp" />
+    <ClCompile Include="EWing.cpp" />
     <ClCompile Include="Game\AudioManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Model.cpp" />
@@ -165,6 +169,10 @@
     <ClCompile Include="Input\Keys.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
+    <ClCompile Include="Math\Power.cpp" />
+    <ClCompile Include="Math\Timer.cpp" />
+    <ClCompile Include="PBody.cpp" />
+    <ClCompile Include="PLeg.cpp" />
     <ClCompile Include="Math\Calc.cpp" />
     <ClCompile Include="Math\Lerp.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
@@ -172,6 +180,8 @@
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerDrawer.cpp" />
+    <ClCompile Include="PWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\DX\ConstBufferManager.h" />
@@ -186,6 +196,10 @@
     <ClInclude Include="Base\DX\YDirectX.h" />
     <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Def.h" />
+    <ClInclude Include="EBody.h" />
+    <ClInclude Include="EnemyDrawer.h" />
+    <ClInclude Include="EWeapon.h" />
+    <ClInclude Include="EWing.h" />
     <ClInclude Include="Game\AudioManager.h" />
     <ClInclude Include="Game\GameScene.h" />
     <ClInclude Include="Game\Model.h" />
@@ -197,12 +211,18 @@
     <ClInclude Include="Input\Keys.h" />
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="Input\Pad.h" />
+    <ClInclude Include="Math\Power.h" />
+    <ClInclude Include="Math\Timer.h" />
+    <ClInclude Include="PBody.h" />
+    <ClInclude Include="PLeg.h" />
     <ClInclude Include="Math\Calc.h" />
     <ClInclude Include="Math\Lerp.h" />
     <ClInclude Include="Math\Mat4.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
+    <ClInclude Include="PlayerDrawer.h" />
+    <ClInclude Include="PWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

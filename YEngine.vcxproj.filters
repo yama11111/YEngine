@@ -70,6 +70,24 @@
     <Filter Include="Base\h\DX">
       <UniqueIdentifier>{cb486c97-ddf3-4f9b-b528-12ceb7db5859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Drawer">
+      <UniqueIdentifier>{8f228ee4-a469-4555-9108-5145b34d8bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Drawer">
+      <UniqueIdentifier>{074b4811-c351-4c57-a24b-26271af887ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Drawer\Player">
+      <UniqueIdentifier>{e7660384-998f-40cb-b86c-ba83bd5d4954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Drawer\Player">
+      <UniqueIdentifier>{7f0bca9b-dd28-4430-9d69-9ddc50603f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Drawer\Enemy">
+      <UniqueIdentifier>{2413b6be-0b49-4db7-8d2d-448f2e00dcd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Drawer\Enemy">
+      <UniqueIdentifier>{51f89621-0981-4ac1-a684-d8c979579666}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -159,6 +177,36 @@
     <ClCompile Include="Game\AudioManager.cpp">
       <Filter>ソース ファイル\Game\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Power.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Timer.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="PBody.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PLeg.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDrawer.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PWeapon.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDrawer.cpp">
+      <Filter>ソース ファイル\Drawer\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EBody.cpp">
+      <Filter>ソース ファイル\Drawer\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EWeapon.cpp">
+      <Filter>ソース ファイル\Drawer\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EWing.cpp">
+      <Filter>ソース ファイル\Drawer\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -247,6 +295,36 @@
     </ClInclude>
     <ClInclude Include="Game\AudioManager.h">
       <Filter>ヘッダー ファイル\Game\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Power.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Timer.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="PBody.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PLeg.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDrawer.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PWeapon.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDrawer.h">
+      <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EBody.h">
+      <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EWeapon.h">
+      <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EWing.h">
+      <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
