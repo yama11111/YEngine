@@ -53,6 +53,7 @@ void GameScene::Initialize()
 	PlayerDrawer::StaticInitialize(cubeM_.get(), plainT_);
 	EnemyDrawer::StaticInitialize(cubeM_.get(), plainT_);
 
+	// 床初期化
 	const size_t s = 8;
 	for (size_t i = 0; i < s; i++)
 	{
@@ -75,14 +76,17 @@ void GameScene::Initialize()
 		floor.push_back(fs);
 	}
 
+	// プレイヤー初期化
 	player_.Initialize({ {0,0,-10} });
 	player_.rota_ = AdjustAngle(Vec3(0, 0, 1));
-	pd_.Initialize(&player_.m_);
+	pd_.Initialize(&player_.m_); // Player Transform pointer
 
+	// エネミー初期化
 	enemy_.Initialize({ {0,0,10} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
-	ed_.Initialize(&enemy_.m_);
+	ed_.Initialize(&enemy_.m_); // Enemy Transform pointer
 
+	// ビュープロジェクション初期化
 	vp_.Initialize({});
 	vp_.eye_ = { 0,5,-20 };
 }
