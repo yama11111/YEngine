@@ -35,6 +35,7 @@ namespace Game
 		Transform player_;
 		Transform enemy_;
 
+		// drawer
 		PlayerDrawer pd_;
 		EnemyDrawer ed_;
 

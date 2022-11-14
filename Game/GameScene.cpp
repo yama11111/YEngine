@@ -41,14 +41,17 @@ GameScene::~GameScene() {}
 void GameScene::Initialize()
 {
 	plainT_ = pTexManager_->Load(L"Resources/Textures/white1x1.png", false);
-	//plainT_ = pTexManager_->Load(L"Resources/Textures/player.png", false);
 	
-	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
+	//aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
 	cubeM_.reset(Model::Create());
 	//cubeM_.reset(Model::Load("Resources/Models/triangleTex.obj"));
 
 	quadS_.reset(new Sprite({ 64,64 }));
+
+	// モデルとテクスチャ挿入
+	PlayerDrawer::StaticInitialize(cubeM_.get(), plainT_);
+	EnemyDrawer::StaticInitialize(cubeM_.get(), plainT_);
 
 	const size_t s = 8;
 	for (size_t i = 0; i < s; i++)
@@ -72,69 +75,73 @@ void GameScene::Initialize()
 		floor.push_back(fs);
 	}
 
-	PlayerDrawer::StaticInitialize(cubeM_.get(), plainT_);
-	EnemyDrawer::StaticInitialize(cubeM_.get(), plainT_);
-
 	player_.Initialize({ {0,0,-10} });
 	player_.rota_ = AdjustAngle(Vec3(0, 0, 1));
+	pd_.Initialize(&player_.m_);
 
 	enemy_.Initialize({ {0,0,10} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
-
-	pd_.Initialize(&player_.m_);
 	ed_.Initialize(&enemy_.m_);
 
 	vp_.Initialize({});
-	//vp_.eye_ = { 0,2.5,-10 };
 	vp_.eye_ = { 0,5,-20 };
 }
 
 void GameScene::Update()
 {
+	// リセット
 	if (keys_->IsTrigger(DIK_R))
 	{
+		// プレイヤー
 		player_.rota_ = AdjustAngle(Vec3(0,0,1));
-		enemy_.rota_ = AdjustAngle(Vec3(0,0,-1));
 		pd_.Reset(); 
+
+		// エネミー
+		enemy_.rota_ = AdjustAngle(Vec3(0,0,-1));
 		ed_.Reset();
 	}
 
-	//player_.rota_.x_ += -keys_->Vertical() * PI / 180;
-	//player_.rota_.y_ += keys_->Horizontal() * PI / 180;
-
+	// ----- Player ----- //
+	// プレイヤー移動
 	player_.pos_.x_ += keys_->Horizontal() * 0.2f;
 	player_.pos_.z_ += -keys_->Vertical() * 0.2f;
 
+	// プレイヤー移動時処理
 	if (keys_->IsMove())
 	{
+		// 角度調整
 		Vec3 vel = Vec3(keys_->Horizontal(), 0, -keys_->Vertical()).Normalized();
 		player_.rota_ = AdjustAngle(vel);
 	}
+	// 歩きアニメーション(動いている or Jキー)
 	pd_.SetWalkActivate(keys_->IsMove());
-
 	if (keys_->IsDown(DIK_J)) { pd_.SetWalkActivate(true); }
 
+	// アップデート
 	player_.Update();
 	pd_.Update();
 	
-	//enemy_.rota_.x_ += -pad_->Vertical(PadStick::LStick) * PI / 180;
-	//enemy_.rota_.y_ += pad_->Horizontal(PadStick::LStick) * PI / 180;
-	
+
+	// ----- Enemy ----- //
+	// エネミー移動
 	enemy_.pos_.x_ += pad_->Horizontal(PadStick::LStick) * 0.2f;
 	enemy_.pos_.z_ += -pad_->Vertical(PadStick::LStick) * 0.2f;
 
+	// エネミー移動時処理
 	if (pad_->IsMove(PadStick::LStick))
 	{
 		Vec3 vel = Vec3(pad_->Horizontal(PadStick::LStick), 0, -pad_->Vertical(PadStick::LStick)).Normalized();
 		enemy_.rota_ = AdjustAngle(vel);
 	}
+	// 歩きアニメーション(動いている or Xボタン)
 	ed_.SetWalkActivate(pad_->IsMove(PadStick::LStick));
-
 	if (pad_->IsDown(PadInputNumber::XIP_X)) { ed_.SetWalkActivate(true); }
 
+	// アップデート
 	enemy_.Update();
 	ed_.Update();
 
+	// ----- floor ----- //
 	for (size_t i = 0; i < floor.size(); i++)
 	{
 		for (size_t j = 0; j < floor[i].size(); j++)
@@ -145,10 +152,10 @@ void GameScene::Update()
 
 	vp_.Update();
 
-	if (keys_->IsTrigger(DIK_SPACE))
-	{
-		pAudioManager_->Play(aA_);
-	}
+	//if (keys_->IsTrigger(DIK_SPACE))
+	//{
+	//	pAudioManager_->Play(aA_);
+	//}
 }
 
 void GameScene::Draw()
@@ -163,6 +170,7 @@ void GameScene::Draw()
 	Model::StaticSetDrawCommand();
 	// --------- モデル --------- //
 
+	// floor
 	for (size_t i = 0; i < floor.size(); i++)
 	{
 		for (size_t j = 0; j < floor[i].size(); j++)
@@ -171,8 +179,9 @@ void GameScene::Draw()
 		}
 	}
 
-	//cubeM_->Draw(player_, vp_, plainT_);
+	// player
 	pd_.Draw(vp_);
+	// enemy
 	ed_.Draw(vp_);
 
 	// -------------------------- //
