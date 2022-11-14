@@ -2,9 +2,9 @@
 
 using Math::Power;
 
-void Power::Initialize(const unsigned int time)
+void Power::Initialize(const unsigned int max)
 {
-	p_ = time;
+	p_ = max;
 	Reset();
 }
 

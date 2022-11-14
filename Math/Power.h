@@ -8,7 +8,7 @@ namespace Math
 		// カウンタ
 		int count_ = 0;
 		// パワー最大時
-		unsigned int p_ = 0;
+		int p_ = 0;
 		// 動作しているか
 		bool isAct_ = false;
 	public:

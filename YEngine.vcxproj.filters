@@ -183,29 +183,29 @@
     <ClCompile Include="Math\Timer.cpp">
       <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="PBody.cpp">
-      <Filter>ソース ファイル\Drawer\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PLeg.cpp">
-      <Filter>ソース ファイル\Drawer\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerDrawer.cpp">
-      <Filter>ソース ファイル\Drawer\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PWeapon.cpp">
-      <Filter>ソース ファイル\Drawer\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyDrawer.cpp">
+    <ClCompile Include="Drawer\EBody.cpp">
       <Filter>ソース ファイル\Drawer\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EBody.cpp">
+    <ClCompile Include="Drawer\EWeapon.cpp">
       <Filter>ソース ファイル\Drawer\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EWeapon.cpp">
+    <ClCompile Include="Drawer\EWing.cpp">
       <Filter>ソース ファイル\Drawer\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EWing.cpp">
-      <Filter>ソース ファイル\Drawer\Enemy</Filter>
+    <ClCompile Include="Drawer\PlayerDrawer.cpp">
+      <Filter>ソース ファイル\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer\PBody.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer\PLeg.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer\PWeapon.cpp">
+      <Filter>ソース ファイル\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer\EnemyDrawer.cpp">
+      <Filter>ソース ファイル\Drawer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,31 +302,31 @@
     <ClInclude Include="Math\Timer.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="PBody.h">
-      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    <ClInclude Include="Drawer\DrawerDef.h">
+      <Filter>ヘッダー ファイル\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="PLeg.h">
-      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerDrawer.h">
-      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PWeapon.h">
-      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyDrawer.h">
+    <ClInclude Include="Drawer\EBody.h">
       <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EBody.h">
+    <ClInclude Include="Drawer\EWeapon.h">
       <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EWeapon.h">
+    <ClInclude Include="Drawer\EnemyDrawer.h">
+      <Filter>ヘッダー ファイル\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer\EWing.h">
       <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EWing.h">
-      <Filter>ヘッダー ファイル\Drawer\Enemy</Filter>
+    <ClInclude Include="Drawer\PBody.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
     </ClInclude>
-    <ClInclude Include="DrawerDef.h">
+    <ClInclude Include="Drawer\PLeg.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer\PWeapon.h">
+      <Filter>ヘッダー ファイル\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer\PlayerDrawer.h">
       <Filter>ヘッダー ファイル\Drawer</Filter>
     </ClInclude>
   </ItemGroup>
