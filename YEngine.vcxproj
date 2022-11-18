@@ -207,6 +207,7 @@
     <ClInclude Include="Drawer\PWeapon.h" />
     <ClInclude Include="Game\AudioManager.h" />
     <ClInclude Include="Game\GameScene.h" />
+    <ClInclude Include="Game\Material.h" />
     <ClInclude Include="Game\Model.h" />
     <ClInclude Include="Game\Sprite.h" />
     <ClInclude Include="Game\TextureManager.h" />

@@ -54,8 +54,8 @@ void Transform::SetDrawCommand(const Math::Mat4& view, const Math::Mat4& project
 {
 	cbTrfm_.map_->mat_ = m_ * view * projection;
 
-	pCBManager_->SetDrawCommand(cbMtrl_);
 	pCBManager_->SetDrawCommand(cbTrfm_);
+	pCBManager_->SetDrawCommand(cbMtrl_);
 }
 
 void Transform::SetParent(Mat4* parent)

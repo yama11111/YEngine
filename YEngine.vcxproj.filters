@@ -335,6 +335,9 @@
     <ClInclude Include="Drawer\PlayerDrawer.h">
       <Filter>ヘッダー ファイル\Drawer</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Material.h">
+      <Filter>ヘッダー ファイル\Game\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite.hlsli">

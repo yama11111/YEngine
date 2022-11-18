@@ -17,10 +17,10 @@ namespace Game
 		// 大きさ
 		Math::Vec3 scale_;
 	private:
-		// 定数バッファ(マテリアル)
-		DX::ConstBuffer<DX::MaterialData1> cbMtrl_;
 		// 定数バッファ(3D変換行列)
 		DX::ConstBuffer<DX::TransformData> cbTrfm_;
+		// 定数バッファ(マテリアル1)
+		DX::ConstBuffer<DX::MaterialData1> cbMtrl_;
 		// 親行列
 		Math::Mat4* parent_ = nullptr;
 	public:

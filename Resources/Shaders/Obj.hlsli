@@ -4,8 +4,14 @@ cbuffer cbuff0 : register(b0)
 	matrix mat; // 3D変換行列
 }
 
-// マテリアル
+// マテリアル1
 cbuffer cbuff1 : register(b1)
+{
+	float4 color; // 色(RGBA)
+}
+
+// マテリアル2
+cbuffer cbuff2 : register(b2)
 {
 	float3 mAmbient  : packoffset(c0);	 // アンビエント係数
 	float3 mDiffuse  : packoffset(c1);	 // ディフューズ係数

@@ -1,6 +1,6 @@
 #pragma once
 #include "GPUResource.h"
-#include "Vec3.h"
+#include "Material.h"
 #include "Vec4.h"
 #include "Mat4.h"
 
@@ -24,7 +24,7 @@ namespace DX
 		Math::Vec3 diffuse_;  // ディフューズ係数
 		float pad2_; // パディング2
 		Math::Vec3 specular_; // スペキュラー係数
-		float pad3_; // パディング3
+		float alpha_;		  // アルファ
 	};
 
 	template <typename T>
@@ -40,24 +40,32 @@ namespace DX
 	class ConstBufferManager
 	{
 	private:
-		// 定数バッファ(マテリアル)生成時番号保存用
-		UINT rpIndexM_ = 0;
 		// 定数バッファ(3D変換行列)生成時番号保存用
 		UINT rpIndexT_ = 0;
+		// 定数バッファ(マテリアル1)生成時番号保存用
+		UINT rpIndexM1_ = 0;
+		// 定数バッファ(マテリアル2)生成時番号保存用
+		UINT rpIndexM2_ = 0;
 	public:
 		// 定数バッファ(3D変換行列)の生成 + マッピング
 		void CreateCB(ConstBuffer<TransformData>& cb);
-		// 定数バッファ(マテリアル)の生成 + マッピング
+		// 定数バッファ(マテリアル1)の生成 + マッピング
 		void CreateCB(ConstBuffer<MaterialData1>& cb, const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
-		// 描画前コマンド(マテリアル)
-		void SetDrawCommand(ConstBuffer<MaterialData1>& cb);
+		// 定数バッファ(マテリアル2)の生成 + マッピング
+		void CreateCB(ConstBuffer<MaterialData2>& cb, const Game::Material& material);
 		// 描画前コマンド(3D変換行列)
 		void SetDrawCommand(ConstBuffer<TransformData>& cb);
+		// 描画前コマンド(マテリアル1)
+		void SetDrawCommand(ConstBuffer<MaterialData1>& cb);
+		// 描画前コマンド(マテリアル2)
+		void SetDrawCommand(ConstBuffer<MaterialData2>& cb);
 	public:
-		// 定数バッファ(マテリアル)番号設定
-		void SetRootParameterIndexMaterial(UINT rpIndex) { rpIndexM_ = rpIndex; }
 		// 定数バッファ(3D変換行列)番号設定
 		void SetRootParameterIndexTransform(UINT rpIndex) { rpIndexT_ = rpIndex; }
+		// 定数バッファ(マテリアル1)番号設定
+		void SetRootParameterIndexMaterial1(UINT rpIndex) { rpIndexM1_ = rpIndex; }
+		// 定数バッファ(マテリアル2)番号設定
+		void SetRootParameterIndexMaterial2(UINT rpIndex) { rpIndexM2_ = rpIndex; }
 	private:
 		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* pCmdList_;

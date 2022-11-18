@@ -29,7 +29,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	// ÉXÉNÉäÅ[Éìê›íË
 	ScreenDesc::StaticInitialize(pCmdList);
 	ScreenDesc screenDesc;
-	screenDesc.Initialize({0,0}, WIN_SIZE);
+	screenDesc.Initialize({ 0,0 }, WIN_SIZE);
 
 	// Input èâä˙âª
 	InputManager* input = InputManager::GetInstance();
@@ -42,7 +42,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	ConstBufferManager::StaticInitialize(pCmdList);
 	ConstBufferManager cbM;
 	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
-	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
+	cbM.SetRootParameterIndexMaterial1(rpM.PushBackCBV());
+	cbM.SetRootParameterIndexMaterial2(rpM.PushBackCBV());
 
 	SRVHeap::StaticInitialize(pDev, pCmdList);
 	SRVHeap srvHeap;
@@ -58,7 +59,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	Transform::StaticInitialize(&cbM);
 	Sprite::StaticInitialize(&texM, rpM.Get());
-	Model::StaticInitialize(&texM, rpM.Get());
+	Model::StaticInitialize({&cbM, &texM, rpM.Get()});
 
 	AudioManager audioM;
 	audioM.Initialize();

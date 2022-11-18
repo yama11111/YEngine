@@ -4,32 +4,19 @@
 #include "Vertices.h"
 #include "PipelineSet.h"
 #include "TextureManager.h"
-#include <string>
+#include "Material.h"
 
 namespace Game
 {
-	struct Material
-	{
-		std::string name_; // マテリアル名
-		Math::Vec3 ambient_; // アンビエント影響度
-		Math::Vec3 diffuse_; // ディフューズ影響度
-		Math::Vec3 specular_; // スペキュラー影響度
-		float alpha_; // アルファ値
-		std::string textureFileName_; // テクスチャファイル名
-		Material() 
-		{
-			ambient_ = { 0.3f,0.3f,0.3f };
-			diffuse_ = { 0.0f,0.0f,0.0f };
-			specular_ = { 0.0f,0.0f,0.0f };
-			alpha_ = 1.0f;
-		}
-	};
-
 	class Model
 	{
 	private:
 		// 頂点インデックス
 		DX::VertexIndex3D vtIdx_;
+		// マテリアル
+		Material mtrl_;
+		// 定数バッファ(マテリアル2)
+		DX::ConstBuffer<DX::MaterialData2> cbMtrl_;
 	public:
 		// 動的ポインタ(立方体)
 		static Model* Create();
@@ -44,11 +31,21 @@ namespace Game
 	private:
 		// パイプライン設定
 		static DX::PipelineSet pplnSet_;
+		// 静的定数バッファマネージャーポインタ
+		static DX::ConstBufferManager* pCBManager_;
 		// 静的テクスチャマネージャーポインタ
 		static TextureManager* pTexManager_;
 	public:
+		// 静的初期化構造体
+		struct StaticInitState
+		{
+			DX::ConstBufferManager* pCBManage;
+			TextureManager* pTexManager;
+			std::vector<D3D12_ROOT_PARAMETER>* rootParams;
+		};
+	public:
 		// 静的初期化
-		static void StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
+		static void StaticInitialize(const StaticInitState& state);
 		// 静的描画コマンド
 		static void StaticSetDrawCommand();
 	};

@@ -7,25 +7,21 @@
 using Game::Model;
 
 DX::PipelineSet Model::pplnSet_;
+DX::ConstBufferManager* Model::pCBManager_ = nullptr;
 Game::TextureManager* Model::pTexManager_ = nullptr;
 
-void Model::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
+void Model::StaticInitialize(const StaticInitState& state)
 {
-	assert(pTexManager);
-	pTexManager_ = pTexManager;
-	pplnSet_.Initialize(DX::PipelineSet::Type::ModelT, rootParams);
+	assert(state.pCBManage);
+	assert(state.pTexManager);
+	pCBManager_ = state.pCBManage;
+	pTexManager_ = state.pTexManager;
+	pplnSet_.Initialize(DX::PipelineSet::Type::ModelT, state.rootParams);
 }
 
 void Model::StaticSetDrawCommand()
 {
 	pplnSet_.SetDrawCommand();
-}
-
-void Model::Draw(Transform& trfm, ViewProjection& vp, const UINT tex)
-{
-	pTexManager_->SetDrawCommand(tex);
-	trfm.SetDrawCommand(vp.view_, vp.pro_);
-	vtIdx_.Draw();
 }
 
 Model* Model::Create()
@@ -101,6 +97,7 @@ Model* Model::Create()
 	};
 
 	instance->vtIdx_.Initialize(v, i, true, false);
+	instance->pCBManager_->CreateCB(instance->cbMtrl_, instance->mtrl_);
 
 	return instance;
 }
@@ -228,7 +225,15 @@ Model* Model::Load(const char* fileName)
 	file.close();
 
 	instance->vtIdx_.Initialize(v, i, false, false);
+	instance->pCBManager_->CreateCB(instance->cbMtrl_, instance->mtrl_);
 
 	return instance;
 }
 
+void Model::Draw(Transform& trfm, ViewProjection& vp, const UINT tex)
+{
+	pTexManager_->SetDrawCommand(tex);
+	trfm.SetDrawCommand(vp.view_, vp.pro_);
+	pCBManager_->SetDrawCommand(cbMtrl_);
+	vtIdx_.Draw();
+}

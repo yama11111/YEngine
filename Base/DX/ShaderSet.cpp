@@ -62,9 +62,9 @@ void ModelShaderSet::Load(ID3DBlob* errorBlob)
 	ID3DBlob* ps = nullptr;
 
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/ModelVS.hlsl", "main", "vs_5_0", vs, errorBlob);
+	LoadShader(L"Resources/Shaders/ObjVS.hlsl", "main", "vs_5_0", vs, errorBlob);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/ModelPS.hlsl", "main", "ps_5_0", ps, errorBlob);
+	LoadShader(L"Resources/Shaders/ObjPS.hlsl", "main", "ps_5_0", ps, errorBlob);
 
 	vsBlob_ = vs;
 	psBlob_ = ps;

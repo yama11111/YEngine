@@ -10,5 +10,5 @@ float4 main(VSOutput input) : SV_TARGET
 	float diffuse = saturate(dot(-light, input.normal)); // diffuseを[0,1]の範囲にclampする
 	float3 shaderColor = mAmbient; // アンビエント項
 	shaderColor += mDiffuse * diffuse; // ディフューズ項
-	return float4(texcolor.rgb * shaderColor, texcolor.a * mAlpha); // 輝度をRGBに代入して出力
+	return float4(texcolor.rgb * shaderColor, texcolor.a * mAlpha) * color; // 輝度をRGBに代入して出力
 }
