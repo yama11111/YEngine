@@ -85,13 +85,24 @@ UINT TextureManager::CreateTex(const Math::Vec4& color)
 	return static_cast<UINT>(texs_.size() - 1);
 }
 
-UINT TextureManager::Load(const wchar_t* fileName, const bool mipMap)
+UINT TextureManager::Load(const std::string& texFileName, const bool mipMap)
+{
+	const std::string& directoryPath = "Resources/Textures/";
+	return Load(directoryPath, texFileName, mipMap);
+}
+
+UINT TextureManager::Load(const std::string& directoryPath, const std::string texFileName, const bool mipMap)
 {
 	// テクスチャ情報
 	Texture tex;
 
 	DirectX::TexMetadata metadata{};
 	DirectX::ScratchImage scratchImg{};
+
+	// ファイル名
+	std::string filePath = directoryPath + texFileName;
+	std::wstring wFilePath = std::wstring(filePath.begin(), filePath.end());
+	const wchar_t* fileName = wFilePath.c_str();
 
 	// WICテクスチャのロード
 	Result(LoadFromWICFile(fileName, DirectX::WIC_FLAGS_NONE, &metadata, scratchImg));

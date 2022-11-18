@@ -86,7 +86,7 @@ void Material::Load(const std::string& directoryPath, const std::string& mtlFile
 		{
 			// “Ç‚Ýž‚Ý
 			lineStream >> textureFileName_;
-			
+			texIndex_ = pTexManager_->Load(directoryPath, textureFileName_);
 		}
 
 	}

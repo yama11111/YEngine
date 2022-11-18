@@ -40,15 +40,14 @@ GameScene::~GameScene() {}
 
 void GameScene::Initialize()
 {
-	plainT_ = pTexManager_->Load(L"Resources/Textures/white1x1.png", false);
+	plainT_ = pTexManager_->Load("white1x1.png", false);
 
-	playerT_ = pTexManager_->Load(L"Resources/Textures/player.png", false);
-	enemyT_ = pTexManager_->Load(L"Resources/Textures/enemy.png", false);
+	playerT_ = pTexManager_->Load("player.png", false);
+	enemyT_ = pTexManager_->Load("enemy.png", false);
 	
-	//aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
+	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
 	cubeM_.reset(Model::Create());
-	//loadM_.reset(Model::Load("Resources/Models/triangleTex.obj"));
 	loadM_.reset(Model::Load("triangleMat"));
 
 	quadS_.reset(new Sprite({ 64,64 }));
@@ -182,7 +181,7 @@ void GameScene::Draw()
 		}
 	}
 
-	loadM_->Draw(model_, vp_, playerT_);
+	loadM_->Draw(model_, vp_);
 	
 	// player
 	cubeM_->Draw(player_, vp_, playerT_);

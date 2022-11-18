@@ -2,7 +2,6 @@
 #include "Vec3.h"
 #include "ConstBuffer.h"
 #include "TextureManager.h"
-#include <string>
 
 namespace Game
 {

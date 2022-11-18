@@ -1,8 +1,9 @@
 #pragma once
 #include "GPUResource.h"
 #include "SRVHeap.h"
-#include <vector>
 #include "Vec4.h"
+#include <vector>
+#include <string>
 
 namespace Game
 {
@@ -15,6 +16,8 @@ namespace Game
 		D3D12_CPU_DESCRIPTOR_HANDLE srvCpuHandle_{};
 		// SRV先頭ハンドル (GPU)
 		D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle_{};
+		// テクスチャファイル名
+		std::string fileName_;
 	};
 
 	class TextureManager
@@ -28,7 +31,9 @@ namespace Game
 		// テクスチャ生成
 		UINT CreateTex(const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// テクスチャ読み込み
-		UINT Load(const wchar_t* fileName, const bool mipMap = true);
+		UINT Load(const std::string& texFileName, const bool mipMap = true);
+		// テクスチャ読み込み(モデル用)
+		UINT Load(const std::string& directoryPath, const std::string texFileName, const bool mipMap = true);
 		// テクスチャ描画前コマンド 
 		void SetDrawCommand(const UINT texIndex);
 	public:
