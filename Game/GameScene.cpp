@@ -115,7 +115,10 @@ void GameScene::Update()
 	if (keys_->IsMove(Keys::MoveStandard::WASD))
 	{
 		// 角度調整
-		Vec3 vel = Vec3(keys_->Horizontal(Keys::MoveStandard::WASD), 0, -keys_->Vertical(Keys::MoveStandard::WASD)).Normalized();
+		Vec3 vel = Vec3(
+			static_cast<float>(keys_->Horizontal(Keys::MoveStandard::WASD)),
+			0,
+			static_cast<float>(-keys_->Vertical(Keys::MoveStandard::WASD))).Normalized();
 		player_.rota_ = AdjustAngle(vel);
 	}
 
@@ -130,7 +133,10 @@ void GameScene::Update()
 	// エネミー移動時処理
 	if (keys_->IsMove(Keys::MoveStandard::Arrow))
 	{
-		Vec3 vel = Vec3(keys_->Horizontal(Keys::MoveStandard::Arrow), 0, -keys_->Vertical(Keys::MoveStandard::Arrow)).Normalized();
+		Vec3 vel = Vec3(
+			static_cast<float>(keys_->Horizontal(Keys::MoveStandard::Arrow)),
+			0,
+			static_cast<float>(-keys_->Vertical(Keys::MoveStandard::Arrow))).Normalized();
 		enemy_.rota_ = AdjustAngle(vel);
 	}
 

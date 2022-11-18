@@ -1,4 +1,10 @@
-float4 main( float4 pos : POSITION ) : SV_POSITION
+#include "Obj.hlsli"
+
+VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOORD)
 {
-	return pos;
+	VSOutput output; // ピクセルシェーダーに渡す値
+	output.svpos = mul(mat, pos); // 座標に行列を乗算
+	output.normal = normal;
+	output.uv = uv;
+	return output;
 }

@@ -42,7 +42,7 @@ namespace Game
 		// XAudio2エンジン
 		Microsoft::WRL::ComPtr<IXAudio2> xAudio2_;
 		// マスターボイス
-		IXAudio2MasteringVoice* masterVoice_;
+		IXAudio2MasteringVoice* masterVoice_ = nullptr;
 		// オーディオ用vector配列
 		std::vector<SoundData> audios_;
 	public:

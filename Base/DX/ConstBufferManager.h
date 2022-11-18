@@ -1,19 +1,30 @@
 #pragma once
 #include "GPUResource.h"
+#include "Vec3.h"
 #include "Vec4.h"
 #include "Mat4.h"
 
 namespace DX
 {
-	// 定数バッファ用データ構造体 (マテリアル)
-	struct MaterialData
-	{
-		Math::Vec4 color_; // 色 (RGBA)
-	};
 	// 定数バッファ用データ構造体 (3D変換行列)
 	struct TransformData
 	{
 		Math::Mat4 mat_; // 3D変換行列
+	};
+	// 定数バッファ用データ構造体 (マテリアル1)
+	struct MaterialData1
+	{
+		Math::Vec4 color_; // 色 (RGBA)
+	};
+	// 定数バッファ用データ構造体 (マテリアル2)
+	struct MaterialData2
+	{
+		Math::Vec3 ambient_;  // アンビエント係数
+		float pad1_; // パディング1
+		Math::Vec3 diffuse_;  // ディフューズ係数
+		float pad2_; // パディング2
+		Math::Vec3 specular_; // スペキュラー係数
+		float pad3_; // パディング3
 	};
 
 	template <typename T>
@@ -34,12 +45,12 @@ namespace DX
 		// 定数バッファ(3D変換行列)生成時番号保存用
 		UINT rpIndexT_ = 0;
 	public:
-		// 定数バッファ(マテリアル)の生成 + マッピング
-		void CreateCB(ConstBuffer<MaterialData>& cb, const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// 定数バッファ(3D変換行列)の生成 + マッピング
 		void CreateCB(ConstBuffer<TransformData>& cb);
+		// 定数バッファ(マテリアル)の生成 + マッピング
+		void CreateCB(ConstBuffer<MaterialData1>& cb, const Math::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// 描画前コマンド(マテリアル)
-		void SetDrawCommand(ConstBuffer<MaterialData>& cb);
+		void SetDrawCommand(ConstBuffer<MaterialData1>& cb);
 		// 描画前コマンド(3D変換行列)
 		void SetDrawCommand(ConstBuffer<TransformData>& cb);
 	public:

@@ -18,7 +18,7 @@ namespace Game
 		Math::Vec3 scale_;
 	private:
 		// 定数バッファ(マテリアル)
-		DX::ConstBuffer<DX::MaterialData> cbMtrl_;
+		DX::ConstBuffer<DX::MaterialData1> cbMtrl_;
 		// 定数バッファ(3D変換行列)
 		DX::ConstBuffer<DX::TransformData> cbTrfm_;
 		// 親行列
