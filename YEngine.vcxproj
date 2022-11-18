@@ -143,7 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Base\DX\ConstBufferManager.cpp" />
+    <ClCompile Include="Base\DX\ConstBuffer.cpp" />
     <ClCompile Include="Base\DX\GPUResource.cpp" />
     <ClCompile Include="Base\DX\PipelineSet.cpp" />
     <ClCompile Include="Base\DX\RootParameterManager.cpp" />
@@ -164,6 +164,7 @@
     <ClCompile Include="Drawer\PWeapon.cpp" />
     <ClCompile Include="Game\AudioManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
+    <ClCompile Include="Game\Material.cpp" />
     <ClCompile Include="Game\Model.cpp" />
     <ClCompile Include="Game\Sprite.cpp" />
     <ClCompile Include="Game\TextureManager.cpp" />
@@ -184,7 +185,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\DX\ConstBufferManager.h" />
+    <ClInclude Include="Base\DX\ConstBuffer.h" />
     <ClInclude Include="Base\DX\GPUResource.h" />
     <ClInclude Include="Base\DX\PipelineSet.h" />
     <ClInclude Include="Base\DX\RootParameterManager.h" />

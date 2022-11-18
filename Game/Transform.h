@@ -1,5 +1,5 @@
 #pragma once
-#include "ConstBufferManager.h"
+#include "ConstBuffer.h"
 #include "Vec3.h"
 #include "Mat4.h"
 
@@ -16,11 +16,13 @@ namespace Game
 		Math::Vec3 rota_;
 		// 大きさ
 		Math::Vec3 scale_;
+		// 色
+		Math::Vec4 color_;
 	private:
 		// 定数バッファ(3D変換行列)
-		DX::ConstBuffer<DX::TransformData> cbTrfm_;
+		DX::ConstBuffer<DX::TransformCBData> cbTrfm_;
 		// 定数バッファ(マテリアル1)
-		DX::ConstBuffer<DX::MaterialData1> cbMtrl_;
+		DX::ConstBuffer<DX::ColorCBData> cbColor_;
 		// 親行列
 		Math::Mat4* parent_ = nullptr;
 	public:
@@ -43,16 +45,8 @@ namespace Game
 	public:
 		// 親行列設定
 		void SetParent(Math::Mat4* parent);
-		// 色設定
-		void SetColor(const Math::Vec4& color);
 	public:
 		// コンストラクタ
 		Transform();
-	private:
-		// 静的定数バッファマネージャーポインタ
-		static DX::ConstBufferManager* pCBManager_;
-	public:
-		// 静的初期化
-		static void StaticInitialize(DX::ConstBufferManager* pCBManager);
 	};
 }

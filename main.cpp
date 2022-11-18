@@ -39,11 +39,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	RootParameterManager rpM;
 
-	ConstBufferManager::StaticInitialize(pCmdList);
-	ConstBufferManager cbM;
-	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
-	cbM.SetRootParameterIndexMaterial1(rpM.PushBackCBV());
-	cbM.SetRootParameterIndexMaterial2(rpM.PushBackCBV());
+	ConstBuffer<TransformCBData>::StaticInitialize(pCmdList);
+	ConstBuffer<TransformCBData>::SetRootParameterIndex(rpM.PushBackCBV());
+	ConstBuffer<ColorCBData>::StaticInitialize(pCmdList);
+	ConstBuffer<ColorCBData>::SetRootParameterIndex(rpM.PushBackCBV());
+	ConstBuffer<MaterialCBData>::StaticInitialize(pCmdList);
+	ConstBuffer<MaterialCBData>::SetRootParameterIndex(rpM.PushBackCBV());
 
 	SRVHeap::StaticInitialize(pDev, pCmdList);
 	SRVHeap srvHeap;
@@ -57,9 +58,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Vertices<SpriteVData>::StaticInitialize(pCmdList);
 	Vertices<ModelVData>::StaticInitialize(pCmdList);
 
-	Transform::StaticInitialize(&cbM);
 	Sprite::StaticInitialize(&texM, rpM.Get());
-	Model::StaticInitialize({&cbM, &texM, rpM.Get()});
+	Material::StaticInitialize(&texM);
+	Model::StaticInitialize(rpM.Get());
 
 	AudioManager audioM;
 	audioM.Initialize();

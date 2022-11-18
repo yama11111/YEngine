@@ -48,7 +48,8 @@ void GameScene::Initialize()
 	//aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
 	cubeM_.reset(Model::Create());
-	loadM_.reset(Model::Load("Resources/Models/triangleTex.obj"));
+	//loadM_.reset(Model::Load("Resources/Models/triangleTex.obj"));
+	loadM_.reset(Model::Load("triangleMat"));
 
 	quadS_.reset(new Sprite({ 64,64 }));
 
@@ -73,7 +74,7 @@ void GameScene::Initialize()
 				((f.scale_.z_ * 2.0f) * i) - ((s - 1) * (f.scale_.z_))
 			};
 			float c = 1.0f - (((i + j) % 2 == 0) * 0.5f);
-			f.SetColor({ c,c,c,1.0f });
+			f.color_= { c,c,c,1.0f };
 			fs.push_back(f);
 		}
 		floor.push_back(fs);

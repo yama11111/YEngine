@@ -2,21 +2,14 @@
 #include <cassert>
 #include <fstream>
 #include <sstream>
-#include <cassert>
 
 using Game::Model;
 
 DX::PipelineSet Model::pplnSet_;
-DX::ConstBufferManager* Model::pCBManager_ = nullptr;
-Game::TextureManager* Model::pTexManager_ = nullptr;
 
-void Model::StaticInitialize(const StaticInitState& state)
+void Model::StaticInitialize(std::vector<D3D12_ROOT_PARAMETER>* rootParams)
 {
-	assert(state.pCBManage);
-	assert(state.pTexManager);
-	pCBManager_ = state.pCBManage;
-	pTexManager_ = state.pTexManager;
-	pplnSet_.Initialize(DX::PipelineSet::Type::ModelT, state.rootParams);
+	pplnSet_.Initialize(DX::PipelineSet::Type::ModelT, rootParams);
 }
 
 void Model::StaticSetDrawCommand()
@@ -97,12 +90,11 @@ Model* Model::Create()
 	};
 
 	instance->vtIdx_.Initialize(v, i, true, false);
-	instance->pCBManager_->CreateCB(instance->cbMtrl_, instance->mtrl_);
 
 	return instance;
 }
 
-Model* Model::Load(const char* fileName)
+Model* Model::Load(const std::string& modelName)
 {
 	// インスタンス
 	Model* instance = new Model();
@@ -114,8 +106,12 @@ Model* Model::Load(const char* fileName)
 
 	// ファイルストリーム
 	std::ifstream file;
+
+	// ファイル名
+	std::string objFileName  = modelName + ".obj";
+	std::string directoryPath = "Resources/Models/" + modelName + "/";
 	// .objファイルを開く
-	file.open(fileName);
+	file.open(directoryPath + objFileName);
 	// ファイルオープン失敗をチェック
 	assert(file);
 
@@ -136,6 +132,20 @@ Model* Model::Load(const char* fileName)
 		// 半角スペース区切りで行の先頭文字列を取得
 		std::string key;
 		std::getline(lineStream, key, ' ');
+
+#pragma region マテリアル
+
+		// 先頭文字列が "mtllib" ならマテリアル
+		if (key == "mtllib")
+		{
+			// マテリアルファイル名取得
+			std::string mtlFileName;
+			lineStream >> mtlFileName;
+			// マテリアル読み込み
+			instance->mtrl_.Load(directoryPath, mtlFileName);
+		}
+
+#pragma endregion
 
 #pragma region 頂点データ
 
@@ -225,15 +235,20 @@ Model* Model::Load(const char* fileName)
 	file.close();
 
 	instance->vtIdx_.Initialize(v, i, false, false);
-	instance->pCBManager_->CreateCB(instance->cbMtrl_, instance->mtrl_);
 
 	return instance;
 }
 
 void Model::Draw(Transform& trfm, ViewProjection& vp, const UINT tex)
 {
-	pTexManager_->SetDrawCommand(tex);
 	trfm.SetDrawCommand(vp.view_, vp.pro_);
-	pCBManager_->SetDrawCommand(cbMtrl_);
+	mtrl_.SetDrawCommand(tex);
+	vtIdx_.Draw();
+}
+
+void Model::Draw(Transform& trfm, ViewProjection& vp)
+{
+	trfm.SetDrawCommand(vp.view_, vp.pro_);
+	mtrl_.SetDrawCommand();
 	vtIdx_.Draw();
 }

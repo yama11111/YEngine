@@ -2,21 +2,16 @@
 #include "Calc.h"
 
 using Game::Transform;
-using DX::ConstBufferManager;
+using DX::ConstBuffer;
 using Math::Mat4;
 using Math::Vec4;
 
-ConstBufferManager* Transform::pCBManager_ = nullptr;
-
-void Transform::StaticInitialize(ConstBufferManager* pCBManager)
-{
-	pCBManager_ = pCBManager;
-}
-
 Transform::Transform()
 {
-	pCBManager_->CreateCB(cbTrfm_);
-	pCBManager_->CreateCB(cbMtrl_);
+	cbTrfm_.Create();
+	cbTrfm_.map_->mat_ = Math::Mat4::Identity();
+	cbColor_.Create();
+	cbColor_.map_->color_ = Math::Vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	Initialize({});
 }
 
@@ -26,7 +21,8 @@ void Transform::Initialize(const Status& state, const Vec4& color)
 	rota_ = state.rota_;
 	scale_ = state.scale_;
 	Update();
-	SetColor(color);
+
+	color_ = color;
 }
 
 void Transform::Update()
@@ -53,18 +49,14 @@ void Transform::UniqueUpdate(const Status& state)
 void Transform::SetDrawCommand(const Math::Mat4& view, const Math::Mat4& projection)
 {
 	cbTrfm_.map_->mat_ = m_ * view * projection;
+	cbTrfm_.SetDrawCommand();
 
-	pCBManager_->SetDrawCommand(cbTrfm_);
-	pCBManager_->SetDrawCommand(cbMtrl_);
+	cbColor_.map_->color_ = color_;
+	cbColor_.SetDrawCommand();
 }
 
 void Transform::SetParent(Mat4* parent)
 {
 	if (parent == nullptr) return;
 	this->parent_ = parent;
-}
-
-void Transform::SetColor(const Math::Vec4& color)
-{
-	cbMtrl_.map_->color_ = color;
 }

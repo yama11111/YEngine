@@ -150,7 +150,7 @@
     <ClCompile Include="Base\YWindowsApp.cpp">
       <Filter>Base\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Base\DX\ConstBufferManager.cpp">
+    <ClCompile Include="Base\DX\ConstBuffer.cpp">
       <Filter>Base\cpp\DX</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\GPUResource.cpp">
@@ -213,6 +213,9 @@
     <ClCompile Include="Drawer\EnemyDrawer.cpp">
       <Filter>ソース ファイル\Drawer</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Material.cpp">
+      <Filter>ソース ファイル\Game\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -269,7 +272,7 @@
     <ClInclude Include="Base\YWindowsApp.h">
       <Filter>Base\h</Filter>
     </ClInclude>
-    <ClInclude Include="Base\DX\ConstBufferManager.h">
+    <ClInclude Include="Base\DX\ConstBuffer.h">
       <Filter>Base\h\DX</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\GPUResource.h">
