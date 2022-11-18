@@ -67,6 +67,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	GameScene::StaticInitialize(&texM, &audioM);
 	GameScene game;
+	game.Load();
 	game.Initialize();
 
 	// ÉQÅ[ÉÄÉãÅ[Év

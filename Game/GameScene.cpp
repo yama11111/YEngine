@@ -38,25 +38,48 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {}
 
-void GameScene::Initialize()
+void GameScene::Load()
 {
+#pragma region テクスチャ
+
 	plainT_ = pTexManager_->Load("white1x1.png", false);
 
 	playerT_ = pTexManager_->Load("player.png", false);
 	enemyT_ = pTexManager_->Load("enemy.png", false);
-	
+
+#pragma endregion
+
+#pragma region オーディオ
+
 	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
+
+#pragma endregion
+
+#pragma region モデル
 
 	cubeM_.reset(Model::Create());
 	//loadM_.reset(Model::Load("triangleMat"));
 	loadM_.reset(Model::Load("skydome"));
 
+#pragma endregion
+
+#pragma region スプライト
+
 	quadS_.reset(new Sprite({ 64,64 }));
+
+#pragma endregion
+
+#pragma region 静的初期化
 
 	// モデルとテクスチャ挿入
 	PlayerDrawer::StaticInitialize(cubeM_.get(), plainT_);
 	EnemyDrawer::StaticInitialize(cubeM_.get(), plainT_);
 
+#pragma endregion
+}
+
+void GameScene::Initialize()
+{
 	// 床初期化
 	const size_t s = 8;
 	for (size_t i = 0; i < s; i++)
@@ -75,6 +98,7 @@ void GameScene::Initialize()
 			};
 			float c = 1.0f - (((i + j) % 2 == 0) * 0.5f);
 			f.color_= { c,c,c,1.0f };
+			f.Update();
 			fs.push_back(f);
 		}
 		floor.push_back(fs);
@@ -144,15 +168,6 @@ void GameScene::Update()
 	// アップデート
 	enemy_.Update();
 
-	// ----- floor ----- //
-	for (size_t i = 0; i < floor.size(); i++)
-	{
-		for (size_t j = 0; j < floor[i].size(); j++)
-		{
-			floor[i][j].Update();
-		}
-	}
-
 	vp_.Update();
 
 	//if (keys_->IsTrigger(DIK_SPACE))
@@ -193,7 +208,7 @@ void GameScene::Draw()
 	Sprite::StaticSetDrawCommand();
 	// ----- 前景スプライト ----- //
 
-
+	quadS_->Draw(sprite_, plainT_);
 	
 	// -------------------------- //
 }

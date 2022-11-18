@@ -44,6 +44,8 @@ namespace Game
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;
 	public:
+		// 読み込み
+		void Load();
 		// 初期化
 		void Initialize();
 		// 更新
