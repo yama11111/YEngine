@@ -20,10 +20,14 @@ namespace Game
 		// 無地画像
 		UINT plainT_ = 0;
 
+		UINT playerT_ = 0;
+		UINT enemyT_ = 0;
+
 		UINT aA_ = 0;
 
 		// model
 		std::unique_ptr<Model> cubeM_ = nullptr;
+		std::unique_ptr<Model> model_ = nullptr;
 
 		// sprite
 		std::unique_ptr<Sprite> quadS_ = nullptr;
@@ -32,12 +36,9 @@ namespace Game
 		std::vector<std::vector<Transform>> floor;
 
 		// Transform
+		Transform trfm_;
 		Transform player_;
 		Transform enemy_;
-
-		// drawer
-		PlayerDrawer pd_;
-		EnemyDrawer ed_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;

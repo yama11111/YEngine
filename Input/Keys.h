@@ -34,20 +34,27 @@ namespace Input
 		// 離した瞬間
 		bool IsRelease(const int key);
 	public:
+		// 移動キー基準
+		enum class MoveStandard
+		{
+			WASD,
+			Arrow,
+		};
+	public:
 		// 左
-		bool IsLeft();
+		bool IsLeft(const MoveStandard& keyS);
 		// 右
-		bool IsRight();
+		bool IsRight(const MoveStandard& keyS);
 		// 上
-		bool IsUp();
+		bool IsUp(const MoveStandard& keyS);
 		// 下
-		bool IsUnder();
+		bool IsUnder(const MoveStandard& keyS);
 		// 左(-1) 右(+1)
-		int Horizontal();
+		int Horizontal(const MoveStandard& keyS);
 		// 上(-1) 下(+1)
-		int Vertical();
+		int Vertical(const MoveStandard& keyS);
 		// 移動しているか
-		bool IsMove();
+		bool IsMove(const MoveStandard& keyS);
 	public:
 		static Keys* GetInstance();
 	private:
