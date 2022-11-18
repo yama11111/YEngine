@@ -27,7 +27,7 @@ namespace Game
 
 		// model
 		std::unique_ptr<Model> cubeM_ = nullptr;
-		std::unique_ptr<Model> model_ = nullptr;
+		std::unique_ptr<Model> loadM_ = nullptr;
 
 		// sprite
 		std::unique_ptr<Sprite> quadS_ = nullptr;
@@ -36,7 +36,8 @@ namespace Game
 		std::vector<std::vector<Transform>> floor;
 
 		// Transform
-		Transform trfm_;
+		Transform sprite_;
+		Transform model_;
 		Transform player_;
 		Transform enemy_;
 

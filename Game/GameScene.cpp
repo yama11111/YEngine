@@ -48,7 +48,7 @@ void GameScene::Initialize()
 	//aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
 	cubeM_.reset(Model::Create());
-	model_.reset(Model::Load("Resources/Models/triangleTex.obj"));
+	loadM_.reset(Model::Load("Resources/Models/triangleTex.obj"));
 
 	quadS_.reset(new Sprite({ 64,64 }));
 
@@ -79,7 +79,8 @@ void GameScene::Initialize()
 		floor.push_back(fs);
 	}
 
-	trfm_.Initialize({ {2,2,0} });
+	sprite_.Initialize({ });
+	model_.Initialize({ {2,2,0} });
 
 	// プレイヤー初期化
 	player_.Initialize({ {0,1.0f,-10} });
@@ -159,7 +160,7 @@ void GameScene::Draw()
 	Sprite::StaticSetDrawCommand();
 	// ----- 背景スプライト ----- //
 
-
+	quadS_->Draw(sprite_, plainT_);
 
 	// -------------------------- //
 	Model::StaticSetDrawCommand();
@@ -174,7 +175,7 @@ void GameScene::Draw()
 		}
 	}
 
-	model_->Draw(trfm_, vp_, playerT_);
+	loadM_->Draw(model_, vp_, playerT_);
 	
 	// player
 	cubeM_->Draw(player_, vp_, playerT_);

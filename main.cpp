@@ -41,8 +41,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	ConstBufferManager::StaticInitialize(pCmdList);
 	ConstBufferManager cbM;
-	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
 	cbM.SetRootParameterIndexTransform(rpM.PushBackCBV());
+	cbM.SetRootParameterIndexMaterial(rpM.PushBackCBV());
 
 	SRVHeap::StaticInitialize(pDev, pCmdList);
 	SRVHeap srvHeap;

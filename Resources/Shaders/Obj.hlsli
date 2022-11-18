@@ -7,7 +7,10 @@ cbuffer cbuff0 : register(b0)
 // マテリアル
 cbuffer cbuff1 : register(b1)
 {
-	float4 color; // 色(RGBA)
+	float3 mAmbient  : packoffset(c0);	 // アンビエント係数
+	float3 mDiffuse  : packoffset(c1);	 // ディフューズ係数
+	float3 mSpecular : packoffset(c2);	 // スペキュラー係数
+	float  mAlpha    : packoffset(c2.w); // アルファ
 }
 
 // 頂点シェーダーの出力構造体

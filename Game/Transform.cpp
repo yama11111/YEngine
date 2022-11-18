@@ -15,8 +15,8 @@ void Transform::StaticInitialize(ConstBufferManager* pCBManager)
 
 Transform::Transform()
 {
-	pCBManager_->CreateCB(cbMtrl_);
 	pCBManager_->CreateCB(cbTrfm_);
+	pCBManager_->CreateCB(cbMtrl_);
 	Initialize({});
 }
 
