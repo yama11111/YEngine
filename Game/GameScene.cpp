@@ -48,7 +48,8 @@ void GameScene::Initialize()
 	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
 	cubeM_.reset(Model::Create());
-	loadM_.reset(Model::Load("triangleMat"));
+	//loadM_.reset(Model::Load("triangleMat"));
+	loadM_.reset(Model::Load("skydome"));
 
 	quadS_.reset(new Sprite({ 64,64 }));
 
@@ -80,7 +81,7 @@ void GameScene::Initialize()
 	}
 
 	sprite_.Initialize({ });
-	model_.Initialize({ {2,2,0} });
+	model_.Initialize({ {0,0,0}, {}, {200,200,200} });
 
 	// ƒvƒŒƒCƒ„[‰Šú‰»
 	player_.Initialize({ {0,1.0f,-10} });
