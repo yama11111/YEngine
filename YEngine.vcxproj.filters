@@ -94,6 +94,12 @@
     <Filter Include="リソース ファイル\2D">
       <UniqueIdentifier>{624c73ed-8d9c-41b8-b975-672f5fd10eee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Scene">
+      <UniqueIdentifier>{f950a6a7-ea34-48ee-8f54-44ceb261f88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game\Scene">
+      <UniqueIdentifier>{38633493-b261-4134-996c-97c54afb52e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -215,6 +221,12 @@
     </ClCompile>
     <ClCompile Include="Game\Material.cpp">
       <Filter>ソース ファイル\Game\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneChanger.cpp">
+      <Filter>ソース ファイル\Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>ソース ファイル\Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +352,15 @@
     </ClInclude>
     <ClInclude Include="Game\Material.h">
       <Filter>ヘッダー ファイル\Game\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneChangeFrame.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneChanger.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>ヘッダー ファイル\Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

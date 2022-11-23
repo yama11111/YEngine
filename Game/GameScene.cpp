@@ -66,6 +66,7 @@ void GameScene::Load()
 #pragma region スプライト
 
 	quadS_.reset(new Sprite({ 64,64 }));
+	sceneS_.reset(new Sprite(WIN_SIZE));
 
 #pragma endregion
 
@@ -118,6 +119,8 @@ void GameScene::Initialize()
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
 	vp_.eye_ = { 0,5,-20 };
+
+	sceneM_.Initialize({sceneS_.get(), plainT_});
 }
 
 void GameScene::Update()
@@ -174,6 +177,8 @@ void GameScene::Update()
 	//{
 	//	pAudioManager_->Play(aA_);
 	//}
+	if (keys_->IsTrigger(DIK_1))sceneM_.Change(Scene::PLAY);
+	sceneM_.Update();
 }
 
 void GameScene::Draw()
@@ -209,6 +214,7 @@ void GameScene::Draw()
 	// ----- 前景スプライト ----- //
 
 	quadS_->Draw(sprite_, plainT_);
+	sceneM_.Draw();
 	
 	// -------------------------- //
 }

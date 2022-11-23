@@ -9,6 +9,7 @@
 
 #include "PlayerDrawer.h"
 #include "EnemyDrawer.h"
+#include "SceneManager.h"
 
 namespace Game
 {
@@ -31,6 +32,7 @@ namespace Game
 
 		// sprite
 		std::unique_ptr<Sprite> quadS_ = nullptr;
+		std::unique_ptr<Sprite> sceneS_ = nullptr;
 
 		// ----- オブジェクト ----- //
 		std::vector<std::vector<Transform>> floor;
@@ -43,6 +45,8 @@ namespace Game
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;
+
+		SceneManager sceneM_;
 	public:
 		// 読み込み
 		void Load();
