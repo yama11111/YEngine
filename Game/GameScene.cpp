@@ -1,5 +1,6 @@
 #include "GameScene.h"
-#include "Calc.h"
+#include "YMath.h"
+#include "CalcTransform.h"
 #include "Def.h"
 #include <cassert>
 
@@ -59,36 +60,37 @@ void GameScene::Load()
 
 	cubeM_.reset(Model::Create());
 	//loadM_.reset(Model::Load("triangleMat"));
-	loadM_.reset(Model::Load("skydome"));
+	skydomeM_.reset(Model::Load("skydome"));
 
 #pragma endregion
 
 #pragma region スプライト
 
 	quadS_.reset(new Sprite({ 64,64 }));
-	sceneS_.reset(new Sprite(WIN_SIZE));
+	curtenS_.reset(new Sprite(WIN_SIZE));
 
 #pragma endregion
 
 #pragma region 静的初期化
 
-	// モデルとテクスチャ挿入
-	PlayerDrawer::StaticInitialize(cubeM_.get(), plainT_);
-	EnemyDrawer::StaticInitialize(cubeM_.get(), plainT_);
+	Transition::Blackout::StaticInitialize({ curtenS_.get(), plainT_ });
 
 #pragma endregion
 }
 
 void GameScene::Initialize()
 {
+	// 乱数初期化
+	Srand();
+
 	// 床初期化
 	const size_t s = 8;
 	for (size_t i = 0; i < s; i++)
 	{
-		std::vector<Transform> fs;
+		std::vector<Object> fs;
 		for (size_t j = 0; j < s; j++)
 		{
-			Transform f;
+			Object f;
 			f.Initialize({});
 			f.scale_ = { 20,1,20 };
 			f.pos_ =
@@ -106,7 +108,6 @@ void GameScene::Initialize()
 	}
 
 	sprite_.Initialize({ });
-	model_.Initialize({ {0,0,0}, {}, {200,200,200} });
 
 	// プレイヤー初期化
 	player_.Initialize({ {0,1.0f,-10} });
@@ -116,11 +117,13 @@ void GameScene::Initialize()
 	enemy_.Initialize({ {0,1.0f,10} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
 
+	skydome_.Initialize(skydomeM_.get());
+
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
 	vp_.eye_ = { 0,5,-20 };
 
-	sceneM_.Initialize({sceneS_.get(), plainT_});
+	sceneMan_.Initialize();
 }
 
 void GameScene::Update()
@@ -171,14 +174,17 @@ void GameScene::Update()
 	// アップデート
 	enemy_.Update();
 
+	skydome_.Update();
+
 	vp_.Update();
 
 	//if (keys_->IsTrigger(DIK_SPACE))
 	//{
 	//	pAudioManager_->Play(aA_);
 	//}
-	if (keys_->IsTrigger(DIK_1))sceneM_.Change(Scene::PLAY);
-	sceneM_.Update();
+	if (keys_->IsTrigger(DIK_1))sceneMan_.Change(Scene::PLAY);
+
+	sceneMan_.Update();
 }
 
 void GameScene::Draw()
@@ -193,6 +199,8 @@ void GameScene::Draw()
 	Model::StaticSetDrawCommand();
 	// --------- モデル --------- //
 
+	skydome_.Draw(vp_);
+
 	// floor
 	for (size_t i = 0; i < floor.size(); i++)
 	{
@@ -201,8 +209,6 @@ void GameScene::Draw()
 			cubeM_->Draw(floor[i][j], vp_, plainT_);
 		}
 	}
-
-	loadM_->Draw(model_, vp_);
 	
 	// player
 	cubeM_->Draw(player_, vp_, playerT_);
@@ -214,7 +220,7 @@ void GameScene::Draw()
 	// ----- 前景スプライト ----- //
 
 	quadS_->Draw(sprite_, plainT_);
-	sceneM_.Draw();
+	sceneMan_.Draw();
 	
 	// -------------------------- //
 }

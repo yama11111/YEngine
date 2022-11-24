@@ -1,4 +1,4 @@
-#include "Calc.h"
+#include "CalcTransform.h"
 #include "DirectXMath.h"
 #include "Def.h"
 #include <cmath>
@@ -197,17 +197,6 @@ Vec3 Math::AdjustAngle(const Vec3& velocity)
 	Vec3 v = { velocity.x_, 0.0f, velocity.z_ };
 	float xz = v.Length();
 	result.x_ = std::atan2(-velocity.y_, xz);
-	return result;
-}
-
-Vec4 Math::GetColor(const Vec4& color)
-{
-	Vec4 result = color;
-	result.r_ /= 255.0f;
-	result.g_ /= 255.0f;
-	result.b_ /= 255.0f;
-	result.a_ /= 255.0f;
-
 	return result;
 }
 

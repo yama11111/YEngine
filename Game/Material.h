@@ -5,7 +5,7 @@
 
 namespace Game
 {
-	struct Material
+	class Material
 	{
 	public:
 		std::string name_; // ƒ}ƒeƒŠƒAƒ‹–¼

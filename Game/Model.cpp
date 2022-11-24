@@ -239,16 +239,16 @@ Model* Model::Load(const std::string& modelName)
 	return instance;
 }
 
-void Model::Draw(Transform& trfm, ViewProjection& vp, const UINT tex)
+void Model::Draw(Object& obj, ViewProjection& vp, const UINT tex)
 {
-	trfm.SetDrawCommand(vp.view_, vp.pro_);
+	obj.SetDrawCommand(vp.view_, vp.pro_);
 	mtrl_.SetDrawCommand(tex);
 	vtIdx_.Draw();
 }
 
-void Model::Draw(Transform& trfm, ViewProjection& vp)
+void Model::Draw(Object& obj, ViewProjection& vp)
 {
-	trfm.SetDrawCommand(vp.view_, vp.pro_);
+	obj.SetDrawCommand(vp.view_, vp.pro_);
 	mtrl_.SetDrawCommand();
 	vtIdx_.Draw();
 }

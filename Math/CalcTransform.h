@@ -49,9 +49,6 @@ namespace Math
 	// Šp“x’²®
 	Vec3 AdjustAngle(const Vec3& velocity);
 	
-	// F•ÏŠ·((0`255)¨(0.0`1.0))
-	Vec4 GetColor(const Vec4& color);
-	
 	// ƒAƒ^ƒŠ”»’è(ü~‹…)
 	bool CollRaySphere(
 		const Vec3& ray, const Vec3& velocity,

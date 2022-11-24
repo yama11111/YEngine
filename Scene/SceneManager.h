@@ -1,10 +1,10 @@
 #pragma once
-#include "SceneChanger.h"
+#include "Blackout.h"
 
 enum class Scene
 {
 	TITLE,
-	MOVIE,
+	TUTORIAL,
 	PLAY,
 	PAUSE,
 	CLEAR,
@@ -15,11 +15,11 @@ class SceneManager
 {
 private:
 	Scene scene_ = Scene::TITLE;
-	Scene next_ = Scene::MOVIE;
+	Scene next_ = Scene::TUTORIAL;
 	bool isChange_ = false;
-	SceneChanger sc_;
+	Transition::Blackout bo_;
 public:
-	void Initialize(const SceneChanger::InitStatus& state);
+	void Initialize();
 	void Reset();
 	void Update();
 	void Draw();
@@ -27,7 +27,7 @@ public:
 	void Change(const Scene& scene);
 	Scene GetScene() { return scene_; }
 	bool IsChange() { return isChange_; }
-	bool IsChangeMoment() { return sc_.IsChangeMoment(); }
+	bool IsChangeMoment() { return bo_.IsChangeMoment(); }
 private:
 	void Activate();
 	void UpdateChange();

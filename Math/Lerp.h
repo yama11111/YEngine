@@ -24,9 +24,9 @@ namespace Math
 	{
 	private:
 		// 初期値
-		T start_;
+		T start_ = T();
 		// 最終値
-		T end_;
+		T end_ = T();
 		// 緩急(指数)
 		float power_ = 0.0f;
 	public:

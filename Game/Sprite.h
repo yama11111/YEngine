@@ -1,7 +1,7 @@
 #pragma once
-#include "Transform.h"
 #include "Vertices.h"
 #include "PipelineSet.h"
+#include "Object.h"
 #include "TextureManager.h"
 
 namespace Game
@@ -18,7 +18,7 @@ namespace Game
 		// コンストラクタ
 		Sprite(const Math::Vec2& size);
 		// 描画
-		void Draw(Transform& trfm, const UINT tex);
+		void Draw(Object& obj, const UINT tex);
 	private:
 		// 静的射影変換行列(平行投影)
 		static Math::Mat4 projection_;

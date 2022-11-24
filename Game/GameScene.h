@@ -7,46 +7,60 @@
 #include "AudioManager.h"
 #include <memory>
 
-#include "PlayerDrawer.h"
-#include "EnemyDrawer.h"
+#include "Skydome.h"
 #include "SceneManager.h"
+#include "CameraManager.h"
 
 namespace Game
 {
 	class GameScene
 	{
 	public:
-		// ----- リソース ----- //
-
+		// ----- テクスチャ ----- //
+		
 		// 無地画像
 		UINT plainT_ = 0;
-
+		// プレイヤー画像
 		UINT playerT_ = 0;
+		// エネミー画像
 		UINT enemyT_ = 0;
 
+		// ----- オーディオ ----- //
+
+		// 
 		UINT aA_ = 0;
 
-		// model
+		// ----- モデル ----- //
+		
+		// 立方体モデル
 		std::unique_ptr<Model> cubeM_ = nullptr;
-		std::unique_ptr<Model> loadM_ = nullptr;
+		// 天球モデル
+		std::unique_ptr<Model> skydomeM_ = nullptr;
 
+		// ----- スプライト ----- //
+		
 		// sprite
 		std::unique_ptr<Sprite> quadS_ = nullptr;
-		std::unique_ptr<Sprite> sceneS_ = nullptr;
+		// 
+		std::unique_ptr<Sprite> curtenS_ = nullptr;
 
 		// ----- オブジェクト ----- //
-		std::vector<std::vector<Transform>> floor;
+		
+		// 床
+		std::vector<std::vector<Object>> floor;
 
-		// Transform
-		Transform sprite_;
-		Transform model_;
-		Transform player_;
-		Transform enemy_;
+		// 
+		Object sprite_;
+		Object player_;
+		Object enemy_;
+
+		Skydome skydome_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;
 
-		SceneManager sceneM_;
+		// シーンマネージャー
+		SceneManager sceneMan_;
 	public:
 		// 読み込み
 		void Load();

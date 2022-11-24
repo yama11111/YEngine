@@ -5,7 +5,7 @@
 
 namespace Game
 {
-	class Transform
+	class Object
 	{
 	public:
 		// 行列
@@ -47,6 +47,6 @@ namespace Game
 		void SetParent(Math::Mat4* parent);
 	public:
 		// コンストラクタ
-		Transform();
+		Object();
 	};
 }

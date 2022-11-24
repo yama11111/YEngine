@@ -1,7 +1,7 @@
 #pragma once
 
-namespace Light
+namespace BlackoutFlame
 {
-	const int ChangeFrame = 40;
-	const int LoadFrame = 20;
+	const int Change = 40;
+	const int Load = 20;
 }

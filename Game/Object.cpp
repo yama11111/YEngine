@@ -1,12 +1,12 @@
-#include "Transform.h"
-#include "Calc.h"
+#include "Object.h"
+#include "CalcTransform.h"
 
-using Game::Transform;
+using Game::Object;
 using DX::ConstBuffer;
 using Math::Mat4;
 using Math::Vec4;
 
-Transform::Transform()
+Object::Object()
 {
 	cbTrfm_.Create();
 	cbTrfm_.map_->mat_ = Math::Mat4::Identity();
@@ -15,7 +15,7 @@ Transform::Transform()
 	Initialize({});
 }
 
-void Transform::Initialize(const Status& state, const Vec4& color)
+void Object::Initialize(const Status& state, const Vec4& color)
 {
 	pos_ = state.pos_;
 	rota_ = state.rota_;
@@ -25,7 +25,7 @@ void Transform::Initialize(const Status& state, const Vec4& color)
 	color_ = color;
 }
 
-void Transform::Update()
+void Object::Update()
 {
 	// ƒAƒtƒBƒ“•ÏŠ·
 	m_ = Mat4::Identity();
@@ -33,7 +33,7 @@ void Transform::Update()
 	if (parent_) { m_ *= *parent_; }
 }
 
-void Transform::UniqueUpdate(const Status& state)
+void Object::UniqueUpdate(const Status& state)
 {
 	Status s = { pos_,rota_,scale_ };
 	s.pos_ += state.pos_;
@@ -46,7 +46,7 @@ void Transform::UniqueUpdate(const Status& state)
 	if (parent_) { m_ *= *parent_; }
 }
 
-void Transform::SetDrawCommand(const Math::Mat4& view, const Math::Mat4& projection)
+void Object::SetDrawCommand(const Math::Mat4& view, const Math::Mat4& projection)
 {
 	cbTrfm_.map_->mat_ = m_ * view * projection;
 	cbTrfm_.SetDrawCommand();
@@ -55,7 +55,7 @@ void Transform::SetDrawCommand(const Math::Mat4& view, const Math::Mat4& project
 	cbColor_.SetDrawCommand();
 }
 
-void Transform::SetParent(Mat4* parent)
+void Object::SetParent(Mat4* parent)
 {
 	if (parent == nullptr) return;
 	this->parent_ = parent;

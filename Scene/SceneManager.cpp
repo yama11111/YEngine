@@ -1,17 +1,16 @@
 #include "SceneManager.h"
 
-void SceneManager::Initialize(const SceneChanger::InitStatus& state)
+void SceneManager::Initialize()
 {
-	sc_.Initialize(state);
 	Reset();
 }
 
 void SceneManager::Reset()
 {
 	scene_ = Scene::TITLE;
-	next_ = Scene::MOVIE;
+	next_ = Scene::TUTORIAL;
 	isChange_ = false;
-	sc_.Reset();
+	bo_.Initialize();
 }
 
 void SceneManager::Change(const Scene& scene)
@@ -25,7 +24,7 @@ void SceneManager::Activate()
 {
 	if (next_ == Scene::PAUSE) {}
 
-	sc_.Activate();
+	bo_.Activate();
 }
 
 void SceneManager::UpdateChange()
@@ -33,7 +32,7 @@ void SceneManager::UpdateChange()
 	if (scene_ == next_ || isChange_ == false) { return; }
 	if (next_ == Scene::PAUSE) {}
 
-	if (sc_.IsChangeMoment())
+	if (bo_.IsChangeMoment())
 	{
 		scene_ = next_;
 		isChange_ = false;
@@ -42,11 +41,11 @@ void SceneManager::UpdateChange()
 
 void SceneManager::Update()
 {
-	sc_.Update();
+	bo_.Update();
 	UpdateChange();
 }
 
 void SceneManager::Draw()
 {
-	sc_.Draw();
+	bo_.Draw();
 }

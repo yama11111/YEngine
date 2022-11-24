@@ -1,5 +1,5 @@
 #include "Sprite.h"
-#include "Calc.h"
+#include "CalcTransform.h"
 #include <cassert>
 
 using Game::Sprite;
@@ -35,9 +35,9 @@ Sprite::Sprite(const Math::Vec2& size) :
 	);
 }
 
-void Sprite::Draw(Transform& trfm, const UINT tex)
+void Sprite::Draw(Object& obj, const UINT tex)
 {
-	trfm.SetDrawCommand(Math::Mat4::Identity(), projection_);
+	obj.SetDrawCommand(Math::Mat4::Identity(), projection_);
 	pTexManager_->SetDrawCommand(tex);
 	vt_.Draw();
 }

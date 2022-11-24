@@ -2,7 +2,7 @@
 #include "Vertices.h"
 #include "Material.h"
 #include "PipelineSet.h"
-#include "Transform.h"
+#include "Object.h"
 #include "ViewProjection.h"
 
 namespace Game
@@ -21,8 +21,8 @@ namespace Game
 		static Model* Load(const std::string& modelName);
 	public:
 		// 描画
-		void Draw(Transform& trfm, ViewProjection& vp, const UINT tex);
-		void Draw(Transform& trfm, ViewProjection& vp);
+		void Draw(Object& obj, ViewProjection& vp, const UINT tex);
+		void Draw(Object& obj, ViewProjection& vp);
 	private:
 		// コンストラクタ
 		Model() = default;
