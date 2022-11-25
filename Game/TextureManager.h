@@ -39,6 +39,8 @@ namespace Game
 	public:
 		// デスクリプターテーブル番号設定
 		void SetRootParameterIndex(UINT rpIndex) { rpIndex_ = rpIndex; }
+
+		ID3D12Resource* TextureBuffer(const UINT texIndex);
 	private:
 		// テクスチャ設定
 		void SetTexture(Texture& tex, D3D12_SHADER_RESOURCE_VIEW_DESC* srvDesc);

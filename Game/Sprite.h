@@ -11,8 +11,6 @@ namespace Game
 	private:
 		// 頂点データ
 		DX::Vertices<DX::SpriteVData> vt_;
-		// テクスチャ
-		UINT tex_ = -1;
 		// サイズ
 		Math::Vec2 size_;
 		// アンカーポイント
@@ -21,23 +19,39 @@ namespace Game
 		bool isFlipX_ = false;
 		// 上下反転
 		bool isFlipY_ = false;
+
+		// テクスチャ
+		UINT tex_ = UINT32_MAX;
+		// テクスチャ左上
+		Math::Vec2 texLeftTop_;
+		// テクスチャサイズ
+		Math::Vec2 texSize_;
+
 		// 非表示
 		bool isInvisible_ = false;
 	public:
 		// 設定用ステータス
 		struct Status
 		{
-			Math::Vec2 size; // サイズ
-			Math::Vec2 anchor = { 0.0f, 0.0f }; // アンカーポイント
-			bool isFlipX = false; // 左右反転
-			bool isFlipY = false; // 上下反転
+			Math::Vec2 size_; // サイズ
+			Math::Vec2 anchor_ = { 0.0f, 0.0f }; // アンカーポイント
+			bool isFlipX_ = false; // 左右反転
+			bool isFlipY_ = false; // 上下反転
+		};
+		// テクスチャ設定用ステータス
+		struct TexStatus
+		{
+			UINT index_ = UINT32_MAX; // テクスチャインデックス
+			Math::Vec2 leftTop_ = { 0.0f,0.0f }; // テクスチャ左上
+			Math::Vec2 size_ = { 0.0f,0.0f }; // テクスチャサイズ
 		};
 	public:
 		// 生成
-		static Sprite* Create(const Status& state, const UINT tex);
+		static Sprite* Create(const Status& state, const TexStatus& texState, const bool div = false);
 	public:
 		// 描画
 		void Draw(Object& obj, const UINT tex);
+		// 描画
 		void Draw(Object& obj);
 	public:
 		// サイズ設定
@@ -46,8 +60,14 @@ namespace Game
 		void SetAnchorPoint(const Math::Vec2& anchor);
 		// フリップ設定
 		void SetFrip(const bool isFlipX, const bool isFlipY);
+		// テクスチャ左上設定
+		void SetTextureLeftTop(const Math::Vec2& leftTop, const bool adjust = true);
+		// テクスチャサイズ設定
+		void SetTextureSize(const Math::Vec2& texSize);
+		// テクスチャ矩形設定
+		void SetTextureRectangle(const Math::Vec2& leftTop, const Math::Vec2& texSize);
 		// 全設定
-		void SetStatus(const Status& state);
+		void SetAllStatus(const Status& state, const TexStatus& texState, const bool div = false);
 		// 非表示設定
 		void SetInvisible(const bool isInvisible) { isInvisible_ = isInvisible; }
 	public:

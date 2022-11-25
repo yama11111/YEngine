@@ -39,45 +39,40 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {}
 
+#pragma region 読み込み
 void GameScene::Load()
 {
-#pragma region テクスチャ
+	// ----- テクスチャ ----- //
 
 	plainT_ = pTexManager_->Load("white1x1.png", false);
 
 	playerT_ = pTexManager_->Load("player.png", true);
 	enemyT_ = pTexManager_->Load("enemy.png", true);
 
-#pragma endregion
-
-#pragma region オーディオ
+	// ----- オーディオ ----- //
 
 	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
-#pragma endregion
-
-#pragma region モデル
+	// ----- モデル ----- //
 
 	cubeM_.reset(Model::Create());
 	//loadM_.reset(Model::Load("triangleMat"));
 	skydomeM_.reset(Model::Load("skydome"));
 
-#pragma endregion
+	// ----- スプライト ----- //
 
-#pragma region スプライト
+	quadS_.reset(Sprite::Create({ { 64,64 } }, { playerT_ }));
+	curtenS_.reset(Sprite::Create({ WIN_SIZE }, { plainT_ }));
 
-	quadS_.reset(Sprite::Create({ { 64,64 } }, playerT_));
-	curtenS_.reset(Sprite::Create({ WIN_SIZE }, plainT_));
-
-#pragma endregion
-
-#pragma region 静的初期化
+	// ----- 静的初期化 ----- //
 
 	Transition::Blackout::StaticInitialize({ curtenS_.get() });
 
-#pragma endregion
 }
+#pragma endregion
 
+
+#pragma region 初期化
 void GameScene::Initialize()
 {
 	// 乱数初期化
@@ -125,7 +120,10 @@ void GameScene::Initialize()
 
 	sceneMan_.Initialize();
 }
+#pragma endregion
 
+
+#pragma region 更新
 void GameScene::Update()
 {
 	// リセット
@@ -187,10 +185,15 @@ void GameScene::Update()
 	//	pAudioManager_->Play(aA_);
 	//}
 	if (keys_->IsTrigger(DIK_1)){ sceneMan_.Change(Scene::PLAY); }
+	if (keys_->IsTrigger(DIK_8)) { quadS_->SetTextureLeftTop({ 64,64 }); }
+	if (keys_->IsTrigger(DIK_9)) { quadS_->SetTextureSize({ 60,60 }); }
 
 	sceneMan_.Update();
 }
+#pragma endregion
 
+
+#pragma region 描画
 void GameScene::DrawBackSprites()
 {
 	if (sceneMan_.GetScene() == Scene::TITLE)
@@ -318,3 +321,4 @@ void GameScene::Draw()
 	
 	// -------------------------- //
 }
+#pragma endregion

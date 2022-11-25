@@ -14,7 +14,7 @@ namespace Game
 		Math::Vec3 specular_; // スペキュラー影響度
 		float alpha_; // アルファ値
 		std::string textureFileName_; // テクスチャファイル名
-		UINT texIndex_ = 0;
+		UINT texIndex_ = UINT32_MAX;
 	private:
 		// 定数バッファ(マテリアル2)
 		DX::ConstBuffer<DX::MaterialCBData> cbMtrl_;
