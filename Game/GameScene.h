@@ -70,6 +70,13 @@ namespace Game
 		void Update();
 		// 描画
 		void Draw();
+	private:
+		// 背景スプライト描画
+		void DrawBackSprites();
+		// モデル描画
+		void DrawModels();
+		// 前景スプライト描画
+		void DrawFrontSprites();
 	public:
 		// コンストラクタ
 		GameScene();

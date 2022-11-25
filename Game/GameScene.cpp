@@ -137,21 +137,35 @@ void GameScene::Update()
 		enemy_.rota_  = AdjustAngle(Vec3(0, 0, -1));
 	}
 
+	if (sceneMan_.GetScene() == Scene::TITLE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PLAY)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PAUSE) 
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::CLEAR) 
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::OVER) 
+	{
+
+	}
+
 	// ----- Player ----- //
 	// プレイヤー移動
 	player_.pos_.x_ += keys_->Horizontal(Keys::MoveStandard::WASD) * 0.2f;
 	player_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 0.2f;
-
-	// プレイヤー移動時処理
-	if (keys_->IsMove(Keys::MoveStandard::WASD))
-	{
-		// 角度調整
-		Vec3 vel = Vec3(
-			static_cast<float>(keys_->Horizontal(Keys::MoveStandard::WASD)),
-			0,
-			static_cast<float>(-keys_->Vertical(Keys::MoveStandard::WASD))).Normalized();
-		player_.rota_ = AdjustAngle(vel);
-	}
 
 	// アップデート
 	player_.Update();
@@ -160,16 +174,6 @@ void GameScene::Update()
 	// エネミー移動
 	enemy_.pos_.x_ += keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
 	enemy_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
-
-	// エネミー移動時処理
-	if (keys_->IsMove(Keys::MoveStandard::Arrow))
-	{
-		Vec3 vel = Vec3(
-			static_cast<float>(keys_->Horizontal(Keys::MoveStandard::Arrow)),
-			0,
-			static_cast<float>(-keys_->Vertical(Keys::MoveStandard::Arrow))).Normalized();
-		enemy_.rota_ = AdjustAngle(vel);
-	}
 
 	// アップデート
 	enemy_.Update();
@@ -183,26 +187,66 @@ void GameScene::Update()
 	//	pAudioManager_->Play(aA_);
 	//}
 	if (keys_->IsTrigger(DIK_1)){ sceneMan_.Change(Scene::PLAY); }
-	if (keys_->IsTrigger(DIK_5)) { quadS_->SetSize({ 128,128 }); }
-	if (keys_->IsTrigger(DIK_6)) { quadS_->SetAnchorPoint({ 0.5f,0.5f }); }
-	if (keys_->IsTrigger(DIK_7)) { quadS_->SetFrip(true, true); }
-	if (keys_->IsTrigger(DIK_8)) { quadS_->SetInvisible(true); }
-	if (keys_->IsTrigger(DIK_9)) { quadS_->SetInvisible(false); }
 
 	sceneMan_.Update();
 }
 
-void GameScene::Draw()
+void GameScene::DrawBackSprites()
 {
-	// -------------------------- //
-	Sprite::StaticSetDrawCommand();
-	// ----- 背景スプライト ----- //
+	if (sceneMan_.GetScene() == Scene::TITLE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PLAY)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PAUSE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::CLEAR)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::OVER)
+	{
+
+	}
 
 	quadS_->Draw(sprite_);
+}
 
-	// -------------------------- //
-	Model::StaticSetDrawCommand();
-	// --------- モデル --------- //
+void GameScene::DrawModels()
+{
+	if (sceneMan_.GetScene() == Scene::TITLE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PLAY)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PAUSE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::CLEAR)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::OVER)
+	{
+
+	}
 
 	skydome_.Draw(vp_);
 
@@ -214,18 +258,63 @@ void GameScene::Draw()
 			cubeM_->Draw(floor[i][j], vp_);
 		}
 	}
-	
+
 	// player
 	cubeM_->Draw(player_, vp_, playerT_);
 	// enemy
 	cubeM_->Draw(enemy_, vp_, enemyT_);
+}
+
+void GameScene::DrawFrontSprites()
+{
+	if (sceneMan_.GetScene() == Scene::TITLE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PLAY)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PAUSE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::CLEAR)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::OVER)
+	{
+
+	}
+
+	quadS_->Draw(sprite_);
+	sceneMan_.Draw();
+}
+
+void GameScene::Draw()
+{
+	// -------------------------- //
+	Sprite::StaticSetDrawCommand();
+	// ----- 背景スプライト ----- //
+
+	DrawBackSprites();
+
+	// -------------------------- //
+	Model::StaticSetDrawCommand();
+	// --------- モデル --------- //
+
+	DrawModels();
 
 	// -------------------------- //
 	Sprite::StaticSetDrawCommand();
 	// ----- 前景スプライト ----- //
 
-	quadS_->Draw(sprite_);
-	sceneMan_.Draw();
+	DrawFrontSprites();
 	
 	// -------------------------- //
 }
