@@ -37,6 +37,9 @@ namespace Math
 		Vec3& operator-=(const Vec3& v);
 		Vec3& operator*=(float s);
 		Vec3& operator/=(float s);
+		// ”äŠr‰‰Zq
+		bool operator==(const Vec3& v);
+		bool operator!=(const Vec3& v);
 	};
 	// “ñ€‰‰Zq
 	inline Vec3 operator+(const Vec3& v1, const Vec3& v2)

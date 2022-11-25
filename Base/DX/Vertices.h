@@ -37,12 +37,14 @@ namespace DX
 		T* vertMap = nullptr;
 	public:
 		// 初期化
-		void Initialize(const std::vector<T> v, const bool mapping);
+		void Initialize(const std::vector<T> v);
+		// マップに転送
+		void TransferMap(const std::vector<T> v);
 		// 描画
 		virtual void Draw();
 	protected:
 		// バッファとビュー作成
-		void Create(const bool mapping);
+		void Create();
 	protected:
 		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* pCmdList_;
@@ -63,8 +65,7 @@ namespace DX
 		D3D12_INDEX_BUFFER_VIEW idxView_{};
 	public:
 		// 初期化
-		void Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx,
-			const bool normalized, const bool maping);
+		void Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, const bool normalized);
 		// 描画
 		void Draw() override;
 	private:

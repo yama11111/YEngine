@@ -50,10 +50,8 @@ namespace Transition
 		struct StaticInitStatus
 		{
 			Game::Sprite* curtenSprite;
-			UINT plainTex;
 		};
 	private:
-		static UINT plainT_;
 		static Game::Sprite* curtenS_;
 	public:
 		// Ã“I‰Šú‰»

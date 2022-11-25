@@ -15,7 +15,7 @@ namespace Game
 		// マテリアル
 		Material mtrl_;
 	public:
-		// 動的ポインタ(立方体)
+		// 生成(立方体)
 		static Model* Create();
 		// モデル読み込み
 		static Model* Load(const std::string& modelName);

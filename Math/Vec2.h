@@ -34,6 +34,9 @@ namespace Math
         Vec2& operator-=(const Vec2& v);
         Vec2& operator*=(float s);
         Vec2& operator/=(float s);
+        // ”äŠr‰‰Zq
+        bool operator==(const Vec2& v);
+        bool operator!=(const Vec2& v);
     };
     // “ñ€‰‰Zq
     inline Vec2 operator+(const Vec2& v1, const Vec2& v2)

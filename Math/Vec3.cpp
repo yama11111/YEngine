@@ -89,3 +89,13 @@ Vec3& Vec3::operator/=(float s)
 	z_ /= s;
 	return *this;
 }
+
+bool Vec3::operator==(const Vec3& v)
+{
+	return  (x_ == v.x_ && y_ == v.y_ && z_ == v.z_);
+}
+
+bool Vec3::operator!=(const Vec3& v)
+{
+	return !(x_ == v.x_ && y_ == v.y_ && z_ == v.z_);
+}

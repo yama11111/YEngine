@@ -3,13 +3,11 @@
 
 using Transition::Blackout;
 
-UINT Blackout::plainT_ = -1;
 Game::Sprite* Blackout::curtenS_ = nullptr;
 
 void Blackout::StaticInitialize(const StaticInitStatus& state)
 {
 	curtenS_ = state.curtenSprite;
-	plainT_ = state.plainTex;
 }
 
 void Blackout::Initialize()
@@ -93,5 +91,5 @@ void Blackout::Update()
 
 void Blackout::Draw()
 {
-	curtenS_->Draw(curten_, plainT_);
+	curtenS_->Draw(curten_);
 }

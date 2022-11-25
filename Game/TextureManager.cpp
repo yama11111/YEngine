@@ -168,6 +168,7 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 
 	// テクスチャ設定
 	SetTexture(tex, &srvDesc);
+	tex.fileName_ = texFileName;
 
 	// テクスチャを保存
 	texs_.push_back(tex);

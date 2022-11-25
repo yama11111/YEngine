@@ -45,8 +45,8 @@ void GameScene::Load()
 
 	plainT_ = pTexManager_->Load("white1x1.png", false);
 
-	playerT_ = pTexManager_->Load("player.png", false);
-	enemyT_ = pTexManager_->Load("enemy.png", false);
+	playerT_ = pTexManager_->Load("player.png", true);
+	enemyT_ = pTexManager_->Load("enemy.png", true);
 
 #pragma endregion
 
@@ -66,14 +66,14 @@ void GameScene::Load()
 
 #pragma region スプライト
 
-	quadS_.reset(new Sprite({ 64,64 }));
-	curtenS_.reset(new Sprite(WIN_SIZE));
+	quadS_.reset(Sprite::Create({ { 64,64 } }, playerT_));
+	curtenS_.reset(Sprite::Create({ WIN_SIZE }, plainT_));
 
 #pragma endregion
 
 #pragma region 静的初期化
 
-	Transition::Blackout::StaticInitialize({ curtenS_.get(), plainT_ });
+	Transition::Blackout::StaticInitialize({ curtenS_.get() });
 
 #pragma endregion
 }
@@ -132,9 +132,9 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_R))
 	{
 		// プレイヤー
-		player_.rota_ = AdjustAngle(Vec3(0,0,1));
+		player_.rota_ = AdjustAngle(Vec3(0, 0,  1));
 		// エネミー
-		enemy_.rota_ = AdjustAngle(Vec3(0,0,-1));
+		enemy_.rota_  = AdjustAngle(Vec3(0, 0, -1));
 	}
 
 	// ----- Player ----- //
@@ -182,7 +182,12 @@ void GameScene::Update()
 	//{
 	//	pAudioManager_->Play(aA_);
 	//}
-	if (keys_->IsTrigger(DIK_1))sceneMan_.Change(Scene::PLAY);
+	if (keys_->IsTrigger(DIK_1)){ sceneMan_.Change(Scene::PLAY); }
+	if (keys_->IsTrigger(DIK_5)) { quadS_->SetSize({ 128,128 }); }
+	if (keys_->IsTrigger(DIK_6)) { quadS_->SetAnchorPoint({ 0.5f,0.5f }); }
+	if (keys_->IsTrigger(DIK_7)) { quadS_->SetFrip(true, true); }
+	if (keys_->IsTrigger(DIK_8)) { quadS_->SetInvisible(true); }
+	if (keys_->IsTrigger(DIK_9)) { quadS_->SetInvisible(false); }
 
 	sceneMan_.Update();
 }
@@ -193,7 +198,7 @@ void GameScene::Draw()
 	Sprite::StaticSetDrawCommand();
 	// ----- 背景スプライト ----- //
 
-	quadS_->Draw(sprite_, plainT_);
+	quadS_->Draw(sprite_);
 
 	// -------------------------- //
 	Model::StaticSetDrawCommand();
@@ -206,7 +211,7 @@ void GameScene::Draw()
 	{
 		for (size_t j = 0; j < floor[i].size(); j++)
 		{
-			cubeM_->Draw(floor[i][j], vp_, plainT_);
+			cubeM_->Draw(floor[i][j], vp_);
 		}
 	}
 	
@@ -219,7 +224,7 @@ void GameScene::Draw()
 	Sprite::StaticSetDrawCommand();
 	// ----- 前景スプライト ----- //
 
-	quadS_->Draw(sprite_, plainT_);
+	quadS_->Draw(sprite_);
 	sceneMan_.Draw();
 	
 	// -------------------------- //

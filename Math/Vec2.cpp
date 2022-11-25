@@ -75,3 +75,13 @@ Vec2& Vec2::operator/=(float s)
 	y_ /= s;
 	return *this;
 }
+
+bool Vec2::operator==(const Vec2& v)
+{
+	return  (x_ == v.x_ && y_ == v.y_);
+}
+
+bool Vec2::operator!=(const Vec2& v)
+{
+	return !(x_ == v.x_ && y_ == v.y_);
+}

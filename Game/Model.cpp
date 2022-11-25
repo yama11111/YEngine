@@ -89,7 +89,7 @@ Model* Model::Create()
 		20, 23, 21, // ŽOŠpŒ`2‚Â–Ú
 	};
 
-	instance->vtIdx_.Initialize(v, i, true, false);
+	instance->vtIdx_.Initialize(v, i, true);
 
 	return instance;
 }
@@ -234,7 +234,7 @@ Model* Model::Load(const std::string& modelName)
 
 	file.close();
 
-	instance->vtIdx_.Initialize(v, i, false, false);
+	instance->vtIdx_.Initialize(v, i, false);
 
 	return instance;
 }

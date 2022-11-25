@@ -16,17 +16,28 @@ void Vertices<T>::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 }
 
 template <typename T>
-void Vertices<T>::Initialize(const std::vector<T> v, const bool mapping)
+void Vertices<T>::Initialize(const std::vector<T> v)
 {
 	// 頂点情報をコピー
 	v_ = v;
 
 	// バッファとビュー作成
-	Create(mapping);
+	Create();
 }
 
 template<typename T>
-void Vertices<T>::Create(const bool mapping)
+void Vertices<T>::TransferMap(const std::vector<T> v)
+{
+	// 頂点情報をクリア
+	v_.clear();
+	// 頂点情報をコピー
+	v_ = v;
+	// 全頂点に対して座標をコピー
+	for (int i = 0; i < v_.size(); i++) { vertMap[i] = v_[i]; }
+}
+
+template<typename T>
+void Vertices<T>::Create()
 {
 	// 頂点サイズ
 	UINT dataSize = static_cast <UINT> (sizeof(v_[0]) * v_.size());
@@ -50,13 +61,10 @@ void Vertices<T>::Create(const bool mapping)
 
 	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
 	Result(buffer_.Get()->Map(0, nullptr, (void**)&vertMap));
-	// 全頂点に対して
-	for (int i = 0; i < v_.size(); i++)
-	{
-		vertMap[i] = v_[i]; // 座標をコピー
-	}
+	// 全頂点に対して座標をコピー
+	for (int i = 0; i < v_.size(); i++) { vertMap[i] = v_[i]; }
 	// 繋がりを解除
-	if (!mapping) { buffer_.Get()->Unmap(0, nullptr); }
+	buffer_.Get()->Unmap(0, nullptr);
 
 	// 頂点バッファビューの作成
 	// GPU仮想アドレス
@@ -79,8 +87,7 @@ void Vertices<T>::Draw()
 template class Vertices<DX::SpriteVData>;
 template class Vertices<DX::ModelVData>;
 
-void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, 
-	const bool normalized, const bool mapping)
+void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, const bool normalized)
 {
 	// 頂点情報をコピー
 	v_ = v;
@@ -92,7 +99,7 @@ void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vecto
 
 	// ----- vertices ----- //
 
-	Create(mapping);
+	Create();
 
 	// ----- index ----- //
 
@@ -118,13 +125,10 @@ void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vecto
 	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
 	uint16_t* idxMap = nullptr; // 仮想メモリ
 	Result(idxBuffer_.Get()->Map(0, nullptr, (void**)&idxMap));
-	// 全インデックスに対して
-	for (int i = 0; i < idx_.size(); i++)
-	{
-		idxMap[i] = idx_[i];
-	}
+	// 全インデックスに対してインデックスをコピー
+	for (int i = 0; i < idx_.size(); i++) { idxMap[i] = idx_[i]; }
 	// 繋がりを解除
-	if (!mapping) { idxBuffer_.Get()->Unmap(0, nullptr); }
+	idxBuffer_.Get()->Unmap(0, nullptr);
 
 	// インデックスバッファビューの作成
 	// GPU仮想アドレス
