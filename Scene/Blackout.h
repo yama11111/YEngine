@@ -49,7 +49,7 @@ namespace Transition
 	public:
 		struct StaticInitStatus
 		{
-			Game::Sprite* curtenSprite;
+			Game::Sprite* curtenSprite_;
 		};
 	private:
 		static Game::Sprite* curtenS_;

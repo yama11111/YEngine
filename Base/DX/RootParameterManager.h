@@ -14,7 +14,7 @@ namespace DX
 		// CBVカウント用
 		UINT cbvIndex_ = 0;
 		// デスクリプタレンジの設定
-		D3D12_DESCRIPTOR_RANGE descriptorRange{};
+		D3D12_DESCRIPTOR_RANGE descriptorRange_{};
 	public:
 		// 定数バッファ挿入 (戻り値 : ルートパラメータ番号)
 		UINT PushBackCBV();

@@ -13,10 +13,10 @@ Mat4::Mat4()
 Mat4::Mat4(const InitState& mat) :
 	m()
 {
-	m[0][0] = mat.m00, m[0][1] = mat.m01, m[0][2] = mat.m02, m[0][3] = mat.m03;
-	m[1][0] = mat.m10, m[1][1] = mat.m11, m[1][2] = mat.m12, m[1][3] = mat.m13;
-	m[2][0] = mat.m20, m[2][1] = mat.m21, m[2][2] = mat.m22, m[2][3] = mat.m23;
-	m[3][0] = mat.m30, m[3][1] = mat.m31, m[3][2] = mat.m32, m[3][3] = mat.m33;
+	m[0][0] = mat.m00_, m[0][1] = mat.m01_, m[0][2] = mat.m02_, m[0][3] = mat.m03_;
+	m[1][0] = mat.m10_, m[1][1] = mat.m11_, m[1][2] = mat.m12_, m[1][3] = mat.m13_;
+	m[2][0] = mat.m20_, m[2][1] = mat.m21_, m[2][2] = mat.m22_, m[2][3] = mat.m23_;
+	m[3][0] = mat.m30_, m[3][1] = mat.m31_, m[3][2] = mat.m32_, m[3][3] = mat.m33_;
 }
 
 Mat4 Mat4::operator*(const Mat4& mat) const

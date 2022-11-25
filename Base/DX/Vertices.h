@@ -34,7 +34,7 @@ namespace DX
 		// 頂点バッファビュー
 		D3D12_VERTEX_BUFFER_VIEW view_{};
 		// 仮想メモリ
-		T* vertMap = nullptr;
+		T* vertMap_ = nullptr;
 	public:
 		// 初期化
 		void Initialize(const std::vector<T> v);

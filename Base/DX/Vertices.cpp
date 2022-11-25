@@ -33,7 +33,7 @@ void Vertices<T>::TransferMap(const std::vector<T> v)
 	// 頂点情報をコピー
 	v_ = v;
 	// 全頂点に対して座標をコピー
-	for (int i = 0; i < v_.size(); i++) { vertMap[i] = v_[i]; }
+	for (int i = 0; i < v_.size(); i++) { vertMap_[i] = v_[i]; }
 }
 
 template<typename T>
@@ -60,9 +60,9 @@ void Vertices<T>::Create()
 	buffer_.Create(state);
 
 	// GPU上のバッファに対応した仮想メモリ(メインメモリ上)を取得
-	Result(buffer_.Get()->Map(0, nullptr, (void**)&vertMap));
+	Result(buffer_.Get()->Map(0, nullptr, (void**)&vertMap_));
 	// 全頂点に対して座標をコピー
-	for (int i = 0; i < v_.size(); i++) { vertMap[i] = v_[i]; }
+	for (int i = 0; i < v_.size(); i++) { vertMap_[i] = v_[i]; }
 	// 繋がりを解除
 	buffer_.Get()->Unmap(0, nullptr);
 

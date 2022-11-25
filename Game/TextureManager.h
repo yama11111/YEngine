@@ -39,7 +39,7 @@ namespace Game
 	public:
 		// デスクリプターテーブル番号設定
 		void SetRootParameterIndex(UINT rpIndex) { rpIndex_ = rpIndex; }
-
+		// テクスチャバッファ取得
 		ID3D12Resource* TextureBuffer(const UINT texIndex);
 	private:
 		// テクスチャ設定

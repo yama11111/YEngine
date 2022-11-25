@@ -10,10 +10,10 @@ namespace Math
 		Mat4();
 		struct InitState
 		{
-			float m00 = 0.0f; float m01 = 0.0f; float m02 = 0.0f; float m03 = 0.0f;
-			float m10 = 0.0f; float m11 = 0.0f; float m12 = 0.0f; float m13 = 0.0f;
-			float m20 = 0.0f; float m21 = 0.0f; float m22 = 0.0f; float m23 = 0.0f;
-			float m30 = 0.0f; float m31 = 0.0f; float m32 = 0.0f; float m33 = 0.0f;
+			float m00_ = 0.0f; float m01_ = 0.0f; float m02_ = 0.0f; float m03_ = 0.0f;
+			float m10_ = 0.0f; float m11_ = 0.0f; float m12_ = 0.0f; float m13_ = 0.0f;
+			float m20_ = 0.0f; float m21_ = 0.0f; float m22_ = 0.0f; float m23_ = 0.0f;
+			float m30_ = 0.0f; float m31_ = 0.0f; float m32_ = 0.0f; float m33_ = 0.0f;
 		};
 		Mat4(const InitState& mat);
 		Mat4 operator*(const Mat4& mat) const;

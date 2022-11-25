@@ -20,15 +20,15 @@ UINT RootParameterManager::PushBackCBV()
 UINT RootParameterManager::PushBackTR()
 {
 	// デスクリプタレンジの設定
-	descriptorRange.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
-	descriptorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-	descriptorRange.BaseShaderRegister = 0; // テクスチャレジスタ0番
-	descriptorRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+	descriptorRange_.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
+	descriptorRange_.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorRange_.BaseShaderRegister = 0; // テクスチャレジスタ0番
+	descriptorRange_.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
 	// テクスチャレジスタ
 	D3D12_ROOT_PARAMETER rootParam{};
 	rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-	rootParam.DescriptorTable.pDescriptorRanges = &descriptorRange;
+	rootParam.DescriptorTable.pDescriptorRanges = &descriptorRange_;
 	rootParam.DescriptorTable.NumDescriptorRanges = 1;
 	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
 

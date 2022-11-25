@@ -7,7 +7,7 @@ Game::Sprite* Blackout::curtenS_ = nullptr;
 
 void Blackout::StaticInitialize(const StaticInitStatus& state)
 {
-	curtenS_ = state.curtenSprite;
+	curtenS_ = state.curtenSprite_;
 }
 
 void Blackout::Initialize()
