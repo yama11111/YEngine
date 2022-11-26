@@ -13,42 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\Input">
-      <UniqueIdentifier>{7b3e2857-56b2-48e0-83b0-d4e7380dc3a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Input">
-      <UniqueIdentifier>{26584a69-3aa4-473d-a320-a4bc84da9203}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Math">
-      <UniqueIdentifier>{97323698-597a-4745-91c4-3bf4ef5441c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Math">
-      <UniqueIdentifier>{a5dd05ca-6984-4848-b971-6c1d277d883e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game">
-      <UniqueIdentifier>{ca459bd6-b3b5-4610-9aeb-17ba60c918c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\2D">
-      <UniqueIdentifier>{e2ae0920-baaf-44b5-af23-c03975007531}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\3D">
-      <UniqueIdentifier>{cc53a894-e477-400e-82e1-5aea749c9514}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game">
-      <UniqueIdentifier>{dfe96a20-54a4-457f-9dde-51ab4662136f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\2D">
-      <UniqueIdentifier>{ed070bde-3726-4245-9b66-38441ac89e65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\3D">
-      <UniqueIdentifier>{75c68552-5c2c-4977-ab5c-4647cbdefa60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\Utility">
-      <UniqueIdentifier>{6c4b32c7-6e9b-4c46-890f-00cdbd7df062}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Game\Utility">
-      <UniqueIdentifier>{5c9bbe41-09d1-483e-a632-d862f9550efd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base">
       <UniqueIdentifier>{5a382acc-5315-4be1-92c9-10990adbe78e}</UniqueIdentifier>
     </Filter>
@@ -70,24 +34,6 @@
     <Filter Include="ソース ファイル\Drawer">
       <UniqueIdentifier>{074b4811-c351-4c57-a24b-26271af887ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\3D">
-      <UniqueIdentifier>{d01d2884-6688-4003-b438-eba874cef5f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\3D\Model">
-      <UniqueIdentifier>{45ae138f-9ebc-41a5-9375-08953e837406}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\3D\Obj">
-      <UniqueIdentifier>{13a880b0-e02d-440e-baa5-cb64f64a5533}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\2D">
-      <UniqueIdentifier>{624c73ed-8d9c-41b8-b975-672f5fd10eee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Math\Transform">
-      <UniqueIdentifier>{c65c23e6-9586-4179-8de5-0f19623db61f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Math\Transform">
-      <UniqueIdentifier>{d8526b3d-25e7-4243-8339-12ec7caaaf40}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{f950a6a7-ea34-48ee-8f54-44ceb261f88a}</UniqueIdentifier>
     </Filter>
@@ -100,43 +46,91 @@
     <Filter Include="ソース ファイル\Camera">
       <UniqueIdentifier>{4d8193d1-5e0b-47fd-bd7d-c423f32659d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utillity">
+      <UniqueIdentifier>{a7dd01b7-64dd-409d-8e01-6f07b3705b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h">
+      <UniqueIdentifier>{57cfa1bd-527f-4c70-b5fc-9847c4116442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp">
+      <UniqueIdentifier>{434e48eb-87c4-49a0-ac32-6da586612473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp\2D">
+      <UniqueIdentifier>{e2ae0920-baaf-44b5-af23-c03975007531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp\3D">
+      <UniqueIdentifier>{cc53a894-e477-400e-82e1-5aea749c9514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h\2D">
+      <UniqueIdentifier>{ed070bde-3726-4245-9b66-38441ac89e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h\3D">
+      <UniqueIdentifier>{75c68552-5c2c-4977-ab5c-4647cbdefa60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp\Input">
+      <UniqueIdentifier>{7b3e2857-56b2-48e0-83b0-d4e7380dc3a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h\Input">
+      <UniqueIdentifier>{26584a69-3aa4-473d-a320-a4bc84da9203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp\Math">
+      <UniqueIdentifier>{97323698-597a-4745-91c4-3bf4ef5441c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp\Math\Transform">
+      <UniqueIdentifier>{d8526b3d-25e7-4243-8339-12ec7caaaf40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h\Math">
+      <UniqueIdentifier>{a5dd05ca-6984-4848-b971-6c1d277d883e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h\Math\Transform">
+      <UniqueIdentifier>{c65c23e6-9586-4179-8de5-0f19623db61f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\hlsl">
+      <UniqueIdentifier>{2d6614e1-de4e-4f5f-aa5f-86a534edb3d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\hlsl\2D">
+      <UniqueIdentifier>{624c73ed-8d9c-41b8-b975-672f5fd10eee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\hlsl\3D">
+      <UniqueIdentifier>{d01d2884-6688-4003-b438-eba874cef5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\hlsl\3D\Model">
+      <UniqueIdentifier>{45ae138f-9ebc-41a5-9375-08953e837406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\hlsl\3D\Obj">
+      <UniqueIdentifier>{13a880b0-e02d-440e-baa5-cb64f64a5533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\cpp\Coll">
+      <UniqueIdentifier>{e8e0a9a0-8924-4863-aff7-c2144586a85c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utillity\h\Coll">
+      <UniqueIdentifier>{5425a86b-6d8f-4db7-a5ab-fd2cf4ab7d08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Input\Mouse.cpp">
-      <Filter>ソース ファイル\Input</Filter>
+      <Filter>Utillity\cpp\Input</Filter>
     </ClCompile>
     <ClCompile Include="Input\Keys.cpp">
-      <Filter>ソース ファイル\Input</Filter>
+      <Filter>Utillity\cpp\Input</Filter>
     </ClCompile>
     <ClCompile Include="Input\InputManager.cpp">
-      <Filter>ソース ファイル\Input</Filter>
+      <Filter>Utillity\cpp\Input</Filter>
     </ClCompile>
     <ClCompile Include="Input\Pad.cpp">
-      <Filter>ソース ファイル\Input</Filter>
+      <Filter>Utillity\cpp\Input</Filter>
     </ClCompile>
     <ClCompile Include="Math\Lerp.cpp">
-      <Filter>ソース ファイル\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameScene.cpp">
-      <Filter>ソース ファイル\Game</Filter>
+      <Filter>Utillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Game\Model.cpp">
-      <Filter>ソース ファイル\Game\3D</Filter>
+      <Filter>Utillity\cpp\3D</Filter>
     </ClCompile>
     <ClCompile Include="Game\Sprite.cpp">
-      <Filter>ソース ファイル\Game\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TextureManager.cpp">
-      <Filter>ソース ファイル\Game\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Object.cpp">
-      <Filter>ソース ファイル\Game\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ViewProjection.cpp">
-      <Filter>ソース ファイル\Game\Utility</Filter>
+      <Filter>Utillity\cpp\2D</Filter>
     </ClCompile>
     <ClCompile Include="Base\YWindowsApp.cpp">
       <Filter>Base\cpp</Filter>
@@ -171,38 +165,35 @@
     <ClCompile Include="Base\DX\YDirectX.cpp">
       <Filter>Base\cpp\DX</Filter>
     </ClCompile>
-    <ClCompile Include="Game\AudioManager.cpp">
-      <Filter>ソース ファイル\Game\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Power.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>Utillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Timer.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>Utillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Game\Material.cpp">
-      <Filter>ソース ファイル\Game\3D</Filter>
+      <Filter>Utillity\cpp\3D</Filter>
     </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
-      <Filter>ソース ファイル\Math\Transform</Filter>
+      <Filter>Utillity\cpp\Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec2.cpp">
-      <Filter>ソース ファイル\Math\Transform</Filter>
+      <Filter>Utillity\cpp\Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec3.cpp">
-      <Filter>ソース ファイル\Math\Transform</Filter>
+      <Filter>Utillity\cpp\Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec4.cpp">
-      <Filter>ソース ファイル\Math\Transform</Filter>
+      <Filter>Utillity\cpp\Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\CalcTransform.cpp">
-      <Filter>ソース ファイル\Math\Transform</Filter>
+      <Filter>Utillity\cpp\Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\YMath.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>Utillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Shake.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>Utillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Skydome.cpp">
       <Filter>ソース ファイル</Filter>
@@ -219,43 +210,52 @@
     <ClCompile Include="Camera\CameraManager.cpp">
       <Filter>ソース ファイル\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Game\AudioManager.cpp">
+      <Filter>Utillity\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object.cpp">
+      <Filter>Utillity\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TextureManager.cpp">
+      <Filter>Utillity\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ViewProjection.cpp">
+      <Filter>Utillity\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision\Collider.cpp">
+      <Filter>Utillity\cpp\Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision\CollisionManager.cpp">
+      <Filter>Utillity\cpp\Coll</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Input\InputManager.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
+      <Filter>Utillity\h\Input</Filter>
     </ClInclude>
     <ClInclude Include="Input\Keys.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
+      <Filter>Utillity\h\Input</Filter>
     </ClInclude>
     <ClInclude Include="Input\Mouse.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
+      <Filter>Utillity\h\Input</Filter>
     </ClInclude>
     <ClInclude Include="Input\Pad.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
+      <Filter>Utillity\h\Input</Filter>
     </ClInclude>
     <ClInclude Include="Math\Lerp.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameScene.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
+      <Filter>Utillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Game\Model.h">
-      <Filter>ヘッダー ファイル\Game\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TextureManager.h">
-      <Filter>ヘッダー ファイル\Game\Utility</Filter>
+      <Filter>Utillity\h\3D</Filter>
     </ClInclude>
     <ClInclude Include="Game\Sprite.h">
-      <Filter>ヘッダー ファイル\Game\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Object.h">
-      <Filter>ヘッダー ファイル\Game\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ViewProjection.h">
-      <Filter>ヘッダー ファイル\Game\Utility</Filter>
+      <Filter>Utillity\h\2D</Filter>
     </ClInclude>
     <ClInclude Include="Base\YWindowsApp.h">
       <Filter>Base\h</Filter>
@@ -290,38 +290,35 @@
     <ClInclude Include="Base\DX\YDirectX.h">
       <Filter>Base\h\DX</Filter>
     </ClInclude>
-    <ClInclude Include="Game\AudioManager.h">
-      <Filter>ヘッダー ファイル\Game\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Power.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>Utillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Timer.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>Utillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Game\Material.h">
-      <Filter>ヘッダー ファイル\Game\3D</Filter>
+      <Filter>Utillity\h\3D</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vec2.h">
-      <Filter>ヘッダー ファイル\Math\Transform</Filter>
+      <Filter>Utillity\h\Math\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vec3.h">
-      <Filter>ヘッダー ファイル\Math\Transform</Filter>
+      <Filter>Utillity\h\Math\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vec4.h">
-      <Filter>ヘッダー ファイル\Math\Transform</Filter>
+      <Filter>Utillity\h\Math\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Math\Mat4.h">
-      <Filter>ヘッダー ファイル\Math\Transform</Filter>
+      <Filter>Utillity\h\Math\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Math\CalcTransform.h">
-      <Filter>ヘッダー ファイル\Math\Transform</Filter>
+      <Filter>Utillity\h\Math\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Math\YMath.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>Utillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Shake.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>Utillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Skydome.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -341,36 +338,60 @@
     <ClInclude Include="Camera\CameraManager.h">
       <Filter>ヘッダー ファイル\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Game\AudioManager.h">
+      <Filter>Utillity\h</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TextureManager.h">
+      <Filter>Utillity\h</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object.h">
+      <Filter>Utillity\h</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ViewProjection.h">
+      <Filter>Utillity\h</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision\Collider.h">
+      <Filter>Utillity\h\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision\CollisionConfig.h">
+      <Filter>Utillity\h\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision\CollisionManager.h">
+      <Filter>Utillity\h\Coll</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite.hlsli">
-      <Filter>リソース ファイル\2D</Filter>
+      <Filter>Base\hlsl\2D</Filter>
     </None>
     <None Include="Resources\Shaders\Model.hlsli">
-      <Filter>リソース ファイル\3D\Model</Filter>
+      <Filter>Base\hlsl\3D\Model</Filter>
     </None>
     <None Include="Resources\Shaders\Obj.hlsli">
-      <Filter>リソース ファイル\3D\Obj</Filter>
+      <Filter>Base\hlsl\3D\Obj</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
-      <Filter>リソース ファイル\2D</Filter>
+      <Filter>Base\hlsl\2D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
-      <Filter>リソース ファイル\2D</Filter>
+      <Filter>Base\hlsl\2D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
-      <Filter>リソース ファイル\3D\Model</Filter>
+      <Filter>Base\hlsl\3D\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
-      <Filter>リソース ファイル\3D\Model</Filter>
+      <Filter>Base\hlsl\3D\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ObjPS.hlsl">
-      <Filter>リソース ファイル\3D\Obj</Filter>
+      <Filter>Base\hlsl\3D\Obj</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ObjVS.hlsl">
-      <Filter>リソース ファイル\3D\Obj</Filter>
+      <Filter>Base\hlsl\3D\Obj</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

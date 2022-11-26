@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base/DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Game;$(ProjectDir)Drawer;$(ProjectDir)Scene;$(ProjectDir)Camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base/DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Game;$(ProjectDir)Drawer;$(ProjectDir)Scene;$(ProjectDir)Camera;$(ProjectDir)Collision;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base/DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Game;$(ProjectDir)Drawer;$(ProjectDir)Scene;$(ProjectDir)Camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base/DX;$(ProjectDir)Input;$(ProjectDir)Math;$(ProjectDir)Game;$(ProjectDir)Drawer;$(ProjectDir)Scene;$(ProjectDir)Camera;$(ProjectDir)Collision;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +156,8 @@
     <ClCompile Include="Base\YWindowsApp.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="Collision\Collider.cpp" />
+    <ClCompile Include="Collision\CollisionManager.cpp" />
     <ClCompile Include="Game\AudioManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Material.cpp" />
@@ -197,6 +199,9 @@
     <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\CameraManager.h" />
+    <ClInclude Include="Collision\Collider.h" />
+    <ClInclude Include="Collision\CollisionConfig.h" />
+    <ClInclude Include="Collision\CollisionManager.h" />
     <ClInclude Include="Def.h" />
     <ClInclude Include="Game\AudioManager.h" />
     <ClInclude Include="Game\GameScene.h" />

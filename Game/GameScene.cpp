@@ -185,8 +185,6 @@ void GameScene::Update()
 	//	pAudioManager_->Play(aA_);
 	//}
 	if (keys_->IsTrigger(DIK_1)){ sceneMan_.Change(Scene::PLAY); }
-	if (keys_->IsTrigger(DIK_8)) { quadS_->SetTextureLeftTop({ 64,64 }); }
-	if (keys_->IsTrigger(DIK_9)) { quadS_->SetTextureSize({ 60,60 }); }
 
 	sceneMan_.Update();
 }
