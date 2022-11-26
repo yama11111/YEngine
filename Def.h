@@ -3,6 +3,9 @@
 #include "Vec4.h"
 #include <cstring>
 
+// ウィンドウタイトル 
+const wchar_t WindowTitle[20] = L"YEngine";
+
 // ウィンドウサイズ 
 const Math::Vec2 WinSize = { 1280, 720 }; // (横, 縦)
 
