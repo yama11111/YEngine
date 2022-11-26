@@ -12,14 +12,14 @@ UINT Player::tex_ = UINT_MAX;
 
 void Player::StaticIntialize(const StaticInitStatus& state)
 {
-	assert(model_);
+	assert(state.model_);
 	model_ = state.model_;
 	tex_ = state.tex_;
 }
 
 void Player::Initialize()
 {
-	keys = Input::Keys::GetInstance();
+	keys_ = Input::Keys::GetInstance();
 	InitializeCollisionStatus(
 		{
 			CollRad,

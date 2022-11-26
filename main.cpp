@@ -16,7 +16,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 {
 	// Windows ‰Šú‰»
 	YWindowsApp window;
-	window.Create(Title, WinSize.x_, WinSize.y_);
+	window.Create(L"YEngine", WinSize.x_, WinSize.y_);
 
 	// DirectX ‰Šú‰»
 	YDirectX::SetFPS(FixFPS);

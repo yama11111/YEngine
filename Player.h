@@ -10,7 +10,7 @@ private:
 	Game::Object obj_;
 
 	// ƒL[
-	Input::Keys* keys = nullptr;
+	Input::Keys* keys_ = nullptr;
 public:
 	// ‰Šú‰»
 	void Initialize();

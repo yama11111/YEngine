@@ -1,9 +1,7 @@
 #pragma once
 #include "Vec2.h"
 #include "Vec4.h"
-
-// ウィンドウタイトル
-const wchar_t* Title = L"YEngine";
+#include <cstring>
 
 // ウィンドウサイズ 
 const Math::Vec2 WinSize = { 1280, 720 }; // (横, 縦)

@@ -66,7 +66,7 @@ void GameScene::Load()
 	// ----- 静的初期化 ----- //
 
 	Transition::Blackout::StaticInitialize({ curtenS_.get() });
-	Player::StaticIntialize({ cubeM_.get(), plainT_ });
+	Player::StaticIntialize({ cubeM_.get(), playerT_ });
 
 }
 #pragma endregion
@@ -105,6 +105,7 @@ void GameScene::Initialize()
 	sprite_.Initialize({ });
 
 	// プレイヤー初期化
+	player_ = std::make_unique<Player>();
 	player_->Initialize();
 
 	// エネミー初期化
