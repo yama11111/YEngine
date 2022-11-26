@@ -140,8 +140,8 @@ Mat4 Math::MatOrthoGraphic()
 {
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixOrthographicOffCenterLH(
-			0.0f, WIN_SIZE.x_, // 左端, 右端
-			WIN_SIZE.y_, 0.0f, // 下端, 上端
+			0.0f, WinSize.x_, // 左端, 右端
+			WinSize.y_, 0.0f, // 下端, 上端
 			0.0f, 1.0f        // 前端, 奥端
 		);
 	return ConvertMatrix(mat);
@@ -151,7 +151,7 @@ Mat4 Math::MatPerspective()
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixPerspectiveFovLH(
 			DirectX::XMConvertToRadians(45.0f), // 上下画角45度
-			(float)WIN_SIZE.x_ / WIN_SIZE.y_,		// アスペクト比 (画面横幅/画面縦幅)
+			(float)WinSize.x_ / WinSize.y_,		// アスペクト比 (画面横幅/画面縦幅)
 			0.1f, 1000.0f						// 前端, 奥端
 		);
 	return ConvertMatrix(mat);
@@ -160,10 +160,10 @@ Mat4 Math::MatViewPort()
 {
 	Mat4 result = Mat4::Identity();
 
-	result.m[0][0] = +WIN_SIZE.x_ / 2.0f;
-	result.m[3][0] = +WIN_SIZE.x_ / 2.0f;
-	result.m[1][1] = -WIN_SIZE.y_ / 2.0f;
-	result.m[3][1] = +WIN_SIZE.y_ / 2.0f;
+	result.m[0][0] = +WinSize.x_ / 2.0f;
+	result.m[3][0] = +WinSize.x_ / 2.0f;
+	result.m[1][1] = -WinSize.y_ / 2.0f;
+	result.m[3][1] = +WinSize.y_ / 2.0f;
 	return result;
 }
 

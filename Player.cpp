@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "CollisionConfig.h"
+#include "CalcTransform.h"
+#include "YMath.h"
 #include <cassert>
 
 const float CollRad = 1.0f;
@@ -31,6 +33,7 @@ void Player::Initialize()
 void Player::Reset()
 {
 	obj_.Initialize({});
+	obj_.rota_ = Math::AdjustAngle(Math::Vec3(0, 0, 1));
 	SetIsSlip(false);
 }
 

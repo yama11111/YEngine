@@ -16,12 +16,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 {
 	// Windows 初期化
 	YWindowsApp window;
-	window.Create(L"LE2A_ヤマナカ_ルイ", WIN_SIZE);
+	window.Create(Title, WinSize.x_, WinSize.y_);
 
 	// DirectX 初期化
-	YDirectX::SetFPS(FIX_FPS);
+	YDirectX::SetFPS(FixFPS);
 	YDirectX dx;
-	if (!dx.Initialize(window.HandleWindow(), WIN_SIZE)) { return 0; }
+	if (!dx.Initialize(window.HandleWindow(), WinSize)) { return 0; }
 
 	ID3D12Device* pDev = dx.Device();
 	ID3D12GraphicsCommandList* pCmdList = dx.CommandList();
@@ -29,7 +29,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	// スクリーン設定
 	ScreenDesc::StaticInitialize(pCmdList);
 	ScreenDesc screenDesc;
-	screenDesc.Initialize({ 0,0 }, WIN_SIZE);
+	screenDesc.Initialize({ 0,0 }, WinSize);
 
 	// Input 初期化
 	InputManager* input = InputManager::GetInstance();
@@ -83,7 +83,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		// --------------------- Draw --------------------- //
 
-		dx.PreDraw(CLEAR_COLOR); // 描画準備
+		dx.PreDraw(ClearColor); // 描画準備
 
 		screenDesc.SetDrawCommand(); // スクリーン設定セット
 

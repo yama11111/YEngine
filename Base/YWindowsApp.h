@@ -16,7 +16,7 @@ public:
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 public:
 	// ウィンドウ生成
-	void Create(const wchar_t* titleName = L"DirectXGame", const Math::Vec2& size = { 1280, 720 });
+	void Create(const wchar_t* titleName = L"DirectXGame", const float width = 1280.0f, const float height = 720);
 	// メッセージ確認
 	bool CheckMessage();
 	// 終了処理

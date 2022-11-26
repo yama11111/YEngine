@@ -56,17 +56,17 @@ void GameScene::Load()
 	// ----- モデル ----- //
 
 	cubeM_.reset(Model::Create());
-	//loadM_.reset(Model::Load("triangleMat"));
 	skydomeM_.reset(Model::Load("skydome"));
 
 	// ----- スプライト ----- //
 
 	quadS_.reset(Sprite::Create({ { 64,64 } }, { playerT_ }));
-	curtenS_.reset(Sprite::Create({ WIN_SIZE }, { plainT_ }));
+	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
 
 	// ----- 静的初期化 ----- //
 
 	Transition::Blackout::StaticInitialize({ curtenS_.get() });
+	Player::StaticIntialize({ cubeM_.get(), plainT_ });
 
 }
 #pragma endregion
@@ -105,8 +105,7 @@ void GameScene::Initialize()
 	sprite_.Initialize({ });
 
 	// プレイヤー初期化
-	player_.Initialize({ {0,1.0f,-10} });
-	player_.rota_ = AdjustAngle(Vec3(0, 0, 1));
+	player_->Initialize();
 
 	// エネミー初期化
 	enemy_.Initialize({ {0,1.0f,10} });
@@ -130,7 +129,7 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_R))
 	{
 		// プレイヤー
-		player_.rota_ = AdjustAngle(Vec3(0, 0,  1));
+		player_->Reset();
 		// エネミー
 		enemy_.rota_  = AdjustAngle(Vec3(0, 0, -1));
 	}
@@ -159,33 +158,24 @@ void GameScene::Update()
 	{
 
 	}
-
-	// ----- Player ----- //
-	// プレイヤー移動
-	player_.pos_.x_ += keys_->Horizontal(Keys::MoveStandard::WASD) * 0.2f;
-	player_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 0.2f;
-
-	// アップデート
-	player_.Update();
 	
-	// ----- Enemy ----- //
-	// エネミー移動
+	// プレイヤー
+	player_->Update();
+	
+	// エネミー
 	enemy_.pos_.x_ += keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
 	enemy_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
 
-	// アップデート
 	enemy_.Update();
 
+	// スカイドーム
 	skydome_.Update();
 
+	// ビュープロジェクション
 	vp_.Update();
 
-	//if (keys_->IsTrigger(DIK_SPACE))
-	//{
-	//	pAudioManager_->Play(aA_);
-	//}
+	// シーンマネージャー
 	if (keys_->IsTrigger(DIK_1)){ sceneMan_.Change(Scene::PLAY); }
-
 	sceneMan_.Update();
 }
 #pragma endregion
@@ -261,7 +251,7 @@ void GameScene::DrawModels()
 	}
 
 	// player
-	cubeM_->Draw(player_, vp_, playerT_);
+	player_->Draw(vp_);
 	// enemy
 	cubeM_->Draw(enemy_, vp_, enemyT_);
 }
