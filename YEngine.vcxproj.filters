@@ -106,6 +106,18 @@
     <Filter Include="Utillity\h\Coll">
       <UniqueIdentifier>{5425a86b-6d8f-4db7-a5ab-fd2cf4ab7d08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{484ab2f2-abbd-4365-8c29-4efa81fb4a7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemy">
+      <UniqueIdentifier>{1b011b7e-dd70-42a2-9173-fe307e80630b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Enemy">
+      <UniqueIdentifier>{e2f6a488-0427-47d4-b998-b16b0578a143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{ae44f866-24bd-41ab-8e48-d27ab453eafe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,6 +242,12 @@
     </ClCompile>
     <ClCompile Include="Collision\CollisionManager.cpp">
       <Filter>Utillity\cpp\Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -361,6 +379,12 @@
     </ClInclude>
     <ClInclude Include="Collision\CollisionManager.h">
       <Filter>Utillity\h\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

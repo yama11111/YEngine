@@ -5,11 +5,14 @@
 #include "Sprite.h"
 #include "Model.h"
 #include "AudioManager.h"
+#include "CollisionManager.h"
 #include <memory>
 
+#include "Player.h"
+#include "Enemy.h"
 #include "Skydome.h"
-#include "SceneManager.h"
 #include "CameraManager.h"
+#include "SceneManager.h"
 
 namespace Game
 {
@@ -49,11 +52,16 @@ namespace Game
 		// 床
 		std::vector<std::vector<Object>> floor;
 
-		// 
+		// プレイヤー
+		std::unique_ptr<Player> player_ = nullptr;
+
 		Object sprite_;
-		Object player_;
 		Object enemy_;
 
+		// アタリ判定マネージャー
+		Collision::CollisionManager collMan_;
+
+		// 天球
 		Skydome skydome_;
 
 		// 転送用ビュープロジェクション

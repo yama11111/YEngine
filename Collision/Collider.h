@@ -1,6 +1,6 @@
 #pragma once
 #include "Vec3.h"
-#include "CollisionConfig.h"
+#include <cstdint>
 
 namespace Collision
 {
@@ -9,18 +9,28 @@ namespace Collision
 	private:
 		// 半径
 		float radius_ = 0.0f;
-		// 属性 (自分自身)
+		// 属性 (自分)
 		uint32_t attribute_ = 0xffffffff;
-		// マスク (何と当たるか)
+		// マスク (相手)
 		uint32_t mask_ = 0xffffffff;
 		// すりぬけフラグ
 		bool isSlip_ = false;
 	public:
+		struct CollisionStatus 
+		{
+			float radius_; // 半径
+			uint32_t attribute_; // 属性 (自分)
+			uint32_t mask_; // マスク (相手)
+			bool isSlip_ = false; // すりぬけフラグ
+		};
+	public:
+		// 衝突設定初期化
+		void InitializeCollisionStatus(const CollisionStatus& state);
 		// 衝突時処理
 		virtual void OnCollision(const uint32_t attribute) = 0;
 	public:
 		// 位置取得
-		virtual Math::Vec3 GetWorldPos() = 0;
+		virtual Math::Vec3 Pos() = 0;
 		// 半径取得
 		float Radius() { return radius_; }
 		// 半径設定

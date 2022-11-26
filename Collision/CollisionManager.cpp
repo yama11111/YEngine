@@ -53,8 +53,8 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* collide
 
 	if (isAct1 || isAct2) { return; }
 
-	Math::Vec3 posA = colliderA->GetWorldPos();
-	Math::Vec3 posB = colliderB->GetWorldPos();
+	Math::Vec3 posA = colliderA->Pos();
+	Math::Vec3 posB = colliderB->Pos();
 	Math::Vec3 dist = posB - posA;
 
 	if (dist.Length() <= colliderA->Radius() + colliderB->Radius())

@@ -21,8 +21,8 @@ namespace Game
 		static Model* Load(const std::string& modelName);
 	public:
 		// 描画
-		void Draw(Object& obj, ViewProjection& vp, const UINT tex);
-		void Draw(Object& obj, ViewProjection& vp);
+		void Draw(Object& obj, const ViewProjection& vp, const UINT tex);
+		void Draw(Object& obj, const ViewProjection& vp);
 	private:
 		// コンストラクタ
 		Model() = default;
