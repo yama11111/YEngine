@@ -28,12 +28,6 @@
     <Filter Include="Base\h\DX">
       <UniqueIdentifier>{cb486c97-ddf3-4f9b-b528-12ceb7db5859}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Drawer">
-      <UniqueIdentifier>{8f228ee4-a469-4555-9108-5145b34d8bb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Drawer">
-      <UniqueIdentifier>{074b4811-c351-4c57-a24b-26271af887ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{f950a6a7-ea34-48ee-8f54-44ceb261f88a}</UniqueIdentifier>
     </Filter>
@@ -106,16 +100,28 @@
     <Filter Include="Utillity\h\Coll">
       <UniqueIdentifier>{5425a86b-6d8f-4db7-a5ab-fd2cf4ab7d08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Player">
-      <UniqueIdentifier>{484ab2f2-abbd-4365-8c29-4efa81fb4a7b}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Map">
+      <UniqueIdentifier>{d00e33f4-4d55-466d-80bb-555dc202d8d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Enemy">
+    <Filter Include="ソース ファイル\Chara">
+      <UniqueIdentifier>{186c3360-a9d0-4111-bf0f-7208a4154cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Map">
+      <UniqueIdentifier>{59fa0408-4fa3-41fd-ae6a-852fa379e20e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Chara\Enemy">
       <UniqueIdentifier>{1b011b7e-dd70-42a2-9173-fe307e80630b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Enemy">
+    <Filter Include="ソース ファイル\Chara\Player">
+      <UniqueIdentifier>{484ab2f2-abbd-4365-8c29-4efa81fb4a7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Chara">
+      <UniqueIdentifier>{c74d60ca-1867-4c7f-b52d-63f03330bf82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Chara\Enemy">
       <UniqueIdentifier>{e2f6a488-0427-47d4-b998-b16b0578a143}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Player">
+    <Filter Include="ヘッダー ファイル\Chara\Player">
       <UniqueIdentifier>{ae44f866-24bd-41ab-8e48-d27ab453eafe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -241,13 +247,19 @@
       <Filter>Utillity\cpp\Coll</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Player</Filter>
+      <Filter>ソース ファイル\Chara\Player</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
+      <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\Map.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\MapManager.cpp">
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -378,13 +390,19 @@
       <Filter>Utillity\h\Coll</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル\Enemy</Filter>
+      <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル\Player</Filter>
+      <Filter>ヘッダー ファイル\Chara\Player</Filter>
     </ClInclude>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Map.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapManager.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

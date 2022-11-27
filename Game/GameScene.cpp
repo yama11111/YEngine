@@ -63,6 +63,11 @@ void GameScene::Load()
 	quadS_.reset(Sprite::Create({ { 64,64 } }, { playerT_ }));
 	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
 
+	// ----- マップ ----- //
+
+	map_.Load("stage1.csv");
+	map_.Initialize({ 5.0f, { 0.0f,+30.0f,-30.0f }, cubeM_.get(), plainT_ });
+
 	// ----- 静的初期化 ----- //
 
 	Transition::Blackout::StaticInitialize({ curtenS_.get() });
@@ -109,16 +114,20 @@ void GameScene::Initialize()
 	player_->Initialize();
 
 	// エネミー初期化
-	enemy_.Initialize({ {0,1.0f,10} });
+	enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
 
+	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
+
+	// カメラ初期化
+	camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
-	vp_.eye_ = { 0,5,-20 };
 
 	sceneMan_.Initialize();
+	collMan_.Initialize();
 }
 #pragma endregion
 
@@ -126,6 +135,13 @@ void GameScene::Initialize()
 #pragma region 更新
 void GameScene::Update()
 {
+	// ホットリロード
+	if (keys_->IsTrigger(DIK_L))
+	{
+		map_.Load("stage1.csv");
+		map_.Reset({ 0.0f,+30.0f,-30.0f });
+	}
+
 	// リセット
 	if (keys_->IsTrigger(DIK_R))
 	{
@@ -133,6 +149,8 @@ void GameScene::Update()
 		player_->Reset();
 		// エネミー
 		enemy_.rota_  = AdjustAngle(Vec3(0, 0, -1));
+
+		collMan_.Initialize();
 	}
 
 	if (sceneMan_.GetScene() == Scene::TITLE)
@@ -161,6 +179,8 @@ void GameScene::Update()
 	}
 	
 	// プレイヤー
+	if (keys_->IsTrigger(DIK_W)) { player_->Jump(); }
+	if (keys_->IsTrigger(DIK_SPACE)) { player_->Attack(); }
 	player_->Update();
 	
 	// エネミー
@@ -172,7 +192,14 @@ void GameScene::Update()
 	// スカイドーム
 	skydome_.Update();
 
+	// マップマネージャー
+	map_.Update();
+
+	// カメラ
+	camera_.Update();
+
 	// ビュープロジェクション
+	vp_ = camera_.GetViewProjection();
 	vp_.Update();
 
 	// シーンマネージャー
@@ -240,16 +267,19 @@ void GameScene::DrawModels()
 
 	}
 
-	skydome_.Draw(vp_);
+	//skydome_.Draw(vp_);
+
+	// map
+	map_.Draw(vp_);
 
 	// floor
-	for (size_t i = 0; i < floor.size(); i++)
-	{
-		for (size_t j = 0; j < floor[i].size(); j++)
-		{
-			cubeM_->Draw(floor[i][j], vp_);
-		}
-	}
+	//for (size_t i = 0; i < floor.size(); i++)
+	//{
+	//	for (size_t j = 0; j < floor[i].size(); j++)
+	//	{
+	//		cubeM_->Draw(floor[i][j], vp_);
+	//	}
+	//}
 
 	// player
 	player_->Draw(vp_);

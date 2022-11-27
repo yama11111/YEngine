@@ -20,6 +20,21 @@ int Math::GetRand(const int start, const int end)
 }
 
 template<typename T>
+T Math::Sign(const T num)
+{
+	if (num > 0) { return static_cast<T>(+1); }
+	if (num < 0) { return static_cast<T>(-1); }
+	return static_cast<T>(0);
+}
+template<>
+float Math::Sign(const float num)
+{
+	if (num > 0.0f) { return (+1.0f); }
+	if (num < 0.0f) { return (-1.0f); }
+	return (0.0f);
+}
+
+template<typename T>
 T Math::Clamp(const T num, const T lower, const T upper)
 {
 	return std::min(std::max(num, lower), upper);
@@ -38,10 +53,10 @@ double Math::Clamp(const double num, const double lower, const double upper)
 Math::Vec4 Math::GetColor(const int R, const int G, const int B, const int A)
 {
 	Math::Vec4 result(
-		Clamp(R, 0, 255), 
-		Clamp(G, 0, 255), 
-		Clamp(B, 0, 255), 
-		Clamp(A, 0, 255)
+		static_cast<float>(Clamp(R, 0, 255)), 
+		static_cast<float>(Clamp(G, 0, 255)), 
+		static_cast<float>(Clamp(B, 0, 255)), 
+		static_cast<float>(Clamp(A, 0, 255))
 	);
 	
 	result.r_ /= 255.0f;

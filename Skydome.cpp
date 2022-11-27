@@ -1,12 +1,14 @@
 #include "Skydome.h"
 #include <cassert>
 
+const float Size = 300.0f;
+
 void Skydome::Initialize(Game::Model* model)
 {
 	assert(model);
-	model_ = model;
+	pModel_ = model;
 	obj_.Initialize({});
-	obj_.scale_ = { 150.0f, 150.0f, 150.0f };
+	obj_.scale_ = { Size, Size, Size };
 	Update();
 }
 
@@ -17,5 +19,5 @@ void Skydome::Update()
 
 void Skydome::Draw(Game::ViewProjection& vp)
 {
-	model_->Draw(obj_, vp);
+	pModel_->Draw(obj_, vp);
 }

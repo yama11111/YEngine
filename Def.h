@@ -4,7 +4,7 @@
 #include <cstring>
 
 // ウィンドウタイトル 
-const wchar_t WindowTitle[20] = L"YEngine";
+const wchar_t WindowTitle[20] = L"Game";
 
 // ウィンドウサイズ 
 const Math::Vec2 WinSize = { 1280, 720 }; // (横, 縦)

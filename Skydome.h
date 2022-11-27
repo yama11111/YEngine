@@ -5,7 +5,7 @@ class Skydome
 {
 private:
 	Game::Object obj_;
-	Game::Model* model_ = nullptr;
+	Game::Model* pModel_ = nullptr;
 public:
 	void Initialize(Game::Model* model);
 	void Update();

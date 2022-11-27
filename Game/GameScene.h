@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Skydome.h"
+#include "MapManager.h"
 #include "CameraManager.h"
 #include "SceneManager.h"
 
@@ -19,6 +20,8 @@ namespace Game
 	class GameScene
 	{
 	public:
+#pragma region リソース
+
 		// ----- テクスチャ ----- //
 		
 		// 無地画像
@@ -44,11 +47,12 @@ namespace Game
 		
 		// sprite
 		std::unique_ptr<Sprite> quadS_ = nullptr;
-		// 
+		// 画面全部
 		std::unique_ptr<Sprite> curtenS_ = nullptr;
 
-		// ----- オブジェクト ----- //
-		
+#pragma endregion
+#pragma region ゲームオブジェクト
+
 		// 床
 		std::vector<std::vector<Object>> floor;
 
@@ -58,17 +62,27 @@ namespace Game
 		Object sprite_;
 		Object enemy_;
 
-		// アタリ判定マネージャー
-		Collision::CollisionManager collMan_;
-
 		// 天球
 		Skydome skydome_;
+
+		Map map_;
+
+		// カメラ
+		Camera camera_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;
 
+		// アタリ判定マネージャー
+		Collision::CollisionManager collMan_;
+
+		// カメラマネージャー
+		CameraManager cameraMan_;
+
 		// シーンマネージャー
 		SceneManager sceneMan_;
+
+#pragma endregion
 	public:
 		// 読み込み
 		void Load();

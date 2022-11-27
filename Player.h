@@ -1,7 +1,6 @@
 #pragma once
 #include "Model.h"
 #include "Collider.h"
-#include "Keys.h"
 
 class Player : Collision::Collider
 {
@@ -9,8 +8,12 @@ private:
 	// オブジェクト
 	Game::Object obj_;
 
-	// キー
-	Input::Keys* keys_ = nullptr;
+	// ジャンプ回数
+	int jumpCount_ = 0;
+	// ジャンプ量
+	float jumpPower_ = 0.0f;
+	// 地面にいるか
+	bool isLanding_ = false;
 public:
 	// 初期化
 	void Initialize();
@@ -22,22 +25,29 @@ public:
 	void Update();
 	// 描画
 	void Draw(const Game::ViewProjection& vp);
-private:
+public:
 	// ジャンプ
 	void Jump();
+	// 攻撃
+	void Attack();
+private:
+	// ジャンプアップデート
+	void UpdateJump();
+	// 攻撃アップデート
+	void UpdateAttack();
 public:
 	// 位置取得
 	Math::Vec3 Pos() override { return obj_.pos_; };
 private:
 	// 静的モデルポインタ
-	static Game::Model* model_;
+	static Game::Model* pModel_;
 	// 静的テクスチャインデックス
 	static UINT tex_;
 public:
 	// 静的初期化ステータス
 	struct StaticInitStatus
 	{
-		Game::Model* model_;// モデルポインタ
+		Game::Model* pModel_;// モデルポインタ
 		UINT tex_;// テクスチャインデックス
 	};
 public:
