@@ -2,7 +2,7 @@
 
 using Collision::Collider;
 
-void Collider::InitializeCollisionStatus(const CollisionStatus& state)
+void Collider::InitializeCollisionStatus(const InitStatus& state)
 {
 	radius_ = state.radius_;
 	attribute_ = state.attribute_;

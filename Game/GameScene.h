@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Skydome.h"
-#include "MapManager.h"
+#include "MapChipManager.h"
 #include "CameraManager.h"
 #include "SceneManager.h"
 
@@ -30,6 +30,8 @@ namespace Game
 		UINT playerT_ = 0;
 		// エネミー画像
 		UINT enemyT_ = 0;
+		// マップ2D表示用画像
+		UINT mapDispT_ = 0;
 
 		// ----- オーディオ ----- //
 
@@ -45,10 +47,10 @@ namespace Game
 
 		// ----- スプライト ----- //
 		
-		// sprite
-		std::unique_ptr<Sprite> quadS_ = nullptr;
 		// 画面全部
 		std::unique_ptr<Sprite> curtenS_ = nullptr;
+		// マップ2D表示用
+		std::unique_ptr<Sprite> mapDispS_ = nullptr;
 
 #pragma endregion
 #pragma region ゲームオブジェクト
@@ -65,7 +67,7 @@ namespace Game
 		// 天球
 		Skydome skydome_;
 
-		Map map_;
+		MapChip map_;
 
 		// カメラ
 		Camera camera_;

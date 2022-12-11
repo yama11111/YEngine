@@ -49,6 +49,8 @@ void GameScene::Load()
 	playerT_ = pTexManager_->Load("player.png", true);
 	enemyT_ = pTexManager_->Load("enemy.png", true);
 
+	mapDispT_ = pTexManager_->Load("mapDisp.png", false);
+
 	// ----- オーディオ ----- //
 
 	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
@@ -60,13 +62,12 @@ void GameScene::Load()
 
 	// ----- スプライト ----- //
 
-	quadS_.reset(Sprite::Create({ { 64,64 } }, { playerT_ }));
 	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
+	mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
 
 	// ----- マップ ----- //
 
-	map_.Load("stage1.csv");
-	map_.Initialize({ 5.0f, { 0.0f,+30.0f,-30.0f }, cubeM_.get(), plainT_ });
+	map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get()});
 
 	// ----- 静的初期化 ----- //
 
@@ -117,11 +118,16 @@ void GameScene::Initialize()
 	enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
 
+	// マップ初期化
+	//map_.Initialize({ 7.5f, {}});
+	map_.Initialize({ 7.5f, { 0.0f,+30.0f,-25.0f }});
+
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
 
 	// カメラ初期化
-	camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
+	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
+	camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -138,8 +144,8 @@ void GameScene::Update()
 	// ホットリロード
 	if (keys_->IsTrigger(DIK_L))
 	{
-		map_.Load("stage1.csv");
-		map_.Reset({ 0.0f,+30.0f,-30.0f });
+		map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get() });
+		map_.Reset({ 0.0f,+30.0f,-25.0f });
 	}
 
 	// リセット
@@ -179,21 +185,29 @@ void GameScene::Update()
 	}
 	
 	// プレイヤー
-	if (keys_->IsTrigger(DIK_W)) { player_->Jump(); }
-	if (keys_->IsTrigger(DIK_SPACE)) { player_->Attack(); }
+	if (keys_->IsTrigger(DIK_SPACE)) { player_->Jump(); }
+	if (keys_->IsTrigger(DIK_RETURN)) { player_->Attack(); }
+
+	player_->SpeedRef().z_ = keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
+	//player_->SpeedRef().y_ = -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
+
 	player_->Update();
-	
+
 	// エネミー
-	enemy_.pos_.x_ += keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
-	enemy_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
+	enemy_.pos_.z_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
+	enemy_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
 
 	enemy_.Update();
+
+	// マップマネージャー
+	map_.Update();
+	map_.PerfectPixelCollision(*player_.get());
 
 	// スカイドーム
 	skydome_.Update();
 
-	// マップマネージャー
-	map_.Update();
+	player_->UpdateMove();
+	player_->UpdateMatrix();
 
 	// カメラ
 	camera_.Update();
@@ -237,7 +251,6 @@ void GameScene::DrawBackSprites()
 
 	}
 
-	quadS_->Draw(sprite_);
 }
 
 void GameScene::DrawModels()
@@ -267,10 +280,8 @@ void GameScene::DrawModels()
 
 	}
 
-	//skydome_.Draw(vp_);
+	skydome_.Draw(vp_);
 
-	// map
-	map_.Draw(vp_);
 
 	// floor
 	//for (size_t i = 0; i < floor.size(); i++)
@@ -285,6 +296,8 @@ void GameScene::DrawModels()
 	player_->Draw(vp_);
 	// enemy
 	cubeM_->Draw(enemy_, vp_, enemyT_);
+	// map
+	map_.Draw(vp_);
 }
 
 void GameScene::DrawFrontSprites()
@@ -314,7 +327,8 @@ void GameScene::DrawFrontSprites()
 
 	}
 
-	quadS_->Draw(sprite_);
+	map_.Draw2D();
+
 	sceneMan_.Draw();
 }
 

@@ -11,7 +11,6 @@ const int MaxJumpCountAdrenaline = 3;
 
 const float RisePower = 4.5f;
 const float GravityPower = 0.3f;
-const float Ground = 5.0f;
 
 Game::Model* Player::pModel_ = nullptr;
 UINT Player::tex_ = UINT_MAX;
@@ -25,6 +24,15 @@ void Player::StaticIntialize(const StaticInitStatus& state)
 
 void Player::Initialize()
 {
+	Reset();
+}
+
+void Player::Reset()
+{
+	obj_.Initialize({ {0.0f, 50.0f, 50.0f}, {}, {5.0f,5.0f,5.0f} });
+	obj_.rota_ = Math::AdjustAngle(Math::Vec3(0, 0, 1));
+	speed_ = { 0.0f,0.0f,0.0f };
+
 	InitializeCollisionStatus(
 		{
 			CollRad,
@@ -32,17 +40,10 @@ void Player::Initialize()
 			Collision::Attribute::Enemy
 		}
 	);
-	Reset();
-}
 
-void Player::Reset()
-{
-	obj_.Initialize({ {0.0f, Ground, 0.0f}, {}, {5.0f,5.0f,5.0f} });
-	obj_.rota_ = Math::AdjustAngle(Math::Vec3(0, 0, 1));
-	SetIsSlip(false);
+	InitializeMapCollisionStatus({obj_.scale_});
+
 	jumpCount_ = 0;
-	jumpPower_ = 0.0f;
-	isLanding_ = false;
 }
 
 void Player::OnCollision(const uint32_t attribute)
@@ -52,28 +53,19 @@ void Player::OnCollision(const uint32_t attribute)
 
 void Player::Jump()
 {
-	if (++jumpCount_ > MaxJumpCount) 
-	{
-		jumpCount_ = MaxJumpCount;
-		return; 
-	}
+	if (++jumpCount_ > MaxJumpCount) { /*return;*/ }
 
 	jumpCount_ = min(jumpCount_, MaxJumpCount);
-	jumpPower_ = RisePower;
+	speed_.y_ = RisePower;
 }
 
 void Player::UpdateJump()
 {
-	obj_.pos_.y_ += jumpPower_;
+	speed_.y_ -= GravityPower;
 
-	jumpPower_ -= GravityPower;
-
-	isLanding_ = (obj_.pos_.y_ <= Ground);
-	if (isLanding_) 
+	if (IsLanding()) 
 	{
 		jumpCount_ = 0;
-		jumpPower_ = 0.0f;
-		obj_.pos_.y_ = Ground;
 	}
 }
 
@@ -91,6 +83,15 @@ void Player::Update()
 {
 	UpdateJump();
 	UpdateAttack();
+}
+
+void Player::UpdateMove() 
+{
+	obj_.pos_ += speed_;
+}
+
+void Player::UpdateMatrix() 
+{
 	obj_.Update();
 }
 

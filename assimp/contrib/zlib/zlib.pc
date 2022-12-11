@@ -1,0 +1,13 @@
+prefix=C:/Users/K021G1123/Desktop/util/assimp-5.2.5/local
+exec_prefix=C:/Users/K021G1123/Desktop/util/assimp-5.2.5/local
+libdir=
+sharedlibdir=
+includedir=
+
+Name: zlib
+Description: zlib compression library
+Version: 
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

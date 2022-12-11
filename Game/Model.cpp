@@ -2,6 +2,10 @@
 #include <cassert>
 #include <fstream>
 #include <sstream>
+#include <assimp/Importer.hpp>
+//#include <assimp/scene.h>
+
+#pragma comment(lib, "assimp-vc143-mtd.lib")
 
 using Game::Model;
 
