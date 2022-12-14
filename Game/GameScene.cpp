@@ -58,8 +58,8 @@ void GameScene::Load()
 	// ----- ƒ‚ƒfƒ‹ ----- //
 
 	cubeM_.reset(Model::Create());
-	skydomeM_.reset(Model::Load("skydome"));
-	//skydomeM_.reset(Model::Load("skydome/skydome.obj", false, false));
+	//skydomeM_.reset(Model::Load("skydome"));
+	skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false }));
 
 	//assimpM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, "tga" }));
 
