@@ -24,6 +24,8 @@ namespace Game
 	public:
 		// マテリアル読み込み
 		void Load(const std::string& directoryPath, const std::string& mtlFileName);
+		// テクスチャ読み込み
+		void LoadTexture(const std::string& directoryPath, const std::string& texFileName);
 		// 描画前コマンド
 		void SetDrawCommand(const UINT tex);
 		// 描画前コマンド

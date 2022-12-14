@@ -94,6 +94,12 @@ void Material::Load(const std::string& directoryPath, const std::string& mtlFile
 	file.close();
 }
 
+void Material::LoadTexture(const std::string& directoryPath, const std::string& texFileName)
+{
+	textureFileName_ = texFileName;
+	texIndex_ = pTexManager_->Load(directoryPath, texFileName);
+}
+
 void Material::SetDrawCommand(const UINT tex)
 {
 	pTexManager_->SetDrawCommand(tex);

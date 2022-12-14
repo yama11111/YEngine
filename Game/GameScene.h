@@ -45,6 +45,9 @@ namespace Game
 		// 天球モデル
 		std::unique_ptr<Model> skydomeM_ = nullptr;
 
+		// アシンプ確認用モデル
+		std::unique_ptr<Model> assimpM_ = nullptr;
+
 		// ----- スプライト ----- //
 		
 		// 画面全部

@@ -2,6 +2,7 @@
 #include <d3d12.h>
 #include "Vec2.h"
 #include "Vec3.h"
+#include "Vec4.h"
 #include "GPUResource.h"
 #include <vector>
 
@@ -18,9 +19,11 @@ namespace DX
 	// Model用 頂点データ構造体
 	struct ModelVData
 	{
-		Math::Vec3 pos_;	// xyz座標
-		Math::Vec3 normal_;	// 法線ベクトル
-		Math::Vec2 uv_;		// uv座標
+		Math::Vec3 pos_;	 // xyz座標
+		Math::Vec3 normal_;	 // 法線ベクトル
+		Math::Vec2 uv_;		 // uv座標
+		Math::Vec3 tangent_; // 接空間
+		Math::Vec4 color_;	 // 頂点色
 	};
 
 	template <typename T>

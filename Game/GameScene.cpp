@@ -59,6 +59,9 @@ void GameScene::Load()
 
 	cubeM_.reset(Model::Create());
 	skydomeM_.reset(Model::Load("skydome"));
+	//skydomeM_.reset(Model::Load("skydome/skydome.obj", false, false));
+
+	assimpM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, "tga" }));
 
 	// ----- スプライト ----- //
 
@@ -115,7 +118,8 @@ void GameScene::Initialize()
 	player_->Initialize();
 
 	// エネミー初期化
-	enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
+	//enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
+	enemy_.Initialize({ {0,0.0f,+100.0f} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
 
 	// マップ初期化
@@ -127,7 +131,8 @@ void GameScene::Initialize()
 
 	// カメラ初期化
 	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
-	camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
+	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
+	camera_.Initialize({ {0.0f,50.0f,-200.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -188,14 +193,14 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_SPACE)) { player_->Jump(); }
 	if (keys_->IsTrigger(DIK_RETURN)) { player_->Attack(); }
 
-	player_->SpeedRef().z_ = keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
+	//player_->SpeedRef().z_ = keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
 	//player_->SpeedRef().y_ = -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
 
 	player_->Update();
 
 	// エネミー
-	enemy_.pos_.z_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
-	enemy_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
+	//enemy_.pos_.z_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
+	//enemy_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
 
 	enemy_.Update();
 
@@ -210,6 +215,10 @@ void GameScene::Update()
 	player_->UpdateMatrix();
 
 	// カメラ
+	camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
+	camera_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
+	camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.02f;
+	camera_.rota_.x_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.02f;
 	camera_.Update();
 
 	// ビュープロジェクション
@@ -284,20 +293,22 @@ void GameScene::DrawModels()
 
 
 	// floor
-	//for (size_t i = 0; i < floor.size(); i++)
-	//{
-	//	for (size_t j = 0; j < floor[i].size(); j++)
-	//	{
-	//		cubeM_->Draw(floor[i][j], vp_);
-	//	}
-	//}
+	for (size_t i = 0; i < floor.size(); i++)
+	{
+		for (size_t j = 0; j < floor[i].size(); j++)
+		{
+			cubeM_->Draw(floor[i][j], vp_);
+		}
+	}
 
 	// player
-	player_->Draw(vp_);
+	//player_->Draw(vp_);
 	// enemy
-	cubeM_->Draw(enemy_, vp_, enemyT_);
+	//cubeM_->Draw(enemy_, vp_, enemyT_);
 	// map
-	map_.Draw(vp_);
+	//map_.Draw(vp_);
+
+	assimpM_->Draw(enemy_, vp_);
 }
 
 void GameScene::DrawFrontSprites()
@@ -327,7 +338,7 @@ void GameScene::DrawFrontSprites()
 
 	}
 
-	map_.Draw2D();
+	//map_.Draw2D();
 
 	sceneMan_.Draw();
 }

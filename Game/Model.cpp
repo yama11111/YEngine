@@ -3,7 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #pragma comment(lib, "assimp-vc143-mtd.lib")
 
@@ -93,15 +94,20 @@ Model* Model::Create()
 		20, 23, 21, // 三角形2つ目
 	};
 
-	instance->vtIdx_.Initialize(v, i, true);
+	instance->meshes_.clear();
+	instance->meshes_.resize(1);
+	instance->meshes_[0].vtIdx_.Initialize(v, i, true);
+	instance->meshes_[0].mtrl_ = Material();
 
 	return instance;
 }
 
-Model* Model::Load(const std::string& modelName)
+Model* Model::Load(const std::string& modelFileName)
 {
 	// インスタンス
 	Model* instance = new Model();
+	instance->meshes_.clear();
+	instance->meshes_.resize(1);
 
 	// 頂点
 	std::vector<DX::ModelVData> v;
@@ -112,8 +118,8 @@ Model* Model::Load(const std::string& modelName)
 	std::ifstream file;
 
 	// ファイル名
-	std::string objFileName  = modelName + ".obj";
-	std::string directoryPath = "Resources/Models/" + modelName + "/";
+	std::string objFileName  = modelFileName + ".obj";
+	std::string directoryPath = "Resources/Models/" + modelFileName + "/";
 	// .objファイルを開く
 	file.open(directoryPath + objFileName);
 	// ファイルオープン失敗をチェック
@@ -146,7 +152,7 @@ Model* Model::Load(const std::string& modelName)
 			std::string mtlFileName;
 			lineStream >> mtlFileName;
 			// マテリアル読み込み
-			instance->mtrl_.Load(directoryPath, mtlFileName);
+			instance->meshes_[0].mtrl_.Load(directoryPath, mtlFileName);
 		}
 
 #pragma endregion
@@ -238,21 +244,156 @@ Model* Model::Load(const std::string& modelName)
 
 	file.close();
 
-	instance->vtIdx_.Initialize(v, i, false);
+	instance->meshes_[0].vtIdx_.Initialize(v, i, false);
 
 	return instance;
+}
+
+Model* Model::Load(const LoadStatus& state)
+{
+	// インスタンス
+	Model* instance = new Model();
+
+	std::string directoryPath = "Resources/Models/" + state.directoryPath;
+
+	Assimp::Importer importer;
+	int flag = 0;
+	flag |= aiProcess_Triangulate;
+	flag |= aiProcess_PreTransformVertices;
+	flag |= aiProcess_CalcTangentSpace;
+	flag |= aiProcess_GenSmoothNormals;
+	flag |= aiProcess_GenUVCoords;
+	flag |= aiProcess_RemoveRedundantMaterials;
+	flag |= aiProcess_OptimizeMeshes;
+
+	const aiScene* scene = importer.ReadFile(directoryPath + state.modelFileName, flag);
+	if (scene == nullptr)
+	{
+		printf(importer.GetErrorString());
+		printf("\n");
+		assert(false);
+	}
+
+	instance->meshes_.clear();
+	instance->meshes_.resize(scene->mNumMeshes);
+	for (size_t i = 0; i < instance->meshes_.size(); i++)
+	{
+		// 頂点情報読み込み
+		const aiMesh* pMesh = scene->mMeshes[i];
+		instance->meshes_[i].vtIdx_ = LoadVertices(pMesh, state.isInverseU, state.isInverseV);
+
+		// マテリアル読み込み
+		const aiMaterial* pMaterial = scene->mMaterials[i];
+		instance->meshes_[i].mtrl_ = LoadMaterial(directoryPath, pMaterial, state.extension);
+	}
+
+	scene = nullptr;
+
+	return instance;
+}
+
+DX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool invV)
+{
+	DX::VertexIndex3D vtIdx;
+
+	aiVector3D zero3D(0.0f, 0.0f, 0.0f);
+	aiColor4D zeroColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+	std::vector<DX::ModelVData> vData;
+	std::vector<uint16_t> indices;
+
+	vData.resize(src->mNumVertices);
+
+	for (size_t i = 0; i < src->mNumVertices; ++i)
+	{
+		aiVector3D* position = &(src->mVertices[i]);
+		aiVector3D* normal = &(src->mNormals[i]);
+		aiVector3D* uv = (src->HasTextureCoords(0)) ? &(src->mTextureCoords[0][i]) : &zero3D;
+		aiVector3D* tangent = (src->HasTangentsAndBitangents()) ? &(src->mTangents[i]) : &zero3D;
+		aiColor4D* color = (src->HasVertexColors(0)) ? &(src->mColors[0][i]) : &zeroColor;
+
+		if (invU) { uv->x = 1.0f - uv->x; }
+		if (invV) { uv->y = 1.0f - uv->y; }
+
+		DX::ModelVData vertex = {};
+		vertex.pos_ = Math::Vec3(position->x, position->y, position->z);
+		vertex.normal_ = Math::Vec3(normal->x, normal->y, normal->z);
+		vertex.uv_ = Math::Vec2(uv->x, uv->y);
+		vertex.tangent_ = Math::Vec3(tangent->x, tangent->y, tangent->z);
+		vertex.color_ = Math::Vec4(color->r, color->g, color->b, color->a);
+
+		vData[i] = vertex;
+	}
+
+	indices.resize(src->mNumFaces * 3);
+
+	for (size_t i = 0; i < src->mNumFaces; ++i)
+	{
+		const aiFace& face = src->mFaces[i];
+
+		indices[i * 3 + 0] = face.mIndices[0];
+		indices[i * 3 + 1] = face.mIndices[1];
+		indices[i * 3 + 2] = face.mIndices[2];
+	}
+
+	vtIdx.Initialize(vData, indices, false);
+
+	return vtIdx;
+}
+
+Game::Material Game::Model::LoadMaterial(const std::string directoryPath, const aiMaterial* src, 
+	const std::string extension)
+{
+	Material material;
+
+	aiString path;
+	if (src->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) == AI_SUCCESS)
+	{
+		std::string fileName = std::string(path.C_Str());
+		if (extension != "")
+		{
+			fileName = ReplaceExtension(fileName, extension);
+		}
+		material.LoadTexture(directoryPath, fileName);
+	}
+	else
+	{
+		material = Material();
+	}
+
+	return material;
+}
+
+std::string Model::ReplaceExtension(const std::string fileName, const std::string extention)
+{
+	std::string result = fileName;
+
+	std::string::size_type pos;
+	pos = result.find_last_of(".");
+
+	if (pos == std::string::npos) { return fileName; }
+
+	return result.substr(0, pos) + "." + extention;
 }
 
 void Model::Draw(Object& obj, const ViewProjection& vp, const UINT tex)
 {
 	obj.SetDrawCommand(vp.view_, vp.pro_);
-	mtrl_.SetDrawCommand(tex);
-	vtIdx_.Draw();
+
+	for (size_t i = 0; i < meshes_.size(); i++)
+	{
+		meshes_[i].mtrl_.SetDrawCommand(tex);
+		meshes_[i].vtIdx_.Draw();
+	}
 }
 
 void Model::Draw(Object& obj, const ViewProjection& vp)
 {
 	obj.SetDrawCommand(vp.view_, vp.pro_);
-	mtrl_.SetDrawCommand();
-	vtIdx_.Draw();
+
+	for (size_t i = 0; i < meshes_.size(); i++)
+	{
+		meshes_[i].mtrl_.SetDrawCommand();
+		meshes_[i].vtIdx_.Draw();
+	}
 }

@@ -44,6 +44,8 @@ namespace Game
 	private:
 		// テクスチャ設定
 		void SetTexture(Texture& tex, D3D12_SHADER_RESOURCE_VIEW_DESC* srvDesc);
+		// 拡張子取得
+		static std::string FileExtension(const std::string path);
 	private:
 		// 横方向ピクセル数
 		static const size_t textureWidth = 1;

@@ -22,6 +22,12 @@ void TextureManager::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsComma
 	pSrvHeap_ = pSrvHeap;
 }
 
+std::string TextureManager::FileExtension(const std::string path)
+{
+	size_t idx = path.rfind('.') + 1;
+	return path.substr(idx, path.length() - idx);
+}
+
 UINT TextureManager::CreateTex(const Math::Vec4& color)
 {
 	// テクスチャ情報
@@ -104,12 +110,23 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 	std::wstring wFilePath = std::wstring(filePath.begin(), filePath.end());
 	const wchar_t* fileName = wFilePath.c_str();
 
-	// WICテクスチャのロード
-	Result(LoadFromWICFile(fileName, DirectX::WIC_FLAGS_NONE, &metadata, scratchImg));
+	// 拡張子取得
+	std::string ext = FileExtension(texFileName);
+
+	if (ext == "png") // png → WIC
+	{
+		// WICテクスチャのロード
+		Result(LoadFromWICFile(fileName, DirectX::WIC_FLAGS_NONE, &metadata, scratchImg));
+	}
+	else if (ext == "tga") // tga → TGA
+	{
+		// TGAテクスチャのロード
+		Result(LoadFromTGAFile(fileName, &metadata, scratchImg));
+	}
 
 	DirectX::ScratchImage mipChain{};
 	// ミップマップ生成
-	if (mipMap)
+	if (mipMap && (metadata.width > 1 && metadata.height > 1))
 	{
 		if (Result(GenerateMipMaps(
 			scratchImg.GetImages(),
