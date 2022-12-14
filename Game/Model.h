@@ -27,11 +27,12 @@ namespace Game
 		// 読み込み設定構造体
 		struct LoadStatus 
 		{
-			std::string directoryPath;
-			std::string modelFileName;
-			bool isInverseU;
-			bool isInverseV;
-			std::string extension = "";
+			std::string directoryPath_;
+			std::string modelFileName_;
+			bool isInverseU_;
+			bool isInverseV_;
+			bool isNormalized_ = true;
+			std::string extension_ = "";
 		};
 	public:
 		// 生成(立方体)
@@ -42,7 +43,7 @@ namespace Game
 		static Model* Load(const LoadStatus& state);
 	private:
 		// 頂点情報読み込み(assimp)
-		static DX::VertexIndex3D LoadVertices(const aiMesh* src, bool invU, bool invV);
+		static DX::VertexIndex3D LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized);
 		// マテリアル読み込み(assimp)
 		static Material LoadMaterial(const std::string directoryPath, const aiMaterial* src, 
 			const std::string extension);

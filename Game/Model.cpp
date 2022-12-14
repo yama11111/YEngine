@@ -254,7 +254,7 @@ Model* Model::Load(const LoadStatus& state)
 	// インスタンス
 	Model* instance = new Model();
 
-	std::string directoryPath = "Resources/Models/" + state.directoryPath;
+	std::string directoryPath = "Resources/Models/" + state.directoryPath_;
 
 	Assimp::Importer importer;
 	int flag = 0;
@@ -266,7 +266,7 @@ Model* Model::Load(const LoadStatus& state)
 	flag |= aiProcess_RemoveRedundantMaterials;
 	flag |= aiProcess_OptimizeMeshes;
 
-	const aiScene* scene = importer.ReadFile(directoryPath + state.modelFileName, flag);
+	const aiScene* scene = importer.ReadFile(directoryPath + state.modelFileName_, flag);
 	if (scene == nullptr)
 	{
 		printf(importer.GetErrorString());
@@ -280,11 +280,13 @@ Model* Model::Load(const LoadStatus& state)
 	{
 		// 頂点情報読み込み
 		const aiMesh* pMesh = scene->mMeshes[i];
-		instance->meshes_[i].vtIdx_ = LoadVertices(pMesh, state.isInverseU, state.isInverseV);
+		instance->meshes_[i].vtIdx_ = 
+			LoadVertices(pMesh, state.isInverseU_, state.isInverseV_, state.isNormalized_);
 
 		// マテリアル読み込み
 		const aiMaterial* pMaterial = scene->mMaterials[i];
-		instance->meshes_[i].mtrl_ = LoadMaterial(directoryPath, pMaterial, state.extension);
+		instance->meshes_[i].mtrl_ = 
+			LoadMaterial(directoryPath, pMaterial, state.extension_);
 	}
 
 	scene = nullptr;
@@ -292,7 +294,7 @@ Model* Model::Load(const LoadStatus& state)
 	return instance;
 }
 
-DX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool invV)
+DX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized)
 {
 	DX::VertexIndex3D vtIdx;
 
@@ -336,7 +338,7 @@ DX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool i
 		indices[i * 3 + 2] = face.mIndices[2];
 	}
 
-	vtIdx.Initialize(vData, indices, false);
+	vtIdx.Initialize(vData, indices, isNormalized);
 
 	return vtIdx;
 }
