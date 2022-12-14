@@ -61,7 +61,7 @@ void GameScene::Load()
 	skydomeM_.reset(Model::Load("skydome"));
 	//skydomeM_.reset(Model::Load("skydome/skydome.obj", false, false));
 
-	assimpM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, "tga" }));
+	//assimpM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, "tga" }));
 
 	// ----- スプライト ----- //
 
@@ -308,7 +308,7 @@ void GameScene::DrawModels()
 	// map
 	//map_.Draw(vp_);
 
-	assimpM_->Draw(enemy_, vp_);
+	//assimpM_->Draw(enemy_, vp_);
 }
 
 void GameScene::DrawFrontSprites()
