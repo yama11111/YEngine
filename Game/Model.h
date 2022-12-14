@@ -31,7 +31,7 @@ namespace Game
 			std::string modelFileName_;
 			bool isInverseU_;
 			bool isInverseV_;
-			bool isNormalized_ = true;
+			bool isNormalized_ = false;
 			std::string extension_ = "";
 		};
 	public:

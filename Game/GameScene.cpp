@@ -58,19 +58,21 @@ void GameScene::Load()
 	// ----- モデル ----- //
 
 	cubeM_.reset(Model::Create());
-	//skydomeM_.reset(Model::Load("skydome"));
-	skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false }));
+	skydomeM_.reset(Model::Load("skydome"));
+	//skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false, true }));
+	//skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false, true }));
 
-	//assimpM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, "tga" }));
+	aliciaM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, false, "tga" }));
+	zundamonM_.reset(Model::Load({ "zundamon/", "zundamon.pmx", false, true, false }));
 
 	// ----- スプライト ----- //
 
 	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
-	mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
+	//mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
 
 	// ----- マップ ----- //
 
-	map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get()});
+	//map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get()});
 
 	// ----- 静的初期化 ----- //
 
@@ -119,12 +121,17 @@ void GameScene::Initialize()
 
 	// エネミー初期化
 	//enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
-	enemy_.Initialize({ {0,0.0f,+100.0f} });
-	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
+	//enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
+
+	alicia_.Initialize({ {-45.0f,0.0f,+100.0f} });
+	alicia_.rota_ = AdjustAngle(Vec3(0, 0, -1));
+	
+	zundamon_.Initialize({ {+45.0f,0.0f,+100.0f}, {}, {10,10,10} });
+	zundamon_.rota_ = AdjustAngle(Vec3(0, 0, -1));
 
 	// マップ初期化
 	//map_.Initialize({ 7.5f, {}});
-	map_.Initialize({ 7.5f, { 0.0f,+30.0f,-25.0f }});
+	//map_.Initialize({ 7.5f, { 0.0f,+30.0f,-25.0f }});
 
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
@@ -132,7 +139,7 @@ void GameScene::Initialize()
 	// カメラ初期化
 	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
 	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
-	camera_.Initialize({ {0.0f,50.0f,-200.0f} });
+	camera_.Initialize({ {0.0f,100.0f,-200.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -149,8 +156,8 @@ void GameScene::Update()
 	// ホットリロード
 	if (keys_->IsTrigger(DIK_L))
 	{
-		map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get() });
-		map_.Reset({ 0.0f,+30.0f,-25.0f });
+		//map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get() });
+		//map_.Reset({ 0.0f,+30.0f,-25.0f });
 	}
 
 	// リセット
@@ -205,8 +212,8 @@ void GameScene::Update()
 	enemy_.Update();
 
 	// マップマネージャー
-	map_.Update();
-	map_.PerfectPixelCollision(*player_.get());
+	//map_.Update();
+	//map_.PerfectPixelCollision(*player_.get());
 
 	// スカイドーム
 	skydome_.Update();
@@ -214,11 +221,20 @@ void GameScene::Update()
 	player_->UpdateMove();
 	player_->UpdateMatrix();
 
+	alicia_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
+	alicia_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
+	alicia_.Update();
+
+	zundamon_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 3.0f;
+	zundamon_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 3.0f;
+	zundamon_.Update();
+
+
 	// カメラ
-	camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
-	camera_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
-	camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.02f;
-	camera_.rota_.x_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.02f;
+	//camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
+	//camera_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
+	//camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.02f;
+	//camera_.rota_.x_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.02f;
 	camera_.Update();
 
 	// ビュープロジェクション
@@ -301,14 +317,15 @@ void GameScene::DrawModels()
 		}
 	}
 
+	aliciaM_->Draw(alicia_, vp_);
+	zundamonM_->Draw(zundamon_, vp_);
+
 	// player
 	//player_->Draw(vp_);
 	// enemy
 	//cubeM_->Draw(enemy_, vp_, enemyT_);
 	// map
 	//map_.Draw(vp_);
-
-	//assimpM_->Draw(enemy_, vp_);
 }
 
 void GameScene::DrawFrontSprites()
