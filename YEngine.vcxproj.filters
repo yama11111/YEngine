@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Math">
-      <UniqueIdentifier>{39f7d0ad-c764-4ef7-ae55-da4b2a53d826}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Math">
-      <UniqueIdentifier>{ee8f84ca-8b6d-42c6-bff8-ff2e686174eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Scene">
       <UniqueIdentifier>{5ed1409c-9607-4292-81cd-bf1c8f88c16e}</UniqueIdentifier>
     </Filter>
@@ -42,12 +36,6 @@
     </Filter>
     <Filter Include="Base\h">
       <UniqueIdentifier>{3759ae37-863b-4678-b124-991726576c3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\2D">
-      <UniqueIdentifier>{738326a5-6c66-4482-ba2e-2b41570ecba4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\3D">
-      <UniqueIdentifier>{68379a3f-f8dc-462c-8552-e40958c73ef3}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Map">
       <UniqueIdentifier>{42c6c4b9-70af-41ca-a630-a5341a324184}</UniqueIdentifier>
@@ -91,10 +79,28 @@
     <Filter Include="ソース ファイル\Camera">
       <UniqueIdentifier>{738382d3-7f50-4061-a88b-467bb996c3ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\3D\Billboard">
+    <Filter Include="GameUtillity\cpp\Math">
+      <UniqueIdentifier>{ee8f84ca-8b6d-42c6-bff8-ff2e686174eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtillity\h\Math">
+      <UniqueIdentifier>{39f7d0ad-c764-4ef7-ae55-da4b2a53d826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{f45ce711-56b0-45f8-844c-e0038a6b22d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\2D">
+      <UniqueIdentifier>{738326a5-6c66-4482-ba2e-2b41570ecba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\2D\Sprite">
+      <UniqueIdentifier>{882c2f58-5bc1-40ab-bd90-51b2446d2b8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\3D">
+      <UniqueIdentifier>{68379a3f-f8dc-462c-8552-e40958c73ef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\3D\Billboard">
       <UniqueIdentifier>{4d57a766-a49a-4651-938b-fd9406bcf692}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\3D\Model">
+    <Filter Include="Shader\3D\Model">
       <UniqueIdentifier>{dd283592-9d98-4cd5-b2c1-42a745732708}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -112,34 +118,34 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Math\YMath.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vec4.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vec3.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vec2.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Timer.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Power.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Lerp.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Shake.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\CalcTransform.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Mat4.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
+      <Filter>GameUtillity\h\Math</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneChangeFrame.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
@@ -244,7 +250,7 @@
       <Filter>ヘッダー ファイル\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Game\Billboard.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>GameUtillity\h\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -261,34 +267,34 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec2.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec3.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec4.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\YMath.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Timer.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Power.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Lerp.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Shake.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\CalcTransform.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+      <Filter>GameUtillity\cpp\Math</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>ソース ファイル\Scene</Filter>
@@ -387,41 +393,41 @@
       <Filter>ソース ファイル\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Game\Billboard.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>GameUtillity\cpp\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Billboard.hlsli">
-      <Filter>リソース ファイル\3D\Billboard</Filter>
+      <Filter>Shader\3D\Billboard</Filter>
     </None>
     <None Include="Resources\Shaders\Model.hlsli">
-      <Filter>リソース ファイル\3D\Model</Filter>
+      <Filter>Shader\3D\Model</Filter>
     </None>
     <None Include="Resources\Shaders\Sprite.hlsli">
-      <Filter>リソース ファイル\2D</Filter>
+      <Filter>Shader\2D\Sprite</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\BillboardPS.hlsl">
-      <Filter>リソース ファイル\3D\Billboard</Filter>
+      <Filter>Shader\3D\Billboard</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\BillboardVS.hlsl">
-      <Filter>リソース ファイル\3D\Billboard</Filter>
+      <Filter>Shader\3D\Billboard</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
-      <Filter>リソース ファイル\3D\Model</Filter>
+      <Filter>Shader\3D\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
-      <Filter>リソース ファイル\3D\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
-      <Filter>リソース ファイル\2D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
-      <Filter>リソース ファイル\2D</Filter>
+      <Filter>Shader\3D\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\BillboardGS.hlsl">
-      <Filter>リソース ファイル\3D\Billboard</Filter>
+      <Filter>Shader\3D\Billboard</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
+      <Filter>Shader\2D\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
+      <Filter>Shader\2D\Sprite</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

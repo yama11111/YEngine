@@ -129,8 +129,8 @@ void GameScene::Initialize()
 
 	// カメラ初期化
 	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
-	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
-	camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
+	camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
+	//camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -294,10 +294,9 @@ void GameScene::DrawModels()
 		}
 	}
 
-	//skydome_.Draw(vp_);
+	skydome_.Draw(vp_);
 
-
-	// floor
+	//// floor
 	//for (size_t i = 0; i < floor.size(); i++)
 	//{
 	//	for (size_t j = 0; j < floor[i].size(); j++)
@@ -306,12 +305,12 @@ void GameScene::DrawModels()
 	//	}
 	//}
 
-	//// player
-	//player_->Draw(vp_);
-	//// enemy
-	//cubeM_->Draw(enemy_, vp_, enemyT_);
-	//// map
-	//map_.Draw(vp_);
+	// player
+	player_->Draw(vp_);
+	// enemy
+	cubeM_->Draw(enemy_, vp_, enemyT_);
+	// map
+	map_.Draw(vp_);
 }
 
 void GameScene::DrawBillboards()
@@ -343,7 +342,7 @@ void GameScene::DrawBillboards()
 		}
 	}
 
-	aB_->Draw(billboard_, vp_, plainT_);
+	//aB_->Draw(billboard_, vp_, plainT_);
 }
 
 void GameScene::DrawFrontSprites()

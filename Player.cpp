@@ -53,7 +53,7 @@ void Player::OnCollision(const uint32_t attribute)
 
 void Player::Jump()
 {
-	if (++jumpCount_ > MaxJumpCount) { /*return;*/ }
+	if (++jumpCount_ > MaxJumpCount) { return; }
 
 	jumpCount_ = min(jumpCount_, MaxJumpCount);
 	speed_.y_ = RisePower;
