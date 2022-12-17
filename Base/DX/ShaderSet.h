@@ -43,4 +43,19 @@ namespace DX
 		// シェーダーファイル読み込み
 		void Load(ID3DBlob* errorBlob);
 	};
+
+	// ビルボード用シェーダーセット
+	class BillboardShaderSet : public IShaderSet
+	{
+	public:
+		// ジオメトリシェーダオブジェクト
+		Microsoft::WRL::ComPtr<ID3DBlob> gsBlob_ = nullptr;
+		// 頂点シェーダオブジェクト
+		Microsoft::WRL::ComPtr<ID3DBlob> vsBlob_ = nullptr;
+		// ピクセルシェーダオブジェクト
+		Microsoft::WRL::ComPtr<ID3DBlob> psBlob_ = nullptr;
+	public:
+		// シェーダーファイル読み込み
+		void Load(ID3DBlob* errorBlob);
+	};
 }

@@ -86,6 +86,7 @@ void Vertices<T>::Draw()
 
 template class Vertices<DX::SpriteVData>;
 template class Vertices<DX::ModelVData>;
+template class Vertices<DX::BillboardVData>;
 
 void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, const bool normalized)
 {

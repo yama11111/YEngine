@@ -1,9 +1,9 @@
 #include "Sprite.hlsli"
 
-VSOutput main(float4 pos : POSITION, float2 uv : TEXCOORD)
+PSInput main(VSInput input)
 {
-	VSOutput output; // ピクセルシェーダーに渡す値
-	output.svpos = mul(mat, pos); // 座標に行列を乗算
-	output.uv = uv;
+	PSInput output; // ピクセルシェーダーに渡す値
+	output.svpos = mul(mat, input.pos); // 座標に行列を乗算
+	output.uv = input.uv;
 	return output;
 }

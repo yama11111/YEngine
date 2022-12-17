@@ -37,7 +37,7 @@ constexpr float Vec3::Dot(const Vec3& v) const
 	return x_ * v.x_ + y_ * v.y_ + z_ * v.z_;
 }
 
-Vec3 Vec3::Cross(const Vec3& v)
+Vec3 Vec3::Cross(const Vec3& v) const
 {
 	return
 	{

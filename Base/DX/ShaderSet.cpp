@@ -8,6 +8,7 @@
 using DX::IShaderSet;
 using DX::SpriteShaderSet;
 using DX::ModelShaderSet;
+using DX::BillboardShaderSet;
 
 void IShaderSet::LoadShader(const wchar_t* fileName, const char* entryPoint, const char* target,
 		ID3DBlob*& shaderBlob, ID3DBlob* errorBlob)
@@ -62,10 +63,28 @@ void ModelShaderSet::Load(ID3DBlob* errorBlob)
 	ID3DBlob* ps = nullptr;
 
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/ObjVS.hlsl", "main", "vs_5_0", vs, errorBlob);
+	LoadShader(L"Resources/Shaders/ModelVS.hlsl", "main", "vs_5_0", vs, errorBlob);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/ObjPS.hlsl", "main", "ps_5_0", ps, errorBlob);
+	LoadShader(L"Resources/Shaders/ModelPS.hlsl", "main", "ps_5_0", ps, errorBlob);
 
+	vsBlob_ = vs;
+	psBlob_ = ps;
+}
+
+void BillboardShaderSet::Load(ID3DBlob* errorBlob)
+{
+	ID3DBlob* gs = nullptr;
+	ID3DBlob* vs = nullptr;
+	ID3DBlob* ps = nullptr;
+
+	// 頂点シェーダの読み込みとコンパイル
+	LoadShader(L"Resources/Shaders/BillboardVS.hlsl", "main", "vs_5_0", vs, errorBlob);
+	// ジオメトリシェーダの読み込みとコンパイル
+	LoadShader(L"Resources/Shaders/BillboardGS.hlsl", "main", "gs_5_0", gs, errorBlob);
+	// ピクセルシェーダの読み込みとコンパイル
+	LoadShader(L"Resources/Shaders/BillboardPS.hlsl", "main", "ps_5_0", ps, errorBlob);
+
+	gsBlob_ = gs;
 	vsBlob_ = vs;
 	psBlob_ = ps;
 }

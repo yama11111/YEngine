@@ -26,6 +26,11 @@ namespace DX
 		Math::Vec3 specular_; // スペキュラー係数
 		float alpha_;		  // アルファ
 	};
+	// 定数バッファ用データ構造体 (ビルボード)
+	struct BillboardCBData
+	{
+		Math::Mat4 matBlbd_; // ビルボード行列
+	};
 
 	template <typename T>
 	class ConstBuffer

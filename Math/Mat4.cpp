@@ -10,13 +10,16 @@ Mat4::Mat4()
 	m[3][0] = 0.0f, m[3][1] = 0.0f, m[3][2] = 0.0f, m[3][3] = 0.0f;
 }
 
-Mat4::Mat4(const InitState& mat) :
+Mat4::Mat4( float m00_, float m01_, float m02_, float m03_,
+			float m10_, float m11_, float m12_, float m13_,
+			float m20_, float m21_, float m22_, float m23_,
+			float m30_, float m31_, float m32_, float m33_) :
 	m()
 {
-	m[0][0] = mat.m00_, m[0][1] = mat.m01_, m[0][2] = mat.m02_, m[0][3] = mat.m03_;
-	m[1][0] = mat.m10_, m[1][1] = mat.m11_, m[1][2] = mat.m12_, m[1][3] = mat.m13_;
-	m[2][0] = mat.m20_, m[2][1] = mat.m21_, m[2][2] = mat.m22_, m[2][3] = mat.m23_;
-	m[3][0] = mat.m30_, m[3][1] = mat.m31_, m[3][2] = mat.m32_, m[3][3] = mat.m33_;
+	m[0][0] = m00_, m[0][1] = m01_, m[0][2] = m02_, m[0][3] = m03_;
+	m[1][0] = m10_, m[1][1] = m11_, m[1][2] = m12_, m[1][3] = m13_;
+	m[2][0] = m20_, m[2][1] = m21_, m[2][2] = m22_, m[2][3] = m23_;
+	m[3][0] = m30_, m[3][1] = m31_, m[3][2] = m32_, m[3][3] = m33_;
 }
 
 Mat4 Mat4::operator*(const Mat4& mat) const

@@ -55,24 +55,23 @@ void GameScene::Load()
 
 	aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
-	// ----- モデル ----- //
-
-	cubeM_.reset(Model::Create());
-	skydomeM_.reset(Model::Load("skydome"));
-	//skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false, true }));
-	//skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false, true }));
-
-	aliciaM_.reset(Model::Load({ "Alicia/FBX/", "Alicia_solid_Unity.FBX", false, true, false, "tga" }));
-	zundamonM_.reset(Model::Load({ "zundamon/", "zundamon.pmx", false, true, false }));
-
 	// ----- スプライト ----- //
 
 	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
-	//mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
+	mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
 
-	// ----- マップ ----- //
+	// ------- モデル ------- //
 
-	//map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get()});
+	cubeM_.reset(Model::Create());
+	skydomeM_.reset(Model::Load("skydome"));
+
+	// ----- ビルボード ----- //
+
+	aB_.reset(Billboard::Create(false));
+
+	// ------- マップ ------- //
+
+	map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get()});
 
 	// ----- 静的初期化 ----- //
 
@@ -113,25 +112,17 @@ void GameScene::Initialize()
 		floor.push_back(fs);
 	}
 
-	sprite_.Initialize({ });
-
 	// プレイヤー初期化
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
 
 	// エネミー初期化
-	//enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
-	//enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
-
-	alicia_.Initialize({ {-45.0f,0.0f,+100.0f} });
-	alicia_.rota_ = AdjustAngle(Vec3(0, 0, -1));
-	
-	zundamon_.Initialize({ {+45.0f,0.0f,+100.0f}, {}, {10,10,10} });
-	zundamon_.rota_ = AdjustAngle(Vec3(0, 0, -1));
+	enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
+	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
 
 	// マップ初期化
 	//map_.Initialize({ 7.5f, {}});
-	//map_.Initialize({ 7.5f, { 0.0f,+30.0f,-25.0f }});
+	map_.Initialize({ 7.5f, { 0.0f,+30.0f,-25.0f }});
 
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
@@ -139,13 +130,18 @@ void GameScene::Initialize()
 	// カメラ初期化
 	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
 	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
-	camera_.Initialize({ {0.0f,100.0f,-200.0f} });
+	camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
 
-	sceneMan_.Initialize();
+	// アタリ判定マネージャー初期化
 	collMan_.Initialize();
+
+	// シーンマネージャー初期化
+	sceneMan_.Initialize();
+
+	billboard_.Initialize({ {0,0,5} });
 }
 #pragma endregion
 
@@ -156,8 +152,8 @@ void GameScene::Update()
 	// ホットリロード
 	if (keys_->IsTrigger(DIK_L))
 	{
-		//map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get() });
-		//map_.Reset({ 0.0f,+30.0f,-25.0f });
+		map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get() });
+		map_.Reset({ 0.0f,+30.0f,-25.0f });
 	}
 
 	// リセット
@@ -171,31 +167,33 @@ void GameScene::Update()
 		collMan_.Initialize();
 	}
 
-	if (sceneMan_.GetScene() == Scene::TITLE)
 	{
+		if (sceneMan_.GetScene() == Scene::TITLE)
+		{
 
-	}
-	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
-	{
+		}
+		else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+		{
 
-	}
-	else if (sceneMan_.GetScene() == Scene::PLAY)
-	{
+		}
+		else if (sceneMan_.GetScene() == Scene::PLAY)
+		{
 
-	}
-	else if (sceneMan_.GetScene() == Scene::PAUSE) 
-	{
+		}
+		else if (sceneMan_.GetScene() == Scene::PAUSE)
+		{
 
-	}
-	else if (sceneMan_.GetScene() == Scene::CLEAR) 
-	{
+		}
+		else if (sceneMan_.GetScene() == Scene::CLEAR)
+		{
 
-	}
-	else if (sceneMan_.GetScene() == Scene::OVER) 
-	{
+		}
+		else if (sceneMan_.GetScene() == Scene::OVER)
+		{
 
+		}
 	}
-	
+
 	// プレイヤー
 	if (keys_->IsTrigger(DIK_SPACE)) { player_->Jump(); }
 	if (keys_->IsTrigger(DIK_RETURN)) { player_->Attack(); }
@@ -212,29 +210,16 @@ void GameScene::Update()
 	enemy_.Update();
 
 	// マップマネージャー
-	//map_.Update();
-	//map_.PerfectPixelCollision(*player_.get());
-
-	// スカイドーム
-	skydome_.Update();
+	map_.Update();
+	map_.PerfectPixelCollision(*player_.get());
 
 	player_->UpdateMove();
 	player_->UpdateMatrix();
 
-	alicia_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
-	alicia_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
-	alicia_.Update();
-
-	zundamon_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 3.0f;
-	zundamon_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 3.0f;
-	zundamon_.Update();
-
+	// スカイドーム
+	skydome_.Update();
 
 	// カメラ
-	//camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
-	//camera_.pos_.z_ += -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
-	//camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.02f;
-	//camera_.rota_.x_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.02f;
 	camera_.Update();
 
 	// ビュープロジェクション
@@ -244,6 +229,8 @@ void GameScene::Update()
 	// シーンマネージャー
 	if (keys_->IsTrigger(DIK_1)){ sceneMan_.Change(Scene::PLAY); }
 	sceneMan_.Update();
+
+	billboard_.Update();
 }
 #pragma endregion
 
@@ -280,52 +267,83 @@ void GameScene::DrawBackSprites()
 
 void GameScene::DrawModels()
 {
-	if (sceneMan_.GetScene() == Scene::TITLE)
 	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::PLAY)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::PAUSE)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::CLEAR)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::OVER)
-	{
-
-	}
-
-	skydome_.Draw(vp_);
-
-
-	// floor
-	for (size_t i = 0; i < floor.size(); i++)
-	{
-		for (size_t j = 0; j < floor[i].size(); j++)
+		if (sceneMan_.GetScene() == Scene::TITLE)
 		{
-			cubeM_->Draw(floor[i][j], vp_);
+
+		}
+		else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::PLAY)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::PAUSE)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::CLEAR)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::OVER)
+		{
+
 		}
 	}
 
-	aliciaM_->Draw(alicia_, vp_);
-	zundamonM_->Draw(zundamon_, vp_);
+	//skydome_.Draw(vp_);
 
-	// player
+
+	// floor
+	//for (size_t i = 0; i < floor.size(); i++)
+	//{
+	//	for (size_t j = 0; j < floor[i].size(); j++)
+	//	{
+	//		cubeM_->Draw(floor[i][j], vp_);
+	//	}
+	//}
+
+	//// player
 	//player_->Draw(vp_);
-	// enemy
+	//// enemy
 	//cubeM_->Draw(enemy_, vp_, enemyT_);
-	// map
+	//// map
 	//map_.Draw(vp_);
+}
+
+void GameScene::DrawBillboards()
+{
+	{
+		if (sceneMan_.GetScene() == Scene::TITLE)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::PLAY)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::PAUSE)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::CLEAR)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::OVER)
+		{
+
+		}
+	}
+
+	aB_->Draw(billboard_, vp_, plainT_);
 }
 
 void GameScene::DrawFrontSprites()
@@ -373,6 +391,12 @@ void GameScene::Draw()
 	// --------- モデル --------- //
 
 	DrawModels();
+
+	// -------------------------- //
+	Billboard::StaticSetDrawCommand();
+	// ------- ビルボード ------- //
+
+	DrawBillboards();
 
 	// -------------------------- //
 	Sprite::StaticSetDrawCommand();

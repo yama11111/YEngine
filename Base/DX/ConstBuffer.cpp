@@ -47,3 +47,4 @@ void ConstBuffer<T>::SetDrawCommand()
 template class ConstBuffer<DX::TransformCBData>;
 template class ConstBuffer<DX::ColorCBData>;
 template class ConstBuffer<DX::MaterialCBData>;
+template class ConstBuffer<DX::BillboardCBData>;

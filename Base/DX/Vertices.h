@@ -25,6 +25,11 @@ namespace DX
 		Math::Vec3 tangent_; // 接空間
 		Math::Vec4 color_;	 // 頂点色
 	};
+	// Billboard用 頂点データ
+	struct BillboardVData 
+	{
+		Math::Vec3 pos_; // xyz座標
+	};
 
 	template <typename T>
 	class Vertices // 頂点

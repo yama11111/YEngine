@@ -25,7 +25,7 @@ namespace Math
 		// “àÏ
 		constexpr float Dot(const Vec3& v) const;
 		// ŠOÏ
-		Vec3 Cross(const Vec3& v);
+		Vec3 Cross(const Vec3& v) const;
 		// ‹——£
 		float Distance(const Vec3& v) const;
 	public:

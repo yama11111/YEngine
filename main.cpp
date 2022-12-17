@@ -45,6 +45,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	ConstBuffer<ColorCBData>::SetRootParameterIndex(rpM.PushBackCBV());
 	ConstBuffer<MaterialCBData>::StaticInitialize(pCmdList);
 	ConstBuffer<MaterialCBData>::SetRootParameterIndex(rpM.PushBackCBV());
+	ConstBuffer<BillboardCBData>::StaticInitialize(pCmdList);
+	ConstBuffer<BillboardCBData>::SetRootParameterIndex(rpM.PushBackCBV());
 
 	SRVHeap::StaticInitialize(pDev, pCmdList);
 	SRVHeap srvHeap;
@@ -57,10 +59,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	Vertices<SpriteVData>::StaticInitialize(pCmdList);
 	Vertices<ModelVData>::StaticInitialize(pCmdList);
+	Vertices<BillboardVData>::StaticInitialize(pCmdList);
 
 	Sprite::StaticInitialize(&texM, rpM.Get());
 	Material::StaticInitialize(&texM);
 	Model::StaticInitialize(rpM.Get());
+	Billboard::StaticInitialize(&texM, rpM.Get());
 
 	AudioManager audioM;
 	audioM.Initialize();

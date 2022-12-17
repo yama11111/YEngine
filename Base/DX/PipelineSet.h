@@ -35,6 +35,11 @@ namespace DX
 		{
 			void Initialize(ID3DBlob* errorBlob_) override;
 		};
+		// ビルボード用設定構造体
+		struct BillboardPipelineSetDesc : public IPipelineSetDesc
+		{
+			void Initialize(ID3DBlob* errorBlob_) override;
+		};
 	private:
 		// ルートシグネチャ
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
@@ -48,6 +53,7 @@ namespace DX
 		{
 			SpriteT, // スプライト
 			ModelT, // モデル
+			BillboardT, // ビルボード
 		};
 	public:
 		// 初期化

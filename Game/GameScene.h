@@ -4,6 +4,7 @@
 #include "Pad.h"
 #include "Sprite.h"
 #include "Model.h"
+#include "Billboard.h"
 #include "AudioManager.h"
 #include "CollisionManager.h"
 #include <memory>
@@ -38,6 +39,13 @@ namespace Game
 		// 
 		UINT aA_ = 0;
 
+		// ----- スプライト ----- //
+		
+		// 画面全部
+		std::unique_ptr<Sprite> curtenS_ = nullptr;
+		// マップ2D表示用
+		std::unique_ptr<Sprite> mapDispS_ = nullptr;
+
 		// ----- モデル ----- //
 		
 		// 立方体モデル
@@ -45,16 +53,11 @@ namespace Game
 		// 天球モデル
 		std::unique_ptr<Model> skydomeM_ = nullptr;
 
-		// アシンプ確認用モデル
-		std::unique_ptr<Model> aliciaM_ = nullptr;
-		std::unique_ptr<Model> zundamonM_ = nullptr;
+		// ----- ビルボード ----- //
 
-		// ----- スプライト ----- //
-		
-		// 画面全部
-		std::unique_ptr<Sprite> curtenS_ = nullptr;
-		// マップ2D表示用
-		//std::unique_ptr<Sprite> mapDispS_ = nullptr;
+		// 
+		std::unique_ptr<Billboard> aB_ = nullptr;
+
 
 #pragma endregion
 #pragma region ゲームオブジェクト
@@ -65,18 +68,19 @@ namespace Game
 		// プレイヤー
 		std::unique_ptr<Player> player_ = nullptr;
 
-		Object sprite_;
+		// エネミー
 		Object enemy_;
 
-		Object alicia_;
-		Object zundamon_;
+		Object billboard_;
+
+		// マップ
+		MapChip map_;
 
 		// 天球
 		Skydome skydome_;
 
-		//MapChip map_;
-
-		// カメラ
+		// カメラマネージャー
+		CameraManager cameraMan_;
 		Camera camera_;
 
 		// 転送用ビュープロジェクション
@@ -84,9 +88,6 @@ namespace Game
 
 		// アタリ判定マネージャー
 		Collision::CollisionManager collMan_;
-
-		// カメラマネージャー
-		CameraManager cameraMan_;
 
 		// シーンマネージャー
 		SceneManager sceneMan_;
@@ -106,6 +107,8 @@ namespace Game
 		void DrawBackSprites();
 		// モデル描画
 		void DrawModels();
+		// ビルボード描画
+		void DrawBillboards();
 		// 前景スプライト描画
 		void DrawFrontSprites();
 	public:
