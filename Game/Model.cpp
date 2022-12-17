@@ -26,7 +26,7 @@ Model* Model::Create()
 {
 	// インスタンス
 	Model* instance = new Model();
-	//
+
 	// 頂点
 	std::vector<DX::ModelVData> v =
 	{
