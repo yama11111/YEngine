@@ -68,7 +68,7 @@ void GameScene::Load()
 
 	// ----- ビルボード ----- //
 
-	//aB_.reset(Billboard::Create(false));
+	aB_.reset(Billboard::Create(false));
 
 	// ------- マップ ------- //
 
@@ -142,7 +142,7 @@ void GameScene::Initialize()
 	// シーンマネージャー初期化
 	sceneMan_.Initialize();
 
-	billboard_.Initialize({ {0,0,5} });
+	billboard_.Initialize({ {0,0,5},{},{10.0f,10.0f,10.0f} });
 }
 #pragma endregion
 
@@ -343,7 +343,7 @@ void GameScene::DrawBillboards()
 		}
 	}
 
-	//aB_->Draw(billboard_, vp_, plainT_);
+	aB_->Draw(billboard_, vp_, plainT_);
 }
 
 void GameScene::DrawFrontSprites()
@@ -392,11 +392,11 @@ void GameScene::Draw()
 
 	DrawModels();
 
-	//// -------------------------- //
-	//Billboard::StaticSetDrawCommand();
-	//// ------- ビルボード ------- //
+	// -------------------------- //
+	Billboard::StaticSetDrawCommand();
+	// ------- ビルボード ------- //
 
-	//DrawBillboards();
+	DrawBillboards();
 
 	// -------------------------- //
 	Sprite::StaticSetDrawCommand();

@@ -30,7 +30,6 @@ void main(
 		float4 offset = mul(matBillboard, offset_array[i]);
 
 		element.svpos = input[0].pos + offset;
-
 		element.svpos = mul(mat, element.svpos);
 		element.uv = uv_array[i];
 		output.Append(element);

@@ -245,7 +245,7 @@ void PipelineSet::Initialize(const Type& type, std::vector<D3D12_ROOT_PARAMETER>
 
 	if (type == Type::SpriteT) { state = std::make_unique<SpritePipelineSetDesc>(); }
 	if (type == Type::ModelT) { state = std::make_unique<ModelPipelineSetDesc>(); }
-	if (type == Type::BillboardT) { state = std::make_unique<ModelPipelineSetDesc>(); }
+	if (type == Type::BillboardT) { state = std::make_unique<BillboardPipelineSetDesc>(); }
 
 	state->Initialize(errorBlob.Get());
 

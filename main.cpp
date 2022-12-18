@@ -56,8 +56,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	ConstBuffer<ColorCBData>::SetRootParameterIndex(rpM.PushBackCBV());
 	ConstBuffer<MaterialCBData>::StaticInitialize(pCmdList);
 	ConstBuffer<MaterialCBData>::SetRootParameterIndex(rpM.PushBackCBV());
-	//ConstBuffer<BillboardCBData>::StaticInitialize(pCmdList);
-	//ConstBuffer<BillboardCBData>::SetRootParameterIndex(rpM.PushBackCBV());
+	ConstBuffer<BillboardCBData>::StaticInitialize(pCmdList);
+	ConstBuffer<BillboardCBData>::SetRootParameterIndex(rpM.PushBackCBV());
 
 	// シェーダーリソースビュー
 	SRVHeap::StaticInitialize(pDev, pCmdList);
@@ -73,13 +73,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	// 頂点
 	Vertices<SpriteVData>::StaticInitialize(pCmdList);
 	Vertices<ModelVData>::StaticInitialize(pCmdList);
-	//Vertices<BillboardVData>::StaticInitialize(pCmdList);
+	Vertices<BillboardVData>::StaticInitialize(pCmdList);
 
 	// 
 	Sprite::StaticInitialize(&texM, rpM.Get());
 	Material::StaticInitialize(&texM);
 	Model::StaticInitialize(rpM.Get());
-	//Billboard::StaticInitialize(&texM, rpM.Get());
+	Billboard::StaticInitialize(&texM, rpM.Get());
 
 	AudioManager audioM;
 	audioM.Initialize();

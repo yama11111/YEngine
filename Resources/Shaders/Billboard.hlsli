@@ -31,8 +31,6 @@ struct PSInput
 {
 	// システム用頂点座標
 	float4 svpos : SV_POSITION;
-	//// 法線ベクトル
-	//float3 normal : NORMAL;
 	// uv値
 	float2 uv : TEXCOORD;
 };

@@ -19,11 +19,11 @@ namespace YDX
 	// Model用 頂点データ構造体
 	struct ModelVData
 	{
-		YMath::Vec3 pos_;	 // xyz座標
-		YMath::Vec3 normal_;	 // 法線ベクトル
-		YMath::Vec2 uv_;		 // uv座標
+		YMath::Vec3 pos_; // xyz座標
+		YMath::Vec3 normal_; // 法線ベクトル
+		YMath::Vec2 uv_; // uv座標
 		YMath::Vec3 tangent_; // 接空間
-		YMath::Vec4 color_;	 // 頂点色
+		YMath::Vec4 color_; // 頂点色
 	};
 	// Billboard用 頂点データ
 	struct BillboardVData 

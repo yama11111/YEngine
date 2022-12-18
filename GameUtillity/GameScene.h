@@ -54,7 +54,7 @@ namespace Game
 
 		// ----- ビルボード ----- //
 
-		//std::unique_ptr<Billboard> aB_ = nullptr;
+		std::unique_ptr<Billboard> aB_ = nullptr;
 
 
 #pragma endregion
