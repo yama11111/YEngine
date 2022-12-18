@@ -45,11 +45,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)DirectXTex;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DirectXTex;$(SolutionDir)assimp;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)DirectXTex;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DirectXTex;$(SolutionDir)assimp;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -57,12 +57,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)MapChip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)assimp\bin\Debug\assimp-vc143-mtd.dll" "$(SolutionDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -72,7 +75,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)MapChip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -81,6 +84,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)assimp\bin\Release\assimp-vc143-mt.dll" "$(SolutionDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base\DX\ConstBuffer.cpp" />
@@ -232,6 +238,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="assimp\assimp.vcxproj">
+      <Project>{1f1633e4-919e-3ae4-a103-70fdd5d7ad9e}</Project>
+    </ProjectReference>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>

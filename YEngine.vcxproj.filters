@@ -25,24 +25,6 @@
     <Filter Include="Base\cpp">
       <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameUtil">
-      <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\cpp">
-      <UniqueIdentifier>{fff32c91-984c-48cd-8831-4f5559dd71de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\h">
-      <UniqueIdentifier>{29be620f-b9ed-4320-844c-bb530e567a3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\cpp\Transform">
-      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\h\Transform">
-      <UniqueIdentifier>{6ddc52a8-fbe4-4b11-8ba0-c94f4db0c280}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\Billborad">
       <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
     </Filter>
@@ -51,39 +33,6 @@
     </Filter>
     <Filter Include="Shader\Sprite">
       <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{b7e1ea2a-a1ae-47a4-8e59-6798e60a7a6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input\cpp">
-      <UniqueIdentifier>{b1eba106-9cb5-4638-9329-cdb20074e483}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input\h">
-      <UniqueIdentifier>{77d3bcbd-1f86-43d7-bbda-1e6dee63762b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp">
-      <UniqueIdentifier>{d28ee3d2-f31c-41e5-997e-e81332f989ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h">
-      <UniqueIdentifier>{cd0de0a3-7e46-46cd-b98e-173307311788}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp\2D">
-      <UniqueIdentifier>{cb1cd272-8d3d-417c-a935-2c573bbfb8ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h\2D">
-      <UniqueIdentifier>{395f7194-31a0-4d0e-93b1-f938c1a59774}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp\3D">
-      <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h\3D">
-      <UniqueIdentifier>{f916d649-6e93-466a-b2cc-71a5db934839}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp\Coll">
-      <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h\Coll">
-      <UniqueIdentifier>{da6dca9a-8573-4161-bec8-e0426255a749}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\MapChip">
       <UniqueIdentifier>{80d5f6b8-0baa-4854-85ad-f4bcf053533b}</UniqueIdentifier>
@@ -102,6 +51,57 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Camera">
       <UniqueIdentifier>{f2868191-cda5-4bf4-96e5-e5545d0173f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil">
+      <UniqueIdentifier>{b7e1ea2a-a1ae-47a4-8e59-6798e60a7a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\cpp">
+      <UniqueIdentifier>{d28ee3d2-f31c-41e5-997e-e81332f989ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\cpp\2D">
+      <UniqueIdentifier>{cb1cd272-8d3d-417c-a935-2c573bbfb8ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\cpp\3D">
+      <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\cpp\Coll">
+      <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\h">
+      <UniqueIdentifier>{cd0de0a3-7e46-46cd-b98e-173307311788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\h\2D">
+      <UniqueIdentifier>{395f7194-31a0-4d0e-93b1-f938c1a59774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\h\3D">
+      <UniqueIdentifier>{f916d649-6e93-466a-b2cc-71a5db934839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\h\Coll">
+      <UniqueIdentifier>{da6dca9a-8573-4161-bec8-e0426255a749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\h">
+      <UniqueIdentifier>{29be620f-b9ed-4320-844c-bb530e567a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\h\Transform">
+      <UniqueIdentifier>{6ddc52a8-fbe4-4b11-8ba0-c94f4db0c280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\cpp">
+      <UniqueIdentifier>{fff32c91-984c-48cd-8831-4f5559dd71de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\cpp\Transform">
+      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\cpp">
+      <UniqueIdentifier>{b1eba106-9cb5-4638-9329-cdb20074e483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\h">
+      <UniqueIdentifier>{77d3bcbd-1f86-43d7-bbda-1e6dee63762b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -63,7 +63,8 @@ void GameScene::Load()
 	// ------- モデル ------- //
 
 	cubeM_.reset(Model::Create());
-	skydomeM_.reset(Model::Load("skydome"));
+	//skydomeM_.reset(Model::Load("skydome"));
+	skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false  }));
 
 	// ----- ビルボード ----- //
 
