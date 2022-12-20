@@ -45,7 +45,7 @@ void Billboard::Draw(Object& obj, const ViewProjection& vp, const UINT tex)
 	// Y軸周りビルボードなら
 	if (isAxisY_)
 	{
-		axisY = vp.up_.Normalized();
+		axisY = { 0,1,0 };
 		axisZ = axisX.Cross(axisY);
 	}
 
@@ -58,6 +58,7 @@ void Billboard::Draw(Object& obj, const ViewProjection& vp, const UINT tex)
 	);
 
 	cbBlbd_.map_->matBlbd_ = matBillboard;
+	cbBlbd_.SetDrawCommand();
 
 	obj.SetDrawCommand(vp.view_, vp.pro_);
 	pTexManager_->SetDrawCommand(tex);

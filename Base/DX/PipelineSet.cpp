@@ -76,6 +76,9 @@ void PipelineSet::SpritePipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 		// デプスステンシルステートの設定
 		pplnDesc_.DepthStencilState.DepthEnable = false; // 深度テストしない
 		pplnDesc_.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS; // 常に上書き
+
+		// 図形の形状設定
+		pplnDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	}
 
 	// プリミティブ形状の設定
@@ -170,6 +173,9 @@ void PipelineSet::ModelPipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 		pplnDesc_.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL; // 書き込み許可
 		pplnDesc_.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS; // 小さければ合格
 		pplnDesc_.DSVFormat = DXGI_FORMAT_D32_FLOAT; // 深度フォーマット
+
+		// 図形の形状設定
+		pplnDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	}
 	
 	// プリミティブ形状の設定
@@ -228,10 +234,13 @@ void PipelineSet::BillboardPipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 		// デプスステンシルステートの設定
 		pplnDesc_.DepthStencilState.DepthEnable = false; // 深度テストしない
 		pplnDesc_.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS; // 常に上書き
+
+		// 図形の形状設定
+		pplnDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
 	}
 
 	// プリミティブ形状の設定
-	primitive_ = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; // 三角形ストリップ
+	primitive_ = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ポイントリスト
 }
 
 void PipelineSet::Initialize(const Type& type, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
@@ -296,9 +305,6 @@ void PipelineSet::Initialize(const Type& type, std::vector<D3D12_ROOT_PARAMETER>
 	// 頂点レイアウトの設定
 	state->pplnDesc_.InputLayout.pInputElementDescs = state->inputLayout_.data(); // 頂点レイアウトの先頭アドレス
 	state->pplnDesc_.InputLayout.NumElements = (UINT)state->inputLayout_.size(); // 頂点レイアウト数
-
-	// 図形の形状設定
-	state->pplnDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
 	// その他の設定
 	state->pplnDesc_.NumRenderTargets = 1; // 描画対象は1つ

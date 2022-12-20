@@ -68,7 +68,7 @@ void GameScene::Load()
 
 	// ----- ビルボード ----- //
 
-	aB_.reset(Billboard::Create(false));
+	aB_.reset(Billboard::Create(true));
 
 	// ------- マップ ------- //
 
@@ -130,7 +130,8 @@ void GameScene::Initialize()
 
 	// カメラ初期化
 	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
-	camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
+	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
+	camera_.Initialize({ {200.0f, 30.0f, 115.0f}, {PI / 6.0f, -PI / 2.0f, 0.0f} });
 	//camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
 
 	// ビュープロジェクション初期化
@@ -221,6 +222,10 @@ void GameScene::Update()
 	skydome_.Update();
 
 	// カメラ
+	camera_.pos_.z_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.8f;
+	camera_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.8f;
+	camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 0.004f;
+	camera_.rota_.x_ += +keys_->Vertical(Keys::MoveStandard::WASD) * 0.004f;
 	camera_.Update();
 
 	// ビュープロジェクション
@@ -343,7 +348,7 @@ void GameScene::DrawBillboards()
 		}
 	}
 
-	aB_->Draw(billboard_, vp_, plainT_);
+	aB_->Draw(billboard_, vp_, enemyT_);
 }
 
 void GameScene::DrawFrontSprites()
