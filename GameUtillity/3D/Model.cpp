@@ -13,18 +13,6 @@ using YMath::Vec2;
 using YMath::Vec3;
 using YMath::Vec4;
 
-YDX::PipelineSet Model::pplnSet_;
-
-void Model::StaticInitialize(std::vector<D3D12_ROOT_PARAMETER>* rootParams)
-{
-	pplnSet_.Initialize(YDX::PipelineSet::Type::ModelT, rootParams);
-}
-
-void Model::StaticSetDrawCommand()
-{
-	pplnSet_.SetDrawCommand();
-}
-
 Model* Model::Create()
 {
 	// インスタンス

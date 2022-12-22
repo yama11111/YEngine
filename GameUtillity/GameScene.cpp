@@ -516,13 +516,13 @@ void GameScene::Draw()
 	DrawBackSprites();
 
 	// -------------------------- //
-	Model::StaticSetDrawCommand();
+	ModelCommon::StaticSetDrawCommand();
 	// --------- モデル --------- //
 
 	DrawModels();
 
 	// -------------------------- //
-	Billboard::StaticSetDrawCommand();
+	BillboardCommon::StaticSetDrawCommand();
 	// ------- ビルボード ------- //
 
 	DrawBillboards();

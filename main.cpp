@@ -72,14 +72,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	// ’¸“_
 	Vertices<SpriteCommon::VData>::StaticInitialize(pCmdList);
-	Vertices<Model::VData>::StaticInitialize(pCmdList);
-	Vertices<Billboard::VData>::StaticInitialize(pCmdList);
+	Vertices<ModelCommon::VData>::StaticInitialize(pCmdList);
+	Vertices<BillboardCommon::VData>::StaticInitialize(pCmdList);
 
 	// 
 	SpriteCommon::StaticInitialize({ &texM, rpM.Get() });
 	Material::StaticInitialize(&texM);
-	Model::StaticInitialize(rpM.Get());
-	Billboard::StaticInitialize(&texM, rpM.Get());
+	ModelCommon::StaticInitialize({ rpM.Get() });
+	BillboardCommon::StaticInitialize({ &texM, rpM.Get() });
 
 	AudioManager audioM;
 	audioM.Initialize();

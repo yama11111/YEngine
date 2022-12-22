@@ -6,21 +6,6 @@ using YGame::TextureManager;
 using YMath::Vec3;
 using YMath::Mat4;
 
-YDX::PipelineSet Billboard::pplnSet_;
-TextureManager* Billboard::pTexManager_ = nullptr;
-
-void Billboard::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
-{
-	assert(pTexManager);
-	pTexManager_ = pTexManager;
-	pplnSet_.Initialize(YDX::PipelineSet::Type::BillboardT, rootParams);
-}
-
-void Billboard::StaticSetDrawCommand()
-{
-	pplnSet_.SetDrawCommand();
-}
-
 Billboard* Billboard::Create(const bool isYAxisBillboard)
 {
 	// インスタンス

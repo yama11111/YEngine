@@ -1,8 +1,8 @@
 #include "Vertices.h"
 #include "YAssert.h"
 #include "SpriteCommon.h"
-#include "Model.h"
-#include "Billboard.h"
+#include "ModelCommon.h"
+#include "BillboardCommon.h"
 
 using YDX::Vertices;
 using YDX::VertexIndex;
@@ -147,8 +147,8 @@ void VertexIndex<T>::Draw()
 }
 
 template class YDX::Vertices<YGame::SpriteCommon::VData>;
-template class YDX::Vertices<YGame::Model::VData>;
-template class YDX::Vertices<YGame::Billboard::VData>;
+template class YDX::Vertices<YGame::ModelCommon::VData>;
+template class YDX::Vertices<YGame::BillboardCommon::VData>;
 template class YDX::VertexIndex<YGame::SpriteCommon::VData>;
-template class YDX::VertexIndex<YGame::Model::VData>;
-template class YDX::VertexIndex<YGame::Billboard::VData>;
+template class YDX::VertexIndex<YGame::ModelCommon::VData>;
+template class YDX::VertexIndex<YGame::BillboardCommon::VData>;

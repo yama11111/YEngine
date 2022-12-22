@@ -1,28 +1,16 @@
 #pragma once
+#include "ModelCommon.h"
 #include "Vertices.h"
 #include "Material.h"
-#include "PipelineSet.h"
 #include "Object.h"
 #include "ViewProjection.h"
 #include "Vec2.h"
 
-struct aiMesh;
-struct aiMaterial;
-
 namespace YGame
 {
-	class Model
+	class Model : private ModelCommon
 	{
 	public:
-		// 頂点データ構造体
-		struct VData
-		{
-			YMath::Vec3 pos_;	  // xyz座標
-			YMath::Vec3 normal_;  // 法線ベクトル
-			YMath::Vec2 uv_;	  // uv座標
-			YMath::Vec3 tangent_; // 接空間
-			YMath::Vec4 color_;	  // 頂点色
-		};
 		// メッシュ構造体
 		struct Mesh
 		{
@@ -70,13 +58,5 @@ namespace YGame
 	private:
 		// コンストラクタ
 		Model() = default;
-	private:
-		// パイプライン設定
-		static YDX::PipelineSet pplnSet_;
-	public:
-		// 静的初期化
-		static void StaticInitialize(std::vector<D3D12_ROOT_PARAMETER>* rootParams);
-		// 静的描画コマンド
-		static void StaticSetDrawCommand();
 	};
 }

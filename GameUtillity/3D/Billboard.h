@@ -1,20 +1,13 @@
 #pragma once
+#include "BillboardCommon.h"
 #include "Vertices.h"
-#include "PipelineSet.h"
 #include "Object.h"
 #include "ViewProjection.h"
-#include "TextureManager.h"
 
 namespace YGame
 {
-	class Billboard
+	class Billboard : private BillboardCommon
 	{
-	public:
-		// 頂点データ
-		struct VData
-		{
-			YMath::Vec3 pos_; // xyz座標
-		};
 	private:
 		// 頂点データ
 		YDX::Vertices<VData> vt_;
@@ -35,15 +28,5 @@ namespace YGame
 	private:
 		// コンストラクタ
 		Billboard() = default;
-	private:
-		// パイプライン設定
-		static YDX::PipelineSet pplnSet_;
-		// 静的テクスチャマネージャーポインタ
-		static TextureManager* pTexManager_;
-	public:
-		// 静的初期化
-		static void StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
-		// 静的描画コマンド
-		static void StaticSetDrawCommand();
 	};
 }

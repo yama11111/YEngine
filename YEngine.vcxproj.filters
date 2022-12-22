@@ -252,6 +252,12 @@
     <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp">
       <Filter>GameUtil\cpp\2D</Filter>
     </ClCompile>
+    <ClCompile Include="GameUtillity\3D\ModelCommon.cpp">
+      <Filter>GameUtil\cpp\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\3D\BillboardCommon.cpp">
+      <Filter>GameUtil\cpp\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\CalcTransform.h">
@@ -406,6 +412,12 @@
     </ClInclude>
     <ClInclude Include="GameUtillity\2D\SpriteCommon.h">
       <Filter>GameUtil\h\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\ModelCommon.h">
+      <Filter>GameUtil\h\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\BillboardCommon.h">
+      <Filter>GameUtil\h\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
