@@ -4,19 +4,30 @@
 #include "PipelineSet.h"
 #include "Object.h"
 #include "ViewProjection.h"
+#include "Vec2.h"
 
 struct aiMesh;
 struct aiMaterial;
 
-namespace Game
+namespace YGame
 {
 	class Model
 	{
-	private:
+	public:
+		// 頂点データ構造体
+		struct VData
+		{
+			YMath::Vec3 pos_;	  // xyz座標
+			YMath::Vec3 normal_;  // 法線ベクトル
+			YMath::Vec2 uv_;	  // uv座標
+			YMath::Vec3 tangent_; // 接空間
+			YMath::Vec4 color_;	  // 頂点色
+		};
+		// メッシュ構造体
 		struct Mesh
 		{
 			// 頂点インデックス配列
-			YDX::VertexIndex3D vtIdx_;
+			YDX::VertexIndex<VData> vtIdx_;
 			// マテリアル
 			Material mtrl_;
 		};
@@ -42,16 +53,19 @@ namespace Game
 		// モデル読み込み(assimp)
 		static Model* Load(const LoadStatus& state);
 	private:
+		// 法線計算
+		static void Normalized(std::vector<VData>& v, const std::vector<uint16_t> indices);
 		// 頂点情報読み込み(assimp)
-		static YDX::VertexIndex3D LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized);
+		static YDX::VertexIndex<VData> LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized);
 		// マテリアル読み込み(assimp)
 		static Material LoadMaterial(const std::string directoryPath, const aiMaterial* src, 
 			const std::string extension);
 		// 拡張子変換
 		static std::string ReplaceExtension(const std::string fileName, const std::string extention);
 	public:
-		// 描画
+		// 描画 (テクスチャ有)
 		void Draw(Object& obj, const ViewProjection& vp, const UINT tex);
+		// 描画
 		void Draw(Object& obj, const ViewProjection& vp);
 	private:
 		// コンストラクタ

@@ -16,7 +16,11 @@
 #include "CameraManager.h"
 #include "SceneManager.h"
 
-namespace Game
+#include "Lerp.h"
+#include "Timer.h"
+#include "Power.h"
+
+namespace YGame
 {
 	class GameScene
 	{
@@ -33,6 +37,9 @@ namespace Game
 		UINT enemyT_ = 0;
 		// マップ2D表示用画像
 		UINT mapDispT_ = 0;
+
+		// 破片画像
+		UINT debriT_ = 0;
 
 		// ----- オーディオ ----- //
 
@@ -54,7 +61,8 @@ namespace Game
 
 		// ----- ビルボード ----- //
 
-		std::unique_ptr<Billboard> aB_ = nullptr;
+		// 破片ビルボード
+		std::unique_ptr<Billboard> debriB_ = nullptr;
 
 
 #pragma endregion
@@ -69,7 +77,23 @@ namespace Game
 		// エネミー
 		Object enemy_;
 
-		Object billboard_;
+		const size_t num_ = 3;
+		std::vector<Object> blocks_;
+		std::vector<YMath::Ease<YMath::Vec3>> moves_;
+		std::vector<YMath::BezierEase> scales_;
+		const int time = 10;
+		std::vector<YMath::Power> times_;
+
+		Object block_;
+		const size_t num2_ = 15;
+		std::vector<Object> debris_;
+		std::vector<YMath::Ease<YMath::Vec3>> moves2_;
+		std::vector<YMath::Ease<YMath::Vec3>> rotas2_;
+		std::vector<YMath::BezierEase> scales2_;
+		std::vector< YMath::Ease<float>> alphas2_;
+		const int time2 = 20;
+		YMath::Timer timer2_;
+		bool isBreak_ = false;
 
 		// マップ
 		MapChip map_;

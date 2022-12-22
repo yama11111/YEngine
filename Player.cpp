@@ -12,7 +12,7 @@ const int MaxJumpCountAdrenaline = 3;
 const float RisePower = 4.5f;
 const float GravityPower = 0.3f;
 
-Game::Model* Player::pModel_ = nullptr;
+YGame::Model* Player::pModel_ = nullptr;
 UINT Player::tex_ = UINT_MAX;
 
 void Player::StaticIntialize(const StaticInitStatus& state)
@@ -95,7 +95,7 @@ void Player::UpdateMatrix()
 	obj_.Update();
 }
 
-void Player::Draw(const Game::ViewProjection& vp)
+void Player::Draw(const YGame::ViewProjection& vp)
 {
 	pModel_->Draw(obj_, vp, tex_);
 }

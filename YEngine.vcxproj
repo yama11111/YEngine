@@ -106,10 +106,12 @@
     <ClCompile Include="Camera\CameraManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameUtillity\2D\Sprite.cpp" />
+    <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp" />
     <ClCompile Include="GameUtillity\2D\TextureManager.cpp" />
     <ClCompile Include="GameUtillity\3D\Billboard.cpp" />
     <ClCompile Include="GameUtillity\3D\Material.cpp" />
     <ClCompile Include="GameUtillity\3D\Model.cpp" />
+    <ClCompile Include="GameUtillity\3D\ParticleManager.cpp" />
     <ClCompile Include="GameUtillity\AudioManager.cpp" />
     <ClCompile Include="GameUtillity\Collision\Collider.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
@@ -156,10 +158,12 @@
     <ClInclude Include="Def.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameUtillity\2D\Sprite.h" />
+    <ClInclude Include="GameUtillity\2D\SpriteCommon.h" />
     <ClInclude Include="GameUtillity\2D\TextureManager.h" />
     <ClInclude Include="GameUtillity\3D\Billboard.h" />
     <ClInclude Include="GameUtillity\3D\Material.h" />
     <ClInclude Include="GameUtillity\3D\Model.h" />
+    <ClInclude Include="GameUtillity\3D\ParticleManager.h" />
     <ClInclude Include="GameUtillity\AudioManager.h" />
     <ClInclude Include="GameUtillity\Collision\Collider.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionConfig.h" />

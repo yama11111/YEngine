@@ -1,8 +1,8 @@
 #include "Billboard.h"
 #include <cassert>
 
-using Game::Billboard;
-using Game::TextureManager;
+using YGame::Billboard;
+using YGame::TextureManager;
 using YMath::Vec3;
 using YMath::Mat4;
 

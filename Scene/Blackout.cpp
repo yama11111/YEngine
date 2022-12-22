@@ -3,7 +3,7 @@
 
 using Transition::Blackout;
 
-Game::Sprite* Blackout::curtenS_ = nullptr;
+YGame::Sprite* Blackout::curtenS_ = nullptr;
 
 void Blackout::StaticInitialize(const StaticInitStatus& state)
 {

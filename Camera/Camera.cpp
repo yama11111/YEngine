@@ -4,13 +4,13 @@
 using YMath::Vec3;
 using YMath::MultVec3Mat4;
 
-void Camera::Initialize(Game::Object::Status state)
+void Camera::Initialize(YGame::Object::Status state)
 {
 	shake_.Initialize();
 	SetStatus(state);
 }
 
-void Camera::SetStatus(Game::Object::Status state)
+void Camera::SetStatus(YGame::Object::Status state)
 {
 	pos_ = state.pos_;
 	rota_ = state.rota_;
@@ -44,9 +44,9 @@ void Camera::Update()
 	vp_.Update();
 }
 
-Game::ViewProjection Camera::GetViewProjection()
+YGame::ViewProjection Camera::GetViewProjection()
 {
-	Game::ViewProjection result = vp_;
+	YGame::ViewProjection result = vp_;
 	result.eye_ += shake_.Value() / 10.0f;
 	result.target_ += shake_.Value() / 10.0f;
 	result.Update();

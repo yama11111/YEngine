@@ -7,7 +7,7 @@ class Player : public Collision::Collider, public MapChipCollider
 {
 private:
 	// オブジェクト
-	Game::Object obj_;
+	YGame::Object obj_;
 	// スピード
 	YMath::Vec3 speed_;
 	// ジャンプ回数
@@ -26,7 +26,7 @@ public:
 	// 行列更新
 	void UpdateMatrix();
 	// 描画
-	void Draw(const Game::ViewProjection& vp);
+	void Draw(const YGame::ViewProjection& vp);
 public:
 	// ジャンプ
 	void Jump();
@@ -49,14 +49,14 @@ public:
 	YMath::Vec3& SpeedRef() override { return speed_; }
 private:
 	// 静的モデルポインタ
-	static Game::Model* pModel_;
+	static YGame::Model* pModel_;
 	// 静的テクスチャインデックス
 	static UINT tex_;
 public:
 	// 静的初期化ステータス
 	struct StaticInitStatus
 	{
-		Game::Model* pModel_;// モデルポインタ
+		YGame::Model* pModel_;// モデルポインタ
 		UINT tex_;// テクスチャインデックス
 	};
 public:

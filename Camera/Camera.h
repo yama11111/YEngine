@@ -12,23 +12,23 @@ public:
 	YMath::Vec3 rota_;
 private:
 	// オブジェクト
-	Game::Object obj_;
+	YGame::Object obj_;
 	// ビュープロジェクション
-	Game::ViewProjection vp_;
+	YGame::ViewProjection vp_;
 	// カメラシェイク
 	YMath::Shake shake_;
 public:
 	// 初期化
-	void Initialize(Game::Object::Status state);
+	void Initialize(YGame::Object::Status state);
 	// 初期化(カメラシェイク以外)
-	void SetStatus(Game::Object::Status state);
+	void SetStatus(YGame::Object::Status state);
 	// カメラシェイク
 	void Shaking(const int swing, const int dekey);
 	// trfm → vp
 	void Update();
 public:
 	// ビュープロジェクション
-	Game::ViewProjection GetViewProjection();
+	YGame::ViewProjection GetViewProjection();
 	// カメラ向き
 	YMath::Vec3 Verocity();
 	// 揺れているか

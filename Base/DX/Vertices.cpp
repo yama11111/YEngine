@@ -1,9 +1,11 @@
 #include "Vertices.h"
 #include "YAssert.h"
+#include "SpriteCommon.h"
+#include "Model.h"
+#include "Billboard.h"
 
 using YDX::Vertices;
-using YDX::VertexIndex3D;
-using YMath::Vec3;
+using YDX::VertexIndex;
 
 template <typename T>
 ID3D12GraphicsCommandList* Vertices<T>::pCmdList_ = nullptr;
@@ -84,23 +86,17 @@ void Vertices<T>::Draw()
 	pCmdList_->DrawInstanced((UINT)v_.size(), 1, 0, 0); // 全ての頂点を使って描画
 }
 
-template class Vertices<YDX::SpriteVData>;
-template class Vertices<YDX::ModelVData>;
-template class Vertices<YDX::BillboardVData>;
-
-void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, const bool normalized)
+template <typename T>
+void VertexIndex<T>::Initialize(const std::vector<T> v, const std::vector<uint16_t> idx)
 {
 	// 頂点情報をコピー
-	v_ = v;
+	this->v_ = v;
 	// インデックス情報をコピー
-	idx_ = idx;
-
-	// 法線計算
-	if (normalized) { Normalized(); }
+	this->idx_ = idx;
 
 	// ----- vertices ----- //
 
-	Create();
+	this->Create();
 
 	// ----- index ----- //
 
@@ -127,7 +123,7 @@ void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vecto
 	uint16_t* idxMap = nullptr; // 仮想メモリ
 	Result(idxBuffer_.Get()->Map(0, nullptr, (void**)&idxMap));
 	// 全インデックスに対してインデックスをコピー
-	for (int i = 0; i < idx_.size(); i++) { idxMap[i] = idx_[i]; }
+	for (int i = 0; i < this->idx_.size(); i++) { idxMap[i] = this->idx_[i]; }
 	// 繋がりを解除
 	idxBuffer_.Get()->Unmap(0, nullptr);
 
@@ -139,39 +135,20 @@ void VertexIndex3D::Initialize(const std::vector<ModelVData> v, const std::vecto
 	idxView_.SizeInBytes = dataSize;
 }
 
-void VertexIndex3D::Normalized() 
-{
-	for (size_t i = 0; i < idx_.size() / 3; i++)
-	{
-		// 三角形1つごとに計算していく
-		// 三角形のインデックスを取り出して、一般的な変数に入れる
-		unsigned short index0 = idx_[i * 3 + 0];
-		unsigned short index1 = idx_[i * 3 + 1];
-		unsigned short index2 = idx_[i * 3 + 2];
-		// 三角形を構成する頂点座標ベクトルに代入
-		Vec3 p0 = v_[index0].pos_;
-		Vec3 p1 = v_[index1].pos_;
-		Vec3 p2 = v_[index2].pos_;
-		// p0->p1ベクトル、p0->p2ベクトルを計算 (ベクトルの減算)
-		Vec3 v1 = p1 - p0;
-		Vec3 v2 = p2 - p0;
-		// 外積は両方から垂直なベクトル
-		Vec3 normal = v1.Cross(v2);
-		// 正規化 (長さを1にする)
-		normal = normal.Normalized();
-		// 求めた法線を頂点データに代入
-		v_[index0].normal_ = normal;
-		v_[index1].normal_ = normal;
-		v_[index2].normal_ = normal;
-	}
-}
-
-void VertexIndex3D::Draw()
+template <typename T>
+void VertexIndex<T>::Draw()
 {
 	// 頂点バッファビューの設定コマンド
-	pCmdList_->IASetVertexBuffers(0, 1, &view_);
+	this->pCmdList_->IASetVertexBuffers(0, 1, &this->view_);
 	// インデックスバッファビューの設定コマンド
-	pCmdList_->IASetIndexBuffer(&idxView_);
+	this->pCmdList_->IASetIndexBuffer(&idxView_);
 	// 描画コマンド
-	pCmdList_->DrawIndexedInstanced((UINT)idx_.size(), 1, 0, 0, 0); // 全ての頂点を使って描画
+	this->pCmdList_->DrawIndexedInstanced((UINT)idx_.size(), 1, 0, 0, 0); // 全ての頂点を使って描画
 }
+
+template class YDX::Vertices<YGame::SpriteCommon::VData>;
+template class YDX::Vertices<YGame::Model::VData>;
+template class YDX::Vertices<YGame::Billboard::VData>;
+template class YDX::VertexIndex<YGame::SpriteCommon::VData>;
+template class YDX::VertexIndex<YGame::Model::VData>;
+template class YDX::VertexIndex<YGame::Billboard::VData>;

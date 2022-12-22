@@ -1,16 +1,15 @@
 #pragma once
+#include "SpriteCommon.h"
 #include "Vertices.h"
-#include "PipelineSet.h"
 #include "Object.h"
-#include "TextureManager.h"
 
-namespace Game
+namespace YGame
 {
-	class Sprite
+	class Sprite : private SpriteCommon
 	{
 	private:
 		// 頂点データ
-		YDX::Vertices<YDX::SpriteVData> vt_;
+		YDX::Vertices<VData> vt_;
 		// サイズ
 		YMath::Vec2 size_;
 		// アンカーポイント
@@ -78,17 +77,5 @@ namespace Game
 	private:
 		// コンストラクタ
 		Sprite() = default;
-	private:
-		// 静的射影変換行列(平行投影)
-		static YMath::Mat4 projection_;
-		// パイプライン設定
-		static YDX::PipelineSet pplnSet_;
-		// 静的テクスチャマネージャーポインタ
-		static TextureManager* pTexManager_;
-	public:
-		// 静的初期化
-		static void StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
-		// 静的描画コマンド
-		static void StaticSetDrawCommand();
 	};
 }

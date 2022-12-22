@@ -3,9 +3,9 @@
 #include <fstream>
 #include <sstream>
 
-using Game::Material;
+using YGame::Material;
 
-Game::TextureManager* Material::pTexManager_ = nullptr;
+YGame::TextureManager* Material::pTexManager_ = nullptr;
 
 void Material::StaticInitialize(TextureManager* pTexManager)
 {

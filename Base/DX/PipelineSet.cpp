@@ -237,6 +237,9 @@ void PipelineSet::BillboardPipelineSetDesc::Initialize(ID3DBlob* errorBlob_)
 
 		// 図形の形状設定
 		pplnDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+
+		// 画像の透過適用
+		//pplnDesc_.BlendState.AlphaToCoverageEnable = true;
 	}
 
 	// プリミティブ形状の設定

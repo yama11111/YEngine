@@ -5,13 +5,19 @@
 #include "ViewProjection.h"
 #include "TextureManager.h"
 
-namespace Game
+namespace YGame
 {
 	class Billboard
 	{
+	public:
+		// 頂点データ
+		struct VData
+		{
+			YMath::Vec3 pos_; // xyz座標
+		};
 	private:
 		// 頂点データ
-		YDX::Vertices<YDX::BillboardVData> vt_;
+		YDX::Vertices<VData> vt_;
 		// Y軸ビルボード
 		bool isAxisY_ = false;
 		

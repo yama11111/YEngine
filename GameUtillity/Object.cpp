@@ -1,7 +1,7 @@
 #include "Object.h"
 #include "CalcTransform.h"
 
-using Game::Object;
+using YGame::Object;
 using YDX::ConstBuffer;
 using YMath::Mat4;
 using YMath::Vec4;

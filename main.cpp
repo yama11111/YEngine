@@ -9,7 +9,7 @@
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
-using namespace Game;
+using namespace YGame;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -71,12 +71,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	PipelineSet::StaticInitialize(pDev, pCmdList);
 
 	// ’¸“_
-	Vertices<SpriteVData>::StaticInitialize(pCmdList);
-	Vertices<ModelVData>::StaticInitialize(pCmdList);
-	Vertices<BillboardVData>::StaticInitialize(pCmdList);
+	Vertices<SpriteCommon::VData>::StaticInitialize(pCmdList);
+	Vertices<Model::VData>::StaticInitialize(pCmdList);
+	Vertices<Billboard::VData>::StaticInitialize(pCmdList);
 
 	// 
-	Sprite::StaticInitialize(&texM, rpM.Get());
+	SpriteCommon::StaticInitialize({ &texM, rpM.Get() });
 	Material::StaticInitialize(&texM);
 	Model::StaticInitialize(rpM.Get());
 	Billboard::StaticInitialize(&texM, rpM.Get());

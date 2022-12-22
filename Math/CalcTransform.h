@@ -3,6 +3,7 @@
 #include "Vec3.h"
 #include "Vec4.h"
 #include "Mat4.h"
+
 #define PI 3.141592f
 
 namespace YMath
@@ -48,7 +49,7 @@ namespace YMath
 
 	// Šp“x’²®
 	Vec3 AdjustAngle(const Vec3& velocity);
-	
+
 	// ƒAƒ^ƒŠ”»’è(ü~‹…)
 	bool CollRaySphere(
 		const Vec3& ray, const Vec3& velocity,

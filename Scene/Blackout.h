@@ -20,7 +20,7 @@ namespace Transition
 		// 段階
 		Step boStep_ = Step::Dark;
 		// オブジェクト
-		Game::Object curten_;
+		YGame::Object curten_;
 		// タイマー
 		int count_ = 0;
 		// イージング
@@ -49,10 +49,10 @@ namespace Transition
 	public:
 		struct StaticInitStatus
 		{
-			Game::Sprite* curtenSprite_;
+			YGame::Sprite* curtenSprite_;
 		};
 	private:
-		static Game::Sprite* curtenS_;
+		static YGame::Sprite* curtenS_;
 	public:
 		// 静的初期化
 		static void StaticInitialize(const StaticInitStatus& state);

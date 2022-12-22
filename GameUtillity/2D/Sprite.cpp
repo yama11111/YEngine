@@ -1,27 +1,8 @@
 #include "Sprite.h"
-#include "CalcTransform.h"
-#include <cassert>
 
-using Game::Sprite;
+using YGame::Sprite;
 using YMath::Vec2;
 using YMath::Mat4;
-
-Mat4 Sprite::projection_ = Mat4::Identity();
-YDX::PipelineSet Sprite::pplnSet_;
-Game::TextureManager* Sprite::pTexManager_ = nullptr;
-
-void Sprite::StaticInitialize(TextureManager* pTexManager, std::vector<D3D12_ROOT_PARAMETER>* rootParams)
-{
-	assert(pTexManager);
-	pTexManager_ = pTexManager;
-	projection_ = YMath::MatOrthoGraphic();
-	pplnSet_.Initialize(YDX::PipelineSet::Type::SpriteT, rootParams);
-}
-
-void Sprite::StaticSetDrawCommand()
-{
-	pplnSet_.SetDrawCommand();
-}
 
 Sprite* Sprite::Create(const Status& state, const TexStatus& texState, const bool div)
 {
@@ -107,7 +88,7 @@ void Sprite::SetTextureRectangle(const Vec2& leftTop, const Vec2& texSize)
 }
 void Sprite::SetAllStatus(const Status& state, const TexStatus& texState, const bool div)
 {
-	std::vector<YDX::SpriteVData> v;
+	std::vector<VData> v;
 
 	// ----- Status ----- //
 

@@ -237,7 +237,7 @@ bool MapChip::CollisionChip(const int x, const int y)
 	return false;
 }
 
-void MapChip::Draw(const Game::ViewProjection& vp)
+void MapChip::Draw(const YGame::ViewProjection& vp)
 {
 	for (size_t y = 0; y < chips_.size(); y++)
 	{
@@ -248,7 +248,7 @@ void MapChip::Draw(const Game::ViewProjection& vp)
 	}
 }
 
-void MapChip::DrawChip(const size_t x, const size_t y, const Game::ViewProjection& vp)
+void MapChip::DrawChip(const size_t x, const size_t y, const YGame::ViewProjection& vp)
 {
 	if (chipNums_[y][x] == 0) { return; }
 	if (chipNums_[y][x] == 1) { pModel_->Draw(chips_[y][x], vp, tex_); }

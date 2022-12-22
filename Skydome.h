@@ -4,10 +4,10 @@
 class Skydome 
 {
 private:
-	Game::Object obj_;
-	Game::Model* pModel_ = nullptr;
+	YGame::Object obj_;
+	YGame::Model* pModel_ = nullptr;
 public:
-	void Initialize(Game::Model* model);
+	void Initialize(YGame::Model* model);
 	void Update();
-	void Draw(Game::ViewProjection& vp);
+	void Draw(YGame::ViewProjection& vp);
 };

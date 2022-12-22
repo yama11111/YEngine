@@ -1,7 +1,7 @@
 #include "ViewProjection.h"
 #include "CalcTransform.h"
 
-using Game::ViewProjection;
+using YGame::ViewProjection;
 
 ViewProjection::ViewProjection() :
 	eye_({ 0.0f, 0.0f, -100.0f }),

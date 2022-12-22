@@ -3,7 +3,7 @@
 
 const float Size = 300.0f;
 
-void Skydome::Initialize(Game::Model* model)
+void Skydome::Initialize(YGame::Model* model)
 {
 	assert(model);
 	pModel_ = model;
@@ -17,7 +17,7 @@ void Skydome::Update()
 	obj_.Update();
 }
 
-void Skydome::Draw(Game::ViewProjection& vp)
+void Skydome::Draw(YGame::ViewProjection& vp)
 {
 	pModel_->Draw(obj_, vp);
 }

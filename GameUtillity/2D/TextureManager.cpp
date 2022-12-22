@@ -2,7 +2,7 @@
 #include <DirectXTex.h>
 #include "YAssert.h"
 
-using Game::TextureManager;
+using YGame::TextureManager;
 using YDX::GPUResource;
 using YMath::Vec4;
 using YDX::Result;
@@ -220,7 +220,7 @@ void TextureManager::SetDrawCommand(const UINT texIndex)
 	pCmdList_->SetGraphicsRootDescriptorTable(rpIndex_, texs_[texIndex].srvGpuHandle_);
 }
 
-ID3D12Resource* Game::TextureManager::TextureBuffer(const UINT texIndex)
+ID3D12Resource* YGame::TextureManager::TextureBuffer(const UINT texIndex)
 {
 	assert((0 <= texIndex && texIndex < texs_.size()));
 	return texs_[texIndex].buff_.Get();

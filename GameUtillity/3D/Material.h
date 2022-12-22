@@ -3,7 +3,7 @@
 #include "ConstBuffer.h"
 #include "TextureManager.h"
 
-namespace Game
+namespace YGame
 {
 	class Material
 	{

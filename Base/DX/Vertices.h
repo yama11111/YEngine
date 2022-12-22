@@ -1,8 +1,4 @@
 #pragma once
-#include <d3d12.h>
-#include "Vec2.h"
-#include "Vec3.h"
-#include "Vec4.h"
 #include "GPUResource.h"
 #include <vector>
 
@@ -10,29 +6,9 @@
 
 namespace YDX
 {
-	// Sprite用 頂点データ構造体
-	struct SpriteVData
-	{
-		YMath::Vec3 pos_; // xyz座標
-		YMath::Vec2 uv_;	 // uv座標
-	};
-	// Model用 頂点データ構造体
-	struct ModelVData
-	{
-		YMath::Vec3 pos_; // xyz座標
-		YMath::Vec3 normal_; // 法線ベクトル
-		YMath::Vec2 uv_; // uv座標
-		YMath::Vec3 tangent_; // 接空間
-		YMath::Vec4 color_; // 頂点色
-	};
-	// Billboard用 頂点データ
-	struct BillboardVData 
-	{
-		YMath::Vec3 pos_; // xyz座標
-	};
-
+	// 頂点
 	template <typename T>
-	class Vertices // 頂点
+	class Vertices
 	{
 	protected:
 		// 頂点データ
@@ -62,7 +38,8 @@ namespace YDX
 	};
 
 	// 頂点インデックス
-	class VertexIndex3D : public Vertices<ModelVData> 
+	template <typename T>
+	class VertexIndex : public Vertices<T>
 	{
 	private:
 		// インデックスデータ
@@ -73,11 +50,8 @@ namespace YDX
 		D3D12_INDEX_BUFFER_VIEW idxView_{};
 	public:
 		// 初期化
-		void Initialize(const std::vector<ModelVData> v, const std::vector<uint16_t> idx, const bool normalized);
+		void Initialize(const std::vector<T> v, const std::vector<uint16_t> idx);
 		// 描画
 		void Draw() override;
-	private:
-		// 法線計算
-		void Normalized();
 	};
 }

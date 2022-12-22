@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-namespace Game
+namespace YGame
 {
 	// テクスチャ構造体
 	struct Texture 

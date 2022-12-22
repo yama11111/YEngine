@@ -19,9 +19,9 @@ class MapChip : public MapChipInfo
 {
 private:
 	// マップチップ
-	std::vector<std::vector<Game::Object>> chips_;
+	std::vector<std::vector<YGame::Object>> chips_;
 	// マップチップ2D用
-	std::vector<std::vector<Game::Object>> chip2Ds_;
+	std::vector<std::vector<YGame::Object>> chip2Ds_;
 	// マップ全体の大きさ(矩形)
 	YMath::Vec2 rect_;
 	// チップ1個分の大きさ
@@ -30,19 +30,19 @@ private:
 	YMath::Vec3 leftTop_;
 
 	// モデルポインタ
-	Game::Model* pModel_ = nullptr;
+	YGame::Model* pModel_ = nullptr;
 	// テクスチャインデックス
 	UINT tex_ = UINT_MAX;
 	// スプライトポインタ
-	Game::Sprite* pSprite_ = nullptr;
+	YGame::Sprite* pSprite_ = nullptr;
 public:
 	// ロードステータス
 	struct LoadStatus
 	{
 		const std::string mapFileName_; // マップファイル名
-		Game::Model* pModel_; // モデルポインタ
+		YGame::Model* pModel_; // モデルポインタ
 		UINT tex_; // テクスチャインデックス
-		Game::Sprite* pSprite_; // スプライトポインタ
+		YGame::Sprite* pSprite_; // スプライトポインタ
 	};
 	// 初期化ステータス
 	struct InitStatus 
@@ -60,7 +60,7 @@ public:
 	// 更新
 	void Update();
 	// 描画
-	void Draw(const Game::ViewProjection& vp);
+	void Draw(const YGame::ViewProjection& vp);
 	// 2D描画
 	void Draw2D();
 public:
@@ -74,5 +74,5 @@ private:
 	// チップごとのアタリ判定
 	bool CollisionChip(const int x, const int y);
 	// チップ描画
-	void DrawChip(const size_t x, const size_t y, const Game::ViewProjection& vp);
+	void DrawChip(const size_t x, const size_t y, const YGame::ViewProjection& vp);
 };

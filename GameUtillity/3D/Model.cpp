@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "CalcTransform.h"
 #include <cassert>
 #include <fstream>
 #include <sstream>
@@ -6,11 +7,11 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-using Game::Model;
+using YGame::Model;
+using YGame::Material;
 using YMath::Vec2;
 using YMath::Vec3;
 using YMath::Vec4;
-using YDX::ModelVData;
 
 YDX::PipelineSet Model::pplnSet_;
 
@@ -30,7 +31,7 @@ Model* Model::Create()
 	Model* instance = new Model();
 
 	// 頂点
-	std::vector<ModelVData> v =
+	std::vector<VData> v =
 	{
 		// 前
 		{{ -1.0f, -1.0f, -1.0f }, {}, {0.0f, 1.0f}}, // 左下
@@ -96,9 +97,11 @@ Model* Model::Create()
 		20, 23, 21, // 三角形2つ目
 	};
 
+	Normalized(v, i);
+
 	instance->meshes_.clear();
 	instance->meshes_.resize(1);
-	instance->meshes_[0].vtIdx_.Initialize(v, i, true);
+	instance->meshes_[0].vtIdx_.Initialize(v, i);
 	instance->meshes_[0].mtrl_ = Material();
 
 	return instance;
@@ -112,7 +115,7 @@ Model* Model::Load(const std::string& modelFileName)
 	instance->meshes_.resize(1);
 
 	// 頂点
-	std::vector<ModelVData> v;
+	std::vector<VData> v;
 	// インデックス
 	std::vector<uint16_t> i;
 
@@ -228,7 +231,7 @@ Model* Model::Load(const std::string& modelFileName)
 				indexStream >> idNormal;
 
 				// 頂点データ
-				YDX::ModelVData vData;
+				VData vData;
 				vData.pos_ = positions[idPositon - 1];
 				vData.normal_ = normals[idNormal - 1];
 				vData.uv_ = uvs[idTexcoord - 1];
@@ -246,7 +249,7 @@ Model* Model::Load(const std::string& modelFileName)
 
 	file.close();
 
-	instance->meshes_[0].vtIdx_.Initialize(v, i, false);
+	instance->meshes_[0].vtIdx_.Initialize(v, i);
 
 	return instance;
 }
@@ -296,14 +299,41 @@ Model* Model::Load(const LoadStatus& state)
 	return instance;
 }
 
-YDX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized)
+void Model::Normalized(std::vector<VData>& v, const std::vector<uint16_t> indices)
 {
-	YDX::VertexIndex3D vtIdx;
+	for (size_t i = 0; i < indices.size() / 3; i++)
+	{
+		// 三角形1つごとに計算していく
+		// 三角形のインデックスを取り出して、一般的な変数に入れる
+		unsigned short index0 = indices[i * 3 + 0];
+		unsigned short index1 = indices[i * 3 + 1];
+		unsigned short index2 = indices[i * 3 + 2];
+		// 三角形を構成する頂点座標ベクトルに代入
+		Vec3 p0 = v[index0].pos_;
+		Vec3 p1 = v[index1].pos_;
+		Vec3 p2 = v[index2].pos_;
+		// p0->p1ベクトル、p0->p2ベクトルを計算 (ベクトルの減算)
+		Vec3 v1 = p1 - p0;
+		Vec3 v2 = p2 - p0;
+		// 外積は両方から垂直なベクトル
+		Vec3 normal = v1.Cross(v2);
+		// 正規化 (長さを1にする)
+		normal = normal.Normalized();
+		// 求めた法線を頂点データに代入
+		v[index0].normal_ = normal;
+		v[index1].normal_ = normal;
+		v[index2].normal_ = normal;
+	}
+}
+
+YDX::VertexIndex<Model::VData> Model::LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized)
+{
+	YDX::VertexIndex<VData> vtIdx;
 
 	aiVector3D zero3D(0.0f, 0.0f, 0.0f);
 	aiColor4D zeroColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	std::vector<ModelVData> vData;
+	std::vector<VData> vData;
 	std::vector<uint16_t> indices;
 
 	vData.resize(src->mNumVertices);
@@ -319,7 +349,7 @@ YDX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool 
 		if (invU) { uv->x = 1.0f - uv->x; }
 		if (invV) { uv->y = 1.0f - uv->y; }
 
-		ModelVData vertex = {};
+		VData vertex = {};
 		vertex.pos_ = Vec3(position->x, position->y, position->z);
 		vertex.normal_ = Vec3(normal->x, normal->y, normal->z);
 		vertex.uv_ = Vec2(uv->x, uv->y);
@@ -340,13 +370,14 @@ YDX::VertexIndex3D Game::Model::LoadVertices(const aiMesh* src, bool invU, bool 
 		indices[i * 3 + 2] = face.mIndices[2];
 	}
 
-	vtIdx.Initialize(vData, indices, isNormalized);
+	if (isNormalized) { Normalized(vData, indices); }
+
+	vtIdx.Initialize(vData, indices);
 
 	return vtIdx;
 }
 
-Game::Material Game::Model::LoadMaterial(const std::string directoryPath, const aiMaterial* src, 
-	const std::string extension)
+Material Model::LoadMaterial(const std::string directoryPath, const aiMaterial* src, const std::string extension)
 {
 	Material material;
 

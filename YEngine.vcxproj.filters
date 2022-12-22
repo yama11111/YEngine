@@ -16,23 +16,11 @@
     <Filter Include="Base">
       <UniqueIdentifier>{6fc17274-b719-44d8-b216-183b62662b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base\h">
       <UniqueIdentifier>{185836f3-28c5-4f9b-95a8-aaab344698fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Base\cpp">
       <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Billborad">
-      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Model">
-      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Sprite">
-      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\MapChip">
       <UniqueIdentifier>{80d5f6b8-0baa-4854-85ad-f4bcf053533b}</UniqueIdentifier>
@@ -102,6 +90,18 @@
     </Filter>
     <Filter Include="Input\h">
       <UniqueIdentifier>{77d3bcbd-1f86-43d7-bbda-1e6dee63762b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Billborad">
+      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Model">
+      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Sprite">
+      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +245,12 @@
     </ClCompile>
     <ClCompile Include="Skydome.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\3D\ParticleManager.cpp">
+      <Filter>GameUtil\cpp\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp">
+      <Filter>GameUtil\cpp\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -394,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="Skydome.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\ParticleManager.h">
+      <Filter>GameUtil\h\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\2D\SpriteCommon.h">
+      <Filter>GameUtil\h\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #include "YAssert.h"
 #include <fstream>
 
-using Game::AudioManager;
+using YGame::AudioManager;
 using YDX::Result;
 
 AudioManager::~AudioManager()

@@ -5,7 +5,7 @@
 
 #pragma comment(lib, "xaudio2.lib")
 
-namespace Game
+namespace YGame
 {
 	class AudioManager
 	{
