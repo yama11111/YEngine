@@ -153,7 +153,7 @@
     <ClCompile Include="Base\DX\ScreenDesc.cpp">
       <Filter>Base\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Base\DX\ShaderSet.cpp">
+    <ClCompile Include="Base\DX\ShaderCommon.cpp">
       <Filter>Base\cpp</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\SRVHeap.cpp">
@@ -308,7 +308,7 @@
     <ClInclude Include="Base\DX\ScreenDesc.h">
       <Filter>Base\h</Filter>
     </ClInclude>
-    <ClInclude Include="Base\DX\ShaderSet.h">
+    <ClInclude Include="Base\DX\ShaderCommon.h">
       <Filter>Base\h</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\SRVHeap.h">

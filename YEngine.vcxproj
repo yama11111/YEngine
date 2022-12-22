@@ -96,7 +96,7 @@
     <ClCompile Include="Base\DX\PipelineSet.cpp" />
     <ClCompile Include="Base\DX\RootParameterManager.cpp" />
     <ClCompile Include="Base\DX\ScreenDesc.cpp" />
-    <ClCompile Include="Base\DX\ShaderSet.cpp" />
+    <ClCompile Include="Base\DX\ShaderCommon.cpp" />
     <ClCompile Include="Base\DX\SRVHeap.cpp" />
     <ClCompile Include="Base\DX\Vertices.cpp" />
     <ClCompile Include="Base\DX\YAssert.cpp" />
@@ -149,7 +149,7 @@
     <ClInclude Include="Base\DX\PipelineSet.h" />
     <ClInclude Include="Base\DX\RootParameterManager.h" />
     <ClInclude Include="Base\DX\ScreenDesc.h" />
-    <ClInclude Include="Base\DX\ShaderSet.h" />
+    <ClInclude Include="Base\DX\ShaderCommon.h" />
     <ClInclude Include="Base\DX\SRVHeap.h" />
     <ClInclude Include="Base\DX\Vertices.h" />
     <ClInclude Include="Base\DX\YAssert.h" />

@@ -9,9 +9,9 @@ namespace YDX
 {
 	class PipelineSet
 	{
-	private:
+	public:
 		// 設定構造体インターフェース
-		struct IPipelineSetDesc
+		struct IStatus
 		{
 		public:
 			// 頂点レイアウト
@@ -25,21 +25,6 @@ namespace YDX
 		public:
 			virtual void Initialize(ID3DBlob* errorBlob_) = 0;
 		};
-		// スプライト用設定構造体
-		struct SpritePipelineSetDesc : public IPipelineSetDesc
-		{
-			void Initialize(ID3DBlob* errorBlob_) override;
-		};
-		// モデル用設定構造体
-		struct ModelPipelineSetDesc : public IPipelineSetDesc
-		{
-			void Initialize(ID3DBlob* errorBlob_) override;
-		};
-		// ビルボード用設定構造体
-		struct BillboardPipelineSetDesc : public IPipelineSetDesc
-		{
-			void Initialize(ID3DBlob* errorBlob_) override;
-		};
 	private:
 		// ルートシグネチャ
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
@@ -48,16 +33,8 @@ namespace YDX
 		// プリミティブ形状
 		D3D_PRIMITIVE_TOPOLOGY primitive_ = D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 	public:
-		// パイプラインの種類
-		enum class Type
-		{
-			SpriteT, // スプライト
-			ModelT, // モデル
-			BillboardT, // ビルボード
-		};
-	public:
 		// 初期化
-		void Initialize(const Type& type, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
+		void Initialize(IStatus* state, std::vector<D3D12_ROOT_PARAMETER>* rootParams);
 		// 描画前コマンド
 		void SetDrawCommand();
 	private:
