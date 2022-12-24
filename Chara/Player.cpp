@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "CollisionConfig.h"
 #include "CalcTransform.h"
+#include "MapChipManager.h"
 #include "YMath.h"
 #include <cassert>
 
@@ -14,12 +15,19 @@ const float GravityPower = 0.3f;
 
 YGame::Model* Player::pModel_ = nullptr;
 UINT Player::tex_ = UINT_MAX;
+MapChipPointer* Player::pMapChip_ = nullptr;
 
 void Player::StaticIntialize(const StaticInitStatus& state)
 {
 	assert(state.pModel_);
 	pModel_ = state.pModel_;
 	tex_ = state.tex_;
+}
+
+void Player::SetMapChipPointer(MapChipPointer* pMapChip)
+{
+	assert(pMapChip);
+	pMapChip_ = pMapChip;
 }
 
 void Player::Initialize()
@@ -83,15 +91,10 @@ void Player::Update()
 {
 	UpdateJump();
 	UpdateAttack();
-}
 
-void Player::UpdateMove() 
-{
+	pMapChip_->Collision(*this);
+
 	obj_.pos_ += speed_;
-}
-
-void Player::UpdateMatrix() 
-{
 	obj_.Update();
 }
 

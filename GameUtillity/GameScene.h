@@ -97,8 +97,8 @@ namespace YGame
 		// エネミー
 		Object enemy_;
 
-		// マップ
-		MapChip map_;
+		// マップマネージャー
+		MapChipManager mapMan_;
 
 		// 天球
 		Skydome skydome_;

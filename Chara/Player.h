@@ -3,6 +3,8 @@
 #include "Collider.h"
 #include "MapChipCollider.h"
 
+class MapChipPointer;
+
 class Player : public Collision::Collider, public MapChipCollider
 {
 private:
@@ -21,10 +23,6 @@ public:
 	void OnCollision(const uint32_t attribute) override;
 	// 更新
 	void Update();
-	// 移動量更新
-	void UpdateMove();
-	// 行列更新
-	void UpdateMatrix();
 	// 描画
 	void Draw(const YGame::ViewProjection& vp);
 public:
@@ -52,6 +50,8 @@ private:
 	static YGame::Model* pModel_;
 	// 静的テクスチャインデックス
 	static UINT tex_;
+	// 静的マップチップポインタ
+	static MapChipPointer* pMapChip_;
 public:
 	// 静的初期化ステータス
 	struct StaticInitStatus
@@ -62,5 +62,7 @@ public:
 public:
 	// 静的初期化
 	static void StaticIntialize(const StaticInitStatus& state);
+	// 静的マップチップポインタ設定
+	static void SetMapChipPointer(MapChipPointer* pMapChip);
 };
 

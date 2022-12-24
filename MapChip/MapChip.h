@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "MapChipCollider.h"
 
+// マップ情報
 class MapChipInfo
 {
 protected:
@@ -47,8 +48,8 @@ public:
 	// 初期化ステータス
 	struct InitStatus 
 	{
-		float chipSize_; // チップ1個分の大きさ
 		YMath::Vec3 leftTop_; // 左上([0][0])
+		float chipSize_; // チップ1個分の大きさ
 	};
 public:
 	// ロード
@@ -56,7 +57,7 @@ public:
 	// 初期化
 	void Initialize(const InitStatus& state);
 	// リセット
-	void Reset(const YMath::Vec3& leftTop);
+	void Reset();
 	// 更新
 	void Update();
 	// 描画

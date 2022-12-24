@@ -74,7 +74,7 @@ void GameScene::Load()
 
 	// ------- マップ ------- //
 
-	map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get()});
+	mapMan_.Load({ cubeM_.get(), mapDispT_, mapDispS_.get() });
 
 	// ----- 静的初期化 ----- //
 
@@ -92,17 +92,16 @@ void GameScene::Initialize()
 	// 乱数初期化
 	Srand();
 
+	// マップ初期化
+	mapMan_.Initialize({ 0, { 0.0f,+30.0f,-25.0f }, 7.5f });
+
 	// プレイヤー初期化
 	player_ = std::make_unique<Player>();
-	player_->Initialize();
+	player_->Initialize(mapMan_.CurrentMapPointer());
 
 	// エネミー初期化
 	enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
 	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
-
-	// マップ初期化
-	//map_.Initialize({ 7.5f, {}});
-	map_.Initialize({ 7.5f, { 0.0f,+30.0f,-25.0f }});
 
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
@@ -200,8 +199,8 @@ void GameScene::Update()
 	// ホットリロード
 	if (keys_->IsTrigger(DIK_L))
 	{
-		map_.Load({ "stage1.csv", cubeM_.get(), mapDispT_, mapDispS_.get() });
-		map_.Reset({ 0.0f,+30.0f,-25.0f });
+		mapMan_.Load({ cubeM_.get(), mapDispT_, mapDispS_.get() });
+		mapMan_.Reset();
 	}
 
 	// リセット
@@ -250,6 +249,9 @@ void GameScene::Update()
 
 	}
 
+	// マップマネージャー
+	mapMan_.Update();
+
 	// プレイヤー
 	if (keys_->IsTrigger(DIK_SPACE)) { player_->Jump(); }
 	if (keys_->IsTrigger(DIK_RETURN)) { player_->Attack(); }
@@ -265,21 +267,14 @@ void GameScene::Update()
 
 	enemy_.Update();
 
-	// マップマネージャー
-	map_.Update();
-	map_.PerfectPixelCollision(*player_.get());
-
-	player_->UpdateMove();
-	player_->UpdateMatrix();
-
 	// スカイドーム
 	skydome_.Update();
 
 	// カメラ
-	camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.8f;
-	camera_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.8f;
-	camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 0.02f;
-	camera_.rota_.x_ += +keys_->Vertical(Keys::MoveStandard::WASD) * 0.02f;
+	//camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.8f;
+	//camera_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.8f;
+	//camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 0.02f;
+	//camera_.rota_.x_ += +keys_->Vertical(Keys::MoveStandard::WASD) * 0.02f;
 	camera_.Update();
 
 	// ビュープロジェクション
@@ -329,7 +324,6 @@ void GameScene::Update()
 		);
 	}
 #pragma endregion
-
 
 }
 #pragma endregion
@@ -402,7 +396,7 @@ void GameScene::DrawModels()
 	// enemy
 	cubeM_->Draw(enemy_, vp_, enemyT_);
 	// map
-	map_.Draw(vp_);
+	mapMan_.Draw(vp_);
 
 #pragma region Team
 
@@ -487,8 +481,10 @@ void GameScene::DrawFrontSprites()
 
 	}
 
-	//map_.Draw2D();
+	// map
+	mapMan_.Draw2D();
 
+	// scene
 	sceneMan_.Draw();
 }
 

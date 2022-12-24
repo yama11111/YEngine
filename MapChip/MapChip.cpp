@@ -16,7 +16,7 @@ void MapChipInfo::LoadData(const std::string fileName)
 	errno_t err;
 
 	// 読み込み用ファイルを開く
-	const std::string& directoryPath = "MapChip/Data/";
+	const std::string& directoryPath = "Resources/MapData/";
 	std::string filePath = directoryPath + fileName;
 	err = fopen_s(&fp, filePath.c_str(), "r");
 
@@ -76,12 +76,13 @@ void MapChip::Initialize(const InitStatus& state)
 {
 	assert(isLoaded_);
 
+	leftTop_ = state.leftTop_;
 	chipSize_ = state.chipSize_;
 
-	Reset(state.leftTop_);
+	Reset();
 }
 
-void MapChip::Reset(const Vec3& leftTop)
+void MapChip::Reset()
 {
 	// 3D
 	chips_.clear();
@@ -96,15 +97,13 @@ void MapChip::Reset(const Vec3& leftTop)
 	{
 		for (size_t x = 0; x < chips_[y].size(); x++)
 		{
-			posZ = +(scale * 2.0f) * x + scale + leftTop.z_;
-			posY = -(scale * 2.0f) * y - scale + leftTop.y_;
+			posZ = +(scale * 2.0f) * x + scale + leftTop_.z_;
+			posY = -(scale * 2.0f) * y - scale + leftTop_.y_;
 
-			chips_[y][x].Initialize({ {leftTop.x_,posY,posZ},{},{scale,scale,scale} }, { 1.0f,1.0f,1.0f,0.5f });
+			chips_[y][x].Initialize({ {leftTop_.x_,posY,posZ},{},{scale,scale,scale} }, { 1.0f,1.0f,1.0f,0.5f });
 		}
 	}
 	rect_ = Vec2(chipSize_ * chipNums_[0].size(), chipSize_ * chipNums_.size());
-
-	leftTop_ = leftTop;
 
 	// 2D
 	chip2Ds_.clear();
