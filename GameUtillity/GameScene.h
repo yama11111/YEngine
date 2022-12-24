@@ -9,6 +9,7 @@
 #include "CollisionManager.h"
 #include <memory>
 
+#include "Floor.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Skydome.h"
@@ -38,9 +39,6 @@ namespace YGame
 		// マップ2D表示用画像
 		UINT mapDispT_ = 0;
 
-		// 破片画像
-		UINT debriT_ = 0;
-
 		// ----- オーディオ ----- //
 
 		//UINT aA_ = 0;
@@ -61,21 +59,17 @@ namespace YGame
 
 		// ----- ビルボード ----- //
 
-		// 破片ビルボード
-		std::unique_ptr<Billboard> debriB_ = nullptr;
-
 
 #pragma endregion
 #pragma region ゲームオブジェクト
 
-		// 床
-		std::vector<std::vector<Object>> floor;
+#pragma region Team
 
-		// プレイヤー
-		std::unique_ptr<Player> player_ = nullptr;
+		// 破片画像
+		UINT debriT_ = 0;
 
-		// エネミー
-		Object enemy_;
+		// 破片ビルボード
+		std::unique_ptr<Billboard> debriB_ = nullptr;
 
 		const size_t num_ = 3;
 		std::vector<Object> blocks_;
@@ -94,6 +88,14 @@ namespace YGame
 		const int time2 = 20;
 		YMath::Timer timer2_;
 		bool isBreak_ = false;
+
+#pragma endregion
+
+		// プレイヤー
+		std::unique_ptr<Player> player_ = nullptr;
+
+		// エネミー
+		Object enemy_;
 
 		// マップ
 		MapChip map_;

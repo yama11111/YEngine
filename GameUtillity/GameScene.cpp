@@ -79,8 +79,9 @@ void GameScene::Load()
 	// ----- 静的初期化 ----- //
 
 	Transition::Blackout::StaticInitialize({ curtenS_.get() });
-	Player::StaticIntialize({ cubeM_.get(), playerT_ });
+	Floor::StaticIntialize({ cubeM_.get(), plainT_ });
 
+	Player::StaticIntialize({ cubeM_.get(), playerT_ });
 }
 #pragma endregion
 
@@ -90,30 +91,6 @@ void GameScene::Initialize()
 {
 	// 乱数初期化
 	Srand();
-
-	// 床初期化
-	const size_t s = 8;
-	for (size_t i = 0; i < s; i++)
-	{
-		std::vector<Object> fs;
-		for (size_t j = 0; j < s; j++)
-		{
-			Object f;
-			f.Initialize({});
-			f.scale_ = { 20,1,20 };
-			f.pos_ =
-			{
-				((f.scale_.x_ * 2.0f) * j) - ((s - 1) * (f.scale_.x_)),
-				-f.scale_.y_,
-				((f.scale_.z_ * 2.0f) * i) - ((s - 1) * (f.scale_.z_))
-			};
-			float c = 1.0f - (((i + j) % 2 == 0) * 0.5f);
-			f.color_= { c,c,c,1.0f };
-			f.Update();
-			fs.push_back(f);
-		}
-		floor.push_back(fs);
-	}
 
 	// プレイヤー初期化
 	player_ = std::make_unique<Player>();
@@ -132,9 +109,9 @@ void GameScene::Initialize()
 
 	// カメラ初期化
 	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
-	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
+	camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
 	//camera_.Initialize({ {200.0f, 30.0f, 115.0f}, {PI / 6.0f, -PI / 2.0f, 0.0f} });
-	camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
+	//camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -145,7 +122,7 @@ void GameScene::Initialize()
 	// シーンマネージャー初期化
 	sceneMan_.Initialize();
 
-	{
+#pragma region Team
 		blocks_.resize(num_);
 		moves_.resize(num_);
 		scales_.resize(num_);
@@ -188,11 +165,14 @@ void GameScene::Initialize()
 				(float)GetRand(-5, 5),
 				(float)GetRand(-5, 5)
 			};
+
+			int rNum = static_cast<int>(((PI / 2.0f) * 1000.0f));
+
 			Vec3 r = 
 			{
-				(float)GetRand(-(PI / 2.0f) * 1000.0f, (PI / 2.0f) * 1000.0f) / 1000.0f,
-				(float)GetRand(-(PI / 2.0f) * 1000.0f, (PI / 2.0f) * 1000.0f) / 1000.0f,
-				(float)GetRand(-(PI / 2.0f) * 1000.0f, (PI / 2.0f) * 1000.0f) / 1000.0f,
+				(float)GetRand(-rNum, rNum) / 1000.0f,
+				(float)GetRand(-rNum, rNum) / 1000.0f,
+				(float)GetRand(-rNum, rNum) / 1000.0f,
 			};
 
 			float s = (float)GetRand(10, 15) / 10.0f;
@@ -208,7 +188,8 @@ void GameScene::Initialize()
 
 			isBreak_ = false;
 		}
-	}
+#pragma endregion
+	
 }
 #pragma endregion
 
@@ -233,14 +214,15 @@ void GameScene::Update()
 
 		collMan_.Initialize();
 
+#pragma region Team
+		for (size_t i = 0; i < times_.size(); i++)
 		{
-			for (size_t i = 0; i < times_.size(); i++)
-			{
-				times_[i].Initialize(time);
-			}
-			timer2_.Initialize(time2);
-			isBreak_ = false;
+			times_[i].Initialize(time);
 		}
+		timer2_.Initialize(time2);
+		isBreak_ = false;
+#pragma endregion
+
 	}
 
 	if (sceneMan_.GetScene() == Scene::TITLE)
@@ -308,6 +290,8 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_1)) { sceneMan_.Change(Scene::PLAY); }
 	sceneMan_.Update();
 
+#pragma region Team
+
 	if (keys_->IsTrigger(DIK_K))
 	{
 		camera_.Shaking(10, 1); 
@@ -344,6 +328,9 @@ void GameScene::Update()
 			}
 		);
 	}
+#pragma endregion
+
+
 }
 #pragma endregion
 
@@ -407,32 +394,27 @@ void GameScene::DrawModels()
 		}
 	}
 
+	// 天球
 	skydome_.Draw(vp_);
 
-	//// floor
-	//for (size_t i = 0; i < floor.size(); i++)
+	// player
+	player_->Draw(vp_);
+	// enemy
+	cubeM_->Draw(enemy_, vp_, enemyT_);
+	// map
+	map_.Draw(vp_);
+
+#pragma region Team
+
+	//for (size_t i = 0; i < blocks_.size(); i++)
 	//{
-	//	for (size_t j = 0; j < floor[i].size(); j++)
-	//	{
-	//		cubeM_->Draw(floor[i][j], vp_);
-	//	}
+	//	cubeM_->Draw(blocks_[i], vp_, plainT_);
 	//}
 
-	//// player
-	//player_->Draw(vp_);
-	//// enemy
-	//cubeM_->Draw(enemy_, vp_, enemyT_);
-	//// map
-	//map_.Draw(vp_);
+	//if (isBreak_ == false) { cubeM_->Draw(block_, vp_, plainT_); }
 
-	{
-		for (size_t i = 0; i < blocks_.size(); i++)
-		{
-			cubeM_->Draw(blocks_[i], vp_, plainT_);
-		}
+#pragma endregion
 
-		if (isBreak_ == false) { cubeM_->Draw(block_, vp_, plainT_); }
-	}
 }
 
 void GameScene::DrawBillboards()
@@ -464,15 +446,18 @@ void GameScene::DrawBillboards()
 		}
 	}
 	
-	{
-		if (timer2_.IsEnd() == false)
-		{
-			for (size_t i = 0; i < debris_.size(); i++)
-			{
-				debriB_->Draw(debris_[i], vp_, debriT_);
-			}
-		}
-	}
+#pragma region Team
+
+	//if (timer2_.IsEnd() == false)
+	//{
+	//	for (size_t i = 0; i < debris_.size(); i++)
+	//	{
+	//		debriB_->Draw(debris_[i], vp_, debriT_);
+	//	}
+	//}
+
+#pragma endregion
+
 }
 
 void GameScene::DrawFrontSprites()

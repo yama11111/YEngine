@@ -6,17 +6,17 @@
 
 namespace YDX
 {
-	// 定数バッファ用データ構造体 (3D変換行列)
+	// 定数バッファデータ構造体 (3D変換行列)
 	struct TransformCBData
 	{
 		YMath::Mat4 mat_; // 3D変換行列
 	};
-	// 定数バッファ用データ構造体 (色)
+	// 定数バッファデータ構造体 (色)
 	struct ColorCBData
 	{
 		YMath::Vec4 color_; // 色 (RGBA)
 	};
-	// 定数バッファ用データ構造体 (マテリアル)
+	// 定数バッファデータ構造体 (マテリアル)
 	struct MaterialCBData
 	{
 		YMath::Vec3 ambient_;  // アンビエント係数
@@ -24,9 +24,9 @@ namespace YDX
 		YMath::Vec3 diffuse_;  // ディフューズ係数
 		float pad2_; // パディング2
 		YMath::Vec3 specular_; // スペキュラー係数
-		float alpha_;		  // アルファ
+		float alpha_;		   // アルファ
 	};
-	// 定数バッファ用データ構造体 (ビルボード)
+	// 定数バッファデータ構造体 (ビルボード)
 	struct BillboardCBData
 	{
 		YMath::Mat4 matBlbd_; // ビルボード行列

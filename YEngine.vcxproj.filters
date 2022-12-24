@@ -103,6 +103,12 @@
     <Filter Include="Shader\Sprite">
       <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Chara">
+      <UniqueIdentifier>{0b942f3e-a737-4924-a87c-6be14969d868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Chara">
+      <UniqueIdentifier>{81ec4f9d-bb79-4c97-912c-735e23757f4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\CalcTransform.cpp">
@@ -237,12 +243,6 @@
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Skydome.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -256,6 +256,18 @@
       <Filter>GameUtil\cpp\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\BillboardCommon.cpp">
+      <Filter>GameUtil\cpp\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\3D\Particle.cpp">
       <Filter>GameUtil\cpp\3D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -398,12 +410,6 @@
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Skydome.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -417,6 +423,18 @@
       <Filter>GameUtil\h\3D</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\3D\BillboardCommon.h">
+      <Filter>GameUtil\h\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\Particle.h">
       <Filter>GameUtil\h\3D</Filter>
     </ClInclude>
   </ItemGroup>

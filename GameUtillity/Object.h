@@ -36,7 +36,7 @@ namespace YGame
 	public:
 		// 初期化
 		void Initialize(const Status& state, const YMath::Vec4& color = {1.0f,1.0f,1.0f,1.0f});
-		// アフィン変換→ビュープロジェクション変換→転送
+		// アフィン変換
 		void Update();
 		// 演出用特殊変換
 		void UniqueUpdate(const Status& state);
