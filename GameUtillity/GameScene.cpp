@@ -81,7 +81,10 @@ void GameScene::Load()
 	Transition::Blackout::StaticInitialize({ curtenS_.get() });
 	Floor::StaticIntialize({ cubeM_.get(), plainT_ });
 
+	Character::SetMapChipPointer(mapMan_.CurrentMapPointer());
+
 	Player::StaticIntialize({ cubeM_.get(), playerT_ });
+	Slime::StaticIntialize({ cubeM_.get(), enemyT_ });
 }
 #pragma endregion
 
@@ -97,11 +100,11 @@ void GameScene::Initialize()
 
 	// プレイヤー初期化
 	player_ = std::make_unique<Player>();
-	player_->Initialize(mapMan_.CurrentMapPointer());
+	player_->Initialize({ {0.0f, 50.0f, 50.0f} });
 
 	// エネミー初期化
-	enemy_.Initialize({ {0,5.0f,20.0f},{},{5.0f,5.0f,5.0f} });
-	enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
+	enemy_ = std::make_unique<Slime>();
+	enemy_->Initialize({ {0, 50.0f, 200.0f} });
 
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
@@ -121,6 +124,9 @@ void GameScene::Initialize()
 	// シーンマネージャー初期化
 	sceneMan_.Initialize();
 
+	// アタリ判定マネージャー初期化
+	collMan_.Initialize();
+	
 #pragma region Team
 		blocks_.resize(num_);
 		moves_.resize(num_);
@@ -207,9 +213,9 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_R))
 	{
 		// プレイヤー
-		player_->Reset();
+		player_->Reset({ {0.0f, 50.0f, 50.0f} });
 		// エネミー
-		enemy_.rota_ = AdjustAngle(Vec3(0, 0, -1));
+		enemy_->Reset({ {0, 50.0f, 200.0f} });
 
 		collMan_.Initialize();
 
@@ -256,16 +262,21 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_SPACE)) { player_->Jump(); }
 	if (keys_->IsTrigger(DIK_RETURN)) { player_->Attack(); }
 
-	//player_->SpeedRef().z_ = keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
+	player_->SpeedRef().z_ = keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
 	//player_->SpeedRef().y_ = -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
 
 	player_->Update();
 
+	collMan_.PushBack(player_.get());
+
 	// エネミー
+	
 	//enemy_.pos_.z_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
 	//enemy_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
 
-	enemy_.Update();
+	enemy_->Update();
+
+	collMan_.PushBack(enemy_.get());
 
 	// スカイドーム
 	skydome_.Update();
@@ -282,8 +293,10 @@ void GameScene::Update()
 	vp_.Update();
 
 	// シーンマネージャー
-	if (keys_->IsTrigger(DIK_1)) { sceneMan_.Change(Scene::PLAY); }
 	sceneMan_.Update();
+
+	// アタリ判定マネージャー
+	collMan_.Update();
 
 #pragma region Team
 
@@ -394,7 +407,7 @@ void GameScene::DrawModels()
 	// player
 	player_->Draw(vp_);
 	// enemy
-	cubeM_->Draw(enemy_, vp_, enemyT_);
+	enemy_->Draw(vp_);
 	// map
 	mapMan_.Draw(vp_);
 

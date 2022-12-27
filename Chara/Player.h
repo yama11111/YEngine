@@ -1,24 +1,26 @@
 #pragma once
+#include "Character.h"
 #include "Model.h"
-#include "Collider.h"
-#include "MapChipCollider.h"
 
 class MapChipPointer;
 
-class Player : public Collision::Collider, public MapChipCollider
+class Player : public Character
 {
 private:
-	// オブジェクト
-	YGame::Object obj_;
-	// スピード
-	YMath::Vec3 speed_;
 	// ジャンプ回数
 	int jumpCount_ = 0;
 public:
+	// 初期化ステータス
+	struct InitStatus
+	{
+		// 位置
+		YMath::Vec3 pos_;
+	};
+public:
 	// 初期化
-	void Initialize();
+	virtual void Initialize(const InitStatus& state);
 	// リセット
-	void Reset();
+	void Reset(const InitStatus& state);
 	// 衝突時処理
 	void OnCollision(const uint32_t attribute) override;
 	// 更新
@@ -35,23 +37,11 @@ private:
 	void UpdateJump();
 	// 攻撃アップデート
 	void UpdateAttack();
-public:
-	// 位置取得
-	YMath::Vec3 Pos() const override { return obj_.pos_; };
-	// 大きさ取得
-	YMath::Vec3 Scale() const { return obj_.scale_; };
-public:
-	// 位置取得 (参照渡し)
-	YMath::Vec3& PosRef() override { return obj_.pos_; }
-	// スピード (参照渡し)
-	YMath::Vec3& SpeedRef() override { return speed_; }
 private:
 	// 静的モデルポインタ
 	static YGame::Model* pModel_;
 	// 静的テクスチャインデックス
 	static UINT tex_;
-	// 静的マップチップポインタ
-	static MapChipPointer* pMapChip_;
 public:
 	// 静的初期化ステータス
 	struct StaticInitStatus
@@ -62,7 +52,5 @@ public:
 public:
 	// 静的初期化
 	static void StaticIntialize(const StaticInitStatus& state);
-	// 静的マップチップポインタ設定
-	static void SetMapChipPointer(MapChipPointer* pMapChip);
 };
 

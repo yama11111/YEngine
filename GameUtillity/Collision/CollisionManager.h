@@ -1,6 +1,5 @@
 #pragma once
 #include "Collider.h"
-#include <memory>
 #include <list>
 
 namespace Collision

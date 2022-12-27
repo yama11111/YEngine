@@ -115,6 +115,12 @@
     <Filter Include="ヘッダー ファイル\Chara\Enemy">
       <UniqueIdentifier>{931cafba-4ac3-4c28-865b-f149b0f76f87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Chara\Player">
+      <UniqueIdentifier>{254d8ccd-21b9-49a4-802b-12d15f62e68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Chara\Player">
+      <UniqueIdentifier>{0568335e-0f21-45cc-8964-242c186fd95c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\CalcTransform.cpp">
@@ -273,14 +279,20 @@
     <ClCompile Include="Chara\Slime.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Chara\Player.cpp">
-      <Filter>ソース ファイル\Chara</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Enemy.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Chara\EnemyManager.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Character.cpp">
+      <Filter>ソース ファイル\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Player.cpp">
+      <Filter>ソース ファイル\Chara\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\CharaStatus.cpp">
+      <Filter>ソース ファイル\Chara</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,11 +461,20 @@
     <ClInclude Include="Chara\Enemy.h">
       <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Chara\Player.h">
-      <Filter>ヘッダー ファイル\Chara</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\EnemyManager.h">
       <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\Character.h">
+      <Filter>ヘッダー ファイル\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\Player.h">
+      <Filter>ヘッダー ファイル\Chara\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\CharaStatus.h">
+      <Filter>ヘッダー ファイル\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\CharaConfig.h">
+      <Filter>ヘッダー ファイル\Chara</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

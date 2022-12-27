@@ -104,6 +104,8 @@
     <ClCompile Include="Base\YWindowsApp.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="Chara\Character.cpp" />
+    <ClCompile Include="Chara\CharaStatus.cpp" />
     <ClCompile Include="Chara\Enemy.cpp" />
     <ClCompile Include="Chara\EnemyManager.cpp" />
     <ClCompile Include="Chara\Player.cpp" />
@@ -161,6 +163,9 @@
     <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\CameraManager.h" />
+    <ClInclude Include="Chara\CharaConfig.h" />
+    <ClInclude Include="Chara\Character.h" />
+    <ClInclude Include="Chara\CharaStatus.h" />
     <ClInclude Include="Chara\Enemy.h" />
     <ClInclude Include="Chara\EnemyManager.h" />
     <ClInclude Include="Chara\Player.h" />

@@ -1,21 +1,21 @@
 #include "Player.h"
+#include "CharaConfig.h"
 #include "CollisionConfig.h"
 #include "CalcTransform.h"
 #include "MapChipManager.h"
 #include "YMath.h"
 #include <cassert>
 
-const float CollRad = 1.0f;
-
-const int MaxJumpCount = 2;
-const int MaxJumpCountAdrenaline = 3;
-
-const float RisePower = 4.5f;
-const float GravityPower = 0.3f;
+#pragma region –¼‘O‹óŠÔ
+using CharaConfig::GravityPower;
+using CharaConfig::Player::CollRad;
+using CharaConfig::Player::HP;
+using CharaConfig::Player::MaxJumpCount;
+using CharaConfig::Player::RisePower;
+#pragma endregion
 
 YGame::Model* Player::pModel_ = nullptr;
 UINT Player::tex_ = UINT_MAX;
-MapChipPointer* Player::pMapChip_ = nullptr;
 
 void Player::StaticIntialize(const StaticInitStatus& state)
 {
@@ -24,23 +24,8 @@ void Player::StaticIntialize(const StaticInitStatus& state)
 	tex_ = state.tex_;
 }
 
-void Player::SetMapChipPointer(MapChipPointer* pMapChip)
+void Player::Initialize(const InitStatus& state)
 {
-	assert(pMapChip);
-	pMapChip_ = pMapChip;
-}
-
-void Player::Initialize()
-{
-	Reset();
-}
-
-void Player::Reset()
-{
-	obj_.Initialize({ {0.0f, 50.0f, 50.0f}, {}, {5.0f,5.0f,5.0f} });
-	obj_.rota_ = YMath::AdjustAngle(YMath::Vec3(0, 0, 1));
-	speed_ = { 0.0f,0.0f,0.0f };
-
 	InitializeCollisionStatus(
 		{
 			CollRad,
@@ -48,15 +33,24 @@ void Player::Reset()
 			Collision::Attribute::Enemy
 		}
 	);
+	Reset(state);
+}
+
+void Player::Reset(const InitStatus& state)
+{
+	obj_.Initialize({ state.pos_, {}, {5.0f,5.0f,5.0f} });
+	obj_.rota_ = YMath::AdjustAngle(YMath::Vec3(0, 0, 1));
+	speed_ = { 0.0f,0.0f,0.0f };
 
 	InitializeMapCollisionStatus({obj_.scale_});
+	InitializeCharaStatus({ HP });
 
 	jumpCount_ = 0;
 }
 
 void Player::OnCollision(const uint32_t attribute)
 {
-
+	obj_.pos_.z_ = 10;
 }
 
 void Player::Jump()
@@ -66,7 +60,6 @@ void Player::Jump()
 	jumpCount_ = min(jumpCount_, MaxJumpCount);
 	speed_.y_ = RisePower;
 }
-
 void Player::UpdateJump()
 {
 	speed_.y_ -= GravityPower;
@@ -81,7 +74,6 @@ void Player::Attack()
 {
 
 }
-
 void Player::UpdateAttack()
 {
 

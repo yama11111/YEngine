@@ -11,7 +11,7 @@
 
 #include "Floor.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
 #include "Skydome.h"
 #include "MapChipManager.h"
 #include "CameraManager.h"
@@ -95,7 +95,8 @@ namespace YGame
 		std::unique_ptr<Player> player_ = nullptr;
 
 		// エネミー
-		Object enemy_;
+		EnemyManager enemyMan_;
+		std::unique_ptr<Slime> enemy_ = nullptr;
 
 		// マップマネージャー
 		MapChipManager mapMan_;
