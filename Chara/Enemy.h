@@ -19,7 +19,7 @@ public:
 	// リセット
 	virtual void Reset(const InitStatus& state) = 0;
 	// 衝突時処理
-	void OnCollision(const uint32_t attribute) override;
+	void OnCollision(const uint32_t attribute, const YMath::Vec3& pos) override;
 	// 更新
 	virtual void Update() = 0;
 	// 描画

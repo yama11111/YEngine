@@ -106,7 +106,6 @@ namespace YGame
 
 		// カメラマネージャー
 		CameraManager cameraMan_;
-		Camera camera_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;

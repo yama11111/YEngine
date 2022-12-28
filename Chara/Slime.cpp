@@ -8,12 +8,9 @@
 
 #pragma region –¼‘O‹óŠÔ
 using CharaConfig::GravityPower;
-using CharaConfig::Enemy::Slime::CollRad;
-using CharaConfig::Enemy::Slime::HP;
+using CharaConfig::Enemy::CheatTime;
+using namespace CharaConfig::Enemy::Slime;
 #pragma endregion
-
-const float CollRad = 10.0f;
-const float GravityPower = 0.3f;
 
 YGame::Model* Slime::pModel_ = nullptr;
 UINT Slime::tex_ = UINT_MAX;
@@ -44,7 +41,7 @@ void Slime::Reset(const InitStatus& state)
 	speed_ = { 0.0f,0.0f,0.0f };
 
 	InitializeMapCollisionStatus({ obj_.scale_ });
-	InitializeCharaStatus({ HP });
+	InitializeCharaStatus({ HP, CheatTime });
 }
 
 void Slime::Update()
@@ -54,6 +51,12 @@ void Slime::Update()
 	pMapChip_->Collision(*this);
 
 	obj_.pos_ += speed_;
+
+	UpdateCharaStatus();
+	obj_.color_.g_ = (1.0f - isCheat() * 1.0f);
+	obj_.color_.b_ = (1.0f - isCheat() * 1.0f);
+	obj_.color_.a_ = (1.0f - isCheat() * 0.5f);
+
 	obj_.Update();
 }
 

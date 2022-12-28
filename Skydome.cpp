@@ -1,7 +1,7 @@
 #include "Skydome.h"
 #include <cassert>
 
-const float Size = 300.0f;
+const float Size = 800.0f;
 
 void Skydome::Initialize(YGame::Model* model)
 {

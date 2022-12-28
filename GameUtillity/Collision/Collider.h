@@ -27,7 +27,7 @@ namespace Collision
 		// Õ“Ëİ’è‰Šú‰»
 		void InitializeCollisionStatus(const InitStatus& state);
 		// Õ“Ëˆ—
-		virtual void OnCollision(const uint32_t attribute) = 0;
+		virtual void OnCollision(const uint32_t attribute, const YMath::Vec3& pos) = 0;
 	public:
 		// ˆÊ’uæ“¾
 		virtual YMath::Vec3 Pos() const = 0;

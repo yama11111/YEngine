@@ -294,6 +294,9 @@
     <ClCompile Include="Chara\CharaStatus.cpp">
       <Filter>ソース ファイル\Chara</Filter>
     </ClCompile>
+    <ClCompile Include="Chara\Attack.cpp">
+      <Filter>ソース ファイル\Chara</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\CalcTransform.h">
@@ -474,6 +477,9 @@
       <Filter>ヘッダー ファイル\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Chara\CharaConfig.h">
+      <Filter>ヘッダー ファイル\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\Attack.h">
       <Filter>ヘッダー ファイル\Chara</Filter>
     </ClInclude>
   </ItemGroup>

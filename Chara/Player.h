@@ -22,7 +22,7 @@ public:
 	// リセット
 	void Reset(const InitStatus& state);
 	// 衝突時処理
-	void OnCollision(const uint32_t attribute) override;
+	void OnCollision(const uint32_t attribute, const YMath::Vec3& pos) override;
 	// 更新
 	void Update();
 	// 描画
@@ -37,6 +37,9 @@ private:
 	void UpdateJump();
 	// 攻撃アップデート
 	void UpdateAttack();
+public:
+	// 位置ポインタ取得
+	YMath::Vec3* PosPointer() { return &obj_.pos_; }
 private:
 	// 静的モデルポインタ
 	static YGame::Model* pModel_;

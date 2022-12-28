@@ -27,6 +27,11 @@ public:
 	// ダメージを受ける
 	void Hit(const int damage);
 public:
+	// 生存フラグ
+	bool isAlive() const { return isAlive_; }
+	// 無敵フラグ
+	bool isCheat() const { return isCheat_; }
+public:
 	// HP設定
 	void SetHP(const int hp);
 };

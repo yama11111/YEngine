@@ -15,7 +15,6 @@ void CharaStatus::InitializeCharaStatus(const InitStatus& state)
 void CharaStatus::UpdateCharaStatus()
 {
 	if (isAlive_ == false) { return; }
-	if (isCheat_) { return; }
 
 	cheatT_.Update();
 	if (cheatT_.IsEnd())
@@ -31,6 +30,9 @@ void CharaStatus::Hit(const int damage)
 	if (isCheat_) { return; }
 
 	hp_ -= damage;
+
+	isCheat_ = true;
+	cheatT_.Reset(true);
 
 	if (hp_ <= 0)
 	{

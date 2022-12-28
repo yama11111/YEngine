@@ -96,24 +96,22 @@ void GameScene::Initialize()
 	Srand();
 
 	// マップ初期化
-	mapMan_.Initialize({ 0, { 0.0f,+30.0f,-25.0f }, 7.5f });
+	mapMan_.Initialize({ 0, {}, 7.5f });
 
 	// プレイヤー初期化
 	player_ = std::make_unique<Player>();
-	player_->Initialize({ {0.0f, 50.0f, 50.0f} });
+	player_->Initialize({ {0.0f, 80.0f, 50.0f} });
 
-	// エネミー初期化
+	 // エネミー初期化
 	enemy_ = std::make_unique<Slime>();
-	enemy_->Initialize({ {0, 50.0f, 200.0f} });
+	enemy_->Initialize({ {0.0f, 80.0f, 175.0f} });
 
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
 
 	// カメラ初期化
-	//camera_.Initialize({ {150.0f, 50.0f, -50.0f}, {PI / 16.0f, -PI / 3.0f, 0.0f} });
-	camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
-	//camera_.Initialize({ {200.0f, 30.0f, 115.0f}, {PI / 6.0f, -PI / 2.0f, 0.0f} });
-	//camera_.Initialize({ {0.0f,0.0f,-20.0f}, {0.0f, 0.0f, 0.0f} });
+	cameraMan_.SetFollowPoint(player_->PosPointer());
+	cameraMan_.Initialize();
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -213,9 +211,9 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_R))
 	{
 		// プレイヤー
-		player_->Reset({ {0.0f, 50.0f, 50.0f} });
+		player_->Reset({ {0.0f, 80.0f, 25.0f} });
 		// エネミー
-		enemy_->Reset({ {0, 50.0f, 200.0f} });
+		enemy_->Reset({ {0.0f, 80.0f, 175.0f} });
 
 		collMan_.Initialize();
 
@@ -286,10 +284,10 @@ void GameScene::Update()
 	//camera_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.8f;
 	//camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 0.02f;
 	//camera_.rota_.x_ += +keys_->Vertical(Keys::MoveStandard::WASD) * 0.02f;
-	camera_.Update();
+	cameraMan_.Update();
 
 	// ビュープロジェクション
-	vp_ = camera_.GetViewProjection();
+	vp_ = cameraMan_.GetViewProjection();
 	vp_.Update();
 
 	// シーンマネージャー
@@ -302,7 +300,7 @@ void GameScene::Update()
 
 	if (keys_->IsTrigger(DIK_K))
 	{
-		camera_.Shaking(10, 1); 
+		cameraMan_.Shaking(10, 1); 
 	}
 
 	for (size_t i = 0; i < num_; i++)
@@ -319,7 +317,7 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_B))
 	{
 		timer2_.SetActive(true);
-		camera_.Shaking(10, 1);
+		cameraMan_.Shaking(10, 1);
 		isBreak_ = true;
 	}
 

@@ -60,7 +60,7 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* collide
 
 	if (dist.Length() <= colliderA->Radius() + colliderB->Radius())
 	{
-		colliderA->OnCollision(colliderB->Mask());
-		colliderB->OnCollision(colliderA->Mask());
+		colliderA->OnCollision(colliderB->Attribute(), colliderB->Pos());
+		colliderB->OnCollision(colliderA->Attribute(), colliderA->Pos());
 	}
 }

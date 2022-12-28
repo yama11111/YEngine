@@ -8,10 +8,7 @@
 
 #pragma region –¼‘O‹óŠÔ
 using CharaConfig::GravityPower;
-using CharaConfig::Player::CollRad;
-using CharaConfig::Player::HP;
-using CharaConfig::Player::MaxJumpCount;
-using CharaConfig::Player::RisePower;
+using namespace CharaConfig::Player;
 #pragma endregion
 
 YGame::Model* Player::pModel_ = nullptr;
@@ -43,14 +40,26 @@ void Player::Reset(const InitStatus& state)
 	speed_ = { 0.0f,0.0f,0.0f };
 
 	InitializeMapCollisionStatus({obj_.scale_});
-	InitializeCharaStatus({ HP });
+	InitializeCharaStatus({ HP, CheatTime });
 
 	jumpCount_ = 0;
 }
 
-void Player::OnCollision(const uint32_t attribute)
+void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
 {
-	obj_.pos_.z_ = 10;
+	if (attribute == Collision::Attribute::Enemy)
+	{
+		// “¥‚ñ‚¾‚È‚ç
+		if (obj_.pos_.y_ - pos.y_ >= CharaConfig::AttackRange)
+		{
+			speed_.y_ = RisePower;
+		}
+		else
+		{
+			Hit(1);
+		}
+
+	}
 }
 
 void Player::Jump()
@@ -87,6 +96,17 @@ void Player::Update()
 	pMapChip_->Collision(*this);
 
 	obj_.pos_ += speed_;
+
+	if (obj_.pos_.y_ <= -150.0f)
+	{
+		SetHP(0);
+	}
+
+	UpdateCharaStatus();
+	obj_.color_.g_ = (1.0f - isCheat() * 1.0f);
+	obj_.color_.b_ = (1.0f - isCheat() * 1.0f);
+	obj_.color_.a_ = (1.0f - isCheat() * 0.5f);
+
 	obj_.Update();
 }
 
