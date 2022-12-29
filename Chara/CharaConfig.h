@@ -1,4 +1,5 @@
 #pragma once
+#include "Vec4.h"
 
 namespace CharaConfig 
 {
@@ -24,7 +25,7 @@ namespace CharaConfig
 		const int MaxJumpCount = 2;
 
 		// ジャンプ力
-		const float RisePower = 4.5f;
+		const float RisePower = 6.0f;
 	}
 
 	// エネミー
@@ -55,5 +56,18 @@ namespace CharaConfig
 
 		// つぶれる量 (着地時)
 		const float SquashValue = 0.75f;
+	}
+
+	// ヒットアニメーション
+	namespace HitAct
+	{
+		// 振動量
+		const float ShakeValue = 3.0f;
+
+		// 色
+		const YMath::Vec4 Color = { 1.0f, 0.25f, 0.25f, 1.0f };
+
+		// 透過量
+		const float AlphaValue = 0.5f;
 	}
 }

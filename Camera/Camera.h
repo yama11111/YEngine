@@ -32,6 +32,6 @@ public:
 	// ƒJƒƒ‰Œü‚«
 	YMath::Vec3 Verocity();
 	// —h‚ê‚Ä‚¢‚é‚©
-	bool IsShake() { return shake_.IsShake(); }
+	bool IsAct() { return shake_.IsAct(); }
 };
 

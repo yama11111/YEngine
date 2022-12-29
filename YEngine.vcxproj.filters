@@ -291,6 +291,9 @@
     <ClCompile Include="Chara\CharaStatus.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\HitActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -481,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="Chara\CharaStatus.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\HitActor.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

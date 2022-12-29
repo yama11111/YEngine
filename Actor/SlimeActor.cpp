@@ -2,7 +2,7 @@
 
 using YActor::SlimeActor;
 
-void SlimeActor::InitializeSlimeAct()
+void SlimeActor::InitializeSlimeAction()
 {
 	isAct_ = false;
 	action_ = Action::None;
@@ -16,9 +16,9 @@ void SlimeActor::InitializeSlimeAct()
 	value_ = {};
 }
 
-void SlimeActor::ActivateSlimeAct(const std::vector<YMath::Vec3> ends, const unsigned int frame)
+void SlimeActor::ActivateSlimeAction(const std::vector<YMath::Vec3> ends, const unsigned int frame)
 {
-	InitializeSlimeAct();
+	InitializeSlimeAction();
 
 	isAct_ = true;
 	action_ = Action::Elasticity;
@@ -30,7 +30,7 @@ void SlimeActor::ActivateSlimeAct(const std::vector<YMath::Vec3> ends, const uns
 	timer_.SetActive(true);
 }
 
-void SlimeActor::UpdateSlimeAct()
+void SlimeActor::UpdateSlimeAction()
 {
 	if (isAct_ == false) { return; }
 
@@ -51,7 +51,7 @@ void SlimeActor::ChangeAction()
 	// êLèkà»äOÇ»ÇÁ
 	if (isElasticity == false) 
 	{
-		InitializeSlimeAct();
+		InitializeSlimeAction();
 		return; 
 	}
 
@@ -78,7 +78,7 @@ void SlimeActor::UpdateValue()
 	value_ = ease_.In(timer_.Ratio());
 }
 
-YMath::Vec3 SlimeActor::SlimeActValue()
+YMath::Vec3 SlimeActor::SlimeActionValue()
 {
 	return value_;
 }

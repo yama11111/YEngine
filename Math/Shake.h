@@ -19,6 +19,6 @@ namespace YMath
 		void Update();
 		void Activate(const int swing, const int dekey);
 		Vec3 Value() { return value_; }
-		bool IsShake() { return isAct_; }
+		bool IsAct() { return isAct_; }
 	};
 }

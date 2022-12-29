@@ -32,13 +32,14 @@ namespace YActor
 		YMath::Vec3 value_;
 	public:
 		// ‰Šú‰»
-		void InitializeSlimeAct();
+		void InitializeSlimeAction();
 		// “®‚©‚·
-		void ActivateSlimeAct(const std::vector<YMath::Vec3> ends, const unsigned int frame);
+		void ActivateSlimeAction(const std::vector<YMath::Vec3> ends, const unsigned int frame);
 		// XV
-		void UpdateSlimeAct();
+		void UpdateSlimeAction();
+	public:
 		// À’læ“¾
-		YMath::Vec3 SlimeActValue();
+		YMath::Vec3 SlimeActionValue();
 	private:
 		// “®‚«Ø‚è‘Ö‚¦
 		void ChangeAction();

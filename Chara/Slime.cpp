@@ -44,7 +44,6 @@ void Slime::Reset(const InitStatus& state)
 	);
 	InitializeCharaStatus({ HP, CheatTime });
 	InitializeMapCollisionStatus({ obj_.scale_ });
-	InitializeSlimeAct();
 }
 
 void Slime::Update()
@@ -53,14 +52,20 @@ void Slime::Update()
 
 	obj_.pos_ += speed_;
 
-	UpdateCharaStatus();
-	obj_.color_.g_ = (1.0f - isCheat() * 1.0f);
-	obj_.color_.b_ = (1.0f - isCheat() * 1.0f);
-	obj_.color_.a_ = (1.0f - isCheat() * 0.5f);
+	if (obj_.pos_.y_ <= -150.0f)
+	{
+		SetHP(0);
+	}
 
-	UpdateSlimeAct();
+	UpdateCharacter();
 
-	obj_.UniqueUpdate({ {}, {}, SlimeActValue() });
+	obj_.UniqueUpdate(
+		{
+			HitActionShakeValue(),
+			{},
+			SlimeActionValue()
+		}
+	);
 }
 
 void Slime::Draw(const YGame::ViewProjection& vp)

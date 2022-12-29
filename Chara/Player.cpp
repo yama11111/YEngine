@@ -44,7 +44,6 @@ void Player::Reset(const InitStatus& state)
 	);
 	InitializeCharaStatus({ HP, CheatTime });
 	InitializeMapCollisionStatus({obj_.scale_});
-	InitializeSlimeAct();
 
 	jumpCount_ = 0;
 }
@@ -61,8 +60,8 @@ void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
 		else
 		{
 			Hit(1);
+			ActivateHitAction(CharaConfig::HitAct::ShakeValue, CheatTime);
 		}
-
 	}
 }
 
@@ -83,7 +82,7 @@ void Player::UpdateJump()
 	Vec3 squash  = +val;
 	Vec3 streach = -val;
 
-	ActivateSlimeAct({ squash, streach }, CharaConfig::SlimeAct::Frame);
+	ActivateSlimeAction({ squash, streach }, CharaConfig::SlimeAct::Frame);
 }
 
 void Player::Attack()
@@ -111,14 +110,15 @@ void Player::Update()
 		SetHP(0);
 	}
 
-	UpdateCharaStatus();
-	obj_.color_.g_ = (1.0f - isCheat() * 1.0f);
-	obj_.color_.b_ = (1.0f - isCheat() * 1.0f);
-	obj_.color_.a_ = (1.0f - isCheat() * 0.5f);
+	UpdateCharacter();
 
-	UpdateSlimeAct();
-
-	obj_.UniqueUpdate({ {}, {}, SlimeActValue()});
+	obj_.UniqueUpdate(
+		{
+			HitActionShakeValue(),
+			{},
+			SlimeActionValue()
+		}
+	);
 }
 
 void Player::Draw(const YGame::ViewProjection& vp)

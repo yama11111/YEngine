@@ -67,6 +67,9 @@
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -89,8 +92,12 @@
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)assimp\bin\Release\assimp-vc143-mt.dll" "$(OutDirFullPath)"</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\HitActor.cpp" />
     <ClCompile Include="Actor\SlimeActor.cpp" />
     <ClCompile Include="Base\DX\ConstBuffer.cpp" />
     <ClCompile Include="Base\DX\GPUResource.cpp" />
@@ -153,6 +160,7 @@
     <ClCompile Include="Skydome.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\HitActor.h" />
     <ClInclude Include="Actor\SlimeActor.h" />
     <ClInclude Include="Base\DX\ConstBuffer.h" />
     <ClInclude Include="Base\DX\GPUResource.h" />

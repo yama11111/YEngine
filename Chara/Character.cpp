@@ -12,6 +12,9 @@ void Character::InitializeCharacter(YGame::Object::Status state)
 {
 	obj_.Initialize(state);
 	speed_ = {};
+
+	InitializeSlimeAction();
+	InitializeHitAction();
 }
 
 void Character::UpdateGravity()
@@ -26,8 +29,20 @@ void Character::UpdateGravity()
 		Vec3 squash = obj_.scale_ * CharaConfig::SlimeAct::SquashValue;
 		squash.y_ *= -1.0f;
 
-		ActivateSlimeAct({ squash }, CharaConfig::SlimeAct::Frame);
+		ActivateSlimeAction({ squash }, CharaConfig::SlimeAct::Frame);
 	}
+}
+
+void Character::UpdateCharacter()
+{
+	UpdateCharaStatus();
+	UpdateSlimeAction();
+	UpdateHitAction();
+
+	YMath::Vec4 color = YMath::Vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	if (IsActHitAction()) { color = HitActionColor(); }
+
+	obj_.color_ = color;
 }
 
 void Character::SetMapChipPointer(MapChipPointer* pMapChip)

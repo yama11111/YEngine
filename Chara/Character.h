@@ -4,6 +4,7 @@
 #include "Collider.h"
 #include "MapChipCollider.h"
 #include "SlimeActor.h"
+#include "HitActor.h"
 
 class MapChipPointer;
 
@@ -11,7 +12,8 @@ class Character :
 	public CharaStatus, 
 	public YCollision::Collider, 
 	public MapChipCollider, 
-	public YActor::SlimeActor
+	public YActor::SlimeActor,
+	public YActor::HitActor
 {
 protected:
 	// オブジェクト
@@ -23,6 +25,8 @@ public:
 	void InitializeCharacter(YGame::Object::Status state);
 	// 重力とマップチップアタリ判定とアニメーション
 	void UpdateGravity();
+	// 更新
+	void UpdateCharacter();
 public:
 	// 位置取得
 	YMath::Vec3 Pos() const override { return obj_.pos_; };
