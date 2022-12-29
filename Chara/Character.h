@@ -9,9 +9,9 @@ class MapChipPointer;
 
 class Character : 
 	public CharaStatus, 
-	public Collision::Collider, 
+	public YCollision::Collider, 
 	public MapChipCollider, 
-	public Actor::SlimeActor
+	public YActor::SlimeActor
 {
 protected:
 	// オブジェクト

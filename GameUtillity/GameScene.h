@@ -84,7 +84,7 @@ namespace YGame
 		std::vector<YMath::Ease<YMath::Vec3>> moves2_;
 		std::vector<YMath::Ease<YMath::Vec3>> rotas2_;
 		std::vector<YMath::BezierEase> scales2_;
-		std::vector< YMath::Ease<float>> alphas2_;
+		std::vector<YMath::Ease<float>> alphas2_;
 		const int time2 = 20;
 		YMath::Timer timer2_;
 		bool isBreak_ = false;
@@ -111,7 +111,7 @@ namespace YGame
 		ViewProjection vp_;
 
 		// アタリ判定マネージャー
-		Collision::CollisionManager collMan_;
+		YCollision::CollisionManager collMan_;
 
 		// シーンマネージャー
 		SceneManager sceneMan_;

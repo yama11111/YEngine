@@ -26,8 +26,8 @@ void Slime::Initialize(const InitStatus& state)
 	InitializeCollisionStatus(
 		{
 			CollRad,
-			Collision::Attribute::Enemy,
-			Collision::Attribute::Player
+			YCollision::Attribute::Enemy,
+			YCollision::Attribute::Player
 		}
 	);
 	Reset(state);

@@ -26,8 +26,8 @@ void Player::Initialize(const InitStatus& state)
 	InitializeCollisionStatus(
 		{
 			CollRad,
-			Collision::Attribute::Player,
-			Collision::Attribute::Enemy
+			YCollision::Attribute::Player,
+			YCollision::Attribute::Enemy
 		}
 	);
 	Reset(state);
@@ -51,7 +51,7 @@ void Player::Reset(const InitStatus& state)
 
 void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
 {
-	if (attribute == Collision::Attribute::Enemy)
+	if (attribute == YCollision::Attribute::Enemy)
 	{
 		// “¥‚ñ‚¾‚È‚ç
 		if (obj_.pos_.y_ - pos.y_ >= CharaConfig::AttackRange)

@@ -1,6 +1,6 @@
 #include "SlimeActor.h"
 
-using Actor::SlimeActor;
+using YActor::SlimeActor;
 
 void SlimeActor::InitializeSlimeAct()
 {

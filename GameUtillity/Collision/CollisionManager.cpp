@@ -1,7 +1,7 @@
 #include "CollisionManager.h"
 #include <cassert>
 
-using Collision::CollisionManager;
+using YCollision::CollisionManager;
 using YMath::Vec3;
 
 void CollisionManager::Initialize() 

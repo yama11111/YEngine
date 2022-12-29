@@ -3,7 +3,7 @@
 #include "Timer.h"
 #include <vector>
 
-namespace Actor
+namespace YActor
 {
 	class SlimeActor
 	{

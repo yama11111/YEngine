@@ -2,7 +2,7 @@
 #include "Vec3.h"
 #include <cstdint>
 
-namespace Collision
+namespace YCollision
 {
 	class Collider
 	{

@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "Timer.h"
 
-class Attack : public Collision::Collider 
+class Attack : public YCollision::Collider 
 {
 private:
 	// ˆÊ’u
