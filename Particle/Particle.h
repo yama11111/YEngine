@@ -1,6 +1,6 @@
 #pragma once
 
-namespace YGame
+namespace YParticle
 {
 	class Particle
 	{

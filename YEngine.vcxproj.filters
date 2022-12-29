@@ -73,9 +73,6 @@
     <Filter Include="ヘッダー ファイル\Chara\Player">
       <UniqueIdentifier>{0568335e-0f21-45cc-8964-242c186fd95c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{b51d8279-eace-408e-9cac-424fbc6b1cab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base\Pipeline">
       <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
     </Filter>
@@ -84,9 +81,6 @@
     </Filter>
     <Filter Include="GameUtil\3D">
       <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\Coll">
-      <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math\Transform">
       <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
@@ -108,6 +102,18 @@
     </Filter>
     <Filter Include="ソース ファイル\Chara\Util">
       <UniqueIdentifier>{67afe819-1f04-4c26-8a43-e29b287c246e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Staging">
+      <UniqueIdentifier>{8e740d28-a916-405c-ae72-40cd8fc7ce13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Staging\Actor">
+      <UniqueIdentifier>{b51d8279-eace-408e-9cac-424fbc6b1cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Staging\Particle">
+      <UniqueIdentifier>{bb4dabc7-ee27-47c5-b886-28303885caef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Coll">
+      <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,12 +165,6 @@
     <ClCompile Include="GameUtillity\3D\Model.cpp">
       <Filter>GameUtil\3D</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Collision\Collider.cpp">
-      <Filter>GameUtil\Coll</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp">
-      <Filter>GameUtil\Coll</Filter>
-    </ClCompile>
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>ソース ファイル\Camera</Filter>
     </ClCompile>
@@ -186,9 +186,6 @@
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\3D\ParticleManager.cpp">
-      <Filter>GameUtil\3D</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp">
       <Filter>GameUtil\2D</Filter>
     </ClCompile>
@@ -196,9 +193,6 @@
       <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\BillboardCommon.cpp">
-      <Filter>GameUtil\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\3D\Particle.cpp">
       <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Slime.cpp">
@@ -214,7 +208,7 @@
       <Filter>ソース ファイル\Chara\Player</Filter>
     </ClCompile>
     <ClCompile Include="Actor\SlimeActor.cpp">
-      <Filter>Actor</Filter>
+      <Filter>Staging\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\ScreenDesc.cpp">
       <Filter>Base</Filter>
@@ -292,7 +286,19 @@
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
     <ClCompile Include="Actor\HitActor.cpp">
-      <Filter>Actor</Filter>
+      <Filter>Staging\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision\Collider.cpp">
+      <Filter>Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision\CollisionManager.cpp">
+      <Filter>Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\Particle.cpp">
+      <Filter>Staging\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\ParticleManager.cpp">
+      <Filter>Staging\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +357,7 @@
       <Filter>ヘッダー ファイル\Chara\Player</Filter>
     </ClInclude>
     <ClInclude Include="Actor\SlimeActor.h">
-      <Filter>Actor</Filter>
+      <Filter>Staging\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\ScreenDesc.h">
       <Filter>Base</Filter>
@@ -409,21 +415,6 @@
     </ClInclude>
     <ClInclude Include="GameUtillity\3D\ModelCommon.h">
       <Filter>GameUtil\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Particle.h">
-      <Filter>GameUtil\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\ParticleManager.h">
-      <Filter>GameUtil\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\Collider.h">
-      <Filter>GameUtil\Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\CollisionConfig.h">
-      <Filter>GameUtil\Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\CollisionManager.h">
-      <Filter>GameUtil\Coll</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\AudioManager.h">
       <Filter>GameUtil</Filter>
@@ -486,7 +477,22 @@
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
     <ClInclude Include="Actor\HitActor.h">
-      <Filter>Actor</Filter>
+      <Filter>Staging\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision\Collider.h">
+      <Filter>Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision\CollisionConfig.h">
+      <Filter>Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision\CollisionManager.h">
+      <Filter>Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\Particle.h">
+      <Filter>Staging\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\ParticleManager.h">
+      <Filter>Staging\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

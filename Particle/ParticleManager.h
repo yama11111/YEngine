@@ -1,7 +1,7 @@
 #pragma once
 #include "PipelineSet.h"
 
-namespace YGame
+namespace YParticle
 {
 	class ParticleManager
 	{
