@@ -2,7 +2,6 @@
 #include "CharaConfig.h"
 #include "CollisionConfig.h"
 #include "CalcTransform.h"
-#include "MapChipManager.h"
 #include "YMath.h"
 #include <cassert>
 
@@ -36,19 +35,21 @@ void Slime::Initialize(const InitStatus& state)
 
 void Slime::Reset(const InitStatus& state)
 {
-	obj_.Initialize({ state.pos_, {}, {5.0f,5.0f,5.0f} });
-	obj_.rota_ = YMath::AdjustAngle(YMath::Vec3(0, 0, -1));
-	speed_ = { 0.0f,0.0f,0.0f };
-
-	InitializeMapCollisionStatus({ obj_.scale_ });
+	InitializeCharacter(
+		{
+			state.pos_,
+			YMath::AdjustAngle(YMath::Vec3(0, 0, -1)),
+			{5.0f,5.0f,5.0f}
+		}
+	);
 	InitializeCharaStatus({ HP, CheatTime });
+	InitializeMapCollisionStatus({ obj_.scale_ });
+	InitializeSlimeAct();
 }
 
 void Slime::Update()
 {
-	speed_.y_ -= GravityPower;
-
-	pMapChip_->Collision(*this);
+	UpdateGravity();
 
 	obj_.pos_ += speed_;
 
@@ -57,7 +58,9 @@ void Slime::Update()
 	obj_.color_.b_ = (1.0f - isCheat() * 1.0f);
 	obj_.color_.a_ = (1.0f - isCheat() * 0.5f);
 
-	obj_.Update();
+	UpdateSlimeAct();
+
+	obj_.UniqueUpdate({ {}, {}, SlimeActValue() });
 }
 
 void Slime::Draw(const YGame::ViewProjection& vp)

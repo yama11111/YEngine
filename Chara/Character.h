@@ -3,16 +3,26 @@
 #include "CharaStatus.h"
 #include "Collider.h"
 #include "MapChipCollider.h"
+#include "SlimeActor.h"
 
 class MapChipPointer;
 
-class Character : public CharaStatus ,public Collision::Collider, public MapChipCollider
+class Character : 
+	public CharaStatus, 
+	public Collision::Collider, 
+	public MapChipCollider, 
+	public Actor::SlimeActor
 {
 protected:
 	// オブジェクト
 	YGame::Object obj_;
 	// スピード
 	YMath::Vec3 speed_;
+public:
+	// 初期化
+	void InitializeCharacter(YGame::Object::Status state);
+	// 重力とマップチップアタリ判定とアニメーション
+	void UpdateGravity();
 public:
 	// 位置取得
 	YMath::Vec3 Pos() const override { return obj_.pos_; };

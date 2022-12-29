@@ -3,5 +3,6 @@
 void MapChipCollider::InitializeMapCollisionStatus(const InitStatus& state)
 {
 	scale_ = state.scale_;
-	isLanding_ = state.isLanding_;
+	isLanding_ = false;
+	isElderLanding_ = false;
 }

@@ -43,4 +43,17 @@ namespace CharaConfig
 			const int HP = 100;
 		}
 	}
+
+	// スライムアニメーション
+	namespace SlimeAct
+	{
+		// ブヨブヨ時間
+		const int Frame = 4;
+
+		// 伸縮量
+		const float ElasticityValue = 0.5f;
+
+		// つぶれる量 (着地時)
+		const float SquashValue = 0.75f;
+	}
 }

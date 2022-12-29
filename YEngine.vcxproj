@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)Chara;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Actor;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)Chara;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)Chara;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)Actor;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)Chara;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -91,6 +91,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\SlimeActor.cpp" />
     <ClCompile Include="Base\DX\ConstBuffer.cpp" />
     <ClCompile Include="Base\DX\GPUResource.cpp" />
     <ClCompile Include="Base\DX\PipelineSet.cpp" />
@@ -105,6 +106,7 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
     <ClCompile Include="Chara\Attack.cpp" />
+    <ClCompile Include="Chara\AttackManager.cpp" />
     <ClCompile Include="Chara\Character.cpp" />
     <ClCompile Include="Chara\CharaStatus.cpp" />
     <ClCompile Include="Chara\Enemy.cpp" />
@@ -151,6 +153,7 @@
     <ClCompile Include="Skydome.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\SlimeActor.h" />
     <ClInclude Include="Base\DX\ConstBuffer.h" />
     <ClInclude Include="Base\DX\GPUResource.h" />
     <ClInclude Include="Base\DX\PipelineSet.h" />
@@ -165,6 +168,7 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Chara\Attack.h" />
+    <ClInclude Include="Chara\AttackManager.h" />
     <ClInclude Include="Chara\CharaConfig.h" />
     <ClInclude Include="Chara\Character.h" />
     <ClInclude Include="Chara\CharaStatus.h" />

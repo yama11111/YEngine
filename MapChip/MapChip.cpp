@@ -159,6 +159,8 @@ void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 	bool isCollY = CollisionTemporaryMap(posRef, scale, { 0,speedRef.y_,0 }); // y
 	bool isCollZ = CollisionTemporaryMap(posRef, scale, { 0,0,speedRef.z_ }); // z
 
+	// 過去地面フラグ設定
+	collider.SetIsElderLanding(collider.IsLanding());
 	// 地面フラグ設定 (Y方向にマップチップ && スピードが -)
 	collider.SetIsLanding((isCollY && speedRef.y_ <= 0.0f));
 

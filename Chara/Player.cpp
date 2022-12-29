@@ -2,11 +2,11 @@
 #include "CharaConfig.h"
 #include "CollisionConfig.h"
 #include "CalcTransform.h"
-#include "MapChipManager.h"
 #include "YMath.h"
 #include <cassert>
 
 #pragma region –¼‘O‹óŠÔ
+using YMath::Vec3;
 using CharaConfig::GravityPower;
 using namespace CharaConfig::Player;
 #pragma endregion
@@ -35,12 +35,16 @@ void Player::Initialize(const InitStatus& state)
 
 void Player::Reset(const InitStatus& state)
 {
-	obj_.Initialize({ state.pos_, {}, {5.0f,5.0f,5.0f} });
-	obj_.rota_ = YMath::AdjustAngle(YMath::Vec3(0, 0, 1));
-	speed_ = { 0.0f,0.0f,0.0f };
-
-	InitializeMapCollisionStatus({obj_.scale_});
+	InitializeCharacter(
+		{
+			state.pos_,
+			YMath::AdjustAngle(YMath::Vec3(0, 0, 1)),
+			{5.0f,5.0f,5.0f}
+		}
+	);
 	InitializeCharaStatus({ HP, CheatTime });
+	InitializeMapCollisionStatus({obj_.scale_});
+	InitializeSlimeAct();
 
 	jumpCount_ = 0;
 }
@@ -52,7 +56,7 @@ void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
 		// “¥‚ñ‚¾‚È‚ç
 		if (obj_.pos_.y_ - pos.y_ >= CharaConfig::AttackRange)
 		{
-			speed_.y_ = RisePower;
+			UpdateJump();
 		}
 		else
 		{
@@ -65,23 +69,26 @@ void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
 void Player::Jump()
 {
 	if (++jumpCount_ > MaxJumpCount) { return; }
-
 	jumpCount_ = min(jumpCount_, MaxJumpCount);
-	speed_.y_ = RisePower;
+
+	UpdateJump();
 }
 void Player::UpdateJump()
 {
-	speed_.y_ -= GravityPower;
+	speed_.y_ = RisePower;
 
-	if (IsLanding()) 
-	{
-		jumpCount_ = 0;
-	}
+	Vec3 val = obj_.scale_ * CharaConfig::SlimeAct::ElasticityValue;
+	val.y_ *= -1.0f;
+
+	Vec3 squash  = +val;
+	Vec3 streach = -val;
+
+	ActivateSlimeAct({ squash, streach }, CharaConfig::SlimeAct::Frame);
 }
 
 void Player::Attack()
 {
-
+	UpdateAttack();
 }
 void Player::UpdateAttack()
 {
@@ -90,10 +97,12 @@ void Player::UpdateAttack()
 
 void Player::Update()
 {
-	UpdateJump();
-	UpdateAttack();
+	UpdateGravity();
 
-	pMapChip_->Collision(*this);
+	if (IsLanding())
+	{
+		jumpCount_ = 0;
+	}
 
 	obj_.pos_ += speed_;
 
@@ -107,7 +116,9 @@ void Player::Update()
 	obj_.color_.b_ = (1.0f - isCheat() * 1.0f);
 	obj_.color_.a_ = (1.0f - isCheat() * 0.5f);
 
-	obj_.Update();
+	UpdateSlimeAct();
+
+	obj_.UniqueUpdate({ {}, {}, SlimeActValue()});
 }
 
 void Player::Draw(const YGame::ViewProjection& vp)

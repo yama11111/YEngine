@@ -16,18 +16,6 @@
     <Filter Include="Base">
       <UniqueIdentifier>{6fc17274-b719-44d8-b216-183b62662b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base\h">
-      <UniqueIdentifier>{185836f3-28c5-4f9b-95a8-aaab344698fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\cpp">
-      <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\MapChip">
-      <UniqueIdentifier>{80d5f6b8-0baa-4854-85ad-f4bcf053533b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\MapChip">
-      <UniqueIdentifier>{67b356f0-36c1-45a8-b28d-db858d8c8420}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{2cb10d40-328b-4f63-aa29-261eed6039e3}</UniqueIdentifier>
     </Filter>
@@ -48,42 +36,6 @@
     </Filter>
     <Filter Include="GameUtil">
       <UniqueIdentifier>{b7e1ea2a-a1ae-47a4-8e59-6798e60a7a6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp">
-      <UniqueIdentifier>{d28ee3d2-f31c-41e5-997e-e81332f989ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp\2D">
-      <UniqueIdentifier>{cb1cd272-8d3d-417c-a935-2c573bbfb8ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp\3D">
-      <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\cpp\Coll">
-      <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h">
-      <UniqueIdentifier>{cd0de0a3-7e46-46cd-b98e-173307311788}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h\2D">
-      <UniqueIdentifier>{395f7194-31a0-4d0e-93b1-f938c1a59774}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h\3D">
-      <UniqueIdentifier>{f916d649-6e93-466a-b2cc-71a5db934839}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\h\Coll">
-      <UniqueIdentifier>{da6dca9a-8573-4161-bec8-e0426255a749}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\h">
-      <UniqueIdentifier>{29be620f-b9ed-4320-844c-bb530e567a3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\h\Transform">
-      <UniqueIdentifier>{6ddc52a8-fbe4-4b11-8ba0-c94f4db0c280}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\cpp">
-      <UniqueIdentifier>{fff32c91-984c-48cd-8831-4f5559dd71de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\cpp\Transform">
-      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Input\cpp">
       <UniqueIdentifier>{b1eba106-9cb5-4638-9329-cdb20074e483}</UniqueIdentifier>
@@ -121,73 +73,61 @@
     <Filter Include="ヘッダー ファイル\Chara\Player">
       <UniqueIdentifier>{0568335e-0f21-45cc-8964-242c186fd95c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{b51d8279-eace-408e-9cac-424fbc6b1cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Pipeline">
+      <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\2D">
+      <UniqueIdentifier>{cb1cd272-8d3d-417c-a935-2c573bbfb8ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\3D">
+      <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Coll">
+      <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Transform">
+      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object\MapChip">
+      <UniqueIdentifier>{80d5f6b8-0baa-4854-85ad-f4bcf053533b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object">
+      <UniqueIdentifier>{84750715-bdaa-4f34-a88f-129c4980a1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object\MapChip">
+      <UniqueIdentifier>{67b356f0-36c1-45a8-b28d-db858d8c8420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Chara\Util">
+      <UniqueIdentifier>{e4747e7d-1459-4d54-bd2d-c0cd0d2cf5f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Chara\Util">
+      <UniqueIdentifier>{67afe819-1f04-4c26-8a43-e29b287c246e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\CalcTransform.cpp">
-      <Filter>Math\cpp\Transform</Filter>
+      <Filter>Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
-      <Filter>Math\cpp\Transform</Filter>
+      <Filter>Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec2.cpp">
-      <Filter>Math\cpp\Transform</Filter>
+      <Filter>Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec3.cpp">
-      <Filter>Math\cpp\Transform</Filter>
+      <Filter>Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vec4.cpp">
-      <Filter>Math\cpp\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Lerp.cpp">
-      <Filter>Math\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Power.cpp">
-      <Filter>Math\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Shake.cpp">
-      <Filter>Math\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Timer.cpp">
-      <Filter>Math\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\MathUtillity.cpp">
-      <Filter>Math\cpp</Filter>
+      <Filter>Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\ConstBuffer.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\GPUResource.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\PipelineSet.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\RootParameterManager.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\ScreenDesc.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\ShaderCommon.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\SRVHeap.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\Vertices.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\YAssert.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\DX\YDirectX.cpp">
-      <Filter>Base\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\YWindowsApp.cpp">
-      <Filter>Base\cpp</Filter>
     </ClCompile>
     <ClCompile Include="Input\InputManager.cpp">
       <Filter>Input\cpp</Filter>
@@ -201,38 +141,29 @@
     <ClCompile Include="Input\Pad.cpp">
       <Filter>Input\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\AudioManager.cpp">
-      <Filter>GameUtil\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\Object.cpp">
-      <Filter>GameUtil\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\ViewProjection.cpp">
-      <Filter>GameUtil\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\GameScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\2D\Sprite.cpp">
-      <Filter>GameUtil\cpp\2D</Filter>
+      <Filter>GameUtil\2D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\2D\TextureManager.cpp">
-      <Filter>GameUtil\cpp\2D</Filter>
+      <Filter>GameUtil\2D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\Billboard.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\Material.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\Model.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Collision\Collider.cpp">
-      <Filter>GameUtil\cpp\Coll</Filter>
+      <Filter>GameUtil\Coll</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp">
-      <Filter>GameUtil\cpp\Coll</Filter>
+      <Filter>GameUtil\Coll</Filter>
     </ClCompile>
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>ソース ファイル\Camera</Filter>
@@ -241,13 +172,13 @@
       <Filter>ソース ファイル\Camera</Filter>
     </ClCompile>
     <ClCompile Include="MapChip\MapChip.cpp">
-      <Filter>ソース ファイル\MapChip</Filter>
+      <Filter>ソース ファイル\Object\MapChip</Filter>
     </ClCompile>
     <ClCompile Include="MapChip\MapChipCollider.cpp">
-      <Filter>ソース ファイル\MapChip</Filter>
+      <Filter>ソース ファイル\Object\MapChip</Filter>
     </ClCompile>
     <ClCompile Include="MapChip\MapChipManager.cpp">
-      <Filter>ソース ファイル\MapChip</Filter>
+      <Filter>ソース ファイル\Object\MapChip</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Blackout.cpp">
       <Filter>ソース ファイル\Scene</Filter>
@@ -255,26 +186,20 @@
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Skydome.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\3D\ParticleManager.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp">
-      <Filter>GameUtil\cpp\2D</Filter>
+      <Filter>GameUtil\2D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\ModelCommon.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\BillboardCommon.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Floor.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\Particle.cpp">
-      <Filter>GameUtil\cpp\3D</Filter>
+      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Slime.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
@@ -285,85 +210,91 @@
     <ClCompile Include="Chara\EnemyManager.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Chara\Character.cpp">
-      <Filter>ソース ファイル\Chara</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Player.cpp">
       <Filter>ソース ファイル\Chara\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Chara\CharaStatus.cpp">
-      <Filter>ソース ファイル\Chara</Filter>
+    <ClCompile Include="Actor\SlimeActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\ScreenDesc.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\SRVHeap.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\YAssert.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\YDirectX.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\YWindowsApp.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\ConstBuffer.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\GPUResource.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\PipelineSet.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\ShaderCommon.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\Vertices.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\RootParameterManager.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\AudioManager.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\ViewProjection.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Lerp.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathUtillity.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Power.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Shake.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Timer.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Skydome.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Attack.cpp">
-      <Filter>ソース ファイル\Chara</Filter>
+      <Filter>ソース ファイル\Chara\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\AttackManager.cpp">
+      <Filter>ソース ファイル\Chara\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Character.cpp">
+      <Filter>ソース ファイル\Chara\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\CharaStatus.cpp">
+      <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math\CalcTransform.h">
-      <Filter>Math\h\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Mat4.h">
-      <Filter>Math\h\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec2.h">
-      <Filter>Math\h\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec3.h">
-      <Filter>Math\h\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec4.h">
-      <Filter>Math\h\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Lerp.h">
-      <Filter>Math\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Power.h">
-      <Filter>Math\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Shake.h">
-      <Filter>Math\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Timer.h">
-      <Filter>Math\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\MathUtillity.h">
-      <Filter>Math\h</Filter>
-    </ClInclude>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\ConstBuffer.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\GPUResource.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\PipelineSet.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\RootParameterManager.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\ScreenDesc.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\ShaderCommon.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\SRVHeap.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\Vertices.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\YAssert.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\YDirectX.h">
-      <Filter>Base\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\YWindowsApp.h">
-      <Filter>Base\h</Filter>
     </ClInclude>
     <ClInclude Include="Input\InputManager.h">
       <Filter>Input\h</Filter>
@@ -377,41 +308,8 @@
     <ClInclude Include="Input\Pad.h">
       <Filter>Input\h</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\AudioManager.h">
-      <Filter>GameUtil\h</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Object.h">
-      <Filter>GameUtil\h</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\ViewProjection.h">
-      <Filter>GameUtil\h</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\2D\Sprite.h">
-      <Filter>GameUtil\h\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\2D\TextureManager.h">
-      <Filter>GameUtil\h\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Billboard.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Material.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Model.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\Collider.h">
-      <Filter>GameUtil\h\Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\CollisionConfig.h">
-      <Filter>GameUtil\h\Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\CollisionManager.h">
-      <Filter>GameUtil\h\Coll</Filter>
     </ClInclude>
     <ClInclude Include="Camera\Camera.h">
       <Filter>ヘッダー ファイル\Camera</Filter>
@@ -420,13 +318,13 @@
       <Filter>ヘッダー ファイル\Camera</Filter>
     </ClInclude>
     <ClInclude Include="MapChip\MapChip.h">
-      <Filter>ヘッダー ファイル\MapChip</Filter>
+      <Filter>ヘッダー ファイル\Object\MapChip</Filter>
     </ClInclude>
     <ClInclude Include="MapChip\MapChipCollider.h">
-      <Filter>ヘッダー ファイル\MapChip</Filter>
+      <Filter>ヘッダー ファイル\Object\MapChip</Filter>
     </ClInclude>
     <ClInclude Include="MapChip\MapChipManager.h">
-      <Filter>ヘッダー ファイル\MapChip</Filter>
+      <Filter>ヘッダー ファイル\Object\MapChip</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Blackout.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
@@ -437,27 +335,6 @@
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Skydome.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\ParticleManager.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\2D\SpriteCommon.h">
-      <Filter>GameUtil\h\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\ModelCommon.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\BillboardCommon.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Particle.h">
-      <Filter>GameUtil\h\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\Slime.h">
       <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
     </ClInclude>
@@ -467,20 +344,143 @@
     <ClInclude Include="Chara\EnemyManager.h">
       <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Chara\Character.h">
-      <Filter>ヘッダー ファイル\Chara</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\Player.h">
       <Filter>ヘッダー ファイル\Chara\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Chara\CharaStatus.h">
-      <Filter>ヘッダー ファイル\Chara</Filter>
+    <ClInclude Include="Actor\SlimeActor.h">
+      <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Chara\CharaConfig.h">
-      <Filter>ヘッダー ファイル\Chara</Filter>
+    <ClInclude Include="Base\DX\ScreenDesc.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\SRVHeap.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\YAssert.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\YDirectX.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\YWindowsApp.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\ConstBuffer.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\GPUResource.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\PipelineSet.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\ShaderCommon.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\Vertices.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\RootParameterManager.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\2D\Sprite.h">
+      <Filter>GameUtil\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\2D\SpriteCommon.h">
+      <Filter>GameUtil\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\2D\TextureManager.h">
+      <Filter>GameUtil\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\Billboard.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\BillboardCommon.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\Material.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\Model.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\ModelCommon.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\Particle.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\3D\ParticleManager.h">
+      <Filter>GameUtil\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\Collider.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\CollisionConfig.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\CollisionManager.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\AudioManager.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\ViewProjection.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\CalcTransform.h">
+      <Filter>Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Mat4.h">
+      <Filter>Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec2.h">
+      <Filter>Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec3.h">
+      <Filter>Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec4.h">
+      <Filter>Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Lerp.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtillity.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Power.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Shake.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Timer.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Skydome.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Chara\Attack.h">
-      <Filter>ヘッダー ファイル\Chara</Filter>
+      <Filter>ヘッダー ファイル\Chara\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\AttackManager.h">
+      <Filter>ヘッダー ファイル\Chara\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\CharaConfig.h">
+      <Filter>ヘッダー ファイル\Chara\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\Character.h">
+      <Filter>ヘッダー ファイル\Chara\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\CharaStatus.h">
+      <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
