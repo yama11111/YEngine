@@ -213,9 +213,6 @@
     <ClCompile Include="Base\DX\ScreenDesc.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="Base\DX\SRVHeap.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
     <ClCompile Include="Base\DX\YAssert.cpp">
       <Filter>Base</Filter>
     </ClCompile>
@@ -276,9 +273,6 @@
     <ClCompile Include="Chara\Attack.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Chara\AttackManager.cpp">
-      <Filter>ソース ファイル\Chara\Util</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Character.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
@@ -299,6 +293,12 @@
     </ClCompile>
     <ClCompile Include="Particle\ParticleManager.cpp">
       <Filter>Staging\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\SRVHeap.cpp">
+      <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\AttackManager.cpp">
+      <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,9 +360,6 @@
       <Filter>Staging\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\ScreenDesc.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\DX\SRVHeap.h">
       <Filter>Base</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\YAssert.h">
@@ -464,9 +461,6 @@
     <ClInclude Include="Chara\Attack.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Chara\AttackManager.h">
-      <Filter>ヘッダー ファイル\Chara\Util</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\CharaConfig.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
@@ -493,6 +487,12 @@
     </ClInclude>
     <ClInclude Include="Particle\ParticleManager.h">
       <Filter>Staging\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\SRVHeap.h">
+      <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\AttackManager.h">
+      <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

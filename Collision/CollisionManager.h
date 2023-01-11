@@ -8,7 +8,7 @@ namespace YCollision
 	{
 	private:
 		// コライダー格納リスト
-		std::list<Collider*> colliders_;
+		std::list<Collider*> pColliders_;
 	public:
 		// 初期化
 		void Initialize();
@@ -16,7 +16,7 @@ namespace YCollision
 		void Update();
 	public:
 		// 格納
-		void PushBack(Collider* collider);
+		void PushBack(Collider* pCollider);
 		// リストクリア
 		void Clear();
 	private:
@@ -24,6 +24,6 @@ namespace YCollision
 		void CheckAllColliders();
 	private:
 		// アタリ判定(球)
-		static void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
+		static void CheckCollisionPair(Collider* pColliderA, Collider* pColliderB);
 	};
 }

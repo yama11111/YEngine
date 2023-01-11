@@ -20,13 +20,13 @@ class MapChip : public MapChipInfo
 {
 private:
 	// マップチップ
-	std::vector<std::vector<YGame::Object>> chips_;
+	std::vector<std::vector<std::vector<YGame::Object>>> chips_;
 	// マップチップ2D用
 	std::vector<std::vector<YGame::Object>> chip2Ds_;
 	// マップ全体の大きさ(矩形)
 	YMath::Vec2 rect_;
 	// チップ1個分の大きさ
-	float chipSize_ = 0.0f;
+	YMath::Vec3 chipSize_;
 	// 左上
 	YMath::Vec3 leftTop_;
 
@@ -49,7 +49,7 @@ public:
 	struct InitStatus 
 	{
 		YMath::Vec3 leftTop_; // 左上([0][0])
-		float chipSize_; // チップ1個分の大きさ
+		YMath::Vec3 chipSize_; // チップ1個分の大きさ
 	};
 public:
 	// ロード
@@ -75,5 +75,5 @@ private:
 	// チップごとのアタリ判定
 	bool CollisionChip(const int x, const int y);
 	// チップ描画
-	void DrawChip(const size_t x, const size_t y, const YGame::ViewProjection& vp);
+	void DrawChip(const size_t x, const size_t y, const size_t z, const YGame::ViewProjection& vp);
 };

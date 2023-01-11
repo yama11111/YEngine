@@ -6,6 +6,10 @@ namespace YCollision
 	// 属性
 	namespace Attribute
 	{
+		// 無し
+		const uint32_t None			 = 0;
+		// 全て
+		const uint32_t All			 = 0xffffffff;
 		// プレイヤー
 		const uint32_t Player		 = 0b1;
 		// プレイヤーの攻撃

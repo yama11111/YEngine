@@ -9,6 +9,7 @@
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
+using namespace YTransition;
 using namespace YGame;
 
 #pragma endregion 
@@ -44,14 +45,20 @@ void GameScene::Load()
 {
 	// ----- テクスチャ ----- //
 
-	plainT_ = pTexManager_->Load("white1x1.png", false);
+	plainT_		 = pTexManager_->Load("white1x1.png", false);
 
-	playerT_ = pTexManager_->Load("player.png", true);
-	enemyT_ = pTexManager_->Load("enemy.png", true);
+	//playerT_	 = pTexManager_->Load("player.png", true);
+	//enemyT_	 = pTexManager_->Load("enemy.png", true);
 
-	mapDispT_ = pTexManager_->Load("mapDisp.png", false);
+	playerT_	 = pTexManager_->Load("player.png", true);
+	enemyT_		 = pTexManager_->Load("enemy.png", true);
 
-	debriT_ = pTexManager_->Load("debri.png", true);
+	mapT_		 = pTexManager_->Load("map.png", false);
+	mapDispT_	 = pTexManager_->Load("mapDisp.png", false);
+
+	backgroundT_ = pTexManager_->Load("back.png", false);
+
+	debriT_		 = pTexManager_->Load("debri.png", true);
 
 	// ----- オーディオ ----- //
 
@@ -59,6 +66,7 @@ void GameScene::Load()
 
 	// ----- スプライト ----- //
 
+	windowS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
 	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
 	mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
 
@@ -74,11 +82,11 @@ void GameScene::Load()
 
 	// ------- マップ ------- //
 
-	mapMan_.Load({ cubeM_.get(), mapDispT_, mapDispS_.get() });
+	mapMan_.Load({ cubeM_.get(), mapT_, mapDispS_.get() });
 
 	// ----- 静的初期化 ----- //
 
-	Transition::Blackout::StaticInitialize({ curtenS_.get() });
+	Blackout::StaticInitialize({ curtenS_.get() });
 	Floor::StaticIntialize({ cubeM_.get(), plainT_ });
 
 	Character::SetMapChipPointer(mapMan_.CurrentMapPointer());
@@ -96,7 +104,7 @@ void GameScene::Initialize()
 	Srand();
 
 	// マップ初期化
-	mapMan_.Initialize({ 0, {}, 7.5f });
+	mapMan_.Initialize({ 0, {}, { 7.5f, 7.5f, 7.5f } });
 
 	// プレイヤー初期化
 	player_ = std::make_unique<Player>();
@@ -105,6 +113,9 @@ void GameScene::Initialize()
 	 // エネミー初期化
 	enemy_ = std::make_unique<Slime>();
 	enemy_->Initialize({ {0.0f, 80.0f, 175.0f} });
+
+	// 背景初期化
+	background_.Initialize({});
 
 	// 天球初期化
 	skydome_.Initialize(skydomeM_.get());
@@ -121,9 +132,6 @@ void GameScene::Initialize()
 
 	// シーンマネージャー初期化
 	sceneMan_.Initialize();
-
-	// アタリ判定マネージャー初期化
-	collMan_.Initialize();
 	
 #pragma region Team
 		blocks_.resize(num_);
@@ -343,31 +351,34 @@ void GameScene::Update()
 #pragma region 描画
 void GameScene::DrawBackSprites()
 {
-	if (sceneMan_.GetScene() == Scene::TITLE)
 	{
+		if (sceneMan_.GetScene() == Scene::TITLE)
+		{
 
+		}
+		else if (sceneMan_.GetScene() == Scene::TUTORIAL)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::PLAY)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::PAUSE)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::CLEAR)
+		{
+
+		}
+		else if (sceneMan_.GetScene() == Scene::OVER)
+		{
+
+		}
 	}
-	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
-	{
 
-	}
-	else if (sceneMan_.GetScene() == Scene::PLAY)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::PAUSE)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::CLEAR)
-	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::OVER)
-	{
-
-	}
-
+	windowS_->Draw(background_, backgroundT_);
 }
 
 void GameScene::DrawModels()
@@ -400,7 +411,7 @@ void GameScene::DrawModels()
 	}
 
 	// 天球
-	skydome_.Draw(vp_);
+	//skydome_.Draw(vp_);
 
 	// player
 	player_->Draw(vp_);

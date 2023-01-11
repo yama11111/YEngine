@@ -11,33 +11,34 @@ void CollisionManager::Initialize()
 
 void CollisionManager::Update() 
 {
+	if (pColliders_.empty()) { return; }
 	CheckAllColliders();
 	Clear();
 }
 
-void CollisionManager::PushBack(Collider* collider) 
+void CollisionManager::PushBack(Collider* pCollider) 
 {
-	assert(collider);
-	colliders_.push_back(collider); 
+	assert(pCollider);
+	pColliders_.push_back(pCollider); 
 }
 
 void CollisionManager::Clear() 
 {
-	if (colliders_.empty()) { return; }
-	colliders_.clear();
+	if (pColliders_.empty()) { return; }
+	pColliders_.clear();
 }
 
 void CollisionManager::CheckAllColliders() 
 {
-	std::list<Collider*>::iterator itrA = colliders_.begin();
-	for (; itrA != colliders_.end(); ++itrA) 
+	std::list<Collider*>::iterator itrA = pColliders_.begin();
+	for (; itrA != pColliders_.end(); ++itrA) 
 	{
 		Collider* colA = *itrA;
 
 		std::list<Collider*>::iterator itrB = itrA;
 		itrB++;
 
-		for (; itrB != colliders_.end(); ++itrB) 
+		for (; itrB != pColliders_.end(); ++itrB) 
 		{
 			Collider* colB = *itrB;
 			CheckCollisionPair(colA, colB);
@@ -45,22 +46,22 @@ void CollisionManager::CheckAllColliders()
 	}
 }
 
-void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* colliderB)
+void CollisionManager::CheckCollisionPair(Collider* pColliderA, Collider* pColliderB)
 {
 	// 属性マスク判定
-	bool isAct1 = (colliderA->Attribute() & colliderB->Mask()) == 0 || (colliderB->Attribute() & colliderA->Mask()) == 0;
+	bool isAct1 = (pColliderA->Attribute() & pColliderB->Mask()) == 0 || (pColliderB->Attribute() & pColliderA->Mask()) == 0;
 	// すり抜けフラグ確認
-	bool isAct2 = colliderA->IsSlip() || colliderB->IsSlip();
+	bool isAct2 = pColliderA->IsSlip() || pColliderB->IsSlip();
 
 	if (isAct1 || isAct2) { return; }
 
-	Vec3 posA = colliderA->Pos();
-	Vec3 posB = colliderB->Pos();
+	Vec3 posA = pColliderA->Pos();
+	Vec3 posB = pColliderB->Pos();
 	Vec3 dist = posB - posA;
 
-	if (dist.Length() <= colliderA->Radius() + colliderB->Radius())
+	if (dist.Length() <= pColliderA->Radius() + pColliderB->Radius())
 	{
-		colliderA->OnCollision(colliderB->Attribute(), colliderB->Pos());
-		colliderB->OnCollision(colliderA->Attribute(), colliderA->Pos());
+		pColliderA->OnCollision(pColliderB->Attribute(), pColliderB->Pos());
+		pColliderB->OnCollision(pColliderA->Attribute(), pColliderA->Pos());
 	}
 }

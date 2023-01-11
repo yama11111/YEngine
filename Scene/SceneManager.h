@@ -17,7 +17,7 @@ private:
 	Scene scene_ = Scene::TITLE;
 	Scene next_ = Scene::TUTORIAL;
 	bool isChange_ = false;
-	Transition::Blackout bo_;
+	YTransition::Blackout bo_;
 public:
 	void Initialize();
 	void Reset();

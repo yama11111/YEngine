@@ -1,4 +1,5 @@
 #include "SlimeActor.h"
+#include <cassert>
 
 using YActor::SlimeActor;
 
@@ -18,13 +19,16 @@ void SlimeActor::InitializeSlimeAction()
 
 void SlimeActor::ActivateSlimeAction(const std::vector<YMath::Vec3> ends, const unsigned int frame)
 {
+	assert(ends.size() > 1);
+
 	InitializeSlimeAction();
 
 	isAct_ = true;
 	action_ = Action::Elasticity;
 
 	ends_ = ends;
-	ease_.Initialize({}, ends_[0], 2.0f);
+	ease_.Initialize(ends_[0], ends_[1], 2.0f);
+	currentIdx_ = 1;
 
 	timer_.Initialize(frame);
 	timer_.SetActive(true);

@@ -36,7 +36,7 @@ public:
 	{
 		uint32_t mapIndex_; // マップインデックス
 		YMath::Vec3 leftTop_; // 左上([0][0])
-		float chipSize_; // チップ1個分の大きさ
+		YMath::Vec3 chipSize_; // チップ1個分の大きさ
 	};
 public:
 	// ロード

@@ -82,7 +82,7 @@ void Player::UpdateJump()
 	Vec3 squash  = +val;
 	Vec3 streach = -val;
 
-	ActivateSlimeAction({ squash, streach }, CharaConfig::SlimeAct::Frame);
+	ActivateSlimeAction({ {}, squash, streach }, CharaConfig::SlimeAct::Frame);
 }
 
 void Player::Attack()

@@ -29,7 +29,7 @@ void Character::UpdateGravity()
 		Vec3 squash = obj_.scale_ * CharaConfig::SlimeAct::SquashValue;
 		squash.y_ *= -1.0f;
 
-		ActivateSlimeAction({ squash }, CharaConfig::SlimeAct::Frame);
+		ActivateSlimeAction({ {}, squash }, CharaConfig::SlimeAct::Frame);
 	}
 }
 

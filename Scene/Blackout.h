@@ -4,7 +4,7 @@
 #include "Timer.h"
 #include "Sprite.h"
 
-namespace Transition
+namespace YTransition
 {
 	class Blackout
 	{

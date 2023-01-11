@@ -1,7 +1,7 @@
 #include "Blackout.h"
 #include "SceneChangeFrame.h"
 
-using Transition::Blackout;
+using YTransition::Blackout;
 
 YGame::Sprite* Blackout::curtenS_ = nullptr;
 

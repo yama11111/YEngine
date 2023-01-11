@@ -7,6 +7,8 @@ using YMath::Vec2;
 using YMath::Vec3;
 using YMath::Vec4;
 
+const size_t XNum = 5;
+
 void MapChipInfo::LoadData(const std::string fileName)
 {
 	// vectorクリア
@@ -86,24 +88,33 @@ void MapChip::Reset()
 {
 	// 3D
 	chips_.clear();
-	chips_.resize(chipNums_.size());
-	for (size_t i = 0; i < chips_.size(); i++)
-	{
-		chips_[i].resize(chipNums_[i].size());
-	}
-
-	float posZ = 0.0f, posY = 0.0f, scale = chipSize_;
+	chips_.resize(XNum);
 	for (size_t y = 0; y < chips_.size(); y++)
 	{
-		for (size_t x = 0; x < chips_[y].size(); x++)
+		chips_[y].resize(chipNums_.size());
+		for (size_t z = 0; z < chips_[y].size(); z++)
 		{
-			posZ = +(scale * 2.0f) * x + scale + leftTop_.z_;
-			posY = -(scale * 2.0f) * y - scale + leftTop_.y_;
-
-			chips_[y][x].Initialize({ {leftTop_.x_,posY,posZ},{},{scale,scale,scale} }, { 1.0f,1.0f,1.0f,0.5f });
+			chips_[y][z].resize(chipNums_[z].size());
 		}
 	}
-	rect_ = Vec2(chipSize_ * chipNums_[0].size(), chipSize_ * chipNums_.size());
+
+	float posZ = 0.0f, posY = 0.0f, posX = 0.0f;
+	for (size_t x = 0; x < chips_.size(); x++)
+	{
+		for (size_t y = 0; y < chips_[x].size(); y++)
+		{
+			for (size_t z = 0; z < chips_[x][y].size(); z++)
+			{
+				posZ = +(chipSize_.z_ * 2.0f) * z + chipSize_.z_ + leftTop_.z_;
+				posY = -(chipSize_.y_ * 2.0f) * y - chipSize_.y_ + leftTop_.y_;
+				posX = +(chipSize_.x_ * 2.0f) * x + chipSize_.x_ + leftTop_.x_ - (chipSize_.x_ * XNum);
+
+				chips_[x][y][z].Initialize({ {posX,posY,posZ},{},chipSize_ }, { 1.0f,1.0f,1.0f,1.0f });
+			}
+		}
+	}
+
+	rect_ = Vec2(chipSize_.z_ * chipNums_[0].size(), chipSize_.y_ * chipNums_.size());
 
 	// 2D
 	chip2Ds_.clear();
@@ -131,11 +142,14 @@ void MapChip::Reset()
 
 void MapChip::Update()
 {
-	for (size_t y = 0; y < chips_.size(); y++)
+	for (size_t x = 0; x < XNum; x++)
 	{
-		for (size_t x = 0; x < chips_[y].size(); x++)
+		for (size_t y = 0; y < chips_.size(); y++)
 		{
-			chips_[y][x].Update();
+			for (size_t z = 0; z < chips_[y].size(); z++)
+			{
+				chips_[x][y][z].Update();
+			}
 		}
 	}
 
@@ -208,10 +222,10 @@ bool MapChip::CollisionMap(const float left, const float right, const float top,
 	if (chipNums_.empty()) { return false; }
 
 	// 上下左右のマップチップでの位置
-	int leftNum   = static_cast<int>(left   / (chipSize_ * 2.0f)); // 左
-	int rightNum  = static_cast<int>(right  / (chipSize_ * 2.0f)); // 右
-	int topNum    = static_cast<int>(top    / (chipSize_ * 2.0f)); // 上
-	int bottomNum = static_cast<int>(bottom / (chipSize_ * 2.0f)); // 下
+	int leftNum   = static_cast<int>(left   / (chipSize_.z_ * 2.0f)); // 左
+	int rightNum  = static_cast<int>(right  / (chipSize_.z_ * 2.0f)); // 右
+	int topNum    = static_cast<int>(top    / (chipSize_.y_ * 2.0f)); // 上
+	int bottomNum = static_cast<int>(bottom / (chipSize_.y_ * 2.0f)); // 下
 
 	// 上下左右範囲内にいるか
 	bool L = (0 <= leftNum   && leftNum   < chipNums_[0].size()); // 左
@@ -240,19 +254,23 @@ bool MapChip::CollisionChip(const int x, const int y)
 
 void MapChip::Draw(const YGame::ViewProjection& vp)
 {
-	for (size_t y = 0; y < chips_.size(); y++)
+
+	for (size_t x = 0; x < chips_.size(); x++)
 	{
-		for (size_t x = 0; x < chips_[y].size(); x++)
+		for (size_t y = 0; y < chips_[x].size(); y++)
 		{
-			DrawChip(x, y, vp);
+			for (size_t z = 0; z < chips_[x][y].size(); z++)
+			{
+				DrawChip(x, y, z, vp);
+			}
 		}
 	}
 }
 
-void MapChip::DrawChip(const size_t x, const size_t y, const YGame::ViewProjection& vp)
+void MapChip::DrawChip(const size_t x, const size_t y, const size_t z, const YGame::ViewProjection& vp)
 {
-	if (chipNums_[y][x] == 0) { return; }
-	if (chipNums_[y][x] == 1) { pModel_->Draw(chips_[y][x], vp, tex_); }
+	if (chipNums_[y][z] == 0) { return; }
+	if (chipNums_[y][z] == 1) { pModel_->Draw(chips_[x][y][z], vp, tex_); }
 
 }
 

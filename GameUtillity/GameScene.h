@@ -36,8 +36,12 @@ namespace YGame
 		UINT playerT_ = 0;
 		// エネミー画像
 		UINT enemyT_ = 0;
+		// マップ画像
+		UINT mapT_ = 0;
 		// マップ2D表示用画像
 		UINT mapDispT_ = 0;
+		// 背景画像
+		UINT backgroundT_ = 0;
 
 		// ----- オーディオ ----- //
 
@@ -46,6 +50,8 @@ namespace YGame
 		// ----- スプライト ----- //
 		
 		// 画面全部
+		std::unique_ptr<Sprite> windowS_ = nullptr;
+		// シーン遷移用
 		std::unique_ptr<Sprite> curtenS_ = nullptr;
 		// マップ2D表示用
 		std::unique_ptr<Sprite> mapDispS_ = nullptr;
@@ -100,6 +106,9 @@ namespace YGame
 
 		// マップマネージャー
 		MapChipManager mapMan_;
+
+		// 背景
+		Object background_;
 
 		// 天球
 		Skydome skydome_;
