@@ -1,6 +1,6 @@
 #pragma once
 #include "GPUResource.h"
-#include "SRVHeap.h"
+#include "DescriptorHeap.h"
 #include "Vec4.h"
 #include <vector>
 #include <string>
@@ -12,9 +12,9 @@ namespace YGame
 	{
 		// テクスチャバッファ
 		YDX::GPUResource buff_;
-		// SRV先頭ハンドル (CPU)
+		// SRVハンドル (CPU)
 		D3D12_CPU_DESCRIPTOR_HANDLE srvCpuHandle_{};
-		// SRV先頭ハンドル (GPU)
+		// SRVハンドル (GPU)
 		D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle_{};
 		// テクスチャファイル名
 		std::string fileName_;
@@ -25,8 +25,6 @@ namespace YGame
 	private:
 		// テクスチャ用vector配列
 		std::vector<Texture> texs_;
-		// デスクリプタテーブル生成時番号保存用
-		UINT rpIndex_ = 0;
 	public:
 		// テクスチャ生成
 		UINT CreateTex(const YMath::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
@@ -37,13 +35,9 @@ namespace YGame
 		// テクスチャ描画前コマンド 
 		void SetDrawCommand(const UINT texIndex);
 	public:
-		// デスクリプターテーブル番号設定
-		void SetRootParameterIndex(UINT rpIndex) { rpIndex_ = rpIndex; }
 		// テクスチャバッファ取得
 		ID3D12Resource* TextureBuffer(const UINT texIndex);
 	private:
-		// テクスチャ設定
-		void SetTexture(Texture& tex, D3D12_SHADER_RESOURCE_VIEW_DESC* srvDesc);
 		// 拡張子取得
 		static std::string FileExtension(const std::string path);
 	private:
@@ -58,11 +52,22 @@ namespace YGame
 		static ID3D12Device* pDevice_;
 		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* pCmdList_;
-		// 静的シェーダーリソースヒープクラス
-		static YDX::SRVHeap* pSrvHeap_;
+		// 静的デスクリプターヒープクラス
+		static YDX::DescriptorHeap* pDescHeap_;
+		// 静的デスクリプタテーブル生成時番号保存用
+		static UINT rpIndex_;
+	public:
+		// 静的初期化設定
+		struct StaticInitStatus
+		{
+			ID3D12Device* pDevice_;
+			ID3D12GraphicsCommandList* pCmdList_;
+			YDX::DescriptorHeap* pDescHeap_;
+			UINT rpIndex_;
+		};
 	public:
 		// 静的初期化
-		static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, YDX::SRVHeap* pSrvHeap);
+		static void StaticInitialize(const StaticInitStatus& state);
 	};
 }
 

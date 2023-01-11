@@ -1,5 +1,6 @@
 #pragma once
 #include "GPUResource.h"
+#include "DescriptorHeap.h"
 #include "Vec3.h"
 #include "Vec4.h"
 #include "Mat4.h"
@@ -32,8 +33,29 @@ namespace YDX
 		YMath::Mat4 matBlbd_; // ビルボード行列
 	};
 
+	// 定数バッファコモンクラス
+	class ConstBufferCommon 
+	{
+	protected:
+		// 静的コマンドリストポインタ
+		static ID3D12GraphicsCommandList* pCmdList_;
+		// 静的デスクリプターヒープクラス
+		static DescriptorHeap* pDescHeap_;
+	public:
+		// 静的初期化設定
+		struct StaticInitStatus
+		{
+			ID3D12GraphicsCommandList* pCmdList_;
+			DescriptorHeap* pDescHeap_;
+		};
+	public:
+		// 静的初期化
+		static void StaticInitialize(const StaticInitStatus& state);
+	};
+
+	// 定数バッファ
 	template <typename T>
-	class ConstBuffer
+	class ConstBuffer : private ConstBufferCommon
 	{
 	public:
 		// マッピング用
@@ -41,20 +63,18 @@ namespace YDX
 	private:
 		// バッファ
 		GPUResource rsc_;
+		// CBV設定
+		D3D12_CONSTANT_BUFFER_VIEW_DESC viewDesc_{};
 	public:
 		// 定数バッファの生成 + マッピング
 		void Create();
 		// 描画前コマンド
 		void SetDrawCommand();
 	private:
-		// 静的コマンドリストポインタ
-		static ID3D12GraphicsCommandList* pCmdList_;
-		// 静的定数バッファ生成時番号保存用
+		// 静的定数バッファ番号
 		static UINT rpIndex_;
 	public:
-		// 静的初期化
-		static void StaticInitialize(ID3D12GraphicsCommandList* pCommandList);
 		// 静的定数バッファ番号設定
-		static void SetRootParameterIndex(UINT rpIndex) { rpIndex_ = rpIndex; }
+		static void StaticSetRootParamIndex(const UINT rpIndex);
 	};
 }

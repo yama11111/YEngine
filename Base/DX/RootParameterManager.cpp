@@ -17,7 +17,7 @@ UINT RootParameterManager::PushBackCBV()
 	return static_cast<UINT>(rps_.size() - 1);
 }
 
-UINT RootParameterManager::PushBackTR()
+UINT RootParameterManager::PushBackTexRegister()
 {
 	// デスクリプタレンジの設定
 	descriptorRange_.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1

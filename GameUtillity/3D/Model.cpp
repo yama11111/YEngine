@@ -347,7 +347,7 @@ YDX::VertexIndex<Model::VData> Model::LoadVertices(const aiMesh* src, bool invU,
 		vData[i] = vertex;
 	}
 
-	indices.resize(src->mNumFaces * 3);
+	indices.resize(src->mNumFaces * static_cast<size_t>(3));
 
 	for (size_t i = 0; i < src->mNumFaces; ++i)
 	{

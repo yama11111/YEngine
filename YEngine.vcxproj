@@ -100,12 +100,12 @@
     <ClCompile Include="Actor\HitActor.cpp" />
     <ClCompile Include="Actor\SlimeActor.cpp" />
     <ClCompile Include="Base\DX\ConstBuffer.cpp" />
+    <ClCompile Include="Base\DX\DescriptorHeap.cpp" />
     <ClCompile Include="Base\DX\GPUResource.cpp" />
     <ClCompile Include="Base\DX\PipelineSet.cpp" />
     <ClCompile Include="Base\DX\RootParameterManager.cpp" />
     <ClCompile Include="Base\DX\ScreenDesc.cpp" />
     <ClCompile Include="Base\DX\ShaderCommon.cpp" />
-    <ClCompile Include="Base\DX\SRVHeap.cpp" />
     <ClCompile Include="Base\DX\Vertices.cpp" />
     <ClCompile Include="Base\DX\YAssert.cpp" />
     <ClCompile Include="Base\DX\YDirectX.cpp" />
@@ -163,12 +163,12 @@
     <ClInclude Include="Actor\HitActor.h" />
     <ClInclude Include="Actor\SlimeActor.h" />
     <ClInclude Include="Base\DX\ConstBuffer.h" />
+    <ClInclude Include="Base\DX\DescriptorHeap.h" />
     <ClInclude Include="Base\DX\GPUResource.h" />
     <ClInclude Include="Base\DX\PipelineSet.h" />
     <ClInclude Include="Base\DX\RootParameterManager.h" />
     <ClInclude Include="Base\DX\ScreenDesc.h" />
     <ClInclude Include="Base\DX\ShaderCommon.h" />
-    <ClInclude Include="Base\DX\SRVHeap.h" />
     <ClInclude Include="Base\DX\Vertices.h" />
     <ClInclude Include="Base\DX\YAssert.h" />
     <ClInclude Include="Base\DX\YDirectX.h" />

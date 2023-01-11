@@ -19,7 +19,7 @@ namespace YDX
 		// 定数バッファ挿入 (戻り値 : ルートパラメータ番号)
 		UINT PushBackCBV();
 		// テクスチャレジスタ挿入 (戻り値 : ルートパラメータ番号)
-		UINT PushBackTR();
+		UINT PushBackTexRegister();
 		// デスクリプターヒープ挿入 (戻り値 : ルートパラメータ番号)
 		UINT PushBackDescriptorTable(const D3D12_DESCRIPTOR_RANGE& descriptorRange);
 	public:

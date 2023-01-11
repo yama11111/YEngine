@@ -27,7 +27,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 #pragma endregion
 
-#pragma region Utillity
+#pragma region Pipeline
 
 	// デバイスポインタ
 	ID3D12Device* pDev = dx.Device();
@@ -47,44 +47,46 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	GPUResource::StaticInitialize(pDev);
 
 	// ルートパラメータ
-	RootParameterManager rpM;
+	RootParameterManager rpMan;
+
+	// デスクリプターヒープ (SRV, UAV, CBV)
+	DescriptorHeap::StaticInitialize({ pDev, pCmdList });
+	DescriptorHeap descHeap;
+	descHeap.Initialize();
 
 	// 定数バッファ静的初期化
-	ConstBuffer<TransformCBData>::StaticInitialize(pCmdList);
-	ConstBuffer<TransformCBData>::SetRootParameterIndex(rpM.PushBackCBV());
-	ConstBuffer<ColorCBData>::StaticInitialize(pCmdList);
-	ConstBuffer<ColorCBData>::SetRootParameterIndex(rpM.PushBackCBV());
-	ConstBuffer<MaterialCBData>::StaticInitialize(pCmdList);
-	ConstBuffer<MaterialCBData>::SetRootParameterIndex(rpM.PushBackCBV());
-	ConstBuffer<BillboardCBData>::StaticInitialize(pCmdList);
-	ConstBuffer<BillboardCBData>::SetRootParameterIndex(rpM.PushBackCBV());
+	ConstBufferCommon::StaticInitialize({ pCmdList, &descHeap });
+	ConstBuffer<TransformCBData>::StaticSetRootParamIndex(rpMan.PushBackCBV());
+	ConstBuffer<ColorCBData>	::StaticSetRootParamIndex(rpMan.PushBackCBV());
+	ConstBuffer<MaterialCBData>	::StaticSetRootParamIndex(rpMan.PushBackCBV());
+	ConstBuffer<BillboardCBData>::StaticSetRootParamIndex(rpMan.PushBackCBV());
 
-	// シェーダーリソースビュー
-	SRVHeap::StaticInitialize(pDev, pCmdList);
-	SRVHeap srvHeap;
-	srvHeap.Create();
 	// テクスチャマネージャー
-	TextureManager::StaticInitialize(pDev, pCmdList, &srvHeap);
-	TextureManager texM;
-	texM.SetRootParameterIndex(rpM.PushBackTR());
+	TextureManager::StaticInitialize({ pDev, pCmdList, &descHeap, rpMan.PushBackTexRegister() });
+	TextureManager texMan;
 
+	// パイプライン静的初期化
 	PipelineSet::StaticInitialize(pDev, pCmdList);
 
 	// 頂点
-	Vertices<SpriteCommon::VData>::StaticInitialize(pCmdList);
-	Vertices<ModelCommon::VData>::StaticInitialize(pCmdList);
+	Vertices<SpriteCommon::VData>	::StaticInitialize(pCmdList);
+	Vertices<ModelCommon::VData>	::StaticInitialize(pCmdList);
 	Vertices<BillboardCommon::VData>::StaticInitialize(pCmdList);
 
-	// 
-	SpriteCommon::StaticInitialize({ &texM, rpM.Get() });
-	Material::StaticInitialize(&texM);
-	ModelCommon::StaticInitialize({ rpM.Get() });
-	BillboardCommon::StaticInitialize({ &texM, rpM.Get() });
+	// コモンクラス静的初期化
+	SpriteCommon	::StaticInitialize({ &texMan, rpMan.Get() });
+	Material::StaticInitialize(&texMan);
+	ModelCommon		::StaticInitialize({ rpMan.Get() });
+	BillboardCommon	::StaticInitialize({ &texMan, rpMan.Get() });
+
+#pragma endregion
+
+#pragma region Game
 
 	AudioManager audioM;
 	audioM.Initialize();
 
-	GameScene::StaticInitialize(&texM, &audioM);
+	GameScene::StaticInitialize(&texMan, &audioM);
 	GameScene game;
 	game.Load();
 	game.Initialize();
@@ -108,7 +110,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		screenDesc.SetDrawCommand(); // スクリーン設定セット
 
-		srvHeap.SetDrawCommand(); // SRVヒープセット
+		descHeap.SetDrawCommand(); // デスクリプターヒープセット
 		
 		game.Draw(); // ゲームシーン描画
 

@@ -1,18 +1,29 @@
 #include "ConstBuffer.h"
 #include "YAssert.h"
 
+using YDX::ConstBufferCommon;
+
+ID3D12GraphicsCommandList* ConstBufferCommon::pCmdList_ = nullptr;
+YDX::DescriptorHeap* ConstBufferCommon::pDescHeap_ = nullptr;
+
+void ConstBufferCommon::StaticInitialize(const StaticInitStatus& state)
+{
+	assert(state.pCmdList_);
+	assert(state.pDescHeap_);
+
+	pCmdList_ = state.pCmdList_;
+	pDescHeap_ = state.pDescHeap_;
+}
+
 using YDX::ConstBuffer;
 
 template<typename T>
-ID3D12GraphicsCommandList* ConstBuffer<T>::pCmdList_ = nullptr;
-template<typename T>
-UINT ConstBuffer<T>::rpIndex_ = 0;
+UINT ConstBuffer<T>::rpIndex_ = UINT32_MAX;
 
 template<typename T>
-void ConstBuffer<T>::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
+void ConstBuffer<T>::StaticSetRootParamIndex(const UINT rpIndex)
 {
-	assert(pCommandList);
-	pCmdList_ = pCommandList;
+	rpIndex_ = rpIndex;
 }
 
 template<typename T>
@@ -35,13 +46,18 @@ void ConstBuffer<T>::Create()
 
 	// 定数バッファのマッピング
 	Result(rsc_.Get()->Map(0, nullptr, (void**)&map_));
+
+	// CBV生成
+	viewDesc_.BufferLocation = rsc_.Get()->GetGPUVirtualAddress();
+	viewDesc_.SizeInBytes = static_cast<UINT>(state.resDesc_.Width);
+	pDescHeap_->CreateCBV(viewDesc_);
 }
 
 template<typename T>
 void ConstBuffer<T>::SetDrawCommand()
 {
 	// 定数バッファビュー(3D変換行列)の設定コマンド
-	pCmdList_->SetGraphicsRootConstantBufferView(rpIndex_, rsc_.Get()->GetGPUVirtualAddress());
+	pCmdList_->SetGraphicsRootConstantBufferView(rpIndex_, viewDesc_.BufferLocation);
 }
 
 template class ConstBuffer<YDX::TransformCBData>;

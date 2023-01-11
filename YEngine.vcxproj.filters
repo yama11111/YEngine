@@ -294,11 +294,11 @@
     <ClCompile Include="Particle\ParticleManager.cpp">
       <Filter>Staging\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Base\DX\SRVHeap.cpp">
-      <Filter>Base\Pipeline</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\AttackManager.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\DX\DescriptorHeap.cpp">
+      <Filter>Base\Pipeline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -488,11 +488,11 @@
     <ClInclude Include="Particle\ParticleManager.h">
       <Filter>Staging\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Base\DX\SRVHeap.h">
-      <Filter>Base\Pipeline</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\AttackManager.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\DX\DescriptorHeap.h">
+      <Filter>Base\Pipeline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

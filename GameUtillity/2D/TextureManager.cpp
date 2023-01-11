@@ -9,17 +9,19 @@ using YDX::Result;
 
 ID3D12Device* TextureManager::pDevice_ = nullptr;
 ID3D12GraphicsCommandList*  TextureManager::pCmdList_ = nullptr;
-YDX::SRVHeap* TextureManager::pSrvHeap_ = nullptr;
+YDX::DescriptorHeap* TextureManager::pDescHeap_ = nullptr;
+UINT TextureManager::rpIndex_ = UINT32_MAX;
 
-void TextureManager::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList, YDX::SRVHeap* pSrvHeap)
+void TextureManager::StaticInitialize(const StaticInitStatus& state)
 {
-	assert(pDevice);
-	assert(pCommandList);
-	assert(pSrvHeap);
+	assert(state.pDevice_);
+	assert(state.pCmdList_);
+	assert(state.pDescHeap_);
 
-	pDevice_ = pDevice;
-	pCmdList_ = pCommandList;
-	pSrvHeap_ = pSrvHeap;
+	pDevice_  = state.pDevice_;
+	pCmdList_ = state.pCmdList_;
+	pDescHeap_ = state.pDescHeap_;
+	rpIndex_  = state.rpIndex_;
 }
 
 std::string TextureManager::FileExtension(const std::string path)
@@ -83,7 +85,7 @@ UINT TextureManager::CreateTex(const Vec4& color)
 	srvDesc.Texture2D.MipLevels = 1;
 
 	// テクスチャ設定
-	SetTexture(tex, &srvDesc);
+	pDescHeap_->CreateSRV(tex.buff_.Get(), srvDesc, tex.srvCpuHandle_, tex.srvGpuHandle_);
 
 	// テクスチャを保存
 	texs_.push_back(tex);
@@ -184,34 +186,13 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 	srvDesc.Texture2D.MipLevels = texState.resDesc_.MipLevels;
 
 	// テクスチャ設定
-	SetTexture(tex, &srvDesc);
+	pDescHeap_->CreateSRV(tex.buff_.Get(), srvDesc, tex.srvCpuHandle_, tex.srvGpuHandle_);
 	tex.fileName_ = texFileName;
 
 	// テクスチャを保存
 	texs_.push_back(tex);
 
 	return static_cast<UINT>(texs_.size() - 1);
-}
-
-void TextureManager::SetTexture(Texture& tex, D3D12_SHADER_RESOURCE_VIEW_DESC* srvDesc)
-{
-	// SRVヒープの先頭ハンドル(CPU)を取得
-	tex.srvCpuHandle_ = pSrvHeap_->CPUHandleStart();
-
-	// SRVヒープの先頭ハンドル(GPU)を取得
-	tex.srvGpuHandle_ = pSrvHeap_->GPUHandleStart();
-
-	// インクリメントサイズ獲得
-	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-	// テクスチャがある分だけハンドルを進める
-	tex.srvCpuHandle_.ptr += (incSize * texs_.size());
-
-	// テクスチャがある分だけハンドルを進める
-	tex.srvGpuHandle_.ptr += (incSize * texs_.size());
-
-	// ハンドルの指す位置にシェーダーリソースビュー作成
-	pDevice_->CreateShaderResourceView(tex.buff_.Get(), srvDesc, tex.srvCpuHandle_);
 }
 
 void TextureManager::SetDrawCommand(const UINT texIndex)
