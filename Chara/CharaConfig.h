@@ -16,7 +16,7 @@ namespace CharaConfig
 		const float CollRad = 4.5f;
 		
 		// ‘Ì—Í
-		const int HP = 100;
+		const int HP = 1;
 
 		// –³“GŠÔ
 		const int CheatTime = 20;
@@ -38,10 +38,10 @@ namespace CharaConfig
 		namespace Slime
 		{
 			// ”¼Œa (ƒAƒ^ƒŠ”»’è)
-			const float CollRad = 4.5f;
+			const float CollRad = 8.0f;
 
 			// ‘Ì—Í
-			const int HP = 100;
+			const int HP = 1;
 		}
 	}
 
@@ -65,7 +65,7 @@ namespace CharaConfig
 		const float ShakeValue = 3.0f;
 
 		// F
-		const YMath::Vec4 Color = { 1.0f, 0.25f, 0.25f, 1.0f };
+		const YMath::Vec4 Color = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 		// “§‰ß—Ê
 		const float AlphaValue = 0.5f;

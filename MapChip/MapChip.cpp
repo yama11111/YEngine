@@ -6,8 +6,7 @@
 using YMath::Vec2;
 using YMath::Vec3;
 using YMath::Vec4;
-
-const size_t XNum = 5;
+using YGame::Object;
 
 void MapChipInfo::LoadData(const std::string fileName)
 {
@@ -88,28 +87,20 @@ void MapChip::Reset()
 {
 	// 3D
 	chips_.clear();
-	chips_.resize(XNum);
-	for (size_t y = 0; y < chips_.size(); y++)
+	
+	for (size_t y = 0; y < chipNums_.size(); y++)
 	{
-		chips_[y].resize(chipNums_.size());
-		for (size_t z = 0; z < chips_[y].size(); z++)
+		for (size_t z = 0; z < chipNums_[y].size(); z++)
 		{
-			chips_[y][z].resize(chipNums_[z].size());
-		}
-	}
-
-	float posZ = 0.0f, posY = 0.0f, posX = 0.0f;
-	for (size_t x = 0; x < chips_.size(); x++)
-	{
-		for (size_t y = 0; y < chips_[x].size(); y++)
-		{
-			for (size_t z = 0; z < chips_[x][y].size(); z++)
+			if (chipNums_[y][z] == 1)
 			{
-				posZ = +(chipSize_.z_ * 2.0f) * z + chipSize_.z_ + leftTop_.z_;
-				posY = -(chipSize_.y_ * 2.0f) * y - chipSize_.y_ + leftTop_.y_;
-				posX = +(chipSize_.x_ * 2.0f) * x + chipSize_.x_ + leftTop_.x_ - (chipSize_.x_ * XNum);
+				std::unique_ptr<Object> newChip = std::make_unique<Object>();
 
-				chips_[x][y][z].Initialize({ {posX,posY,posZ},{},chipSize_ }, { 1.0f,1.0f,1.0f,1.0f });
+				float posZ = +(chipSize_.z_ * 2.0f) * z + chipSize_.z_ + leftTop_.z_;
+				float posY = -(chipSize_.y_ * 2.0f) * y - chipSize_.y_ + leftTop_.y_;
+
+				newChip->Initialize({ {leftTop_.x_,posY,posZ},{},chipSize_ }, { 1.0f,1.0f,1.0f,1.0f });
+				chips_.push_back(std::move(newChip));
 			}
 		}
 	}
@@ -117,50 +108,44 @@ void MapChip::Reset()
 	rect_ = Vec2(chipSize_.z_ * chipNums_[0].size(), chipSize_.y_ * chipNums_.size());
 
 	// 2D
-	chip2Ds_.clear();
-	chip2Ds_.resize(chipNums_.size());
-	for (size_t i = 0; i < chip2Ds_.size(); i++)
-	{
-		chip2Ds_[i].resize(chipNums_[i].size());
-	}
+	//chip2Ds_.clear();
+	//chip2Ds_.resize(chipNums_.size());
+	//for (size_t i = 0; i < chip2Ds_.size(); i++)
+	//{
+	//	chip2Ds_[i].resize(chipNums_[i].size());
+	//}
 
-	float pos2DX = 0.0f, pos2DY = 0.0f, scale2D = 1.0f;
-	for (size_t y = 0; y < chip2Ds_.size(); y++)
-	{
-		for (size_t x = 0; x < chip2Ds_[y].size(); x++)
-		{
-			pos2DX = +(scale2D * pSprite_->Size().x_) * x;
-			pos2DY = +(scale2D * pSprite_->Size().y_) * y;
+	//float pos2DX = 0.0f, pos2DY = 0.0f, scale2D = 1.0f;
+	//for (size_t y = 0; y < chip2Ds_.size(); y++)
+	//{
+	//	for (size_t x = 0; x < chip2Ds_[y].size(); x++)
+	//	{
+	//		pos2DX = +(scale2D * pSprite_->Size().x_) * x;
+	//		pos2DY = +(scale2D * pSprite_->Size().y_) * y;
 
-			Vec4 color = { 0.5f,0.5f,0.5f,1.0f };
-			if (chipNums_[y][x] == 0) { color = { 0.5f,0.5f,1.0f,0.5f }; }
+	//		Vec4 color = { 0.5f,0.5f,0.5f,1.0f };
+	//		if (chipNums_[y][x] == 0) { color = { 0.5f,0.5f,1.0f,0.5f }; }
 
-			chip2Ds_[y][x].Initialize({ {pos2DX,pos2DY,0.0f},{},{scale2D,scale2D,scale2D} }, color);
-		}
-	}
+	//		chip2Ds_[y][x].Initialize({ {pos2DX,pos2DY,0.0f},{},{scale2D,scale2D,scale2D} }, color);
+	//	}
+	//}
 }
 
 void MapChip::Update()
 {
-	for (size_t x = 0; x < XNum; x++)
+	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		for (size_t y = 0; y < chips_.size(); y++)
-		{
-			for (size_t z = 0; z < chips_[y].size(); z++)
-			{
-				chips_[x][y][z].Update();
-			}
-		}
+		chips_[i]->Update();
 	}
 
-	for (size_t y = 0; y < chip2Ds_.size(); y++)
-	{
-		for (size_t x = 0; x < chip2Ds_[y].size(); x++)
-		{
-			chip2Ds_[y][x].color_.r_ = 0.5f;
-			chip2Ds_[y][x].Update();
-		}
-	}
+	//for (size_t y = 0; y < chip2Ds_.size(); y++)
+	//{
+	//	for (size_t x = 0; x < chip2Ds_[y].size(); x++)
+	//	{
+	//		chip2Ds_[y][x].color_.r_ = 0.5f;
+	//		chip2Ds_[y][x].Update();
+	//	}
+	//}
 }
 
 void MapChip::PerfectPixelCollision(MapChipCollider& collider)
@@ -246,7 +231,7 @@ bool MapChip::CollisionMap(const float left, const float right, const float top,
 bool MapChip::CollisionChip(const int x, const int y)
 {
 	// F‘Ö‚¦
-	chip2Ds_[y][x].color_.r_ = 1.0f;
+	/*chip2Ds_[y][x].color_.r_ = 1.0f;*/
 
 	if (chipNums_[y][x] == 1) { return true; }
 	return false;
@@ -254,33 +239,19 @@ bool MapChip::CollisionChip(const int x, const int y)
 
 void MapChip::Draw(const YGame::ViewProjection& vp)
 {
-
-	for (size_t x = 0; x < chips_.size(); x++)
+	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		for (size_t y = 0; y < chips_[x].size(); y++)
-		{
-			for (size_t z = 0; z < chips_[x][y].size(); z++)
-			{
-				DrawChip(x, y, z, vp);
-			}
-		}
+		pModel_->Draw(*chips_[i], vp, tex_);
 	}
-}
-
-void MapChip::DrawChip(const size_t x, const size_t y, const size_t z, const YGame::ViewProjection& vp)
-{
-	if (chipNums_[y][z] == 0) { return; }
-	if (chipNums_[y][z] == 1) { pModel_->Draw(chips_[x][y][z], vp, tex_); }
-
 }
 
 void MapChip::Draw2D()
 {
-	for (size_t y = 0; y < chip2Ds_.size(); y++)
-	{
-		for (size_t x = 0; x < chip2Ds_[y].size(); x++)
-		{
-			pSprite_->Draw(chip2Ds_[y][x]);
-		}
-	}
+	//for (size_t y = 0; y < chip2Ds_.size(); y++)
+	//{
+	//	for (size_t x = 0; x < chip2Ds_[y].size(); x++)
+	//	{
+	//		pSprite_->Draw(chip2Ds_[y][x]);
+	//	}
+	//}
 }

@@ -12,12 +12,16 @@ using namespace CharaConfig::Player;
 #pragma endregion
 
 YGame::Model* Player::pModel_ = nullptr;
+YGame::Sprite* Player::pJump_ = nullptr;
 UINT Player::tex_ = UINT_MAX;
 
 void Player::StaticIntialize(const StaticInitStatus& state)
 {
 	assert(state.pModel_);
+	assert(state.pSprite_);
+
 	pModel_ = state.pModel_;
+	pJump_ = state.pSprite_;
 	tex_ = state.tex_;
 }
 
@@ -35,11 +39,14 @@ void Player::Initialize(const InitStatus& state)
 
 void Player::Reset(const InitStatus& state)
 {
+	jump[0].Initialize({ { 960, 512, 0 } });
+	jump[1].Initialize({ { 960 + 160, 512, 0 } });
+
 	InitializeCharacter(
 		{
 			state.pos_,
 			YMath::AdjustAngle(YMath::Vec3(0, 0, 1)),
-			{5.0f,5.0f,5.0f}
+			{6.0f,6.0f,6.0f}
 		}
 	);
 	InitializeCharaStatus({ HP, CheatTime });
@@ -63,6 +70,13 @@ void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
 			ActivateHitAction(CharaConfig::HitAct::ShakeValue, CheatTime);
 		}
 	}
+}
+
+void Player::UpdateMove()
+{
+	speed_.z_ = 3.0f;
+	Vec3 d = { 0.0f, 0.0f, -1.0f };
+	pParticleMan_->EmitDust(obj_.pos_, d, 8, 2);
 }
 
 void Player::Jump()
@@ -96,6 +110,8 @@ void Player::UpdateAttack()
 
 void Player::Update()
 {
+
+	UpdateMove();
 	UpdateGravity();
 
 	if (IsLanding())
@@ -119,10 +135,28 @@ void Player::Update()
 			SlimeActionValue()
 		}
 	);
+
+	for (size_t i = 0; i < 2; i++)
+	{
+		jump[i].color_ = { 1.0f,1.0f,1.0f,1.0f };
+		if(jumpCount_ > i) 
+		{
+			jump[i].color_ = { 0.1f,0.1f,0.1f,1.0f };
+		}
+		jump[i].Update();
+	}
 }
 
 void Player::Draw(const YGame::ViewProjection& vp)
 {
-	pModel_->Draw(obj_, vp, tex_);
+	pModel_->Draw(obj_, vp);
+}
+
+void Player::Draw2D()
+{
+	for (size_t i = 0; i < 2; i++)
+	{
+		pJump_->Draw(jump[i]);
+	}
 }
 

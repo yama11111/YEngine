@@ -2,6 +2,8 @@
 #include "Model.h"
 #include "Sprite.h"
 #include "MapChipCollider.h"
+#include <list>
+#include <memory>
 
 // マップ情報
 class MapChipInfo
@@ -20,9 +22,9 @@ class MapChip : public MapChipInfo
 {
 private:
 	// マップチップ
-	std::vector<std::vector<std::vector<YGame::Object>>> chips_;
-	// マップチップ2D用
-	std::vector<std::vector<YGame::Object>> chip2Ds_;
+	std::vector<std::unique_ptr<YGame::Object>> chips_;
+	//// マップチップ2D用
+	//std::vector<std::vector<YGame::Object>> chip2Ds_;
 	// マップ全体の大きさ(矩形)
 	YMath::Vec2 rect_;
 	// チップ1個分の大きさ
@@ -74,6 +76,4 @@ private:
 	bool CollisionMap(const float left, const float right, const float top, const float bottom);
 	// チップごとのアタリ判定
 	bool CollisionChip(const int x, const int y);
-	// チップ描画
-	void DrawChip(const size_t x, const size_t y, const size_t z, const YGame::ViewProjection& vp);
 };

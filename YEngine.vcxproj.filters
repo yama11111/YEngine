@@ -115,6 +115,9 @@
     <Filter Include="Coll">
       <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Staging\UI">
+      <UniqueIdentifier>{5763683f-f3c1-46f0-8183-9a71a100d6a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\CalcTransform.cpp">
@@ -194,9 +197,6 @@
     </ClCompile>
     <ClCompile Include="GameUtillity\3D\BillboardCommon.cpp">
       <Filter>GameUtil\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Chara\Slime.cpp">
-      <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Enemy.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
@@ -299,6 +299,27 @@
     </ClCompile>
     <ClCompile Include="Base\DX\DescriptorHeap.cpp">
       <Filter>Base\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\AttackActor.cpp">
+      <Filter>Staging\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\ChargeActor.cpp">
+      <Filter>Staging\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\DeadActor.cpp">
+      <Filter>Staging\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\PushUIDrawer.cpp">
+      <Filter>Staging\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\HPUIDrawer.cpp">
+      <Filter>Staging\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\CountUIDrawer.cpp">
+      <Filter>Staging\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Slime.cpp">
+      <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -493,6 +514,24 @@
     </ClInclude>
     <ClInclude Include="Base\DX\DescriptorHeap.h">
       <Filter>Base\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\AttackActor.h">
+      <Filter>Staging\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\ChargeActor.h">
+      <Filter>Staging\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\DeadActor.h">
+      <Filter>Staging\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\PushUIDrawer.h">
+      <Filter>Staging\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\HPUIDrawer.h">
+      <Filter>Staging\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\CountUIDrawer.h">
+      <Filter>Staging\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

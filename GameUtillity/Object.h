@@ -48,5 +48,7 @@ namespace YGame
 	public:
 		// コンストラクタ
 		Object();
+		// デストラクタ
+		~Object() = default;
 	};
 }

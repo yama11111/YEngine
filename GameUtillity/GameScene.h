@@ -40,8 +40,6 @@ namespace YGame
 		UINT mapT_ = 0;
 		// マップ2D表示用画像
 		UINT mapDispT_ = 0;
-		// 背景画像
-		UINT backgroundT_ = 0;
 
 		// ----- オーディオ ----- //
 
@@ -62,6 +60,13 @@ namespace YGame
 		std::unique_ptr<Model> cubeM_ = nullptr;
 		// 天球モデル
 		std::unique_ptr<Model> skydomeM_ = nullptr;
+		// スライムモデル
+		std::unique_ptr<Model> slimeM_ = nullptr;
+		
+
+		std::unique_ptr<Model> bodyM_ = nullptr;
+		std::unique_ptr<Model> tailM_ = nullptr;
+		std::unique_ptr<Model> faceM_ = nullptr;
 
 		// ----- ビルボード ----- //
 
@@ -96,19 +101,14 @@ namespace YGame
 		bool isBreak_ = false;
 
 #pragma endregion
-
-		// プレイヤー
-		std::unique_ptr<Player> player_ = nullptr;
-
-		// エネミー
-		EnemyManager enemyMan_;
-		std::unique_ptr<Slime> enemy_ = nullptr;
+		// 
+		Object player_;
 
 		// マップマネージャー
 		MapChipManager mapMan_;
 
-		// 背景
-		Object background_;
+		// パーティクルマネージャー
+		YParticle::ParticleManager particleMan_;
 
 		// 天球
 		Skydome skydome_;

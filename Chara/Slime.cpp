@@ -39,7 +39,7 @@ void Slime::Reset(const InitStatus& state)
 		{
 			state.pos_,
 			YMath::AdjustAngle(YMath::Vec3(0, 0, -1)),
-			{5.0f,5.0f,5.0f}
+			{10.0f,10.0f,10.0f}
 		}
 	);
 	InitializeCharaStatus({ HP, CheatTime });

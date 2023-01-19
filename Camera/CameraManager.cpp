@@ -16,7 +16,7 @@ void CameraManager::UpdateFollow()
 {
 	if (pFollowPoint_ == nullptr) { return; }
 
-	Vec3 p = *pFollowPoint_ + Vec3(+150.0f, +50.0f, -75.0f);
+	Vec3 p = Vec3(+150.0f, -10.0f, -40.0f + pFollowPoint_->z_);
 	camera_.pos_ = p;
 }
 

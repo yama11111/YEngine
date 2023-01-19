@@ -97,6 +97,9 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\AttackActor.cpp" />
+    <ClCompile Include="Actor\ChargeActor.cpp" />
+    <ClCompile Include="Actor\DeadActor.cpp" />
     <ClCompile Include="Actor\HitActor.cpp" />
     <ClCompile Include="Actor\SlimeActor.cpp" />
     <ClCompile Include="Base\DX\ConstBuffer.cpp" />
@@ -158,8 +161,14 @@
     <ClCompile Include="Scene\Blackout.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="UI\CountUIDrawer.cpp" />
+    <ClCompile Include="UI\HPUIDrawer.cpp" />
+    <ClCompile Include="UI\PushUIDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\AttackActor.h" />
+    <ClInclude Include="Actor\ChargeActor.h" />
+    <ClInclude Include="Actor\DeadActor.h" />
     <ClInclude Include="Actor\HitActor.h" />
     <ClInclude Include="Actor\SlimeActor.h" />
     <ClInclude Include="Base\DX\ConstBuffer.h" />
@@ -224,6 +233,9 @@
     <ClInclude Include="Scene\SceneChangeFrame.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Skydome.h" />
+    <ClInclude Include="UI\CountUIDrawer.h" />
+    <ClInclude Include="UI\HPUIDrawer.h" />
+    <ClInclude Include="UI\PushUIDrawer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Billboard.hlsli" />

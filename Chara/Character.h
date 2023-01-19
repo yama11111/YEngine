@@ -5,6 +5,7 @@
 #include "MapChipCollider.h"
 #include "SlimeActor.h"
 #include "HitActor.h"
+#include "ParticleManager.h"
 
 class MapChipPointer;
 
@@ -40,8 +41,17 @@ public:
 protected:
 	// 静的マップチップポインタ
 	static MapChipPointer* pMapChip_;
+	// 静的パーティクルマネージャーポインタ
+	static YParticle::ParticleManager* pParticleMan_;
+public:
+	// 静的初期化設定
+	struct StaticInitStatus 
+	{
+		MapChipPointer* pMapChip_;
+		YParticle::ParticleManager* pParticleMan_;
+	};
 public:
 	// 静的マップチップポインタ設定
-	static void SetMapChipPointer(MapChipPointer* pMapChip);
+	static void SetMapChipPointer(const StaticInitStatus& state);
 };
 

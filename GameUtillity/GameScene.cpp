@@ -51,12 +51,10 @@ void GameScene::Load()
 	//enemyT_	 = pTexManager_->Load("enemy.png", true);
 
 	playerT_	 = pTexManager_->Load("player.png", true);
-	enemyT_		 = pTexManager_->Load("enemy.png", true);
+	enemyT_		 = pTexManager_->Load("e.png", false);
 
 	mapT_		 = pTexManager_->Load("map.png", false);
 	mapDispT_	 = pTexManager_->Load("mapDisp.png", false);
-
-	backgroundT_ = pTexManager_->Load("back.png", false);
 
 	debriT_		 = pTexManager_->Load("debri.png", true);
 
@@ -73,8 +71,12 @@ void GameScene::Load()
 	// ------- モデル ------- //
 
 	cubeM_.reset(Model::Create());
-	//skydomeM_.reset(Model::Load("skydome"));
 	skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false  }));
+	slimeM_.reset(Model::Load({ "slime/", "slime.obj", false, false }));
+
+	bodyM_.reset(Model::Load({ "player_body/", "player_body.obj", false, false }));
+	tailM_.reset(Model::Load({ "player_tail/", "player_tail.obj", false, false }));
+	faceM_.reset(Model::Load({ "player_face/", "player_face.obj", false, false }));
 
 	// ----- ビルボード ----- //
 
@@ -89,10 +91,9 @@ void GameScene::Load()
 	Blackout::StaticInitialize({ curtenS_.get() });
 	Floor::StaticIntialize({ cubeM_.get(), plainT_ });
 
-	Character::SetMapChipPointer(mapMan_.CurrentMapPointer());
+	Character::SetMapChipPointer({ mapMan_.CurrentMapPointer(), &particleMan_ });
 
-	Player::StaticIntialize({ cubeM_.get(), playerT_ });
-	Slime::StaticIntialize({ cubeM_.get(), enemyT_ });
+	YParticle::ParticleManager::StaticInitialize({ cubeM_.get()});
 }
 #pragma endregion
 
@@ -103,25 +104,16 @@ void GameScene::Initialize()
 	// 乱数初期化
 	Srand();
 
+	player_.Initialize({ {}, YMath::AdjustAngle({0,0,-1}), {10.0f,10.0f,10.0f} });
+
 	// マップ初期化
-	mapMan_.Initialize({ 0, {}, { 7.5f, 7.5f, 7.5f } });
-
-	// プレイヤー初期化
-	player_ = std::make_unique<Player>();
-	player_->Initialize({ {0.0f, 80.0f, 50.0f} });
-
-	 // エネミー初期化
-	enemy_ = std::make_unique<Slime>();
-	enemy_->Initialize({ {0.0f, 80.0f, 175.0f} });
-
-	// 背景初期化
-	background_.Initialize({});
+	mapMan_.Initialize({ 0, {}, { 25.0f, 7.5f, 7.5f } });
 
 	// 天球初期化
-	skydome_.Initialize(skydomeM_.get());
+	skydome_.Initialize(&player_.pos_, skydomeM_.get());
 
 	// カメラ初期化
-	cameraMan_.SetFollowPoint(player_->PosPointer());
+	cameraMan_.SetFollowPoint(&player_.pos_);
 	cameraMan_.Initialize();
 
 	// ビュープロジェクション初期化
@@ -130,9 +122,12 @@ void GameScene::Initialize()
 	// アタリ判定マネージャー初期化
 	collMan_.Initialize();
 
+	// パーティクルマネージャー初期化
+	particleMan_.Initialize();
+
 	// シーンマネージャー初期化
 	sceneMan_.Initialize();
-	
+
 #pragma region Team
 		blocks_.resize(num_);
 		moves_.resize(num_);
@@ -218,10 +213,6 @@ void GameScene::Update()
 	// リセット
 	if (keys_->IsTrigger(DIK_R))
 	{
-		// プレイヤー
-		player_->Reset({ {0.0f, 80.0f, 25.0f} });
-		// エネミー
-		enemy_->Reset({ {0.0f, 80.0f, 175.0f} });
 
 		collMan_.Initialize();
 
@@ -238,18 +229,19 @@ void GameScene::Update()
 
 	if (sceneMan_.GetScene() == Scene::TITLE)
 	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
-	{
-
+		
 	}
 	else if (sceneMan_.GetScene() == Scene::PLAY)
 	{
+		// マップマネージャー
+		mapMan_.Update();
 
-	}
-	else if (sceneMan_.GetScene() == Scene::PAUSE)
-	{
+		// カメラ
+		cameraMan_.Update();
+
+		// ビュープロジェクション
+		vp_ = cameraMan_.GetViewProjection();
+		vp_.Update();
 
 	}
 	else if (sceneMan_.GetScene() == Scene::CLEAR)
@@ -261,42 +253,11 @@ void GameScene::Update()
 
 	}
 
-	// マップマネージャー
-	mapMan_.Update();
-
-	// プレイヤー
-	if (keys_->IsTrigger(DIK_SPACE)) { player_->Jump(); }
-	if (keys_->IsTrigger(DIK_RETURN)) { player_->Attack(); }
-
-	player_->SpeedRef().z_ = keys_->Horizontal(Keys::MoveStandard::WASD) * 3.0f;
-	//player_->SpeedRef().y_ = -keys_->Vertical(Keys::MoveStandard::WASD) * 3.0f;
-
-	player_->Update();
-
-	collMan_.PushBack(player_.get());
-
-	// エネミー
-	
-	//enemy_.pos_.z_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.2f;
-	//enemy_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.2f;
-
-	enemy_->Update();
-
-	collMan_.PushBack(enemy_.get());
+	// パーティクルマネージャー
+	particleMan_.Update();
 
 	// スカイドーム
 	skydome_.Update();
-
-	// カメラ
-	//camera_.pos_.x_ += +keys_->Horizontal(Keys::MoveStandard::Arrow) * 0.8f;
-	//camera_.pos_.y_ += -keys_->Vertical(Keys::MoveStandard::Arrow) * 0.8f;
-	//camera_.rota_.y_ += +keys_->Horizontal(Keys::MoveStandard::WASD) * 0.02f;
-	//camera_.rota_.x_ += +keys_->Vertical(Keys::MoveStandard::WASD) * 0.02f;
-	cameraMan_.Update();
-
-	// ビュープロジェクション
-	vp_ = cameraMan_.GetViewProjection();
-	vp_.Update();
 
 	// シーンマネージャー
 	sceneMan_.Update();
@@ -377,48 +338,37 @@ void GameScene::DrawBackSprites()
 
 		}
 	}
-
-	windowS_->Draw(background_, backgroundT_);
 }
 
 void GameScene::DrawModels()
 {
-	{
-		if (sceneMan_.GetScene() == Scene::TITLE)
-		{
-
-		}
-		else if (sceneMan_.GetScene() == Scene::TUTORIAL)
-		{
-
-		}
-		else if (sceneMan_.GetScene() == Scene::PLAY)
-		{
-
-		}
-		else if (sceneMan_.GetScene() == Scene::PAUSE)
-		{
-
-		}
-		else if (sceneMan_.GetScene() == Scene::CLEAR)
-		{
-
-		}
-		else if (sceneMan_.GetScene() == Scene::OVER)
-		{
-
-		}
-	}
-
 	// 天球
 	//skydome_.Draw(vp_);
 
-	// player
-	player_->Draw(vp_);
-	// enemy
-	enemy_->Draw(vp_);
-	// map
-	mapMan_.Draw(vp_);
+	if (sceneMan_.GetScene() == Scene::TITLE)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::PLAY)
+	{
+		
+		// map
+		mapMan_.Draw(vp_);
+	}
+	else if (sceneMan_.GetScene() == Scene::CLEAR)
+	{
+
+	}
+	else if (sceneMan_.GetScene() == Scene::OVER)
+	{
+
+	}
+
+	bodyM_->Draw(player_, vp_);
+	tailM_->Draw(player_, vp_);
+	faceM_->Draw(player_, vp_);
+
+	particleMan_.Draw(vp_);
 
 #pragma region Team
 
@@ -480,31 +430,19 @@ void GameScene::DrawFrontSprites()
 {
 	if (sceneMan_.GetScene() == Scene::TITLE)
 	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::TUTORIAL)
-	{
-
+		
 	}
 	else if (sceneMan_.GetScene() == Scene::PLAY)
 	{
-
-	}
-	else if (sceneMan_.GetScene() == Scene::PAUSE)
-	{
-
+		// map
+		mapMan_.Draw2D();
 	}
 	else if (sceneMan_.GetScene() == Scene::CLEAR)
 	{
-
 	}
 	else if (sceneMan_.GetScene() == Scene::OVER)
 	{
-
 	}
-
-	// map
-	mapMan_.Draw2D();
 
 	// scene
 	sceneMan_.Draw();
