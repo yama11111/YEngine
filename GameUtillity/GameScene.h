@@ -20,6 +20,7 @@
 #include "Lerp.h"
 #include "Timer.h"
 #include "Power.h"
+#include <array>
 
 namespace YGame
 {
@@ -63,10 +64,7 @@ namespace YGame
 		// スライムモデル
 		std::unique_ptr<Model> slimeM_ = nullptr;
 		
-
-		std::unique_ptr<Model> bodyM_ = nullptr;
-		std::unique_ptr<Model> tailM_ = nullptr;
-		std::unique_ptr<Model> faceM_ = nullptr;
+		std::array<std::unique_ptr<Model>, 3> playerMods_;
 
 		// ----- ビルボード ----- //
 
@@ -74,35 +72,15 @@ namespace YGame
 #pragma endregion
 #pragma region ゲームオブジェクト
 
-#pragma region Team
-
-		// 破片画像
-		UINT debriT_ = 0;
-
-		// 破片ビルボード
-		std::unique_ptr<Billboard> debriB_ = nullptr;
-
-		const size_t num_ = 3;
-		std::vector<Object> blocks_;
-		std::vector<YMath::Ease<YMath::Vec3>> moves_;
-		std::vector<YMath::BezierEase> scales_;
-		const int time = 10;
-		std::vector<YMath::Power> times_;
-
-		Object block_;
-		const size_t num2_ = 15;
-		std::vector<Object> debris_;
-		std::vector<YMath::Ease<YMath::Vec3>> moves2_;
-		std::vector<YMath::Ease<YMath::Vec3>> rotas2_;
-		std::vector<YMath::BezierEase> scales2_;
-		std::vector<YMath::Ease<float>> alphas2_;
-		const int time2 = 20;
-		YMath::Timer timer2_;
-		bool isBreak_ = false;
-
-#pragma endregion
-		// 
+		// プレイヤー
 		Object player_;
+		std::array<Object, 3> playerModTranss_;
+		enum class Parts 
+		{
+			Body,
+			Face,
+			Tail,
+		};
 
 		// マップマネージャー
 		MapChipManager mapMan_;

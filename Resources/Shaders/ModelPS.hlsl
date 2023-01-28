@@ -5,10 +5,16 @@ SamplerState smp : register(s0);      // 0番スロットに設定されたサンプラー
 
 float4 main(PSInput input) : SV_TARGET
 {
-	float4 texcolor = float4(tex.Sample(smp, input.uv));
 	float3 light = normalize(float3(1, -1, 1)); // 右下奥 向きのライト
 	float diffuse = saturate(dot(-light, input.normal)); // diffuseを[0,1]の範囲にclampする
 	float3 shaderColor = mAmbient; // アンビエント項
 	shaderColor += mDiffuse * diffuse; // ディフューズ項
+	float4 texcolor = float4(tex.Sample(smp, input.uv));
+	//return float4(texcolor.rgb * shaderColor, texcolor.a * mAlpha) * color; // 輝度をRGBに代入して出力
 	return float4(texcolor.rgb * shaderColor, texcolor.a * mAlpha) * color; // 輝度をRGBに代入して出力
 }
+
+//float4 main(PSInput input) : SV_TARGET
+//{
+//	return tex.Sample(smp, input.uv) * color;
+//}

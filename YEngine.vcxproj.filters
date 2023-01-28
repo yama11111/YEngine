@@ -16,18 +16,6 @@
     <Filter Include="Base">
       <UniqueIdentifier>{6fc17274-b719-44d8-b216-183b62662b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Scene">
-      <UniqueIdentifier>{2cb10d40-328b-4f63-aa29-261eed6039e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene">
-      <UniqueIdentifier>{ef2cdaf3-a69b-4a2b-a6cf-285227ed18ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Camera">
-      <UniqueIdentifier>{2efd8218-5be8-4f58-a619-d3d296efd583}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Camera">
-      <UniqueIdentifier>{f2868191-cda5-4bf4-96e5-e5545d0173f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
     </Filter>
@@ -36,24 +24,6 @@
     </Filter>
     <Filter Include="GameUtil">
       <UniqueIdentifier>{b7e1ea2a-a1ae-47a4-8e59-6798e60a7a6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input\cpp">
-      <UniqueIdentifier>{b1eba106-9cb5-4638-9329-cdb20074e483}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input\h">
-      <UniqueIdentifier>{77d3bcbd-1f86-43d7-bbda-1e6dee63762b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Billborad">
-      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Model">
-      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Sprite">
-      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Chara">
       <UniqueIdentifier>{0b942f3e-a737-4924-a87c-6be14969d868}</UniqueIdentifier>
@@ -85,38 +55,56 @@
     <Filter Include="Math\Transform">
       <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Object">
-      <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Object\MapChip">
-      <UniqueIdentifier>{80d5f6b8-0baa-4854-85ad-f4bcf053533b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Object">
-      <UniqueIdentifier>{84750715-bdaa-4f34-a88f-129c4980a1bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Object\MapChip">
-      <UniqueIdentifier>{67b356f0-36c1-45a8-b28d-db858d8c8420}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Chara\Util">
       <UniqueIdentifier>{e4747e7d-1459-4d54-bd2d-c0cd0d2cf5f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Chara\Util">
       <UniqueIdentifier>{67afe819-1f04-4c26-8a43-e29b287c246e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Staging">
+    <Filter Include="Draw">
       <UniqueIdentifier>{8e740d28-a916-405c-ae72-40cd8fc7ce13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Staging\Actor">
+    <Filter Include="Draw\Actor">
       <UniqueIdentifier>{b51d8279-eace-408e-9cac-424fbc6b1cab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Staging\Particle">
+    <Filter Include="Draw\Particle">
       <UniqueIdentifier>{bb4dabc7-ee27-47c5-b886-28303885caef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Coll">
+    <Filter Include="Draw\UI">
+      <UniqueIdentifier>{5763683f-f3c1-46f0-8183-9a71a100d6a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Camera">
+      <UniqueIdentifier>{2efd8218-5be8-4f58-a619-d3d296efd583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Coll">
       <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Staging\UI">
-      <UniqueIdentifier>{5763683f-f3c1-46f0-8183-9a71a100d6a7}</UniqueIdentifier>
+    <Filter Include="Draw\Shader">
+      <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Shader\Billborad">
+      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Shader\Model">
+      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Shader\Sprite">
+      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Stuff">
+      <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\SceneChange">
+      <UniqueIdentifier>{47285198-de5e-4f87-a5a7-3414dbf214fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Scene">
+      <UniqueIdentifier>{c1c42da9-0f13-4abb-921a-eb77cc05055d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Drawer">
+      <UniqueIdentifier>{b4d5dfe1-b159-4153-a64e-6394fce54446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\MapChip">
+      <UniqueIdentifier>{18d033b2-cb29-495e-ae8b-c1bf43090687}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,18 +126,6 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Input\InputManager.cpp">
-      <Filter>Input\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Keys.cpp">
-      <Filter>Input\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Mouse.cpp">
-      <Filter>Input\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Pad.cpp">
-      <Filter>Input\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\GameScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -168,27 +144,6 @@
     <ClCompile Include="GameUtillity\3D\Model.cpp">
       <Filter>GameUtil\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\Camera.cpp">
-      <Filter>ソース ファイル\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\CameraManager.cpp">
-      <Filter>ソース ファイル\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="MapChip\MapChip.cpp">
-      <Filter>ソース ファイル\Object\MapChip</Filter>
-    </ClCompile>
-    <ClCompile Include="MapChip\MapChipCollider.cpp">
-      <Filter>ソース ファイル\Object\MapChip</Filter>
-    </ClCompile>
-    <ClCompile Include="MapChip\MapChipManager.cpp">
-      <Filter>ソース ファイル\Object\MapChip</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\Blackout.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp">
       <Filter>GameUtil\2D</Filter>
     </ClCompile>
@@ -206,9 +161,6 @@
     </ClCompile>
     <ClCompile Include="Chara\Player.cpp">
       <Filter>ソース ファイル\Chara\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor\SlimeActor.cpp">
-      <Filter>Staging\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\ScreenDesc.cpp">
       <Filter>Base</Filter>
@@ -264,12 +216,6 @@
     <ClCompile Include="Math\Timer.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Floor.cpp">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Skydome.cpp">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Attack.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
@@ -279,91 +225,97 @@
     <ClCompile Include="Chara\CharaStatus.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\HitActor.cpp">
-      <Filter>Staging\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision\Collider.cpp">
-      <Filter>Coll</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision\CollisionManager.cpp">
-      <Filter>Coll</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\Particle.cpp">
-      <Filter>Staging\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleManager.cpp">
-      <Filter>Staging\Particle</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\AttackManager.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\DescriptorHeap.cpp">
       <Filter>Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\AttackActor.cpp">
-      <Filter>Staging\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor\ChargeActor.cpp">
-      <Filter>Staging\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor\DeadActor.cpp">
-      <Filter>Staging\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\PushUIDrawer.cpp">
-      <Filter>Staging\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\HPUIDrawer.cpp">
-      <Filter>Staging\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\CountUIDrawer.cpp">
-      <Filter>Staging\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Slime.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Keys.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Mouse.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Pad.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Camera\Camera.cpp">
+      <Filter>GameUtil\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Camera\CameraManager.cpp">
+      <Filter>GameUtil\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Collision\Collider.cpp">
+      <Filter>GameUtil\Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp">
+      <Filter>GameUtil\Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\MapChip\MapChip.cpp">
+      <Filter>GameUtil\MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\MapChip\MapChipCollider.cpp">
+      <Filter>GameUtil\MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp">
+      <Filter>GameUtil\MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Scene\SceneManager.cpp">
+      <Filter>GameUtil\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Stuff\Floor.cpp">
+      <Filter>GameUtil\Stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Stuff\Skydome.cpp">
+      <Filter>GameUtil\Stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Actor\AttackActor.cpp">
+      <Filter>Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Actor\ChargeActor.cpp">
+      <Filter>Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Actor\DeadActor.cpp">
+      <Filter>Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Actor\HitActor.cpp">
+      <Filter>Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Actor\SlimeActor.cpp">
+      <Filter>Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Particle\Particle.cpp">
+      <Filter>Draw\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Particle\ParticleManager.cpp">
+      <Filter>Draw\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\SceneChange\Blackout.cpp">
+      <Filter>Draw\SceneChange</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\UI\CountUIDrawer.cpp">
+      <Filter>Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\UI\HPUIDrawer.cpp">
+      <Filter>Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\UI\PushUIDrawer.cpp">
+      <Filter>Draw\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputManager.h">
-      <Filter>Input\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Keys.h">
-      <Filter>Input\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Mouse.h">
-      <Filter>Input\h</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Pad.h">
-      <Filter>Input\h</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\Camera.h">
-      <Filter>ヘッダー ファイル\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\CameraManager.h">
-      <Filter>ヘッダー ファイル\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MapChip\MapChip.h">
-      <Filter>ヘッダー ファイル\Object\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="MapChip\MapChipCollider.h">
-      <Filter>ヘッダー ファイル\Object\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="MapChip\MapChipManager.h">
-      <Filter>ヘッダー ファイル\Object\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Blackout.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneChangeFrame.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneManager.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Chara\Slime.h">
       <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
@@ -376,9 +328,6 @@
     </ClInclude>
     <ClInclude Include="Chara\Player.h">
       <Filter>ヘッダー ファイル\Chara\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor\SlimeActor.h">
-      <Filter>Staging\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\ScreenDesc.h">
       <Filter>Base</Filter>
@@ -473,12 +422,6 @@
     <ClInclude Include="Math\Timer.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Skydome.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\Attack.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
@@ -491,81 +434,126 @@
     <ClInclude Include="Chara\CharaStatus.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\HitActor.h">
-      <Filter>Staging\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision\Collider.h">
-      <Filter>Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision\CollisionConfig.h">
-      <Filter>Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision\CollisionManager.h">
-      <Filter>Coll</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\Particle.h">
-      <Filter>Staging\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleManager.h">
-      <Filter>Staging\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\AttackManager.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\DescriptorHeap.h">
       <Filter>Base\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\AttackActor.h">
-      <Filter>Staging\Actor</Filter>
+    <ClInclude Include="Input\InputManager.h">
+      <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\ChargeActor.h">
-      <Filter>Staging\Actor</Filter>
+    <ClInclude Include="Input\Keys.h">
+      <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\DeadActor.h">
-      <Filter>Staging\Actor</Filter>
+    <ClInclude Include="Input\Mouse.h">
+      <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="UI\PushUIDrawer.h">
-      <Filter>Staging\UI</Filter>
+    <ClInclude Include="Input\Pad.h">
+      <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="UI\HPUIDrawer.h">
-      <Filter>Staging\UI</Filter>
+    <ClInclude Include="GameUtillity\Camera\Camera.h">
+      <Filter>GameUtil\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="UI\CountUIDrawer.h">
-      <Filter>Staging\UI</Filter>
+    <ClInclude Include="GameUtillity\Camera\CameraManager.h">
+      <Filter>GameUtil\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\Collider.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\CollisionConfig.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\CollisionManager.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\MapChip\MapChip.h">
+      <Filter>GameUtil\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\MapChip\MapChipCollider.h">
+      <Filter>GameUtil\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\MapChip\MapChipManager.h">
+      <Filter>GameUtil\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Scene\SceneManager.h">
+      <Filter>GameUtil\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Stuff\Floor.h">
+      <Filter>GameUtil\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Stuff\Skydome.h">
+      <Filter>GameUtil\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Actor\AttackActor.h">
+      <Filter>Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Actor\ChargeActor.h">
+      <Filter>Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Actor\DeadActor.h">
+      <Filter>Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Actor\HitActor.h">
+      <Filter>Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Actor\SlimeActor.h">
+      <Filter>Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Particle\Particle.h">
+      <Filter>Draw\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Particle\ParticleManager.h">
+      <Filter>Draw\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\SceneChange\Blackout.h">
+      <Filter>Draw\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\SceneChange\SceneChangeFrame.h">
+      <Filter>Draw\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\UI\CountUIDrawer.h">
+      <Filter>Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\UI\HPUIDrawer.h">
+      <Filter>Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\UI\PushUIDrawer.h">
+      <Filter>Draw\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Billboard.hlsli">
-      <Filter>Shader\Billborad</Filter>
+      <Filter>Draw\Shader\Billborad</Filter>
     </None>
     <None Include="Resources\Shaders\Model.hlsli">
-      <Filter>Shader\Model</Filter>
+      <Filter>Draw\Shader\Model</Filter>
     </None>
     <None Include="Resources\Shaders\Sprite.hlsli">
-      <Filter>Shader\Sprite</Filter>
+      <Filter>Draw\Shader\Sprite</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\BillboardGS.hlsl">
-      <Filter>Shader\Billborad</Filter>
+      <Filter>Draw\Shader\Billborad</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\BillboardPS.hlsl">
-      <Filter>Shader\Billborad</Filter>
+      <Filter>Draw\Shader\Billborad</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\BillboardVS.hlsl">
-      <Filter>Shader\Billborad</Filter>
+      <Filter>Draw\Shader\Billborad</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
-      <Filter>Shader\Model</Filter>
+      <Filter>Draw\Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
-      <Filter>Shader\Model</Filter>
+      <Filter>Draw\Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
-      <Filter>Shader\Sprite</Filter>
+      <Filter>Draw\Shader\Sprite</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
-      <Filter>Shader\Sprite</Filter>
+      <Filter>Draw\Shader\Sprite</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

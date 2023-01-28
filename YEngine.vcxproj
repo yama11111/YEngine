@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)Collision;$(ProjectDir)Particle;$(ProjectDir)Actor;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)Chara;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\include;$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)GameUtillity\Camera;$(ProjectDir)GameUtillity\Scene;$(ProjectDir)GameUtillity\MapChip;$(ProjectDir)GameUtillity\Stuff;$(ProjectDir)Draw\Actor;$(ProjectDir)Draw\Drawer;$(ProjectDir)Draw\Particle;$(ProjectDir)Draw\SceneChange;$(ProjectDir)Draw\UI;$(ProjectDir)Chara;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -79,7 +79,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)Collision;$(ProjectDir)Particle;$(ProjectDir)Actor;$(ProjectDir)Camera;$(ProjectDir)Scene;$(ProjectDir)Chara;$(ProjectDir)MapChip;$(ProjectDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\include;$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)GameUtillity\Camera;$(ProjectDir)GameUtillity\Scene;$(ProjectDir)GameUtillity\MapChip;$(ProjectDir)GameUtillity\Stuff;$(ProjectDir)Draw\Actor;$(ProjectDir)Draw\Drawer;$(ProjectDir)Draw\Particle;$(ProjectDir)Draw\SceneChange;$(ProjectDir)Draw\UI;$(ProjectDir)Chara;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -97,11 +97,6 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actor\AttackActor.cpp" />
-    <ClCompile Include="Actor\ChargeActor.cpp" />
-    <ClCompile Include="Actor\DeadActor.cpp" />
-    <ClCompile Include="Actor\HitActor.cpp" />
-    <ClCompile Include="Actor\SlimeActor.cpp" />
     <ClCompile Include="Base\DX\ConstBuffer.cpp" />
     <ClCompile Include="Base\DX\DescriptorHeap.cpp" />
     <ClCompile Include="Base\DX\GPUResource.cpp" />
@@ -113,8 +108,6 @@
     <ClCompile Include="Base\DX\YAssert.cpp" />
     <ClCompile Include="Base\DX\YDirectX.cpp" />
     <ClCompile Include="Base\YWindowsApp.cpp" />
-    <ClCompile Include="Camera\Camera.cpp" />
-    <ClCompile Include="Camera\CameraManager.cpp" />
     <ClCompile Include="Chara\Attack.cpp" />
     <ClCompile Include="Chara\AttackManager.cpp" />
     <ClCompile Include="Chara\Character.cpp" />
@@ -123,9 +116,17 @@
     <ClCompile Include="Chara\EnemyManager.cpp" />
     <ClCompile Include="Chara\Player.cpp" />
     <ClCompile Include="Chara\Slime.cpp" />
-    <ClCompile Include="Collision\Collider.cpp" />
-    <ClCompile Include="Collision\CollisionManager.cpp" />
-    <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Draw\Actor\AttackActor.cpp" />
+    <ClCompile Include="Draw\Actor\ChargeActor.cpp" />
+    <ClCompile Include="Draw\Actor\DeadActor.cpp" />
+    <ClCompile Include="Draw\Actor\HitActor.cpp" />
+    <ClCompile Include="Draw\Actor\SlimeActor.cpp" />
+    <ClCompile Include="Draw\Particle\Particle.cpp" />
+    <ClCompile Include="Draw\Particle\ParticleManager.cpp" />
+    <ClCompile Include="Draw\SceneChange\Blackout.cpp" />
+    <ClCompile Include="Draw\UI\CountUIDrawer.cpp" />
+    <ClCompile Include="Draw\UI\HPUIDrawer.cpp" />
+    <ClCompile Include="Draw\UI\PushUIDrawer.cpp" />
     <ClCompile Include="GameUtillity\2D\Sprite.cpp" />
     <ClCompile Include="GameUtillity\2D\SpriteCommon.cpp" />
     <ClCompile Include="GameUtillity\2D\TextureManager.cpp" />
@@ -135,17 +136,24 @@
     <ClCompile Include="GameUtillity\3D\Model.cpp" />
     <ClCompile Include="GameUtillity\3D\ModelCommon.cpp" />
     <ClCompile Include="GameUtillity\AudioManager.cpp" />
+    <ClCompile Include="GameUtillity\Camera\Camera.cpp" />
+    <ClCompile Include="GameUtillity\Camera\CameraManager.cpp" />
+    <ClCompile Include="GameUtillity\Collision\Collider.cpp" />
+    <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
     <ClCompile Include="GameUtillity\GameScene.cpp" />
+    <ClCompile Include="GameUtillity\MapChip\MapChip.cpp" />
+    <ClCompile Include="GameUtillity\MapChip\MapChipCollider.cpp" />
+    <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp" />
     <ClCompile Include="GameUtillity\Object.cpp" />
+    <ClCompile Include="GameUtillity\Scene\SceneManager.cpp" />
+    <ClCompile Include="GameUtillity\Stuff\Floor.cpp" />
+    <ClCompile Include="GameUtillity\Stuff\Skydome.cpp" />
     <ClCompile Include="GameUtillity\ViewProjection.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Input\Keys.cpp" />
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapChip\MapChip.cpp" />
-    <ClCompile Include="MapChip\MapChipCollider.cpp" />
-    <ClCompile Include="MapChip\MapChipManager.cpp" />
     <ClCompile Include="Math\CalcTransform.cpp" />
     <ClCompile Include="Math\Lerp.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
@@ -156,21 +164,8 @@
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Math\Vec4.cpp" />
     <ClCompile Include="Math\MathUtillity.cpp" />
-    <ClCompile Include="Particle\Particle.cpp" />
-    <ClCompile Include="Particle\ParticleManager.cpp" />
-    <ClCompile Include="Scene\Blackout.cpp" />
-    <ClCompile Include="Scene\SceneManager.cpp" />
-    <ClCompile Include="Skydome.cpp" />
-    <ClCompile Include="UI\CountUIDrawer.cpp" />
-    <ClCompile Include="UI\HPUIDrawer.cpp" />
-    <ClCompile Include="UI\PushUIDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor\AttackActor.h" />
-    <ClInclude Include="Actor\ChargeActor.h" />
-    <ClInclude Include="Actor\DeadActor.h" />
-    <ClInclude Include="Actor\HitActor.h" />
-    <ClInclude Include="Actor\SlimeActor.h" />
     <ClInclude Include="Base\DX\ConstBuffer.h" />
     <ClInclude Include="Base\DX\DescriptorHeap.h" />
     <ClInclude Include="Base\DX\GPUResource.h" />
@@ -182,8 +177,6 @@
     <ClInclude Include="Base\DX\YAssert.h" />
     <ClInclude Include="Base\DX\YDirectX.h" />
     <ClInclude Include="Base\YWindowsApp.h" />
-    <ClInclude Include="Camera\Camera.h" />
-    <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Chara\Attack.h" />
     <ClInclude Include="Chara\AttackManager.h" />
     <ClInclude Include="Chara\CharaConfig.h" />
@@ -193,11 +186,19 @@
     <ClInclude Include="Chara\EnemyManager.h" />
     <ClInclude Include="Chara\Player.h" />
     <ClInclude Include="Chara\Slime.h" />
-    <ClInclude Include="Collision\Collider.h" />
-    <ClInclude Include="Collision\CollisionConfig.h" />
-    <ClInclude Include="Collision\CollisionManager.h" />
     <ClInclude Include="Def.h" />
-    <ClInclude Include="Floor.h" />
+    <ClInclude Include="Draw\Actor\AttackActor.h" />
+    <ClInclude Include="Draw\Actor\ChargeActor.h" />
+    <ClInclude Include="Draw\Actor\DeadActor.h" />
+    <ClInclude Include="Draw\Actor\HitActor.h" />
+    <ClInclude Include="Draw\Actor\SlimeActor.h" />
+    <ClInclude Include="Draw\Particle\Particle.h" />
+    <ClInclude Include="Draw\Particle\ParticleManager.h" />
+    <ClInclude Include="Draw\SceneChange\Blackout.h" />
+    <ClInclude Include="Draw\SceneChange\SceneChangeFrame.h" />
+    <ClInclude Include="Draw\UI\CountUIDrawer.h" />
+    <ClInclude Include="Draw\UI\HPUIDrawer.h" />
+    <ClInclude Include="Draw\UI\PushUIDrawer.h" />
     <ClInclude Include="GameUtillity\2D\Sprite.h" />
     <ClInclude Include="GameUtillity\2D\SpriteCommon.h" />
     <ClInclude Include="GameUtillity\2D\TextureManager.h" />
@@ -207,16 +208,24 @@
     <ClInclude Include="GameUtillity\3D\Model.h" />
     <ClInclude Include="GameUtillity\3D\ModelCommon.h" />
     <ClInclude Include="GameUtillity\AudioManager.h" />
+    <ClInclude Include="GameUtillity\Camera\Camera.h" />
+    <ClInclude Include="GameUtillity\Camera\CameraManager.h" />
+    <ClInclude Include="GameUtillity\Collision\Collider.h" />
+    <ClInclude Include="GameUtillity\Collision\CollisionConfig.h" />
+    <ClInclude Include="GameUtillity\Collision\CollisionManager.h" />
     <ClInclude Include="GameUtillity\GameScene.h" />
+    <ClInclude Include="GameUtillity\MapChip\MapChip.h" />
+    <ClInclude Include="GameUtillity\MapChip\MapChipCollider.h" />
+    <ClInclude Include="GameUtillity\MapChip\MapChipManager.h" />
     <ClInclude Include="GameUtillity\Object.h" />
+    <ClInclude Include="GameUtillity\Scene\SceneManager.h" />
+    <ClInclude Include="GameUtillity\Stuff\Floor.h" />
+    <ClInclude Include="GameUtillity\Stuff\Skydome.h" />
     <ClInclude Include="GameUtillity\ViewProjection.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Input\Keys.h" />
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="Input\Pad.h" />
-    <ClInclude Include="MapChip\MapChip.h" />
-    <ClInclude Include="MapChip\MapChipCollider.h" />
-    <ClInclude Include="MapChip\MapChipManager.h" />
     <ClInclude Include="Math\CalcTransform.h" />
     <ClInclude Include="Math\Lerp.h" />
     <ClInclude Include="Math\Mat4.h" />
@@ -227,15 +236,6 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\MathUtillity.h" />
-    <ClInclude Include="Particle\Particle.h" />
-    <ClInclude Include="Particle\ParticleManager.h" />
-    <ClInclude Include="Scene\Blackout.h" />
-    <ClInclude Include="Scene\SceneChangeFrame.h" />
-    <ClInclude Include="Scene\SceneManager.h" />
-    <ClInclude Include="Skydome.h" />
-    <ClInclude Include="UI\CountUIDrawer.h" />
-    <ClInclude Include="UI\HPUIDrawer.h" />
-    <ClInclude Include="UI\PushUIDrawer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Billboard.hlsli" />
