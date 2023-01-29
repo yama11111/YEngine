@@ -38,7 +38,7 @@ namespace YDrawer
 		// çXêV
 		void Update();
 		// ï`âÊ
-		void Draw(const YGame::ViewProjection& vp);
+		void Draw(const YGame::ViewProjection& vp, YGame::Light& light);
 	};
 }
 

@@ -16,11 +16,11 @@ void Sprite3DCommon::ShaderSet::Load(ID3DBlob* errorBlob)
 	ID3DBlob* ps = nullptr;
 
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/BillboardVS.hlsl", "main", "vs_5_0", vs, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite3DVS.hlsl", "main", "vs_5_0", vs, errorBlob);
 	// ジオメトリシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/BillboardGS.hlsl", "main", "gs_5_0", gs, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite3DGS.hlsl", "main", "gs_5_0", gs, errorBlob);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/BillboardPS.hlsl", "main", "ps_5_0", ps, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite3DPS.hlsl", "main", "ps_5_0", ps, errorBlob);
 
 	gsBlob_ = gs;
 	vsBlob_ = vs;

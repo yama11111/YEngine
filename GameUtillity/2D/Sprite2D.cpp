@@ -13,7 +13,7 @@ void Sprite2D::Draw(ObjectSprite2D& obj, Color& color, const UINT tex)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->mat_ = obj.m_ * projection_;
+	obj.cBuff_.map_->matWorld_ = obj.m_ * projection_;
 	obj.cBuff_.SetDrawCommand(SprIndex);
 
 	color.SetDrawCommand(ColIndex);
@@ -29,7 +29,7 @@ void Sprite2D::Draw(ObjectSprite2D& obj, Color& color)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->mat_ = obj.m_ * projection_;
+	obj.cBuff_.map_->matWorld_ = obj.m_ * projection_;
 	obj.cBuff_.SetDrawCommand(SprIndex);
 
 	color.SetDrawCommand(ColIndex);

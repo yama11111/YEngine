@@ -25,5 +25,4 @@ void Skydome::Update()
 
 void Skydome::Draw(YGame::ViewProjection& vp)
 {
-	pModel_->Draw(obj_, vp);
 }

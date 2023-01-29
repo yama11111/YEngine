@@ -1,4 +1,4 @@
-#include "Billboard.hlsli"
+#include "Sprite3D.hlsli"
 
 GSInput main(VSInput input)
 {

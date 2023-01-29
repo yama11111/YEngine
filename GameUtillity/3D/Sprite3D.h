@@ -29,8 +29,14 @@ namespace YGame
 		// îÒï\é¶
 		bool isInvisible_ = false;
 	public:
+		struct Status 
+		{
+			bool isXAxisBillboard_ = false;
+			bool isYAxisBillboard_ = false;
+		};
+	public:
 		// ê∂ê¨
-		static Sprite3D* Create(const bool isXAxisBillboard, const bool isYAxisBillboard);
+		static Sprite3D* Create(const Status& state, const UINT texIndex = UINT32_MAX);
 	public:
 		// ï`âÊ
 		void Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color, const UINT tex);

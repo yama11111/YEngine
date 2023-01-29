@@ -19,6 +19,7 @@ void Color::Initialize(const YMath::Vec4& color)
 
 void Color::SetDrawCommand(const UINT rootParamIndex)
 {
+	cBuff_.map_->color_ = color_;
 	cBuff_.SetDrawCommand(rootParamIndex);
 }
 
@@ -28,9 +29,8 @@ void Color::SetRGBA(const YMath::Vec4& color)
 	float g = Clamp<float>(color.g_, 0.0f, 1.0f);
 	float b = Clamp<float>(color.b_, 0.0f, 1.0f);
 	float a = Clamp<float>(color.a_, 0.0f, 1.0f);
-	Vec4 c = Vec4(r, g, b, a);
 
-	cBuff_.map_->color_ = color;
+	cBuff_.map_->color_ = Vec4(r, g, b, a);
 }
 
 void Color::SetRGBA(const UINT R, const UINT G, const UINT B, const UINT A)

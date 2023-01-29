@@ -8,9 +8,9 @@ std::array<std::unique_ptr<YGame::Model>, PlayerDrawerCommon::PartsNum_> PlayerD
 
 void PlayerDrawerCommon::StaticInitialize(const StaticInitStatus& state)
 {
-	pModels_[static_cast<size_t>(Parts::Body)].reset(YGame::Model::Load("player/player_body"));
-	pModels_[static_cast<size_t>(Parts::Face)].reset(YGame::Model::Load("player/player_face"));
-	pModels_[static_cast<size_t>(Parts::Tail)].reset(YGame::Model::Load("player/player_tail"));
+	pModels_[static_cast<size_t>(Parts::Body)].reset(YGame::Model::LoadObj("player/player_body", true));
+	pModels_[static_cast<size_t>(Parts::Face)].reset(YGame::Model::LoadObj("player/player_face", true));
+	pModels_[static_cast<size_t>(Parts::Tail)].reset(YGame::Model::LoadObj("player/player_tail", true));
 }
 
 void PlayerDrawer::Initialize(YMath::Mat4* pParent)
@@ -39,10 +39,10 @@ void PlayerDrawer::Update()
 	}
 }
 
-void PlayerDrawer::Draw(const YGame::ViewProjection& vp)
+void PlayerDrawer::Draw(const YGame::ViewProjection& vp, YGame::Light& light)
 {
 	for (size_t i = 0; i < pModels_.size(); i++)
 	{
-		pModels_[i]->Draw(objs_[i], vp);
+		pModels_[i]->Draw(objs_[i], vp, light);
 	}
 }

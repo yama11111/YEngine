@@ -15,7 +15,7 @@ void Sprite3D::Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color,
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->mat_ = obj.m_ * vp.view_ * vp.pro_;
+	obj.cBuff_.map_->matWorld_ = obj.m_ * vp.view_ * vp.pro_;
 	obj.cBuff_.map_->matBill_ = BillboardMatrix(vp);
 	obj.cBuff_.SetDrawCommand(SprIndex);
 
@@ -32,7 +32,7 @@ void Sprite3D::Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->mat_ = obj.m_ * vp.view_ * vp.pro_;
+	obj.cBuff_.map_->matWorld_ = obj.m_ * vp.view_ * vp.pro_;
 	obj.cBuff_.map_->matBill_ = BillboardMatrix(vp);
 	obj.cBuff_.SetDrawCommand(SprIndex);
 
@@ -75,13 +75,14 @@ YMath::Mat4 Sprite3D::BillboardMatrix(const ViewProjection& vp)
 	return matBillboard;
 }
 
-Sprite3D* Sprite3D::Create(const bool isXAxisBillboard, const bool isYAxisBillboard)
+Sprite3D* Sprite3D::Create(const Status& state, const UINT texIndex)
 {
 	// インスタンス
 	Sprite3D* instance = new Sprite3D();
 	instance->vt_.Initialize({{}});
-	instance->isXAxisBillboard_ = isXAxisBillboard;
-	instance->isYAxisBillboard_ = isYAxisBillboard;
+	instance->tex_ = texIndex;
+	instance->isXAxisBillboard_ = state.isXAxisBillboard_;
+	instance->isYAxisBillboard_ = state.isYAxisBillboard_;
 	instance->isInvisible_  = false;
 
 	return instance;

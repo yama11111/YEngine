@@ -16,9 +16,9 @@ void Sprite2DCommon::ShaderSet::Load(ID3DBlob* errorBlob)
 	ID3DBlob* ps = nullptr;
 
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/SpriteVS.hlsl", "main", "vs_5_0", vs, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite2DVS.hlsl", "main", "vs_5_0", vs, errorBlob);
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/SpritePS.hlsl", "main", "ps_5_0", ps, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite2DPS.hlsl", "main", "ps_5_0", ps, errorBlob);
 
 	vsBlob_ = vs;
 	psBlob_ = ps;

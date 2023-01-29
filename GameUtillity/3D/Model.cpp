@@ -15,14 +15,19 @@ using YMath::Vec3;
 using YMath::Vec4;
 
 const UINT ModIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ModelCB);
+const UINT LigIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::LightCB);
 const UINT ColIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ColorCB);
 const UINT MateIndex = static_cast<UINT>(ModelCommon::RootParameterIndex::MaterialCB);
 const UINT TexIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TexDT);
 
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Color& color, const UINT tex)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color, const UINT tex)
 {
-	obj.cBuff_.map_->mat_ = obj.m_ * vp.view_ * vp.pro_;
+	obj.cBuff_.map_->matWorld_ = obj.m_;
+	obj.cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
+	obj.cBuff_.map_->cameraPos_ = vp.eye_;
 	obj.cBuff_.SetDrawCommand(ModIndex);
+
+	light.SetDrawCommand(LigIndex);
 
 	color.SetDrawCommand(ColIndex);
 
@@ -33,14 +38,18 @@ void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Color& color, const
 		meshes_[i].vtIdx_.Draw();
 	}
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, const UINT tex)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, const UINT tex)
 {
-	Draw(obj, vp, defColor_, tex);
+	Draw(obj, vp, light, defColor_, tex);
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Color& color)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color)
 {
-	obj.cBuff_.map_->mat_ = obj.m_ * vp.view_ * vp.pro_;
+	obj.cBuff_.map_->matWorld_ = obj.m_;
+	obj.cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
+	obj.cBuff_.map_->cameraPos_ = vp.eye_;
 	obj.cBuff_.SetDrawCommand(ModIndex);
+
+	light.SetDrawCommand(LigIndex);
 
 	color.SetDrawCommand(ColIndex);
 
@@ -51,9 +60,9 @@ void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Color& color)
 		meshes_[i].vtIdx_.Draw();
 	}
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light)
 {
-	Draw(obj, vp, defColor_);
+	Draw(obj, vp, light, defColor_);
 }
 
 Model* Model::Create()
@@ -128,7 +137,7 @@ Model* Model::Create()
 		20, 23, 21, // 三角形2つ目
 	};
 
-	Normalized(v, i);
+	CalculateNormals(v, i);
 
 	instance->meshes_.clear();
 	instance->meshes_.resize(1);
@@ -138,7 +147,7 @@ Model* Model::Create()
 	return instance;
 }
 
-Model* Model::Load(const std::string& modelFileName)
+Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 {
 	// インスタンス
 	Model* instance = new Model();
@@ -149,6 +158,10 @@ Model* Model::Load(const std::string& modelFileName)
 	std::vector<VData> v;
 	// インデックス
 	std::vector<uint16_t> i;
+	// 頂点法線スムーシング用データ
+	std::unordered_map<unsigned short, std::vector<unsigned short>> sd;
+	// マテリアル
+	Material m;
 
 	// ファイルストリーム
 	std::ifstream file;
@@ -189,7 +202,7 @@ Model* Model::Load(const std::string& modelFileName)
 			std::string mtlFileName;
 			lineStream >> mtlFileName;
 			// マテリアル読み込み
-			instance->meshes_[0].mtrl_ = LoadMaterial(directoryPath, mtlFileName);
+			m = LoadMaterial(directoryPath, mtlFileName);
 		}
 
 #pragma endregion
@@ -272,6 +285,11 @@ Model* Model::Load(const std::string& modelFileName)
 				v.push_back(vData);
 				// 追加
 				i.push_back(static_cast<uint16_t>(i.size()));
+				// 追加
+				if (isSmoothing)
+				{
+					sd[idPositon].emplace_back(static_cast<unsigned short>(v.size() - 1));
+				}
 			}
 		}
 
@@ -281,7 +299,16 @@ Model* Model::Load(const std::string& modelFileName)
 
 	file.close();
 
+	// スムーシング
+	if (isSmoothing)
+	{
+		CalculateSmoothedVertexNormals(v, sd);
+	}
+
+	// メッシュに代入
 	instance->meshes_[0].vtIdx_.Initialize(v, i);
+	instance->meshes_[0].smoothData_ = sd;
+	instance->meshes_[0].mtrl_ = m;
 
 	return instance;
 }

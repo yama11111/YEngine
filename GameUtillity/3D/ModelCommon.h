@@ -7,6 +7,7 @@
 #include "Vec2.h"
 #include "Vec3.h"
 #include "Mat4.h"
+#include <unordered_map>
 
 struct aiMesh;
 struct aiMaterial;
@@ -28,7 +29,9 @@ namespace YGame
 		// 定数バッファデータ構造体
 		struct CBData
 		{
-			YMath::Mat4 mat_; // 3D変換行列
+			YMath::Mat4 matWorld_;	  // ワールド行列
+			YMath::Mat4 matViewProj_; // ビュープロジェクション行列
+			YMath::Vec3 cameraPos_;	  // カメラ座標
 		};
 		// 定数バッファデータ構造体 (マテリアル)
 		struct MaterialCBData
@@ -62,6 +65,8 @@ namespace YGame
 		{
 			// 頂点インデックス配列
 			YDX::VertexIndex<VData> vtIdx_;
+			// 頂点法線スムーシング用データ
+			std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData_;
 			// マテリアル
 			Material mtrl_;
 		};
@@ -69,10 +74,11 @@ namespace YGame
 		// ルートパラメータ番号
 		enum class RootParameterIndex 
 		{
-			ModelCB = 0,
-			ColorCB = 1,
-			MaterialCB = 2,
-			TexDT = 3,
+			ModelCB,
+			LightCB,
+			ColorCB,
+			MaterialCB,
+			TexDT,
 		};
 	private:
 		// シェーダーセット
@@ -111,7 +117,10 @@ namespace YGame
 		static void StaticSetDrawCommand();
 	protected:
 		// 法線計算
-		static void Normalized(std::vector<VData>& v, const std::vector<uint16_t> indices);
+		static void CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t> indices);
+		// 法線計算 (スムーシング)
+		static void CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
+			std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData);
 		// 頂点情報読み込み(assimp)
 		static YDX::VertexIndex<VData> LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized);
 		// マテリアル読み込み(assimp)

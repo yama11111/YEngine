@@ -1,7 +1,7 @@
 // 3D変換行列
 cbuffer cbuff0 : register(b0)
 {
-	matrix mat; // 3D変換行列
+	matrix matWorld; // 3D変換行列
 }
 // マテリアル
 cbuffer cbuff1 : register(b1)

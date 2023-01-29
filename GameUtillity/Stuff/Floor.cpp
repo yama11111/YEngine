@@ -61,7 +61,7 @@ void Floor::Draw(const YGame::ViewProjection& vp)
 	{
 		for (size_t x = 0; x < objs[y].size(); x++)
 		{
-			pModel_->Draw(objs[y][x], vp);
+			//pModel_->Draw(objs[y][x], vp);
 		}
 	}
 }

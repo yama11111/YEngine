@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\include;$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)GameUtillity\Camera;$(ProjectDir)GameUtillity\Scene;$(ProjectDir)GameUtillity\MapChip;$(ProjectDir)GameUtillity\Stuff;$(ProjectDir)Draw\Actor;$(ProjectDir)Draw\Drawer;$(ProjectDir)Draw\Particle;$(ProjectDir)Draw\SceneChange;$(ProjectDir)Draw\UI;$(ProjectDir)Chara;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\include;$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Utillity;$(ProjectDir)Utillity\Math;$(ProjectDir)Utillity\Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Light;$(ProjectDir)GameUtillity\Camera;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)GameUtillity\Scene;$(ProjectDir)GameUtillity\MapChip;$(ProjectDir)GameUtillity\Stuff;$(ProjectDir)Draw\Actor;$(ProjectDir)Draw\Drawer;$(ProjectDir)Draw\Particle;$(ProjectDir)Draw\SceneChange;$(ProjectDir)Draw\UI;$(ProjectDir)Chara;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -79,7 +79,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\include;$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Math;$(ProjectDir)Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)GameUtillity\Camera;$(ProjectDir)GameUtillity\Scene;$(ProjectDir)GameUtillity\MapChip;$(ProjectDir)GameUtillity\Stuff;$(ProjectDir)Draw\Actor;$(ProjectDir)Draw\Drawer;$(ProjectDir)Draw\Particle;$(ProjectDir)Draw\SceneChange;$(ProjectDir)Draw\UI;$(ProjectDir)Chara;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)assimp\include;$(ProjectDir)Base;$(ProjectDir)Base\DX;$(ProjectDir)Utillity;$(ProjectDir)Utillity\Math;$(ProjectDir)Utillity\Input;$(ProjectDir)GameUtillity;$(ProjectDir)GameUtillity\2D;$(ProjectDir)GameUtillity\3D;$(ProjectDir)GameUtillity\Light;$(ProjectDir)GameUtillity\Camera;$(ProjectDir)GameUtillity\Collision;$(ProjectDir)GameUtillity\Scene;$(ProjectDir)GameUtillity\MapChip;$(ProjectDir)GameUtillity\Stuff;$(ProjectDir)Draw\Actor;$(ProjectDir)Draw\Drawer;$(ProjectDir)Draw\Particle;$(ProjectDir)Draw\SceneChange;$(ProjectDir)Draw\UI;$(ProjectDir)Chara;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -127,7 +127,6 @@
     <ClCompile Include="Draw\UI\CountUIDrawer.cpp" />
     <ClCompile Include="Draw\UI\HPUIDrawer.cpp" />
     <ClCompile Include="Draw\UI\PushUIDrawer.cpp" />
-    <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="GameUtillity\2D\Sprite2D.cpp" />
     <ClCompile Include="GameUtillity\2D\Sprite2DCommon.cpp" />
     <ClCompile Include="GameUtillity\2D\TextureManager.cpp" />
@@ -142,6 +141,8 @@
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
     <ClCompile Include="GameUtillity\Color.cpp" />
     <ClCompile Include="GameUtillity\GameScene.cpp" />
+    <ClCompile Include="GameUtillity\Light\DirectionalLight.cpp" />
+    <ClCompile Include="GameUtillity\Light\Light.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChip.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp" />
@@ -150,21 +151,22 @@
     <ClCompile Include="GameUtillity\Stuff\Floor.cpp" />
     <ClCompile Include="GameUtillity\Stuff\Skydome.cpp" />
     <ClCompile Include="GameUtillity\ViewProjection.cpp" />
-    <ClCompile Include="Input\InputManager.cpp" />
-    <ClCompile Include="Input\Keys.cpp" />
-    <ClCompile Include="Input\Mouse.cpp" />
-    <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math\CalcTransform.cpp" />
-    <ClCompile Include="Math\Lerp.cpp" />
-    <ClCompile Include="Math\Mat4.cpp" />
-    <ClCompile Include="Math\Power.cpp" />
-    <ClCompile Include="Math\Shake.cpp" />
-    <ClCompile Include="Math\Timer.cpp" />
-    <ClCompile Include="Math\Vec2.cpp" />
-    <ClCompile Include="Math\Vec3.cpp" />
-    <ClCompile Include="Math\Vec4.cpp" />
-    <ClCompile Include="Math\MathUtillity.cpp" />
+    <ClCompile Include="Utillity\FilePath.cpp" />
+    <ClCompile Include="Utillity\Input\InputManager.cpp" />
+    <ClCompile Include="Utillity\Input\Keys.cpp" />
+    <ClCompile Include="Utillity\Input\Mouse.cpp" />
+    <ClCompile Include="Utillity\Input\Pad.cpp" />
+    <ClCompile Include="Utillity\Math\CalcTransform.cpp" />
+    <ClCompile Include="Utillity\Math\Lerp.cpp" />
+    <ClCompile Include="Utillity\Math\Mat4.cpp" />
+    <ClCompile Include="Utillity\Math\MathUtillity.cpp" />
+    <ClCompile Include="Utillity\Math\Power.cpp" />
+    <ClCompile Include="Utillity\Math\Shake.cpp" />
+    <ClCompile Include="Utillity\Math\Timer.cpp" />
+    <ClCompile Include="Utillity\Math\Vec2.cpp" />
+    <ClCompile Include="Utillity\Math\Vec3.cpp" />
+    <ClCompile Include="Utillity\Math\Vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\DX\ConstBuffer.h" />
@@ -200,7 +202,6 @@
     <ClInclude Include="Draw\UI\CountUIDrawer.h" />
     <ClInclude Include="Draw\UI\HPUIDrawer.h" />
     <ClInclude Include="Draw\UI\PushUIDrawer.h" />
-    <ClInclude Include="FilePath.h" />
     <ClInclude Include="GameUtillity\2D\Sprite2D.h" />
     <ClInclude Include="GameUtillity\2D\Sprite2DCommon.h" />
     <ClInclude Include="GameUtillity\2D\TextureManager.h" />
@@ -216,6 +217,8 @@
     <ClInclude Include="GameUtillity\Collision\CollisionManager.h" />
     <ClInclude Include="GameUtillity\Color.h" />
     <ClInclude Include="GameUtillity\GameScene.h" />
+    <ClInclude Include="GameUtillity\Light\DirectionalLight.h" />
+    <ClInclude Include="GameUtillity\Light\Light.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChip.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipCollider.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h" />
@@ -224,40 +227,41 @@
     <ClInclude Include="GameUtillity\Stuff\Floor.h" />
     <ClInclude Include="GameUtillity\Stuff\Skydome.h" />
     <ClInclude Include="GameUtillity\ViewProjection.h" />
-    <ClInclude Include="Input\InputManager.h" />
-    <ClInclude Include="Input\Keys.h" />
-    <ClInclude Include="Input\Mouse.h" />
-    <ClInclude Include="Input\Pad.h" />
-    <ClInclude Include="Math\CalcTransform.h" />
-    <ClInclude Include="Math\Lerp.h" />
-    <ClInclude Include="Math\Mat4.h" />
-    <ClInclude Include="Math\Power.h" />
-    <ClInclude Include="Math\Shake.h" />
-    <ClInclude Include="Math\Timer.h" />
-    <ClInclude Include="Math\Vec2.h" />
-    <ClInclude Include="Math\Vec3.h" />
-    <ClInclude Include="Math\Vec4.h" />
-    <ClInclude Include="Math\MathUtillity.h" />
+    <ClInclude Include="Utillity\FilePath.h" />
+    <ClInclude Include="Utillity\Input\InputManager.h" />
+    <ClInclude Include="Utillity\Input\Keys.h" />
+    <ClInclude Include="Utillity\Input\Mouse.h" />
+    <ClInclude Include="Utillity\Input\Pad.h" />
+    <ClInclude Include="Utillity\Math\CalcTransform.h" />
+    <ClInclude Include="Utillity\Math\Lerp.h" />
+    <ClInclude Include="Utillity\Math\Mat4.h" />
+    <ClInclude Include="Utillity\Math\MathUtillity.h" />
+    <ClInclude Include="Utillity\Math\Power.h" />
+    <ClInclude Include="Utillity\Math\Shake.h" />
+    <ClInclude Include="Utillity\Math\Timer.h" />
+    <ClInclude Include="Utillity\Math\Vec2.h" />
+    <ClInclude Include="Utillity\Math\Vec3.h" />
+    <ClInclude Include="Utillity\Math\Vec4.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaders\Billboard.hlsli" />
+    <None Include="Resources\Shaders\Sprite3D.hlsli" />
     <None Include="Resources\Shaders\Model.hlsli" />
-    <None Include="Resources\Shaders\Sprite.hlsli" />
+    <None Include="Resources\Shaders\Sprite2D.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shaders\BillboardGS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\BillboardPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite3DPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\BillboardVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite3DVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
@@ -275,13 +279,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite2DPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite2DVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>

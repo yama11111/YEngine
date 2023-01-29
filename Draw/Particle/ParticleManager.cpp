@@ -38,7 +38,7 @@ void ParticleManager::Draw(const YGame::ViewProjection& vp)
 {
 	for (std::unique_ptr<IParticle>& particle : particles_)
 	{
-		pModel_->Draw(particle->obj_, vp);
+		//pModel_->Draw(particle->obj_, vp);
 	}
 }
 

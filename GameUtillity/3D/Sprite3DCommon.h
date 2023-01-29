@@ -18,7 +18,7 @@ namespace YGame
 		// 定数バッファデータ構造体
 		struct CBData
 		{
-			YMath::Mat4 mat_; // 3D変換行列
+			YMath::Mat4 matWorld_; // 3D変換行列
 			YMath::Mat4 matBill_; // ビルボード行列
 		};
 	public:

@@ -70,5 +70,5 @@ void Slime::Update()
 
 void Slime::Draw(const YGame::ViewProjection& vp)
 {
-	pModel_->Draw(obj_, vp, tex_);
+	//pModel_->Draw(obj_, vp, tex_);
 }

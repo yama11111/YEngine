@@ -62,13 +62,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	// 頂点
 	Vertices<Sprite2DCommon::VData>	::StaticInitialize(pCmdList);
+	Vertices<Sprite3DCommon::VData>	::StaticInitialize(pCmdList);
 	Vertices<ModelCommon::VData>	::StaticInitialize(pCmdList);
-	Vertices<Sprite3DCommon::VData>::StaticInitialize(pCmdList);
 
 	// コモンクラス静的初期化
 	Sprite2DCommon	::StaticInitialize({ &texMan });
-	ModelCommon		::StaticInitialize({ &texMan });
 	Sprite3DCommon	::StaticInitialize({ &texMan });
+	ModelCommon		::StaticInitialize({ &texMan });
 
 #pragma endregion
 

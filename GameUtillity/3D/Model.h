@@ -2,6 +2,7 @@
 #include "ModelCommon.h"
 #include "Object.h"
 #include "ViewProjection.h"
+#include "Light.h"
 
 namespace YGame
 {
@@ -22,6 +23,7 @@ namespace YGame
 		{
 			std::string directoryPath_;
 			std::string modelFileName_;
+			bool isSmoothing_ = false;
 			bool isInverseU_ = false;
 			bool isInverseV_ = true;
 			bool isNormalized_ = false;
@@ -31,18 +33,18 @@ namespace YGame
 		// 生成(立方体)
 		static Model* Create();
 		// モデル読み込み
-		static Model* Load(const std::string& modelFileName);
+		static Model* LoadObj(const std::string& modelFileName, const bool isSmoothing);
 		// モデル読み込み(assimp)
 		static Model* Load(const LoadStatus& state);
 	public:
 		// 描画 (テクスチャ + 色 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, Color& color, const UINT tex);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color, const UINT tex);
 		// 描画 (テクスチャ 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, const UINT tex);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, const UINT tex);
 		// 描画 (色 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, Color& color);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color);
 		// 描画 (デフォルト)
-		void Draw(ObjectModel& obj, const ViewProjection& vp);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light);
 	private:
 		// コンストラクタ
 		Model() = default;

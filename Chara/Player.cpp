@@ -149,7 +149,7 @@ void Player::Update()
 
 void Player::Draw(const YGame::ViewProjection& vp)
 {
-	pModel_->Draw(obj_, vp);
+	//pModel_->Draw(obj_, vp);
 }
 
 void Player::Draw2D()

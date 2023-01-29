@@ -19,9 +19,9 @@ YGame::TextureManager* ModelCommon::pTexManager_ = nullptr;
 
 ModelCommon::Material::Material() :
 	name_(),
-	ambient_(0.3f, 0.3f, 0.3f),
-	diffuse_(1.0f, 1.0f, 1.0f),
-	specular_(0.0f, 0.0f, 0.0f),
+	ambient_(0.6f, 0.6f, 0.6f),
+	diffuse_(0.8f, 0.8f, 0.8f),
+	specular_(0.10f, 0.10f, 0.10f),
 	alpha_(1.0f),
 	texFileName_(),
 	texIndex_(UINT32_MAX)
@@ -165,7 +165,7 @@ void ModelCommon::StaticSetDrawCommand()
 	pipelineSet_.SetDrawCommand();
 }
 
-void ModelCommon::Normalized(std::vector<VData>& v, const std::vector<uint16_t> indices)
+void ModelCommon::CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t> indices)
 {
 	for (size_t i = 0; i < indices.size() / 3; i++)
 	{
@@ -189,6 +189,25 @@ void ModelCommon::Normalized(std::vector<VData>& v, const std::vector<uint16_t> 
 		v[index0].normal_ = normal;
 		v[index1].normal_ = normal;
 		v[index2].normal_ = normal;
+	}
+}
+void ModelCommon::CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
+	std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData)
+{
+	auto itr = smoothData.begin();
+	for (; itr != smoothData.end(); ++itr)
+	{
+		std::vector<unsigned short>& v = itr->second;
+		Vec3 normal = {};
+		for (unsigned short index : v)
+		{
+			normal += vertices[index].normal_;
+		}
+		normal = (normal / (float)v.size()).Normalized();
+		for (unsigned short index : v)
+		{
+			vertices[index].normal_ = normal;
+		}
 	}
 }
 YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized)
@@ -235,7 +254,7 @@ YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src
 		indices[i * 3 + 2] = face.mIndices[2];
 	}
 
-	if (isNormalized) { Normalized(vData, indices); }
+	if (isNormalized) { CalculateNormals(vData, indices); }
 
 	vtIdx.Initialize(vData, indices);
 

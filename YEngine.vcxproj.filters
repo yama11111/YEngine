@@ -73,14 +73,8 @@
     <Filter Include="Draw\Shader">
       <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Draw\Shader\Billborad">
-      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Draw\Shader\Model">
       <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Draw\Shader\Sprite">
-      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameUtil\Stuff">
       <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
@@ -109,23 +103,17 @@
     <Filter Include="Util\Input">
       <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Draw\Shader\Sprite3D">
+      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Shader\Sprite2D">
+      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Light">
+      <UniqueIdentifier>{8d2ddc5c-59f9-41e1-a31e-064f18b71408}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math\CalcTransform.cpp">
-      <Filter>Util\Math\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Mat4.cpp">
-      <Filter>Util\Math\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vec2.cpp">
-      <Filter>Util\Math\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vec3.cpp">
-      <Filter>Util\Math\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vec4.cpp">
-      <Filter>Util\Math\Transform</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -198,21 +186,6 @@
     <ClCompile Include="GameUtillity\ViewProjection.cpp">
       <Filter>GameUtil</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Lerp.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\MathUtillity.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Power.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Shake.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Timer.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Attack.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
@@ -230,18 +203,6 @@
     </ClCompile>
     <ClCompile Include="Chara\Slime.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputManager.cpp">
-      <Filter>Util\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Keys.cpp">
-      <Filter>Util\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Mouse.cpp">
-      <Filter>Util\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Pad.cpp">
-      <Filter>Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Camera\Camera.cpp">
       <Filter>GameUtil\Camera</Filter>
@@ -312,8 +273,56 @@
     <ClCompile Include="GameUtillity\Color.cpp">
       <Filter>GameUtil</Filter>
     </ClCompile>
-    <ClCompile Include="FilePath.cpp">
+    <ClCompile Include="Utillity\Input\InputManager.cpp">
+      <Filter>Util\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Input\Keys.cpp">
+      <Filter>Util\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Input\Mouse.cpp">
+      <Filter>Util\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Input\Pad.cpp">
+      <Filter>Util\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\FilePath.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\CalcTransform.cpp">
+      <Filter>Util\Math\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Mat4.cpp">
+      <Filter>Util\Math\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Vec2.cpp">
+      <Filter>Util\Math\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Vec3.cpp">
+      <Filter>Util\Math\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Vec4.cpp">
+      <Filter>Util\Math\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Lerp.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\MathUtillity.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Power.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Shake.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Timer.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Light\Light.cpp">
+      <Filter>GameUtil\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Light\DirectionalLight.cpp">
+      <Filter>GameUtil\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,36 +401,6 @@
     <ClInclude Include="GameUtillity\ViewProjection.h">
       <Filter>GameUtil</Filter>
     </ClInclude>
-    <ClInclude Include="Math\CalcTransform.h">
-      <Filter>Util\Math\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Mat4.h">
-      <Filter>Util\Math\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec2.h">
-      <Filter>Util\Math\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec3.h">
-      <Filter>Util\Math\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vec4.h">
-      <Filter>Util\Math\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Lerp.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\MathUtillity.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Power.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Shake.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Timer.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Chara\Attack.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
@@ -439,18 +418,6 @@
     </ClInclude>
     <ClInclude Include="Base\DX\DescriptorHeap.h">
       <Filter>Base\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputManager.h">
-      <Filter>Util\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Keys.h">
-      <Filter>Util\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Mouse.h">
-      <Filter>Util\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\Pad.h">
-      <Filter>Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Camera\Camera.h">
       <Filter>GameUtil\Camera</Filter>
@@ -527,30 +494,78 @@
     <ClInclude Include="GameUtillity\Color.h">
       <Filter>GameUtil</Filter>
     </ClInclude>
-    <ClInclude Include="FilePath.h">
+    <ClInclude Include="Utillity\Input\InputManager.h">
+      <Filter>Util\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Input\Keys.h">
+      <Filter>Util\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Input\Mouse.h">
+      <Filter>Util\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Input\Pad.h">
+      <Filter>Util\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\FilePath.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\CalcTransform.h">
+      <Filter>Util\Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Mat4.h">
+      <Filter>Util\Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Vec2.h">
+      <Filter>Util\Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Vec3.h">
+      <Filter>Util\Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Vec4.h">
+      <Filter>Util\Math\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Lerp.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\MathUtillity.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Power.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Shake.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Timer.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Light\Light.h">
+      <Filter>GameUtil\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Light\DirectionalLight.h">
+      <Filter>GameUtil\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaders\Billboard.hlsli">
-      <Filter>Draw\Shader\Billborad</Filter>
+    <None Include="Resources\Shaders\Sprite3D.hlsli">
+      <Filter>Draw\Shader\Sprite3D</Filter>
     </None>
     <None Include="Resources\Shaders\Model.hlsli">
       <Filter>Draw\Shader\Model</Filter>
     </None>
-    <None Include="Resources\Shaders\Sprite.hlsli">
-      <Filter>Draw\Shader\Sprite</Filter>
+    <None Include="Resources\Shaders\Sprite2D.hlsli">
+      <Filter>Draw\Shader\Sprite2D</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shaders\BillboardGS.hlsl">
-      <Filter>Draw\Shader\Billborad</Filter>
+    <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
+      <Filter>Draw\Shader\Sprite3D</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\BillboardPS.hlsl">
-      <Filter>Draw\Shader\Billborad</Filter>
+    <FxCompile Include="Resources\Shaders\Sprite3DPS.hlsl">
+      <Filter>Draw\Shader\Sprite3D</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\BillboardVS.hlsl">
-      <Filter>Draw\Shader\Billborad</Filter>
+    <FxCompile Include="Resources\Shaders\Sprite3DVS.hlsl">
+      <Filter>Draw\Shader\Sprite3D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
       <Filter>Draw\Shader\Model</Filter>
@@ -558,11 +573,11 @@
     <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
       <Filter>Draw\Shader\Model</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SpritePS.hlsl">
-      <Filter>Draw\Shader\Sprite</Filter>
+    <FxCompile Include="Resources\Shaders\Sprite2DPS.hlsl">
+      <Filter>Draw\Shader\Sprite2D</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SpriteVS.hlsl">
-      <Filter>Draw\Shader\Sprite</Filter>
+    <FxCompile Include="Resources\Shaders\Sprite2DVS.hlsl">
+      <Filter>Draw\Shader\Sprite2D</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

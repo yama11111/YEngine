@@ -241,7 +241,7 @@ void MapChip::Draw(const YGame::ViewProjection& vp)
 {
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		pModel_->Draw(*chips_[i], vp, tex_);
+		//pModel_->Draw(*chips_[i], vp, tex_);
 	}
 }
 

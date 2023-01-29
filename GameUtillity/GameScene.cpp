@@ -103,7 +103,7 @@ void GameScene::Initialize()
 
 	// プレイヤー
 	//player_.Initialize({ {}, YMath::AdjustAngle({0,0,-1}), {10.0f,10.0f,10.0f} });
-	player_.Initialize({ {}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
+	player_.Initialize({ {30,-20,20}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
 	playerDra_.Initialize(&player_.m_);
 
 	// マップ初期化
@@ -115,6 +115,11 @@ void GameScene::Initialize()
 	// カメラ初期化
 	cameraMan_.Initialize();
 	cameraMan_.SetFollowPoint(&player_.pos_);
+
+
+	lightDire_ = { 0,1,5 };
+	// ライト初期化
+	light_.Initialize(lightDire_);
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -156,6 +161,16 @@ void GameScene::Update()
 	// マップマネージャー
 	mapMan_.Update();
 
+	if (keys_->IsDown(DIK_W) || keys_->IsDown(DIK_S) || keys_->IsDown(DIK_D) || keys_->IsDown(DIK_A))
+	{
+		if (keys_->IsDown(DIK_W)) { lightDire_.y_ += 1.0f; }
+		if (keys_->IsDown(DIK_S)) { lightDire_.y_ -= 1.0f; }
+		if (keys_->IsDown(DIK_D)) { lightDire_.x_ += 1.0f; }
+		if (keys_->IsDown(DIK_A)) { lightDire_.x_ -= 1.0f; }
+
+		light_.SetDirection(lightDire_);
+	}
+
 	// カメラ
 	cameraMan_.Update();
 
@@ -193,9 +208,9 @@ void GameScene::DrawModels()
 	// map
 	//mapMan_.Draw(vp_);
 
-	playerDra_.Draw(vp_);
+	playerDra_.Draw(vp_, light_);
 
-	particleMan_.Draw(vp_);
+	//particleMan_.Draw(vp_);
 }
 
 void GameScene::DrawSprite3Ds()

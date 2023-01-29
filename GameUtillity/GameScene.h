@@ -85,6 +85,10 @@ namespace YGame
 		// カメラマネージャー
 		YCamera::CameraManager cameraMan_;
 
+		YMath::Vec3 lightDire_;
+		// 転送用ライト
+		Light light_;
+
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;
 
@@ -105,13 +109,13 @@ namespace YGame
 		// 描画
 		void Draw();
 	private:
-		// 背景スプライト描画
+		// 背景スプライト2D描画
 		void DrawBackSprite2Ds();
 		// モデル描画
 		void DrawModels();
-		// ビルボード描画
+		// スプライト3D描画
 		void DrawSprite3Ds();
-		// 前景スプライト描画
+		// 前景スプライト2D描画
 		void DrawFrontSprite2Ds();
 	public:
 		// コンストラクタ

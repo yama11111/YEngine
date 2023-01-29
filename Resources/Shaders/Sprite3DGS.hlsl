@@ -1,4 +1,4 @@
-#include "Billboard.hlsli"
+#include "Sprite3D.hlsli"
 
 static const  uint vnum = 4;
 
@@ -30,7 +30,7 @@ void main(
 		float4 offset = mul(matBillboard, offset_array[i]);
 
 		element.svpos = input[0].pos + offset;
-		element.svpos = mul(mat, element.svpos);
+		element.svpos = mul(matWorld, element.svpos);
 		element.uv = uv_array[i];
 		output.Append(element);
 	}
