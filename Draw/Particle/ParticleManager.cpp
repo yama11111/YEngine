@@ -8,7 +8,7 @@ using YMath::Vec3;
 
 Model* ParticleManager::pModel_ = nullptr;
 
-const float PI = 3.141592;
+const float PI = 3.141592f;
 
 void ParticleManager::StaticInitialize(const StaticInitStatus& state)
 {

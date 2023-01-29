@@ -28,9 +28,9 @@ void Dust::Update()
 
 	obj_.pos_ += speed_.In(timer_.Ratio());
 	obj_.scale_ = scale_.In(timer_.Ratio());
-	obj_.color_ = { 0.75f, 0.75f, 0.75f, alpha_.In(timer_.Ratio()) };
+	//obj_.color_ = { 0.75f, 0.75f, 0.75f, alpha_.In(timer_.Ratio()) };
 
-	obj_.Update();
+	obj_.UpdateMatrix();
 }
 
 using YParticle::Exprosion;
@@ -63,8 +63,8 @@ void Exprosion::Update()
 	obj_.pos_ += speed_.In(timer_.Ratio());
 	obj_.scale_ = scale_.In(timer_.Ratio());
 
-	obj_.color_ = color_;
-	obj_.color_.a_ = alpha_.In(timer_.Ratio());
+	//obj_.color_ = color_;
+	//obj_.color_.a_ = alpha_.In(timer_.Ratio());
 
-	obj_.Update();
+	obj_.UpdateMatrix();
 }

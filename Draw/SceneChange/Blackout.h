@@ -2,7 +2,7 @@
 #include "Lerp.h"
 #include "Power.h"
 #include "Timer.h"
-#include "Sprite.h"
+#include "Sprite2D.h"
 
 namespace YTransition
 {
@@ -20,7 +20,7 @@ namespace YTransition
 		// 段階
 		Step boStep_ = Step::Dark;
 		// オブジェクト
-		YGame::Object curten_;
+		YGame::ObjectSprite2D curten_;
 		// タイマー
 		int count_ = 0;
 		// イージング
@@ -49,10 +49,10 @@ namespace YTransition
 	public:
 		struct StaticInitStatus
 		{
-			YGame::Sprite* curtenSprite_;
+			YGame::Sprite2D* curtenSprite_;
 		};
 	private:
-		static YGame::Sprite* curtenS_;
+		static YGame::Sprite2D* curtenS_;
 	public:
 		// 静的初期化
 		static void StaticInitialize(const StaticInitStatus& state);

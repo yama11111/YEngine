@@ -1,15 +1,23 @@
 #pragma once
-#include "SpriteCommon.h"
+#include "Sprite2DCommon.h"
 #include "Vertices.h"
 #include "Object.h"
+#include "Color.h"
 
 namespace YGame
 {
-	class Sprite : private SpriteCommon
+	// スプライト用オブジェクト
+	typedef Object<Sprite2DCommon::CBData> ObjectSprite2D;
+
+	// スプライトクラス
+	class Sprite2D : private Sprite2DCommon
 	{
 	private:
 		// 頂点データ
 		YDX::Vertices<VData> vt_;
+		// 色
+		Color defColor_{};
+
 		// サイズ
 		YMath::Vec2 size_;
 		// アンカーポイント
@@ -46,12 +54,16 @@ namespace YGame
 		};
 	public:
 		// 生成
-		static Sprite* Create(const Status& state, const TexStatus& texState, const bool div = false);
+		static Sprite2D* Create(const Status& state, const TexStatus& texState, const bool div = false);
 	public:
-		// 描画
-		void Draw(Object& obj, const UINT tex);
-		// 描画
-		void Draw(Object& obj);
+		// 描画 (テクスチャ + 色 有)
+		void Draw(ObjectSprite2D& obj, Color& color, const UINT tex);
+		// 描画 (テクスチャ 有)
+		void Draw(ObjectSprite2D& obj, const UINT tex);
+		// 描画 (色 有)
+		void Draw(ObjectSprite2D& obj, Color& color);
+		// 描画 (デフォルト)
+		void Draw(ObjectSprite2D& obj);
 	public:
 		// サイズ設定
 		void SetSize(const YMath::Vec2& size);
@@ -76,6 +88,6 @@ namespace YGame
 		YMath::Vec2 AnchorPoint() const { return anchor_; }
 	private:
 		// コンストラクタ
-		Sprite() = default;
+		Sprite2D() = default;
 	};
 }

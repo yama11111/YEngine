@@ -1,6 +1,7 @@
 #include "TextureManager.h"
-#include <DirectXTex.h>
+#include "FilePath.h"
 #include "YAssert.h"
+#include <DirectXTex.h>
 
 using YGame::TextureManager;
 using YDX::GPUResource;
@@ -10,7 +11,6 @@ using YDX::Result;
 ID3D12Device* TextureManager::pDevice_ = nullptr;
 ID3D12GraphicsCommandList*  TextureManager::pCmdList_ = nullptr;
 YDX::DescriptorHeap* TextureManager::pDescHeap_ = nullptr;
-UINT TextureManager::rpIndex_ = UINT32_MAX;
 
 void TextureManager::StaticInitialize(const StaticInitStatus& state)
 {
@@ -21,13 +21,6 @@ void TextureManager::StaticInitialize(const StaticInitStatus& state)
 	pDevice_  = state.pDevice_;
 	pCmdList_ = state.pCmdList_;
 	pDescHeap_ = state.pDescHeap_;
-	rpIndex_  = state.rpIndex_;
-}
-
-std::string TextureManager::FileExtension(const std::string path)
-{
-	size_t idx = path.rfind('.') + 1;
-	return path.substr(idx, path.length() - idx);
 }
 
 UINT TextureManager::CreateTex(const Vec4& color)
@@ -113,7 +106,7 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 	const wchar_t* fileName = wFilePath.c_str();
 
 	// ägí£éqéÊìæ
-	std::string ext = FileExtension(texFileName);
+	std::string ext = YUtil::FileExtension(texFileName);
 
 	if (ext == "png") // png Å® WIC
 	{
@@ -195,10 +188,10 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 	return static_cast<UINT>(texs_.size() - 1);
 }
 
-void TextureManager::SetDrawCommand(const UINT texIndex)
+void TextureManager::SetDrawCommand(const UINT rootParamIndex, const UINT texIndex)
 {
 	assert((0 <= texIndex && texIndex < texs_.size()));
-	pCmdList_->SetGraphicsRootDescriptorTable(rpIndex_, texs_[texIndex].srvGpuHandle_);
+	pCmdList_->SetGraphicsRootDescriptorTable(rootParamIndex, texs_[texIndex].srvGpuHandle_);
 }
 
 ID3D12Resource* YGame::TextureManager::TextureBuffer(const UINT texIndex)

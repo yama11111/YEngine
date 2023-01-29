@@ -1,14 +1,14 @@
 #pragma once
-#include "Sprite.h"
+#include "Sprite2D.h"
 
 namespace YUIDrawer
 {
 	class CountUIDrawer
 	{
 	private:
-		YGame::Object obj_;
+		YGame::ObjectSprite2D obj_;
 		YMath::Vec4 endColor_;
-		YGame::Sprite* pCounter_ = nullptr;
+		YGame::Sprite2D* pCounter_ = nullptr;
 	public:
 		void Initialize(const YMath::Vec3& startPos, const YMath::Vec4& endColor);
 		void Reset();
@@ -18,6 +18,6 @@ namespace YUIDrawer
 		void Push();
 		void PushSlime();
 	public:
-		void SetSprites(YGame::Sprite* pCounter);
+		void SetSprites(YGame::Sprite2D* pCounter);
 	};
 }

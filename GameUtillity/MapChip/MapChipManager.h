@@ -29,7 +29,7 @@ public:
 	{
 		YGame::Model* pModel_; // モデルポインタ
 		UINT tex_; // テクスチャインデックス
-		YGame::Sprite* pSprite_; // スプライトポインタ
+		YGame::Sprite2D* pSprite_; // スプライトポインタ
 	};
 	// 初期化ステータス
 	struct InitStatus

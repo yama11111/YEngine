@@ -3,7 +3,7 @@
 
 using YTransition::Blackout;
 
-YGame::Sprite* Blackout::curtenS_ = nullptr;
+YGame::Sprite2D* Blackout::curtenS_ = nullptr;
 
 void Blackout::StaticInitialize(const StaticInitStatus& state)
 {
@@ -13,7 +13,7 @@ void Blackout::StaticInitialize(const StaticInitStatus& state)
 void Blackout::Initialize()
 {
 	curten_.Initialize({});
-	curten_.color_ = { 0.0f,0.0f,0.0f, 0.0f };
+	//curten_.color_ = { 0.0f,0.0f,0.0f, 0.0f };
 	boStep_ = Step::Dark;
 	count_ = 0;
 	blendE_.Initialize(0.0f, 1.0f, 2.0f);
@@ -78,7 +78,7 @@ void Blackout::BlendUpdate()
 	{
 		a = blendE_.Out(blendP_.Ratio());
 	}
-	curten_.color_ = { 0.0f,0.0f,0.0f, a };
+	//curten_.color_ = { 0.0f,0.0f,0.0f, a };
 }
 
 void Blackout::Update()
@@ -86,7 +86,7 @@ void Blackout::Update()
 	ChangeUpdate();
 	BlendUpdate();
 
-	curten_.Update();
+	curten_.UpdateMatrix();
 }
 
 void Blackout::Draw()

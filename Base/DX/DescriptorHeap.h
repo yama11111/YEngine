@@ -39,13 +39,13 @@ namespace YDX
 		// 静的デバイスポインタ
 		static ID3D12Device* pDevice_;
 		// 静的コマンドリストポインタ
-		static ID3D12GraphicsCommandList* pCmdList_;
+		static ID3D12GraphicsCommandList* pCommandList_;
 	public:
 		// 静的初期化設定
 		struct StaticInitStatus
 		{
 			ID3D12Device* pDevice_;
-			ID3D12GraphicsCommandList* pCmdList_;
+			ID3D12GraphicsCommandList* pCommandList_;
 		};
 	public:
 		// 静的初期化

@@ -2,27 +2,30 @@
 #include "CalcTransform.h"
 #include <cassert>
 
+using YCamera::CameraManager;
 using YMath::Vec3;
+
+YInput::Keys* CameraManager::keys_ = nullptr;
+YInput::Mouse* CameraManager::mouse_ = nullptr;
+YInput::Pad* CameraManager::pad_ = nullptr;
+
+void CameraManager::StaticInitialize()
+{
+	keys_ = YInput::Keys::GetInstance();
+	mouse_ = YInput::Mouse::GetInstance();
+	pad_ = YInput::Pad::GetInstance();
+}
 
 void CameraManager::Initialize()
 {
 	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
-	camera_.Initialize({ {}, { PI / 16.0f, -PI / 3.0f, 0.0f } });
-	isFollow_ = true;
+	//camera_.Initialize({ {}, { PI / 16.0f, -PI / 3.0f, 0.0f } });
+	//camera_.Initialize({ {{0.0f,+20.0f,-100.0f}} });
 	Update();
-}
-
-void CameraManager::UpdateFollow()
-{
-	if (pFollowPoint_ == nullptr) { return; }
-
-	Vec3 p = Vec3(+150.0f, -10.0f, -40.0f + pFollowPoint_->z_);
-	camera_.pos_ = p;
 }
 
 void CameraManager::Update()
 {
-	UpdateFollow();
 	camera_.Update();
 }
 
@@ -38,6 +41,5 @@ YGame::ViewProjection CameraManager::GetViewProjection()
 
 void CameraManager::SetFollowPoint(YMath::Vec3* pFollowPoint)
 {
-	assert(pFollowPoint);
-	pFollowPoint_ = pFollowPoint;
+	camera_.SetFollowPoint(pFollowPoint);
 }

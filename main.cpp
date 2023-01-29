@@ -2,7 +2,6 @@
 #include "YDirectX.h"
 #include "ScreenDesc.h"
 #include "InputManager.h"
-#include "RootParameterManager.h"
 #include "GameScene.h"
 #include "Def.h"
 
@@ -46,9 +45,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	// GPUResource 静的初期化
 	GPUResource::StaticInitialize(pDev);
 
-	// ルートパラメータ
-	RootParameterManager rpMan;
-
 	// デスクリプターヒープ (SRV, UAV, CBV)
 	DescriptorHeap::StaticInitialize({ pDev, pCmdList });
 	DescriptorHeap descHeap;
@@ -56,28 +52,23 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	// 定数バッファ静的初期化
 	ConstBufferCommon::StaticInitialize({ pCmdList, &descHeap });
-	ConstBuffer<TransformCBData>::StaticSetRootParamIndex(rpMan.PushBackCBV());
-	ConstBuffer<ColorCBData>	::StaticSetRootParamIndex(rpMan.PushBackCBV());
-	ConstBuffer<MaterialCBData>	::StaticSetRootParamIndex(rpMan.PushBackCBV());
-	ConstBuffer<BillboardCBData>::StaticSetRootParamIndex(rpMan.PushBackCBV());
 
 	// テクスチャマネージャー
-	TextureManager::StaticInitialize({ pDev, pCmdList, &descHeap, rpMan.PushBackTexRegister() });
+	TextureManager::StaticInitialize({ pDev, pCmdList, &descHeap });
 	TextureManager texMan;
 
 	// パイプライン静的初期化
 	PipelineSet::StaticInitialize(pDev, pCmdList);
 
 	// 頂点
-	Vertices<SpriteCommon::VData>	::StaticInitialize(pCmdList);
+	Vertices<Sprite2DCommon::VData>	::StaticInitialize(pCmdList);
 	Vertices<ModelCommon::VData>	::StaticInitialize(pCmdList);
-	Vertices<BillboardCommon::VData>::StaticInitialize(pCmdList);
+	Vertices<Sprite3DCommon::VData>::StaticInitialize(pCmdList);
 
 	// コモンクラス静的初期化
-	SpriteCommon	::StaticInitialize({ &texMan, rpMan.Get() });
-	Material::StaticInitialize(&texMan);
-	ModelCommon		::StaticInitialize({ rpMan.Get() });
-	BillboardCommon	::StaticInitialize({ &texMan, rpMan.Get() });
+	Sprite2DCommon	::StaticInitialize({ &texMan });
+	ModelCommon		::StaticInitialize({ &texMan });
+	Sprite3DCommon	::StaticInitialize({ &texMan });
 
 #pragma endregion
 

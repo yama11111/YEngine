@@ -9,7 +9,7 @@ using CharaConfig::GravityPower;
 MapChipPointer* Character::pMapChip_ = nullptr;
 YParticle::ParticleManager* Character::pParticleMan_ = nullptr;
 
-void Character::InitializeCharacter(YGame::Object::Status state)
+void Character::InitializeCharacter(YGame::ObjectModel::Status state)
 {
 	obj_.Initialize(state);
 	speed_ = {};
@@ -43,7 +43,7 @@ void Character::UpdateCharacter()
 	YMath::Vec4 color = YMath::Vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	if (IsActHitAction()) { color = HitActionColor(); }
 
-	obj_.color_ = color;
+	//obj_.color_ = color;
 
 	if (obj_.pos_.y_ <= -200.0f)
 	{

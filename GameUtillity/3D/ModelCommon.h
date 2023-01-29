@@ -1,9 +1,12 @@
 #pragma once
+#include "Vertices.h"
 #include "ShaderCommon.h"
 #include "PipelineSet.h"
+#include "TextureManager.h"
+#include "Color.h"
 #include "Vec2.h"
 #include "Vec3.h"
-#include "Vec4.h"
+#include "Mat4.h"
 
 struct aiMesh;
 struct aiMaterial;
@@ -22,9 +25,55 @@ namespace YGame
 			YMath::Vec3 tangent_; // 接空間
 			YMath::Vec4 color_;	  // 頂点色
 		};
-	protected:
-		// パイプライン設定
-		static YDX::PipelineSet pplnSet_;
+		// 定数バッファデータ構造体
+		struct CBData
+		{
+			YMath::Mat4 mat_; // 3D変換行列
+		};
+		// 定数バッファデータ構造体 (マテリアル)
+		struct MaterialCBData
+		{
+			YMath::Vec3 ambient_;  // アンビエント係数
+			float pad1_; // パディング1
+			YMath::Vec3 diffuse_;  // ディフューズ係数
+			float pad2_; // パディング2
+			YMath::Vec3 specular_; // スペキュラー係数
+			float alpha_;		   // アルファ
+		};
+		// マテリアル構造体
+		struct Material
+		{
+		public:
+			std::string name_;			 // マテリアル名
+			YMath::Vec3 ambient_;		 // アンビエント影響度
+			YMath::Vec3 diffuse_;		 // ディフューズ影響度
+			YMath::Vec3 specular_;		 // スペキュラー影響度
+			float alpha_;				 // アルファ値
+		public:
+			std::string texFileName_;	 // テクスチャファイル名
+			UINT texIndex_;				 // テクスチャインデックス
+		public:
+			YDX::ConstBuffer<MaterialCBData> cBuff_; // 定数バッファ(マテリアル2)
+		public:
+			Material(); // コンストラクタ
+		};
+		// メッシュ構造体
+		struct Mesh
+		{
+			// 頂点インデックス配列
+			YDX::VertexIndex<VData> vtIdx_;
+			// マテリアル
+			Material mtrl_;
+		};
+	public:
+		// ルートパラメータ番号
+		enum class RootParameterIndex 
+		{
+			ModelCB = 0,
+			ColorCB = 1,
+			MaterialCB = 2,
+			TexDT = 3,
+		};
 	private:
 		// シェーダーセット
 		class ShaderSet : public YDX::ShaderCommon
@@ -43,18 +92,32 @@ namespace YGame
 		{
 			void Initialize(ID3DBlob* errorBlob_) override;
 		};
+	protected:
+		// パイプライン設定
+		static YDX::PipelineSet pipelineSet_;
+		// 静的テクスチャマネージャーポインタ
+		static TextureManager* pTexManager_;
 	public:
 		// 静的初期化ステータス
 		struct StaticInitStatus
 		{
-			// ルートパラメータポインタ
-			std::vector<D3D12_ROOT_PARAMETER>* rootParams_;
+			// テクスチャマネージャーポインタ
+			TextureManager* pTexManager_;
 		};
 	public:
 		// 静的初期化
 		static void StaticInitialize(const StaticInitStatus& state);
 		// 静的描画コマンド
 		static void StaticSetDrawCommand();
+	protected:
+		// 法線計算
+		static void Normalized(std::vector<VData>& v, const std::vector<uint16_t> indices);
+		// 頂点情報読み込み(assimp)
+		static YDX::VertexIndex<VData> LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized);
+		// マテリアル読み込み(assimp)
+		static Material LoadMaterial(const std::string directoryPath, const aiMaterial* src, const std::string extension);
+		// マテリアル読み込み
+		static Material LoadMaterial(const std::string& directoryPath, const std::string& fileName);
 	};
 }
 

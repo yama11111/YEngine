@@ -1,6 +1,6 @@
 #pragma once
 #include "Model.h"
-#include "Sprite.h"
+#include "Sprite2D.h"
 #include "MapChipCollider.h"
 #include <list>
 #include <memory>
@@ -22,7 +22,7 @@ class MapChip : public MapChipInfo
 {
 private:
 	// マップチップ
-	std::vector<std::unique_ptr<YGame::Object>> chips_;
+	std::vector<std::unique_ptr<YGame::ObjectModel>> chips_;
 	//// マップチップ2D用
 	//std::vector<std::vector<YGame::Object>> chip2Ds_;
 	// マップ全体の大きさ(矩形)
@@ -37,7 +37,7 @@ private:
 	// テクスチャインデックス
 	UINT tex_ = UINT_MAX;
 	// スプライトポインタ
-	YGame::Sprite* pSprite_ = nullptr;
+	YGame::Sprite2D* pSprite_ = nullptr;
 public:
 	// ロードステータス
 	struct LoadStatus
@@ -45,7 +45,7 @@ public:
 		const std::string mapFileName_; // マップファイル名
 		YGame::Model* pModel_; // モデルポインタ
 		UINT tex_; // テクスチャインデックス
-		YGame::Sprite* pSprite_; // スプライトポインタ
+		YGame::Sprite2D* pSprite_; // スプライトポインタ
 	};
 	// 初期化ステータス
 	struct InitStatus 

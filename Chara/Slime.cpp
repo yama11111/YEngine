@@ -59,7 +59,7 @@ void Slime::Update()
 
 	UpdateCharacter();
 
-	obj_.UniqueUpdate(
+	obj_.UpdateMatrix(
 		{
 			HitActionShakeValue(),
 			{},

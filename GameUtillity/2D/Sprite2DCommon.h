@@ -8,7 +8,7 @@
 
 namespace YGame
 {
-	class SpriteCommon
+	class Sprite2DCommon
 	{
 	public:
 		// 頂点データ構造体
@@ -17,11 +17,24 @@ namespace YGame
 			YMath::Vec3 pos_; // xyz座標
 			YMath::Vec2 uv_;  // uv座標
 		};
+		// 定数バッファデータ構造体
+		struct CBData
+		{
+			YMath::Mat4 mat_; // 3D変換行列
+		};
+	public:
+		// ルートパラメータ番号
+		enum class RootParameterIndex
+		{
+			SpriteCB = 0,
+			ColorCB = 1,
+			TexDT = 2,
+		};
 	protected:
 		// 静的射影変換行列(平行投影)
 		static YMath::Mat4 projection_;
 		// パイプライン設定
-		static YDX::PipelineSet pplnSet_;
+		static YDX::PipelineSet pipelineSet_;
 		// 静的テクスチャマネージャーポインタ
 		static TextureManager* pTexManager_;
 	private:
@@ -48,8 +61,6 @@ namespace YGame
 		{
 			// テクスチャマネージャーポインタ
 			TextureManager* pTexManager_;
-			// ルートパラメータポインタ
-			std::vector<D3D12_ROOT_PARAMETER>* rootParams_;
 		};
 	public:
 		// 静的初期化

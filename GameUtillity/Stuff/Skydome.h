@@ -4,7 +4,7 @@
 class Skydome 
 {
 private:
-	YGame::Object obj_;
+	YGame::ObjectModel obj_;
 	YMath::Vec3* pPos_ = nullptr;
 	YGame::Model* pModel_ = nullptr;
 public:

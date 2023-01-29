@@ -9,8 +9,11 @@
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
-using namespace YTransition;
 using namespace YGame;
+using namespace YActor;
+using namespace YDrawer;
+using namespace YParticle;
+using namespace YTransition;
 
 #pragma endregion 
 
@@ -47,16 +50,11 @@ void GameScene::Load()
 
 	plainT_		 = pTexManager_->Load("white1x1.png", false);
 
-	//playerT_	 = pTexManager_->Load("player.png", true);
-	//enemyT_	 = pTexManager_->Load("enemy.png", true);
-
 	playerT_	 = pTexManager_->Load("player.png", true);
 	enemyT_		 = pTexManager_->Load("e.png", false);
 
 	mapT_		 = pTexManager_->Load("map.png", false);
 	mapDispT_	 = pTexManager_->Load("mapDisp.png", false);
-
-	//debriT_		 = pTexManager_->Load("debri.png", true);
 
 	// ----- オーディオ ----- //
 
@@ -64,33 +62,21 @@ void GameScene::Load()
 
 	// ----- スプライト ----- //
 
-	windowS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
-	curtenS_.reset(Sprite::Create({ WinSize }, { plainT_ }));
-	mapDispS_.reset(Sprite::Create({ {32,32} }, { mapDispT_ }));
+	windowS_.reset(Sprite2D::Create({ WinSize }, { plainT_ }));
+	curtenS_.reset(Sprite2D::Create({ WinSize }, { plainT_ }));
+	mapDispS_.reset(Sprite2D::Create({ {32,32} }, { mapDispT_ }));
 
 	// ------- モデル ------- //
 
 	cubeM_.reset(Model::Create());
-	skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, false  }));
-	slimeM_.reset(Model::Load({ "slime/", "slime.obj", false, false }));
+	skydomeM_.reset(Model::Load({ "skydome/", "skydome.obj", false, }));
+	slimeM_.reset(Model::Load({ "slime/", "slime.obj", false, }));
 
-	//playerMods_[static_cast<size_t>(Parts::Body)].reset(
-	//	Model::Load({ "player_body/", "player_body.obj", false, false }));
-	//playerMods_[static_cast<size_t>(Parts::Face)].reset(
-	//	Model::Load({ "player_tail/", "player_tail.obj", false, false }));
-	//playerMods_[static_cast<size_t>(Parts::Tail)].reset(
-	//	Model::Load({ "player_face/", "player_face.obj", false, false }));
-
-	playerMods_[static_cast<size_t>(Parts::Body)].reset(
-		Model::Load({ "player/player_body/", "player_body.obj", false, false }));
-	playerMods_[static_cast<size_t>(Parts::Face)].reset(
-		Model::Load({ "player/player_tail/", "player_tail.obj", false, false }));
-	playerMods_[static_cast<size_t>(Parts::Tail)].reset(
-		Model::Load({ "player/player_face/", "player_face.obj", false, false }));
+	zundamonM_.reset(Model::Load({ "zundamon/", "zundamon.pmx", false, }));
 
 	// ----- ビルボード ----- //
 
-	//debriB_.reset(Billboard::Create(false));
+	//debriB_.reset(Sprite3D::Create(false));
 
 	// ------- マップ ------- //
 
@@ -103,7 +89,8 @@ void GameScene::Load()
 
 	Character::SetMapChipPointer({ mapMan_.CurrentMapPointer(), &particleMan_ });
 
-	YParticle::ParticleManager::StaticInitialize({ cubeM_.get()});
+	ParticleManager::StaticInitialize({ cubeM_.get()});
+	PlayerDrawerCommon::StaticInitialize({});
 }
 #pragma endregion
 
@@ -115,13 +102,9 @@ void GameScene::Initialize()
 	Srand();
 
 	// プレイヤー
-	player_.Initialize({ {}, YMath::AdjustAngle({0,0,-1}), {10.0f,10.0f,10.0f} });
-	for (size_t i = 0; i < playerModTranss_.size(); i++)
-	{
-		playerModTranss_[i].Initialize({});
-		playerModTranss_[i].SetParent(&player_.m_);
-	}
-	playerModTranss_[static_cast<size_t>(Parts::Tail)].pos_ = { 0,0,-1.75f };
+	//player_.Initialize({ {}, YMath::AdjustAngle({0,0,-1}), {10.0f,10.0f,10.0f} });
+	player_.Initialize({ {}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
+	playerDra_.Initialize(&player_.m_);
 
 	// マップ初期化
 	mapMan_.Initialize({ 0, {}, { 25.0f, 7.5f, 7.5f } });
@@ -130,8 +113,8 @@ void GameScene::Initialize()
 	skydome_.Initialize(&player_.pos_, skydomeM_.get());
 
 	// カメラ初期化
-	cameraMan_.SetFollowPoint(&player_.pos_);
 	cameraMan_.Initialize();
+	cameraMan_.SetFollowPoint(&player_.pos_);
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -166,11 +149,9 @@ void GameScene::Update()
 	}
 
 	// プレイヤー
-	player_.Update();
-	for (size_t i = 0; i < playerModTranss_.size(); i++)
-	{
-		playerModTranss_[i].Update();
-	}
+	player_.rota_.y_ += 0.005f;
+	player_.UpdateMatrix();
+	playerDra_.Update();
 
 	// マップマネージャー
 	mapMan_.Update();
@@ -179,7 +160,7 @@ void GameScene::Update()
 	cameraMan_.Update();
 
 	// ビュープロジェクション
-	//vp_ = cameraMan_.GetViewProjection();
+	vp_ = cameraMan_.GetViewProjection();
 	vp_.Update();
 
 	// パーティクルマネージャー
@@ -199,7 +180,7 @@ void GameScene::Update()
 
 
 #pragma region 描画
-void GameScene::DrawBackSprites()
+void GameScene::DrawBackSprite2Ds()
 {
 	
 }
@@ -212,35 +193,32 @@ void GameScene::DrawModels()
 	// map
 	//mapMan_.Draw(vp_);
 
-	for (size_t i = 0; i < playerModTranss_.size(); i++)
-	{
-		playerMods_[i]->Draw(playerModTranss_[i], vp_);
-	}
+	playerDra_.Draw(vp_);
 
 	particleMan_.Draw(vp_);
 }
 
-void GameScene::DrawBillboards()
+void GameScene::DrawSprite3Ds()
 {
 	
 }
 
-void GameScene::DrawFrontSprites()
+void GameScene::DrawFrontSprite2Ds()
 {
 	// map
-	mapMan_.Draw2D();
+	//mapMan_.Draw2D();
 
 	// scene
-	sceneMan_.Draw();
+	//sceneMan_.Draw();
 }
 
 void GameScene::Draw()
 {
 	// -------------------------- //
-	SpriteCommon::StaticSetDrawCommand();
+	Sprite2DCommon::StaticSetDrawCommand();
 	// ----- 背景スプライト ----- //
 
-	DrawBackSprites();
+	DrawBackSprite2Ds();
 
 	// -------------------------- //
 	ModelCommon::StaticSetDrawCommand();
@@ -249,16 +227,16 @@ void GameScene::Draw()
 	DrawModels();
 
 	// -------------------------- //
-	BillboardCommon::StaticSetDrawCommand();
+	Sprite3DCommon::StaticSetDrawCommand();
 	// ------- ビルボード ------- //
 
-	DrawBillboards();
+	DrawSprite3Ds();
 
 	// -------------------------- //
-	SpriteCommon::StaticSetDrawCommand();
+	Sprite2DCommon::StaticSetDrawCommand();
 	// ----- 前景スプライト ----- //
 
-	DrawFrontSprites();
+	DrawFrontSprite2Ds();
 	
 	// -------------------------- //
 }

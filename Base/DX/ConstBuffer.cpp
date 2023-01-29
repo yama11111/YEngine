@@ -1,30 +1,25 @@
 #include "ConstBuffer.h"
+#include "Sprite2DCommon.h"
+#include "Sprite3DCommon.h"
+#include "ModelCommon.h"
+#include "Color.h"
 #include "YAssert.h"
 
 using YDX::ConstBufferCommon;
 
-ID3D12GraphicsCommandList* ConstBufferCommon::pCmdList_ = nullptr;
+ID3D12GraphicsCommandList* ConstBufferCommon::pCommandList_ = nullptr;
 YDX::DescriptorHeap* ConstBufferCommon::pDescHeap_ = nullptr;
 
 void ConstBufferCommon::StaticInitialize(const StaticInitStatus& state)
 {
-	assert(state.pCmdList_);
+	assert(state.pCommandList_);
 	assert(state.pDescHeap_);
 
-	pCmdList_ = state.pCmdList_;
+	pCommandList_ = state.pCommandList_;
 	pDescHeap_ = state.pDescHeap_;
 }
 
 using YDX::ConstBuffer;
-
-template<typename T>
-UINT ConstBuffer<T>::rpIndex_ = UINT32_MAX;
-
-template<typename T>
-void ConstBuffer<T>::StaticSetRootParamIndex(const UINT rpIndex)
-{
-	rpIndex_ = rpIndex;
-}
 
 template<typename T>
 void ConstBuffer<T>::Create()
@@ -54,13 +49,14 @@ void ConstBuffer<T>::Create()
 }
 
 template<typename T>
-void ConstBuffer<T>::SetDrawCommand()
+void ConstBuffer<T>::SetDrawCommand(const UINT rootParamIndex)
 {
 	// 定数バッファビュー(3D変換行列)の設定コマンド
-	pCmdList_->SetGraphicsRootConstantBufferView(rpIndex_, viewDesc_.BufferLocation);
+	pCommandList_->SetGraphicsRootConstantBufferView(rootParamIndex, viewDesc_.BufferLocation);
 }
 
-template class ConstBuffer<YDX::TransformCBData>;
-template class ConstBuffer<YDX::ColorCBData>;
-template class ConstBuffer<YDX::MaterialCBData>;
-template class ConstBuffer<YDX::BillboardCBData>;
+template class ConstBuffer<YGame::Sprite2DCommon::CBData>;
+template class ConstBuffer<YGame::Sprite3DCommon::CBData>;
+template class ConstBuffer<YGame::ModelCommon::CBData>;
+template class ConstBuffer<YGame::ModelCommon::MaterialCBData>;
+template class ConstBuffer<YGame::Color::CBData>;

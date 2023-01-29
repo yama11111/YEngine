@@ -33,13 +33,10 @@ namespace YGame
 		// テクスチャ読み込み(モデル用)
 		UINT Load(const std::string& directoryPath, const std::string texFileName, const bool mipMap = true);
 		// テクスチャ描画前コマンド 
-		void SetDrawCommand(const UINT texIndex);
+		void SetDrawCommand(const UINT rootParamIndex, const UINT texIndex);
 	public:
 		// テクスチャバッファ取得
 		ID3D12Resource* TextureBuffer(const UINT texIndex);
-	private:
-		// 拡張子取得
-		static std::string FileExtension(const std::string path);
 	private:
 		// 横方向ピクセル数
 		static const size_t textureWidth = 1;
@@ -54,8 +51,6 @@ namespace YGame
 		static ID3D12GraphicsCommandList* pCmdList_;
 		// 静的デスクリプターヒープクラス
 		static YDX::DescriptorHeap* pDescHeap_;
-		// 静的デスクリプタテーブル生成時番号保存用
-		static UINT rpIndex_;
 	public:
 		// 静的初期化設定
 		struct StaticInitStatus
@@ -63,7 +58,6 @@ namespace YGame
 			ID3D12Device* pDevice_;
 			ID3D12GraphicsCommandList* pCmdList_;
 			YDX::DescriptorHeap* pDescHeap_;
-			UINT rpIndex_;
 		};
 	public:
 		// 静的初期化

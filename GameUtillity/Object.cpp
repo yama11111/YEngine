@@ -1,31 +1,36 @@
 #include "Object.h"
 #include "CalcTransform.h"
+#include "Sprite2DCommon.h"
+#include "Sprite3DCommon.h"
+#include "ModelCommon.h"
 
 using YGame::Object;
 using YDX::ConstBuffer;
 using YMath::Mat4;
 using YMath::Vec4;
 
-Object::Object()
+template<typename T>
+Object<T>::Object() :
+	pos_(0.0f, 0.0f, 0.0f), 
+	rota_(0.0f, 0.0f, 0.0f), 
+	scale_(1.0f, 1.0f, 1.0f), 
+	parent_(nullptr)
 {
-	cbTrfm_.Create();
-	cbTrfm_.map_->mat_ = Mat4::Identity();
-	cbColor_.Create();
-	cbColor_.map_->color_ = Vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	Initialize({});
+	cBuff_.Create();
+	UpdateMatrix();
 }
 
-void Object::Initialize(const Status& state, const Vec4& color)
+template<typename T>
+void Object<T>::Initialize(const Status& state)
 {
 	pos_ = state.pos_;
 	rota_ = state.rota_;
 	scale_ = state.scale_;
-	Update();
-
-	color_ = color;
+	UpdateMatrix();
 }
 
-void Object::Update()
+template<typename T>
+void Object<T>::UpdateMatrix()
 {
 	// ƒAƒtƒBƒ“•ÏŠ·
 	m_ = Mat4::Identity();
@@ -33,7 +38,8 @@ void Object::Update()
 	if (parent_) { m_ *= *parent_; }
 }
 
-void Object::UniqueUpdate(const Status& state)
+template<typename T>
+void Object<T>::UpdateMatrix(const Status& state)
 {
 	Status s = { pos_,rota_,scale_ };
 	s.pos_ += state.pos_;
@@ -46,17 +52,6 @@ void Object::UniqueUpdate(const Status& state)
 	if (parent_) { m_ *= *parent_; }
 }
 
-void Object::SetDrawCommand(const Mat4& view, const Mat4& projection)
-{
-	cbTrfm_.map_->mat_ = m_ * view * projection;
-	cbTrfm_.SetDrawCommand();
-
-	cbColor_.map_->color_ = color_;
-	cbColor_.SetDrawCommand();
-}
-
-void Object::SetParent(Mat4* parent)
-{
-	if (parent == nullptr) return;
-	this->parent_ = parent;
-}
+template class Object<YGame::Sprite2DCommon::CBData>;
+template class Object<YGame::Sprite3DCommon::CBData>;
+template class Object<YGame::ModelCommon::CBData>;

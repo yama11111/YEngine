@@ -6,7 +6,7 @@ class Floor
 {
 private:
 	// オブジェクト
-	std::vector<std::vector<YGame::Object>> objs;
+	std::vector<std::vector<YGame::ObjectModel>> objs;
 public:
 	struct InitStatus
 	{

@@ -2,25 +2,21 @@
 #include "Keys.h"
 #include "Mouse.h"
 #include "Pad.h"
-#include "Sprite.h"
+#include "Sprite2D.h"
 #include "Model.h"
-#include "Billboard.h"
+#include "Sprite3D.h"
 #include "AudioManager.h"
 #include "CollisionManager.h"
 #include <memory>
 
 #include "Floor.h"
 #include "Player.h"
+#include "PlayerDrawer.h"
 #include "EnemyManager.h"
 #include "Skydome.h"
 #include "MapChipManager.h"
 #include "CameraManager.h"
 #include "SceneManager.h"
-
-#include "Lerp.h"
-#include "Timer.h"
-#include "Power.h"
-#include <array>
 
 namespace YGame
 {
@@ -49,11 +45,11 @@ namespace YGame
 		// ----- スプライト ----- //
 		
 		// 画面全部
-		std::unique_ptr<Sprite> windowS_ = nullptr;
+		std::unique_ptr<Sprite2D> windowS_ = nullptr;
 		// シーン遷移用
-		std::unique_ptr<Sprite> curtenS_ = nullptr;
+		std::unique_ptr<Sprite2D> curtenS_ = nullptr;
 		// マップ2D表示用
-		std::unique_ptr<Sprite> mapDispS_ = nullptr;
+		std::unique_ptr<Sprite2D> mapDispS_ = nullptr;
 
 		// ----- モデル ----- //
 		
@@ -63,8 +59,9 @@ namespace YGame
 		std::unique_ptr<Model> skydomeM_ = nullptr;
 		// スライムモデル
 		std::unique_ptr<Model> slimeM_ = nullptr;
-		
-		std::array<std::unique_ptr<Model>, 3> playerMods_;
+
+		// ずんだもんモデル
+		std::unique_ptr<Model> zundamonM_ = nullptr;
 
 		// ----- ビルボード ----- //
 
@@ -73,14 +70,8 @@ namespace YGame
 #pragma region ゲームオブジェクト
 
 		// プレイヤー
-		Object player_;
-		std::array<Object, 3> playerModTranss_;
-		enum class Parts 
-		{
-			Body,
-			Face,
-			Tail,
-		};
+		ObjectModel player_;
+		YDrawer::PlayerDrawer playerDra_;
 
 		// マップマネージャー
 		MapChipManager mapMan_;
@@ -92,7 +83,7 @@ namespace YGame
 		Skydome skydome_;
 
 		// カメラマネージャー
-		CameraManager cameraMan_;
+		YCamera::CameraManager cameraMan_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;
@@ -115,13 +106,13 @@ namespace YGame
 		void Draw();
 	private:
 		// 背景スプライト描画
-		void DrawBackSprites();
+		void DrawBackSprite2Ds();
 		// モデル描画
 		void DrawModels();
 		// ビルボード描画
-		void DrawBillboards();
+		void DrawSprite3Ds();
 		// 前景スプライト描画
-		void DrawFrontSprites();
+		void DrawFrontSprite2Ds();
 	public:
 		// コンストラクタ
 		GameScene();

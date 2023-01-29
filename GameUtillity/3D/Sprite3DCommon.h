@@ -3,10 +3,11 @@
 #include "ShaderCommon.h"
 #include "TextureManager.h"
 #include "Vec3.h"
+#include "Mat4.h"
 
 namespace YGame
 {
-	class BillboardCommon
+	class Sprite3DCommon
 	{
 	public:
 		// 頂点データ
@@ -14,9 +15,23 @@ namespace YGame
 		{
 			YMath::Vec3 pos_; // xyz座標
 		};
+		// 定数バッファデータ構造体
+		struct CBData
+		{
+			YMath::Mat4 mat_; // 3D変換行列
+			YMath::Mat4 matBill_; // ビルボード行列
+		};
+	public:
+		// ルートパラメータ番号
+		enum class RootParameterIndex
+		{
+			SpriteCB = 0,
+			ColorCB = 1,
+			TexDT = 2,
+		};
 	protected:
 		// パイプライン設定
-		static YDX::PipelineSet pplnSet_;
+		static YDX::PipelineSet pipelineSet_;
 		// 静的テクスチャマネージャーポインタ
 		static TextureManager* pTexManager_;
 	private:
@@ -45,8 +60,6 @@ namespace YGame
 		{
 			// テクスチャマネージャーポインタ
 			TextureManager* pTexManager_;
-			// ルートパラメータポインタ
-			std::vector<D3D12_ROOT_PARAMETER>* rootParams_;
 		};
 	public:
 		// 静的初期化

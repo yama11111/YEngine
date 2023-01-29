@@ -20,7 +20,7 @@ void Skydome::Update()
 {
 	obj_.pos_ = YMath::Vec3(0.0f, -20.0f, pPos_->z_);
 	obj_.rota_.y_ -= Rotate;
-	obj_.Update();
+	obj_.UpdateMatrix();
 }
 
 void Skydome::Draw(YGame::ViewProjection& vp)

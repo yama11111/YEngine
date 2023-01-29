@@ -6,7 +6,7 @@
 using YMath::Vec2;
 using YMath::Vec3;
 using YMath::Vec4;
-using YGame::Object;
+using YGame::ObjectModel;
 
 void MapChipInfo::LoadData(const std::string fileName)
 {
@@ -94,12 +94,12 @@ void MapChip::Reset()
 		{
 			if (chipNums_[y][z] == 1)
 			{
-				std::unique_ptr<Object> newChip = std::make_unique<Object>();
+				std::unique_ptr<ObjectModel> newChip = std::make_unique<ObjectModel>();
 
 				float posZ = +(chipSize_.z_ * 2.0f) * z + chipSize_.z_ + leftTop_.z_;
 				float posY = -(chipSize_.y_ * 2.0f) * y - chipSize_.y_ + leftTop_.y_;
 
-				newChip->Initialize({ {leftTop_.x_,posY,posZ},{},chipSize_ }, { 1.0f,1.0f,1.0f,1.0f });
+				newChip->Initialize({ {leftTop_.x_,posY,posZ},{},chipSize_ });
 				chips_.push_back(std::move(newChip));
 			}
 		}
@@ -135,7 +135,7 @@ void MapChip::Update()
 {
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		chips_[i]->Update();
+		chips_[i]->UpdateMatrix();
 	}
 
 	//for (size_t y = 0; y < chip2Ds_.size(); y++)

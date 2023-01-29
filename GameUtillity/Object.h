@@ -5,26 +5,22 @@
 
 namespace YGame
 {
+	template<typename T>
 	class Object
 	{
 	public:
-		// 行列
-		YMath::Mat4 m_;
 		// 位置
 		YMath::Vec3 pos_;
 		// 回転
 		YMath::Vec3 rota_;
 		// 大きさ
 		YMath::Vec3 scale_;
-		// 色
-		YMath::Vec4 color_;
-	private:
-		// 定数バッファ(3D変換行列)
-		YDX::ConstBuffer<YDX::TransformCBData> cbTrfm_;
-		// 定数バッファ(マテリアル1)
-		YDX::ConstBuffer<YDX::ColorCBData> cbColor_;
+		// 行列
+		YMath::Mat4 m_;
 		// 親行列
-		YMath::Mat4* parent_ = nullptr;
+		YMath::Mat4* parent_;
+		// 定数バッファ
+		YDX::ConstBuffer<T> cBuff_;
 	public:
 		// 設定用ステータス(位置、回転、大きさ)
 		struct Status
@@ -35,16 +31,11 @@ namespace YGame
 		};
 	public:
 		// 初期化
-		void Initialize(const Status& state, const YMath::Vec4& color = {1.0f,1.0f,1.0f,1.0f});
+		void Initialize(const Status& state);
 		// アフィン変換
-		void Update();
-		// 演出用特殊変換
-		void UniqueUpdate(const Status& state);
-		// 描画前コマンド
-		void SetDrawCommand(const YMath::Mat4& view, const YMath::Mat4& projection);
-	public:
-		// 親行列設定
-		void SetParent(YMath::Mat4* parent);
+		void UpdateMatrix();
+		// アフィン変換 (演出用)
+		void UpdateMatrix(const Status& state);
 	public:
 		// コンストラクタ
 		Object();

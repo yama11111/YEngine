@@ -1,5 +1,6 @@
 #include "Model.h"
 #include "CalcTransform.h"
+#include "FilePath.h"
 #include <cassert>
 #include <fstream>
 #include <sstream>
@@ -7,11 +8,53 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+using YGame::ModelCommon;
 using YGame::Model;
-using YGame::Material;
 using YMath::Vec2;
 using YMath::Vec3;
 using YMath::Vec4;
+
+const UINT ModIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ModelCB);
+const UINT ColIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ColorCB);
+const UINT MateIndex = static_cast<UINT>(ModelCommon::RootParameterIndex::MaterialCB);
+const UINT TexIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TexDT);
+
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Color& color, const UINT tex)
+{
+	obj.cBuff_.map_->mat_ = obj.m_ * vp.view_ * vp.pro_;
+	obj.cBuff_.SetDrawCommand(ModIndex);
+
+	color.SetDrawCommand(ColIndex);
+
+	for (size_t i = 0; i < meshes_.size(); i++)
+	{
+		meshes_[i].mtrl_.cBuff_.SetDrawCommand(MateIndex);
+		pTexManager_->SetDrawCommand(TexIndex, tex);
+		meshes_[i].vtIdx_.Draw();
+	}
+}
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, const UINT tex)
+{
+	Draw(obj, vp, defColor_, tex);
+}
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Color& color)
+{
+	obj.cBuff_.map_->mat_ = obj.m_ * vp.view_ * vp.pro_;
+	obj.cBuff_.SetDrawCommand(ModIndex);
+
+	color.SetDrawCommand(ColIndex);
+
+	for (size_t i = 0; i < meshes_.size(); i++)
+	{
+		meshes_[i].mtrl_.cBuff_.SetDrawCommand(MateIndex);
+		pTexManager_->SetDrawCommand(TexIndex, meshes_[i].mtrl_.texIndex_);
+		meshes_[i].vtIdx_.Draw();
+	}
+}
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp)
+{
+	Draw(obj, vp, defColor_);
+}
 
 Model* Model::Create()
 {
@@ -112,6 +155,7 @@ Model* Model::Load(const std::string& modelFileName)
 
 	// ファイル名
 	std::string objFileName  = modelFileName + ".obj";
+	objFileName = YUtil::FilePath(objFileName);
 	std::string directoryPath = "Resources/Models/" + modelFileName + "/";
 	// .objファイルを開く
 	file.open(directoryPath + objFileName);
@@ -145,7 +189,7 @@ Model* Model::Load(const std::string& modelFileName)
 			std::string mtlFileName;
 			lineStream >> mtlFileName;
 			// マテリアル読み込み
-			instance->meshes_[0].mtrl_.Load(directoryPath, mtlFileName);
+			instance->meshes_[0].mtrl_ = LoadMaterial(directoryPath, mtlFileName);
 		}
 
 #pragma endregion
@@ -173,7 +217,7 @@ Model* Model::Load(const std::string& modelFileName)
 			lineStream >> uv.x_;
 			lineStream >> uv.y_;
 			// v反転
-			//uv.y_ = 1.0f - uv.y_;
+			uv.y_ = 1.0f - uv.y_;
 			// 追加
 			uvs.push_back(uv);
 		}
@@ -285,138 +329,4 @@ Model* Model::Load(const LoadStatus& state)
 	scene = nullptr;
 
 	return instance;
-}
-
-void Model::Normalized(std::vector<VData>& v, const std::vector<uint16_t> indices)
-{
-	for (size_t i = 0; i < indices.size() / 3; i++)
-	{
-		// 三角形1つごとに計算していく
-		// 三角形のインデックスを取り出して、一般的な変数に入れる
-		unsigned short index0 = indices[i * 3 + 0];
-		unsigned short index1 = indices[i * 3 + 1];
-		unsigned short index2 = indices[i * 3 + 2];
-		// 三角形を構成する頂点座標ベクトルに代入
-		Vec3 p0 = v[index0].pos_;
-		Vec3 p1 = v[index1].pos_;
-		Vec3 p2 = v[index2].pos_;
-		// p0->p1ベクトル、p0->p2ベクトルを計算 (ベクトルの減算)
-		Vec3 v1 = p1 - p0;
-		Vec3 v2 = p2 - p0;
-		// 外積は両方から垂直なベクトル
-		Vec3 normal = v1.Cross(v2);
-		// 正規化 (長さを1にする)
-		normal = normal.Normalized();
-		// 求めた法線を頂点データに代入
-		v[index0].normal_ = normal;
-		v[index1].normal_ = normal;
-		v[index2].normal_ = normal;
-	}
-}
-
-YDX::VertexIndex<Model::VData> Model::LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized)
-{
-	YDX::VertexIndex<VData> vtIdx;
-
-	aiVector3D zero3D(0.0f, 0.0f, 0.0f);
-	aiColor4D zeroColor(0.0f, 0.0f, 0.0f, 0.0f);
-
-	std::vector<VData> vData;
-	std::vector<uint16_t> indices;
-
-	vData.resize(src->mNumVertices);
-
-	for (size_t i = 0; i < src->mNumVertices; ++i)
-	{
-		aiVector3D* position = &(src->mVertices[i]);
-		aiVector3D* normal = &(src->mNormals[i]);
-		aiVector3D* uv = (src->HasTextureCoords(0)) ? &(src->mTextureCoords[0][i]) : &zero3D;
-		aiVector3D* tangent = (src->HasTangentsAndBitangents()) ? &(src->mTangents[i]) : &zero3D;
-		aiColor4D* color = (src->HasVertexColors(0)) ? &(src->mColors[0][i]) : &zeroColor;
-
-		if (invU) { uv->x = 1.0f - uv->x; }
-		if (invV) { uv->y = 1.0f - uv->y; }
-
-		VData vertex = {};
-		vertex.pos_ = Vec3(position->x, position->y, position->z);
-		vertex.normal_ = Vec3(normal->x, normal->y, normal->z);
-		vertex.uv_ = Vec2(uv->x, uv->y);
-		vertex.tangent_ = Vec3(tangent->x, tangent->y, tangent->z);
-		vertex.color_ = Vec4(color->r, color->g, color->b, color->a);
-
-		vData[i] = vertex;
-	}
-
-	indices.resize(src->mNumFaces * static_cast<size_t>(3));
-
-	for (size_t i = 0; i < src->mNumFaces; ++i)
-	{
-		const aiFace& face = src->mFaces[i];
-
-		indices[i * 3 + 0] = face.mIndices[0];
-		indices[i * 3 + 1] = face.mIndices[1];
-		indices[i * 3 + 2] = face.mIndices[2];
-	}
-
-	if (isNormalized) { Normalized(vData, indices); }
-
-	vtIdx.Initialize(vData, indices);
-
-	return vtIdx;
-}
-
-Material Model::LoadMaterial(const std::string directoryPath, const aiMaterial* src, const std::string extension)
-{
-	Material material;
-
-	aiString path;
-	if (src->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) == AI_SUCCESS)
-	{
-		std::string fileName = std::string(path.C_Str());
-		if (extension != "")
-		{
-			fileName = ReplaceExtension(fileName, extension);
-		}
-		material.LoadTexture(directoryPath, fileName);
-	}
-	else
-	{
-		material = Material();
-	}
-
-	return material;
-}
-
-std::string Model::ReplaceExtension(const std::string fileName, const std::string extention)
-{
-	std::string result = fileName;
-
-	std::string::size_type pos;
-	pos = result.find_last_of(".");
-
-	if (pos == std::string::npos) { return fileName; }
-
-	return result.substr(0, pos) + "." + extention;
-}
-
-void Model::Draw(Object& obj, const ViewProjection& vp, const UINT tex)
-{
-	obj.SetDrawCommand(vp.view_, vp.pro_);
-
-	for (size_t i = 0; i < meshes_.size(); i++)
-	{
-		meshes_[i].mtrl_.SetDrawCommand(tex);
-		meshes_[i].vtIdx_.Draw();
-	}
-}
-
-void Model::Draw(Object& obj, const ViewProjection& vp)
-{
-	obj.SetDrawCommand(vp.view_, vp.pro_);
-
-	for (size_t i = 0; i < meshes_.size(); i++)
-	{
-		meshes_[i].mtrl_.SetDrawCommand();
-		meshes_[i].vtIdx_.Draw();
-	}
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "Object.h"
 #include "CharaStatus.h"
 #include "Collider.h"
 #include "MapChipCollider.h"
@@ -18,12 +17,14 @@ class Character :
 {
 protected:
 	// オブジェクト
-	YGame::Object obj_;
+	YGame::ObjectModel obj_;
 	// スピード
 	YMath::Vec3 speed_;
+	// 
+
 public:
 	// 初期化
-	void InitializeCharacter(YGame::Object::Status state);
+	void InitializeCharacter(YGame::ObjectModel::Status state);
 	// 重力とマップチップアタリ判定とアニメーション
 	void UpdateGravity();
 	// 更新

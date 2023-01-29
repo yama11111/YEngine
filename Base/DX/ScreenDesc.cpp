@@ -3,12 +3,12 @@
 
 using YDX::ScreenDesc;
 
-ID3D12GraphicsCommandList* ScreenDesc::pCmdList_ = nullptr;
+ID3D12GraphicsCommandList* ScreenDesc::pCommandList_ = nullptr;
 
 void ScreenDesc::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 {
 	assert(pCommandList);
-	pCmdList_ = pCommandList;
+	pCommandList_ = pCommandList;
 }
 
 void ScreenDesc::Initialize(const YMath::Vec2& topLeft, const YMath::Vec2& bottomRight)
@@ -31,7 +31,7 @@ void ScreenDesc::Initialize(const YMath::Vec2& topLeft, const YMath::Vec2& botto
 void ScreenDesc::SetDrawCommand() 
 {
 	// ビューポート設定コマンド
-	pCmdList_->RSSetViewports(1, &viewport_);
+	pCommandList_->RSSetViewports(1, &viewport_);
 	// シザー矩形設定コマンド
-	pCmdList_->RSSetScissorRects(1, &scissorRect_);
+	pCommandList_->RSSetScissorRects(1, &scissorRect_);
 }

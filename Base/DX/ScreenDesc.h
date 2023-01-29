@@ -20,7 +20,7 @@ namespace YDX
 		void SetDrawCommand();
 	private:
 		// 静的コマンドリストポインタ
-		static ID3D12GraphicsCommandList* pCmdList_;
+		static ID3D12GraphicsCommandList* pCommandList_;
 	public:
 		// 静的メンバ初期化
 		static void StaticInitialize(ID3D12GraphicsCommandList* pCommandList);

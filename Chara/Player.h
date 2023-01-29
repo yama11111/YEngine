@@ -1,14 +1,13 @@
 #pragma once
 #include "Character.h"
-#include "Model.h"
-#include "Sprite.h"
+#include "Sprite2D.h"
 
 class MapChipPointer;
 
 class Player : public Character
 {
 private:
-	YGame::Object jump[2];
+	YGame::ObjectSprite2D jump[2];
 	// ジャンプ回数
 	int jumpCount_ = 0;
 public:
@@ -50,7 +49,7 @@ private:
 	// 静的モデルポインタ
 	static YGame::Model* pModel_;
 	// 静的スプライトポインタ
-	static YGame::Sprite* pJump_;
+	static YGame::Sprite2D* pJump_;
 	// 静的テクスチャインデックス
 	static UINT tex_;
 public:
@@ -58,7 +57,7 @@ public:
 	struct StaticInitStatus
 	{
 		YGame::Model* pModel_;// モデルポインタ
-		YGame::Sprite* pSprite_;
+		YGame::Sprite2D* pSprite_;
 		UINT tex_;// テクスチャインデックス
 	};
 public:

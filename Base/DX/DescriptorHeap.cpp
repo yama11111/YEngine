@@ -4,15 +4,15 @@
 using YDX::DescriptorHeap;
 
 ID3D12Device* DescriptorHeap::pDevice_ = nullptr;
-ID3D12GraphicsCommandList* DescriptorHeap::pCmdList_ = nullptr;
+ID3D12GraphicsCommandList* DescriptorHeap::pCommandList_ = nullptr;
 
 void DescriptorHeap::StaticInitialize(const StaticInitStatus& state)
 {
 	assert(state.pDevice_);
-	assert(state.pCmdList_);
+	assert(state.pCommandList_);
 
 	pDevice_  = state.pDevice_;
-	pCmdList_ = state.pCmdList_;
+	pCommandList_ = state.pCommandList_;
 }
 
 void DescriptorHeap::Initialize()
@@ -102,5 +102,5 @@ void DescriptorHeap::SetDrawCommand()
 {
 	// SRVヒープの設定コマンド
 	ID3D12DescriptorHeap* ppHeaps[] = { descriptorHeap_.Get() };
-	pCmdList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
+	pCommandList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 }

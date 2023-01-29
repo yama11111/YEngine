@@ -1,13 +1,51 @@
-#include "Sprite.h"
+#include "Sprite2D.h"
 
-using YGame::Sprite;
+using YGame::Sprite2DCommon;
+using YGame::Sprite2D;
 using YMath::Vec2;
 using YMath::Mat4;
 
-Sprite* Sprite::Create(const Status& state, const TexStatus& texState, const bool div)
+const UINT SprIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::SpriteCB);
+const UINT ColIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ColorCB);
+const UINT TexIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::TexDT);
+
+void Sprite2D::Draw(ObjectSprite2D& obj, Color& color, const UINT tex)
+{
+	if (isInvisible_) { return; }
+
+	obj.cBuff_.map_->mat_ = obj.m_ * projection_;
+	obj.cBuff_.SetDrawCommand(SprIndex);
+
+	color.SetDrawCommand(ColIndex);
+
+	pTexManager_->SetDrawCommand(TexIndex, tex);
+	vt_.Draw();
+}
+void Sprite2D::Draw(ObjectSprite2D& obj, const UINT tex)
+{
+	Draw(obj, defColor_, tex);
+}
+void Sprite2D::Draw(ObjectSprite2D& obj, Color& color)
+{
+	if (isInvisible_) { return; }
+
+	obj.cBuff_.map_->mat_ = obj.m_ * projection_;
+	obj.cBuff_.SetDrawCommand(SprIndex);
+
+	color.SetDrawCommand(ColIndex);
+
+	pTexManager_->SetDrawCommand(TexIndex, tex_);
+	vt_.Draw();
+}
+void Sprite2D::Draw(ObjectSprite2D& obj)
+{
+	Draw(obj, defColor_);
+}
+
+Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const bool div)
 {
 	// インスタンス
-	Sprite* instance = new Sprite();
+	Sprite2D* instance = new Sprite2D();
 	
 	// ----- Status ----- //
 
@@ -52,22 +90,22 @@ Sprite* Sprite::Create(const Status& state, const TexStatus& texState, const boo
 	return instance;
 }
 
-void Sprite::SetSize(const Vec2& size)
+void Sprite2D::SetSize(const Vec2& size)
 {
 	if (size_ == size) { return; }
 	SetAllStatus({ size, anchor_, isFlipX_, isFlipY_ }, { tex_, texLeftTop_, texLeftTop_ });
 }
-void Sprite::SetAnchorPoint(const Vec2& anchor)
+void Sprite2D::SetAnchorPoint(const Vec2& anchor)
 {
 	if (anchor_ == anchor) { return; }
 	SetAllStatus({ size_, anchor, isFlipX_, isFlipY_ }, { tex_, texLeftTop_, texLeftTop_ });
 }
-void Sprite::SetFrip(const bool isFlipX, const bool isFlipY)
+void Sprite2D::SetFrip(const bool isFlipX, const bool isFlipY)
 {
 	if (isFlipX_ == isFlipX && isFlipY_ == isFlipY) { return; }
 	SetAllStatus({ size_, anchor_, isFlipX, isFlipY }, { tex_, texLeftTop_, texLeftTop_ });
 }
-void Sprite::SetTextureLeftTop(const Vec2& leftTop, const bool adjust)
+void Sprite2D::SetTextureLeftTop(const Vec2& leftTop, const bool adjust)
 {
 	if (texLeftTop_ == leftTop) { return; }
 
@@ -76,17 +114,17 @@ void Sprite::SetTextureLeftTop(const Vec2& leftTop, const bool adjust)
 
 	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, leftTop, texSize_ - Vec2(adjX, adjY) }, true);
 }
-void Sprite::SetTextureSize(const Vec2& texSize)
+void Sprite2D::SetTextureSize(const Vec2& texSize)
 {
 	if (texSize_ == texSize) { return; }
 	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, texLeftTop_, texSize }, true);
 }
-void Sprite::SetTextureRectangle(const Vec2& leftTop, const Vec2& texSize)
+void Sprite2D::SetTextureRectangle(const Vec2& leftTop, const Vec2& texSize)
 {
 	if (texLeftTop_ == leftTop && texSize_ == texSize) { return; }
 	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, leftTop, texSize }, true);
 }
-void Sprite::SetAllStatus(const Status& state, const TexStatus& texState, const bool div)
+void Sprite2D::SetAllStatus(const Status& state, const TexStatus& texState, const bool div)
 {
 	std::vector<VData> v;
 
@@ -127,20 +165,4 @@ void Sprite::SetAllStatus(const Status& state, const TexStatus& texState, const 
 	tex_	    = texState.index_;
 	texLeftTop_ = div ? texState.leftTop_ : Vec2(0.0f, 0.0f);
 	texSize_    = div ? texState.size_ : Vec2(rscSizeX, rscSizeY);
-}
-
-void Sprite::Draw(Object& obj, const UINT tex)
-{
-	if (isInvisible_) { return; }
-	obj.SetDrawCommand(Mat4::Identity(), projection_);
-	pTexManager_->SetDrawCommand(tex);
-	vt_.Draw();
-}
-
-void Sprite::Draw(Object& obj)
-{
-	if (isInvisible_) { return; }
-	obj.SetDrawCommand(Mat4::Identity(), projection_);
-	pTexManager_->SetDrawCommand(tex_);
-	vt_.Draw();
 }

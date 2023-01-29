@@ -8,7 +8,7 @@ namespace YParticle
 	class IParticle
 	{
 	public:
-		YGame::Object obj_;
+		YGame::ObjectModel obj_;
 		bool isAlive_ = false;
 	public:
 		virtual void Update() = 0;

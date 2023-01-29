@@ -12,7 +12,7 @@ using namespace CharaConfig::Player;
 #pragma endregion
 
 YGame::Model* Player::pModel_ = nullptr;
-YGame::Sprite* Player::pJump_ = nullptr;
+YGame::Sprite2D* Player::pJump_ = nullptr;
 UINT Player::tex_ = UINT_MAX;
 
 void Player::StaticIntialize(const StaticInitStatus& state)
@@ -128,7 +128,7 @@ void Player::Update()
 
 	UpdateCharacter();
 
-	obj_.UniqueUpdate(
+	obj_.UpdateMatrix(
 		{
 			HitActionShakeValue(),
 			{},
@@ -138,12 +138,12 @@ void Player::Update()
 
 	for (size_t i = 0; i < 2; i++)
 	{
-		jump[i].color_ = { 1.0f,1.0f,1.0f,1.0f };
-		if(jumpCount_ > i) 
-		{
-			jump[i].color_ = { 0.1f,0.1f,0.1f,1.0f };
-		}
-		jump[i].Update();
+		//jump[i].color_ = { 1.0f,1.0f,1.0f,1.0f };
+		//if(jumpCount_ > i) 
+		//{
+		//	jump[i].color_ = { 0.1f,0.1f,0.1f,1.0f };
+		//}
+		jump[i].UpdateMatrix();
 	}
 }
 

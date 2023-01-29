@@ -1,5 +1,5 @@
 #pragma once
-#include "Sprite.h"
+#include "Sprite2D.h"
 
 namespace YUIDrawer
 {

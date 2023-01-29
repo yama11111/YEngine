@@ -23,7 +23,7 @@ void PushUIDrawer::Update()
 	YMath::Vec3 p = endPos_;
 	YMath::Vec3 s = SlimeActionValue();
 
-	obj_.UniqueUpdate({ p, {}, s });
+	obj_.UpdateMatrix({ p, {}, s });
 }
 
 void PushUIDrawer::Draw()
@@ -42,7 +42,7 @@ void PushUIDrawer::PushSlime()
 	Push();
 }
 
-void PushUIDrawer::SetSprites(YGame::Sprite* on, YGame::Sprite* off)
+void PushUIDrawer::SetSprites(YGame::Sprite2D* on, YGame::Sprite2D* off)
 {
 	pButtons_[0] = on;
 	pButtons_[1] = off;
