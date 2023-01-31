@@ -14,7 +14,7 @@ namespace YGame
 			YMath::Vec3 lightColor_; // 色
 			float pad2_; // パディング
 			YMath::Vec3 lightAtten_; // 距離減衰係数
-			unsigned int active_; // 動作フラグ
+			float active_; // 動作フラグ
 		};
 	private:
 		// 座標
@@ -28,7 +28,7 @@ namespace YGame
 	public:
 		// 初期化
 		void Initialize(const YMath::Vec3& pos, const YMath::Vec3& color = { 1.0f,1.0f,1.0f }, 
-			const YMath::Vec3& atten = { 1.0f,1.0f,1.0f });
+			const YMath::Vec3& atten = { 0.005f,0.005f,0.005f });
 	public:
 		// 座標取得
 		YMath::Vec3 Pos() { return pos_; }

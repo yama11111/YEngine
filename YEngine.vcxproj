@@ -145,6 +145,7 @@
     <ClCompile Include="GameUtillity\Light\DirectionalLight.cpp" />
     <ClCompile Include="GameUtillity\Light\LightGroup.cpp" />
     <ClCompile Include="GameUtillity\Light\PointLight.cpp" />
+    <ClCompile Include="GameUtillity\Light\SpotLight.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChip.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="GameUtillity\Light\DirectionalLight.h" />
     <ClInclude Include="GameUtillity\Light\LightGroup.h" />
     <ClInclude Include="GameUtillity\Light\PointLight.h" />
+    <ClInclude Include="GameUtillity\Light\SpotLight.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChip.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipCollider.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h" />
@@ -265,6 +267,7 @@
     <ClInclude Include="Utillity\Math\Vec4.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shaders\Light.hlsli" />
     <None Include="Resources\Shaders\Sprite3D.hlsli" />
     <None Include="Resources\Shaders\Model.hlsli" />
     <None Include="Resources\Shaders\Sprite2D.hlsli" />

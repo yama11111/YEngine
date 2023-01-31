@@ -12,7 +12,7 @@ namespace YGame
 			YMath::Vec3 lightVec_; // 向き
 			float pad_; // パディング
 			YMath::Vec3 lightColor_; // 色
-			unsigned int active_; // 動作フラグ
+			float active_; // 動作フラグ
 		};
 	private:
 		// 向き

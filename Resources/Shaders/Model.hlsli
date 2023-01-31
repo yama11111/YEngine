@@ -1,3 +1,5 @@
+#include "Light.hlsli"
+
 // 3D変換行列
 cbuffer cbuff0 : register(b0)
 {
@@ -5,18 +7,13 @@ cbuffer cbuff0 : register(b0)
 	matrix matViewProj;	 // ビュープロジェクション行列
 	float3 cameraPos;	 // カメラ座標
 }
-// 平行光源
-struct DireLight 
-{
-	float3 lightVec;	 // 向き
-	float3 lightColor;	 // 色
-	uint active;		 // 動作フラグ
-};
 // 光
 cbuffer cbuff1 : register(b1)
 {
-	float3 ambientColor; // 環境光色
-	DireLight direLights[3]; // 平行光源
+	float3 ambientColor;		 // 環境光色
+	DireLight direLights[DireLightNum];	 // 平行光源
+	PointLight pointLights[PointLightNum];	 // 点光源
+	//SpotLight spotLights[SpotLightNum];	 // スポットライト光源
 }
 // マテリアル1
 cbuffer cbuff2 : register(b2)

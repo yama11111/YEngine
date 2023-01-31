@@ -1,6 +1,8 @@
 #pragma once
 #include "ConstBuffer.h"
 #include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 #include <array>
 
 namespace YGame
@@ -10,6 +12,10 @@ namespace YGame
 	public:
 		// 平行光源数
 		static const size_t DireLightNum_ = 3;
+		// 点光源数
+		static const size_t PointLightNum_ = 3;
+		// スポットライト光源数
+		static const size_t SpotLightNum_ = 1;
 	public:
 		// 定数バッファデータ構造体 (光)
 		struct CBData
@@ -17,6 +23,8 @@ namespace YGame
 			YMath::Vec3 ambientColor_; // 環境光の色
 			float pad_; // パディング
 			std::array<DirectionalLight::CBData, DireLightNum_> direLights_; // 平行光源
+			std::array<PointLight::CBData, PointLightNum_> pointLights_; // 点光源
+			//std::array<SpotLight::CBData, SpotLightNum_> spotLights_; // スポットライト光源
 		};
 	private:
 		// 環境光の色
@@ -26,6 +34,10 @@ namespace YGame
 	private:
 		// 平行光源
 		std::array<DirectionalLight, DireLightNum_> direLights_;
+		// 点光源
+		std::array<PointLight, PointLightNum_> pointLights_;
+		// スポットライト光源
+		std::array<SpotLight, SpotLightNum_> spotLights_;
 	public:
 		// 生成
 		static LightGroup* Create();
@@ -46,6 +58,28 @@ namespace YGame
 		void SetDirectionalLightColor(const size_t index, const YMath::Vec3& color);
 		// 有効フラグ設定 (平行光源)
 		void SetDirectionalLightActive(const size_t index, const bool isAct);
+	public:
+		// 座標設定 (点光源)
+		void SetPointLightPos(const size_t index, const YMath::Vec3& pos);
+		// 色設定 (点光源)
+		void SetPointLightColor(const size_t index, const YMath::Vec3& color);
+		// 距離減衰係数設定 (点光源)
+		void SetPointLightAtten(const size_t index, const YMath::Vec3& atten);
+		// 有効フラグ設定 (平行光源)
+		void SetPointLightActive(const size_t index, const bool isAct);
+	public:
+		// 座標設定 (スポットライト光源)
+		void SetSpotLightPos(const size_t index, const YMath::Vec3& pos);
+		// 向き設定 (スポットライト光源)
+		void SetSpotLightDirection(const size_t index, const YMath::Vec3& direction);
+		// 色設定 (スポットライト光源)
+		void SetSpotLightColor(const size_t index, const YMath::Vec3& color);
+		// 距離減衰係数設定 (スポットライト光源)
+		void SetSpotLightAtten(const size_t index, const YMath::Vec3& atten);
+		// 減衰角度設定 (スポットライト光源)
+		void SetSpotLightFactorAngleCos(const size_t index, const float start, const float end);
+		// 有効フラグ設定 (スポットライト光源)
+		void SetSpotLightActive(const size_t index, const bool isAct);
 	private:
 		LightGroup();
 	};

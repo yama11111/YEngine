@@ -78,8 +78,10 @@ void PlayScene::Load()
 #pragma region 初期化
 void PlayScene::Initialize()
 {	
+	cu_.reset(ObjectModel::Create({ {-20,0,0},{},{10.0f,10.0f,10.0f} }));
+
 	// プレイヤー
-	player_.reset(ObjectModel::Create({ {0,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} }));
+	player_.reset(ObjectModel::Create({ {+20,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} }));
 	playerDra_.Initialize(&player_->m_);
 
 	// マップ初期化
@@ -97,6 +99,12 @@ void PlayScene::Initialize()
 	lightGroup_->SetDirectionalLightColor(0, { 0.0f,1.0f,0.0f });
 	lightGroup_->SetDirectionalLightColor(1, { 1.0f,0.0f,0.0f });
 	lightGroup_->SetDirectionalLightColor(2, { 0.0f,0.0f,1.0f });
+	lightGroup_->SetPointLightColor(0, { 0.0f,1.0f,0.0f });
+	lightGroup_->SetPointLightColor(1, { 1.0f,0.0f,0.0f });
+	lightGroup_->SetPointLightColor(2, { 0.0f,0.0f,1.0f });
+	//lightGroup_->SetSpotLightColor(0, { 1.0f,1.0f,1.0f });
+	//lightGroup_->SetSpotLightColor(1, { 1.0f,0.0f,0.0f });
+	//lightGroup_->SetSpotLightColor(0, { 0.0f,0.0f,1.0f });
 	lightDire1_ = { 0,1,5 };
 	lightDire2_ = { 0,1,5 };
 
@@ -118,7 +126,7 @@ void PlayScene::Initialize()
 #pragma region 終了処理
 void PlayScene::Finalize()
 {
-
+	lightGroup_.reset();
 }
 #pragma endregion
 
@@ -212,6 +220,7 @@ void PlayScene::DrawModels()
 
 	playerDra_.Draw(vp_, lightGroup_.get());
 
+	cubeM_->Draw(cu_.get(), vp_, lightGroup_.get(), plainT_);
 	//particleMan_.Draw(vp_);
 }
 

@@ -363,6 +363,9 @@
     <ClCompile Include="Scene\YGameSceneFactory.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="GameUtillity\Light\SpotLight.cpp">
+      <Filter>GameUtil\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -617,6 +620,9 @@
     <ClInclude Include="Scene\YGameSceneFactory.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="GameUtillity\Light\SpotLight.h">
+      <Filter>GameUtil\Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite3D.hlsli">
@@ -627,6 +633,9 @@
     </None>
     <None Include="Resources\Shaders\Sprite2D.hlsli">
       <Filter>Draw\Shader\Sprite2D</Filter>
+    </None>
+    <None Include="Resources\Shaders\Light.hlsli">
+      <Filter>Draw\Shader\Model</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

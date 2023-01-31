@@ -70,6 +70,7 @@ namespace YScene
 		std::unique_ptr<YGame::ObjectSprite2D> e_;
 		bool b_ = false;
 		
+		std::unique_ptr<YGame::ObjectModel> cu_;
 		// ƒvƒŒƒCƒ„[
 		std::unique_ptr<YGame::ObjectModel> player_;
 		YDrawer::PlayerDrawer playerDra_;

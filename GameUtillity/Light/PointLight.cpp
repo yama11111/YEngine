@@ -6,12 +6,12 @@ using YMath::Vec3;
 using YMath::Clamp;
 
 PointLight::PointLight() :
-	pos_(+1.0f, +1.0f, +1.0f),
+	pos_(0.0f, 0.0f, 0.0f),
 	color_(1.0f, 1.0f, 1.0f),
-	atten_(+1.0f, +1.0f, +1.0f),
+	atten_(0.005f, 0.005f, 0.005f),
 	isAct_(false)
 {
-	Initialize(pos_, color_, atten_);
+	Initialize(pos_, atten_, color_);
 }
 
 void PointLight::Initialize(const YMath::Vec3& pos, const YMath::Vec3& color, const YMath::Vec3& atten)
@@ -26,7 +26,6 @@ void PointLight::SetPos(const YMath::Vec3& pos)
 {
 	pos_ = pos;
 }
-
 void PointLight::SetColor(const YMath::Vec3& color)
 {
 	float r = Clamp<float>(color.x_, 0.0f, 1.0f);
@@ -44,7 +43,6 @@ void PointLight::SetColor(const unsigned int R, const unsigned int G, const unsi
 
 	SetColor(c);
 }
-
 void PointLight::SetAtten(const YMath::Vec3& atten)
 {
 	float r = Clamp<float>(atten.x_, 0.0f, 1.0f);

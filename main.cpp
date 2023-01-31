@@ -11,7 +11,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	// ˆ—
 	game->Run();
-
+	
 	// ŠJ•ú
 	game.reset();
 
