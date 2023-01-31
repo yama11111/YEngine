@@ -25,13 +25,13 @@ public:
 public:
 	// 初期化
 	void Initialize(const InitStatus& state);
+	// 終了処理
+	void Finalize();
 	// 受付開始
 	void Begin();
 	// 受付終了
 	void End();
 	// 描画
 	void Draw();
-	// 終了処理
-	void Finalize();
 };
 

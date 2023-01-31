@@ -7,7 +7,7 @@
 namespace YGame
 {
 	// モデル用オブジェクト
-	typedef Object<ModelCommon::CBData> ObjectModel;
+	using ObjectModel = Object<ModelCommon::CBData>;
 
 	// モデルクラス
 	class Model : private ModelCommon
@@ -16,7 +16,7 @@ namespace YGame
 		// メッシュ配列
 		std::vector<Mesh> meshes_;
 		// 色
-		Color defColor_{};
+		std::unique_ptr<Color> defColor_;
 	public:
 		// 読み込み設定構造体
 		struct LoadStatus
@@ -38,15 +38,16 @@ namespace YGame
 		static Model* Load(const LoadStatus& state);
 	public:
 		// 描画 (テクスチャ + 色 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color, const UINT tex);
+		void Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, Color* color, const UINT tex);
 		// 描画 (テクスチャ 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, const UINT tex);
+		void Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, const UINT tex);
 		// 描画 (色 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color);
+		void Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, Color* color);
 		// 描画 (デフォルト)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup);
+		void Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup);
 	private:
-		// コンストラクタ
 		Model() = default;
+	public:
+		~Model() = default;
 	};
 }

@@ -11,39 +11,39 @@ const UINT SprIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::Spr
 const UINT ColIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::ColorCB);
 const UINT TexIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::TexDT);
 
-void Sprite3D::Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color, const UINT tex)
+void Sprite3D::Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color, const UINT tex)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->matWorld_ = obj.m_ * vp.view_ * vp.pro_;
-	obj.cBuff_.map_->matBill_ = BillboardMatrix(vp);
-	obj.cBuff_.SetDrawCommand(SprIndex);
+	obj->cBuff_.map_->matWorld_ = obj->m_ * vp.view_ * vp.pro_;
+	obj->cBuff_.map_->matBill_ = BillboardMatrix(vp);
+	obj->cBuff_.SetDrawCommand(SprIndex);
 
-	color.SetDrawCommand(ColIndex);
+	color->SetDrawCommand(ColIndex);
 
 	pTexManager_->SetDrawCommand(TexIndex, tex);
 	vt_.Draw();
 }
-void Sprite3D::Draw(ObjectSprite3D& obj, const ViewProjection& vp, const UINT tex)
+void Sprite3D::Draw(ObjectSprite3D* obj, const ViewProjection& vp, const UINT tex)
 {
-	Draw(obj, vp, defColor_, tex);
+	Draw(obj, vp, defColor_.get(), tex);
 }
-void Sprite3D::Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color)
+void Sprite3D::Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->matWorld_ = obj.m_ * vp.view_ * vp.pro_;
-	obj.cBuff_.map_->matBill_ = BillboardMatrix(vp);
-	obj.cBuff_.SetDrawCommand(SprIndex);
+	obj->cBuff_.map_->matWorld_ = obj->m_ * vp.view_ * vp.pro_;
+	obj->cBuff_.map_->matBill_ = BillboardMatrix(vp);
+	obj->cBuff_.SetDrawCommand(SprIndex);
 
-	color.SetDrawCommand(ColIndex);
+	color->SetDrawCommand(ColIndex);
 
 	pTexManager_->SetDrawCommand(TexIndex, tex_);
 	vt_.Draw();
 }
-void Sprite3D::Draw(ObjectSprite3D& obj, const ViewProjection& vp)
+void Sprite3D::Draw(ObjectSprite3D* obj, const ViewProjection& vp)
 {
-	Draw(obj, vp, defColor_);
+	Draw(obj, vp, defColor_.get());
 }
 YMath::Mat4 Sprite3D::BillboardMatrix(const ViewProjection& vp)
 {
@@ -84,6 +84,7 @@ Sprite3D* Sprite3D::Create(const Status& state, const UINT texIndex)
 	instance->isXAxisBillboard_ = state.isXAxisBillboard_;
 	instance->isYAxisBillboard_ = state.isYAxisBillboard_;
 	instance->isInvisible_  = false;
+	instance->defColor_.reset(Color::Create());
 
 	return instance;
 }

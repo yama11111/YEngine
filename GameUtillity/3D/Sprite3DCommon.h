@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "Vec3.h"
 #include "Mat4.h"
+#include <memory>
 
 namespace YGame
 {

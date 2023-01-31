@@ -30,6 +30,9 @@ namespace YGame
 			YMath::Vec3 scale_ = { 1.0f, 1.0f, 1.0f };
 		};
 	public:
+		// 生成
+		static Object<T>* Create(const Status& state);
+	public:
 		// 初期化
 		void Initialize(const Status& state);
 		// アフィン変換
@@ -37,9 +40,8 @@ namespace YGame
 		// アフィン変換 (演出用)
 		void UpdateMatrix(const Status& state);
 	public:
-		// コンストラクタ
 		Object();
-		// デストラクタ
+	public:
 		~Object() = default;
 	};
 }

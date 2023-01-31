@@ -29,7 +29,7 @@ namespace YDrawer
 		private PlayerDrawerCommon
 	{
 	private:
-		std::array<YGame::ObjectModel, PartsNum_> objs_;
+		std::array<std::unique_ptr<YGame::ObjectModel>, PartsNum_> objs_;
 	public:
 		// ‰Šú‰» (Å‰‚Éˆê‰ñ‚¾‚¯)
 		void Initialize(YMath::Mat4* pParent);

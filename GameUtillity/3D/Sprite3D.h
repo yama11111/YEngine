@@ -8,7 +8,7 @@
 namespace YGame
 {
 	// モデル用オブジェクト
-	typedef Object<Sprite3DCommon::CBData> ObjectSprite3D;
+	using ObjectSprite3D = Object<Sprite3DCommon::CBData>;
 
 	class Sprite3D : private Sprite3DCommon
 	{
@@ -16,7 +16,7 @@ namespace YGame
 		// 頂点データ
 		YDX::Vertices<VData> vt_;
 		// 色
-		Color defColor_{};
+		std::unique_ptr<Color> defColor_;
 
 		// X軸ビルボード
 		bool isXAxisBillboard_ = false;
@@ -39,17 +39,18 @@ namespace YGame
 		static Sprite3D* Create(const Status& state, const UINT texIndex = UINT32_MAX);
 	public:
 		// 描画
-		void Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color, const UINT tex);
+		void Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color, const UINT tex);
 		// 描画
-		void Draw(ObjectSprite3D& obj, const ViewProjection& vp, const UINT tex);
+		void Draw(ObjectSprite3D* obj, const ViewProjection& vp, const UINT tex);
 		// 描画
-		void Draw(ObjectSprite3D& obj, const ViewProjection& vp, Color& color);
+		void Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color);
 		// 描画
-		void Draw(ObjectSprite3D& obj, const ViewProjection& vp);
+		void Draw(ObjectSprite3D* obj, const ViewProjection& vp);
 	private:
 		YMath::Mat4 BillboardMatrix(const ViewProjection& vp);
 	private:
-		// コンストラクタ
 		Sprite3D() = default;
+	public:
+		~Sprite3D() = default;
 	};
 }

@@ -14,10 +14,18 @@ Object<T>::Object() :
 	pos_(0.0f, 0.0f, 0.0f), 
 	rota_(0.0f, 0.0f, 0.0f), 
 	scale_(1.0f, 1.0f, 1.0f), 
+	m_(Mat4::Identity()),
 	parent_(nullptr)
+{}
+
+template<typename T>
+Object<T>* Object<T>::Create(const Status& state)
 {
-	cBuff_.Create();
-	UpdateMatrix();
+	Object<T>* instance = new Object<T>();
+	instance->cBuff_.Create();
+	instance->Initialize(state);
+
+	return instance;
 }
 
 template<typename T>

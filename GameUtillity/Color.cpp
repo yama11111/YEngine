@@ -7,9 +7,15 @@ using YMath::Clamp;
 
 Color::Color() :
 	color_(1.0f, 1.0f, 1.0f, 1.0f)
+{}
+
+Color* Color::Create(const YMath::Vec4& color)
 {
-	cBuff_.Create();
-	Initialize();
+	Color* instance = new Color();
+	instance->cBuff_.Create();
+	instance->Initialize(color);
+
+	return instance;
 }
 
 void Color::Initialize(const YMath::Vec4& color)

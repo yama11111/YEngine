@@ -6,42 +6,20 @@
 
 #pragma region 名前空間宣言
 
+using YScene::GameScene;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
 using namespace YGame;
-using namespace YActor;
+//using namespace YActor;
 using namespace YDrawer;
-using namespace YParticle;
-using namespace YTransition;
+//using namespace YParticle;
+//using namespace YTransition;
 
 #pragma endregion 
 
 #pragma region Static関連
-
-Keys* GameScene::keys_ = nullptr;
-Mouse* GameScene::mouse_ = nullptr;
-Pad* GameScene::pad_ = nullptr;
-TextureManager* GameScene::pTexManager_ = nullptr;
-AudioManager* GameScene::pAudioManager_ = nullptr;
-
-void GameScene::StaticInitialize(TextureManager* pTexManager, AudioManager* pAudioManager)
-{
-	assert(pTexManager);
-	assert(pAudioManager);
-	pTexManager_ = pTexManager;
-	pAudioManager_ = pAudioManager;
-
-	keys_ = Keys::GetInstance();
-	mouse_ = Mouse::GetInstance();
-	pad_ = Pad::GetInstance();
-}
-
 #pragma endregion 
-
-GameScene::GameScene() {}
-
-GameScene::~GameScene() {}
 
 #pragma region 読み込み
 void GameScene::Load()
@@ -84,12 +62,12 @@ void GameScene::Load()
 
 	// ----- 静的初期化 ----- //
 
-	Blackout::StaticInitialize({ curtenS_.get() });
-	Floor::StaticIntialize({ cubeM_.get(), plainT_ });
+	//Blackout::StaticInitialize({ curtenS_.get() });
+	//Floor::StaticIntialize({ cubeM_.get(), plainT_ });
 
-	Character::SetMapChipPointer({ mapMan_.CurrentMapPointer(), &particleMan_ });
+	//Character::SetMapChipPointer({ mapMan_.CurrentMapPointer(), &particleMan_ });
 
-	ParticleManager::StaticInitialize({ cubeM_.get()});
+	//ParticleManager::StaticInitialize({ cubeM_.get()});
 	PlayerDrawerCommon::StaticInitialize({});
 }
 #pragma endregion
@@ -102,18 +80,18 @@ void GameScene::Initialize()
 	Srand();
 
 	// プレイヤー
-	player_.Initialize({ {0,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
-	playerDra_.Initialize(&player_.m_);
+	player_.reset(ObjectModel::Create({ {0,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} }));
+	playerDra_.Initialize(&player_->m_);
 
 	// マップ初期化
 	mapMan_.Initialize({ 0, {}, { 25.0f, 7.5f, 7.5f } });
 
 	// 天球初期化
-	skydome_.Initialize(&player_.pos_, skydomeM_.get());
+	//skydome_.Initialize(&player_.pos_, skydomeM_.get());
 
 	// カメラ初期化
 	cameraMan_.Initialize();
-	cameraMan_.SetFollowPoint(&player_.pos_);
+	cameraMan_.SetFollowPoint(&player_->pos_);
 
 	// ライト初期化
 	lightGroup_.reset(LightGroup::Create());
@@ -130,14 +108,20 @@ void GameScene::Initialize()
 	collMan_.Initialize();
 
 	// パーティクルマネージャー初期化
-	particleMan_.Initialize();
+	//particleMan_.Initialize();
 
 	// シーンマネージャー初期化
-	sceneMan_.Initialize();
+	//sceneMan_.Initialize();
 	
 }
 #pragma endregion
 
+#pragma region 終了処理
+void GameScene::Finalize()
+{
+
+}
+#pragma endregion
 
 #pragma region 更新
 void GameScene::Update()
@@ -156,8 +140,8 @@ void GameScene::Update()
 	}
 
 	// プレイヤー
-	player_.rota_.y_ += 0.005f;
-	player_.UpdateMatrix();
+	player_->rota_.y_ += 0.005f;
+	player_->UpdateMatrix();
 	playerDra_.Update();
 
 	// マップマネージャー
@@ -191,13 +175,13 @@ void GameScene::Update()
 	vp_.Update();
 
 	// パーティクルマネージャー
-	particleMan_.Update();
+	//particleMan_.Update();
 
 	// スカイドーム
-	skydome_.Update();
+	//skydome_.Update();
 
 	// シーンマネージャー
-	sceneMan_.Update();
+	//sceneMan_.Update();
 
 	// アタリ判定マネージャー
 	collMan_.Update();

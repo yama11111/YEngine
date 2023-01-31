@@ -20,16 +20,16 @@ const UINT ColIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ColorC
 const UINT MateIndex = static_cast<UINT>(ModelCommon::RootParameterIndex::MaterialCB);
 const UINT TexIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TexDT);
 
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color, const UINT tex)
+void Model::Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, Color* color, const UINT tex)
 {
-	obj.cBuff_.map_->matWorld_ = obj.m_;
-	obj.cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
-	obj.cBuff_.map_->cameraPos_ = vp.eye_;
-	obj.cBuff_.SetDrawCommand(ModIndex);
+	obj->cBuff_.map_->matWorld_ = obj->m_;
+	obj->cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
+	obj->cBuff_.map_->cameraPos_ = vp.eye_;
+	obj->cBuff_.SetDrawCommand(ModIndex);
 
 	lightGroup->SetDrawCommand(LigIndex);
 
-	color.SetDrawCommand(ColIndex);
+	color->SetDrawCommand(ColIndex);
 
 	for (size_t i = 0; i < meshes_.size(); i++)
 	{
@@ -38,20 +38,20 @@ void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGr
 		meshes_[i].vtIdx_.Draw();
 	}
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, const UINT tex)
+void Model::Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, const UINT tex)
 {
-	Draw(obj, vp, lightGroup, defColor_, tex);
+	Draw(obj, vp, lightGroup, defColor_.get(), tex);
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color)
+void Model::Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, Color* color)
 {
-	obj.cBuff_.map_->matWorld_ = obj.m_;
-	obj.cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
-	obj.cBuff_.map_->cameraPos_ = vp.eye_;
-	obj.cBuff_.SetDrawCommand(ModIndex);
+	obj->cBuff_.map_->matWorld_ = obj->m_;
+	obj->cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
+	obj->cBuff_.map_->cameraPos_ = vp.eye_;
+	obj->cBuff_.SetDrawCommand(ModIndex);
 
 	lightGroup->SetDrawCommand(LigIndex);
 
-	color.SetDrawCommand(ColIndex);
+	color->SetDrawCommand(ColIndex);
 
 	for (size_t i = 0; i < meshes_.size(); i++)
 	{
@@ -60,9 +60,9 @@ void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGr
 		meshes_[i].vtIdx_.Draw();
 	}
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup)
+void Model::Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup)
 {
-	Draw(obj, vp, lightGroup, defColor_);
+	Draw(obj, vp, lightGroup, defColor_.get());
 }
 
 Model* Model::Create()
@@ -143,6 +143,7 @@ Model* Model::Create()
 	instance->meshes_.resize(1);
 	instance->meshes_[0].vtIdx_.Initialize(v, i);
 	instance->meshes_[0].mtrl_ = Material();
+	instance->defColor_.reset(Color::Create());
 
 	return instance;
 }
@@ -309,6 +310,7 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 	instance->meshes_[0].vtIdx_.Initialize(v, i);
 	instance->meshes_[0].smoothData_ = sd;
 	instance->meshes_[0].mtrl_ = m;
+	instance->defColor_.reset(Color::Create());
 
 	return instance;
 }
@@ -354,6 +356,8 @@ Model* Model::Load(const LoadStatus& state)
 	}
 
 	scene = nullptr;
+
+	instance->defColor_.reset(Color::Create());
 
 	return instance;
 }

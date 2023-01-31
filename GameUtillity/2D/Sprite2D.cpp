@@ -9,37 +9,37 @@ const UINT SprIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::Spr
 const UINT ColIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ColorCB);
 const UINT TexIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::TexDT);
 
-void Sprite2D::Draw(ObjectSprite2D& obj, Color& color, const UINT tex)
+void Sprite2D::Draw(ObjectSprite2D* obj, Color* color, const UINT tex)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->matWorld_ = obj.m_ * projection_;
-	obj.cBuff_.SetDrawCommand(SprIndex);
+	obj->cBuff_.map_->matWorld_ = obj->m_ * projection_;
+	obj->cBuff_.SetDrawCommand(SprIndex);
 
-	color.SetDrawCommand(ColIndex);
+	color->SetDrawCommand(ColIndex);
 
 	pTexManager_->SetDrawCommand(TexIndex, tex);
 	vt_.Draw();
 }
-void Sprite2D::Draw(ObjectSprite2D& obj, const UINT tex)
+void Sprite2D::Draw(ObjectSprite2D* obj, const UINT tex)
 {
-	Draw(obj, defColor_, tex);
+	Draw(obj, defColor_.get(), tex);
 }
-void Sprite2D::Draw(ObjectSprite2D& obj, Color& color)
+void Sprite2D::Draw(ObjectSprite2D* obj, Color* color)
 {
 	if (isInvisible_) { return; }
 
-	obj.cBuff_.map_->matWorld_ = obj.m_ * projection_;
-	obj.cBuff_.SetDrawCommand(SprIndex);
+	obj->cBuff_.map_->matWorld_ = obj->m_ * projection_;
+	obj->cBuff_.SetDrawCommand(SprIndex);
 
-	color.SetDrawCommand(ColIndex);
+	color->SetDrawCommand(ColIndex);
 
 	pTexManager_->SetDrawCommand(TexIndex, tex_);
 	vt_.Draw();
 }
-void Sprite2D::Draw(ObjectSprite2D& obj)
+void Sprite2D::Draw(ObjectSprite2D* obj)
 {
-	Draw(obj, defColor_);
+	Draw(obj, defColor_.get());
 }
 
 Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const bool div)
@@ -86,6 +86,8 @@ Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const
 	instance->tex_		  = texState.index_;
 	instance->texLeftTop_ = div ? texState.leftTop_ : Vec2(0.0f, 0.0f);
 	instance->texSize_    = div ? texState.size_ : Vec2(rscSizeX, rscSizeY);
+
+	instance->defColor_.reset(Color::Create());
 
 	return instance;
 }

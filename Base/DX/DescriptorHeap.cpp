@@ -43,8 +43,8 @@ void DescriptorHeap::CreateSRV(ID3D12Resource* buff, const D3D12_SHADER_RESOURCE
 	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	// SRVがある分だけハンドルを進める
-	cpuHandle.ptr += incSize * srvCount_;
-	gpuHandle.ptr += incSize * srvCount_;
+	cpuHandle.ptr += static_cast<SIZE_T>(incSize * srvCount_);
+	gpuHandle.ptr += static_cast<SIZE_T>(incSize * srvCount_);
 
 	// ハンドルの指す位置にSRV作成
 	pDevice_->CreateShaderResourceView(buff, &srvDesc, cpuHandle);
@@ -68,8 +68,8 @@ void DescriptorHeap::CreateUAV(ID3D12Resource* buff, const D3D12_UNORDERED_ACCES
 	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	// UAV + 最大SRVがある分だけハンドルを進める
-	cpuHandle.ptr += incSize * (uavCount_ + MaxSRVCount_);
-	gpuHandle.ptr += incSize * (uavCount_ + MaxSRVCount_);
+	cpuHandle.ptr += static_cast<SIZE_T>(incSize * (uavCount_ + MaxSRVCount_));
+	gpuHandle.ptr += static_cast<SIZE_T>(incSize * (uavCount_ + MaxSRVCount_));
 
 	// ハンドルの指す位置にUAV作成
 	pDevice_->CreateUnorderedAccessView(buff, nullptr, &uavDesc, cpuHandle);
@@ -90,7 +90,7 @@ void DescriptorHeap::CreateCBV(const D3D12_CONSTANT_BUFFER_VIEW_DESC& cbvDesc)
 	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	// CBV + 最大SRV + 最大UAV がある分だけハンドルを進める
-	cpuHandle.ptr += incSize * (cbvCount_ + MaxSRVCount_ + MaxUAVCount_);
+	cpuHandle.ptr += static_cast<SIZE_T>(incSize * (cbvCount_ + MaxSRVCount_ + MaxUAVCount_));
 
 	// ハンドルの指す位置にCBV作成
 	pDevice_->CreateConstantBufferView(&cbvDesc, cpuHandle);

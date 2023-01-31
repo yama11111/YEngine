@@ -40,6 +40,17 @@ void ImGuiContoroller::Initialize(const InitStatus& state)
 	io.Fonts->AddFontDefault();
 }
 
+void ImGuiContoroller::Finalize()
+{
+	// Cleanup
+	ImGui_ImplDX12_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+
+	// デスクリプターヒープを開放
+	srvHeap_.Reset();
+}
+
 void ImGuiContoroller::Begin()
 {
 	// Start the Dear ImGui frame
@@ -62,15 +73,4 @@ void ImGuiContoroller::Draw()
 
 	// Render Dear ImGui graphics
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), pCommandList_);
-}
-
-void ImGuiContoroller::Finalize()
-{
-	// Cleanup
-	ImGui_ImplDX12_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
-
-	// デスクリプターヒープを開放
-	srvHeap_.Reset();
 }

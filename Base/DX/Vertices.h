@@ -35,6 +35,9 @@ namespace YDX
 	public:
 		// 静的初期化
 		static void StaticInitialize(ID3D12GraphicsCommandList* pCommandList);
+	public:
+		Vertices() = default;
+		virtual ~Vertices() = default;
 	};
 
 	// 頂点インデックス
@@ -53,5 +56,8 @@ namespace YDX
 		void Initialize(const std::vector<T> v, const std::vector<uint16_t> idx);
 		// 描画
 		void Draw() override;
+	public:
+		VertexIndex() = default;
+		~VertexIndex() = default;
 	};
 }

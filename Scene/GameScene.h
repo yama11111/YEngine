@@ -1,26 +1,18 @@
 #pragma once
-#include "Keys.h"
-#include "Mouse.h"
-#include "Pad.h"
-#include "Sprite2D.h"
-#include "Model.h"
-#include "Sprite3D.h"
-#include "AudioManager.h"
-#include "CollisionManager.h"
-#include <memory>
+#include "BaseScene.h"
 
 #include "Floor.h"
+#include "Skydome.h"
 #include "Player.h"
 #include "PlayerDrawer.h"
 #include "EnemyManager.h"
-#include "Skydome.h"
+#include "CollisionManager.h"
 #include "MapChipManager.h"
 #include "CameraManager.h"
-#include "SceneManager.h"
 
-namespace YGame
+namespace YScene
 {
-	class GameScene
+	class GameScene : public BaseScene
 	{
 	public:
 #pragma region リソース
@@ -45,23 +37,23 @@ namespace YGame
 		// ----- スプライト ----- //
 		
 		// 画面全部
-		std::unique_ptr<Sprite2D> windowS_ = nullptr;
+		std::unique_ptr<YGame::Sprite2D> windowS_ = nullptr;
 		// シーン遷移用
-		std::unique_ptr<Sprite2D> curtenS_ = nullptr;
+		std::unique_ptr<YGame::Sprite2D> curtenS_ = nullptr;
 		// マップ2D表示用
-		std::unique_ptr<Sprite2D> mapDispS_ = nullptr;
+		std::unique_ptr<YGame::Sprite2D> mapDispS_ = nullptr;
 
 		// ----- モデル ----- //
 		
 		// 立方体モデル
-		std::unique_ptr<Model> cubeM_ = nullptr;
+		std::unique_ptr<YGame::Model> cubeM_ = nullptr;
 		// 天球モデル
-		std::unique_ptr<Model> skydomeM_ = nullptr;
+		std::unique_ptr<YGame::Model> skydomeM_ = nullptr;
 		// スライムモデル
-		std::unique_ptr<Model> slimeM_ = nullptr;
+		std::unique_ptr<YGame::Model> slimeM_ = nullptr;
 
 		// ずんだもんモデル
-		std::unique_ptr<Model> zundamonM_ = nullptr;
+		std::unique_ptr<YGame::Model> zundamonM_ = nullptr;
 
 		// ----- ビルボード ----- //
 
@@ -70,45 +62,47 @@ namespace YGame
 #pragma region ゲームオブジェクト
 
 		// プレイヤー
-		ObjectModel player_;
+		std::unique_ptr<YGame::ObjectModel> player_;
 		YDrawer::PlayerDrawer playerDra_;
 
 		// マップマネージャー
 		MapChipManager mapMan_;
 
 		// パーティクルマネージャー
-		YParticle::ParticleManager particleMan_;
+		//YParticle::ParticleManager particleMan_;
 
 		// 天球
-		Skydome skydome_;
+		//Skydome skydome_;
 
 		// カメラマネージャー
 		YCamera::CameraManager cameraMan_;
 
 		// 転送用ライトグループ
-		std::unique_ptr<LightGroup> lightGroup_;
+		std::unique_ptr<YGame::LightGroup> lightGroup_;
 		YMath::Vec3 lightDire1_;
 		YMath::Vec3 lightDire2_;
 
 		// 転送用ビュープロジェクション
-		ViewProjection vp_;
+		YGame::ViewProjection vp_;
 
 		// アタリ判定マネージャー
 		YCollision::CollisionManager collMan_;
 
 		// シーンマネージャー
-		SceneManager sceneMan_;
+		//SceneManager sceneMan_;
 
 #pragma endregion
 	public:
 		// 読み込み
-		void Load();
+		void Load() override;
 		// 初期化
-		void Initialize();
+		void Initialize() override;
+		// 終了処理
+		void Finalize() override;
 		// 更新
-		void Update();
+		void Update() override;
 		// 描画
-		void Draw();
+		void Draw() override;
 	private:
 		// 背景スプライト2D描画
 		void DrawBackSprite2Ds();
@@ -120,23 +114,8 @@ namespace YGame
 		void DrawFrontSprite2Ds();
 	public:
 		// コンストラクタ
-		GameScene();
+		GameScene() = default;
 		// デストラクタ
-		~GameScene();
-	private:
-		// キー(シングルトン)
-		static YInput::Keys* keys_;
-		// マウス(シングルトン)
-		static YInput::Mouse* mouse_;
-		// パッド(シングルトン)
-		static YInput::Pad* pad_;
-	private:
-		// 静的テクスチャマネージャーポインタ
-		static TextureManager* pTexManager_;
-		// 静的オーディオマネージャーポインタ
-		static AudioManager* pAudioManager_;
-	public:
-		// 静的初期化
-		static void StaticInitialize(TextureManager* pTexManager, AudioManager* pAudioManager);
+		~GameScene() = default;
 	};
 }

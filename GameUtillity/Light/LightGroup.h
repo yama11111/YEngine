@@ -46,8 +46,7 @@ namespace YGame
 		void SetDirectionalLightColor(const size_t index, const YMath::Vec3& color);
 		// 有効フラグ設定 (平行光源)
 		void SetDirectionalLightActive(const size_t index, const bool isAct);
-	public:
+	private:
 		LightGroup();
-		~LightGroup() = default;
 	};
 }

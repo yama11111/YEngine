@@ -28,6 +28,9 @@ namespace YDX
 			D3D_PRIMITIVE_TOPOLOGY primitive_ = D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 		public:
 			virtual void Initialize(ID3DBlob* errorBlob_) = 0;
+		public:
+			IStatus() = default;
+			virtual ~IStatus() = default;
 		};
 	private:
 		// ルートシグネチャ

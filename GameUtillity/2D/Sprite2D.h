@@ -7,7 +7,7 @@
 namespace YGame
 {
 	// スプライト用オブジェクト
-	typedef Object<Sprite2DCommon::CBData> ObjectSprite2D;
+	using ObjectSprite2D = Object<Sprite2DCommon::CBData>;
 
 	// スプライトクラス
 	class Sprite2D : private Sprite2DCommon
@@ -16,7 +16,7 @@ namespace YGame
 		// 頂点データ
 		YDX::Vertices<VData> vt_;
 		// 色
-		Color defColor_{};
+		std::unique_ptr<Color> defColor_;
 
 		// サイズ
 		YMath::Vec2 size_;
@@ -57,13 +57,13 @@ namespace YGame
 		static Sprite2D* Create(const Status& state, const TexStatus& texState, const bool div = false);
 	public:
 		// 描画 (テクスチャ + 色 有)
-		void Draw(ObjectSprite2D& obj, Color& color, const UINT tex);
+		void Draw(ObjectSprite2D* obj, Color* color, const UINT tex);
 		// 描画 (テクスチャ 有)
-		void Draw(ObjectSprite2D& obj, const UINT tex);
+		void Draw(ObjectSprite2D* obj, const UINT tex);
 		// 描画 (色 有)
-		void Draw(ObjectSprite2D& obj, Color& color);
+		void Draw(ObjectSprite2D* obj, Color* color);
 		// 描画 (デフォルト)
-		void Draw(ObjectSprite2D& obj);
+		void Draw(ObjectSprite2D* obj);
 	public:
 		// サイズ設定
 		void SetSize(const YMath::Vec2& size);
@@ -87,7 +87,8 @@ namespace YGame
 		// アンカーポイント取得
 		YMath::Vec2 AnchorPoint() const { return anchor_; }
 	private:
-		// コンストラクタ
 		Sprite2D() = default;
+	public:
+		~Sprite2D() = default;
 	};
 }

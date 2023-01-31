@@ -16,14 +16,12 @@ const std::array<Vec3, LightGroup::DireLightNum_> DefaultDirection =
 LightGroup::LightGroup() :
 	ambientColor_(1.0f, 1.0f, 1.0f),
 	direLights_()
-{
-	cBuff_.Create();
-	Initialize(ambientColor_);
-}
+{}
 
 LightGroup* LightGroup::Create()
 {
 	LightGroup* instance = new LightGroup();
+	instance->cBuff_.Create();
 	instance->Initialize();
 
 	return instance;

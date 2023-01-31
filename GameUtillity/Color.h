@@ -18,6 +18,9 @@ namespace YGame
 		// 定数バッファ(マテリアル1)
 		YDX::ConstBuffer<CBData> cBuff_;
 	public:
+		// 生成
+		static Color* Create(const YMath::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+	public:
 		// 初期化
 		void Initialize(const YMath::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// 描画前コマンド
@@ -27,8 +30,9 @@ namespace YGame
 		void SetRGBA(const YMath::Vec4& color);
 		// 色設定 (0 ～ 255)
 		void SetRGBA(const UINT R, const UINT G, const UINT B, const UINT A);
-	public:
+	private:
 		Color();
+	public:
 		~Color() = default;
 	};
 }

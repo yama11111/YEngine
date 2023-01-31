@@ -17,7 +17,8 @@ void PlayerDrawer::Initialize(YMath::Mat4* pParent)
 {
 	for (size_t i = 0; i < objs_.size(); i++)
 	{
-		objs_[i].parent_ = pParent;
+		objs_[i].reset(YGame::ObjectModel::Create({}));
+		objs_[i]->parent_ = pParent;
 	}
 	Reset();
 }
@@ -26,16 +27,16 @@ void PlayerDrawer::Reset()
 {
 	for (size_t i = 0; i < objs_.size(); i++)
 	{
-		objs_[i].Initialize({});
+		objs_[i]->Initialize({});
 	}
-	objs_[static_cast<size_t>(Parts::Tail)].pos_ = { 0,0,-1.75f };
+	objs_[static_cast<size_t>(Parts::Tail)]->pos_ = { 0,0,-1.75f };
 }
 
 void PlayerDrawer::Update()
 {
 	for (size_t i = 0; i < objs_.size(); i++)
 	{
-		objs_[i].UpdateMatrix();
+		objs_[i]->UpdateMatrix();
 	}
 }
 
@@ -43,7 +44,7 @@ void PlayerDrawer::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* ligh
 {
 	for (size_t i = 0; i < pModels_.size(); i++)
 	{
-		pModels_[i]->Draw(objs_[i], vp, lightGroup);
+		pModels_[i]->Draw(objs_[i].get(), vp, lightGroup);
 	}
 }
 
