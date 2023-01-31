@@ -3,9 +3,7 @@
 #include "YWindowsApp.h"
 #include "YDirectX.h"
 #include "ScreenDesc.h"
-#include "InputManager.h"
 #include "ImGuiContoroller.h"
-#include "GameScene.h"
 #include <memory>
 
 namespace YBase
@@ -29,8 +27,6 @@ namespace YBase
 		YGame::AudioManager audioMan_;
 		// imguiマネージャー
 		ImGuiContoroller imguiCon_;
-		// シーン
-		std::unique_ptr<YScene::BaseScene> scene_;
 	public:
 		// 初期化
 		bool Initialize() override;

@@ -1,7 +1,5 @@
 #pragma once
-#include "Keys.h"
-#include "Mouse.h"
-#include "Pad.h"
+#include "InputManager.h"
 #include "Sprite2D.h"
 #include "Sprite3D.h"
 #include "Model.h"

@@ -1,17 +1,21 @@
 #include "MyGame.h"
 #include "MathUtillity.h"
 #include "Def.h"
+#include "YGameSceneFactory.h"
 
+#pragma region 名前空間宣言
 using YBase::MyGame;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
 using namespace YScene;
 using namespace YGame;
+#pragma endregion 
 
 bool MyGame::Initialize()
 {
 	// 基底クラス初期化処理
+	YFramework::StaticInitialize({ SceneManager::GetInstance() });
 	if (YFramework::Initialize() == false) { return false; }
 
 #pragma region Base
@@ -81,9 +85,8 @@ bool MyGame::Initialize()
 
 	// シーン初期化
 	BaseScene::StaticInitialize(&texMan_, &audioMan_);
-	scene_.reset(new GameScene());
-	scene_->Load();
-	scene_->Initialize();
+	sceneMan_->SetSceneFactory(new YGameSceneFactory());
+	sceneMan_->Change("PLAY");
 
 #pragma endregion
 
@@ -98,28 +101,21 @@ void MyGame::Finalize()
 	// ウィンドウクラスを登録解除
 	window_.FinalProcess();
 
-	// シーン終了処理
-	scene_->Finalize();
-	scene_;
-
 	// 基底クラス終了処理
 	YFramework::Finalize();
 }
 
 void MyGame::Update()
 {
-	// 基底クラス更新処理
-	YFramework::Update();
-
 	// input更新
 	inputMan_->Update();
 
 	// imgui受付開始
 	imguiCon_.Begin();
 
-	// シーン更新
-	scene_->Update();
-
+	// 基底クラス更新処理
+	YFramework::Update();
+	
 	// imgui受付終了
 	imguiCon_.End();
 
@@ -143,7 +139,7 @@ void MyGame::Draw()
 	descHeap_.SetDrawCommand();
 
 	// シーン描画
-	scene_->Draw();
+	sceneMan_->Draw();
 
 	// imgui描画
 	imguiCon_.Draw();

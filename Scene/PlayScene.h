@@ -12,7 +12,8 @@
 
 namespace YScene
 {
-	class GameScene : public BaseScene
+	// ゲームシーン
+	class PlayScene : public BaseScene
 	{
 	public:
 #pragma region リソース
@@ -122,8 +123,8 @@ namespace YScene
 		void DrawFrontSprite2Ds();
 	public:
 		// コンストラクタ
-		GameScene() = default;
+		PlayScene() = default;
 		// デストラクタ
-		~GameScene() = default;
+		~PlayScene() = default;
 	};
 }

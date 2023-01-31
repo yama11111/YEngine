@@ -1,11 +1,12 @@
-#include "GameScene.h"
+#include "PlayScene.h"
+#include "SceneManager.h"
 #include "MathUtillity.h"
 #include "CalcTransform.h"
 #include "Def.h"
 #include <cassert>
 
 #pragma region 名前空間宣言
-using YScene::GameScene;
+using YScene::PlayScene;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
@@ -20,7 +21,7 @@ using namespace YDrawer;
 #pragma endregion 
 
 #pragma region 読み込み
-void GameScene::Load()
+void PlayScene::Load()
 {
 	// ----- テクスチャ ----- //
 
@@ -75,7 +76,7 @@ void GameScene::Load()
 
 
 #pragma region 初期化
-void GameScene::Initialize()
+void PlayScene::Initialize()
 {	
 	// プレイヤー
 	player_.reset(ObjectModel::Create({ {0,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} }));
@@ -115,14 +116,14 @@ void GameScene::Initialize()
 #pragma endregion
 
 #pragma region 終了処理
-void GameScene::Finalize()
+void PlayScene::Finalize()
 {
 
 }
 #pragma endregion
 
 #pragma region 更新
-void GameScene::Update()
+void PlayScene::Update()
 {
 	// ホットリロード
 	if (keys_->IsTrigger(DIK_L))
@@ -135,6 +136,12 @@ void GameScene::Update()
 	if (keys_->IsTrigger(DIK_R))
 	{
 		collMan_.Initialize();
+	}
+
+	// 次のシーンへ
+	if (keys_->IsTrigger(DIK_0))
+	{
+		SceneManager::GetInstance()->Change("RESULT");
 	}
 
 	// プレイヤー
@@ -190,12 +197,12 @@ void GameScene::Update()
 
 
 #pragma region 描画
-void GameScene::DrawBackSprite2Ds()
+void PlayScene::DrawBackSprite2Ds()
 {
 	
 }
 
-void GameScene::DrawModels()
+void PlayScene::DrawModels()
 {
 	// 天球
 	//skydome_.Draw(vp_, lightGroup_.get());
@@ -208,12 +215,12 @@ void GameScene::DrawModels()
 	//particleMan_.Draw(vp_);
 }
 
-void GameScene::DrawSprite3Ds()
+void PlayScene::DrawSprite3Ds()
 {
 	
 }
 
-void GameScene::DrawFrontSprite2Ds()
+void PlayScene::DrawFrontSprite2Ds()
 {
 	// map
 	//mapMan_.Draw2D();
@@ -222,7 +229,7 @@ void GameScene::DrawFrontSprite2Ds()
 	else { enemyS_->Draw(e_.get()); }
 }
 
-void GameScene::Draw()
+void PlayScene::Draw()
 {
 	// -------------------------- //
 	Sprite2DCommon::StaticSetDrawCommand();

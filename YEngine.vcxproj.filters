@@ -73,9 +73,6 @@
     <Filter Include="Draw\Shader">
       <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Draw\Shader\Model">
-      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameUtil\Stuff">
       <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
     </Filter>
@@ -117,6 +114,12 @@
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{56f1def0-416e-47a5-b6db-c489d6b9ec09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{5e1ce30b-2fbd-48f9-a4ab-432cacaf9e33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Shader\Model">
+      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -228,7 +231,7 @@
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp">
       <Filter>GameUtil\MapChip</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Scene\SceneManager.cpp">
+    <ClCompile Include="GameUtillity\Scene\qSceneManager.cpp">
       <Filter>GameUtil\Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Stuff\Floor.cpp">
@@ -339,10 +342,7 @@
     <ClCompile Include="Base\MyGame.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\GameScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\BaseScene.cpp">
+    <ClCompile Include="Scene\PlayScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\TitleScene.cpp">
@@ -352,6 +352,15 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SelectScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\BaseScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\YGameSceneFactory.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -470,7 +479,7 @@
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h">
       <Filter>GameUtil\MapChip</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\Scene\SceneManager.h">
+    <ClInclude Include="GameUtillity\Scene\qSceneManager.h">
       <Filter>GameUtil\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Stuff\Floor.h">
@@ -584,10 +593,7 @@
     <ClInclude Include="Base\MyGame.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\GameScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\BaseScene.h">
+    <ClInclude Include="Scene\PlayScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\TitleScene.h">
@@ -597,6 +603,18 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SelectScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\BaseScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ISceneFactory.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\YGameSceneFactory.h">
       <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>

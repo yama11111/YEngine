@@ -1,6 +1,9 @@
 #include "YFramework.h"
+#include <cassert>
 
 using YBase::YFramework;
+
+YScene::SceneManager* YFramework::sceneMan_ = nullptr;
 
 bool YFramework::Initialize()
 {
@@ -11,10 +14,12 @@ bool YFramework::Initialize()
 
 void YFramework::Finalize()
 {
+	sceneMan_->Finalize();
 }
 
 void YFramework::Update()
 {
+	sceneMan_->Update();
 }
 
 void YFramework::Run()
@@ -37,4 +42,10 @@ void YFramework::Run()
 
 	// I—¹ˆ—
 	Finalize();
+}
+
+void YFramework::StaticInitialize(const StaticInitStatus& state)
+{
+	assert(state.sceneMan_);
+	sceneMan_ = state.sceneMan_;
 }

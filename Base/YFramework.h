@@ -1,4 +1,5 @@
 #pragma once
+#include "SceneManager.h"
 
 namespace YBase
 {
@@ -24,5 +25,16 @@ namespace YBase
 	public:
 		YFramework() = default;
 		virtual ~YFramework() = default;
+	protected:
+		// シーンマネージャー
+		static YScene::SceneManager* sceneMan_;
+	public:
+		struct StaticInitStatus 
+		{
+			YScene::SceneManager* sceneMan_;
+		};
+	public:
+		// 静的初期化
+		static void StaticInitialize(const StaticInitStatus& state);
 	};
 }
