@@ -102,8 +102,7 @@ void GameScene::Initialize()
 	Srand();
 
 	// プレイヤー
-	//player_.Initialize({ {}, YMath::AdjustAngle({0,0,-1}), {10.0f,10.0f,10.0f} });
-	player_.Initialize({ {30,-20,20}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
+	player_.Initialize({ {0,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
 	playerDra_.Initialize(&player_.m_);
 
 	// マップ初期化
@@ -116,10 +115,13 @@ void GameScene::Initialize()
 	cameraMan_.Initialize();
 	cameraMan_.SetFollowPoint(&player_.pos_);
 
-
-	lightDire_ = { 0,1,5 };
 	// ライト初期化
-	light_.Initialize(lightDire_);
+	lightGroup_.reset(LightGroup::Create());
+	lightGroup_->SetDirectionalLightColor(0, { 0.0f,1.0f,0.0f });
+	lightGroup_->SetDirectionalLightColor(1, { 1.0f,0.0f,0.0f });
+	lightGroup_->SetDirectionalLightColor(2, { 0.0f,0.0f,1.0f });
+	lightDire1_ = { 0,1,5 };
+	lightDire2_ = { 0,1,5 };
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -163,13 +165,23 @@ void GameScene::Update()
 
 	if (keys_->IsDown(DIK_W) || keys_->IsDown(DIK_S) || keys_->IsDown(DIK_D) || keys_->IsDown(DIK_A))
 	{
-		if (keys_->IsDown(DIK_W)) { lightDire_.y_ += 1.0f; }
-		if (keys_->IsDown(DIK_S)) { lightDire_.y_ -= 1.0f; }
-		if (keys_->IsDown(DIK_D)) { lightDire_.x_ += 1.0f; }
-		if (keys_->IsDown(DIK_A)) { lightDire_.x_ -= 1.0f; }
+		if (keys_->IsDown(DIK_W)) { lightDire1_.y_ += 1.0f; }
+		if (keys_->IsDown(DIK_S)) { lightDire1_.y_ -= 1.0f; }
+		if (keys_->IsDown(DIK_D)) { lightDire1_.x_ += 1.0f; }
+		if (keys_->IsDown(DIK_A)) { lightDire1_.x_ -= 1.0f; }
 
-		light_.SetDirection(lightDire_);
+		lightGroup_->SetDirectionalLightDirection(1,lightDire1_);
 	}
+	if (keys_->IsDown(DIK_UP) || keys_->IsDown(DIK_DOWN) || keys_->IsDown(DIK_RIGHT) || keys_->IsDown(DIK_LEFT))
+	{
+		if (keys_->IsDown(DIK_UP))	  { lightDire2_.y_ += 1.0f; }
+		if (keys_->IsDown(DIK_DOWN))  { lightDire2_.y_ -= 1.0f; }
+		if (keys_->IsDown(DIK_RIGHT)) { lightDire2_.x_ += 1.0f; }
+		if (keys_->IsDown(DIK_LEFT))  { lightDire2_.x_ -= 1.0f; }
+
+		lightGroup_->SetDirectionalLightDirection(2, lightDire2_);
+	}
+
 
 	// カメラ
 	cameraMan_.Update();
@@ -203,12 +215,12 @@ void GameScene::DrawBackSprite2Ds()
 void GameScene::DrawModels()
 {
 	// 天球
-	//skydome_.Draw(vp_);
+	//skydome_.Draw(vp_, lightGroup_.get());
 
 	// map
 	//mapMan_.Draw(vp_);
 
-	playerDra_.Draw(vp_, light_);
+	playerDra_.Draw(vp_, lightGroup_.get());
 
 	//particleMan_.Draw(vp_);
 }

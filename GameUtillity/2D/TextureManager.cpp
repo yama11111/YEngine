@@ -1,5 +1,5 @@
 #include "TextureManager.h"
-#include "FilePath.h"
+#include "FileUtillity.h"
 #include "YAssert.h"
 #include <DirectXTex.h>
 

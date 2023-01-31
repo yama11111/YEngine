@@ -23,6 +23,7 @@ void Skydome::Update()
 	obj_.UpdateMatrix();
 }
 
-void Skydome::Draw(YGame::ViewProjection& vp)
+void Skydome::Draw(YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
 {
+	pModel_->Draw(obj_, vp, lightGroup);
 }

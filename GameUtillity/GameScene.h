@@ -85,9 +85,10 @@ namespace YGame
 		// カメラマネージャー
 		YCamera::CameraManager cameraMan_;
 
-		YMath::Vec3 lightDire_;
-		// 転送用ライト
-		Light light_;
+		// 転送用ライトグループ
+		std::unique_ptr<LightGroup> lightGroup_;
+		YMath::Vec3 lightDire1_;
+		YMath::Vec3 lightDire2_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection vp_;

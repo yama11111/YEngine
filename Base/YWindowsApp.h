@@ -10,7 +10,7 @@ private:
 	HWND hwnd_;
 	// メッセージ
 	MSG msg_{};
-public:
+private:
 	// ウィンドウプロシージャ
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 public:

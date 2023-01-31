@@ -2,7 +2,7 @@
 #include "Sprite2DCommon.h"
 #include "Sprite3DCommon.h"
 #include "ModelCommon.h"
-#include "Light.h"
+#include "LightGroup.h"
 #include "Color.h"
 #include "YAssert.h"
 
@@ -61,4 +61,4 @@ template class ConstBuffer<YGame::Sprite3DCommon::CBData>;
 template class ConstBuffer<YGame::ModelCommon::CBData>;
 template class ConstBuffer<YGame::ModelCommon::MaterialCBData>;
 template class ConstBuffer<YGame::Color::CBData>;
-template class ConstBuffer<YGame::Light::CBData>;
+template class ConstBuffer<YGame::LightGroup::CBData>;

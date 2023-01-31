@@ -18,25 +18,35 @@ float4 main(PSInput input) : SV_TARGET
 {
 	// テクスチャマッピング
 	float4 texColor = tex.Sample(smp, input.uv);
-
 	// 光沢度
 	const float shininess = 4.0f;
 	// 頂点から視点への方向ベクトル
 	float3 eyeDir = normalize(cameraPos - input.worldPos.xyz);
 
-	float3 dotLightNormal = dot(lightVec, input.normal);
-	// 反射光ベクトル
-	float3 reflect = normalize(-lightVec + 2 * dotLightNormal * input.normal);
 	// 環境反射光
 	float3 ambient = mAmbient;
-	// 拡散反射光
-	float3 diffuse = dotLightNormal * mDiffuse;
-	// 鏡面反射光
-	float3 specular = pow(saturate(dot(reflect, eyeDir)), shininess) * mSpecular;
 
-	float4 shaderColor;
-	shaderColor.rgb = (ambient + diffuse + specular) * lightColor;
-	shaderColor.a = mAlpha;
+	// シェーディング色
+	float4 shaderColor = float4(ambientColor * ambient, mAlpha);
+
+	// ライト毎の計算
+	for (int i = 0; i < 3; i++)
+	{
+		if (direLights[i].active)
+		{
+			// ライトに向かうベクトルと法線の計算
+			float3 dotLightNormal = dot(direLights[i].lightVec, input.normal);
+			// 反射光ベクトル
+			float3 reflect = normalize(-direLights[i].lightVec + 2 * dotLightNormal * input.normal);
+			// 拡散反射光
+			float3 diffuse = dotLightNormal * mDiffuse;
+			// 鏡面反射光
+			float3 specular = pow(saturate(dot(reflect, eyeDir)), shininess) * mSpecular;
+
+			// 全て加算
+			shaderColor.rgb += (ambient + diffuse + specular) * direLights[i].lightColor;
+		}
+	}
 
 	// シェーディング色で描画
 	return (shaderColor * texColor) * color;

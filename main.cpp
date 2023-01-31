@@ -2,8 +2,10 @@
 #include "YDirectX.h"
 #include "ScreenDesc.h"
 #include "InputManager.h"
+#include "ImGuiContoroller.h"
 #include "GameScene.h"
 #include "Def.h"
+#include <imgui.h>
 
 using namespace YDX;
 using namespace YInput;
@@ -24,6 +26,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	YDirectX dx;
 	if (!dx.Initialize(window.HandleWindow(), WinSize)) { return 0; }
 
+	// Input 初期化
+	InputManager* input = InputManager::GetInstance();
+	input->Create(window.HandleWindowInstance(), window.PointerHandleWindow());
+
 #pragma endregion
 
 #pragma region Pipeline
@@ -37,10 +43,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	ScreenDesc::StaticInitialize(pCmdList);
 	ScreenDesc screenDesc;
 	screenDesc.Initialize({ 0,0 }, WinSize);
-
-	// Input 初期化
-	InputManager* input = InputManager::GetInstance();
-	input->Create(window.HandleWindowInstance(), window.PointerHandleWindow());
 
 	// GPUResource 静的初期化
 	GPUResource::StaticInitialize(pDev);
@@ -74,15 +76,24 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 #pragma region Game
 
+	// imgui初期化
+	ImGuiContoroller imguiCon;
+	imguiCon.Initialize({ window.PointerHandleWindow(), pDev, dx.BackBufferCount(), pCmdList});
+
+	// オーディオ初期化
 	AudioManager audioM;
 	audioM.Initialize();
 
+	// ゲームシーン初期化
 	GameScene::StaticInitialize(&texMan, &audioM);
 	GameScene game;
 	game.Load();
 	game.Initialize();
 
 #pragma endregion
+
+	char buf[100]{};
+	float f = 0.0f;
 
 	// ゲームループ
 	while (true)
@@ -91,7 +102,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		input->Update(); // input更新
 
+		imguiCon.Begin(); // imgui受付開始
+
 		game.Update(); // ゲームシーン更新
+
+		ImGui::Text("Hello, world %d", 123);
+		if (ImGui::Button("Save")) {}
+		ImGui::InputText("string", buf, IM_ARRAYSIZE(buf));
+		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+
+		imguiCon.End(); // imgui受付終了
 
 		// ------------------------------------------------ //
 
@@ -104,6 +124,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		descHeap.SetDrawCommand(); // デスクリプターヒープセット
 		
 		game.Draw(); // ゲームシーン描画
+
+		imguiCon.Draw(); // imgui描画
 
 		dx.PostDraw(); // 描画後処理
 
@@ -119,6 +141,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 		// ------------------------------------------------ //
 	}
+
+	// imguiをクリーン
+	imguiCon.Finalize();
 
 	// ウィンドウクラスを登録解除
 	window.FinalProcess();

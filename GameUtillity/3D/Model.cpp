@@ -1,6 +1,6 @@
 #include "Model.h"
 #include "CalcTransform.h"
-#include "FilePath.h"
+#include "FileUtillity.h"
 #include <cassert>
 #include <fstream>
 #include <sstream>
@@ -20,14 +20,14 @@ const UINT ColIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ColorC
 const UINT MateIndex = static_cast<UINT>(ModelCommon::RootParameterIndex::MaterialCB);
 const UINT TexIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TexDT);
 
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color, const UINT tex)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color, const UINT tex)
 {
 	obj.cBuff_.map_->matWorld_ = obj.m_;
 	obj.cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
 	obj.cBuff_.map_->cameraPos_ = vp.eye_;
 	obj.cBuff_.SetDrawCommand(ModIndex);
 
-	light.SetDrawCommand(LigIndex);
+	lightGroup->SetDrawCommand(LigIndex);
 
 	color.SetDrawCommand(ColIndex);
 
@@ -38,18 +38,18 @@ void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color
 		meshes_[i].vtIdx_.Draw();
 	}
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, const UINT tex)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, const UINT tex)
 {
-	Draw(obj, vp, light, defColor_, tex);
+	Draw(obj, vp, lightGroup, defColor_, tex);
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color)
 {
 	obj.cBuff_.map_->matWorld_ = obj.m_;
 	obj.cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
 	obj.cBuff_.map_->cameraPos_ = vp.eye_;
 	obj.cBuff_.SetDrawCommand(ModIndex);
 
-	light.SetDrawCommand(LigIndex);
+	lightGroup->SetDrawCommand(LigIndex);
 
 	color.SetDrawCommand(ColIndex);
 
@@ -60,9 +60,9 @@ void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color
 		meshes_[i].vtIdx_.Draw();
 	}
 }
-void Model::Draw(ObjectModel& obj, const ViewProjection& vp, Light& light)
+void Model::Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup)
 {
-	Draw(obj, vp, light, defColor_);
+	Draw(obj, vp, lightGroup, defColor_);
 }
 
 Model* Model::Create()

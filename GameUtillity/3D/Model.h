@@ -2,7 +2,7 @@
 #include "ModelCommon.h"
 #include "Object.h"
 #include "ViewProjection.h"
-#include "Light.h"
+#include "LightGroup.h"
 
 namespace YGame
 {
@@ -38,13 +38,13 @@ namespace YGame
 		static Model* Load(const LoadStatus& state);
 	public:
 		// 描画 (テクスチャ + 色 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color, const UINT tex);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color, const UINT tex);
 		// 描画 (テクスチャ 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, const UINT tex);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, const UINT tex);
 		// 描画 (色 有)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light, Color& color);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup, Color& color);
 		// 描画 (デフォルト)
-		void Draw(ObjectModel& obj, const ViewProjection& vp, Light& light);
+		void Draw(ObjectModel& obj, const ViewProjection& vp, LightGroup* lightGroup);
 	private:
 		// コンストラクタ
 		Model() = default;

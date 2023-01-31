@@ -112,6 +112,9 @@
     <Filter Include="GameUtil\Light">
       <UniqueIdentifier>{8d2ddc5c-59f9-41e1-a31e-064f18b71408}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util\imgui">
+      <UniqueIdentifier>{d17d5504-a51c-4494-83e9-8e8fbb6621aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -285,7 +288,7 @@
     <ClCompile Include="Utillity\Input\Pad.cpp">
       <Filter>Util\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\FilePath.cpp">
+    <ClCompile Include="Utillity\FileUtillity.cpp">
       <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="Utillity\Math\CalcTransform.cpp">
@@ -318,11 +321,17 @@
     <ClCompile Include="Utillity\Math\Timer.cpp">
       <Filter>Util\Math</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Light\Light.cpp">
+    <ClCompile Include="GameUtillity\Light\LightGroup.cpp">
       <Filter>GameUtil\Light</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Light\DirectionalLight.cpp">
       <Filter>GameUtil\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Light\PointLight.cpp">
+      <Filter>GameUtil\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\imgui\ImGuiContoroller.cpp">
+      <Filter>Util\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -506,7 +515,7 @@
     <ClInclude Include="Utillity\Input\Pad.h">
       <Filter>Util\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\FilePath.h">
+    <ClInclude Include="Utillity\FileUtillity.h">
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Utillity\Math\CalcTransform.h">
@@ -539,11 +548,17 @@
     <ClInclude Include="Utillity\Math\Timer.h">
       <Filter>Util\Math</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\Light\Light.h">
+    <ClInclude Include="GameUtillity\Light\LightGroup.h">
       <Filter>GameUtil\Light</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Light\DirectionalLight.h">
       <Filter>GameUtil\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Light\PointLight.h">
+      <Filter>GameUtil\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\imgui\ImGuiContoroller.h">
+      <Filter>Util\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

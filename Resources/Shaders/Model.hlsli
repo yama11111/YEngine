@@ -5,11 +5,18 @@ cbuffer cbuff0 : register(b0)
 	matrix matViewProj;	 // ビュープロジェクション行列
 	float3 cameraPos;	 // カメラ座標
 }
-// 光
-cbuffer cbuff1 : register(b1)
+// 平行光源
+struct DireLight 
 {
 	float3 lightVec;	 // 向き
 	float3 lightColor;	 // 色
+	uint active;		 // 動作フラグ
+};
+// 光
+cbuffer cbuff1 : register(b1)
+{
+	float3 ambientColor; // 環境光色
+	DireLight direLights[3]; // 平行光源
 }
 // マテリアル1
 cbuffer cbuff2 : register(b2)

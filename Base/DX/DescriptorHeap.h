@@ -28,13 +28,16 @@ namespace YDX
 		void CreateCBV(const D3D12_CONSTANT_BUFFER_VIEW_DESC& cbvDesc);
 		// 描画前コマンド (最初に一回)
 		void SetDrawCommand();
+	public:
+		// ポインタ取得
+		ID3D12DescriptorHeap* Get() const { return descriptorHeap_.Get(); }
 	private:
 		// 最大 SRV 数
-		const UINT MaxSRVCount_ = 262144;
+		static const UINT MaxSRVCount_ = 262144;
 		// 最大 UAV 数
-		const UINT MaxUAVCount_ = 262144;
+		static const UINT MaxUAVCount_ = 262144;
 		// 最大 CBV 数
-		const UINT MaxCBVCount_ = 262144;
+		static const UINT MaxCBVCount_ = 262144;
 	private:
 		// 静的デバイスポインタ
 		static ID3D12Device* pDevice_;

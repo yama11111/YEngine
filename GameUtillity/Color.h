@@ -6,7 +6,7 @@ namespace YGame
 {
 	class Color
 	{
-	private:
+	public:
 		// 定数バッファデータ構造体 (色)
 		struct CBData
 		{

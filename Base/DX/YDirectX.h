@@ -56,6 +56,8 @@ namespace YDX
 		ID3D12Device* Device() { return device_.Get(); }
 		// コマンドリストポインタ
 		ID3D12GraphicsCommandList* CommandList() { return cmdList_.Get(); }
+		// バックバッファ数取得
+		size_t BackBufferCount() { return backBuffers_.size(); }
 	private:
 		// 固定時fps (初期値 : 60fps)
 		static std::chrono::microseconds MinTime_;

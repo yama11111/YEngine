@@ -39,10 +39,11 @@ void PlayerDrawer::Update()
 	}
 }
 
-void PlayerDrawer::Draw(const YGame::ViewProjection& vp, YGame::Light& light)
+void PlayerDrawer::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
 {
 	for (size_t i = 0; i < pModels_.size(); i++)
 	{
-		pModels_[i]->Draw(objs_[i], vp, light);
+		pModels_[i]->Draw(objs_[i], vp, lightGroup);
 	}
 }
+

@@ -10,5 +10,5 @@ private:
 public:
 	void Initialize(YMath::Vec3* pos, YGame::Model* model);
 	void Update();
-	void Draw(YGame::ViewProjection& vp);
+	void Draw(YGame::ViewProjection& vp, YGame::LightGroup* lightGroup);
 };
