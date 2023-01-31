@@ -10,7 +10,7 @@
 namespace YInput
 {
 	// マウス入力
-	enum MouseInputNumber
+	enum class MouseClick
 	{
 		// 左クリック
 		DIM_LEFT,
@@ -49,13 +49,13 @@ namespace YInput
 		void Update(const HWND hwnd);
 	public:
 		// 押している
-		bool IsDown(const int button);
+		bool IsDown(const MouseClick& button);
 		// 押した瞬間
-		bool IsTrigger(const int button);
+		bool IsTrigger(const MouseClick& button);
 		// 押し続けている
-		bool IsLongPress(const int button);
+		bool IsLongPress(const MouseClick& button);
 		// 離した瞬間
-		bool IsRelease(const int button);
+		bool IsRelease(const MouseClick& button);
 		// 位置
 		YMath::Vec2 Pos() { return mouse_->pos_; }
 	public:

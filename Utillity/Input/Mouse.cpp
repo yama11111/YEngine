@@ -63,22 +63,22 @@ void Mouse::Update(const HWND hwnd)
 	mouse_->pos_ = { static_cast<float>(pos.x), static_cast<float>(pos.y) };
 }
 
-bool Mouse::IsDown(const int button)
+bool Mouse::IsDown(const MouseClick& button)
 {
-	return mouse_->state_.rgbButtons[button];
+	return mouse_->state_.rgbButtons[static_cast<size_t>(button)];
 }
-bool Mouse::IsTrigger(const int button)
+bool Mouse::IsTrigger(const MouseClick& button)
 {
-	return	(mouse_->state_.rgbButtons[button] && 
-			!elderMouse_->state_.rgbButtons[button]);
+	return	(mouse_->state_.rgbButtons[static_cast<size_t>(button)]) &&
+			(elderMouse_->state_.rgbButtons[static_cast<size_t>(button)]) == false;
 }
-bool Mouse::IsLongPress(const int button)
+bool Mouse::IsLongPress(const MouseClick& button)
 {
-	return	(mouse_->state_.rgbButtons[button] &&
-			elderMouse_->state_.rgbButtons[button]);
+	return	(mouse_->state_.rgbButtons[static_cast<size_t>(button)]) &&
+			(elderMouse_->state_.rgbButtons[static_cast<size_t>(button)]);
 }
-bool Mouse::IsRelease(const int button)
+bool Mouse::IsRelease(const MouseClick& button)
 {
-	return	(!mouse_->state_.rgbButtons[button] &&
-			elderMouse_->state_.rgbButtons[button]);
+	return	(mouse_->state_.rgbButtons[static_cast<size_t>(button)]) == false &&
+			(elderMouse_->state_.rgbButtons[static_cast<size_t>(button)]);
 }

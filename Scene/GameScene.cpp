@@ -5,7 +5,6 @@
 #include <cassert>
 
 #pragma region 名前空間宣言
-
 using YScene::GameScene;
 using namespace YDX;
 using namespace YInput;
@@ -15,7 +14,6 @@ using namespace YGame;
 using namespace YDrawer;
 //using namespace YParticle;
 //using namespace YTransition;
-
 #pragma endregion 
 
 #pragma region Static関連
@@ -29,7 +27,7 @@ void GameScene::Load()
 	plainT_		 = pTexManager_->Load("white1x1.png", false);
 
 	playerT_	 = pTexManager_->Load("player.png", true);
-	enemyT_		 = pTexManager_->Load("e.png", false);
+	enemyT_		 = pTexManager_->Load("enemy.png", false);
 
 	mapT_		 = pTexManager_->Load("map.png", false);
 	mapDispT_	 = pTexManager_->Load("mapDisp.png", false);
@@ -38,12 +36,16 @@ void GameScene::Load()
 
 	//aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
 
-	// ----- スプライト ----- //
+	// ----- スプライト (2D) ----- //
 
 	windowS_.reset(Sprite2D::Create({ WinSize }, { plainT_ }));
 	curtenS_.reset(Sprite2D::Create({ WinSize }, { plainT_ }));
 	mapDispS_.reset(Sprite2D::Create({ {32,32} }, { mapDispT_ }));
 
+	// ----- スプライト (3D) ----- //
+
+	//debriB_.reset(Sprite3D::Create(false));
+	
 	// ------- モデル ------- //
 
 	cubeM_.reset(Model::Create());
@@ -52,33 +54,29 @@ void GameScene::Load()
 
 	zundamonM_.reset(Model::Load({ "zundamon/", "zundamon.pmx", false, }));
 
-	// ----- ビルボード ----- //
-
-	//debriB_.reset(Sprite3D::Create(false));
-
 	// ------- マップ ------- //
 
 	mapMan_.Load({ cubeM_.get(), mapT_, mapDispS_.get() });
 
 	// ----- 静的初期化 ----- //
 
-	//Blackout::StaticInitialize({ curtenS_.get() });
 	//Floor::StaticIntialize({ cubeM_.get(), plainT_ });
 
 	//Character::SetMapChipPointer({ mapMan_.CurrentMapPointer(), &particleMan_ });
 
 	//ParticleManager::StaticInitialize({ cubeM_.get()});
 	PlayerDrawerCommon::StaticInitialize({});
+
+
+	playerS_.reset(Sprite2D::Create({ {128,128} }, { playerT_ }));
+	enemyS_.reset(Sprite2D::Create({ {128,128} }, { enemyT_ }));
 }
 #pragma endregion
 
 
 #pragma region 初期化
 void GameScene::Initialize()
-{
-	// 乱数初期化
-	Srand();
-
+{	
 	// プレイヤー
 	player_.reset(ObjectModel::Create({ {0,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} }));
 	playerDra_.Initialize(&player_->m_);
@@ -110,9 +108,9 @@ void GameScene::Initialize()
 	// パーティクルマネージャー初期化
 	//particleMan_.Initialize();
 
-	// シーンマネージャー初期化
-	//sceneMan_.Initialize();
-	
+	p_.reset(ObjectSprite2D::Create({ {0,0,0} }));
+	e_.reset(ObjectSprite2D::Create({ {0,0,0} }));
+	b_ = false;
 }
 #pragma endregion
 
@@ -180,12 +178,13 @@ void GameScene::Update()
 	// スカイドーム
 	//skydome_.Update();
 
-	// シーンマネージャー
-	//sceneMan_.Update();
-
 	// アタリ判定マネージャー
 	collMan_.Update();
 
+
+	if (keys_->IsTrigger(DIK_SPACE)) { b_ = !b_; }
+	if (pad_->IsTrigger(PadButton::XIP_A)) { b_ = !b_; }
+	if (mouse_->IsTrigger(MouseClick::DIM_LEFT)) { b_ = !b_; }
 }
 #pragma endregion
 
@@ -219,8 +218,8 @@ void GameScene::DrawFrontSprite2Ds()
 	// map
 	//mapMan_.Draw2D();
 
-	// scene
-	//sceneMan_.Draw();
+	if (b_) { playerS_->Draw(p_.get()); }
+	else { enemyS_->Draw(e_.get()); }
 }
 
 void GameScene::Draw()

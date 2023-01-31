@@ -8,7 +8,7 @@
 namespace YInput
 {
 	// パッド入力
-	enum PadInputNumber
+	enum class PadButton
 	{
 		// 上 (十字キー)
 		XIP_UP = XINPUT_GAMEPAD_DPAD_UP,
@@ -48,7 +48,7 @@ namespace YInput
 		XIP_RT = -2,
 	};
 	// パッドスティック
-	enum PadStick 
+	enum class PadStick 
 	{
 		LStick,
 		RStick,
@@ -91,28 +91,28 @@ namespace YInput
 		void Update();
 	public:
 		// 押している
-		bool IsDown(const int button);
+		bool IsDown(const PadButton& button);
 		// 押した瞬間
-		bool IsTrigger(const int button);
+		bool IsTrigger(const PadButton& button);
 		// 押し続けている
-		bool IsLongPress(const int button);
+		bool IsLongPress(const PadButton& button);
 		// 離した瞬間
-		bool IsRelease(const int button);
+		bool IsRelease(const PadButton& button);
 	public:
 		// 左
-		bool IsLeft(const int stick);
+		bool IsLeft(const PadStick& stick);
 		// 右
-		bool IsRight(const int stick);
+		bool IsRight(const PadStick& stick);
 		// 上
-		bool IsUp(const int stick);
+		bool IsUp(const PadStick& stick);
 		// 下
-		bool IsUnder(const int stick);
+		bool IsUnder(const PadStick& stick);
 		// 左(-1) 右(+1)
-		int Horizontal(const int stick);
+		int Horizontal(const PadStick& stick);
 		// 上(-1) 下(+1)
-		int Vertical(const int stick);
+		int Vertical(const PadStick& stick);
 		// 移動しているか
-		bool IsMove(const int stick);
+		bool IsMove(const PadStick& stick);
 	public:
 		static Pad* GetInstance();
 	private:

@@ -1,4 +1,5 @@
 #include "MyGame.h"
+#include "MathUtillity.h"
 #include "Def.h"
 
 using YBase::MyGame;
@@ -25,6 +26,9 @@ bool MyGame::Initialize()
 	// Input ‰Šú‰»
 	inputMan_ = InputManager::GetInstance();
 	inputMan_->Create(window_.HandleWindowInstance(), window_.PointerHandleWindow());
+
+	// —”‰Šú‰»
+	Srand();
 
 #pragma endregion
 

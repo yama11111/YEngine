@@ -34,7 +34,7 @@ namespace YScene
 
 		//UINT aA_ = 0;
 
-		// ----- スプライト ----- //
+		// ----- スプライト (2D) ----- //
 		
 		// 画面全部
 		std::unique_ptr<YGame::Sprite2D> windowS_ = nullptr;
@@ -42,6 +42,12 @@ namespace YScene
 		std::unique_ptr<YGame::Sprite2D> curtenS_ = nullptr;
 		// マップ2D表示用
 		std::unique_ptr<YGame::Sprite2D> mapDispS_ = nullptr;
+
+		std::unique_ptr<YGame::Sprite2D> playerS_ = nullptr;
+		std::unique_ptr<YGame::Sprite2D> enemyS_ = nullptr;
+
+		// ----- スプライト (3D) ----- //
+		
 
 		// ----- モデル ----- //
 		
@@ -55,12 +61,14 @@ namespace YScene
 		// ずんだもんモデル
 		std::unique_ptr<YGame::Model> zundamonM_ = nullptr;
 
-		// ----- ビルボード ----- //
-
 
 #pragma endregion
 #pragma region ゲームオブジェクト
 
+		std::unique_ptr<YGame::ObjectSprite2D> p_;
+		std::unique_ptr<YGame::ObjectSprite2D> e_;
+		bool b_ = false;
+		
 		// プレイヤー
 		std::unique_ptr<YGame::ObjectModel> player_;
 		YDrawer::PlayerDrawer playerDra_;
