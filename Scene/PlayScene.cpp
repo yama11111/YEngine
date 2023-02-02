@@ -77,12 +77,21 @@ void PlayScene::Load()
 
 #pragma region 初期化
 void PlayScene::Initialize()
-{	
-	cu_.reset(ObjectModel::Create({ {-20,0,0},{},{10.0f,10.0f,10.0f} }));
-
+{
 	// プレイヤー
 	player_.reset(ObjectModel::Create({ {+20,0,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} }));
 	playerDra_.Initialize(&player_->m_);
+
+	sphere_.center_ = { 0,2,0 };
+	sphere_.SafeSetRadius(1.0f);
+
+	plane_.SafeSetNormal({ 0,1,0 });
+	plane_.distance_ = 0.0f;
+
+	triangle_.p0_ = { -1.0f,0,-1.0f };
+	triangle_.p1_ = { -1.0f,0,+1.0f };
+	triangle_.p2_ = { +1.0f,0,-1.0f };
+	triangle_.SafeSetNormal({ 0.0f,1.0f,0.0f });
 
 	// マップ初期化
 	mapMan_.Initialize({ 0, {}, { 25.0f, 7.5f, 7.5f } });
@@ -96,17 +105,6 @@ void PlayScene::Initialize()
 
 	// ライト初期化
 	lightGroup_.reset(LightGroup::Create());
-	lightGroup_->SetDirectionalLightColor(0, { 0.0f,1.0f,0.0f });
-	lightGroup_->SetDirectionalLightColor(1, { 1.0f,0.0f,0.0f });
-	lightGroup_->SetDirectionalLightColor(2, { 0.0f,0.0f,1.0f });
-	lightGroup_->SetPointLightColor(0, { 0.0f,1.0f,0.0f });
-	lightGroup_->SetPointLightColor(1, { 1.0f,0.0f,0.0f });
-	lightGroup_->SetPointLightColor(2, { 0.0f,0.0f,1.0f });
-	//lightGroup_->SetSpotLightColor(0, { 1.0f,1.0f,1.0f });
-	//lightGroup_->SetSpotLightColor(1, { 1.0f,0.0f,0.0f });
-	//lightGroup_->SetSpotLightColor(0, { 0.0f,0.0f,1.0f });
-	lightDire1_ = { 0,1,5 };
-	lightDire2_ = { 0,1,5 };
 
 	// ビュープロジェクション初期化
 	vp_.Initialize({});
@@ -116,10 +114,6 @@ void PlayScene::Initialize()
 
 	// パーティクルマネージャー初期化
 	//particleMan_.Initialize();
-
-	p_.reset(ObjectSprite2D::Create({ {0,0,0} }));
-	e_.reset(ObjectSprite2D::Create({ {0,0,0} }));
-	b_ = false;
 }
 #pragma endregion
 
@@ -160,25 +154,11 @@ void PlayScene::Update()
 	// マップマネージャー
 	mapMan_.Update();
 
-	if (keys_->IsDown(DIK_W) || keys_->IsDown(DIK_S) || keys_->IsDown(DIK_D) || keys_->IsDown(DIK_A))
-	{
-		if (keys_->IsDown(DIK_W)) { lightDire1_.y_ += 1.0f; }
-		if (keys_->IsDown(DIK_S)) { lightDire1_.y_ -= 1.0f; }
-		if (keys_->IsDown(DIK_D)) { lightDire1_.x_ += 1.0f; }
-		if (keys_->IsDown(DIK_A)) { lightDire1_.x_ -= 1.0f; }
+	sphere_.center_.x_ += 0.1f * keys_->Horizontal();
+	sphere_.center_.y_ += 0.1f * keys_->Vertical();
 
-		lightGroup_->SetDirectionalLightDirection(1,lightDire1_);
-	}
-	if (keys_->IsDown(DIK_UP) || keys_->IsDown(DIK_DOWN) || keys_->IsDown(DIK_RIGHT) || keys_->IsDown(DIK_LEFT))
-	{
-		if (keys_->IsDown(DIK_UP))	  { lightDire2_.y_ += 1.0f; }
-		if (keys_->IsDown(DIK_DOWN))  { lightDire2_.y_ -= 1.0f; }
-		if (keys_->IsDown(DIK_RIGHT)) { lightDire2_.x_ += 1.0f; }
-		if (keys_->IsDown(DIK_LEFT))  { lightDire2_.x_ -= 1.0f; }
-
-		lightGroup_->SetDirectionalLightDirection(2, lightDire2_);
-	}
-
+	YCollision::CollisonPlaneSphere(plane_, sphere_);
+	YCollision::CollisionTriangleSphere(triangle_, sphere_);
 
 	// カメラ
 	cameraMan_.Update();
@@ -195,11 +175,6 @@ void PlayScene::Update()
 
 	// アタリ判定マネージャー
 	collMan_.Update();
-
-
-	if (keys_->IsTrigger(DIK_SPACE)) { b_ = !b_; }
-	if (pad_->IsTrigger(PadButton::XIP_A)) { b_ = !b_; }
-	if (mouse_->IsTrigger(MouseClick::DIM_LEFT)) { b_ = !b_; }
 }
 #pragma endregion
 
@@ -215,12 +190,12 @@ void PlayScene::DrawModels()
 	// 天球
 	//skydome_.Draw(vp_, lightGroup_.get());
 
-	// map
+	// マップチップ
 	//mapMan_.Draw(vp_);
 
 	playerDra_.Draw(vp_, lightGroup_.get());
 
-	cubeM_->Draw(cu_.get(), vp_, lightGroup_.get(), plainT_);
+	// パーティクル
 	//particleMan_.Draw(vp_);
 }
 
@@ -231,11 +206,8 @@ void PlayScene::DrawSprite3Ds()
 
 void PlayScene::DrawFrontSprite2Ds()
 {
-	// map
+	// マップチップ
 	//mapMan_.Draw2D();
-
-	if (b_) { playerS_->Draw(p_.get()); }
-	else { enemyS_->Draw(e_.get()); }
 }
 
 void PlayScene::Draw()

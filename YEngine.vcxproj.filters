@@ -121,6 +121,9 @@
     <Filter Include="Draw\Shader\Model">
       <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util\Math\Lerp">
+      <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -309,19 +312,10 @@
     <ClCompile Include="Utillity\Math\Vec4.cpp">
       <Filter>Util\Math\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\Math\Lerp.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Utillity\Math\MathUtillity.cpp">
       <Filter>Util\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\Math\Power.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Utillity\Math\Shake.cpp">
-      <Filter>Util\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Utillity\Math\Timer.cpp">
       <Filter>Util\Math</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Light\LightGroup.cpp">
@@ -337,9 +331,6 @@
       <Filter>Util\imgui</Filter>
     </ClCompile>
     <ClCompile Include="Base\YFramework.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Base\MyGame.cpp">
       <Filter>Base</Filter>
     </ClCompile>
     <ClCompile Include="Scene\PlayScene.cpp">
@@ -365,6 +356,24 @@
     </ClCompile>
     <ClCompile Include="GameUtillity\Light\SpotLight.cpp">
       <Filter>GameUtil\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Lerp.cpp">
+      <Filter>Util\Math\Lerp</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Power.cpp">
+      <Filter>Util\Math\Lerp</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Timer.cpp">
+      <Filter>Util\Math\Lerp</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\CollisionDetection.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Collision\CollisionPrimitive.cpp">
+      <Filter>GameUtil\Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGame.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,19 +572,10 @@
     <ClInclude Include="Utillity\Math\Vec4.h">
       <Filter>Util\Math\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\Math\Lerp.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Utillity\Math\MathUtillity.h">
       <Filter>Util\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\Math\Power.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Utillity\Math\Shake.h">
-      <Filter>Util\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Utillity\Math\Timer.h">
       <Filter>Util\Math</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Light\LightGroup.h">
@@ -591,9 +591,6 @@
       <Filter>Util\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Base\YFramework.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Base\MyGame.h">
       <Filter>Base</Filter>
     </ClInclude>
     <ClInclude Include="Scene\PlayScene.h">
@@ -622,6 +619,24 @@
     </ClInclude>
     <ClInclude Include="GameUtillity\Light\SpotLight.h">
       <Filter>GameUtil\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Lerp.h">
+      <Filter>Util\Math\Lerp</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Power.h">
+      <Filter>Util\Math\Lerp</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Timer.h">
+      <Filter>Util\Math\Lerp</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\CollisionDetection.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\CollisionPrimitive.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGame.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

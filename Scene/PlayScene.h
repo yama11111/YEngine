@@ -65,15 +65,15 @@ namespace YScene
 
 #pragma endregion
 #pragma region ゲームオブジェクト
-
-		std::unique_ptr<YGame::ObjectSprite2D> p_;
-		std::unique_ptr<YGame::ObjectSprite2D> e_;
-		bool b_ = false;
 		
-		std::unique_ptr<YGame::ObjectModel> cu_;
 		// プレイヤー
 		std::unique_ptr<YGame::ObjectModel> player_;
 		YDrawer::PlayerDrawer playerDra_;
+
+		YCollision::Plane plane_;
+		YCollision::Sphere sphere_;
+		YCollision::Triangle triangle_;
+
 
 		// マップマネージャー
 		MapChipManager mapMan_;
@@ -89,8 +89,6 @@ namespace YScene
 
 		// 転送用ライトグループ
 		std::unique_ptr<YGame::LightGroup> lightGroup_;
-		YMath::Vec3 lightDire1_;
-		YMath::Vec3 lightDire2_;
 
 		// 転送用ビュープロジェクション
 		YGame::ViewProjection vp_;

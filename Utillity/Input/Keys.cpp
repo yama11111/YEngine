@@ -74,22 +74,26 @@ bool Keys::IsRelease(const int key)
 bool Keys::IsLeft(const MoveStandard& keyS)
 {
 	return	(keyS == MoveStandard::Arrow && IsDown(DIK_LEFT)) ||
-		(keyS == MoveStandard::WASD && IsDown(DIK_A));
+			(keyS == MoveStandard::WASD && IsDown(DIK_A)) ||
+			(keyS == MoveStandard::All && (IsDown(DIK_LEFT) || IsDown(DIK_A)));
 }
 bool Keys::IsRight(const MoveStandard& keyS)
 {
 	return	(keyS == MoveStandard::Arrow && IsDown(DIK_RIGHT)) ||
-		(keyS == MoveStandard::WASD && IsDown(DIK_D));
+			(keyS == MoveStandard::WASD && IsDown(DIK_D)) ||
+			(keyS == MoveStandard::All && (IsDown(DIK_RIGHT) || IsDown(DIK_D)));
 }
 bool Keys::IsUp(const MoveStandard& keyS)
 {
 	return	(keyS == MoveStandard::Arrow && IsDown(DIK_UP)) ||
-		(keyS == MoveStandard::WASD && IsDown(DIK_W));
+			(keyS == MoveStandard::WASD && IsDown(DIK_W)) ||
+			(keyS == MoveStandard::All && (IsDown(DIK_UP) || IsDown(DIK_W)));
 }
 bool Keys::IsUnder(const MoveStandard& keyS)
 {
 	return	(keyS == MoveStandard::Arrow && IsDown(DIK_DOWN)) ||
-		(keyS == MoveStandard::WASD && IsDown(DIK_S));
+			(keyS == MoveStandard::WASD && IsDown(DIK_S)) ||
+			(keyS == MoveStandard::All && (IsDown(DIK_DOWN) || IsDown(DIK_S)));
 }
 
 int Keys::Horizontal(const MoveStandard& keyS)
@@ -98,7 +102,7 @@ int Keys::Horizontal(const MoveStandard& keyS)
 }
 int Keys::Vertical(const MoveStandard& keyS)
 {
-	return IsUnder(keyS) - IsUp(keyS);
+	return IsUp(keyS) - IsUnder(keyS);
 }
 bool Keys::IsMove(const MoveStandard& keyS)
 {

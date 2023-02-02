@@ -1,11 +1,34 @@
 #pragma once
 #include "SceneManager.h"
+#include "YWindowsApp.h"
+#include "YDirectX.h"
+#include "ScreenDesc.h"
+#include "ImGuiContoroller.h"
+#include <memory>
 
 namespace YBase
 {
 	class YFramework
 	{
 	protected:
+		// WindowsAPI
+		YWindowsApp window_;
+		// DirectX12
+		YDX::YDirectX dx_;
+		// inputマネージャー
+		YInput::InputManager* inputMan_ = nullptr;
+		// スクリーン設定
+		YDX::ScreenDesc screenDesc_;
+		// デスクリプターヒープ (SRV, UAV, CBV)
+		YDX::DescriptorHeap descHeap_;
+		// テクスチャマネージャー
+		YGame::TextureManager texMan_;
+		// audioマネージャー
+		YGame::AudioManager audioMan_;
+		// imguiマネージャー
+		ImGuiContoroller imguiCon_;
+		// シーンマネージャー
+		YScene::SceneManager* sceneMan_ = nullptr;
 		// 終了フラグ
 		bool isEnd_ = false;
 	public:
@@ -25,16 +48,5 @@ namespace YBase
 	public:
 		YFramework() = default;
 		virtual ~YFramework() = default;
-	protected:
-		// シーンマネージャー
-		static YScene::SceneManager* sceneMan_;
-	public:
-		struct StaticInitStatus 
-		{
-			YScene::SceneManager* sceneMan_;
-		};
-	public:
-		// 静的初期化
-		static void StaticInitialize(const StaticInitStatus& state);
 	};
 }

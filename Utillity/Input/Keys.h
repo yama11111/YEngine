@@ -39,22 +39,23 @@ namespace YInput
 		{
 			WASD,
 			Arrow,
+			All,
 		};
 	public:
 		// ç∂
-		bool IsLeft(const MoveStandard& keyS);
+		bool IsLeft(const MoveStandard& keyS = MoveStandard::All);
 		// âE
-		bool IsRight(const MoveStandard& keyS);
+		bool IsRight(const MoveStandard& keyS = MoveStandard::All);
 		// è„
-		bool IsUp(const MoveStandard& keyS);
+		bool IsUp(const MoveStandard& keyS = MoveStandard::All);
 		// â∫
-		bool IsUnder(const MoveStandard& keyS);
+		bool IsUnder(const MoveStandard& keyS = MoveStandard::All);
 		// ç∂(-1) âE(+1)
-		int Horizontal(const MoveStandard& keyS);
+		int Horizontal(const MoveStandard& keyS = MoveStandard::All);
 		// è„(-1) â∫(+1)
-		int Vertical(const MoveStandard& keyS);
+		int Vertical(const MoveStandard& keyS = MoveStandard::All);
 		// à⁄ìÆÇµÇƒÇ¢ÇÈÇ©
-		bool IsMove(const MoveStandard& keyS);
+		bool IsMove(const MoveStandard& keyS = MoveStandard::All);
 	public:
 		static Keys* GetInstance();
 	private:

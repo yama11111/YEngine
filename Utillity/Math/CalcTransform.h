@@ -8,7 +8,10 @@
 
 namespace YMath
 {
-#pragma region アフィン変換
+#pragma region 変換系
+	
+	// ------------ アフィン変換 ------------ //
+	
 	// 拡縮変換
 	Mat4 MatScale(const Vec3& s);
 	
@@ -23,6 +26,18 @@ namespace YMath
 
 	// 座標変換
 	Mat4 MatTranslation(const Vec3& t);
+	
+	// ----- ビュープロジェクション変換 ----- //
+	
+	// 平行投影変換行列
+	Mat4 MatOrthoGraphic();
+	// 透視投影変換行列
+	Mat4 MatPerspective();
+	// ビューポート行列
+	Mat4 MatViewPort();
+	// ビュー行列(左手座標系)
+	Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up);
+	
 #pragma endregion
 
 	Vec3 MatTransform(const Vec3& v, const Mat4& m);
@@ -35,29 +50,9 @@ namespace YMath
 	// 逆行列
 	Mat4 InverceMat4(const Mat4& m);
 
-	// 平行投影変換行列
-	Mat4 MatOrthoGraphic();
-	// 透視投影変換行列
-	Mat4 MatPerspective();
-	// ビューポート行列
-	Mat4 MatViewPort();
-	// ビュー行列(左手座標系)
-	Mat4 MatLookAtLH(const Vec3& eye, const Vec3& target, const Vec3& up);
-
 	// 2D座標→3D座標
 	Vec3 WorldPos(const Vec2& screen, float z, const Mat4& view, const Mat4& projection);
 
 	// 角度調整
 	Vec3 AdjustAngle(const Vec3& velocity);
-
-	// アタリ判定(線×球)
-	bool CollRaySphere(
-		const Vec3& ray, const Vec3& velocity,
-		const Vec3& sphere, const float rad);
-	
-	// アタリ判定(線×球) <貫通点取得ver>
-	bool CollRaySphere(
-		const Vec3& ray, const Vec3& velocity,
-		const Vec3& sphere, const float rad,
-		Vec3& start, Vec3& end);
 }

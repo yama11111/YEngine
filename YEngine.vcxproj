@@ -106,7 +106,6 @@
     <ClCompile Include="Base\DX\Vertices.cpp" />
     <ClCompile Include="Base\DX\YAssert.cpp" />
     <ClCompile Include="Base\DX\YDirectX.cpp" />
-    <ClCompile Include="Base\MyGame.cpp" />
     <ClCompile Include="Base\YFramework.cpp" />
     <ClCompile Include="Base\YWindowsApp.cpp" />
     <ClCompile Include="Chara\Attack.cpp" />
@@ -141,6 +140,7 @@
     <ClCompile Include="GameUtillity\Camera\CameraManager.cpp" />
     <ClCompile Include="GameUtillity\Collision\Collider.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
+    <ClCompile Include="GameUtillity\Collision\CollisionPrimitive.cpp" />
     <ClCompile Include="GameUtillity\Color.cpp" />
     <ClCompile Include="GameUtillity\Light\DirectionalLight.cpp" />
     <ClCompile Include="GameUtillity\Light\LightGroup.cpp" />
@@ -155,6 +155,7 @@
     <ClCompile Include="GameUtillity\Stuff\Skydome.cpp" />
     <ClCompile Include="GameUtillity\ViewProjection.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Scene\BaseScene.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Utillity\Input\Mouse.cpp" />
     <ClCompile Include="Utillity\Input\Pad.cpp" />
     <ClCompile Include="Utillity\Math\CalcTransform.cpp" />
+    <ClCompile Include="Utillity\Math\CollisionDetection.cpp" />
     <ClCompile Include="Utillity\Math\Lerp.cpp" />
     <ClCompile Include="Utillity\Math\Mat4.cpp" />
     <ClCompile Include="Utillity\Math\MathUtillity.cpp" />
@@ -189,7 +191,6 @@
     <ClInclude Include="Base\DX\Vertices.h" />
     <ClInclude Include="Base\DX\YAssert.h" />
     <ClInclude Include="Base\DX\YDirectX.h" />
-    <ClInclude Include="Base\MyGame.h" />
     <ClInclude Include="Base\YFramework.h" />
     <ClInclude Include="Base\YWindowsApp.h" />
     <ClInclude Include="Chara\Attack.h" />
@@ -228,6 +229,7 @@
     <ClInclude Include="GameUtillity\Collision\Collider.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionConfig.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionManager.h" />
+    <ClInclude Include="GameUtillity\Collision\CollisionPrimitive.h" />
     <ClInclude Include="GameUtillity\Color.h" />
     <ClInclude Include="GameUtillity\Light\DirectionalLight.h" />
     <ClInclude Include="GameUtillity\Light\LightGroup.h" />
@@ -241,6 +243,7 @@
     <ClInclude Include="GameUtillity\Stuff\Floor.h" />
     <ClInclude Include="GameUtillity\Stuff\Skydome.h" />
     <ClInclude Include="GameUtillity\ViewProjection.h" />
+    <ClInclude Include="MyGame.h" />
     <ClInclude Include="Scene\ISceneFactory.h" />
     <ClInclude Include="Scene\BaseScene.h" />
     <ClInclude Include="Scene\PlayScene.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="Utillity\Input\Mouse.h" />
     <ClInclude Include="Utillity\Input\Pad.h" />
     <ClInclude Include="Utillity\Math\CalcTransform.h" />
+    <ClInclude Include="Utillity\Math\CollisionDetection.h" />
     <ClInclude Include="Utillity\Math\Lerp.h" />
     <ClInclude Include="Utillity\Math\Mat4.h" />
     <ClInclude Include="Utillity\Math\MathUtillity.h" />
