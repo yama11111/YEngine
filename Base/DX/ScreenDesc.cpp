@@ -11,7 +11,7 @@ void ScreenDesc::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 	pCommandList_ = pCommandList;
 }
 
-void ScreenDesc::Initialize(const YMath::Vec2& topLeft, const YMath::Vec2& bottomRight)
+void ScreenDesc::Initialize(const YMath::Vector2& topLeft, const YMath::Vector2& bottomRight)
 {
 	// ビューポート設定
 	viewport_.Width    = bottomRight.x_ - topLeft.x_; // 横幅

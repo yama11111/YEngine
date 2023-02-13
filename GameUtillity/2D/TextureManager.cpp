@@ -5,7 +5,7 @@
 
 using YGame::TextureManager;
 using YDX::GPUResource;
-using YMath::Vec4;
+using YMath::Vector4;
 using YDX::Result;
 
 ID3D12Device* TextureManager::pDevice_ = nullptr;
@@ -23,13 +23,13 @@ void TextureManager::StaticInitialize(const StaticInitStatus& state)
 	pDescHeap_ = state.pDescHeap_;
 }
 
-UINT TextureManager::CreateTex(const Vec4& color)
+UINT TextureManager::CreateTex(const Vector4& color)
 {
 	// テクスチャ情報
 	Texture tex;
 
 	// 画像イメージデータ配列
-	Vec4* imageData = new Vec4[imageDataCount]; // ※必ず後で開放する
+	Vector4* imageData = new Vector4[imageDataCount]; // ※必ず後で開放する
 
 	// 全ピクセルの色を初期化
 	for (size_t i = 0; i < imageDataCount; i++)
@@ -43,6 +43,7 @@ UINT TextureManager::CreateTex(const Vec4& color)
 	// 生成用情報
 	GPUResource::CreateStatus texState;
 	// ヒープ設定
+	//texState.heapProp_.Type = D3D12_HEAP_TYPE_DEFAULT;
 	texState.heapProp_.Type = D3D12_HEAP_TYPE_CUSTOM;
 	texState.heapProp_.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
 	texState.heapProp_.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
@@ -63,8 +64,8 @@ UINT TextureManager::CreateTex(const Vec4& color)
 		0,
 		nullptr, // 全領域へコピー
 		imageData, // 元データアドレス
-		sizeof(Vec4) * textureWidth, // 1ラインサイズ
-		sizeof(Vec4) * imageDataCount // 全サイズ
+		sizeof(Vector4) * textureWidth, // 1ラインサイズ
+		sizeof(Vector4) * imageDataCount // 全サイズ
 	));
 
 	// データ開放
@@ -140,6 +141,7 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 	// 生成用情報
 	GPUResource::CreateStatus texState;
 	// ヒープ設定
+	//texState.heapProp_.Type = D3D12_HEAP_TYPE_DEFAULT;
 	texState.heapProp_.Type = D3D12_HEAP_TYPE_CUSTOM;
 	texState.heapProp_.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
 	texState.heapProp_.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;

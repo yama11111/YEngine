@@ -4,9 +4,9 @@
 #include "PipelineSet.h"
 #include "TextureManager.h"
 #include "Color.h"
-#include "Vec2.h"
-#include "Vec3.h"
-#include "Mat4.h"
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Matrix4.h"
 #include <unordered_map>
 #include <memory>
 
@@ -21,27 +21,27 @@ namespace YGame
 		// 頂点データ構造体
 		struct VData
 		{
-			YMath::Vec3 pos_;	  // xyz座標
-			YMath::Vec3 normal_;  // 法線ベクトル
-			YMath::Vec2 uv_;	  // uv座標
-			YMath::Vec3 tangent_; // 接空間
-			YMath::Vec4 color_;	  // 頂点色
+			YMath::Vector3 pos_;	  // xyz座標
+			YMath::Vector3 normal_;  // 法線ベクトル
+			YMath::Vector2 uv_;	  // uv座標
+			YMath::Vector3 tangent_; // 接空間
+			YMath::Vector4 color_;	  // 頂点色
 		};
 		// 定数バッファデータ構造体
 		struct CBData
 		{
-			YMath::Mat4 matWorld_;	  // ワールド行列
-			YMath::Mat4 matViewProj_; // ビュープロジェクション行列
-			YMath::Vec3 cameraPos_;	  // カメラ座標
+			YMath::Matrix4 matWorld_;	  // ワールド行列
+			YMath::Matrix4 matViewProj_; // ビュープロジェクション行列
+			YMath::Vector3 cameraPos_;	  // カメラ座標
 		};
 		// 定数バッファデータ構造体 (マテリアル)
 		struct MaterialCBData
 		{
-			YMath::Vec3 ambient_;  // アンビエント係数
+			YMath::Vector3 ambient_;  // アンビエント係数
 			float pad1_; // パディング1
-			YMath::Vec3 diffuse_;  // ディフューズ係数
+			YMath::Vector3 diffuse_;  // ディフューズ係数
 			float pad2_; // パディング2
-			YMath::Vec3 specular_; // スペキュラー係数
+			YMath::Vector3 specular_; // スペキュラー係数
 			float alpha_;		   // アルファ
 		};
 		// マテリアル構造体
@@ -49,9 +49,9 @@ namespace YGame
 		{
 		public:
 			std::string name_;			 // マテリアル名
-			YMath::Vec3 ambient_;		 // アンビエント影響度
-			YMath::Vec3 diffuse_;		 // ディフューズ影響度
-			YMath::Vec3 specular_;		 // スペキュラー影響度
+			YMath::Vector3 ambient_;		 // アンビエント影響度
+			YMath::Vector3 diffuse_;		 // ディフューズ影響度
+			YMath::Vector3 specular_;		 // スペキュラー影響度
 			float alpha_;				 // アルファ値
 		public:
 			std::string texFileName_;	 // テクスチャファイル名

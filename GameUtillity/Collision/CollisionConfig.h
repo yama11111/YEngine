@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace YCollision
+namespace YGame
 {
 	// ‘®«
 	namespace Attribute

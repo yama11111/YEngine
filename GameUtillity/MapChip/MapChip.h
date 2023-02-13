@@ -26,11 +26,11 @@ private:
 	//// マップチップ2D用
 	//std::vector<std::vector<YGame::Object>> chip2Ds_;
 	// マップ全体の大きさ(矩形)
-	YMath::Vec2 rect_;
+	YMath::Vector2 rect_;
 	// チップ1個分の大きさ
-	YMath::Vec3 chipSize_;
+	YMath::Vector3 chipSize_;
 	// 左上
-	YMath::Vec3 leftTop_;
+	YMath::Vector3 leftTop_;
 
 	// モデルポインタ
 	YGame::Model* pModel_ = nullptr;
@@ -50,8 +50,8 @@ public:
 	// 初期化ステータス
 	struct InitStatus 
 	{
-		YMath::Vec3 leftTop_; // 左上([0][0])
-		YMath::Vec3 chipSize_; // チップ1個分の大きさ
+		YMath::Vector3 leftTop_; // 左上([0][0])
+		YMath::Vector3 chipSize_; // チップ1個分の大きさ
 	};
 public:
 	// ロード
@@ -71,7 +71,7 @@ public:
 	void PerfectPixelCollision(MapChipCollider& collider);
 private:
 	// 仮移動後のチップごとのアタリ判定
-	bool CollisionTemporaryMap(const YMath::Vec3& pos, const YMath::Vec3 scale, const YMath::Vec3& spd);
+	bool CollisionTemporaryMap(const YMath::Vector3& pos, const YMath::Vector3 scale, const YMath::Vector3& spd);
 	// チップごとのアタリ判定
 	bool CollisionMap(const float left, const float right, const float top, const float bottom);
 	// チップごとのアタリ判定

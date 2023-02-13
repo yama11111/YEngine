@@ -4,7 +4,7 @@
 //const float Size = 600.0f;
 //const float Rotate = 3.141592f * 0.0005f;
 //
-//void Skydome::Initialize(YMath::Vec3* pos, YGame::Model* model)
+//void Skydome::Initialize(YMath::Vector3* pos, YGame::Model* model)
 //{
 //	assert(model);
 //	assert(pos);
@@ -18,7 +18,7 @@
 //
 //void Skydome::Update()
 //{
-//	obj_.pos_ = YMath::Vec3(0.0f, -20.0f, pPos_->z_);
+//	obj_.pos_ = YMath::Vector3(0.0f, -20.0f, pPos_->z_);
 //	obj_.rota_.y_ -= Rotate;
 //	obj_.UpdateMatrix();
 //}

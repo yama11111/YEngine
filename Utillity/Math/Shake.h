@@ -1,5 +1,5 @@
 #pragma once
-#include "Vec3.h"
+#include "Vector3.h"
 
 namespace YMath
 {
@@ -7,7 +7,7 @@ namespace YMath
 	{
 	private:
 		// —h‚ê‚Ä‚¢‚é—Ê
-		Vec3 value_{};
+		Vector3 value_{};
 		// —h‚ê‚Ä‚¢‚é‚©
 		bool isAct_ = false;
 		// —h‚ê‚é—Ê (—”)
@@ -18,7 +18,7 @@ namespace YMath
 		void Initialize();
 		void Update();
 		void Activate(const int swing, const int dekey);
-		Vec3 Value() { return value_; }
+		Vector3 Value() { return value_; }
 		bool IsAct() { return isAct_; }
 	};
 }

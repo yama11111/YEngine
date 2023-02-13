@@ -17,7 +17,7 @@ void SlimeActor::InitializeSlimeAction()
 	value_ = {};
 }
 
-void SlimeActor::ActivateSlimeAction(const std::vector<YMath::Vec3> ends, const unsigned int frame)
+void SlimeActor::ActivateSlimeAction(const std::vector<YMath::Vector3> ends, const unsigned int frame)
 {
 	assert(ends.size() > 1);
 
@@ -82,7 +82,7 @@ void SlimeActor::UpdateValue()
 	value_ = ease_.In(timer_.Ratio());
 }
 
-YMath::Vec3 SlimeActor::SlimeActionValue()
+YMath::Vector3 SlimeActor::SlimeActionValue()
 {
 	return value_;
 }

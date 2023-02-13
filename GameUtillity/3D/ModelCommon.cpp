@@ -10,9 +10,9 @@
 
 using YGame::ModelCommon;
 using YDX::PipelineSet;
-using YMath::Vec2;
-using YMath::Vec3;
-using YMath::Vec4;
+using YMath::Vector2;
+using YMath::Vector3;
+using YMath::Vector4;
 
 PipelineSet ModelCommon::pipelineSet_;
 YGame::TextureManager* ModelCommon::pTexManager_ = nullptr;
@@ -175,14 +175,14 @@ void ModelCommon::CalculateNormals(std::vector<VData>& v, const std::vector<uint
 		unsigned short index1 = indices[i * 3 + 1];
 		unsigned short index2 = indices[i * 3 + 2];
 		// 三角形を構成する頂点座標ベクトルに代入
-		Vec3 p0 = v[index0].pos_;
-		Vec3 p1 = v[index1].pos_;
-		Vec3 p2 = v[index2].pos_;
+		Vector3 p0 = v[index0].pos_;
+		Vector3 p1 = v[index1].pos_;
+		Vector3 p2 = v[index2].pos_;
 		// p0->p1ベクトル、p0->p2ベクトルを計算 (ベクトルの減算)
-		Vec3 v1 = p1 - p0;
-		Vec3 v2 = p2 - p0;
+		Vector3 v1 = p1 - p0;
+		Vector3 v2 = p2 - p0;
 		// 外積は両方から垂直なベクトル
-		Vec3 normal = v1.Cross(v2);
+		Vector3 normal = v1.Cross(v2);
 		// 正規化 (長さを1にする)
 		normal = normal.Normalized();
 		// 求めた法線を頂点データに代入
@@ -198,7 +198,7 @@ void ModelCommon::CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
 	for (; itr != smoothData.end(); ++itr)
 	{
 		std::vector<unsigned short>& v = itr->second;
-		Vec3 normal = {};
+		Vector3 normal = {};
 		for (unsigned short index : v)
 		{
 			normal += vertices[index].normal_;
@@ -234,11 +234,11 @@ YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src
 		if (invV) { uv->y = 1.0f - uv->y; }
 
 		VData vertex = {};
-		vertex.pos_ = Vec3(position->x, position->y, position->z);
-		vertex.normal_ = Vec3(normal->x, normal->y, normal->z);
-		vertex.uv_ = Vec2(uv->x, uv->y);
-		vertex.tangent_ = Vec3(tangent->x, tangent->y, tangent->z);
-		vertex.color_ = Vec4(color->r, color->g, color->b, color->a);
+		vertex.pos_ = Vector3(position->x, position->y, position->z);
+		vertex.normal_ = Vector3(normal->x, normal->y, normal->z);
+		vertex.uv_ = Vector2(uv->x, uv->y);
+		vertex.tangent_ = Vector3(tangent->x, tangent->y, tangent->z);
+		vertex.color_ = Vector4(color->r, color->g, color->b, color->a);
 
 		vData[i] = vertex;
 	}

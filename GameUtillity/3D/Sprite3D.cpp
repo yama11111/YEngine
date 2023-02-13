@@ -4,8 +4,8 @@
 using YGame::Sprite3DCommon;
 using YGame::Sprite3D;
 using YGame::TextureManager;
-using YMath::Vec3;
-using YMath::Mat4;
+using YMath::Vector3;
+using YMath::Matrix4;
 
 const UINT SprIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::SpriteCB);
 const UINT ColIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::ColorCB);
@@ -45,17 +45,17 @@ void Sprite3D::Draw(ObjectSprite3D* obj, const ViewProjection& vp)
 {
 	Draw(obj, vp, defColor_.get());
 }
-YMath::Mat4 Sprite3D::BillboardMatrix(const ViewProjection& vp)
+YMath::Matrix4 Sprite3D::BillboardMatrix(const ViewProjection& vp)
 {
 	if (isXAxisBillboard_ == false && isYAxisBillboard_ == false) 
 	{
-		return Mat4::Identity();
+		return Matrix4::Identity();
 	}
 
 	// ビルボード行列の計算
-	Vec3 axisZ = (vp.target_ - vp.eye_).Normalized();
-	Vec3 axisX = (vp.up_.Cross(axisZ)).Normalized();
-	Vec3 axisY = axisZ.Cross(axisX);
+	Vector3 axisZ = (vp.target_ - vp.eye_).Normalized();
+	Vector3 axisX = (vp.up_.Cross(axisZ)).Normalized();
+	Vector3 axisY = axisZ.Cross(axisX);
 
 	// Y軸周りビルボードなら
 	if (isYAxisBillboard_)
@@ -65,7 +65,7 @@ YMath::Mat4 Sprite3D::BillboardMatrix(const ViewProjection& vp)
 	}
 
 	// ビルボード行列
-	Mat4 matBillboard(
+	Matrix4 matBillboard(
 		axisX.x_, axisX.y_, axisX.z_, 0.0f,
 		axisY.x_, axisY.y_, axisY.z_, 0.0f,
 		axisZ.x_, axisZ.y_, axisZ.z_, 0.0f,

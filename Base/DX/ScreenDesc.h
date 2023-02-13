@@ -1,6 +1,6 @@
 #pragma once
 #include <d3d12.h>
-#include "Vec2.h"
+#include "Vector2.h"
 
 #pragma comment(lib, "d3d12.lib")
 
@@ -15,7 +15,7 @@ namespace YDX
 		D3D12_RECT scissorRect_{};
 	public:
 		// 初期化 (引数 : 左上, 右下)
-		void Initialize(const YMath::Vec2& topLeft, const YMath::Vec2& bottomRight);
+		void Initialize(const YMath::Vector2& topLeft, const YMath::Vector2& bottomRight);
 		// 描画前コマンド
 		void SetDrawCommand();
 	private:

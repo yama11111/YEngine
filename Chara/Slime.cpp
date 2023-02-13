@@ -26,8 +26,8 @@
 //	InitializeCollisionStatus(
 //		{
 //			CollRad,
-//			YCollision::Attribute::Enemy,
-//			YCollision::Attribute::Player
+//			YGame::Attribute::Enemy,
+//			YGame::Attribute::Player
 //		}
 //	);
 //	Reset(state);
@@ -38,7 +38,7 @@
 //	InitializeCharacter(
 //		{
 //			state.pos_,
-//			YMath::AdjustAngle(YMath::Vec3(0, 0, -1)),
+//			YMath::AdjustAngle(YMath::Vector3(0, 0, -1)),
 //			{10.0f,10.0f,10.0f}
 //		}
 //	);

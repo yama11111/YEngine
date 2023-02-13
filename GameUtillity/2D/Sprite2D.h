@@ -19,9 +19,9 @@ namespace YGame
 		std::unique_ptr<Color> defColor_;
 
 		// サイズ
-		YMath::Vec2 size_;
+		YMath::Vector2 size_;
 		// アンカーポイント
-		YMath::Vec2 anchor_;
+		YMath::Vector2 anchor_;
 		// 左右反転
 		bool isFlipX_ = false;
 		// 上下反転
@@ -30,9 +30,9 @@ namespace YGame
 		// テクスチャ
 		UINT tex_ = UINT32_MAX;
 		// テクスチャ左上
-		YMath::Vec2 texLeftTop_;
+		YMath::Vector2 texLeftTop_;
 		// テクスチャサイズ
-		YMath::Vec2 texSize_;
+		YMath::Vector2 texSize_;
 
 		// 非表示
 		bool isInvisible_ = false;
@@ -40,8 +40,8 @@ namespace YGame
 		// 設定用ステータス
 		struct Status
 		{
-			YMath::Vec2 size_; // サイズ
-			YMath::Vec2 anchor_ = { 0.0f, 0.0f }; // アンカーポイント
+			YMath::Vector2 size_; // サイズ
+			YMath::Vector2 anchor_ = { 0.0f, 0.0f }; // アンカーポイント
 			bool isFlipX_ = false; // 左右反転
 			bool isFlipY_ = false; // 上下反転
 		};
@@ -49,8 +49,8 @@ namespace YGame
 		struct TexStatus
 		{
 			UINT index_ = UINT32_MAX; // テクスチャインデックス
-			YMath::Vec2 leftTop_ = { 0.0f,0.0f }; // テクスチャ左上
-			YMath::Vec2 size_ = { 0.0f,0.0f }; // テクスチャサイズ
+			YMath::Vector2 leftTop_ = { 0.0f,0.0f }; // テクスチャ左上
+			YMath::Vector2 size_ = { 0.0f,0.0f }; // テクスチャサイズ
 		};
 	public:
 		// 生成
@@ -66,26 +66,26 @@ namespace YGame
 		void Draw(ObjectSprite2D* obj);
 	public:
 		// サイズ設定
-		void SetSize(const YMath::Vec2& size);
+		void SetSize(const YMath::Vector2& size);
 		// アンカーポイント設定
-		void SetAnchorPoint(const YMath::Vec2& anchor);
+		void SetAnchorPoint(const YMath::Vector2& anchor);
 		// フリップ設定
 		void SetFrip(const bool isFlipX, const bool isFlipY);
 		// テクスチャ左上設定
-		void SetTextureLeftTop(const YMath::Vec2& leftTop, const bool adjust = true);
+		void SetTextureLeftTop(const YMath::Vector2& leftTop, const bool adjust = true);
 		// テクスチャサイズ設定
-		void SetTextureSize(const YMath::Vec2& texSize);
+		void SetTextureSize(const YMath::Vector2& texSize);
 		// テクスチャ矩形設定
-		void SetTextureRectangle(const YMath::Vec2& leftTop, const YMath::Vec2& texSize);
+		void SetTextureRectangle(const YMath::Vector2& leftTop, const YMath::Vector2& texSize);
 		// 全設定
 		void SetAllStatus(const Status& state, const TexStatus& texState, const bool div = false);
 		// 非表示設定
 		void SetInvisible(const bool isInvisible) { isInvisible_ = isInvisible; }
 	public:
 		// サイズ取得
-		YMath::Vec2 Size() const { return size_; }
+		YMath::Vector2 Size() const { return size_; }
 		// アンカーポイント取得
-		YMath::Vec2 AnchorPoint() const { return anchor_; }
+		YMath::Vector2 AnchorPoint() const { return anchor_; }
 	private:
 		Sprite2D() = default;
 	public:

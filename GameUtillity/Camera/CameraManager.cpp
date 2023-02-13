@@ -3,7 +3,7 @@
 #include <cassert>
 
 using YCamera::CameraManager;
-using YMath::Vec3;
+using YMath::Vector3;
 
 YInput::Keys* CameraManager::keys_ = nullptr;
 YInput::Mouse* CameraManager::mouse_ = nullptr;
@@ -39,7 +39,7 @@ YGame::ViewProjection CameraManager::GetViewProjection()
 	return camera_.GetViewProjection();
 }
 
-void CameraManager::SetFollowPoint(YMath::Vec3* pFollowPoint)
+void CameraManager::SetFollowPoint(YMath::Vector3* pFollowPoint)
 {
 	camera_.SetFollowPoint(pFollowPoint);
 }

@@ -13,7 +13,7 @@ void PlayerDrawerCommon::StaticInitialize(const StaticInitStatus& state)
 	pModels_[static_cast<size_t>(Parts::Tail)].reset(YGame::Model::LoadObj("player/player_tail", true));
 }
 
-void PlayerDrawer::Initialize(YMath::Mat4* pParent)
+void PlayerDrawer::Initialize(YMath::Matrix4* pParent)
 {
 	for (size_t i = 0; i < objs_.size(); i++)
 	{

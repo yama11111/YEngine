@@ -17,17 +17,17 @@
 //	class Dust : public IParticle
 //	{
 //	private:
-//		YMath::Ease<YMath::Vec3> speed_;
-//		YMath::Ease<YMath::Vec3> scale_;
+//		YMath::Ease<YMath::Vector3> speed_;
+//		YMath::Ease<YMath::Vector3> scale_;
 //		YMath::Ease<float> alpha_;
 //		YMath::Timer timer_;
 //	public:
 //		struct EmitStatus
 //		{
-//			YMath::Vec3 pos_;
-//			YMath::Vec3 rota_;
+//			YMath::Vector3 pos_;
+//			YMath::Vector3 rota_;
 //			float scale_;
-//			YMath::Vec3 speed_;
+//			YMath::Vector3 speed_;
 //			uint32_t frame_;
 //		};
 //	public:
@@ -38,19 +38,19 @@
 //	class Exprosion : public IParticle
 //	{
 //	private:
-//		YMath::Ease<YMath::Vec3> rota_;
-//		YMath::Ease<YMath::Vec3> scale_;
-//		YMath::Ease<YMath::Vec3> speed_;
-//		YMath::Vec4 color_;
+//		YMath::Ease<YMath::Vector3> rota_;
+//		YMath::Ease<YMath::Vector3> scale_;
+//		YMath::Ease<YMath::Vector3> speed_;
+//		YMath::Vector4 color_;
 //		YMath::Ease<float> alpha_;
 //		YMath::Timer timer_;
 //	public:
 //		struct EmitStatus
 //		{
-//			YMath::Vec3 pos_;
+//			YMath::Vector3 pos_;
 //			float scale_;
-//			YMath::Vec3 speed_;
-//			YMath::Vec4 color_;
+//			YMath::Vector3 speed_;
+//			YMath::Vector4 color_;
 //			uint32_t frame_;
 //		};
 //	public:
@@ -61,19 +61,19 @@
 //	//class Eruption : public IParticle
 //	//{
 //	//private:
-//	//	YMath::Ease<YMath::Vec3> pos_;
-//	//	YMath::Ease<YMath::Vec3> rota_;
-//	//	YMath::Ease<YMath::Vec3> scale_;
-//	//	YMath::Vec4 color_;
+//	//	YMath::Ease<YMath::Vector3> pos_;
+//	//	YMath::Ease<YMath::Vector3> rota_;
+//	//	YMath::Ease<YMath::Vector3> scale_;
+//	//	YMath::Vector4 color_;
 //	//	YMath::Ease<float> alpha_;
 //	//	YMath::Timer timer_;
 //	//public:
 //	//	struct EmitStatus
 //	//	{
-//	//		YMath::Ease<YMath::Vec3> pos_;
-//	//		YMath::Ease<YMath::Vec3> rota_;
-//	//		YMath::Ease<YMath::Vec3> scale_;
-//	//		YMath::Vec4 color_;
+//	//		YMath::Ease<YMath::Vector3> pos_;
+//	//		YMath::Ease<YMath::Vector3> rota_;
+//	//		YMath::Ease<YMath::Vector3> scale_;
+//	//		YMath::Vector4 color_;
 //	//		uint32_t frame_;
 //	//	};
 //	//public:

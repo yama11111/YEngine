@@ -2,8 +2,8 @@
 #include "PipelineSet.h"
 #include "ShaderCommon.h"
 #include "TextureManager.h"
-#include "Vec3.h"
-#include "Mat4.h"
+#include "Vector3.h"
+#include "Matrix4.h"
 #include <memory>
 
 namespace YGame
@@ -14,13 +14,13 @@ namespace YGame
 		// 頂点データ
 		struct VData
 		{
-			YMath::Vec3 pos_; // xyz座標
+			YMath::Vector3 pos_; // xyz座標
 		};
 		// 定数バッファデータ構造体
 		struct CBData
 		{
-			YMath::Mat4 matWorld_; // 3D変換行列
-			YMath::Mat4 matBill_; // ビルボード行列
+			YMath::Matrix4 matWorld_; // 3D変換行列
+			YMath::Matrix4 matBill_; // ビルボード行列
 		};
 	public:
 		// ルートパラメータ番号

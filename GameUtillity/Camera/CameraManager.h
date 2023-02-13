@@ -24,7 +24,7 @@ namespace YCamera
 		// ビュープロジェクション取得
 		YGame::ViewProjection GetViewProjection();
 		// 追従点ポインタ設定
-		void SetFollowPoint(YMath::Vec3* pFollowPoint);
+		void SetFollowPoint(YMath::Vector3* pFollowPoint);
 	private:
 		// キー(シングルトン)
 		static YInput::Keys* keys_;

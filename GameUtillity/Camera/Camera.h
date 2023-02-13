@@ -9,12 +9,12 @@ namespace YCamera
 	{
 	public:
 		// 位置
-		YMath::Vec3 pos_;
+		YMath::Vector3 pos_;
 		// 回転
-		YMath::Vec3 rota_;
+		YMath::Vector3 rota_;
 	private:
 		// 追従点ポインタ
-		YMath::Vec3* pFollowPoint_ = nullptr;
+		YMath::Vector3* pFollowPoint_ = nullptr;
 		// 追従フラグ
 		bool isFollow_ = false;
 		// オブジェクト
@@ -27,7 +27,7 @@ namespace YCamera
 		struct InitStatus 
 		{
 			//YGame::Object::Status objState_;
-			YMath::Vec3* pFollowPos_ = nullptr;
+			YMath::Vector3* pFollowPos_ = nullptr;
 			bool isFollow_ = false;
 		};
 	public:
@@ -41,11 +41,11 @@ namespace YCamera
 		// ビュープロジェクション
 		YGame::ViewProjection GetViewProjection();
 		// カメラ向き
-		YMath::Vec3 Direction();
+		YMath::Vector3 Direction();
 		// 揺れているか
 		bool IsAct() { return shake_.IsAct(); }
 		// 追従点設定
-		void SetFollowPoint(YMath::Vec3* pFollowPoint, const bool isFollow = true);
+		void SetFollowPoint(YMath::Vector3* pFollowPoint, const bool isFollow = true);
 		// 追従設定
 		void SetIsFollow(const bool isFollow);
 	private:

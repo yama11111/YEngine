@@ -1,5 +1,5 @@
 #pragma once
-#include "Vec4.h"
+#include "Vector4.h"
 
 namespace CharaConfig 
 {
@@ -65,7 +65,7 @@ namespace CharaConfig
 		const float ShakeValue = 3.0f;
 
 		// êF
-		const YMath::Vec4 Color = { 1.0f, 0.0f, 0.0f, 1.0f };
+		const YMath::Vector4 Color = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 		// ìßâﬂó 
 		const float AlphaValue = 0.5f;

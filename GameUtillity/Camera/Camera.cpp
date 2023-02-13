@@ -3,7 +3,7 @@
 #include <cassert>
 
 using YCamera::Camera;
-using YMath::Vec3;
+using YMath::Vector3;
 using YMath::MultVec3Mat4;
 
 void Camera::Initialize(const InitStatus& state)
@@ -29,7 +29,7 @@ void Camera::UpdateTarget()
 	}
 	else
 	{
-		//Vec3 forward = MultVec3Mat4(Vec3(0, 0, 1), obj_.m_);
+		//Vector3 forward = MultVec3Mat4(Vector3(0, 0, 1), obj_.m_);
 		//vp_.target_ = vp_.eye_ + forward;
 	}
 }
@@ -46,7 +46,7 @@ void Camera::Update()
 	//// 注視点
 	//UpdateTarget();
 	//// 上方向ベクトル
-	//vp_.up_ = MultVec3Mat4(Vec3(0, 1, 0), obj_.m_);
+	//vp_.up_ = MultVec3Mat4(Vector3(0, 1, 0), obj_.m_);
 
 	//vp_.Update();
 }
@@ -66,14 +66,14 @@ YGame::ViewProjection Camera::GetViewProjection()
 	return result;
 }
 
-Vec3 Camera::Direction()
+Vector3 Camera::Direction()
 {
-	//Vec3 vel = MultVec3Mat4(Vec3(0, 0, 1), obj_.m_);
+	//Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), obj_.m_);
 	//return vel.Normalized();
 	return {};
 }
 
-void Camera::SetFollowPoint(YMath::Vec3* pFollowPoint, const bool isFollow)
+void Camera::SetFollowPoint(YMath::Vector3* pFollowPoint, const bool isFollow)
 {
 	assert(pFollowPoint);
 	pFollowPoint_ = pFollowPoint;

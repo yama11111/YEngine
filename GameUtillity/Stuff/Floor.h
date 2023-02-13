@@ -12,8 +12,8 @@
 //	{
 //		size_t xNum_; // X² –‡”
 //		size_t yNum_; // Y² –‡”
-//		YMath::Vec3 pos_;// êŠ (’†S)
-//		YMath::Vec3 scale_;// ‘å‚«‚³ (1–‡)
+//		YMath::Vector3 pos_;// êŠ (’†S)
+//		YMath::Vector3 scale_;// ‘å‚«‚³ (1–‡)
 //	};
 //public:
 //	// ‰Šú‰»

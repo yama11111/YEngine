@@ -50,9 +50,9 @@ double YMath::Clamp(const double num, const double lower, const double upper)
 	return std::fmin(std::fmax(num, lower), upper);
 }
 
-YMath::Vec4 YMath::GetColor(const int R, const int G, const int B, const int A)
+YMath::Vector4 YMath::GetColor(const int R, const int G, const int B, const int A)
 {
-	YMath::Vec4 result(
+	YMath::Vector4 result(
 		static_cast<float>(Clamp(R, 0, 255)), 
 		static_cast<float>(Clamp(G, 0, 255)), 
 		static_cast<float>(Clamp(B, 0, 255)), 

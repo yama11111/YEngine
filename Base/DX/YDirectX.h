@@ -4,8 +4,8 @@
 #include <wrl.h>
 #include <vector>
 #include <chrono>
-#include "Vec2.h"
-#include "Vec4.h"
+#include "Vector2.h"
+#include "Vector4.h"
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -46,9 +46,9 @@ namespace YDX
 		std::chrono::steady_clock::time_point timeRef_;
 	public:
 		// ‰Šú‰»
-		bool Initialize(const HWND& hwnd, const YMath::Vec2& size = { 1280, 720 });
+		bool Initialize(const HWND& hwnd, const YMath::Vector2& size = { 1280, 720 });
 		// •`‰æ‘O€”õ
-		void PreDraw(const YMath::Vec4& clearColor);
+		void PreDraw(const YMath::Vector4& clearColor);
 		// •`‰æŒãˆ—
 		void PostDraw();
 	public:

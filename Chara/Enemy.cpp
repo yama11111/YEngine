@@ -5,9 +5,9 @@
 //
 //using namespace CharaConfig::Enemy;
 //
-//void Enemy::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
+//void Enemy::OnCollision(const uint32_t attribute, const YMath::Vector3& pos)
 //{
-//	if (attribute == YCollision::Attribute::Player)
+//	if (attribute == YGame::Attribute::Player)
 //	{
 //		// “¥‚Ü‚ê‚½‚È‚ç
 //		if (pos.y_ - obj_.pos_.y_ >= CharaConfig::AttackRange)

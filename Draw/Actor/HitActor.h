@@ -1,6 +1,6 @@
 #pragma once
 #include "Shake.h"
-#include "Vec4.h"
+#include "Vector4.h"
 
 namespace YActor
 {
@@ -12,7 +12,7 @@ namespace YActor
 		// 揺れ
 		YMath::Shake shake_;
 		// 色
-		YMath::Vec4 color_;
+		YMath::Vector4 color_;
 		// チカチカフラグ
 		bool isFliclering_ = false;
 	public:
@@ -24,9 +24,9 @@ namespace YActor
 		void UpdateHitAction();
 	public:
 		// 実値取得 (揺れ)
-		YMath::Vec3 HitActionShakeValue();
+		YMath::Vector3 HitActionShakeValue();
 		// 実値取得 (色)
-		YMath::Vec4 HitActionColor();
+		YMath::Vector4 HitActionColor();
 		// 動いているか
 		bool IsActHitAction() { return isAct_; }
 	};

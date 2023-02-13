@@ -10,9 +10,9 @@
 
 using YGame::ModelCommon;
 using YGame::Model;
-using YMath::Vec2;
-using YMath::Vec3;
-using YMath::Vec4;
+using YMath::Vector2;
+using YMath::Vector3;
+using YMath::Vector4;
 
 const UINT ModIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ModelCB);
 const UINT LigIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::LightCB);
@@ -177,11 +177,11 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 	assert(file);
 
 	// 頂点座標
-	std::vector<Vec3> positions;
+	std::vector<Vector3> positions;
 	// 法線
-	std::vector<Vec3> normals;
+	std::vector<Vector3> normals;
 	// UV座標
-	std::vector<Vec2> uvs;
+	std::vector<Vector2> uvs;
 
 	// 1行ずつ読み込み
 	std::string line;
@@ -214,7 +214,7 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 		if (key == "v")
 		{	
 			// 頂点座標
-			Vec3 pos;
+			Vector3 pos;
 			// 読み込み
 			lineStream >> pos.x_;
 			lineStream >> pos.y_;
@@ -226,7 +226,7 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 		if (key == "vt")
 		{
 			// UV座標
-			Vec2 uv;
+			Vector2 uv;
 			// 読み込み
 			lineStream >> uv.x_;
 			lineStream >> uv.y_;
@@ -239,7 +239,7 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 		if (key == "vn")
 		{
 			// 法線
-			Vec3 normal;
+			Vector3 normal;
 			// 読み込み
 			lineStream >> normal.x_;
 			lineStream >> normal.y_;

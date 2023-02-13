@@ -4,7 +4,7 @@
 //
 //void Dust::Emit(const EmitStatus& state)
 //{
-//	YMath::Vec3 scale = { state.scale_, state.scale_, state.scale_ };
+//	YMath::Vector3 scale = { state.scale_, state.scale_, state.scale_ };
 //
 //	speed_.Initialize(state.speed_, state.speed_ * 0.25f, 3.0f);
 //	scale_.Initialize(scale, scale * 1.25f, 3.0f);
@@ -37,7 +37,7 @@
 //
 //void Exprosion::Emit(const EmitStatus& state)
 //{
-//	YMath::Vec3 scale = { state.scale_, state.scale_, state.scale_ };
+//	YMath::Vector3 scale = { state.scale_, state.scale_, state.scale_ };
 //
 //	speed_.Initialize(state.speed_, state.speed_ * 0.25f, 3.0f);
 //	scale_.Initialize(scale, scale * 0.5f, 3.0f);

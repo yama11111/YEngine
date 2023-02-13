@@ -2,8 +2,8 @@
 #include "MathUtillity.h"
 
 using YGame::SpotLight;
-using YMath::Vec3;
-using YMath::Vec2;
+using YMath::Vector3;
+using YMath::Vector2;
 using YMath::Clamp;
 
 SpotLight::SpotLight() :
@@ -18,8 +18,8 @@ SpotLight::SpotLight() :
 	Initialize(pos_, direction_, color_, atten_, startFactorAngleCos_, endFactorAngleCos_);
 }
 
-void SpotLight::Initialize(const YMath::Vec3& pos, const YMath::Vec3& direction, 
-	const YMath::Vec3& color, const YMath::Vec3& atten, const float startFactorAngleCos, const float endFactorAngleCos)
+void SpotLight::Initialize(const YMath::Vector3& pos, const YMath::Vector3& direction, 
+	const YMath::Vector3& color, const YMath::Vector3& atten, const float startFactorAngleCos, const float endFactorAngleCos)
 {
 	SetPos(pos);
 	SetDirection(direction);
@@ -30,38 +30,38 @@ void SpotLight::Initialize(const YMath::Vec3& pos, const YMath::Vec3& direction,
 	isAct_ = false;
 }
 
-void SpotLight::SetPos(const YMath::Vec3& pos)
+void SpotLight::SetPos(const YMath::Vector3& pos)
 {
 	pos_ = pos;
 }
-void SpotLight::SetDirection(const YMath::Vec3& direciton)
+void SpotLight::SetDirection(const YMath::Vector3& direciton)
 {
 	direction_ = direciton.Normalized();
 }
-void SpotLight::SetColor(const YMath::Vec3& color)
+void SpotLight::SetColor(const YMath::Vector3& color)
 {
 	float r = Clamp<float>(color.x_, 0.0f, 1.0f);
 	float g = Clamp<float>(color.y_, 0.0f, 1.0f);
 	float b = Clamp<float>(color.z_, 0.0f, 1.0f);
 
-	color_ = Vec3(r, g, b);
+	color_ = Vector3(r, g, b);
 }
 void SpotLight::SetColor(const unsigned int R, const unsigned int G, const unsigned int B)
 {
 	float r = R <= 255 ? R / 255.0f : 1.0f;
 	float g = G <= 255 ? G / 255.0f : 1.0f;
 	float b = B <= 255 ? B / 255.0f : 1.0f;
-	Vec3 c = Vec3(r, g, b);
+	Vector3 c = Vector3(r, g, b);
 
 	SetColor(c);
 }
-void SpotLight::SetAtten(const YMath::Vec3& atten)
+void SpotLight::SetAtten(const YMath::Vector3& atten)
 {
 	float r = Clamp<float>(atten.x_, 0.0f, 1.0f);
 	float g = Clamp<float>(atten.y_, 0.0f, 1.0f);
 	float b = Clamp<float>(atten.z_, 0.0f, 1.0f);
 
-	atten_ = Vec3(r, g, b);
+	atten_ = Vector3(r, g, b);
 }
 void SpotLight::SetStartFactorAngleCos(const float startFactorAngleCos)
 {

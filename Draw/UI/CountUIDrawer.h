@@ -7,10 +7,10 @@
 //	{
 //	private:
 //		YGame::ObjectSprite2D obj_;
-//		YMath::Vec4 endColor_;
+//		YMath::Vector4 endColor_;
 //		YGame::Sprite2D* pCounter_ = nullptr;
 //	public:
-//		void Initialize(const YMath::Vec3& startPos, const YMath::Vec4& endColor);
+//		void Initialize(const YMath::Vector3& startPos, const YMath::Vector4& endColor);
 //		void Reset();
 //		void Update();
 //		void Draw();

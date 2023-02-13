@@ -10,11 +10,11 @@
 //	{
 //	private:
 //		YGame::ObjectSprite2D obj_;
-//		YMath::Vec3 endPos_;
+//		YMath::Vector3 endPos_;
 //		std::array<YGame::Sprite2D*, 2> pButtons_;
 //		bool isPush_ = false;
 //	public:
-//		void Initialize(const YMath::Vec3& startPos, const YMath::Vec3& endPos);
+//		void Initialize(const YMath::Vector3& startPos, const YMath::Vector3& endPos);
 //		void Reset();
 //		void Update();
 //		void Draw();

@@ -3,9 +3,9 @@
 #include <fstream>
 #include "YMath.h"
 
-using YMath::Vec2;
-using YMath::Vec3;
-using YMath::Vec4;
+using YMath::Vector2;
+using YMath::Vector3;
+using YMath::Vector4;
 using YGame::ObjectModel;
 
 void MapChipInfo::LoadData(const std::string fileName)
@@ -105,7 +105,7 @@ void MapChip::Reset()
 		}
 	}
 
-	rect_ = Vec2(chipSize_.z_ * chipNums_[0].size(), chipSize_.y_ * chipNums_.size());
+	rect_ = Vector2(chipSize_.z_ * chipNums_[0].size(), chipSize_.y_ * chipNums_.size());
 
 	// 2D
 	//chip2Ds_.clear();
@@ -123,7 +123,7 @@ void MapChip::Reset()
 	//		pos2DX = +(scale2D * pSprite_->Size().x_) * x;
 	//		pos2DY = +(scale2D * pSprite_->Size().y_) * y;
 
-	//		Vec4 color = { 0.5f,0.5f,0.5f,1.0f };
+	//		Vector4 color = { 0.5f,0.5f,0.5f,1.0f };
 	//		if (chipNums_[y][x] == 0) { color = { 0.5f,0.5f,1.0f,0.5f }; }
 
 	//		chip2Ds_[y][x].Initialize({ {pos2DX,pos2DY,0.0f},{},{scale2D,scale2D,scale2D} }, color);
@@ -150,9 +150,9 @@ void MapChip::Update()
 
 void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 {
-	Vec3& posRef = collider.PosRef();
-	Vec3 scale = collider.Scale();
-	Vec3& speedRef = collider.SpeedRef();
+	Vector3& posRef = collider.PosRef();
+	Vector3 scale = collider.Scale();
+	Vector3& speedRef = collider.SpeedRef();
 
 	// Ç‘Ç¬Ç©Ç¡ÇƒÇ¢ÇÈÇ©
 	bool isCollY = CollisionTemporaryMap(posRef, scale, { 0,speedRef.y_,0 }); // y
@@ -167,7 +167,7 @@ void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 	if (isCollY == false && isCollZ == false) { return; }
 
 	// ãﬂÇ√Ç≠à⁄ìÆó 
-	YMath::Vec3 approach = speedRef / 100.0f;
+	YMath::Vector3 approach = speedRef / 100.0f;
 
 	// âüÇµñﬂÇµèàóù
 	while (true)
@@ -189,10 +189,10 @@ void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 	if (isCollZ) { speedRef.z_ = 0.0f; }
 }
 
-bool MapChip::CollisionTemporaryMap(const Vec3& pos, const Vec3 scale, const Vec3& spd)
+bool MapChip::CollisionTemporaryMap(const Vector3& pos, const Vector3 scale, const Vector3& spd)
 {
 	// âºà⁄ìÆç¿ïW
-	Vec3 temporary = pos + spd - leftTop_;
+	Vector3 temporary = pos + spd - leftTop_;
 
 	float left   = +(temporary.z_ - scale.z_); // ç∂
 	float right  = +(temporary.z_ + scale.z_); // âE

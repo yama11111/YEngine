@@ -2,8 +2,8 @@
 #include "CharaConfig.h"
 
 using YActor::HitActor;
-using YMath::Vec3;
-using YMath::Vec4;
+using YMath::Vector3;
+using YMath::Vector4;
 using namespace CharaConfig::HitAct;
 
 const float ShakeRange = 100.0f;
@@ -41,18 +41,18 @@ void HitActor::UpdateHitAction()
 	}
 }
 
-Vec3 HitActor::HitActionShakeValue()
+Vector3 HitActor::HitActionShakeValue()
 {
-	Vec3 result = shake_.Value();
+	Vector3 result = shake_.Value();
 
 	result /= ShakeRange;
 
 	return result;
 }
 
-Vec4 HitActor::HitActionColor()
+Vector4 HitActor::HitActionColor()
 {
-	Vec4 result = Color;
+	Vector4 result = Color;
 
 	result.a_ = isFliclering_ ? Color.a_ : AlphaValue;
 

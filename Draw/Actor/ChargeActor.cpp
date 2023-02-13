@@ -1,8 +1,8 @@
 //#include "ChargeActor.h"
 //
 //using YActor::ChargeActor;
-//using YMath::Vec3;
-//using YMath::Vec4;
+//using YMath::Vector3;
+//using YMath::Vector4;
 //
 //const float ShakeRange = 100.0f;
 //
@@ -54,18 +54,18 @@
 //	isAct_ = false;
 //}
 //
-//Vec3 ChargeActor::ChargeActionShakeValue()
+//Vector3 ChargeActor::ChargeActionShakeValue()
 //{
-//	Vec3 result = shake_.Value();
+//	Vector3 result = shake_.Value();
 //
 //	result /= ShakeRange;
 //
 //	return result;
 //}
 //
-//Vec4 ChargeActor::ChargeActionColor()
+//Vector4 ChargeActor::ChargeActionColor()
 //{
-//	Vec4 result = isFliclering_ ? Color : Vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	Vector4 result = isFliclering_ ? Color : Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 //
 //	return result;
 //}

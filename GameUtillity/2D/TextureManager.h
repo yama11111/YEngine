@@ -1,7 +1,7 @@
 #pragma once
 #include "GPUResource.h"
 #include "DescriptorHeap.h"
-#include "Vec4.h"
+#include "Vector4.h"
 #include <vector>
 #include <string>
 
@@ -27,7 +27,7 @@ namespace YGame
 		std::vector<Texture> texs_;
 	public:
 		// テクスチャ生成
-		UINT CreateTex(const YMath::Vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+		UINT CreateTex(const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
 		// テクスチャ読み込み
 		UINT Load(const std::string& texFileName, const bool mipMap = true);
 		// テクスチャ読み込み(モデル用)

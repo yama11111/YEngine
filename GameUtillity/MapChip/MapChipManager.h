@@ -35,8 +35,8 @@ public:
 	struct InitStatus
 	{
 		uint32_t mapIndex_; // マップインデックス
-		YMath::Vec3 leftTop_; // 左上([0][0])
-		YMath::Vec3 chipSize_; // チップ1個分の大きさ
+		YMath::Vector3 leftTop_; // 左上([0][0])
+		YMath::Vector3 chipSize_; // チップ1個分の大きさ
 	};
 public:
 	// ロード

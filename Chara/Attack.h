@@ -2,11 +2,11 @@
 #include "Collider.h"
 #include "Timer.h"
 
-class Attack : public YCollision::Collider 
+class Attack : public YGame::Collider 
 {
 private:
 	// 位置
-	YMath::Vec3 pos_;
+	YMath::Vector3 pos_;
 	// 機能タイマー
 	YMath::Timer actTimer_;
 	// 動いているか
@@ -15,7 +15,7 @@ public:
 	// 初期化ステータス
 	struct InitStatus 
 	{
-		YMath::Vec3 pos_; // 位置
+		YMath::Vector3 pos_; // 位置
 		float rad_; // 半径
 		uint32_t attribute_; // 属性 (自分)
 		uint32_t mask_; // マスク (相手)
@@ -28,7 +28,7 @@ public:
 	void Update();
 public:
 	// 位置取得
-	YMath::Vec3 Pos() const override { return pos_; }
+	YMath::Vector3 Pos() const override { return pos_; }
 	// 動いているか
 	bool IsAct() const { return isAct_; }
 };

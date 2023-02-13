@@ -1,6 +1,6 @@
 #include "Collider.h"
 
-using YCollision::Collider;
+using YGame::Collider;
 
 void Collider::InitializeCollisionStatus(const InitStatus& state)
 {

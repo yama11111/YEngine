@@ -47,7 +47,7 @@ namespace YGame
 		// •`‰æ
 		void Draw(ObjectSprite3D* obj, const ViewProjection& vp);
 	private:
-		YMath::Mat4 BillboardMatrix(const ViewProjection& vp);
+		YMath::Matrix4 BillboardMatrix(const ViewProjection& vp);
 	private:
 		Sprite3D() = default;
 	public:

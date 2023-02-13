@@ -16,7 +16,7 @@ void  YDirectX::SetFPS(const float fps)
 	MinCheckTime_ = microseconds(uint64_t(1000000.0f / (fps + 5.0f)));
 }
 
-bool YDirectX::Initialize(const HWND& hwnd, const YMath::Vec2& size)
+bool YDirectX::Initialize(const HWND& hwnd, const YMath::Vector2& size)
 {
 	// ----- FPS固定関連 ----- //
 	// 現在時間を記録
@@ -245,7 +245,7 @@ bool YDirectX::Initialize(const HWND& hwnd, const YMath::Vec2& size)
 	return true;
 }
 
-void YDirectX::PreDraw(const YMath::Vec4& clearColor)
+void YDirectX::PreDraw(const YMath::Vector4& clearColor)
 {
 	// 1.リソースバリアで書き込み可能に変更
 	UINT bbIndex = swapChain_->GetCurrentBackBufferIndex(); // バックバッファの番号を取得(0番か1番)

@@ -300,16 +300,16 @@
     <ClCompile Include="Utillity\Math\CalcTransform.cpp">
       <Filter>Util\Math\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\Math\Mat4.cpp">
+    <ClCompile Include="Utillity\Math\Matrix4.cpp">
       <Filter>Util\Math\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\Math\Vec2.cpp">
+    <ClCompile Include="Utillity\Math\Vector2.cpp">
       <Filter>Util\Math\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\Math\Vec3.cpp">
+    <ClCompile Include="Utillity\Math\Vector3.cpp">
       <Filter>Util\Math\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\Math\Vec4.cpp">
+    <ClCompile Include="Utillity\Math\Vector4.cpp">
       <Filter>Util\Math\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Utillity\Math\MathUtillity.cpp">
@@ -374,6 +374,9 @@
     </ClCompile>
     <ClCompile Include="MyGame.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Collision\BaseCollider.cpp">
+      <Filter>GameUtil\Coll</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -560,16 +563,16 @@
     <ClInclude Include="Utillity\Math\CalcTransform.h">
       <Filter>Util\Math\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\Math\Mat4.h">
+    <ClInclude Include="Utillity\Math\Matrix4.h">
       <Filter>Util\Math\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\Math\Vec2.h">
+    <ClInclude Include="Utillity\Math\Vector2.h">
       <Filter>Util\Math\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\Math\Vec3.h">
+    <ClInclude Include="Utillity\Math\Vector3.h">
       <Filter>Util\Math\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="Utillity\Math\Vec4.h">
+    <ClInclude Include="Utillity\Math\Vector4.h">
       <Filter>Util\Math\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Utillity\Math\MathUtillity.h">
@@ -637,6 +640,9 @@
     </ClInclude>
     <ClInclude Include="MyGame.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\BaseCollider.h">
+      <Filter>GameUtil\Coll</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

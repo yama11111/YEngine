@@ -2,8 +2,8 @@
 
 using YGame::Sprite2DCommon;
 using YGame::Sprite2D;
-using YMath::Vec2;
-using YMath::Mat4;
+using YMath::Vector2;
+using YMath::Matrix4;
 
 const UINT SprIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::SpriteCB);
 const UINT ColIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ColorCB);
@@ -62,8 +62,8 @@ Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const
 	float rscSizeX = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Width);
 	float rscSizeY = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Height);
 
-	Vec2 texLT = div ? texState.leftTop_ : Vec2(0.0f, 0.0f);
-	Vec2 texRB = div ? (texState.leftTop_ + texState.size_) : Vec2(rscSizeX, rscSizeY);
+	Vector2 texLT = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
+	Vector2 texRB = div ? (texState.leftTop_ + texState.size_) : Vector2(rscSizeX, rscSizeY);
 
 	float texLeft   = texLT.x_ / rscSizeX;
 	float texRight  = texRB.x_ / rscSizeX;
@@ -84,20 +84,20 @@ Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const
 	instance->isFlipY_ = state.isFlipY_;
 
 	instance->tex_		  = texState.index_;
-	instance->texLeftTop_ = div ? texState.leftTop_ : Vec2(0.0f, 0.0f);
-	instance->texSize_    = div ? texState.size_ : Vec2(rscSizeX, rscSizeY);
+	instance->texLeftTop_ = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
+	instance->texSize_    = div ? texState.size_ : Vector2(rscSizeX, rscSizeY);
 
 	instance->defColor_.reset(Color::Create());
 
 	return instance;
 }
 
-void Sprite2D::SetSize(const Vec2& size)
+void Sprite2D::SetSize(const Vector2& size)
 {
 	if (size_ == size) { return; }
 	SetAllStatus({ size, anchor_, isFlipX_, isFlipY_ }, { tex_, texLeftTop_, texLeftTop_ });
 }
-void Sprite2D::SetAnchorPoint(const Vec2& anchor)
+void Sprite2D::SetAnchorPoint(const Vector2& anchor)
 {
 	if (anchor_ == anchor) { return; }
 	SetAllStatus({ size_, anchor, isFlipX_, isFlipY_ }, { tex_, texLeftTop_, texLeftTop_ });
@@ -107,21 +107,21 @@ void Sprite2D::SetFrip(const bool isFlipX, const bool isFlipY)
 	if (isFlipX_ == isFlipX && isFlipY_ == isFlipY) { return; }
 	SetAllStatus({ size_, anchor_, isFlipX, isFlipY }, { tex_, texLeftTop_, texLeftTop_ });
 }
-void Sprite2D::SetTextureLeftTop(const Vec2& leftTop, const bool adjust)
+void Sprite2D::SetTextureLeftTop(const Vector2& leftTop, const bool adjust)
 {
 	if (texLeftTop_ == leftTop) { return; }
 
 	float adjX = adjust && (texLeftTop_.x_ < leftTop.x_) ? (leftTop.x_ - texLeftTop_.x_) : 0.0f;
 	float adjY = adjust && (texLeftTop_.y_ < leftTop.y_) ? (leftTop.y_ - texLeftTop_.y_) : 0.0f;
 
-	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, leftTop, texSize_ - Vec2(adjX, adjY) }, true);
+	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, leftTop, texSize_ - Vector2(adjX, adjY) }, true);
 }
-void Sprite2D::SetTextureSize(const Vec2& texSize)
+void Sprite2D::SetTextureSize(const Vector2& texSize)
 {
 	if (texSize_ == texSize) { return; }
 	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, texLeftTop_, texSize }, true);
 }
-void Sprite2D::SetTextureRectangle(const Vec2& leftTop, const Vec2& texSize)
+void Sprite2D::SetTextureRectangle(const Vector2& leftTop, const Vector2& texSize)
 {
 	if (texLeftTop_ == leftTop && texSize_ == texSize) { return; }
 	SetAllStatus({ size_, anchor_, isFlipX_, isFlipY_ }, { tex_, leftTop, texSize }, true);
@@ -145,8 +145,8 @@ void Sprite2D::SetAllStatus(const Status& state, const TexStatus& texState, cons
 	float rscSizeX = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Width);
 	float rscSizeY = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Height);
 
-	Vec2 texLT = div ? texState.leftTop_ : Vec2(0.0f, 0.0f);
-	Vec2 texRB = div ? (texState.leftTop_ + texState.size_) : Vec2(rscSizeX, rscSizeY);
+	Vector2 texLT = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
+	Vector2 texRB = div ? (texState.leftTop_ + texState.size_) : Vector2(rscSizeX, rscSizeY);
 
 	float texLeft   = texLT.x_ / rscSizeX;
 	float texRight  = texRB.x_ / rscSizeX;
@@ -165,6 +165,6 @@ void Sprite2D::SetAllStatus(const Status& state, const TexStatus& texState, cons
 	isFlipY_ = state.isFlipY_;
 
 	tex_	    = texState.index_;
-	texLeftTop_ = div ? texState.leftTop_ : Vec2(0.0f, 0.0f);
-	texSize_    = div ? texState.size_ : Vec2(rscSizeX, rscSizeY);
+	texLeftTop_ = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
+	texSize_    = div ? texState.size_ : Vector2(rscSizeX, rscSizeY);
 }

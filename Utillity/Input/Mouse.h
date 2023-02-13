@@ -2,7 +2,7 @@
 #include <dinput.h>
 #include <wrl.h>
 #include <memory>
-#include "Vec2.h"
+#include "Vector2.h"
 
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
@@ -29,7 +29,7 @@ namespace YInput
 			// î•ñ
 			DIMOUSESTATE state_{};
 			// ˆÊ’u
-			YMath::Vec2 pos_;
+			YMath::Vector2 pos_;
 			// ‰Šú‰»
 			void Initialize();
 		};
@@ -57,7 +57,7 @@ namespace YInput
 		// —£‚µ‚½uŠÔ
 		bool IsRelease(const MouseClick& button);
 		// ˆÊ’u
-		YMath::Vec2 Pos() { return mouse_->pos_; }
+		YMath::Vector2 Pos() { return mouse_->pos_; }
 	public:
 		static Mouse* GetInstance();
 	private:

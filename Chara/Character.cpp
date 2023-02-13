@@ -3,7 +3,7 @@
 //#include "MapChipManager.h"
 //#include <cassert>
 //
-//using YMath::Vec3;
+//using YMath::Vector3;
 //using CharaConfig::GravityPower;
 //
 //MapChipPointer* Character::pMapChip_ = nullptr;
@@ -27,7 +27,7 @@
 //	if (IsElderLanding() == false && 
 //		IsLanding())
 //	{
-//		Vec3 squash = obj_.scale_ * CharaConfig::SlimeAct::SquashValue;
+//		Vector3 squash = obj_.scale_ * CharaConfig::SlimeAct::SquashValue;
 //		squash.y_ *= -1.0f;
 //
 //		ActivateSlimeAction({ {}, squash }, CharaConfig::SlimeAct::Frame);
@@ -40,7 +40,7 @@
 //	UpdateSlimeAction();
 //	UpdateHitAction();
 //
-//	YMath::Vec4 color = YMath::Vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	YMath::Vector4 color = YMath::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 //	if (IsActHitAction()) { color = HitActionColor(); }
 //
 //	//obj_.color_ = color;

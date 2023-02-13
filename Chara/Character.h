@@ -10,7 +10,7 @@
 //
 //class Character : 
 //	public CharaStatus, 
-//	public YCollision::Collider, 
+//	public YGame::Collider, 
 //	public MapChipCollider, 
 //	public YActor::SlimeActor,
 //	public YActor::HitActor
@@ -19,7 +19,7 @@
 //	// オブジェクト
 //	YGame::ObjectModel obj_;
 //	// スピード
-//	YMath::Vec3 speed_;
+//	YMath::Vector3 speed_;
 //	// 
 //
 //public:
@@ -31,14 +31,14 @@
 //	void UpdateCharacter();
 //public:
 //	// 位置取得
-//	YMath::Vec3 Pos() const override { return obj_.pos_; };
+//	YMath::Vector3 Pos() const override { return obj_.pos_; };
 //	// 大きさ取得
-//	YMath::Vec3 Scale() const { return obj_.scale_; };
+//	YMath::Vector3 Scale() const { return obj_.scale_; };
 //public:
 //	// 位置取得 (参照渡し)
-//	YMath::Vec3& PosRef() override { return obj_.pos_; }
+//	YMath::Vector3& PosRef() override { return obj_.pos_; }
 //	// スピード (参照渡し)
-//	YMath::Vec3& SpeedRef() override { return speed_; }
+//	YMath::Vector3& SpeedRef() override { return speed_; }
 //protected:
 //	// 静的マップチップポインタ
 //	static MapChipPointer* pMapChip_;

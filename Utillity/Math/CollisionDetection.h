@@ -1,37 +1,57 @@
 #pragma once
-#include "Vec2.h"
-#include "Vec3.h"
+#include "Vector2.h"
+#include "Vector3.h"
 
 namespace YMath
 {
-	// アタリ判定 (平面×球)
-	bool CollisonPlaneSphere(
-		const Vec3& planeNormal, const float planeDist, 
-		const Vec3& sphereCenter, const float sphereRad);
-	// アタリ判定 (平面×球) <疑似交点取得ver>
-	bool CollisonPlaneSphere(
-		const Vec3& planeNormal, const float planeDist,
-		const Vec3& sphereCenter, const float sphereRad,
-		Vec3& inter);
-	
-	// アタリ判定 (三角形×球)
-	bool CollisonTriangleSphere(
-		const Vec3& triPos0, const Vec3& triPos1, const Vec3& triPos2, const Vec3& triNormal,
-		const Vec3& sphereCenter, const float sphereRad);
-	// アタリ判定 (三角形×球) <疑似交点取得ver>
-	bool CollisonTriangleSphere(
-		const Vec3& triPos0, const Vec3& triPos1, const Vec3& triPos2, const Vec3& triNormal,
-		const Vec3& sphereCenter, const float sphereRad,
-		Vec3& inter);
+	// アタリ判定 (線×平面)
+	bool CollisionRayPlane(
+		const Vector3& rayStart, const Vector3& rayDirection,
+		const Vector3& planeNormal, const float planeDist);
+	// アタリ判定 (線×平面) <距離,疑似交点取得ver>
+	bool CollisionRayPlane(
+		const Vector3& rayStart, const Vector3& rayDirection,
+		const Vector3& planeNormal, const float planeDist,
+		float& distance, Vector3& inter);
+
+	// アタリ判定 (線×三角形)
+	bool CollisionRayTriangle(
+		const Vector3& rayStart, const Vector3& rayDirection,
+		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal);
+	// アタリ判定 (線×三角形) <距離,疑似交点取得ver>
+	bool CollisionRayTriangle(
+		const Vector3& rayStart, const Vector3& rayDirection,
+		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
+		float& distance, Vector3& inter);
 
 	// アタリ判定 (線×球)
-	bool CollisonRaySphere(
-		const Vec3& rayPos, const Vec3& rayVelo, 
-		const Vec3& spherePos, const float sphereRad);
+	bool CollisionRaySphere(
+		const Vector3& rayStart, const Vector3& rayDirection,
+		const Vector3& sphereCenter, const float sphereRad);
 	// アタリ判定 (線×球) <貫通点取得ver>
-	bool CollisonRaySphere(
-		const Vec3& rayPos, const Vec3& rayVelo,
-		const Vec3& spherePos, const float sphereRad,
-		Vec3& start, Vec3& end);
+	bool CollisionRaySphere(
+		const Vector3& rayStart, const Vector3& rayDirection,
+		const Vector3& sphereCenter, const float sphereRad,
+		float& distance, Vector3& start, Vector3& end);
+
+	// アタリ判定 (平面×球)
+	bool CollisionPlaneSphere(
+		const Vector3& planeNormal, const float planeDist, 
+		const Vector3& sphereCenter, const float sphereRad);
+	// アタリ判定 (平面×球) <疑似交点取得ver>
+	bool CollisionPlaneSphere(
+		const Vector3& planeNormal, const float planeDist,
+		const Vector3& sphereCenter, const float sphereRad,
+		Vector3& inter);
+	
+	// アタリ判定 (三角形×球)
+	bool CollisionTriangleSphere(
+		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
+		const Vector3& sphereCenter, const float sphereRad);
+	// アタリ判定 (三角形×球) <疑似交点取得ver>
+	bool CollisionTriangleSphere(
+		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
+		const Vector3& sphereCenter, const float sphereRad,
+		Vector3& inter);
 }
 

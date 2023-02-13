@@ -6,7 +6,7 @@
 using YGame::Sprite2DCommon;
 using YDX::PipelineSet;
 
-YMath::Mat4 Sprite2DCommon::projection_ = YMath::Mat4::Identity();
+YMath::Matrix4 Sprite2DCommon::projection_ = YMath::Matrix4::Identity();
 PipelineSet Sprite2DCommon::pipelineSet_;
 YGame::TextureManager* Sprite2DCommon::pTexManager_ = nullptr;
 

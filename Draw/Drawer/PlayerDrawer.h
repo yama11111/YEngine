@@ -32,7 +32,7 @@ namespace YDrawer
 		std::array<std::unique_ptr<YGame::ObjectModel>, PartsNum_> objs_;
 	public:
 		// ‰Šú‰» (Å‰‚Éˆê‰ñ‚¾‚¯)
-		void Initialize(YMath::Mat4* pParent);
+		void Initialize(YMath::Matrix4* pParent);
 		// ‰Šú‰»
 		void Reset();
 		// XV

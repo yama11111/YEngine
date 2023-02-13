@@ -2,7 +2,7 @@
 //
 //using YUIDrawer::PushUIDrawer;
 //
-//void PushUIDrawer::Initialize(const YMath::Vec3& startPos, const YMath::Vec3& endPos)
+//void PushUIDrawer::Initialize(const YMath::Vector3& startPos, const YMath::Vector3& endPos)
 //{
 //	obj_.Initialize({startPos});
 //
@@ -20,8 +20,8 @@
 //{
 //	UpdateSlimeAction();
 //
-//	YMath::Vec3 p = endPos_;
-//	YMath::Vec3 s = SlimeActionValue();
+//	YMath::Vector3 p = endPos_;
+//	YMath::Vector3 s = SlimeActionValue();
 //
 //	obj_.UpdateMatrix({ p, {}, s });
 //}

@@ -1,8 +1,8 @@
-#include "Mat4.h"
+#include "Matrix4.h"
 
-using YMath::Mat4;
+using YMath::Matrix4;
 
-Mat4::Mat4()
+Matrix4::Matrix4()
 {
 	m[0][0] = 0.0f, m[0][1] = 0.0f, m[0][2] = 0.0f, m[0][3] = 0.0f;
 	m[1][0] = 0.0f, m[1][1] = 0.0f, m[1][2] = 0.0f, m[1][3] = 0.0f;
@@ -10,7 +10,7 @@ Mat4::Mat4()
 	m[3][0] = 0.0f, m[3][1] = 0.0f, m[3][2] = 0.0f, m[3][3] = 0.0f;
 }
 
-Mat4::Mat4( float m00_, float m01_, float m02_, float m03_,
+Matrix4::Matrix4( float m00_, float m01_, float m02_, float m03_,
 			float m10_, float m11_, float m12_, float m13_,
 			float m20_, float m21_, float m22_, float m23_,
 			float m30_, float m31_, float m32_, float m33_) :
@@ -22,9 +22,9 @@ Mat4::Mat4( float m00_, float m01_, float m02_, float m03_,
 	m[3][0] = m30_, m[3][1] = m31_, m[3][2] = m32_, m[3][3] = m33_;
 }
 
-Mat4 Mat4::operator*(const Mat4& mat) const
+Matrix4 Matrix4::operator*(const Matrix4& mat) const
 {
-	Mat4 m2 = Mat4();
+	Matrix4 m2 = Matrix4();
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
@@ -39,9 +39,9 @@ Mat4 Mat4::operator*(const Mat4& mat) const
 	return m2;
 }
 
-Mat4 Mat4::Identity()
+Matrix4 Matrix4::Identity()
 {
-	const static Mat4 m
+	const static Matrix4 m
 	({
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
@@ -52,9 +52,9 @@ Mat4 Mat4::Identity()
 	return m;
 }
 
-Mat4& YMath::operator*=(Mat4& m1_, const Mat4& m2)
+Matrix4& YMath::operator*=(Matrix4& m1_, const Matrix4& m2)
 {
-	Mat4 m = Mat4();
+	Matrix4 m = Matrix4();
 	for (int i = 0; i < 4; i++) 
 	{
 		for (int j = 0; j < 4; j++) 

@@ -2,9 +2,9 @@
 #include "ShaderCommon.h"
 #include "PipelineSet.h"
 #include "TextureManager.h"
-#include "Vec2.h"
-#include "Vec3.h"
-#include "Mat4.h"
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Matrix4.h"
 #include <memory>
 
 namespace YGame
@@ -15,13 +15,13 @@ namespace YGame
 		// 頂点データ構造体
 		struct VData
 		{
-			YMath::Vec3 pos_; // xyz座標
-			YMath::Vec2 uv_;  // uv座標
+			YMath::Vector3 pos_; // xyz座標
+			YMath::Vector2 uv_;  // uv座標
 		};
 		// 定数バッファデータ構造体
 		struct CBData
 		{
-			YMath::Mat4 matWorld_; // 3D変換行列
+			YMath::Matrix4 matWorld_; // 3D変換行列
 		};
 	public:
 		// ルートパラメータ番号
@@ -33,7 +33,7 @@ namespace YGame
 		};
 	protected:
 		// 静的射影変換行列(平行投影)
-		static YMath::Mat4 projection_;
+		static YMath::Matrix4 projection_;
 		// パイプライン設定
 		static YDX::PipelineSet pipelineSet_;
 		// 静的テクスチャマネージャーポインタ

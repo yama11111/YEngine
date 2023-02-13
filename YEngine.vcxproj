@@ -138,6 +138,7 @@
     <ClCompile Include="GameUtillity\AudioManager.cpp" />
     <ClCompile Include="GameUtillity\Camera\Camera.cpp" />
     <ClCompile Include="GameUtillity\Camera\CameraManager.cpp" />
+    <ClCompile Include="GameUtillity\Collision\BaseCollider.cpp" />
     <ClCompile Include="GameUtillity\Collision\Collider.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionPrimitive.cpp" />
@@ -172,14 +173,14 @@
     <ClCompile Include="Utillity\Math\CalcTransform.cpp" />
     <ClCompile Include="Utillity\Math\CollisionDetection.cpp" />
     <ClCompile Include="Utillity\Math\Lerp.cpp" />
-    <ClCompile Include="Utillity\Math\Mat4.cpp" />
+    <ClCompile Include="Utillity\Math\Matrix4.cpp" />
     <ClCompile Include="Utillity\Math\MathUtillity.cpp" />
     <ClCompile Include="Utillity\Math\Power.cpp" />
     <ClCompile Include="Utillity\Math\Shake.cpp" />
     <ClCompile Include="Utillity\Math\Timer.cpp" />
-    <ClCompile Include="Utillity\Math\Vec2.cpp" />
-    <ClCompile Include="Utillity\Math\Vec3.cpp" />
-    <ClCompile Include="Utillity\Math\Vec4.cpp" />
+    <ClCompile Include="Utillity\Math\Vector2.cpp" />
+    <ClCompile Include="Utillity\Math\Vector3.cpp" />
+    <ClCompile Include="Utillity\Math\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\DX\ConstBuffer.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="GameUtillity\AudioManager.h" />
     <ClInclude Include="GameUtillity\Camera\Camera.h" />
     <ClInclude Include="GameUtillity\Camera\CameraManager.h" />
+    <ClInclude Include="GameUtillity\Collision\BaseCollider.h" />
     <ClInclude Include="GameUtillity\Collision\Collider.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionConfig.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionManager.h" />
@@ -261,14 +263,14 @@
     <ClInclude Include="Utillity\Math\CalcTransform.h" />
     <ClInclude Include="Utillity\Math\CollisionDetection.h" />
     <ClInclude Include="Utillity\Math\Lerp.h" />
-    <ClInclude Include="Utillity\Math\Mat4.h" />
+    <ClInclude Include="Utillity\Math\Matrix4.h" />
     <ClInclude Include="Utillity\Math\MathUtillity.h" />
     <ClInclude Include="Utillity\Math\Power.h" />
     <ClInclude Include="Utillity\Math\Shake.h" />
     <ClInclude Include="Utillity\Math\Timer.h" />
-    <ClInclude Include="Utillity\Math\Vec2.h" />
-    <ClInclude Include="Utillity\Math\Vec3.h" />
-    <ClInclude Include="Utillity\Math\Vec4.h" />
+    <ClInclude Include="Utillity\Math\Vector2.h" />
+    <ClInclude Include="Utillity\Math\Vector3.h" />
+    <ClInclude Include="Utillity\Math\Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Light.hlsli" />

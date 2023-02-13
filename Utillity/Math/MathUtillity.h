@@ -1,5 +1,5 @@
 #pragma once
-#include "Vec4.h"
+#include "Vector4.h"
 
 namespace YMath
 {
@@ -17,6 +17,6 @@ namespace YMath
 	T Clamp(const T num, const T lower, const T upper);
 
 	// êFïœä∑((0Å`255)Å®(0.0Å`1.0))
-	Vec4 GetColor(const int R, const int G, const int B, const int A);
+	Vector4 GetColor(const int R, const int G, const int B, const int A);
 }
 

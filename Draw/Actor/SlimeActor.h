@@ -21,25 +21,25 @@ namespace YActor
 		// 現在の動き
 		Action action_ = Action::None;
 		// イージング
-		YMath::Ease<YMath::Vec3> ease_;
+		YMath::Ease<YMath::Vector3> ease_;
 		// 終了値
-		std::vector<YMath::Vec3> ends_;
+		std::vector<YMath::Vector3> ends_;
 		// 現在のインデックス
 		size_t currentIdx_ = 0;
 		// タイマー
 		YMath::Timer timer_;
 		// 実値
-		YMath::Vec3 value_;
+		YMath::Vector3 value_;
 	public:
 		// 初期化
 		void InitializeSlimeAction();
 		// 動かす
-		void ActivateSlimeAction(const std::vector<YMath::Vec3> ends, const unsigned int frame);
+		void ActivateSlimeAction(const std::vector<YMath::Vector3> ends, const unsigned int frame);
 		// 更新
 		void UpdateSlimeAction();
 	public:
 		// 実値取得
-		YMath::Vec3 SlimeActionValue();
+		YMath::Vector3 SlimeActionValue();
 	private:
 		// 動き切り替え
 		void ChangeAction();

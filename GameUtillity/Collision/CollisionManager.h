@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include <list>
 
-namespace YCollision
+namespace YGame
 {
 	class CollisionManager
 	{

@@ -43,12 +43,8 @@ namespace YScene
 		std::unique_ptr<YGame::Sprite2D> curtenS_ = nullptr;
 		// マップ2D表示用
 		std::unique_ptr<YGame::Sprite2D> mapDispS_ = nullptr;
-
-		std::unique_ptr<YGame::Sprite2D> playerS_ = nullptr;
-		std::unique_ptr<YGame::Sprite2D> enemyS_ = nullptr;
-
-		// ----- スプライト (3D) ----- //
 		
+		// ----- スプライト (3D) ----- //
 
 		// ----- モデル ----- //
 		
@@ -62,6 +58,9 @@ namespace YScene
 		// ずんだもんモデル
 		std::unique_ptr<YGame::Model> zundamonM_ = nullptr;
 
+		std::unique_ptr<YGame::Model> sphereMod_ = nullptr;
+		std::unique_ptr<YGame::Model> groundMod_ = nullptr;
+		std::unique_ptr<YGame::Model> triangleMod_ = nullptr;
 
 #pragma endregion
 #pragma region ゲームオブジェクト
@@ -70,10 +69,22 @@ namespace YScene
 		std::unique_ptr<YGame::ObjectModel> player_;
 		YDrawer::PlayerDrawer playerDra_;
 
-		YCollision::Plane plane_;
-		YCollision::Sphere sphere_;
-		YCollision::Triangle triangle_;
 
+		std::unique_ptr<YGame::ObjectModel> planeObj_;
+		YGame::Plane plane_;
+		std::unique_ptr<YGame::Color> planeColor_;
+
+		std::unique_ptr<YGame::ObjectModel> rayObj_;
+		YGame::Ray ray_;
+		std::unique_ptr<YGame::Color> rayColor_;
+
+		std::unique_ptr<YGame::ObjectModel> triangleObj_;
+		YGame::Triangle triangle_;
+		std::unique_ptr<YGame::Color> triangleColor_;
+
+		std::unique_ptr<YGame::ObjectModel> sphereObj_;
+		YGame::Sphere sphere_;
+		std::unique_ptr<YGame::Color> sphereColor_;
 
 		// マップマネージャー
 		MapChipManager mapMan_;
@@ -94,7 +105,7 @@ namespace YScene
 		YGame::ViewProjection vp_;
 
 		// アタリ判定マネージャー
-		YCollision::CollisionManager collMan_;
+		YGame::CollisionManager collMan_;
 
 		// シーンマネージャー
 		//SceneManager sceneMan_;
@@ -114,10 +125,12 @@ namespace YScene
 	private:
 		// 背景スプライト2D描画
 		void DrawBackSprite2Ds();
+		// スプライト3D描画
+		void DrawBackSprite3Ds();
 		// モデル描画
 		void DrawModels();
 		// スプライト3D描画
-		void DrawSprite3Ds();
+		void DrawFrontSprite3Ds();
 		// 前景スプライト2D描画
 		void DrawFrontSprite2Ds();
 	public:

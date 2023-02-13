@@ -20,7 +20,7 @@ namespace YGame
 		// 定数バッファデータ構造体 (光)
 		struct CBData
 		{
-			YMath::Vec3 ambientColor_; // 環境光の色
+			YMath::Vector3 ambientColor_; // 環境光の色
 			float pad_; // パディング
 			std::array<DirectionalLight::CBData, DireLightNum_> direLights_; // 平行光源
 			std::array<PointLight::CBData, PointLightNum_> pointLights_; // 点光源
@@ -28,7 +28,7 @@ namespace YGame
 		};
 	private:
 		// 環境光の色
-		YMath::Vec3 ambientColor_;
+		YMath::Vector3 ambientColor_;
 		// 定数バッファ(光)
 		YDX::ConstBuffer<CBData> cBuff_;
 	private:
@@ -43,39 +43,39 @@ namespace YGame
 		static LightGroup* Create();
 	public:
 		// 初期化
-		void Initialize(const YMath::Vec3& ambientColor = { 1.0f,1.0f,1.0f });
+		void Initialize(const YMath::Vector3& ambientColor = { 1.0f,1.0f,1.0f });
 		// 描画前コマンド
 		void SetDrawCommand(const UINT rootParamIndex);
 	public:
 		// 色設定 (0.0f ～ 1.0f)
-		void SetAmbientColor(const YMath::Vec3& color);
+		void SetAmbientColor(const YMath::Vector3& color);
 		// 色設定 (0 ～ 255)
 		void SetAmbientColor(const UINT R, const UINT G, const UINT B);
 	public:
 		// 向き設定 (平行光源)
-		void SetDirectionalLightDirection(const size_t index, const YMath::Vec3& direction);
+		void SetDirectionalLightDirection(const size_t index, const YMath::Vector3& direction);
 		// 色設定 (平行光源)
-		void SetDirectionalLightColor(const size_t index, const YMath::Vec3& color);
+		void SetDirectionalLightColor(const size_t index, const YMath::Vector3& color);
 		// 有効フラグ設定 (平行光源)
 		void SetDirectionalLightActive(const size_t index, const bool isAct);
 	public:
 		// 座標設定 (点光源)
-		void SetPointLightPos(const size_t index, const YMath::Vec3& pos);
+		void SetPointLightPos(const size_t index, const YMath::Vector3& pos);
 		// 色設定 (点光源)
-		void SetPointLightColor(const size_t index, const YMath::Vec3& color);
+		void SetPointLightColor(const size_t index, const YMath::Vector3& color);
 		// 距離減衰係数設定 (点光源)
-		void SetPointLightAtten(const size_t index, const YMath::Vec3& atten);
+		void SetPointLightAtten(const size_t index, const YMath::Vector3& atten);
 		// 有効フラグ設定 (平行光源)
 		void SetPointLightActive(const size_t index, const bool isAct);
 	public:
 		// 座標設定 (スポットライト光源)
-		void SetSpotLightPos(const size_t index, const YMath::Vec3& pos);
+		void SetSpotLightPos(const size_t index, const YMath::Vector3& pos);
 		// 向き設定 (スポットライト光源)
-		void SetSpotLightDirection(const size_t index, const YMath::Vec3& direction);
+		void SetSpotLightDirection(const size_t index, const YMath::Vector3& direction);
 		// 色設定 (スポットライト光源)
-		void SetSpotLightColor(const size_t index, const YMath::Vec3& color);
+		void SetSpotLightColor(const size_t index, const YMath::Vector3& color);
 		// 距離減衰係数設定 (スポットライト光源)
-		void SetSpotLightAtten(const size_t index, const YMath::Vec3& atten);
+		void SetSpotLightAtten(const size_t index, const YMath::Vector3& atten);
 		// 減衰角度設定 (スポットライト光源)
 		void SetSpotLightFactorAngleCos(const size_t index, const float start, const float end);
 		// 有効フラグ設定 (スポットライト光源)

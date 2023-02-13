@@ -3,28 +3,28 @@
 #include <cassert>
 
 using YGame::LightGroup;
-using YMath::Vec3;
+using YMath::Vector3;
 using YMath::Clamp;
 
-const std::array<Vec3, LightGroup::DireLightNum_> DefaultDirection1 =
+const std::array<Vector3, LightGroup::DireLightNum_> DefaultDirection1 =
 {
-	Vec3( 0.0f,-1.0f, 0.0f),
-	Vec3(+0.5f,+0.1f,+0.2f),
-	Vec3(-0.5f,+0.1f,-0.2f),
+	Vector3( 0.0f,-1.0f, 0.0f),
+	Vector3(+0.5f,+0.1f,+0.2f),
+	Vector3(-0.5f,+0.1f,-0.2f),
 };
 
-const std::array<Vec3, LightGroup::PointLightNum_> DefaultPos1 =
+const std::array<Vector3, LightGroup::PointLightNum_> DefaultPos1 =
 {
-	Vec3( 0.0f,+5.0f, 0.0f),
-	Vec3(+5.0f,-2.5f, 0.0f),
-	Vec3(-5.0f,-2.5f, 0.0f),
+	Vector3( 0.0f,+5.0f, 0.0f),
+	Vector3(+5.0f,-2.5f, 0.0f),
+	Vector3(-5.0f,-2.5f, 0.0f),
 };
 
-const std::array<Vec3, LightGroup::SpotLightNum_> DefaultPos2 =
+const std::array<Vector3, LightGroup::SpotLightNum_> DefaultPos2 =
 {
-	Vec3(  0.0f,+15.0f, 0.0f),
-	//Vec3(+15.0f,+15.0f,  0.0f),
-	//Vec3(-15.0f,+15.0f,  0.0f),
+	Vector3(  0.0f,+15.0f, 0.0f),
+	//Vector3(+15.0f,+15.0f,  0.0f),
+	//Vector3(-15.0f,+15.0f,  0.0f),
 };
 
 LightGroup::LightGroup() :
@@ -41,7 +41,7 @@ LightGroup* LightGroup::Create()
 	return instance;
 }
 
-void LightGroup::Initialize(const YMath::Vec3& ambientColor)
+void LightGroup::Initialize(const YMath::Vector3& ambientColor)
 {
 	SetAmbientColor(ambientColor);
 
@@ -55,13 +55,13 @@ void LightGroup::Initialize(const YMath::Vec3& ambientColor)
 	for (size_t i = 0; i < PointLightNum_; i++)
 	{
 		pointLights_[i].Initialize(DefaultPos1[i]);
-		pointLights_[i].SetActive(true);
+		//pointLights_[i].SetActive(true);
 	}
 	// ----- スポットライト光源 ----- //
 	for (size_t i = 0; i < SpotLightNum_; i++)
 	{
 		spotLights_[i].Initialize(DefaultPos2[i]);
-		spotLights_[i].SetActive(true);
+		//spotLights_[i].SetActive(true);
 	}
 }
 
@@ -122,31 +122,31 @@ void LightGroup::SetDrawCommand(const UINT rootParamIndex)
 	cBuff_.SetDrawCommand(rootParamIndex);
 }
 
-void LightGroup::SetAmbientColor(const YMath::Vec3& color)
+void LightGroup::SetAmbientColor(const YMath::Vector3& color)
 {
 	float r = Clamp<float>(color.x_, 0.0f, 1.0f);
 	float g = Clamp<float>(color.y_, 0.0f, 1.0f);
 	float b = Clamp<float>(color.z_, 0.0f, 1.0f);
 
-	cBuff_.map_->ambientColor_ = ambientColor_ = Vec3(r, g, b);
+	cBuff_.map_->ambientColor_ = ambientColor_ = Vector3(r, g, b);
 }
 void LightGroup::SetAmbientColor(const UINT R, const UINT G, const UINT B)
 {
 	float r = R <= 255 ? R / 255.0f : 1.0f;
 	float g = G <= 255 ? G / 255.0f : 1.0f;
 	float b = B <= 255 ? B / 255.0f : 1.0f;
-	Vec3 c = Vec3(r, g, b);
+	Vector3 c = Vector3(r, g, b);
 
 	SetAmbientColor(c);
 }
 
 // ----- 平行光源 ----- //
-void LightGroup::SetDirectionalLightDirection(const size_t index, const YMath::Vec3& direction)
+void LightGroup::SetDirectionalLightDirection(const size_t index, const YMath::Vector3& direction)
 {
 	assert(index < DireLightNum_);
 	direLights_[index].SetDirection(direction);
 }
-void LightGroup::SetDirectionalLightColor(const size_t index, const YMath::Vec3& color)
+void LightGroup::SetDirectionalLightColor(const size_t index, const YMath::Vector3& color)
 {
 	assert(index < DireLightNum_);
 	direLights_[index].SetColor(color);
@@ -158,17 +158,17 @@ void LightGroup::SetDirectionalLightActive(const size_t index, const bool isAct)
 }
 
 // ----- 点光源 ----- //
-void LightGroup::SetPointLightPos(const size_t index, const YMath::Vec3& pos)
+void LightGroup::SetPointLightPos(const size_t index, const YMath::Vector3& pos)
 {
 	assert(index < PointLightNum_);
 	pointLights_[index].SetPos(pos);
 }
-void LightGroup::SetPointLightColor(const size_t index, const YMath::Vec3& color)
+void LightGroup::SetPointLightColor(const size_t index, const YMath::Vector3& color)
 {
 	assert(index < PointLightNum_);
 	pointLights_[index].SetColor(color);
 }
-void LightGroup::SetPointLightAtten(const size_t index, const YMath::Vec3& atten)
+void LightGroup::SetPointLightAtten(const size_t index, const YMath::Vector3& atten)
 {
 	assert(index < PointLightNum_);
 	pointLights_[index].SetAtten(atten);
@@ -180,22 +180,22 @@ void LightGroup::SetPointLightActive(const size_t index, const bool isAct)
 }
 
 // ----- スポットライト光源 ----- //
-void LightGroup::SetSpotLightPos(const size_t index, const YMath::Vec3& pos)
+void LightGroup::SetSpotLightPos(const size_t index, const YMath::Vector3& pos)
 {
 	assert(index < SpotLightNum_);
 	spotLights_[index].SetPos(pos);
 }
-void LightGroup::SetSpotLightDirection(const size_t index, const YMath::Vec3& direction)
+void LightGroup::SetSpotLightDirection(const size_t index, const YMath::Vector3& direction)
 {
 	assert(index < SpotLightNum_);
 	spotLights_[index].SetDirection(direction);
 }
-void LightGroup::SetSpotLightColor(const size_t index, const YMath::Vec3& color)
+void LightGroup::SetSpotLightColor(const size_t index, const YMath::Vector3& color)
 {
 	assert(index < SpotLightNum_);
 	spotLights_[index].SetColor(color);
 }
-void LightGroup::SetSpotLightAtten(const size_t index, const YMath::Vec3& atten)
+void LightGroup::SetSpotLightAtten(const size_t index, const YMath::Vector3& atten)
 {
 	assert(index < SpotLightNum_);
 	spotLights_[index].SetAtten(atten);

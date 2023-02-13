@@ -6,7 +6,7 @@
 //#include <cassert>
 //
 //#pragma region –¼‘O‹óŠÔ
-//using YMath::Vec3;
+//using YMath::Vector3;
 //using CharaConfig::GravityPower;
 //using namespace CharaConfig::Player;
 //#pragma endregion
@@ -30,8 +30,8 @@
 //	InitializeCollisionStatus(
 //		{
 //			CollRad,
-//			YCollision::Attribute::Player,
-//			YCollision::Attribute::Enemy
+//			YGame::Attribute::Player,
+//			YGame::Attribute::Enemy
 //		}
 //	);
 //	Reset(state);
@@ -45,7 +45,7 @@
 //	InitializeCharacter(
 //		{
 //			state.pos_,
-//			YMath::AdjustAngle(YMath::Vec3(0, 0, 1)),
+//			YMath::AdjustAngle(YMath::Vector3(0, 0, 1)),
 //			{6.0f,6.0f,6.0f}
 //		}
 //	);
@@ -55,9 +55,9 @@
 //	jumpCount_ = 0;
 //}
 //
-//void Player::OnCollision(const uint32_t attribute, const YMath::Vec3& pos)
+//void Player::OnCollision(const uint32_t attribute, const YMath::Vector3& pos)
 //{
-//	if (attribute == YCollision::Attribute::Enemy)
+//	if (attribute == YGame::Attribute::Enemy)
 //	{
 //		// “¥‚ñ‚¾‚È‚ç
 //		if (obj_.pos_.y_ - pos.y_ >= CharaConfig::AttackRange)
@@ -75,7 +75,7 @@
 //void Player::UpdateMove()
 //{
 //	speed_.z_ = 3.0f;
-//	Vec3 d = { 0.0f, 0.0f, -1.0f };
+//	Vector3 d = { 0.0f, 0.0f, -1.0f };
 //	pParticleMan_->EmitDust(obj_.pos_, d, 8, 2);
 //}
 //
@@ -90,11 +90,11 @@
 //{
 //	speed_.y_ = RisePower;
 //
-//	Vec3 val = obj_.scale_ * CharaConfig::SlimeAct::ElasticityValue;
+//	Vector3 val = obj_.scale_ * CharaConfig::SlimeAct::ElasticityValue;
 //	val.y_ *= -1.0f;
 //
-//	Vec3 squash  = +val;
-//	Vec3 streach = -val;
+//	Vector3 squash  = +val;
+//	Vector3 streach = -val;
 //
 //	ActivateSlimeAction({ {}, squash, streach }, CharaConfig::SlimeAct::Frame);
 //}

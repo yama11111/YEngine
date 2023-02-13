@@ -6,15 +6,15 @@
 
 using YGame::Object;
 using YDX::ConstBuffer;
-using YMath::Mat4;
-using YMath::Vec4;
+using YMath::Matrix4;
+using YMath::Vector4;
 
 template<typename T>
 Object<T>::Object() :
 	pos_(0.0f, 0.0f, 0.0f), 
 	rota_(0.0f, 0.0f, 0.0f), 
 	scale_(1.0f, 1.0f, 1.0f), 
-	m_(Mat4::Identity()),
+	m_(Matrix4::Identity()),
 	parent_(nullptr)
 {}
 
@@ -41,7 +41,7 @@ template<typename T>
 void Object<T>::UpdateMatrix()
 {
 	// アフィン変換
-	m_ = Mat4::Identity();
+	m_ = Matrix4::Identity();
 	m_ *= MatScale(scale_) * MatRotation(rota_) * MatTranslation(pos_);
 	if (parent_) { m_ *= *parent_; }
 }
@@ -55,7 +55,7 @@ void Object<T>::UpdateMatrix(const Status& state)
 	s.scale_ += state.scale_;
 
 	// アフィン変換
-	m_ = Mat4::Identity();
+	m_ = Matrix4::Identity();
 	m_ *= MatScale(s.scale_) * MatRotation(s.rota_) * MatTranslation(s.pos_);
 	if (parent_) { m_ *= *parent_; }
 }

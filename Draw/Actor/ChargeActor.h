@@ -1,6 +1,6 @@
 //#pragma once
 //#include "Shake.h"
-//#include "Vec4.h"
+//#include "Vector4.h"
 //
 //namespace YActor
 //{
@@ -16,7 +16,7 @@
 //		// 揺れ幅
 //		int shakeVal_ = 0;
 //		// 色
-//		YMath::Vec4 color_;
+//		YMath::Vector4 color_;
 //		// チカチカフラグ
 //		bool isFliclering_ = false;
 //	public:
@@ -28,9 +28,9 @@
 //		void UpdateChargeAction();
 //	public:
 //		// 実値取得 (揺れ)
-//		YMath::Vec3 ChargeActionShakeValue();
+//		YMath::Vector3 ChargeActionShakeValue();
 //		// 実値取得 (色)
-//		YMath::Vec4 ChargeActionColor();
+//		YMath::Vector4 ChargeActionColor();
 //		// 動いているか
 //		bool IsActChargeAction() { return isElderAct_; }
 //	};

@@ -1,8 +1,8 @@
 #include "CollisionManager.h"
 #include <cassert>
 
-using YCollision::CollisionManager;
-using YMath::Vec3;
+using YGame::CollisionManager;
+using YMath::Vector3;
 
 void CollisionManager::Initialize() 
 {
@@ -55,9 +55,9 @@ void CollisionManager::CheckCollisionPair(Collider* pColliderA, Collider* pColli
 
 	if (isAct1 || isAct2) { return; }
 
-	Vec3 posA = pColliderA->Pos();
-	Vec3 posB = pColliderB->Pos();
-	Vec3 dist = posB - posA;
+	Vector3 posA = pColliderA->Pos();
+	Vector3 posB = pColliderB->Pos();
+	Vector3 dist = posB - posA;
 
 	if (dist.Length() <= pColliderA->Radius() + pColliderB->Radius())
 	{

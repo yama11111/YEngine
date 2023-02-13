@@ -1,9 +1,9 @@
 #pragma once
-#include "Vec3.h"
+#include "Vector3.h"
 #include <cstdint>
 #include "CollisionPrimitive.h"
 
-namespace YCollision
+namespace YGame
 {
 	class Collider
 	{
@@ -28,10 +28,10 @@ namespace YCollision
 		// Õ“Ëİ’è‰Šú‰»
 		void InitializeCollisionStatus(const InitStatus& state);
 		// Õ“Ëˆ—
-		virtual void OnCollision(const uint32_t attribute, const YMath::Vec3& pos) = 0;
+		virtual void OnCollision(const uint32_t attribute, const YMath::Vector3& pos) = 0;
 	public:
 		// ˆÊ’uæ“¾
-		virtual YMath::Vec3 Pos() const = 0;
+		virtual YMath::Vector3 Pos() const = 0;
 		// ”¼Œaæ“¾
 		float Radius() { return radius_; }
 		// ”¼Œaİ’è
