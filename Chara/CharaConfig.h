@@ -6,24 +6,18 @@ namespace CharaConfig
 	// 重力
 	const float GravityPower = 0.3f;
 
-	// 攻撃範囲
-	const float AttackRange = 2.0f;
-
 	// プレイヤー
 	namespace Player 
 	{
 		// 半径 (アタリ判定)
 		const float CollRad = 4.5f;
-		
 		// 体力
 		const int HP = 1;
-
 		// 無敵時間
 		const int CheatTime = 20;
 
 		// 最大ジャンプ回数
-		const int MaxJumpCount = 2;
-
+		const int MaxJumpCount = 1;
 		// ジャンプ力
 		const float RisePower = 6.0f;
 	}
@@ -49,13 +43,13 @@ namespace CharaConfig
 	namespace SlimeAct
 	{
 		// ブヨブヨ時間
-		const int Frame = 4;
-
+		const unsigned int Frame = 4;
+		// パワー
+		const float Power = 2.0f;
 		// 伸縮量
-		const float ElasticityValue = 0.5f;
-
+		const float ElasticityValue = 0.1f;
 		// つぶれる量 (着地時)
-		const float SquashValue = 0.75f;
+		const float SquashValue = 0.25f;
 	}
 
 	// ヒットアニメーション

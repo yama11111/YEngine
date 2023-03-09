@@ -196,7 +196,7 @@ void TextureManager::SetDrawCommand(const UINT rootParamIndex, const UINT texInd
 	pCmdList_->SetGraphicsRootDescriptorTable(rootParamIndex, texs_[texIndex].srvGpuHandle_);
 }
 
-ID3D12Resource* YGame::TextureManager::TextureBuffer(const UINT texIndex)
+ID3D12Resource* TextureManager::TextureBuffer(const UINT texIndex)
 {
 	assert((0 <= texIndex && texIndex < texs_.size()));
 	return texs_[texIndex].buff_.Get();

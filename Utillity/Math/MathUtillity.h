@@ -7,6 +7,7 @@ namespace YMath
 	void Srand();
 	// —”æ“¾
 	int GetRand(const int start, const int end);
+	float GetRand(const float start, const float end, const float place);
 
 	// •„†
 	template<typename T>

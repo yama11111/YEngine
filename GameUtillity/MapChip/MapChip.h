@@ -5,75 +5,102 @@
 #include <list>
 #include <memory>
 
-// マップ情報
-class MapChipInfo
+namespace YGame
 {
-protected:
-	// マップチップナンバー
-	std::vector<std::vector<int>> chipNums_;
-	// ロード済みか
-	bool isLoaded_ = false;
-public:
-	// csv読み込み
-	void LoadData(const std::string fileName);
-};
+	// マップ情報
+	struct MapData
+	{
+	public:
+		// マップチップ番号
+		std::vector<std::vector<int>> chipNums_;
+		// マップチップアタリ判定
+		std::vector<std::vector<bool>> chipColls_;
+		
+		// モデルポインタ
+		std::vector<Model*> pModels_;
+		// スプライトポインタ
+		std::vector<Sprite2D*> pSprites_;
 
-class MapChip : public MapChipInfo 
-{
-private:
+		// ロード済みか
+		bool isLoaded_ = false;
+	public:
+		// csv読み込み
+		void Load(const std::string fileName, const std::vector<Model*>& pModels, const std::vector<Sprite2D*>& pSprites);
+		// 消去
+		void Clear();
+		// コリジョンリセット
+		void CollReset();
+	};
+
 	// マップチップ
-	std::vector<std::unique_ptr<YGame::ObjectModel>> chips_;
-	//// マップチップ2D用
-	//std::vector<std::vector<YGame::Object>> chip2Ds_;
-	// マップ全体の大きさ(矩形)
-	YMath::Vector2 rect_;
-	// チップ1個分の大きさ
-	YMath::Vector3 chipSize_;
-	// 左上
-	YMath::Vector3 leftTop_;
+	class MapChip
+	{
+	private:
+		// チップ1つの情報
+		struct Chip
+		{
+			std::unique_ptr<ObjectModel> obj_; // オブジェクト
+			std::unique_ptr<Color> color_; // 色
+			size_t number_; // 番号
+		};
+	private:
+		// マップチップ
+		std::vector<std::unique_ptr<Chip>> chips_;
+		
+		// マップデータポインタ
+		MapData* pMapData_ = nullptr;
+		
+		// チップ1個分の大きさ
+		YMath::Vector3 chipScale_;
+		// 左上([0][0])
+		YMath::Vector3 leftTop_;
+	public:
+		// 初期化 (マップデータ初期化ver)
+		void Initialize(MapData* pMapData, const YMath::Vector3& leftTop, const YMath::Vector3& chipScale);
+		// 初期化
+		void Initialize(const YMath::Vector3& leftTop, const YMath::Vector3& chipScale);
+		// リセット
+		void Reset();
+		// 更新
+		void Update();
+		// 描画
+		void Draw(const ViewProjection& vp, LightGroup* pLightGroup, const UINT texIndex);
+	public:
+		// 衝突時処理
+		void PerfectPixelCollision(MapChipCollider& collider);
+		// 大きさ (矩形)
+		YMath::Vector2 Size();
+	private:
+		// 仮移動後のチップごとのアタリ判定
+		bool CollisionTemporaryMap(const YMath::Vector3& pos, const YMath::Vector3 scale, const YMath::Vector3& spd);
+		// チップごとのアタリ判定
+		bool CollisionMap(const float left, const float right, const float top, const float bottom);
+		// チップごとのアタリ判定
+		bool CollisionChip(const int x, const int y);
+	};
 
-	// モデルポインタ
-	YGame::Model* pModel_ = nullptr;
-	// テクスチャインデックス
-	UINT tex_ = UINT_MAX;
-	// スプライトポインタ
-	YGame::Sprite2D* pSprite_ = nullptr;
-public:
-	// ロードステータス
-	struct LoadStatus
+	// マップチップ2D表示用
+	class MapChip2DDisplayer
 	{
-		const std::string mapFileName_; // マップファイル名
-		YGame::Model* pModel_; // モデルポインタ
-		UINT tex_; // テクスチャインデックス
-		YGame::Sprite2D* pSprite_; // スプライトポインタ
+	private:
+		// チップ1つの情報
+		struct Chip
+		{
+			std::unique_ptr<ObjectSprite2D> obj_;
+			std::unique_ptr<Color> color_;
+		};
+	private:
+		// マップチップ2D
+		std::vector<std::vector<std::unique_ptr<Chip>>> chips_;
+
+		// マップデータポインタ
+		MapData* pMapData_ = nullptr;
+	public:
+		// 初期化
+		void Initialize(MapData* pMapData);
+		// 更新
+		void Update();
+		// 描画
+		void Draw();
 	};
-	// 初期化ステータス
-	struct InitStatus 
-	{
-		YMath::Vector3 leftTop_; // 左上([0][0])
-		YMath::Vector3 chipSize_; // チップ1個分の大きさ
-	};
-public:
-	// ロード
-	void Load(const LoadStatus& state);
-	// 初期化
-	void Initialize(const InitStatus& state);
-	// リセット
-	void Reset();
-	// 更新
-	void Update();
-	// 描画
-	void Draw(const YGame::ViewProjection& vp);
-	// 2D描画
-	void Draw2D();
-public:
-	// 衝突時処理
-	void PerfectPixelCollision(MapChipCollider& collider);
-private:
-	// 仮移動後のチップごとのアタリ判定
-	bool CollisionTemporaryMap(const YMath::Vector3& pos, const YMath::Vector3 scale, const YMath::Vector3& spd);
-	// チップごとのアタリ判定
-	bool CollisionMap(const float left, const float right, const float top, const float bottom);
-	// チップごとのアタリ判定
-	bool CollisionChip(const int x, const int y);
-};
+}

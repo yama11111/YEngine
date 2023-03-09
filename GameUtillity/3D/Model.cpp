@@ -10,6 +10,7 @@
 
 using YGame::ModelCommon;
 using YGame::Model;
+using YGame::ObjectModel;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
@@ -19,6 +20,15 @@ const UINT LigIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::LightC
 const UINT ColIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ColorCB);
 const UINT MateIndex = static_cast<UINT>(ModelCommon::RootParameterIndex::MaterialCB);
 const UINT TexIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TexDT);
+
+ObjectModel* ObjectModel::Create(const Status& state)
+{
+	ObjectModel* instance = new ObjectModel();
+	instance->cBuff_.Create();
+	instance->Initialize(state);
+
+	return instance;
+}
 
 void Model::Draw(ObjectModel* obj, const ViewProjection& vp, LightGroup* lightGroup, Color* color, const UINT tex)
 {

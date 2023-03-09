@@ -1,15 +1,27 @@
 #pragma once
 #include "Sprite2DCommon.h"
 #include "Vertices.h"
-#include "Object.h"
+#include "BaseObject.h"
 #include "Color.h"
 
 namespace YGame
 {
-	// スプライト用オブジェクト
-	using ObjectSprite2D = Object<Sprite2DCommon::CBData>;
+	// スプライト2D用オブジェクト
+	class ObjectSprite2D : public BaseObject
+	{
+	public:
+		// 定数バッファ
+		YDX::ConstBuffer<Sprite2DCommon::CBData> cBuff_;
+	public:
+		// 生成
+		static ObjectSprite2D* Create(const Status& state);
+	private:
+		ObjectSprite2D() = default;
+	public:
+		~ObjectSprite2D() override = default;
+	};
 
-	// スプライトクラス
+	// スプライト2Dクラス
 	class Sprite2D : private Sprite2DCommon
 	{
 	private:

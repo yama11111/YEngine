@@ -1,13 +1,25 @@
 #pragma once
 #include "ModelCommon.h"
-#include "Object.h"
+#include "BaseObject.h"
 #include "ViewProjection.h"
 #include "LightGroup.h"
 
 namespace YGame
 {
 	// モデル用オブジェクト
-	using ObjectModel = Object<ModelCommon::CBData>;
+	class ObjectModel : public BaseObject
+	{
+	public:
+		// 定数バッファ
+		YDX::ConstBuffer<ModelCommon::CBData> cBuff_;
+	public:
+		// 生成
+		static ObjectModel* Create(const Status& state);
+	private:
+		ObjectModel() = default;
+	public:
+		~ObjectModel() override = default;
+	};
 
 	// モデルクラス
 	class Model : private ModelCommon

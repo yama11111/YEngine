@@ -375,3 +375,13 @@ bool YMath::CollisionTriangleSphere(
 }
 
 #pragma endregion
+
+
+bool YMath::CollisionSphereSphere(const Vector3& sphereCenter1, const float sphereRad1, const Vector3& sphereCenter2, const float sphereRad2)
+{
+	Vector3 dist = sphereCenter2 - sphereCenter1;
+
+	if (dist.Length() > sphereRad1 + sphereRad2) { return false; }
+
+	return false;
+}

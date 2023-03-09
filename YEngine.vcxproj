@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -139,9 +139,9 @@
     <ClCompile Include="GameUtillity\Camera\Camera.cpp" />
     <ClCompile Include="GameUtillity\Camera\CameraManager.cpp" />
     <ClCompile Include="GameUtillity\Collision\BaseCollider.cpp" />
-    <ClCompile Include="GameUtillity\Collision\Collider.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionPrimitive.cpp" />
+    <ClCompile Include="GameUtillity\Collision\PrimitiveCollider.cpp" />
     <ClCompile Include="GameUtillity\Color.cpp" />
     <ClCompile Include="GameUtillity\Light\DirectionalLight.cpp" />
     <ClCompile Include="GameUtillity\Light\LightGroup.cpp" />
@@ -150,14 +150,15 @@
     <ClCompile Include="GameUtillity\MapChip\MapChip.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp" />
-    <ClCompile Include="GameUtillity\Object.cpp" />
-    <ClCompile Include="GameUtillity\Scene\qSceneManager.cpp" />
+    <ClCompile Include="GameUtillity\BaseObject.cpp" />
     <ClCompile Include="GameUtillity\Stuff\Floor.cpp" />
     <ClCompile Include="GameUtillity\Stuff\Skydome.cpp" />
     <ClCompile Include="GameUtillity\ViewProjection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Scene\BaseScene.cpp" />
+    <ClCompile Include="Scene\CollScene.cpp" />
+    <ClCompile Include="Scene\DemoScene.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
@@ -228,10 +229,10 @@
     <ClInclude Include="GameUtillity\Camera\Camera.h" />
     <ClInclude Include="GameUtillity\Camera\CameraManager.h" />
     <ClInclude Include="GameUtillity\Collision\BaseCollider.h" />
-    <ClInclude Include="GameUtillity\Collision\Collider.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionConfig.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionManager.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionPrimitive.h" />
+    <ClInclude Include="GameUtillity\Collision\PrimitiveCollider.h" />
     <ClInclude Include="GameUtillity\Color.h" />
     <ClInclude Include="GameUtillity\Light\DirectionalLight.h" />
     <ClInclude Include="GameUtillity\Light\LightGroup.h" />
@@ -240,12 +241,13 @@
     <ClInclude Include="GameUtillity\MapChip\MapChip.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipCollider.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h" />
-    <ClInclude Include="GameUtillity\Object.h" />
-    <ClInclude Include="GameUtillity\Scene\qSceneManager.h" />
+    <ClInclude Include="GameUtillity\BaseObject.h" />
     <ClInclude Include="GameUtillity\Stuff\Floor.h" />
     <ClInclude Include="GameUtillity\Stuff\Skydome.h" />
     <ClInclude Include="GameUtillity\ViewProjection.h" />
     <ClInclude Include="MyGame.h" />
+    <ClInclude Include="Scene\CollScene.h" />
+    <ClInclude Include="Scene\DemoScene.h" />
     <ClInclude Include="Scene\ISceneFactory.h" />
     <ClInclude Include="Scene\BaseScene.h" />
     <ClInclude Include="Scene\PlayScene.h" />

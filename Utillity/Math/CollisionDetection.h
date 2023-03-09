@@ -53,5 +53,11 @@ namespace YMath
 		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
 		const Vector3& sphereCenter, const float sphereRad,
 		Vector3& inter);
+
+	// ƒAƒ^ƒŠ”»’è (‹…~‹…)
+	bool CollisionSphereSphere(
+		const Vector3& sphereCenter1, const float sphereRad1,
+		const Vector3& sphereCenter2, const float sphereRad2
+	);
 }
 

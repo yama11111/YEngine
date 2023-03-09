@@ -1,12 +1,11 @@
 #pragma once
-#include "ConstBuffer.h"
 #include "Vector3.h"
 #include "Matrix4.h"
 
 namespace YGame
 {
-	template<typename T>
-	class Object
+	// オブジェクト基底クラス
+	class BaseObject
 	{
 	public:
 		// 位置
@@ -19,8 +18,6 @@ namespace YGame
 		YMath::Matrix4 m_;
 		// 親行列
 		YMath::Matrix4* parent_;
-		// 定数バッファ
-		YDX::ConstBuffer<T> cBuff_;
 	public:
 		// 設定用ステータス(位置、回転、大きさ)
 		struct Status
@@ -30,18 +27,15 @@ namespace YGame
 			YMath::Vector3 scale_ = { 1.0f, 1.0f, 1.0f };
 		};
 	public:
-		// 生成
-		static Object<T>* Create(const Status& state);
-	public:
 		// 初期化
 		void Initialize(const Status& state);
 		// アフィン変換
 		void UpdateMatrix();
 		// アフィン変換 (演出用)
 		void UpdateMatrix(const Status& state);
+	protected:
+		BaseObject();
 	public:
-		Object();
-	public:
-		~Object() = default;
+		virtual ~BaseObject() = default;
 	};
 }

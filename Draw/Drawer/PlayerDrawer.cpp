@@ -1,23 +1,25 @@
 #include "PlayerDrawer.h"
 
-using YDrawer::PlayerDrawerCommon;
-using YDrawer::PlayerDrawer;
+using YGame::PlayerDrawerCommon;
+using YGame::PlayerDrawer;
+using YGame::Model;
+using YGame::ObjectModel;
 
-std::array<std::unique_ptr<YGame::Model>, PlayerDrawerCommon::PartsNum_> PlayerDrawerCommon::pModels_ =
+std::array<std::unique_ptr<Model>, PlayerDrawerCommon::PartsNum_> PlayerDrawerCommon::pModels_ =
 { nullptr, nullptr, nullptr };
 
 void PlayerDrawerCommon::StaticInitialize(const StaticInitStatus& state)
 {
-	pModels_[static_cast<size_t>(Parts::Body)].reset(YGame::Model::LoadObj("player/player_body", true));
-	pModels_[static_cast<size_t>(Parts::Face)].reset(YGame::Model::LoadObj("player/player_face", true));
-	pModels_[static_cast<size_t>(Parts::Tail)].reset(YGame::Model::LoadObj("player/player_tail", true));
+	pModels_[static_cast<size_t>(Parts::Body)].reset(Model::LoadObj("player/player_body", true));
+	pModels_[static_cast<size_t>(Parts::Face)].reset(Model::LoadObj("player/player_face", true));
+	pModels_[static_cast<size_t>(Parts::Tail)].reset(Model::LoadObj("player/player_tail", true));
 }
 
 void PlayerDrawer::Initialize(YMath::Matrix4* pParent)
 {
 	for (size_t i = 0; i < objs_.size(); i++)
 	{
-		objs_[i].reset(YGame::ObjectModel::Create({}));
+		objs_[i].reset(ObjectModel::Create({}));
 		objs_[i]->parent_ = pParent;
 	}
 	Reset();

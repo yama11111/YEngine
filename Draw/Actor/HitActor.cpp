@@ -1,14 +1,14 @@
 #include "HitActor.h"
 #include "CharaConfig.h"
 
-using YActor::HitActor;
+using YGame::HitActor;
 using YMath::Vector3;
 using YMath::Vector4;
 using namespace CharaConfig::HitAct;
 
 const float ShakeRange = 100.0f;
 
-void HitActor::InitializeHitAction()
+void HitActor::Initialize()
 {
 	isAct_ = false;
 	shake_.Initialize();
@@ -16,9 +16,9 @@ void HitActor::InitializeHitAction()
 	isFliclering_ = false;
 }
 
-void HitActor::ActivateHitAction(const float shakeValue, const unsigned int frame)
+void HitActor::Activate(const float shakeValue, const unsigned int frame)
 {
-	InitializeHitAction();
+	Initialize();
 
 	isAct_ = true;
 
@@ -28,7 +28,7 @@ void HitActor::ActivateHitAction(const float shakeValue, const unsigned int fram
 	shake_.Activate(s, d);
 }
 
-void HitActor::UpdateHitAction()
+void HitActor::Update()
 {
 	if (isAct_ == false) { return; }
 
@@ -37,11 +37,11 @@ void HitActor::UpdateHitAction()
 
 	if (shake_.IsAct() == false) 
 	{
-		InitializeHitAction();
+		Initialize();
 	}
 }
 
-Vector3 HitActor::HitActionShakeValue()
+Vector3 HitActor::ShakeValue()
 {
 	Vector3 result = shake_.Value();
 
@@ -50,7 +50,7 @@ Vector3 HitActor::HitActionShakeValue()
 	return result;
 }
 
-Vector4 HitActor::HitActionColor()
+Vector4 HitActor::ColorValue()
 {
 	Vector4 result = Color;
 

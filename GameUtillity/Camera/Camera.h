@@ -1,9 +1,8 @@
 #pragma once
-#include "Object.h"
-#include "ViewProjection.h"
+#include "Model.h"
 #include "Shake.h"
 
-namespace YCamera
+namespace YGame
 {
 	class Camera
 	{
@@ -18,7 +17,7 @@ namespace YCamera
 		// 追従フラグ
 		bool isFollow_ = false;
 		// オブジェクト
-		//YGame::Object obj_;
+		std::unique_ptr<YGame::ObjectModel> obj_;
 		// ビュープロジェクション
 		YGame::ViewProjection vp_;
 		// カメラシェイク
@@ -26,7 +25,7 @@ namespace YCamera
 	public:
 		struct InitStatus 
 		{
-			//YGame::Object::Status objState_;
+			YGame::BaseObject::Status objState_;
 			YMath::Vector3* pFollowPos_ = nullptr;
 			bool isFollow_ = false;
 		};

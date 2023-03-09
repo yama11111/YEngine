@@ -2,7 +2,7 @@
 #include "Shake.h"
 #include "Vector4.h"
 
-namespace YActor
+namespace YGame
 {
 	class HitActor
 	{
@@ -17,16 +17,16 @@ namespace YActor
 		bool isFliclering_ = false;
 	public:
 		// 初期化
-		void InitializeHitAction();
+		void Initialize();
 		// 動かす
-		void ActivateHitAction(const float shakeValue, const unsigned int frame);
+		void Activate(const float shakeValue, const unsigned int frame);
 		// 更新
-		void UpdateHitAction();
+		void Update();
 	public:
 		// 実値取得 (揺れ)
-		YMath::Vector3 HitActionShakeValue();
+		YMath::Vector3 ShakeValue();
 		// 実値取得 (色)
-		YMath::Vector4 HitActionColor();
+		YMath::Vector4 ColorValue();
 		// 動いているか
 		bool IsActHitAction() { return isAct_; }
 	};

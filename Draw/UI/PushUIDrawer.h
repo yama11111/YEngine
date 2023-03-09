@@ -3,10 +3,10 @@
 //#include "Sprite2D.h"
 //#include <array>
 //
-//namespace YUIDrawer
+//namespace YGame
 //{
 //	class PushUIDrawer :
-//		private YActor::SlimeActor
+//		private YGame::SlimeActor
 //	{
 //	private:
 //		YGame::ObjectSprite2D obj_;
@@ -25,4 +25,4 @@
 //		void SetSprites(YGame::Sprite2D* on, YGame::Sprite2D* off);
 //	};
 //}
-//
+

@@ -3,7 +3,7 @@
 #include "Timer.h"
 #include <vector>
 
-namespace YActor
+namespace YGame
 {
 	class SlimeActor
 	{
@@ -15,6 +15,13 @@ namespace YActor
 			Elasticity,	 // 伸び縮み
 			Normal,		 // 通常
 		};
+		// 揺れステータス
+		struct JiggleState
+		{
+			YMath::Vector3 value_;
+			unsigned int frame_;
+			float pow_ = 2.0f;
+		};
 	private:
 		// 動いているかフラグ
 		bool isAct_ = false;
@@ -23,7 +30,7 @@ namespace YActor
 		// イージング
 		YMath::Ease<YMath::Vector3> ease_;
 		// 終了値
-		std::vector<YMath::Vector3> ends_;
+		std::vector<JiggleState> jiggles_;
 		// 現在のインデックス
 		size_t currentIdx_ = 0;
 		// タイマー
@@ -32,14 +39,14 @@ namespace YActor
 		YMath::Vector3 value_;
 	public:
 		// 初期化
-		void InitializeSlimeAction();
+		void Initialize();
 		// 動かす
-		void ActivateSlimeAction(const std::vector<YMath::Vector3> ends, const unsigned int frame);
+		void Activate(const std::vector<JiggleState>& jiggles);
 		// 更新
-		void UpdateSlimeAction();
+		void Update();
 	public:
 		// 実値取得
-		YMath::Vector3 SlimeActionValue();
+		YMath::Vector3 JiggleValue();
 	private:
 		// 動き切り替え
 		void ChangeAction();

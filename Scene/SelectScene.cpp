@@ -16,7 +16,7 @@ void SelectScene::Load()
 {
 	// ----- テクスチャ ----- //
 
-	plainT_ = pTexManager_->Load("white1x1.png", false);
+	plainTex_ = pTexManager_->Load("white1x1.png", false);
 
 	// ----- オーディオ ----- //
 
@@ -24,7 +24,7 @@ void SelectScene::Load()
 
 	// ----- スプライト (2D) ----- //
 
-	windowS_.reset(Sprite2D::Create({ WinSize }, { plainT_ }));
+	windowSpr_.reset(Sprite2D::Create({ WinSize }, { plainTex_ }));
 
 	// ----- スプライト (3D) ----- //
 
@@ -32,7 +32,7 @@ void SelectScene::Load()
 
 	// ------- モデル ------- //
 
-	cubeM_.reset(Model::Create());
+	cubeMod_.reset(Model::Create());
 
 	// ----- 静的初期化 ----- //
 }

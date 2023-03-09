@@ -9,7 +9,7 @@ private:
 	// 生存フラグ
 	bool isAlive_ = true;
 	// 無敵時間
-	YMath::Timer cheatT_;
+	YMath::Timer cheatTim_;
 	// 無敵フラグ
 	bool isCheat_ = false;
 public:
@@ -21,9 +21,9 @@ public:
 	};
 public:
 	// 初期化
-	void InitializeCharaStatus(const InitStatus& state);
+	void Initialize(const InitStatus& state);
 	// 更新
-	void UpdateCharaStatus();
+	void Update();
 	// ダメージを受ける
 	void Hit(const int damage);
 public:

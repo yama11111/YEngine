@@ -1,6 +1,6 @@
 //#include "ChargeActor.h"
 //
-//using YActor::ChargeActor;
+//using YGame::ChargeActor;
 //using YMath::Vector3;
 //using YMath::Vector4;
 //

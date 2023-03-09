@@ -1,8 +1,8 @@
 #include "Sprite3D.h"
-#include <cassert>
 
 using YGame::Sprite3DCommon;
 using YGame::Sprite3D;
+using YGame::ObjectSprite3D;
 using YGame::TextureManager;
 using YMath::Vector3;
 using YMath::Matrix4;
@@ -10,6 +10,15 @@ using YMath::Matrix4;
 const UINT SprIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::SpriteCB);
 const UINT ColIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::ColorCB);
 const UINT TexIndex	 = static_cast<UINT>(Sprite3DCommon::RootParameterIndex::TexDT);
+
+ObjectSprite3D* ObjectSprite3D::Create(const Status& state)
+{
+	ObjectSprite3D* instance = new ObjectSprite3D();
+	instance->cBuff_.Create();
+	instance->Initialize(state);
+
+	return instance;
+}
 
 void Sprite3D::Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color, const UINT tex)
 {

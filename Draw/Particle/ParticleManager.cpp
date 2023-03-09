@@ -1,88 +1,66 @@
-//#include "ParticleManager.h"
-//#include "MathUtillity.h"
-//#include "YAssert.h"
-//
-//using YParticle::ParticleManager;
-//using YGame::Model;
-//using YMath::Vector3;
-//
-//Model* ParticleManager::pModel_ = nullptr;
-//
-//const float PI = 3.141592f;
-//
-//void ParticleManager::StaticInitialize(const StaticInitStatus& state)
-//{
-//	assert(state.pModel_);
-//
-//	pModel_ = state.pModel_;
-//}
-//
-//void ParticleManager::Initialize()
-//{
-//	if (particles_.empty() == false)
-//	{
-//		particles_.clear();
-//	}
-//}
-//
-//void ParticleManager::Update()
-//{
-//	particles_.remove_if([](std::unique_ptr<IParticle>& particle) { return particle->isAlive_ == false; });
-//	for (std::unique_ptr<IParticle>& particle : particles_)
-//	{
-//		particle->Update();
-//	}
-//}
-//
-//void ParticleManager::Draw(const YGame::ViewProjection& vp)
-//{
-//	for (std::unique_ptr<IParticle>& particle : particles_)
-//	{
-//		//pModel_->Draw(particle->obj_, vp);
-//	}
-//}
-//
-//void ParticleManager::EmitDust(YMath::Vector3& pos, YMath::Vector3& direction, uint32_t frame, size_t num)
-//{
-//	//for (size_t i = 0; i < num; i++)
-//	//{
-//	//	std::unique_ptr<Dust> newParticle = std::make_unique<Dust>();
-//	//	Vector3 r = Vector3(
-//	//		{
-//	//			YMath::GetRand(0.0f, PI * 2.0f * 100.0f) / 100.0f,
-//	//			YMath::GetRand(0.0f, PI * 2.0f * 100.0f) / 100.0f,
-//	//			YMath::GetRand(0.0f, PI * 2.0f * 100.0f) / 100.0f
-//	//		}
-//	//	);
-//
-//	//	float s = YMath::GetRand(200, 400) / 1000.0f;
-//
-//	//	newParticle->Emit({ pos, r, s, direction * 0.5f, frame });
-//	//	particles_.push_back(std::move(newParticle));
-//	//}
-//}
-//
-//void ParticleManager::EmitExprosion(YMath::Vector3& pos, float speed, YMath::Vector4 color, uint32_t frame, size_t num)
-//{
-//	//for (size_t i = 0; i < num; i++)
-//	//{
-//	//	std::unique_ptr<Exprosion> newParticle = std::make_unique<Exprosion>();
-//	//	Vector3 spd = Vector3(
-//	//		{
-//	//			YMath::GetRand(10.0f, 20.0f) / 100.0f * speed,
-//	//			YMath::GetRand(10.0f, 20.0f) / 100.0f * speed,
-//	//			YMath::GetRand(10.0f, 20.0f) / 100.0f * speed
-//	//		}
-//	//	);
-//
-//	//	float s = YMath::GetRand(200, 400) / 1000.0f;
-//
-//	//	newParticle->Emit({ pos, s, spd, color, frame });
-//	//	particles_.push_back(std::move(newParticle));
-//	//}
-//}
-//
-//void ParticleManager::EmitEruption(YMath::Vector3& pos, YMath::Vector3& direction, uint32_t frame, size_t num)
-//{
-//	
-//}
+#include "ParticleManager.h"
+#include "MathUtillity.h"
+#include "YAssert.h"
+
+using YGame::ParticleManager;
+using YGame::Model;
+using YMath::Vector3;
+
+const float PI = 3.141592f;
+
+Model* ParticleManager::pModel_ = nullptr;
+
+void ParticleManager::StaticInitialize(YGame::Model* pModel)
+{
+	pModel_ = pModel;
+}
+
+void ParticleManager::Initialize()
+{
+	if (particles_.empty() == false)
+	{
+		particles_.clear();
+	}
+}
+
+void ParticleManager::Update()
+{
+	particles_.remove_if([](std::unique_ptr<IParticle>& particle) { return particle->isAlive_ == false; });
+	for (std::unique_ptr<IParticle>& particle : particles_)
+	{
+		particle->Update();
+	}
+}
+
+void ParticleManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup)
+{
+	for (std::unique_ptr<IParticle>& particle : particles_)
+	{
+		particle->Draw(vp, pLightGroup);
+	}
+}
+
+void ParticleManager::EmitFireSpark(
+	const YMath::Vector3& pos,
+	const YMath::Vector3& range,
+	const float maxScale,
+	const YMath::Vector3& speed,
+	const YMath::Vector4& color,
+	const uint32_t frame, const size_t num)
+{
+	for (size_t i = 0; i < num; i++)
+	{
+		std::unique_ptr<FireSpark> newParticle = std::make_unique<FireSpark>();
+
+		uint32_t swayT = frame / YMath::GetRand(1, 2);
+
+		Vector3 p = pos;
+		p.x_ += YMath::GetRand(-range.x_, range.x_, 100.0f);
+		p.y_ += YMath::GetRand(-range.y_, range.y_, 100.0f);
+		p.z_ += YMath::GetRand(-range.z_, range.z_, 100.0f);
+		float s = YMath::GetRand(maxScale / 2.0f, maxScale, 100.0f);
+
+		newParticle->Emit(frame, swayT, speed, p, s, color);
+		particles_.push_back(std::move(newParticle));
+	}
+}

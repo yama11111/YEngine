@@ -46,9 +46,6 @@
     <Filter Include="GameUtil\3D">
       <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Chara\Util">
-      <UniqueIdentifier>{e4747e7d-1459-4d54-bd2d-c0cd0d2cf5f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Chara\Util">
       <UniqueIdentifier>{67afe819-1f04-4c26-8a43-e29b287c246e}</UniqueIdentifier>
     </Filter>
@@ -70,17 +67,11 @@
     <Filter Include="GameUtil\Coll">
       <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Draw\Shader">
-      <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameUtil\Stuff">
       <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Draw\SceneChange">
       <UniqueIdentifier>{47285198-de5e-4f87-a5a7-3414dbf214fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\Scene">
-      <UniqueIdentifier>{c1c42da9-0f13-4abb-921a-eb77cc05055d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Draw\Drawer">
       <UniqueIdentifier>{b4d5dfe1-b159-4153-a64e-6394fce54446}</UniqueIdentifier>
@@ -100,12 +91,6 @@
     <Filter Include="Util\Input">
       <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Draw\Shader\Sprite3D">
-      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Draw\Shader\Sprite2D">
-      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameUtil\Light">
       <UniqueIdentifier>{8d2ddc5c-59f9-41e1-a31e-064f18b71408}</UniqueIdentifier>
     </Filter>
@@ -118,11 +103,23 @@
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{5e1ce30b-2fbd-48f9-a4ab-432cacaf9e33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Draw\Shader\Model">
-      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Util\Math\Lerp">
       <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Sprite3D">
+      <UniqueIdentifier>{d1facb02-afc7-4b91-8343-caed95c30ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Sprite2D">
+      <UniqueIdentifier>{25218c47-c4bd-44d2-8b4e-61ff426268da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Model">
+      <UniqueIdentifier>{2948526d-2d37-441e-a520-769e91dc00ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Chara\Util">
+      <UniqueIdentifier>{e4747e7d-1459-4d54-bd2d-c0cd0d2cf5f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +186,6 @@
     <ClCompile Include="GameUtillity\AudioManager.cpp">
       <Filter>GameUtil</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Object.cpp">
-      <Filter>GameUtil</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\ViewProjection.cpp">
       <Filter>GameUtil</Filter>
     </ClCompile>
@@ -219,9 +213,6 @@
     <ClCompile Include="GameUtillity\Camera\CameraManager.cpp">
       <Filter>GameUtil\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Collision\Collider.cpp">
-      <Filter>GameUtil\Coll</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp">
       <Filter>GameUtil\Coll</Filter>
     </ClCompile>
@@ -233,9 +224,6 @@
     </ClCompile>
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp">
       <Filter>GameUtil\MapChip</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\Scene\qSceneManager.cpp">
-      <Filter>GameUtil\Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Stuff\Floor.cpp">
       <Filter>GameUtil\Stuff</Filter>
@@ -378,6 +366,18 @@
     <ClCompile Include="GameUtillity\Collision\BaseCollider.cpp">
       <Filter>GameUtil\Coll</Filter>
     </ClCompile>
+    <ClCompile Include="GameUtillity\BaseObject.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Collision\PrimitiveCollider.cpp">
+      <Filter>GameUtil\Coll</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\DemoScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CollScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -446,9 +446,6 @@
     <ClInclude Include="GameUtillity\AudioManager.h">
       <Filter>GameUtil</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\Object.h">
-      <Filter>GameUtil</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\ViewProjection.h">
       <Filter>GameUtil</Filter>
     </ClInclude>
@@ -476,9 +473,6 @@
     <ClInclude Include="GameUtillity\Camera\CameraManager.h">
       <Filter>GameUtil\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\Collision\Collider.h">
-      <Filter>GameUtil\Coll</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\Collision\CollisionConfig.h">
       <Filter>GameUtil\Coll</Filter>
     </ClInclude>
@@ -493,9 +487,6 @@
     </ClInclude>
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h">
       <Filter>GameUtil\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Scene\qSceneManager.h">
-      <Filter>GameUtil\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Stuff\Floor.h">
       <Filter>GameUtil\Stuff</Filter>
@@ -644,42 +635,54 @@
     <ClInclude Include="GameUtillity\Collision\BaseCollider.h">
       <Filter>GameUtil\Coll</Filter>
     </ClInclude>
+    <ClInclude Include="GameUtillity\BaseObject.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Collision\PrimitiveCollider.h">
+      <Filter>GameUtil\Coll</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\DemoScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CollScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite3D.hlsli">
-      <Filter>Draw\Shader\Sprite3D</Filter>
+      <Filter>Shader\Sprite3D</Filter>
     </None>
     <None Include="Resources\Shaders\Model.hlsli">
-      <Filter>Draw\Shader\Model</Filter>
+      <Filter>Shader\Model</Filter>
     </None>
     <None Include="Resources\Shaders\Sprite2D.hlsli">
-      <Filter>Draw\Shader\Sprite2D</Filter>
+      <Filter>Shader\Sprite2D</Filter>
     </None>
     <None Include="Resources\Shaders\Light.hlsli">
-      <Filter>Draw\Shader\Model</Filter>
+      <Filter>Shader\Model</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
-      <Filter>Draw\Shader\Sprite3D</Filter>
+      <Filter>Shader\Sprite3D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Sprite3DPS.hlsl">
-      <Filter>Draw\Shader\Sprite3D</Filter>
+      <Filter>Shader\Sprite3D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Sprite3DVS.hlsl">
-      <Filter>Draw\Shader\Sprite3D</Filter>
+      <Filter>Shader\Sprite3D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
-      <Filter>Draw\Shader\Model</Filter>
+      <Filter>Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
-      <Filter>Draw\Shader\Model</Filter>
+      <Filter>Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Sprite2DPS.hlsl">
-      <Filter>Draw\Shader\Sprite2D</Filter>
+      <Filter>Shader\Sprite2D</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Sprite2DVS.hlsl">
-      <Filter>Draw\Shader\Sprite2D</Filter>
+      <Filter>Shader\Sprite2D</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 //#include "PushUIDrawer.h"
 //
-//using YUIDrawer::PushUIDrawer;
+//using YGame::PushUIDrawer;
 //
 //void PushUIDrawer::Initialize(const YMath::Vector3& startPos, const YMath::Vector3& endPos)
 //{

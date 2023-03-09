@@ -1,4 +1,5 @@
 #include "CollisionManager.h"
+#include "CollisionPrimitive.h"
 #include <cassert>
 
 using YGame::CollisionManager;
@@ -12,11 +13,11 @@ void CollisionManager::Initialize()
 void CollisionManager::Update() 
 {
 	if (pColliders_.empty()) { return; }
-	CheckAllColliders();
+	CheckAllCollision();
 	Clear();
 }
 
-void CollisionManager::PushBack(Collider* pCollider) 
+void CollisionManager::PushBack(BaseCollider* pCollider) 
 {
 	assert(pCollider);
 	pColliders_.push_back(pCollider); 
@@ -28,40 +29,44 @@ void CollisionManager::Clear()
 	pColliders_.clear();
 }
 
-void CollisionManager::CheckAllColliders() 
+void CollisionManager::CheckAllCollision() 
 {
-	std::list<Collider*>::iterator itrA = pColliders_.begin();
+	std::list<BaseCollider*>::iterator itrA = pColliders_.begin();
 	for (; itrA != pColliders_.end(); ++itrA) 
 	{
-		Collider* colA = *itrA;
+		BaseCollider* colA = *itrA;
 
-		std::list<Collider*>::iterator itrB = itrA;
+		std::list<BaseCollider*>::iterator itrB = itrA;
 		itrB++;
 
 		for (; itrB != pColliders_.end(); ++itrB) 
 		{
-			Collider* colB = *itrB;
+			BaseCollider* colB = *itrB;
 			CheckCollisionPair(colA, colB);
 		}
 	}
 }
 
-void CollisionManager::CheckCollisionPair(Collider* pColliderA, Collider* pColliderB)
+void CollisionManager::CheckCollisionPair(BaseCollider* pColliderA, BaseCollider* pColliderB)
 {
 	// 属性マスク判定
-	bool isAct1 = (pColliderA->Attribute() & pColliderB->Mask()) == 0 || (pColliderB->Attribute() & pColliderA->Mask()) == 0;
-	// すり抜けフラグ確認
-	bool isAct2 = pColliderA->IsSlip() || pColliderB->IsSlip();
+	bool isAct1 = (pColliderA->GetAttribute() & pColliderB->GetMask()) == 0 || (pColliderB->GetAttribute() & pColliderA->GetMask()) == 0;
+	// 無敵フラグ確認
+	bool isAct2 = pColliderA->GetIsInvincible() || pColliderB->GetIsInvincible();
 
 	if (isAct1 || isAct2) { return; }
 
-	Vector3 posA = pColliderA->Pos();
-	Vector3 posB = pColliderB->Pos();
-	Vector3 dist = posB - posA;
-
-	if (dist.Length() <= pColliderA->Radius() + pColliderB->Radius())
+	// 球 × 球
+	if (pColliderA->GetShapeType() == ShapeType::CollsionShapeSphere && 
+		pColliderB->GetShapeType() == ShapeType::CollsionShapeSphere)
 	{
-		pColliderA->OnCollision(pColliderB->Attribute(), pColliderB->Pos());
-		pColliderB->OnCollision(pColliderA->Attribute(), pColliderA->Pos());
+		Sphere* sphereA = dynamic_cast<Sphere*>(pColliderA);
+		Sphere* sphereB = dynamic_cast<Sphere*>(pColliderB);
+
+		if (CollisionSphereSphere(*sphereA, *sphereB))
+		{
+			pColliderA->OnCollision({ pColliderB });
+			pColliderB->OnCollision({ pColliderA });
+		}
 	}
 }

@@ -1,15 +1,15 @@
 #include "SlimeActor.h"
 #include <cassert>
 
-using YActor::SlimeActor;
+using YGame::SlimeActor;
 
-void SlimeActor::InitializeSlimeAction()
+void SlimeActor::Initialize()
 {
 	isAct_ = false;
 	action_ = Action::None;
 
-	ease_.Initialize({}, {}, 2.0f);
-	ends_.clear();
+	ease_.Initialize({}, {}, 0.0f);
+	jiggles_.clear();
 	currentIdx_ = 0;
 
 	timer_.Initialize(0);
@@ -17,72 +17,66 @@ void SlimeActor::InitializeSlimeAction()
 	value_ = {};
 }
 
-void SlimeActor::ActivateSlimeAction(const std::vector<YMath::Vector3> ends, const unsigned int frame)
+void SlimeActor::Activate(const std::vector<JiggleState>& jiggles)
 {
-	assert(ends.size() > 1);
+	assert(jiggles.size() > 1);
 
-	InitializeSlimeAction();
+	Initialize();
 
 	isAct_ = true;
 	action_ = Action::Elasticity;
 
-	ends_ = ends;
-	ease_.Initialize(ends_[0], ends_[1], 2.0f);
+	jiggles_ = jiggles;
+	ease_.Initialize(jiggles_[0].value_, jiggles_[1].value_, jiggles_[1].pow_);
 	currentIdx_ = 1;
 
-	timer_.Initialize(frame);
+	timer_.Initialize(jiggles_[1].frame_);
 	timer_.SetActive(true);
 }
 
-void SlimeActor::UpdateSlimeAction()
+void SlimeActor::Update()
 {
 	if (isAct_ == false) { return; }
 
 	timer_.Update();
+	UpdateValue();
+	
 	if (timer_.IsEnd())
 	{
 		timer_.Reset(true);
 		ChangeAction();
 	}
-
-	UpdateValue();
 }
 
 void SlimeActor::ChangeAction()
 {
-	bool isElasticity = action_ == Action::Elasticity;
-
 	// 伸縮以外なら
-	if (isElasticity == false) 
+	if (action_ != Action::Elasticity)
 	{
-		InitializeSlimeAction();
-		return; 
+		Initialize();
+		return;
 	}
 
 	size_t elderIdx = currentIdx_;
 	currentIdx_++;
 
-	// 終端じゃないなら
-	if (currentIdx_ < ends_.size())
+	// 終端なら
+	if (currentIdx_ == (jiggles_.size() - 1))
 	{
-		ease_.Initialize(ends_[elderIdx], ends_[currentIdx_], 2.0f);
-		action_ = Action::Elasticity;
-	}
-	else
-	{
-		ease_.Initialize(ends_[elderIdx], {}, 2.0f);
 		action_ = Action::Normal;
 	}
+
+	ease_.Initialize(jiggles_[elderIdx].value_, jiggles_[currentIdx_].value_, jiggles_[currentIdx_].pow_);
+	timer_.Initialize(jiggles_[currentIdx_].frame_);
+	timer_.SetActive(true);
 }
 
 void SlimeActor::UpdateValue()
 {
-	if (timer_.Current() == 0) { return; }
-
 	value_ = ease_.In(timer_.Ratio());
 }
 
-YMath::Vector3 SlimeActor::SlimeActionValue()
+YMath::Vector3 SlimeActor::JiggleValue()
 {
 	return value_;
 }

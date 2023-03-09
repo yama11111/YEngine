@@ -19,8 +19,8 @@ YGame::TextureManager* ModelCommon::pTexManager_ = nullptr;
 
 ModelCommon::Material::Material() :
 	name_(),
-	ambient_(0.3f, 0.3f, 0.3f),
-	diffuse_(0.8f, 0.8f, 0.8f),
+	ambient_(0.2f, 0.2f, 0.2f),
+	diffuse_(0.5f, 0.5f, 0.5f),
 	specular_(0.10f, 0.10f, 0.10f),
 	alpha_(1.0f),
 	texFileName_(),
@@ -278,7 +278,7 @@ ModelCommon::Material ModelCommon::LoadMaterial(const std::string directoryPath,
 
 	return material;
 }
-ModelCommon::Material YGame::ModelCommon::LoadMaterial(const std::string& directoryPath, const std::string& fileName)
+ModelCommon::Material ModelCommon::LoadMaterial(const std::string& directoryPath, const std::string& fileName)
 {
 	Material m;
 

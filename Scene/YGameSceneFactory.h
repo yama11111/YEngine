@@ -14,6 +14,13 @@ namespace YScene
 		const std::string Play	 = "PLAY";
 		// リザルト
 		const std::string Result = "RESULT";
+
+		// 
+		const std::string Coll	 = "COLL";
+
+		//
+		const std::string Demo	 = "DEMO";
+
 	public:
 		// シーン生成
 		BaseScene* CreateScene(const std::string& sceneName) override;

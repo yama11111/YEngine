@@ -74,4 +74,8 @@ namespace YGame
 
 	// OŠpŒ` ~ ‹…
 	bool CollisionTriangleSphere(const Triangle& triangle, const Sphere& sphere);
+
+	//     ‹… ~ ‹…
+	bool CollisionSphereSphere(const Sphere& sphere1, const Sphere& sphere2);
+
 }

@@ -19,6 +19,14 @@ int YMath::GetRand(const int start, const int end)
 	return adjust * ((rand() % div) + start);
 }
 
+float YMath::GetRand(const float start, const float end, const float place)
+{
+	int s = static_cast<int>(start * place);
+	int e = static_cast<int>(end * place);
+
+	return static_cast<float>(GetRand(s, e)) / place;
+}
+
 template<typename T>
 T YMath::Sign(const T num)
 {

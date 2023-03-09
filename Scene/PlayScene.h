@@ -1,15 +1,6 @@
 #pragma once
 #include "BaseScene.h"
 
-#include "Floor.h"
-#include "Skydome.h"
-#include "Player.h"
-#include "PlayerDrawer.h"
-#include "EnemyManager.h"
-#include "CollisionManager.h"
-#include "MapChipManager.h"
-#include "CameraManager.h"
-
 namespace YScene
 {
 	// ゲームシーン
@@ -21,94 +12,31 @@ namespace YScene
 		// ----- テクスチャ ----- //
 		
 		// 無地画像
-		UINT plainT_ = 0;
-		// プレイヤー画像
-		UINT playerT_ = 0;
-		// エネミー画像
-		UINT enemyT_ = 0;
-		// マップ画像
-		UINT mapT_ = 0;
-		// マップ2D表示用画像
-		UINT mapDispT_ = 0;
+		UINT plainTex_ = 0;
 
 		// ----- オーディオ ----- //
-
-		//UINT aA_ = 0;
 
 		// ----- スプライト (2D) ----- //
 		
 		// 画面全部
-		std::unique_ptr<YGame::Sprite2D> windowS_ = nullptr;
-		// シーン遷移用
-		std::unique_ptr<YGame::Sprite2D> curtenS_ = nullptr;
-		// マップ2D表示用
-		std::unique_ptr<YGame::Sprite2D> mapDispS_ = nullptr;
+		std::unique_ptr<YGame::Sprite2D> windowSpr_ = nullptr;
 		
 		// ----- スプライト (3D) ----- //
 
 		// ----- モデル ----- //
 		
 		// 立方体モデル
-		std::unique_ptr<YGame::Model> cubeM_ = nullptr;
-		// 天球モデル
-		std::unique_ptr<YGame::Model> skydomeM_ = nullptr;
-		// スライムモデル
-		std::unique_ptr<YGame::Model> slimeM_ = nullptr;
-
-		// ずんだもんモデル
-		std::unique_ptr<YGame::Model> zundamonM_ = nullptr;
-
-		std::unique_ptr<YGame::Model> sphereMod_ = nullptr;
-		std::unique_ptr<YGame::Model> groundMod_ = nullptr;
-		std::unique_ptr<YGame::Model> triangleMod_ = nullptr;
+		std::unique_ptr<YGame::Model> cubeMod_ = nullptr;
 
 #pragma endregion
 #pragma region ゲームオブジェクト
-		
-		// プレイヤー
-		std::unique_ptr<YGame::ObjectModel> player_;
-		YDrawer::PlayerDrawer playerDra_;
 
-
-		std::unique_ptr<YGame::ObjectModel> planeObj_;
-		YGame::Plane plane_;
-		std::unique_ptr<YGame::Color> planeColor_;
-
-		std::unique_ptr<YGame::ObjectModel> rayObj_;
-		YGame::Ray ray_;
-		std::unique_ptr<YGame::Color> rayColor_;
-
-		std::unique_ptr<YGame::ObjectModel> triangleObj_;
-		YGame::Triangle triangle_;
-		std::unique_ptr<YGame::Color> triangleColor_;
-
-		std::unique_ptr<YGame::ObjectModel> sphereObj_;
-		YGame::Sphere sphere_;
-		std::unique_ptr<YGame::Color> sphereColor_;
-
-		// マップマネージャー
-		MapChipManager mapMan_;
-
-		// パーティクルマネージャー
-		//YParticle::ParticleManager particleMan_;
-
-		// 天球
-		//Skydome skydome_;
-
-		// カメラマネージャー
-		YCamera::CameraManager cameraMan_;
 
 		// 転送用ライトグループ
 		std::unique_ptr<YGame::LightGroup> lightGroup_;
 
 		// 転送用ビュープロジェクション
 		YGame::ViewProjection vp_;
-
-		// アタリ判定マネージャー
-		YGame::CollisionManager collMan_;
-
-		// シーンマネージャー
-		//SceneManager sceneMan_;
 
 #pragma endregion
 	public:

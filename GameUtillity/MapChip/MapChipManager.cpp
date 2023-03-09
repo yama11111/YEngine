@@ -1,49 +1,49 @@
 #include "MapChipManager.h"
 #include <cassert>
 
-void MapChipPointer::Collision(MapChipCollider& collider)
-{
-	assert(pMapChip_);
-	pMapChip_->PerfectPixelCollision(collider);
-}
+using YGame::MapChipManager;
 
 void MapChipManager::Load(const LoadStatus& state)
 {
-	maps_.resize(1);
-	maps_[0].Load({ "stage1.csv", state.pModel_, state.tex_, state.pSprite_ });
+	if (mapDatas_.empty() == false)
+	{
+		for (size_t i = 0; i < mapDatas_.size(); i++)
+		{
+			mapDatas_[i].Clear();
+		}
+	}
 
+	mapDatas_.resize(1);
+	mapDatas_[0].Load("demo.csv", state.pModels_, state.pSprites_);
 }
 
 void MapChipManager::Initialize(const InitStatus& state)
 {
-	for (size_t i = 0; i < maps_.size(); i++)
-	{
-		maps_[i].Initialize({state.leftTop_, state.chipSize_});
-	}
-
 	currentIndex_ = state.mapIndex_;
-	current_.SetMapChip(&maps_[state.mapIndex_]);
+	map_.Initialize(&mapDatas_[currentIndex_], state.leftTop_, state.chipSize_);
 }
 
 void MapChipManager::Reset()
 {
-	for (size_t i = 0; i < maps_.size(); i++)
+	for (size_t i = 0; i < mapDatas_.size(); i++)
 	{
-		maps_[i].Reset();
+		mapDatas_[i].CollReset();
 	}
+
+	map_.Reset();
 }
 
 void MapChipManager::Update()
 {
-	maps_[currentIndex_].Update();
+	map_.Update();
 }
 
-void MapChipManager::Draw(const YGame::ViewProjection& vp)
+void MapChipManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex)
 {
-	maps_[currentIndex_].Draw(vp);
+	map_.Draw(vp, pLightGroup, texIndex);
 }
 
 void MapChipManager::Draw2D()
 {
-	maps_[currentIndex_].Draw2D();
+	mapDisp_.Draw();
 }

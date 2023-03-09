@@ -6,12 +6,17 @@
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
-using YGame::ObjectModel;
+using YGame::MapData;
+using YGame::MapChip;
+using YGame::MapChip2DDisplayer;
 
-void MapChipInfo::LoadData(const std::string fileName)
+void MapData::Load(const std::string fileName, const std::vector<Model*>& pModels, const std::vector<Sprite2D*>& pSprites)
 {
-	// vectorクリア
-	chipNums_.clear();
+	assert(pModels.size() > 0);
+	assert(pSprites.size() > 0);
+
+	// クリア
+	Clear();
 
 	FILE* fp = nullptr;
 	errno_t err;
@@ -59,104 +64,120 @@ void MapChipInfo::LoadData(const std::string fileName)
 	// ファイルを閉じる
 	fclose(fp);
 
+	chipColls_.clear();
+	chipColls_.resize(chipNums_.size());
+	for (size_t i = 0; i < chipColls_.size(); i++)
+	{
+		chipColls_[i].resize(chipNums_[i].size());
+	}
+
+	// モデル
+	pModels_ = pModels;
+	// スプライト
+	pSprites_ = pSprites;
+
+	// 読み込み完了
 	isLoaded_ = true;
 }
 
-void MapChip::Load(const LoadStatus& state)
+void MapData::Clear()
 {
-	assert(state.pModel_);
-	assert(state.pSprite_);
-
-	LoadData(state.mapFileName_);
-	pModel_ = state.pModel_;
-	tex_ = state.tex_;
-	pSprite_ = state.pSprite_;
+	chipNums_.clear();
+	chipColls_.clear();
+	pModels_.clear();
+	pSprites_.clear();
 }
 
-void MapChip::Initialize(const InitStatus& state)
+void MapData::CollReset()
 {
-	assert(isLoaded_);
+	for (size_t y = 0; y < chipColls_.size(); y++)
+	{
+		for (size_t x = 0; x < chipColls_[y].size(); x++)
+		{
+			chipColls_[y][x] = false;
+		}
+	}
+}
 
-	leftTop_ = state.leftTop_;
-	chipSize_ = state.chipSize_;
+
+void MapChip::Initialize(MapData* pMapData, const YMath::Vector3& leftTop, const YMath::Vector3& chipScale)
+{
+	assert(pMapData);
+	pMapData_ = pMapData;
+
+	Initialize(leftTop, chipScale);
+}
+void MapChip::Initialize(const YMath::Vector3& leftTop, const YMath::Vector3& chipScale)
+{
+	leftTop_ = leftTop;
+	chipScale_ = chipScale;
 
 	Reset();
 }
-
 void MapChip::Reset()
 {
-	// 3D
-	chips_.clear();
+	assert(pMapData_);
 	
-	for (size_t y = 0; y < chipNums_.size(); y++)
+	// 番号
+	std::vector<std::vector<int>> nums = pMapData_->chipNums_;
+
+	// 全消去 + リサイズ
+	chips_.clear();
+
+	// ひとつずつ設定 + 生成
+	for (size_t y = 0; y < nums.size(); y++)
 	{
-		for (size_t z = 0; z < chipNums_[y].size(); z++)
+		for (size_t x = 0; x < nums[y].size(); x++)
 		{
-			if (chipNums_[y][z] == 1)
+			// 無じゃないなら
+			if (nums[y][x] != 0)
 			{
-				std::unique_ptr<ObjectModel> newChip = std::make_unique<ObjectModel>();
+				std::unique_ptr<Chip> chip = nullptr;
+				chip.reset(new Chip());
 
-				float posZ = +(chipSize_.z_ * 2.0f) * z + chipSize_.z_ + leftTop_.z_;
-				float posY = -(chipSize_.y_ * 2.0f) * y - chipSize_.y_ + leftTop_.y_;
+				// オブジェクト
+				float posX = +(chipScale_.x_ * 2.0f) * x + chipScale_.x_;
+				float posY = -(chipScale_.y_ * 2.0f) * y - chipScale_.y_;
 
-				newChip->Initialize({ {leftTop_.x_,posY,posZ},{},chipSize_ });
-				chips_.push_back(std::move(newChip));
+				chip->obj_.reset(ObjectModel::Create({ {posX,posY,0.0f},{},chipScale_ }));
+				chip->obj_->pos_ += leftTop_;
+				
+				// 色
+				chip->color_.reset(Color::Create());
+				
+				// 番号
+				chip->number_ = nums[y][x];
+
+				// 1番後ろに挿入
+				chips_.push_back(std::move(chip));
 			}
 		}
 	}
-
-	rect_ = Vector2(chipSize_.z_ * chipNums_[0].size(), chipSize_.y_ * chipNums_.size());
-
-	// 2D
-	//chip2Ds_.clear();
-	//chip2Ds_.resize(chipNums_.size());
-	//for (size_t i = 0; i < chip2Ds_.size(); i++)
-	//{
-	//	chip2Ds_[i].resize(chipNums_[i].size());
-	//}
-
-	//float pos2DX = 0.0f, pos2DY = 0.0f, scale2D = 1.0f;
-	//for (size_t y = 0; y < chip2Ds_.size(); y++)
-	//{
-	//	for (size_t x = 0; x < chip2Ds_[y].size(); x++)
-	//	{
-	//		pos2DX = +(scale2D * pSprite_->Size().x_) * x;
-	//		pos2DY = +(scale2D * pSprite_->Size().y_) * y;
-
-	//		Vector4 color = { 0.5f,0.5f,0.5f,1.0f };
-	//		if (chipNums_[y][x] == 0) { color = { 0.5f,0.5f,1.0f,0.5f }; }
-
-	//		chip2Ds_[y][x].Initialize({ {pos2DX,pos2DY,0.0f},{},{scale2D,scale2D,scale2D} }, color);
-	//	}
-	//}
 }
 
 void MapChip::Update()
 {
+	if (pMapData_ == nullptr) { return; }
+	if (pMapData_->isLoaded_ == false) { return; }
+
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		chips_[i]->UpdateMatrix();
+		chips_[i]->obj_->UpdateMatrix();
 	}
-
-	//for (size_t y = 0; y < chip2Ds_.size(); y++)
-	//{
-	//	for (size_t x = 0; x < chip2Ds_[y].size(); x++)
-	//	{
-	//		chip2Ds_[y][x].color_.r_ = 0.5f;
-	//		chip2Ds_[y][x].Update();
-	//	}
-	//}
 }
 
 void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 {
+	if (pMapData_ == nullptr) { return; }
+	if (pMapData_->isLoaded_ == false) { return; }
+
 	Vector3& posRef = collider.PosRef();
 	Vector3 scale = collider.Scale();
 	Vector3& speedRef = collider.SpeedRef();
 
 	// ぶつかっているか
+	bool isCollX = CollisionTemporaryMap(posRef, scale, { speedRef.x_,0,0 }); // x
 	bool isCollY = CollisionTemporaryMap(posRef, scale, { 0,speedRef.y_,0 }); // y
-	bool isCollZ = CollisionTemporaryMap(posRef, scale, { 0,0,speedRef.z_ }); // z
 
 	// 過去地面フラグ設定
 	collider.SetIsElderLanding(collider.IsLanding());
@@ -164,7 +185,7 @@ void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 	collider.SetIsLanding((isCollY && speedRef.y_ <= 0.0f));
 
 	// ぶつかっていないならスキップ
-	if (isCollY == false && isCollZ == false) { return; }
+	if (isCollX == false && isCollY == false) { return; }
 
 	// 近づく移動量
 	YMath::Vector3 approach = speedRef / 100.0f;
@@ -173,50 +194,46 @@ void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 	while (true)
 	{
 		// ぶつかっているか (仮移動)
+		bool isCollTempX = CollisionTemporaryMap(posRef, scale, { approach.x_,0,0 }); // x
 		bool isCollTempY = CollisionTemporaryMap(posRef, scale, { 0,approach.y_,0 }); // y
-		bool isCollTempZ = CollisionTemporaryMap(posRef, scale, { 0,0,approach.z_ }); // z
 
 		// ぶつかっているならループ抜ける
-		if (isCollTempY || isCollTempZ) { break; }
+		if (isCollTempX || isCollTempY) { break; }
 
 		// 少しづつ近づける
+		if (isCollX) { posRef.x_ += approach.x_; }
 		if (isCollY) { posRef.y_ += approach.y_; }
-		if (isCollZ) { posRef.z_ += approach.z_; }
 	}
 
 	// 速度リセット
+	if (isCollX) { speedRef.x_ = 0.0f; }
 	if (isCollY) { speedRef.y_ = 0.0f; }
-	if (isCollZ) { speedRef.z_ = 0.0f; }
 }
-
 bool MapChip::CollisionTemporaryMap(const Vector3& pos, const Vector3 scale, const Vector3& spd)
 {
 	// 仮移動座標
 	Vector3 temporary = pos + spd - leftTop_;
 
-	float left   = +(temporary.z_ - scale.z_); // 左
-	float right  = +(temporary.z_ + scale.z_); // 右
+	float left   = +(temporary.x_ - scale.x_); // 左
+	float right  = +(temporary.x_ + scale.x_); // 右
 	float top    = -(temporary.y_ + scale.y_); // 上
 	float bottom = -(temporary.y_ - scale.y_); // 下
 
 	return CollisionMap(left, right, top, bottom);
 }
-
 bool MapChip::CollisionMap(const float left, const float right, const float top, const float bottom)
 {
-	if (chipNums_.empty()) { return false; }
-
 	// 上下左右のマップチップでの位置
-	int leftNum   = static_cast<int>(left   / (chipSize_.z_ * 2.0f)); // 左
-	int rightNum  = static_cast<int>(right  / (chipSize_.z_ * 2.0f)); // 右
-	int topNum    = static_cast<int>(top    / (chipSize_.y_ * 2.0f)); // 上
-	int bottomNum = static_cast<int>(bottom / (chipSize_.y_ * 2.0f)); // 下
+	int leftNum   = static_cast<int>(left   / (chipScale_.x_ * 2.0f)); // 左
+	int rightNum  = static_cast<int>(right  / (chipScale_.x_ * 2.0f)); // 右
+	int topNum    = static_cast<int>(top    / (chipScale_.y_ * 2.0f)); // 上
+	int bottomNum = static_cast<int>(bottom / (chipScale_.y_ * 2.0f)); // 下
 
 	// 上下左右範囲内にいるか
-	bool L = (0 <= leftNum   && leftNum   < chipNums_[0].size()); // 左
-	bool R = (0 <= rightNum  && rightNum  < chipNums_[0].size()); // 右
-	bool T = (0 <= topNum    && topNum    < chipNums_.size());    // 上
-	bool B = (0 <= bottomNum && bottomNum < chipNums_.size());    // 下
+	bool L = (0 <= leftNum   && leftNum   < pMapData_->chipNums_[0].size()); // 左
+	bool R = (0 <= rightNum  && rightNum  < pMapData_->chipNums_[0].size()); // 右
+	bool T = (0 <= topNum    && topNum    < pMapData_->chipNums_.size());    // 上
+	bool B = (0 <= bottomNum && bottomNum < pMapData_->chipNums_.size());    // 下
 
 	// 当たっているか
 	bool isCollTL = false, isCollTR = false, isCollBL = false, isCollBR = false;
@@ -227,31 +244,97 @@ bool MapChip::CollisionMap(const float left, const float right, const float top,
 
 	return (isCollTL || isCollTR || isCollBL || isCollBR);
 }
-
 bool MapChip::CollisionChip(const int x, const int y)
 {
-	// 色替え
-	/*chip2Ds_[y][x].color_.r_ = 1.0f;*/
+	// アタリ
+	if (pMapData_->chipNums_[y][x] == 1)
+	{
+		pMapData_->chipColls_[y][x] = true;
+		return true; 
+	}
 
-	if (chipNums_[y][x] == 1) { return true; }
+	// ハズレ
+	pMapData_->chipColls_[y][x] = false;
 	return false;
 }
 
-void MapChip::Draw(const YGame::ViewProjection& vp)
+void MapChip::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex)
 {
+	if (pMapData_ == nullptr) { return; }
+	if (pMapData_->isLoaded_ == false) { return; }
+
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		//pModel_->Draw(*chips_[i], vp, tex_);
+		int idx = chips_[i]->number_ - 1;
+		pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get(), vp, pLightGroup, chips_[i]->color_.get(), texIndex);
 	}
 }
 
-void MapChip::Draw2D()
+YMath::Vector2 MapChip::Size()
 {
-	//for (size_t y = 0; y < chip2Ds_.size(); y++)
-	//{
-	//	for (size_t x = 0; x < chip2Ds_[y].size(); x++)
-	//	{
-	//		pSprite_->Draw(chip2Ds_[y][x]);
-	//	}
-	//}
+	return Vector2(
+		chipScale_.x_ * pMapData_->chipNums_[0].size(), 
+		chipScale_.y_ * pMapData_->chipNums_.size()
+	);
+}
+
+
+void MapChip2DDisplayer::Initialize(MapData* pMapData)
+{
+	assert(pMapData);
+	pMapData_ = pMapData;
+
+	std::vector<std::vector<int>> nums = pMapData_->chipNums_;
+
+	// ----- オブジェクト + 色----- //
+	// 全消去 + リサイズ
+	chips_.clear();
+	chips_.resize(nums.size());
+
+	// ひとつずつ設定 + 生成
+	float posX = 0.0f, posY = 0.0f, scale = 1.0f;
+	for (size_t y = 0; y < nums.size(); y++)
+	{
+		for (size_t x = 0; x < nums[y].size(); x++)
+		{
+			std::unique_ptr<Chip> chip = nullptr;
+			chip.reset(new Chip());
+
+			// オブジェクト
+			posX = +(scale * pMapData_->pSprites_[nums[y][x]]->Size().x_) * x;
+			posY = +(scale * pMapData_->pSprites_[nums[y][x]]->Size().y_) * y;
+
+			chip->obj_.reset(ObjectSprite2D::Create({ {posX,posY,0.0f},{},{scale,scale,1.0f} }));
+
+			// 色
+			chip->color_.reset(Color::Create());
+
+			// 1番後ろに挿入
+			chips_[y].push_back(std::move(chip));
+		}
+	}
+}
+
+void MapChip2DDisplayer::Update()
+{
+	for (size_t y = 0; y < chips_.size(); y++)
+	{
+		for (size_t x = 0; x < chips_[y].size(); x++)
+		{
+			//chips_[y][x]->color_->SetRGBA({ 1.0f,1.0f,1.0f,1.0f });
+			chips_[y][x]->obj_->UpdateMatrix();
+		}
+	}
+}
+
+void MapChip2DDisplayer::Draw()
+{
+	for (size_t y = 0; y < chips_.size(); y++)
+	{
+		for (size_t x = 0; x < chips_[y].size(); x++)
+		{
+			int idx = pMapData_->chipNums_[y][x] - 1;
+			pMapData_->pSprites_[idx]->Draw(chips_[y][x]->obj_.get(), chips_[y][x]->color_.get());
+		}
+	}
 }

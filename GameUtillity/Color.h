@@ -26,6 +26,8 @@ namespace YGame
 		// 描画前コマンド
 		void SetDrawCommand(const UINT rootParamIndex);
 	public:
+		// RGBA取得
+		YMath::Vector4 GetRGBA() const { return color_; }
 		// 色設定 (0.0f ～ 1.0f)
 		void SetRGBA(const YMath::Vector4& color);
 		// 色設定 (0 ～ 255)

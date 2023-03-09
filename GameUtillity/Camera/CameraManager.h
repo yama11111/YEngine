@@ -6,16 +6,18 @@
 #include "Mouse.h"
 #include "Pad.h"
 
-namespace YCamera
+namespace YGame
 {
 	class CameraManager
 	{
 	private:
 		// カメラ
 		Camera camera_;
+		// 追従点
+		YMath::Vector3* pFollowPoint_ = nullptr;
 	public:
 		// 初期化
-		void Initialize();
+		void Initialize(YMath::Vector3* pFollowPoint);
 		// 更新
 		void Update();
 	public:

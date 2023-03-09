@@ -55,7 +55,7 @@ void LightGroup::Initialize(const YMath::Vector3& ambientColor)
 	for (size_t i = 0; i < PointLightNum_; i++)
 	{
 		pointLights_[i].Initialize(DefaultPos1[i]);
-		//pointLights_[i].SetActive(true);
+		pointLights_[i].SetActive(true);
 	}
 	// ----- スポットライト光源 ----- //
 	for (size_t i = 0; i < SpotLightNum_; i++)

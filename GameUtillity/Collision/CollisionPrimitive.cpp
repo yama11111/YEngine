@@ -2,23 +2,27 @@
 #include "CollisionDetection.h"
 
 using YMath::Vector3;
+using YGame::Ray;
+using YGame::Plane;
+using YGame::Triangle;
+using YGame::Sphere;
 
-void YGame::Plane::SafeSetNormal(const YMath::Vector3& normal)
+void Plane::SafeSetNormal(const YMath::Vector3& normal)
 {
 	normal_ = normal.Normalized();
 }
 
-void YGame::Ray::SafeSetDirection(const YMath::Vector3& direction)
+void Ray::SafeSetDirection(const YMath::Vector3& direction)
 {
 	direction_ = direction.Normalized();
 }
 
-void YGame::Triangle::SafeSetNormal(const YMath::Vector3& normal)
+void Triangle::SafeSetNormal(const YMath::Vector3& normal)
 {
 	normal_ = normal.Normalized();
 }
 
-void YGame::Triangle::CalcNormal()
+void Triangle::CalcNormal()
 {
 	Vector3 p0_p1 = p1_ - p0_;
 	Vector3 p0_p2 = p2_ = p0_;
@@ -27,7 +31,7 @@ void YGame::Triangle::CalcNormal()
 	SafeSetNormal(p0_p1.Cross(p0_p2));
 }
 
-void YGame::Sphere::SafeSetRadius(const float rad)
+void Sphere::SafeSetRadius(const float rad)
 {
 	radius_ = rad >= 0 ? rad : -rad;
 }
@@ -55,4 +59,9 @@ bool YGame::CollisionPlaneSphere(const Plane& plane, const Sphere& sphere)
 bool YGame::CollisionTriangleSphere(const Triangle& triangle, const Sphere& sphere)
 {
 	return YMath::CollisionTriangleSphere(triangle.p0_, triangle.p1_, triangle.p2_, triangle.normal_, sphere.center_, sphere.radius_);
+}
+
+bool YGame::CollisionSphereSphere(const Sphere& sphere1, const Sphere& sphere2)
+{
+	return YMath::CollisionSphereSphere(sphere1.center_, sphere1.radius_, sphere2.center_, sphere2.radius_);
 }

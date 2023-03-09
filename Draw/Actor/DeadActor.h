@@ -1,6 +1,6 @@
 #pragma once
 
-namespace YActor
+namespace YGame
 {
 	class DeadActor
 	{

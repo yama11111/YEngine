@@ -17,7 +17,7 @@ bool MyGame::Initialize()
 	if (YFramework::Initialize() == false) { return false; }
 
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
-	sceneMan_->Change("PLAY");
+	sceneMan_->Change("DEMO");
 
 	return true;
 }

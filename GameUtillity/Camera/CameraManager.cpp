@@ -2,7 +2,7 @@
 #include "CalcTransform.h"
 #include <cassert>
 
-using YCamera::CameraManager;
+using YGame::CameraManager;
 using YMath::Vector3;
 
 YInput::Keys* CameraManager::keys_ = nullptr;
@@ -16,16 +16,16 @@ void CameraManager::StaticInitialize()
 	pad_ = YInput::Pad::GetInstance();
 }
 
-void CameraManager::Initialize()
+void CameraManager::Initialize(YMath::Vector3* pFollowPoint)
 {
-	//camera_.Initialize({ {200.0f, -20.0f, 115.0f}, {0.0f, -PI / 2.0f, 0.0f} });
-	//camera_.Initialize({ {}, { PI / 16.0f, -PI / 3.0f, 0.0f } });
-	//camera_.Initialize({ {{0.0f,+20.0f,-100.0f}} });
+	pFollowPoint_ = pFollowPoint;
+	camera_.Initialize({ {}, pFollowPoint, true });
 	Update();
 }
 
 void CameraManager::Update()
 {
+	camera_.pos_ = *pFollowPoint_ + Vector3(0.0f, 0.0f, -300.0f);
 	camera_.Update();
 }
 

@@ -2,12 +2,22 @@
 
 using YGame::Sprite2DCommon;
 using YGame::Sprite2D;
+using YGame::ObjectSprite2D;
 using YMath::Vector2;
 using YMath::Matrix4;
 
 const UINT SprIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::SpriteCB);
 const UINT ColIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ColorCB);
 const UINT TexIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::TexDT);
+
+ObjectSprite2D* ObjectSprite2D::Create(const Status& state)
+{
+	ObjectSprite2D* instance = new ObjectSprite2D();
+	instance->cBuff_.Create();
+	instance->Initialize(state);
+
+	return instance;
+}
 
 void Sprite2D::Draw(ObjectSprite2D* obj, Color* color, const UINT tex)
 {

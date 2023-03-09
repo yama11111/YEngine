@@ -2,7 +2,7 @@
 //#include "Shake.h"
 //#include "Vector4.h"
 //
-//namespace YActor
+//namespace YGame
 //{
 //	class ChargeActor
 //	{

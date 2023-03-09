@@ -3,7 +3,7 @@
 #include <array>
 #include <memory>
 
-namespace YDrawer
+namespace YGame
 {
 	class PlayerDrawerCommon
 	{

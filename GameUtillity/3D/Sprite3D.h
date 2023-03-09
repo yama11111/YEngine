@@ -1,15 +1,28 @@
 #pragma once
 #include "Sprite3DCommon.h"
 #include "Vertices.h"
-#include "Object.h"
+#include "BaseObject.h"
 #include "ViewProjection.h"
 #include "Color.h"
 
 namespace YGame
 {
-	// モデル用オブジェクト
-	using ObjectSprite3D = Object<Sprite3DCommon::CBData>;
+	// スプライト3D用オブジェクト
+	class ObjectSprite3D : public BaseObject
+	{
+	public:
+		// 定数バッファ
+		YDX::ConstBuffer<Sprite3DCommon::CBData> cBuff_;
+	public:
+		// 生成
+		static ObjectSprite3D* Create(const Status& state);
+	private:
+		ObjectSprite3D() = default;
+	public:
+		~ObjectSprite3D() override = default;
+	};
 
+	// スプライト3Dクラス
 	class Sprite3D : private Sprite3DCommon
 	{
 	private:

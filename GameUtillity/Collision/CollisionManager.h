@@ -1,5 +1,5 @@
 #pragma once
-#include "Collider.h"
+#include "BaseCollider.h"
 #include <list>
 
 namespace YGame
@@ -8,7 +8,7 @@ namespace YGame
 	{
 	private:
 		// コライダー格納リスト
-		std::list<Collider*> pColliders_;
+		std::list<BaseCollider*> pColliders_;
 	public:
 		// 初期化
 		void Initialize();
@@ -16,14 +16,14 @@ namespace YGame
 		void Update();
 	public:
 		// 格納
-		void PushBack(Collider* pCollider);
+		void PushBack(BaseCollider* pCollider);
 		// リストクリア
 		void Clear();
 	private:
-		// 全コライダー確認
-		void CheckAllColliders();
+		// 全コリジョン確認
+		void CheckAllCollision();
 	private:
 		// アタリ判定(球)
-		static void CheckCollisionPair(Collider* pColliderA, Collider* pColliderB);
+		static void CheckCollisionPair(BaseCollider* pColliderA, BaseCollider* pColliderB);
 	};
 }
