@@ -12,6 +12,6 @@ namespace YGame
 	public:
 		void Initialize(const BaseObject::Status state, YGame::Model* model);
 		void Update();
-		void Draw(YGame::ViewProjection& vp, YGame::LightGroup* lightGroup);
+		void Draw(YGame::ViewProjection& vp, YGame::LightGroup* lightGroup, YGame::Color* color);
 	};
 }

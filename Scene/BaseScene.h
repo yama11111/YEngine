@@ -4,6 +4,7 @@
 #include "Sprite3D.h"
 #include "Model.h"
 #include "AudioManager.h"
+#include "WorldRuler.h"
 #include <memory>
 
 namespace YScene
@@ -28,18 +29,24 @@ namespace YScene
 		virtual ~BaseScene() = default;
 	protected:
 		// キー(シングルトン)
-		static YInput::Keys* keys_;
+		static YInput::Keys* sKeys_;
 		// マウス(シングルトン)
-		static YInput::Mouse* mouse_;
+		static YInput::Mouse* sMouse_;
 		// パッド(シングルトン)
-		static YInput::Pad* pad_;
+		static YInput::Pad* sPad_;
 	protected:
 		// 静的テクスチャマネージャーポインタ
-		static YGame::TextureManager* pTexManager_;
+		static YGame::TextureManager* spTexManager_;
 		// 静的オーディオマネージャーポインタ
-		static YGame::AudioManager* pAudioManager_;
+		static YGame::AudioManager* spAudioManager_;
+		// 静的ゲームルールポインタ
+		static YGame::WorldRuler* spWorldRuler_;
 	public:
 		// 静的初期化
-		static void StaticInitialize(YGame::TextureManager* pTexManager, YGame::AudioManager* pAudioManager);
+		static void StaticInitialize(
+			YGame::TextureManager* pTexManager, 
+			YGame::AudioManager* pAudioManager, 
+			YGame::WorldRuler* pWorldRuler
+		);
 	};
 }

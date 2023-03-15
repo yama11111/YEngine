@@ -25,7 +25,7 @@ void CameraManager::Initialize(YMath::Vector3* pFollowPoint)
 
 void CameraManager::Update()
 {
-	camera_.pos_ = *pFollowPoint_ + Vector3(0.0f, 0.0f, -300.0f);
+	camera_.pos_ = *pFollowPoint_ + Vector3(0.0f, 0.0f, -250.0f);
 	camera_.Update();
 }
 

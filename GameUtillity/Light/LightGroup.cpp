@@ -63,6 +63,7 @@ void LightGroup::Initialize(const YMath::Vector3& ambientColor)
 		spotLights_[i].Initialize(DefaultPos2[i]);
 		//spotLights_[i].SetActive(true);
 	}
+	ratio_ = 1.0f;
 }
 
 void LightGroup::SetDrawCommand(const UINT rootParamIndex)

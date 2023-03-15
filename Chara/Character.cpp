@@ -1,12 +1,12 @@
 #include "Character.h"
 #include "CharaConfig.h"
 #include "MapChip.h"
+#include "MathUtillity.h"
 #include <cassert>
 
 using YMath::Vector3;
 using YGame::SlimeActor;
 using YGame::MapChip;
-using CharaConfig::GravityPower;
 
 MapChip* Character::pMapChip_ = nullptr;
 YGame::ParticleManager* Character::pParticleMan_ = nullptr;
@@ -20,10 +20,13 @@ void Character::StaticInitialize(const StaticInitStatus& state)
 	pParticleMan_ = state.pParticleMan_;
 }
 
-void Character::Initialize(const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState, const YMath::Vector4& color)
+void Character::Initialize(
+	const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState, 
+	const YMath::Vector3& acceleration, const YMath::Vector3& max, 
+	const YMath::Vector4& color)
 {
 	obj_.reset(YGame::ObjectModel::Create(objState));
-	speed_ = {};
+	speed_.Initialize(acceleration, max);
 	direction_ = { +1.0f,0.0f,0.0f };
 	color_.reset(YGame::Color::Create(color));
 
@@ -33,14 +36,19 @@ void Character::Initialize(const CharaStatus::InitStatus& charaState, const YGam
 
 void Character::UpdatePhysics()
 {
-	// 重力加算
-	speed_.y_ -= GravityPower;
+	// 範囲制限
+	move_.x_ = YMath::Clamp(move_.x_, -1.0f, 1.0f);
+	move_.y_ = YMath::Clamp(move_.y_, -1.0f, 1.0f);
+	move_.z_ = YMath::Clamp(move_.z_, -1.0f, 1.0f);
+
+	// スピード加算
+	speed_.Update(move_);
 
 	// マップチップとのアタリ判定
 	pMapChip_->PerfectPixelCollision(*this);
 
 	// スピード加算
-	obj_->pos_ += speed_;
+	obj_->pos_ += speed_.Value();
 
 	// 着地した瞬間
 	if (IsElderLanding() == false && IsLanding())
@@ -59,12 +67,17 @@ void Character::UpdatePhysics()
 			}
 		);
 	}
+
+	// 移動方向初期化
+	move_.x_ = 0.0f;
+	move_.y_ = 0.0f;
+	move_.z_ = 0.0f;
 }
 
-void Character::Jump(const float jumpSpeed)
+void Character::Jump()
 {
-	// 上昇加算
-	speed_.y_ = jumpSpeed;
+	// 上昇
+	move_.y_ = 1.0f;
 
 	Vector3 val = obj_->scale_ * CharaConfig::SlimeAct::ElasticityValue;
 	val.y_ *= -1.0f;

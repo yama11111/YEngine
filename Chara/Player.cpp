@@ -8,7 +8,6 @@
 #pragma region –¼‘O‹óŠÔ
 using YMath::Vector3;
 using YGame::BaseObject;
-using CharaConfig::GravityPower;
 using namespace CharaConfig::Player;
 #pragma endregion
 
@@ -34,8 +33,8 @@ void Player::Initialize(const YGame::BaseObject::Status& state)
 void Player::Reset(const YGame::BaseObject::Status& state)
 {
 	Character::Initialize(
-		{ HP, CheatTime },
-		state
+		{ HP, CheatTime }, state,
+		{ 0.5f,RisePower,0.0f }, { 3.0f,RisePower,0.0f }
 	);
 	MapChipCollider::Initialize({ obj_->scale_ });
 
@@ -44,15 +43,15 @@ void Player::Reset(const YGame::BaseObject::Status& state)
 
 void Player::UpdateMove()
 {
-	speed_.x_ = 3.0f * keys_->Horizontal();
+	move_.x_ = static_cast<float>(keys_->Horizontal());
 
-	if (speed_.x_ > 0)
+	if (move_.x_ > 0)
 	{
-		direction_.x_ = 1.0f;
+		direction_ = { +1.0f,0.0f,0.0f };
 	}
-	else if (speed_.x_ < 0)
+	else if (move_.x_ < 0)
 	{
-		direction_.x_ = -1.0f;
+		direction_ = { -1.0f,0.0f,0.0f };
 	}
 }
 
@@ -61,13 +60,27 @@ void Player::Jump()
 	if (++jumpCount_ > MaxJumpCount) { return; }
 	jumpCount_ = min(jumpCount_, MaxJumpCount);
 
-	Character::Jump(RisePower);
+	Character::Jump();
 }
 
 void Player::Update()
 {
+	if (keys_->IsTrigger(DIK_SPACE))
+	{
+		if (isChanged_)
+		{
+			//YGame::WorldRuler::GetInstance()->SetTimeSpeed(1.0f);
+			isChanged_ = false;
+		}
+		else
+		{
+			//YGame::WorldRuler::GetInstance()->SetTimeSpeed(0.0f);
+			isChanged_ = true;
+		}
+	}
+
 	UpdateMove();
-	if (keys_->IsTrigger(DIK_SPACE)) { Jump(); }
+	if (keys_->IsTrigger(DIK_W)) { Jump(); }
 	UpdatePhysics();
 
 	if (IsLanding())
@@ -86,9 +99,11 @@ void Player::Update()
 	);
 }
 
-void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
+//void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
+void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup, YGame::Color* color)
 {
-	pModel_->Draw(obj_.get(), vp, lightGroup, color_.get(), tex_);
+	//pModel_->Draw(obj_.get(), vp, lightGroup, color_.get());
+	pModel_->Draw(obj_.get(), vp, lightGroup, color);
 }
 
 void Player::Draw2D()

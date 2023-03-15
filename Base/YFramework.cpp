@@ -30,6 +30,9 @@ bool YFramework::Initialize()
 	// 乱数初期化
 	Srand();
 
+	// ゲームルール初期化
+	worldRuler_.Initailze();
+	WorldRuleAdopter::StaticInitialize(&worldRuler_);
 #pragma endregion
 
 #pragma region Pipeline
@@ -80,7 +83,7 @@ bool YFramework::Initialize()
 	audioMan_.Initialize();
 
 	// シーン初期化
-	BaseScene::StaticInitialize(&texMan_, &audioMan_);
+	BaseScene::StaticInitialize(&texMan_, &audioMan_, &worldRuler_);
 	sceneMan_ = SceneManager::GetInstance();
 
 #pragma endregion
@@ -109,6 +112,9 @@ void YFramework::Update()
 
 	// imgui受付開始
 	imguiCon_.Begin();
+
+	// ゲームルール更新処理
+	worldRuler_.Update();
 
 	// シーン更新処理
 	sceneMan_->Update();

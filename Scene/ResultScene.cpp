@@ -16,7 +16,7 @@ void ResultScene::Load()
 {
 	// ----- テクスチャ ----- //
 
-	plainTex_ = pTexManager_->Load("white1x1.png", false);
+	plainTex_ = spTexManager_->Load("white1x1.png", false);
 
 	// ----- オーディオ ----- //
 
@@ -61,19 +61,19 @@ void ResultScene::Finalize()
 void ResultScene::Update()
 {
 	// ホットリロード
-	if (keys_->IsTrigger(DIK_L))
+	if (sKeys_->IsTrigger(DIK_L))
 	{
 
 	}
 
 	// リセット
-	if (keys_->IsTrigger(DIK_R))
+	if (sKeys_->IsTrigger(DIK_R))
 	{
 
 	}
 
 	// 次のシーンへ
-	if (keys_->IsTrigger(DIK_0))
+	if (sKeys_->IsTrigger(DIK_0))
 	{
 		SceneManager::GetInstance()->Change("TITLE");
 	}

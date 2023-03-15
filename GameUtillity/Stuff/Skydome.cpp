@@ -16,7 +16,7 @@ void Skydome::Update()
 	obj_->UpdateMatrix();
 }
 
-void Skydome::Draw(YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
+void Skydome::Draw(YGame::ViewProjection& vp, YGame::LightGroup* lightGroup, YGame::Color* color)
 {
-	pModel_->Draw(obj_.get(), vp, lightGroup);
+	pModel_->Draw(obj_.get(), vp, lightGroup, color);
 }

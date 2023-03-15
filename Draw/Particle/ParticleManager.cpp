@@ -17,6 +17,7 @@ void ParticleManager::StaticInitialize(YGame::Model* pModel)
 
 void ParticleManager::Initialize()
 {
+	// パーティクル全削除
 	if (particles_.empty() == false)
 	{
 		particles_.clear();
@@ -25,7 +26,10 @@ void ParticleManager::Initialize()
 
 void ParticleManager::Update()
 {
+	// パーティクル死んだら削除
 	particles_.remove_if([](std::unique_ptr<IParticle>& particle) { return particle->isAlive_ == false; });
+
+	// パーティクル毎更新
 	for (std::unique_ptr<IParticle>& particle : particles_)
 	{
 		particle->Update();
@@ -34,6 +38,7 @@ void ParticleManager::Update()
 
 void ParticleManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup)
 {
+	// パーティクル描画
 	for (std::unique_ptr<IParticle>& particle : particles_)
 	{
 		particle->Draw(vp, pLightGroup);

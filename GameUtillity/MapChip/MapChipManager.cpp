@@ -38,9 +38,9 @@ void MapChipManager::Update()
 	map_.Update();
 }
 
-void MapChipManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex)
+void MapChipManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color)
 {
-	map_.Draw(vp, pLightGroup, texIndex);
+	map_.Draw(vp, pLightGroup, texIndex, color);
 }
 
 void MapChipManager::Draw2D()

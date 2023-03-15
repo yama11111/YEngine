@@ -1,5 +1,6 @@
 #pragma once
 #include "CharaStatus.h"
+#include "Speed.h"
 #include "MapChipCollider.h"
 #include "SlimeActor.h"
 #include "ParticleManager.h"
@@ -17,21 +18,25 @@ class Character :
 protected:
 	// オブジェクト
 	std::unique_ptr<YGame::ObjectModel> obj_;
+	// 移動方向
+	YMath::Vector3 move_;
 	// スピード
-	YMath::Vector3 speed_;
+	YMath::Speed speed_;
 	// 向き
 	YMath::Vector3 direction_;
 	// 色
 	std::unique_ptr<YGame::Color> color_;
 public:
 	// 初期化
-	void Initialize(const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState,
+	void Initialize(
+		const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState,
+		const YMath::Vector3& acceleration, const YMath::Vector3& max, 
 		const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
 protected:
 	// 重力 + マップチップアタリ判定 + アニメーション
 	void UpdatePhysics();
 	// ジャンプ + アニメーション
-	void Jump(const float jumpSpeed);
+	void Jump();
 	// 更新
 	void Update();
 public:
@@ -43,7 +48,7 @@ public:
 	// 位置取得 (参照渡し)
 	YMath::Vector3& PosRef() override { return obj_->pos_; }
 	// スピード (参照渡し)
-	YMath::Vector3& SpeedRef() override { return speed_; }
+	YMath::Vector3& SpeedRef() override { return speed_.ValueRef(); }
 protected:
 	// 静的マップチップポインタ
 	static YGame::MapChip* pMapChip_;

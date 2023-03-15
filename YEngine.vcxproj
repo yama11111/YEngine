@@ -128,6 +128,7 @@
     <ClCompile Include="Draw\UI\CountUIDrawer.cpp" />
     <ClCompile Include="Draw\UI\HPUIDrawer.cpp" />
     <ClCompile Include="Draw\UI\PushUIDrawer.cpp" />
+    <ClCompile Include="Filter.cpp" />
     <ClCompile Include="GameUtillity\2D\Sprite2D.cpp" />
     <ClCompile Include="GameUtillity\2D\Sprite2DCommon.cpp" />
     <ClCompile Include="GameUtillity\2D\TextureManager.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="GameUtillity\Stuff\Floor.cpp" />
     <ClCompile Include="GameUtillity\Stuff\Skydome.cpp" />
     <ClCompile Include="GameUtillity\ViewProjection.cpp" />
+    <ClCompile Include="GameUtillity\WorldRuler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Scene\BaseScene.cpp" />
@@ -178,6 +180,7 @@
     <ClCompile Include="Utillity\Math\MathUtillity.cpp" />
     <ClCompile Include="Utillity\Math\Power.cpp" />
     <ClCompile Include="Utillity\Math\Shake.cpp" />
+    <ClCompile Include="Utillity\Math\Speed.cpp" />
     <ClCompile Include="Utillity\Math\Timer.cpp" />
     <ClCompile Include="Utillity\Math\Vector2.cpp" />
     <ClCompile Include="Utillity\Math\Vector3.cpp" />
@@ -218,6 +221,7 @@
     <ClInclude Include="Draw\UI\CountUIDrawer.h" />
     <ClInclude Include="Draw\UI\HPUIDrawer.h" />
     <ClInclude Include="Draw\UI\PushUIDrawer.h" />
+    <ClInclude Include="Filter.h" />
     <ClInclude Include="GameUtillity\2D\Sprite2D.h" />
     <ClInclude Include="GameUtillity\2D\Sprite2DCommon.h" />
     <ClInclude Include="GameUtillity\2D\TextureManager.h" />
@@ -245,6 +249,7 @@
     <ClInclude Include="GameUtillity\Stuff\Floor.h" />
     <ClInclude Include="GameUtillity\Stuff\Skydome.h" />
     <ClInclude Include="GameUtillity\ViewProjection.h" />
+    <ClInclude Include="GameUtillity\WorldRuler.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="Scene\CollScene.h" />
     <ClInclude Include="Scene\DemoScene.h" />
@@ -269,6 +274,7 @@
     <ClInclude Include="Utillity\Math\MathUtillity.h" />
     <ClInclude Include="Utillity\Math\Power.h" />
     <ClInclude Include="Utillity\Math\Shake.h" />
+    <ClInclude Include="Utillity\Math\Speed.h" />
     <ClInclude Include="Utillity\Math\Timer.h" />
     <ClInclude Include="Utillity\Math\Vector2.h" />
     <ClInclude Include="Utillity\Math\Vector3.h" />

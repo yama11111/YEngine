@@ -25,6 +25,8 @@ namespace YBase
 		YGame::TextureManager texMan_;
 		// audioマネージャー
 		YGame::AudioManager audioMan_;
+		// ゲームルール
+		YGame::WorldRuler worldRuler_;
 		// imguiマネージャー
 		ImGuiContoroller imguiCon_;
 		// シーンマネージャー

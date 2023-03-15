@@ -258,15 +258,17 @@ bool MapChip::CollisionChip(const int x, const int y)
 	return false;
 }
 
-void MapChip::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex)
+//void MapChip::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex)
+void MapChip::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color)
 {
 	if (pMapData_ == nullptr) { return; }
 	if (pMapData_->isLoaded_ == false) { return; }
 
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
-		int idx = chips_[i]->number_ - 1;
-		pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get(), vp, pLightGroup, chips_[i]->color_.get(), texIndex);
+		size_t idx = chips_[i]->number_ - 1;
+		//pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get(), vp, pLightGroup, chips_[i]->color_.get(), texIndex);
+		pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get(), vp, pLightGroup, color, texIndex);
 	}
 }
 

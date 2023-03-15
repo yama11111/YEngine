@@ -39,6 +39,7 @@ namespace YGame
 		// スポットライト光源
 		std::array<SpotLight, SpotLightNum_> spotLights_;
 	public:
+		float ratio_ = 0.0f;
 		// 生成
 		static LightGroup* Create();
 	public:

@@ -9,27 +9,37 @@ using YInput::Mouse;
 using YInput::Pad;
 using YGame::TextureManager;
 using YGame::AudioManager;
+using YGame::WorldRuler;
 
 #pragma endregion 
 
 #pragma region Static関連
 
-Keys* BaseScene::keys_ = nullptr;
-Mouse* BaseScene::mouse_ = nullptr;
-Pad* BaseScene::pad_ = nullptr;
-TextureManager* BaseScene::pTexManager_ = nullptr;
-AudioManager* BaseScene::pAudioManager_ = nullptr;
+Keys* BaseScene::sKeys_ = nullptr;
+Mouse* BaseScene::sMouse_ = nullptr;
+Pad* BaseScene::sPad_ = nullptr;
+WorldRuler* BaseScene::spWorldRuler_ = nullptr;
+TextureManager* BaseScene::spTexManager_ = nullptr;
+AudioManager* BaseScene::spAudioManager_ = nullptr;
 
-void BaseScene::StaticInitialize(TextureManager* pTexManager, AudioManager* pAudioManager)
+void BaseScene::StaticInitialize(
+	YGame::TextureManager* pTexManager,
+	YGame::AudioManager* pAudioManager,
+	YGame::WorldRuler* pWorldRuler)
 {
+	// nullチェック
 	assert(pTexManager);
 	assert(pAudioManager);
-	pTexManager_ = pTexManager;
-	pAudioManager_ = pAudioManager;
 
-	keys_ = Keys::GetInstance();
-	mouse_ = Mouse::GetInstance();
-	pad_ = Pad::GetInstance();
+	// シングルトン初期化
+	sKeys_ = Keys::GetInstance();
+	sMouse_ = Mouse::GetInstance();
+	sPad_ = Pad::GetInstance();
+
+	// ポインタ代入
+	spTexManager_ = pTexManager;
+	spAudioManager_ = pAudioManager;
+	spWorldRuler_ = pWorldRuler;
 }
 
 #pragma endregion 

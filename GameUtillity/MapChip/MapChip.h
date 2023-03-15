@@ -41,7 +41,7 @@ namespace YGame
 		{
 			std::unique_ptr<ObjectModel> obj_; // オブジェクト
 			std::unique_ptr<Color> color_; // 色
-			size_t number_; // 番号
+			size_t number_ = UINT32_MAX; // 番号
 		};
 	private:
 		// マップチップ
@@ -64,7 +64,7 @@ namespace YGame
 		// 更新
 		void Update();
 		// 描画
-		void Draw(const ViewProjection& vp, LightGroup* pLightGroup, const UINT texIndex);
+		void Draw(const ViewProjection& vp, LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color);
 	public:
 		// 衝突時処理
 		void PerfectPixelCollision(MapChipCollider& collider);

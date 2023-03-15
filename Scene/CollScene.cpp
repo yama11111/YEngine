@@ -22,7 +22,7 @@ void CollScene::Load()
 {
 	// ----- テクスチャ ----- //
 
-	plainTex_ = pTexManager_->Load("white1x1.png", false);
+	plainTex_ = spTexManager_->Load("white1x1.png", false);
 
 	// ----- オーディオ ----- //
 
@@ -114,22 +114,22 @@ void CollScene::Finalize()
 void CollScene::Update()
 {
 	// リセット
-	if (keys_->IsTrigger(DIK_R))
+	if (sKeys_->IsTrigger(DIK_R))
 	{
 		collMan_.Initialize();
 	}
 
 	// 次のシーンへ
-	if (keys_->IsTrigger(DIK_0))
+	if (sKeys_->IsTrigger(DIK_0))
 	{
 		SceneManager::GetInstance()->Change("RESULT");
 	}
 
 	triangleObj_->UpdateMatrix();
 
-	ray_.start_.x_ += 0.1f * keys_->Horizontal(Keys::MoveStandard::WASD);
-	ray_.start_.y_ += 0.1f * keys_->Vertical(Keys::MoveStandard::WASD);
-	ray_.start_.z_ += 0.1f * keys_->Vertical(Keys::MoveStandard::Arrow);
+	ray_.start_.x_ += 0.1f * sKeys_->Horizontal(Keys::MoveStandard::WASD);
+	ray_.start_.y_ += 0.1f * sKeys_->Vertical(Keys::MoveStandard::WASD);
+	ray_.start_.z_ += 0.1f * sKeys_->Vertical(Keys::MoveStandard::Arrow);
 	rayObj_->pos_ = ray_.start_;
 	rayObj_->pos_.y_ -= rayObj_->scale_.z_;
 	rayObj_->UpdateMatrix();

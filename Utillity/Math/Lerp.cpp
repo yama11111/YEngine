@@ -7,6 +7,8 @@ using YMath::BezierEase;
 using YMath::Vector2;
 using YMath::Vector3;
 
+#pragma region 補間
+
 template<typename T>
 T YMath::Lerp(const T& a, const T& b, const float t)
 {
@@ -31,89 +33,110 @@ Vector3 YMath::Slerp(const Vector3& v1, const Vector3& v2, float t)
 	Vector3 result = (from + to) * s;
 	return result;
 }
+
+#pragma endregion 
+
+
+#pragma region イージング
+
 template<typename T>
-T YMath::EaseIn(const T& start, const T& end, const float time, const float power)
+T YMath::EaseIn(const T& start, const T& end, const float ratio, const float exponent)
 {
-	return Lerp<T>(start, end, powf(time, power));
+	return Lerp<T>(start, end, powf(ratio, exponent));
 }
 template<typename T>
-T YMath::EaseOut(const T& start, const T& end, const float time, const float power)
+T YMath::EaseOut(const T& start, const T& end, const float ratio, const float exponent)
 {
-	return Lerp<T>(start, end, 1 - powf(1 - time, power));
+	return Lerp<T>(start, end, 1 - powf(1 - ratio, exponent));
 }
 
-Vector3 YMath::Bezier(const std::vector<Vector3>& points, const float time)
+Vector3 YMath::Bezier(const std::vector<Vector3>& points, const float ratio)
 {
+	// 1つもないなら弾く
 	assert(!points.empty());
 
+	// 1つなら 0番を返す
 	if (points.size() == 1) { return points[0]; }
-	if (points.size() == 2) { return Lerp(points[0], points[1], time); }
+	
+	// 2つなら 普通の補間
+	if (points.size() == 2) { return Lerp(points[0], points[1], ratio); }
 
+	// 計算用に宣言
 	std::vector<Vector3> p = points, result;
 	while (true)
 	{
+		// 計算用ベクタークリア
 		result.clear();
+		
+		// 現在の基準点の数回す
 		for (size_t i = 0; i < p.size() - 1; i++)
 		{
-			result.push_back(Lerp(p[i], p[i + 1], time));
+			// 計算用ベクターに代入
+			result.push_back(Lerp(p[i], p[i + 1], ratio));
 		}
+		
+		// 2つ以下になったら終了
 		if (result.size() <= 2) { break; }
+		
+		// 代入
 		p = result;
 	}
 
-	return Lerp(result[0], result[1], time);
+	// 計算用ベクターで補間
+	return Lerp(result[0], result[1], ratio);
 }
-Vector3 YMath::Spline(const std::vector<Vector3>& points, const size_t section, const float time)
+Vector3 YMath::Spline(const std::vector<Vector3>& points, const size_t section, const float ratio)
 {
+	// 4つ未満なら弾く
 	assert(4 <= points.size());
 
+	// セクションがベクターの最大数、最小数を超えているならその値返す
 	size_t n = points.size() - 4;
 	if (section > n) { return points[n]; }
 	if (section < 0) { return points[1]; }
 
+	// 計算
 	Vector3 p0 = points[section];
 	Vector3 p1 = points[section + 1];
 	Vector3 p2 = points[section + 2];
 	Vector3 p3 = points[section + 3];
 
 	Vector3 position =
-		0.5f * ((2 * p1) + (-p0 + p2) * time
-			+ ((2 * p0) - (5 * p1) + (4 * p2) - p3) * powf(time, 2.0f)
-			+ (-p0 + (3 * p1) - (3 * p2) + p3) * powf(time, 3.0f));
+		0.5f * ((2 * p1) + (-p0 + p2) * ratio
+			+ ((2 * p0) - (5 * p1) + (4 * p2) - p3) * powf(ratio, 2.0f)
+			+ (-p0 + (3 * p1) - (3 * p2) + p3) * powf(ratio, 3.0f));
 
 	return position;
 }
 
-Vector3 YMath::EaseInBezier(const std::vector<Vector3>& points, const float time, const float power)
+Vector3 YMath::EaseInBezier(const std::vector<Vector3>& points, const float ratio, const float exponent)
 {
-	return Bezier(points, powf(time, power));
+	return Bezier(points, powf(ratio, exponent));
 }
-Vector3 YMath::EaseOutBezier(const std::vector<Vector3>& points, const float time, const float power)
+Vector3 YMath::EaseOutBezier(const std::vector<Vector3>& points, const float ratio, const float exponent)
 {
-	return Bezier(points, 1 - powf(1 - time, power));
+	return Bezier(points, 1 - powf(1 - ratio, exponent));
 }
-//Vector3 Math::EaseInSpline(const std::vector<Vector3>& points, const size_t section, const float time, const float power)
-//{
-//	return Spline(points, section, powf(time, power));
-//}
-//Vector3 Math::EaseOutSpline(const std::vector<Vector3>& points, const size_t section, const float time, const float power)
-//{
-//	return Spline(points, section, 1 - powf(1 - time, power));
-//}
+
+#pragma endregion 
+
+
+#pragma region Ease クラス
 
 template<typename T>
-void Ease<T>::Initialize(const T& start, const T& end, const float power)
+void Ease<T>::Initialize(const T& start, const T& end, const float exponent)
 {
+	// 代入
 	start_ = start;
 	end_ = end;
-	power_ = power;
+	exponent_ = exponent;
 }
 
 template<typename T>
-T Ease<T>::In(const float time) { return EaseIn<T>(start_, end_, time, power_); }
+T Ease<T>::In(const float ratio) { return EaseIn<T>(start_, end_, ratio, exponent_); }
 
 template<typename T>
-T Ease<T>::Out(const float time) { return EaseOut<T>(start_, end_, time, power_); }
+T Ease<T>::Out(const float ratio) { return EaseOut<T>(start_, end_, ratio, exponent_); }
 
 template class Ease<int>;
 template class Ease<float>;
@@ -121,20 +144,28 @@ template class Ease<double>;
 template class Ease<Vector2>;
 template class Ease<Vector3>;
 
-void BezierEase::Initialize(const std::vector<Vector3>& points, const float power)
+#pragma endregion 
+
+
+#pragma region BezierEase クラス
+
+void BezierEase::Initialize(const std::vector<Vector3>& points, const float exponent)
 {
+	// 1つもないなら弾く
 	assert(!points.empty());
 
+	// 代入
 	points_ = points;
-	power_ = power;
+	exponent_ = exponent;
 }
 
-Vector3 BezierEase::In(const float time)
+Vector3 BezierEase::In(const float ratio)
 {
-	return EaseInBezier(points_, time, power_);
+	return EaseInBezier(points_, ratio, exponent_);
 }
-Vector3 BezierEase::Out(const float time)
+Vector3 BezierEase::Out(const float ratio)
 {
-	return EaseOutBezier(points_, time, power_);
+	return EaseOutBezier(points_, ratio, exponent_);
 }
 
+#pragma endregion 

@@ -18,6 +18,8 @@ float4 main(PSInput input) : SV_TARGET
 {
 	// テクスチャマッピング
 	float4 texColor = tex.Sample(smp, input.uv);
+	//texColor.y = texColor.x + (texColor.y - texColor.x) * ratio;
+	//texColor.z = texColor.x + (texColor.z - texColor.x) * ratio;
 	// 光沢度
 	const float shininess = 4.0f;
 	// 頂点から視点への方向ベクトル

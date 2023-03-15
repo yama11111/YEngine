@@ -41,6 +41,7 @@ namespace YScene
 		std::unique_ptr<YGame::Sprite2D> mapDispSpr_ = nullptr;
 
 		// ----- スプライト (3D) ----- //
+		std::unique_ptr<YGame::Sprite3D> filterSpr_ = nullptr;
 
 		// ----- モデル ----- //
 
@@ -51,14 +52,24 @@ namespace YScene
 		std::unique_ptr<YGame::Model> skydomeMod_ = nullptr;
 		// ビルモデル
 		std::unique_ptr<YGame::Model> buildingMod_ = nullptr;
+		// バリアモデル
+		std::unique_ptr<YGame::Model> barrierMod_ = nullptr;
 
 
 #pragma endregion
 #pragma region ゲームオブジェクト
 
+		YMath::Vector3 center_;
+
 		// プレイヤー
 		Player player_;
 
+		std::unique_ptr<YGame::Color> color_;
+
+		bool isA = false;
+		std::unique_ptr<YGame::Color> fcolor_;
+		std::unique_ptr <YGame::ObjectSprite3D> filter_;
+		
 		// ビル
 		std::array<std::unique_ptr<YGame::ObjectModel>, 8> buildings_;
 		std::unique_ptr<YGame::Color> buildingColor_;

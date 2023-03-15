@@ -22,10 +22,10 @@ void DemoScene::Load()
 {
 	// ----- テクスチャ ----- //
 
-	plainTex_ = pTexManager_->Load("white1x1.png", false);
+	plainTex_ = spTexManager_->Load("white1x1.png", false);
 
-	mapDispTex_ = pTexManager_->Load("mapDisp.png", false);
-	mapTex_ = pTexManager_->Load("map.png", false);
+	mapDispTex_ = spTexManager_->Load("mapDisp.png", false);
+	mapTex_ = spTexManager_->Load("floar.png", false);
 
 	// ----- オーディオ ----- //
 
@@ -36,12 +36,15 @@ void DemoScene::Load()
 
 	// ----- スプライト (3D) ----- //
 
+	filterSpr_.reset(Sprite3D::Create({ false,true }, { mapDispTex_ }));
+
 	// ------- モデル ------- //
 
 	cubeMod_.reset(Model::Create());
 	skydomeMod_.reset(Model::Load({ "skydome/", "skydome.obj", false, }));
 
 	buildingMod_.reset(Model::Load({ "building/", "building.obj", false, }));
+	barrierMod_.reset(Model::Load({ "barrier/", "barrier.obj", false, }));
 
 	// ------- マップ ------- //
 
@@ -50,7 +53,7 @@ void DemoScene::Load()
 	// ----- 静的初期化 ----- //
 
 	Character::StaticInitialize({ mapMan_.CurrentMapPointer(), &particleMan_ });
-	Player::StaticIntialize({ cubeMod_.get(), plainTex_});
+	Player::StaticIntialize({ barrierMod_.get(), plainTex_});
 	FireSpark::StaticInitialize({ cubeMod_.get() });
 }
 #pragma endregion
@@ -59,29 +62,36 @@ void DemoScene::Load()
 #pragma region 初期化
 void DemoScene::Initialize()
 {
+	// マップ初期化
+	mapMan_.Initialize({ 0, {}, { 10.0f, 10.0f, 10.0f } });
+
 	// プレイヤー
 	player_.Initialize({ {+100,-100,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
 
-	Vector3 center_ = Vector3(0, -40, 60);
+	color_.reset(Color::Create());
+	fcolor_.reset(Color::Create({ 0.1f,0.25f,1.0f,0.25f }));
 
-	buildings_[0].reset(ObjectModel::Create({ center_ + Vector3(-120.0f, -60.0f, -100.0f), {}, {15.0f,15.0f,15.0f} }));
-	buildings_[1].reset(ObjectModel::Create({ center_ + Vector3(-100.0f, -60.0f, -60.0f), {}, {20.0f,20.0f,20.0f} }));
-	buildings_[2].reset(ObjectModel::Create({ center_ + Vector3(-100.0f, -60.0f, -40.0f), {}, {15.0f,15.0f,15.0f} }));
-	buildings_[3].reset(ObjectModel::Create({ center_ + Vector3(-80.0f, -60.0f, -20.0f), {}, {10.0f,10.0f,10.0f} }));
-	buildings_[4].reset(ObjectModel::Create({ center_ + Vector3(-140.0f, -60.0f, -10.0f), {}, {10.0f,10.0f,10.0f} }));
-	buildings_[5].reset(ObjectModel::Create({ center_ + Vector3(-120.0f, -60.0f, +20.0f), {}, {25.0f,25.0f,25.0f} }));
-	buildings_[6].reset(ObjectModel::Create({ center_ + Vector3(-80.0f, -60.0f, +60.0f), {}, {15.0f,15.0f,15.0f} }));
-	buildings_[7].reset(ObjectModel::Create({ center_ + Vector3(-140.0f, -60.0f, +120.0f), {}, {10.0f,10.0f,10.0f} }));
+	filter_.reset(ObjectSprite3D::Create({ {240,-120,0},{},{120.0f,80.0f,1.0f} }));
+
+	Vector2 sizeHalf = mapMan_.CurrentMapPointer()->Size();
+	center_ = { sizeHalf.x_, -sizeHalf.y_, 0.0f };
+
+	buildings_[0].reset(ObjectModel::Create({ center_ + Vector3(-100.0f, -120.0f, +120.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
+	buildings_[1].reset(ObjectModel::Create({ center_ + Vector3(- 60.0f, -120.0f, +100.0f), {}, Vector3(20.0f,20.0f,20.0f) * 2.0f }));
+	buildings_[2].reset(ObjectModel::Create({ center_ + Vector3(- 40.0f, -120.0f, +100.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
+	buildings_[3].reset(ObjectModel::Create({ center_ + Vector3(- 20.0f, -120.0f, + 80.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
+	buildings_[4].reset(ObjectModel::Create({ center_ + Vector3(- 10.0f, -120.0f, +140.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
+	buildings_[5].reset(ObjectModel::Create({ center_ + Vector3(+ 20.0f, -120.0f, +120.0f), {}, Vector3(25.0f,25.0f,25.0f) * 2.0f }));
+	buildings_[6].reset(ObjectModel::Create({ center_ + Vector3(+ 60.0f, -120.0f, + 80.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
+	buildings_[7].reset(ObjectModel::Create({ center_ + Vector3(+120.0f, -120.0f, +140.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
 	buildingColor_.reset(Color::Create({ 1.0f,1.0f,1.0f,1.0f }));
 
-	// マップ初期化
-	mapMan_.Initialize({ 0, {}, { 10.0f, 10.0f, 10.0f } });
 
 	// 天球初期化
 	skydome_.Initialize({ center_, {}, {600.0f,600.0f,600.0f} }, skydomeMod_.get());
 
 	// カメラ初期化
-	cameraMan_.Initialize(player_.PosPointer());
+	cameraMan_.Initialize(&center_);
 
 	// ライト初期化
 	lightGroup_.reset(LightGroup::Create());
@@ -168,20 +178,20 @@ void DemoScene::Finalize()
 void DemoScene::Update()
 {
 	// ホットリロード
-	if (keys_->IsTrigger(DIK_L))
+	if (sKeys_->IsTrigger(DIK_L))
 	{
 		mapMan_.Load({ { cubeMod_.get() }, { mapDispSpr_.get() } });
 		mapMan_.Reset();
 	}
 
 	// リセット
-	if (keys_->IsTrigger(DIK_R))
+	if (sKeys_->IsTrigger(DIK_R))
 	{
 		collMan_.Initialize();
 	}
 
 	// 次のシーンへ
-	if (keys_->IsTrigger(DIK_0))
+	if (sKeys_->IsTrigger(DIK_0))
 	{
 		SceneManager::GetInstance()->Change("RESULT");
 	}
@@ -193,6 +203,13 @@ void DemoScene::Update()
 	{
 		buildings_[i]->UpdateMatrix();
 	}
+
+	if (isA)
+	{
+		filter_->pos_.x_ += 3.0f * sKeys_->Horizontal();
+		filter_->pos_.y_ += 3.0f * sKeys_->Vertical();
+	}
+	filter_->UpdateMatrix();
 
 	// マップマネージャー
 	mapMan_.Update();
@@ -229,19 +246,19 @@ void DemoScene::DrawBackSprite3Ds()
 void DemoScene::DrawModels()
 {
 	// 天球
-	skydome_.Draw(vp_, lightGroup_.get());
+	skydome_.Draw(vp_, lightGroup_.get(), color_.get());
 
 	// ビル
 	for (size_t i = 0; i < buildings_.size(); i++)
 	{
-		buildingMod_->Draw(buildings_[i].get(), vp_, lightGroup_.get(), buildingColor_.get());
+		buildingMod_->Draw(buildings_[i].get(), vp_, lightGroup_.get(), color_.get());
 	}
 
 	// マップチップ
-	mapMan_.Draw(vp_, lightGroup2_.get(), plainTex_);
+	mapMan_.Draw(vp_, lightGroup_.get(), mapTex_, color_.get());
 	
 	// プレイヤー
-	player_.Draw(vp_, lightGroup2_.get());
+	player_.Draw(vp_, lightGroup2_.get(), buildingColor_.get());
 
 
 	// パーティクル
@@ -250,6 +267,7 @@ void DemoScene::DrawModels()
 
 void DemoScene::DrawFrontSprite3Ds()
 {
+	filterSpr_->Draw(filter_.get(), vp_, fcolor_.get());
 
 }
 

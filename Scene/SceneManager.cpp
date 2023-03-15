@@ -32,12 +32,15 @@ void SceneManager::Update()
 	// シーン切り替え
 	if (nextScene_)
 	{
+		// 現在シーンがあるなら
 		if (scene_)
 		{
+			// 現在シーン終了処理
 			scene_->Finalize();
 			scene_.reset();
 		}
 
+		// 次のシーンを挿入
 		scene_.reset(nextScene_);
 		nextScene_ = nullptr;
 
@@ -45,7 +48,6 @@ void SceneManager::Update()
 		scene_->Load();
 		scene_->Initialize();
 	}
-
 
 	// 現在シーン更新
 	scene_->Update();
@@ -59,15 +61,20 @@ void SceneManager::Draw()
 
 void SceneManager::Change(const std::string& sceneName)
 {
+	// nullチェック
 	assert(sceneFactory_);
 	assert(nextScene_ == nullptr);
 
+	// 次シーン作成
 	nextScene_ = sceneFactory_->CreateScene(sceneName);
 }
 
 void SceneManager::SetSceneFactory(ISceneFactory* sceneFactory)
 {
+	// nullチェック
 	assert(sceneFactory);
+	
+	// 専用シーンファクトリー設定
 	sceneFactory_.reset(sceneFactory);
 }
 

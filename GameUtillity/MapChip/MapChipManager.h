@@ -38,7 +38,7 @@ namespace YGame
 		// çXêV
 		void Update();
 		// ï`âÊ
-		void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex);
+		void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color);
 		// 2Dï`âÊ
 		void Draw2D();
 	public:

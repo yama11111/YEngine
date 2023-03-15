@@ -31,12 +31,6 @@
     <Filter Include="ヘッダー ファイル\Chara\Enemy">
       <UniqueIdentifier>{931cafba-4ac3-4c28-865b-f149b0f76f87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Chara\Player">
-      <UniqueIdentifier>{254d8ccd-21b9-49a4-802b-12d15f62e68a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Chara\Player">
-      <UniqueIdentifier>{0568335e-0f21-45cc-8964-242c186fd95c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base\Pipeline">
       <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
     </Filter>
@@ -121,6 +115,12 @@
     <Filter Include="ヘッダー ファイル\Chara\Util">
       <UniqueIdentifier>{e4747e7d-1459-4d54-bd2d-c0cd0d2cf5f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{254d8ccd-21b9-49a4-802b-12d15f62e68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{0568335e-0f21-45cc-8964-242c186fd95c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -154,7 +154,7 @@
       <Filter>ソース ファイル\Chara\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Player.cpp">
-      <Filter>ソース ファイル\Chara\Player</Filter>
+      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\ScreenDesc.cpp">
       <Filter>Base</Filter>
@@ -190,12 +190,6 @@
       <Filter>GameUtil</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Attack.cpp">
-      <Filter>ソース ファイル\Chara\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Chara\Character.cpp">
-      <Filter>ソース ファイル\Chara\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Chara\CharaStatus.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
     <ClCompile Include="Chara\AttackManager.cpp">
@@ -378,6 +372,21 @@
     <ClCompile Include="Scene\CollScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="GameUtillity\WorldRuler.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="Utillity\Math\Speed.cpp">
+      <Filter>Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Filter.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Character.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\CharaStatus.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -393,7 +402,7 @@
       <Filter>ヘッダー ファイル\Chara\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Chara\Player.h">
-      <Filter>ヘッダー ファイル\Chara\Player</Filter>
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\ScreenDesc.h">
       <Filter>Base</Filter>
@@ -450,15 +459,6 @@
       <Filter>GameUtil</Filter>
     </ClInclude>
     <ClInclude Include="Chara\Attack.h">
-      <Filter>ヘッダー ファイル\Chara\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Chara\CharaConfig.h">
-      <Filter>ヘッダー ファイル\Chara\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Chara\Character.h">
-      <Filter>ヘッダー ファイル\Chara\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Chara\CharaStatus.h">
       <Filter>ヘッダー ファイル\Chara\Util</Filter>
     </ClInclude>
     <ClInclude Include="Chara\AttackManager.h">
@@ -646,6 +646,24 @@
     </ClInclude>
     <ClInclude Include="Scene\CollScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\WorldRuler.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\Math\Speed.h">
+      <Filter>Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\CharaConfig.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\CharaStatus.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Chara\Character.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

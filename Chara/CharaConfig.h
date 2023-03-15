@@ -3,9 +3,6 @@
 
 namespace CharaConfig 
 {
-	// 重力
-	const float GravityPower = 0.3f;
-
 	// プレイヤー
 	namespace Player 
 	{
