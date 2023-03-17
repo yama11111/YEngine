@@ -27,16 +27,24 @@ void Player::StaticIntialize(const StaticInitStatus& state)
 
 void Player::Initialize(const YGame::BaseObject::Status& state)
 {
+	Character::Initialize(
+		{ HP, CheatTime }, state,
+		{ 0.5f,RisePower,0.0f }, { 3.0f,RisePower,0.0f }
+	);
+
+	drawer_.Initialize(&obj_->m_,  &direction_);
+	
 	Reset(state);
 }
 
 void Player::Reset(const YGame::BaseObject::Status& state)
 {
-	Character::Initialize(
-		{ HP, CheatTime }, state,
-		{ 0.5f,RisePower,0.0f }, { 3.0f,RisePower,0.0f }
+	Character::Reset(
+		{ HP, CheatTime }, state
 	);
 	MapChipCollider::Initialize({ obj_->scale_ });
+
+	drawer_.Reset();
 
 	jumpCount_ = 0;
 }
@@ -77,6 +85,8 @@ void Player::Update()
 			//YGame::WorldRuler::GetInstance()->SetTimeSpeed(0.0f);
 			isChanged_ = true;
 		}
+
+		drawer_.Initialize(&obj_->m_, &direction_);
 	}
 
 	UpdateMove();
@@ -94,16 +104,19 @@ void Player::Update()
 		{
 			{},
 			{},
-			SlimeActor::JiggleValue()
+			//SlimeActor::JiggleValue()
 		}
 	);
+
+	drawer_.Update();
 }
 
 //void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
 void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup, YGame::Color* color)
 {
 	//pModel_->Draw(obj_.get(), vp, lightGroup, color_.get());
-	pModel_->Draw(obj_.get(), vp, lightGroup, color);
+	//pModel_->Draw(obj_.get(), vp, lightGroup, color);
+	drawer_.Draw(vp, lightGroup);
 }
 
 void Player::Draw2D()

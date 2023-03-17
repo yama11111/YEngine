@@ -288,9 +288,9 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 
 				// 頂点データ
 				VData vData;
-				vData.pos_ = positions[idPositon - 1];
-				vData.normal_ = normals[idNormal - 1];
-				vData.uv_ = uvs[idTexcoord - 1];
+				vData.pos_ = positions[static_cast<size_t>(idPositon - 1)];
+				vData.normal_ = normals[static_cast<size_t>(idNormal - 1)];
+				vData.uv_ = uvs[static_cast<size_t>(idTexcoord - 1)];
 
 				// 追加
 				v.push_back(vData);

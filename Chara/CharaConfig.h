@@ -17,6 +17,9 @@ namespace CharaConfig
 		const int MaxJumpCount = 1;
 		// ジャンプ力
 		const float RisePower = 6.0f;
+
+		// 立ちモーション間隔フレーム
+		const int IdleIntervalFrame = 20;
 	}
 
 	// エネミー

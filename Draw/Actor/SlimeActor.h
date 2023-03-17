@@ -20,7 +20,7 @@ namespace YGame
 		{
 			YMath::Vector3 value_;
 			unsigned int frame_;
-			float pow_ = 2.0f;
+			float exponent_ = 2.0f;
 		};
 	private:
 		// “®‚¢‚Ä‚¢‚é‚©ƒtƒ‰ƒO

@@ -32,6 +32,10 @@ public:
 		const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState,
 		const YMath::Vector3& acceleration, const YMath::Vector3& max, 
 		const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
+	// リセット
+	void Reset(
+		const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState, 
+		const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
 protected:
 	// 重力 + マップチップアタリ判定 + アニメーション
 	void UpdatePhysics();

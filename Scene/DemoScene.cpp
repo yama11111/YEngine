@@ -55,6 +55,8 @@ void DemoScene::Load()
 	Character::StaticInitialize({ mapMan_.CurrentMapPointer(), &particleMan_ });
 	Player::StaticIntialize({ barrierMod_.get(), plainTex_});
 	FireSpark::StaticInitialize({ cubeMod_.get() });
+
+	PlayerDrawerCommon::StaticInitialize();
 }
 #pragma endregion
 

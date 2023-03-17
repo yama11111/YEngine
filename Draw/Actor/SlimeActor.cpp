@@ -27,7 +27,7 @@ void SlimeActor::Activate(const std::vector<JiggleState>& jiggles)
 	action_ = Action::Elasticity;
 
 	jiggles_ = jiggles;
-	ease_.Initialize(jiggles_[0].value_, jiggles_[1].value_, jiggles_[1].pow_);
+	ease_.Initialize(jiggles_[0].value_, jiggles_[1].value_, jiggles_[1].exponent_);
 	currentIdx_ = 1;
 
 	timer_.Initialize(jiggles_[1].frame_);
@@ -66,7 +66,7 @@ void SlimeActor::ChangeAction()
 		action_ = Action::Normal;
 	}
 
-	ease_.Initialize(jiggles_[elderIdx].value_, jiggles_[currentIdx_].value_, jiggles_[currentIdx_].pow_);
+	ease_.Initialize(jiggles_[elderIdx].value_, jiggles_[currentIdx_].value_, jiggles_[currentIdx_].exponent_);
 	timer_.Initialize(jiggles_[currentIdx_].frame_);
 	timer_.SetActive(true);
 }

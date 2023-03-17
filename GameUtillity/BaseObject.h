@@ -27,11 +27,20 @@ namespace YGame
 			YMath::Vector3 scale_ = { 1.0f, 1.0f, 1.0f };
 		};
 	public:
-		// 初期化
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="state"> : 設定用ステータス (位置、回転、大きさ)</param>
+		/// <param name="state.pos_"> : 位置</param>
+		/// <param name="state.rota_"> : 回転</param>
+		/// <param name="state.scale_"> : 大きさ</param>
 		void Initialize(const Status& state);
 		// アフィン変換
 		void UpdateMatrix();
-		// アフィン変換 (演出用)
+		/// <summary>
+		/// アフィン変換 (位置、回転、大きさ を加算したオブジェクトで行列計算)
+		/// </summary>
+		/// <param name="state"> : 設定用ステータス (位置、回転、大きさ)</param>
 		void UpdateMatrix(const Status& state);
 	protected:
 		BaseObject();

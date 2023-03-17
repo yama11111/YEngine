@@ -27,11 +27,22 @@ void Character::Initialize(
 {
 	obj_.reset(YGame::ObjectModel::Create(objState));
 	speed_.Initialize(acceleration, max);
-	direction_ = { +1.0f,0.0f,0.0f };
 	color_.reset(YGame::Color::Create(color));
 
+	Reset(charaState, objState);
+}
+
+void Character::Reset(
+	const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState,
+	const YMath::Vector4& color)
+{
 	CharaStatus::Initialize(charaState);
 	SlimeActor::Initialize();
+
+	obj_->Initialize(objState);
+	speed_.Reset();
+	direction_ = { +1.0f,0.0f,0.0f };
+	color_->Initialize(color);
 }
 
 void Character::UpdatePhysics()

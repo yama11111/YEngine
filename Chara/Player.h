@@ -1,7 +1,7 @@
 #pragma once
 #include "Keys.h"
 #include "Character.h"
-#include "Sprite2D.h"
+#include "PlayerDrawer.h"
 
 class Player : public Character
 {
@@ -10,6 +10,9 @@ private:
 	int jumpCount_ = 0;
 	// 
 	bool isChanged_ = false;
+
+
+	PlayerDrawer drawer_;
 public:
 	// ‰Šú‰»
 	void Initialize(const YGame::BaseObject::Status& state);
