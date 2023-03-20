@@ -7,6 +7,7 @@
 
 namespace YGame
 {
+	// オーディオマネージャークラス
 	class AudioManager
 	{
 	private:
@@ -48,13 +49,26 @@ namespace YGame
 	public:
 		// 初期化
 		void Initialize();
-		// オーディオ読み込み(.wavのみ)
+		/// <summary>
+		/// オーディオ読み込み(.wavのみ)
+		/// </summary>
+		/// <param name="fileName"> : ファイル名</param>
+		/// <returns>オーディオ番号</returns>
 		UINT Load(const char* fileName);
-		//
-		UINT Load(const wchar_t* fileName);
-		// 再生
+		////
+		//UINT Load(const wchar_t* fileName);
+		/// <summary>
+		/// オーディオ再生
+		/// </summary>
+		/// <param name="audioIndex"> : オーディオ番号</param>
 		void Play(const UINT audioIndex);
 	public:
+		// インスタンス取得
+		static AudioManager* GetInstance();
+	private:
+		AudioManager() = default;
 		~AudioManager();
+		AudioManager(const AudioManager&) = delete;
+		const AudioManager& operator=(const AudioManager&) = delete;
 	};
 }

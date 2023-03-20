@@ -75,11 +75,11 @@ namespace YGame
 		// ルートパラメータ番号
 		enum class RootParameterIndex 
 		{
-			ModelCB,
-			LightCB,
-			ColorCB,
-			MaterialCB,
-			TexDT,
+			ObjCB		 = 0, // 行列
+			LightCB		 = 1, // 光
+			ColorCB		 = 2, // 色
+			MaterialCB	 = 3, // マテリアル
+			TexDT		 = 4, // テクスチャ
 		};
 	private:
 		// シェーダーセット
@@ -97,25 +97,9 @@ namespace YGame
 		// パイプライン設定構造体
 		struct PipelineSetStatus : public YDX::PipelineSet::IStatus
 		{
+			// 初期化
 			void Initialize(ID3DBlob* errorBlob_) override;
 		};
-	protected:
-		// パイプライン設定
-		static YDX::PipelineSet pipelineSet_;
-		// 静的テクスチャマネージャーポインタ
-		static TextureManager* pTexManager_;
-	public:
-		// 静的初期化ステータス
-		struct StaticInitStatus
-		{
-			// テクスチャマネージャーポインタ
-			TextureManager* pTexManager_;
-		};
-	public:
-		// 静的初期化
-		static void StaticInitialize(const StaticInitStatus& state);
-		// 静的描画コマンド
-		static void StaticSetDrawCommand();
 	protected:
 		// 法線計算
 		static void CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t> indices);
@@ -128,6 +112,16 @@ namespace YGame
 		static Material LoadMaterial(const std::string directoryPath, const aiMaterial* src, const std::string extension);
 		// マテリアル読み込み
 		static Material LoadMaterial(const std::string& directoryPath, const std::string& fileName);
+	protected:
+		// パイプライン設定
+		static YDX::PipelineSet pipelineSet_;
+		// 静的テクスチャマネージャーポインタ
+		static TextureManager* pTexManager_;
+	public:
+		// 静的初期化
+		static void StaticInitialize();
+		// 静的描画コマンド
+		static void StaticSetDrawCommand();
 	};
 }
 

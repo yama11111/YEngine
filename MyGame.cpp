@@ -52,7 +52,7 @@ void MyGame::Draw()
 	sceneMan_->Draw();
 
 	// imgui•`‰æ
-	imguiCon_.Draw();
+	imguiMan_.Draw();
 
 	// •`‰æŒãˆ—
 	dx_.PostDraw();

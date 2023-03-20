@@ -14,7 +14,14 @@ namespace YGame
 		// 定数バッファ
 		YDX::ConstBuffer<Sprite3DCommon::CBData> cBuff_;
 	public:
-		// 生成
+		/// <summary>
+		/// 生成 + 初期化
+		/// </summary>
+		/// <param name="state"> : 設定用ステータス</param>
+		/// <param name="(Vector3) state.pos_"> : 位置</param>
+		/// <param name="(Vector3) state.rota_"> : 回転</param>
+		/// <param name="(Vector3) state.scale_"> : 大きさ</param>
+		/// <returns>動的インスタンス (newされたもの)</returns>
 		static ObjectSprite3D* Create(const Status& state);
 	private:
 		ObjectSprite3D() = default;
@@ -35,31 +42,61 @@ namespace YGame
 		bool isXAxisBillboard_ = false;
 		// Y軸ビルボード
 		bool isYAxisBillboard_ = false;
-		
+
 		// テクスチャ
 		UINT tex_ = UINT32_MAX;
 
 		// 非表示
 		bool isInvisible_ = false;
 	public:
-		struct Status 
+		// ビルボード設定用ステータス
+		struct Status
 		{
-			bool isXAxisBillboard_ = false;
-			bool isYAxisBillboard_ = false;
+			bool isXAxisBillboard_ = false; // X軸ビルボード
+			bool isYAxisBillboard_ = false; // Y軸ビルボード
 		};
 	public:
-		// 生成
-		static Sprite3D* Create(const Status& state, const UINT texIndex = UINT32_MAX);
+		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="state"> : ビルボード設定用ステータス</param>
+		/// <param name="(bool) state.isXAxisBillboard_"> : X軸ビルボード</param>
+		/// <param name="(bool) state.isYAxisBillboard_"> : Y軸ビルボード</param>
+		/// <param name="--------------------------------"></param>
+		/// <param name="texIndex"> : テクスチャインデックス</param>
+		/// <returns>動的インスタンス (newされたもの)</returns>
+		static Sprite3D* Create(const Status& state, const UINT texIndex);
 	public:
-		// 描画
-		void Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color, const UINT tex);
-		// 描画
-		void Draw(ObjectSprite3D* obj, const ViewProjection& vp, const UINT tex);
-		// 描画
-		void Draw(ObjectSprite3D* obj, const ViewProjection& vp, Color* color);
-		// 描画
-		void Draw(ObjectSprite3D* obj, const ViewProjection& vp);
+		/// <summary>
+		/// 描画 (テクスチャ + 色 有)
+		/// </summary>
+		/// <param name="pObj"> : オブジェクトポインタ</param>
+		/// <param name="vp"> : ビュープロジェクション</param>
+		/// <param name="pColor"> : 色ポインタ</param>
+		/// <param name="tex"> : テクスチャインデックス</param>
+		void Draw(ObjectSprite3D* pObj, const ViewProjection& vp, Color* pColor, const UINT tex);
+		/// <summary>
+		/// 描画 (テクスチャ 有)
+		/// </summary>
+		/// <param name="pObj"> : オブジェクトポインタ</param>
+		/// <param name="vp"> : ビュープロジェクション</param>
+		/// <param name="tex"> : テクスチャインデックス</param>
+		void Draw(ObjectSprite3D* pObj, const ViewProjection& vp, const UINT tex);
+		/// <summary>
+		/// 描画 (色 有)
+		/// </summary>
+		/// <param name="pObj"> : オブジェクトポインタ</param>
+		/// <param name="vp"> : ビュープロジェクション</param>
+		/// <param name="pColor"> : 色ポインタ</param>
+		void Draw(ObjectSprite3D* pObj, const ViewProjection& vp, Color* pColor);
+		/// <summary>
+		/// 描画 (デフォルト)
+		/// </summary>
+		/// <param name="pObj"> : オブジェクトポインタ</param>
+		/// <param name="vp"> : ビュープロジェクション</param>
+		void Draw(ObjectSprite3D* pObj, const ViewProjection& vp);
 	private:
+		// ビルボード行列計算
 		YMath::Matrix4 BillboardMatrix(const ViewProjection& vp);
 	private:
 		Sprite3D() = default;

@@ -9,6 +9,7 @@
 
 namespace YScene
 {
+	// 基底シーンクラス
 	class BaseScene
 	{
 	public:
@@ -35,18 +36,17 @@ namespace YScene
 		// パッド(シングルトン)
 		static YInput::Pad* sPad_;
 	protected:
-		// 静的テクスチャマネージャーポインタ
+		// 静的テクスチャマネージャーポインタ(シングルトン)
 		static YGame::TextureManager* spTexManager_;
-		// 静的オーディオマネージャーポインタ
+		// 静的オーディオマネージャーポインタ(シングルトン)
 		static YGame::AudioManager* spAudioManager_;
 		// 静的ゲームルールポインタ
 		static YGame::WorldRuler* spWorldRuler_;
 	public:
-		// 静的初期化
-		static void StaticInitialize(
-			YGame::TextureManager* pTexManager, 
-			YGame::AudioManager* pAudioManager, 
-			YGame::WorldRuler* pWorldRuler
-		);
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		/// <param name="pWorldRuler"> : ゲームルールポインタ</param>
+		static void StaticInitialize(YGame::WorldRuler* pWorldRuler);
 	};
 }

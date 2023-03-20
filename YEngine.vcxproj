@@ -125,6 +125,9 @@
     <ClCompile Include="Draw\Particle\Particle.cpp" />
     <ClCompile Include="Draw\Particle\ParticleManager.cpp" />
     <ClCompile Include="Draw\SceneChange\Blackout.cpp" />
+    <ClCompile Include="Draw\SceneChange\InfectionBlocks.cpp" />
+    <ClCompile Include="Draw\SceneChange\ITransition.cpp" />
+    <ClCompile Include="Draw\SceneChange\TransitionManager.cpp" />
     <ClCompile Include="Draw\UI\CountUIDrawer.cpp" />
     <ClCompile Include="Draw\UI\HPUIDrawer.cpp" />
     <ClCompile Include="Draw\UI\PushUIDrawer.cpp" />
@@ -168,7 +171,7 @@
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Scene\YGameSceneFactory.cpp" />
     <ClCompile Include="Utillity\FileUtillity.cpp" />
-    <ClCompile Include="Utillity\imgui\ImGuiContoroller.cpp" />
+    <ClCompile Include="Utillity\imgui\ImGuiManager.cpp" />
     <ClCompile Include="Utillity\Input\InputManager.cpp" />
     <ClCompile Include="Utillity\Input\Keys.cpp" />
     <ClCompile Include="Utillity\Input\Mouse.cpp" />
@@ -217,7 +220,9 @@
     <ClInclude Include="Draw\Particle\Particle.h" />
     <ClInclude Include="Draw\Particle\ParticleManager.h" />
     <ClInclude Include="Draw\SceneChange\Blackout.h" />
-    <ClInclude Include="Draw\SceneChange\SceneChangeFrame.h" />
+    <ClInclude Include="Draw\SceneChange\InfectionBlocks.h" />
+    <ClInclude Include="Draw\SceneChange\ITransition.h" />
+    <ClInclude Include="Draw\SceneChange\TransitionManager.h" />
     <ClInclude Include="Draw\UI\CountUIDrawer.h" />
     <ClInclude Include="Draw\UI\HPUIDrawer.h" />
     <ClInclude Include="Draw\UI\PushUIDrawer.h" />
@@ -261,8 +266,9 @@
     <ClInclude Include="Scene\SelectScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Scene\YGameSceneFactory.h" />
+    <ClInclude Include="Scene\TransitionConfig.h" />
     <ClInclude Include="Utillity\FileUtillity.h" />
-    <ClInclude Include="Utillity\imgui\ImGuiContoroller.h" />
+    <ClInclude Include="Utillity\imgui\ImGuiManager.h" />
     <ClInclude Include="Utillity\Input\InputManager.h" />
     <ClInclude Include="Utillity\Input\Keys.h" />
     <ClInclude Include="Utillity\Input\Mouse.h" />

@@ -309,7 +309,7 @@
     <ClCompile Include="GameUtillity\Light\PointLight.cpp">
       <Filter>GameUtil\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Utillity\imgui\ImGuiContoroller.cpp">
+    <ClCompile Include="Utillity\imgui\ImGuiManager.cpp">
       <Filter>Util\imgui</Filter>
     </ClCompile>
     <ClCompile Include="Base\YFramework.cpp">
@@ -386,6 +386,15 @@
     </ClCompile>
     <ClCompile Include="Chara\CharaStatus.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\SceneChange\InfectionBlocks.cpp">
+      <Filter>Draw\SceneChange</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\SceneChange\TransitionManager.cpp">
+      <Filter>Draw\SceneChange</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\SceneChange\ITransition.cpp">
+      <Filter>Draw\SceneChange</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -518,9 +527,6 @@
     <ClInclude Include="Draw\SceneChange\Blackout.h">
       <Filter>Draw\SceneChange</Filter>
     </ClInclude>
-    <ClInclude Include="Draw\SceneChange\SceneChangeFrame.h">
-      <Filter>Draw\SceneChange</Filter>
-    </ClInclude>
     <ClInclude Include="Draw\UI\CountUIDrawer.h">
       <Filter>Draw\UI</Filter>
     </ClInclude>
@@ -580,9 +586,6 @@
     </ClInclude>
     <ClInclude Include="GameUtillity\Light\PointLight.h">
       <Filter>GameUtil\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Utillity\imgui\ImGuiContoroller.h">
-      <Filter>Util\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Base\YFramework.h">
       <Filter>Base</Filter>
@@ -664,6 +667,21 @@
     </ClInclude>
     <ClInclude Include="Chara\Character.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillity\imgui\ImGuiManager.h">
+      <Filter>Util\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\SceneChange\InfectionBlocks.h">
+      <Filter>Draw\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\SceneChange\TransitionManager.h">
+      <Filter>Draw\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TransitionConfig.h">
+      <Filter>Draw\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\SceneChange\ITransition.h">
+      <Filter>Draw\SceneChange</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

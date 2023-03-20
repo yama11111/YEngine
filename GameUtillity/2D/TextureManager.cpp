@@ -3,24 +3,45 @@
 #include "YAssert.h"
 #include <DirectXTex.h>
 
+#pragma region 名前空間
+
+using YGame::Texture;
+using YGame::TextureManagerCommon;
 using YGame::TextureManager;
 using YDX::GPUResource;
 using YMath::Vector4;
 using YDX::Result;
 
-ID3D12Device* TextureManager::pDevice_ = nullptr;
-ID3D12GraphicsCommandList*  TextureManager::pCmdList_ = nullptr;
-YDX::DescriptorHeap* TextureManager::pDescHeap_ = nullptr;
+#pragma endregion
 
-void TextureManager::StaticInitialize(const StaticInitStatus& state)
+#pragma region Static
+
+ID3D12Device* TextureManagerCommon::pDevice_ = nullptr;
+ID3D12GraphicsCommandList* TextureManagerCommon::pCmdList_ = nullptr;
+YDX::DescriptorHeap* TextureManagerCommon::pDescHeap_ = nullptr;
+
+#pragma endregion
+
+void TextureManagerCommon::StaticInitialize(const StaticInitStatus& state)
 {
+	// nullチェック
 	assert(state.pDevice_);
 	assert(state.pCmdList_);
 	assert(state.pDescHeap_);
 
-	pDevice_  = state.pDevice_;
+	// 代入
+	pDevice_ = state.pDevice_;
 	pCmdList_ = state.pCmdList_;
 	pDescHeap_ = state.pDescHeap_;
+}
+
+TextureManager* TextureManager::GetInstance()
+{
+	// インスタンス生成 (静的)
+	static TextureManager instance;
+
+	// インスタンスを返す
+	return &instance;
 }
 
 UINT TextureManager::CreateTex(const Vector4& color)
@@ -84,12 +105,16 @@ UINT TextureManager::CreateTex(const Vector4& color)
 	// テクスチャを保存
 	texs_.push_back(tex);
 
+	// テクスチャ番号を返す
 	return static_cast<UINT>(texs_.size() - 1);
 }
 
 UINT TextureManager::Load(const std::string& texFileName, const bool mipMap)
 {
+	// ディレクトリパスを設定
 	const std::string& directoryPath = "Resources/Textures/";
+	
+	// テクスチャ読み込み
 	return Load(directoryPath, texFileName, mipMap);
 }
 
@@ -187,17 +212,24 @@ UINT TextureManager::Load(const std::string& directoryPath, const std::string te
 	// テクスチャを保存
 	texs_.push_back(tex);
 
+	// テクスチャ番号を返す
 	return static_cast<UINT>(texs_.size() - 1);
 }
 
 void TextureManager::SetDrawCommand(const UINT rootParamIndex, const UINT texIndex)
 {
+	// テクスチャ番号が 0 以上 最大値 以下でないなら警告
 	assert((0 <= texIndex && texIndex < texs_.size()));
+	
+	// シェーダーにテクスチャを設定
 	pCmdList_->SetGraphicsRootDescriptorTable(rootParamIndex, texs_[texIndex].srvGpuHandle_);
 }
 
 ID3D12Resource* TextureManager::TextureBuffer(const UINT texIndex)
 {
+	// テクスチャ番号が 0 以上 最大値 以下でないなら警告
 	assert((0 <= texIndex && texIndex < texs_.size()));
+	
+	// テクスチャバッファを返す
 	return texs_[texIndex].buff_.Get();
 }

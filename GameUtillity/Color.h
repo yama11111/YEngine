@@ -1,6 +1,7 @@
 #pragma once
 #include "ConstBuffer.h"
 #include "Vector4.h"
+#include "Vector3.h"
 
 namespace YGame
 {
@@ -28,10 +29,18 @@ namespace YGame
 	public:
 		// RGBA取得
 		YMath::Vector4 GetRGBA() const { return color_; }
-		// 色設定 (0.0f ～ 1.0f)
+		// 色 + アルファ値設定 (0.0f ～ 1.0f)
 		void SetRGBA(const YMath::Vector4& color);
-		// 色設定 (0 ～ 255)
+		// 色 + アルファ値設定 (0 ～ 255)
 		void SetRGBA(const UINT R, const UINT G, const UINT B, const UINT A);
+		// 色設定 (0.0f ～ 1.0f)
+		void SetRGB(const YMath::Vector3& color);
+		// 色設定 (0 ～ 255)
+		void SetRGB(const UINT R, const UINT G, const UINT B);
+		// アルファ値設定 (0.0f ～ 1.0f)
+		void SetAlpha(const float alpha);
+		// アルファ値設定 (0 ～ 255)
+		void SetAlpha(const UINT alpha);
 	private:
 		Color();
 	public:

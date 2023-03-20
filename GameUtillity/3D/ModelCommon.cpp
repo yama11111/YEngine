@@ -8,14 +8,22 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#pragma region 名前空間
+
 using YGame::ModelCommon;
 using YDX::PipelineSet;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
 
+#pragma endregion
+
+#pragma region Static
+
 PipelineSet ModelCommon::pipelineSet_;
 YGame::TextureManager* ModelCommon::pTexManager_ = nullptr;
+
+#pragma endregion
 
 ModelCommon::Material::Material() :
 	name_(),
@@ -26,6 +34,7 @@ ModelCommon::Material::Material() :
 	texFileName_(),
 	texIndex_(UINT32_MAX)
 {
+	// 定数バッファ生成
 	cBuff_.Create();
 	cBuff_.map_->ambient_ = ambient_;
 	cBuff_.map_->diffuse_ = diffuse_;
@@ -151,40 +160,31 @@ void ModelCommon::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
 	primitive_ = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST; // 三角形リスト
 }
 
-void ModelCommon::StaticInitialize(const StaticInitStatus& state)
-{
-	assert(state.pTexManager_);
-	pTexManager_ = state.pTexManager_;
-
-	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
-	pipelineSet_.Initialize(pplnState.get());
-}
-
-void ModelCommon::StaticSetDrawCommand()
-{
-	pipelineSet_.SetDrawCommand();
-}
-
 void ModelCommon::CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t> indices)
 {
+	// 三角形1つごとに計算していく
 	for (size_t i = 0; i < indices.size() / 3; i++)
 	{
-		// 三角形1つごとに計算していく
-		// 三角形のインデックスを取り出して、一般的な変数に入れる
+		// 三角形のインデックスを取り出す
 		unsigned short index0 = indices[i * 3 + 0];
 		unsigned short index1 = indices[i * 3 + 1];
 		unsigned short index2 = indices[i * 3 + 2];
+		
 		// 三角形を構成する頂点座標ベクトルに代入
 		Vector3 p0 = v[index0].pos_;
 		Vector3 p1 = v[index1].pos_;
 		Vector3 p2 = v[index2].pos_;
+		
 		// p0->p1ベクトル、p0->p2ベクトルを計算 (ベクトルの減算)
 		Vector3 v1 = p1 - p0;
 		Vector3 v2 = p2 - p0;
+		
 		// 外積は両方から垂直なベクトル
 		Vector3 normal = v1.Cross(v2);
+		
 		// 正規化 (長さを1にする)
 		normal = normal.Normalized();
+		
 		// 求めた法線を頂点データに代入
 		v[index0].normal_ = normal;
 		v[index1].normal_ = normal;
@@ -194,16 +194,24 @@ void ModelCommon::CalculateNormals(std::vector<VData>& v, const std::vector<uint
 void ModelCommon::CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
 	std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData)
 {
+	// スムースデータの数だけ
 	auto itr = smoothData.begin();
 	for (; itr != smoothData.end(); ++itr)
 	{
+		// 次の要素を代入
 		std::vector<unsigned short>& v = itr->second;
+		
+		// 法線
 		Vector3 normal = {};
+		
+		// 計算
 		for (unsigned short index : v)
 		{
 			normal += vertices[index].normal_;
 		}
 		normal = (normal / (float)v.size()).Normalized();
+		
+		// 代入
 		for (unsigned short index : v)
 		{
 			vertices[index].normal_ = normal;
@@ -212,18 +220,23 @@ void ModelCommon::CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
 }
 YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src, bool invU, bool invV, bool isNormalized)
 {
+	// 戻り値用
 	YDX::VertexIndex<VData> vtIdx;
 
+	// 保存用
 	aiVector3D zero3D(0.0f, 0.0f, 0.0f);
 	aiColor4D zeroColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	std::vector<VData> vData;
 	std::vector<uint16_t> indices;
 
+	// リサイズ(頂点の数だけ)
 	vData.resize(src->mNumVertices);
 
+	// 頂点の数
 	for (size_t i = 0; i < src->mNumVertices; ++i)
 	{
+		// 読み込み(代入)
 		aiVector3D* position = &(src->mVertices[i]);
 		aiVector3D* normal = &(src->mNormals[i]);
 		aiVector3D* uv = (src->HasTextureCoords(0)) ? &(src->mTextureCoords[0][i]) : &zero3D;
@@ -243,10 +256,13 @@ YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src
 		vData[i] = vertex;
 	}
 
+	// リサイズ(インデックスの数だけ)
 	indices.resize(src->mNumFaces * static_cast<size_t>(3));
 
+	// インデックスの数
 	for (size_t i = 0; i < src->mNumFaces; ++i)
 	{
+		// 読み込み(代入)
 		const aiFace& face = src->mFaces[i];
 
 		indices[i * 3 + 0] = face.mIndices[0];
@@ -254,32 +270,45 @@ YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src
 		indices[i * 3 + 2] = face.mIndices[2];
 	}
 
+	// 法線計算
 	if (isNormalized) { CalculateNormals(vData, indices); }
 
+	// 頂点インデックス初期化(代入)
 	vtIdx.Initialize(vData, indices);
 
+	// 頂点インデックスを返す
 	return vtIdx;
 }
 ModelCommon::Material ModelCommon::LoadMaterial(const std::string directoryPath, const aiMaterial* src, const std::string extension)
 {
+	// 戻り値用
 	Material material = Material();
 
+	// 読み込み
 	aiString path;
 	if (src->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) == AI_SUCCESS)
 	{
+		// ファイル名
 		std::string fileName = std::string(path.C_Str());
+		
+		// 拡張子を変更するなら
 		if (extension != "")
 		{
+			// 拡張子設定
 			fileName = YUtil::ReplaceExtension(fileName, extension);
 		}
+		
+		// 読み込み(代入)
 		material.texFileName_ = fileName;
 		material.texIndex_ = pTexManager_->Load(directoryPath, fileName);
 	}
 
+	// マテリアルを返す
 	return material;
 }
 ModelCommon::Material ModelCommon::LoadMaterial(const std::string& directoryPath, const std::string& fileName)
 {
+	// 戻り値用
 	Material m;
 
 	// ファイルストリーム
@@ -344,7 +373,25 @@ ModelCommon::Material ModelCommon::LoadMaterial(const std::string& directoryPath
 
 	}
 
+	// ファイルを閉じる
 	file.close();
 
+	// マテリアルを返す
 	return m;
+}
+
+void ModelCommon::StaticInitialize()
+{
+	// 代入
+	pTexManager_ = TextureManager::GetInstance();
+
+	// パイプライン初期化
+	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
+	pipelineSet_.Initialize(pplnState.get());
+}
+
+void ModelCommon::StaticSetDrawCommand()
+{
+	// パイプラインをセット
+	pipelineSet_.SetDrawCommand();
 }

@@ -2,12 +2,20 @@
 #include <cassert>
 #include <memory>
 
+#pragma region 名前空間
+
 using YGame::Sprite3DCommon;
 using YGame::TextureManager;
 using YDX::PipelineSet;
 
+#pragma endregion
+
+#pragma region Static
+
 PipelineSet Sprite3DCommon::pipelineSet_;
 TextureManager* Sprite3DCommon::pTexManager_ = nullptr;
+
+#pragma endregion
 
 void Sprite3DCommon::ShaderSet::Load(ID3DBlob* errorBlob)
 {
@@ -118,16 +126,18 @@ void Sprite3DCommon::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
 	primitive_ = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ポイントリスト
 }
 
-void Sprite3DCommon::StaticInitialize(const StaticInitStatus& state)
+void Sprite3DCommon::StaticInitialize()
 {
-	assert(state.pTexManager_);
-	pTexManager_ = state.pTexManager_;
+	// 代入
+	pTexManager_ = TextureManager::GetInstance();
 
+	// パイプライン初期化
 	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
 	pipelineSet_.Initialize(pplnState.get());
 }
 
 void Sprite3DCommon::StaticSetDrawCommand()
 {
+	// パイプラインをセット
 	pipelineSet_.SetDrawCommand();
 }

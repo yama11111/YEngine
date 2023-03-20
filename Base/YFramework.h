@@ -3,7 +3,7 @@
 #include "YWindowsApp.h"
 #include "YDirectX.h"
 #include "ScreenDesc.h"
-#include "ImGuiContoroller.h"
+#include "ImGuiManager.h"
 #include <memory>
 
 namespace YBase
@@ -21,14 +21,10 @@ namespace YBase
 		YDX::ScreenDesc screenDesc_;
 		// デスクリプターヒープ (SRV, UAV, CBV)
 		YDX::DescriptorHeap descHeap_;
-		// テクスチャマネージャー
-		YGame::TextureManager texMan_;
-		// audioマネージャー
-		YGame::AudioManager audioMan_;
 		// ゲームルール
 		YGame::WorldRuler worldRuler_;
 		// imguiマネージャー
-		ImGuiContoroller imguiCon_;
+		ImGuiManager imguiMan_;
 		// シーンマネージャー
 		YScene::SceneManager* sceneMan_ = nullptr;
 		// 終了フラグ

@@ -14,3 +14,6 @@ const YMath::Vector4 ClearColor = { 0.1f, 0.25f, 0.5f, 0.0f }; // (RGBA)
 
 // ŒÅ’èŽžFPS
 const float FixFPS = 60.0f;
+
+// ƒÎ
+const float PI = 3.141592f;

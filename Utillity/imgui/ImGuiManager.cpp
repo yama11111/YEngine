@@ -1,10 +1,10 @@
-#include "ImGuiContoroller.h"
+#include "ImGuiManager.h"
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
 #include "YAssert.h"
 
-void ImGuiContoroller::Initialize(const InitStatus& state)
+void ImGuiManager::Initialize(const InitStatus& state)
 {
 	assert(state.hwnd_);
 	assert(state.pDevice_);
@@ -40,7 +40,7 @@ void ImGuiContoroller::Initialize(const InitStatus& state)
 	io.Fonts->AddFontDefault();
 }
 
-void ImGuiContoroller::Finalize()
+void ImGuiManager::Finalize()
 {
 	// Cleanup
 	ImGui_ImplDX12_Shutdown();
@@ -51,7 +51,7 @@ void ImGuiContoroller::Finalize()
 	srvHeap_.Reset();
 }
 
-void ImGuiContoroller::Begin()
+void ImGuiManager::Begin()
 {
 	// Start the Dear ImGui frame
 	ImGui_ImplDX12_NewFrame();
@@ -59,13 +59,13 @@ void ImGuiContoroller::Begin()
 	ImGui::NewFrame();
 }
 
-void ImGuiContoroller::End()
+void ImGuiManager::End()
 {
 	// Rendering
 	ImGui::Render();
 }
 
-void ImGuiContoroller::Draw()
+void ImGuiManager::Draw()
 {
 	// SRVヒープの設定コマンド
 	ID3D12DescriptorHeap* ppHeaps[] = { srvHeap_.Get() };

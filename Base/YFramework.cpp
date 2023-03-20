@@ -4,12 +4,14 @@
 #include <cassert>
 
 #pragma region 名前空間宣言
+
 using YBase::YFramework;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
 using namespace YScene;
 using namespace YGame;
+
 #pragma endregion
 
 bool YFramework::Initialize()
@@ -33,6 +35,7 @@ bool YFramework::Initialize()
 	// ゲームルール初期化
 	worldRuler_.Initailze();
 	WorldRuleAdopter::StaticInitialize(&worldRuler_);
+
 #pragma endregion
 
 #pragma region Pipeline
@@ -56,8 +59,8 @@ bool YFramework::Initialize()
 	// 定数バッファ静的初期化
 	ConstBufferCommon::StaticInitialize({ pCmdList, &descHeap_ });
 
-	// テクスチャマネージャー
-	TextureManager::StaticInitialize({ pDev, pCmdList, &descHeap_ });
+	// テクスチャマネージャー静的初期化
+	TextureManagerCommon::StaticInitialize({ pDev, pCmdList, &descHeap_ });
 
 	// パイプライン静的初期化
 	PipelineSet::StaticInitialize(pDev, pCmdList);
@@ -68,22 +71,22 @@ bool YFramework::Initialize()
 	Vertices<ModelCommon::VData>	::StaticInitialize(pCmdList);
 
 	// コモンクラス静的初期化
-	Sprite2DCommon	::StaticInitialize({ &texMan_ });
-	Sprite3DCommon	::StaticInitialize({ &texMan_ });
-	ModelCommon		::StaticInitialize({ &texMan_ });
+	Sprite2DCommon	::StaticInitialize();
+	Sprite3DCommon	::StaticInitialize();
+	ModelCommon		::StaticInitialize();
 
 #pragma endregion
 
 #pragma region Game
 
 	// imgui初期化
-	imguiCon_.Initialize({ window_.PointerHandleWindow(), pDev, dx_.BackBufferCount(), pCmdList });
+	imguiMan_.Initialize({ window_.PointerHandleWindow(), pDev, dx_.BackBufferCount(), pCmdList });
 
 	// オーディオ初期化
-	audioMan_.Initialize();
+	AudioManager::GetInstance()->Initialize();
 
 	// シーン初期化
-	BaseScene::StaticInitialize(&texMan_, &audioMan_, &worldRuler_);
+	BaseScene::StaticInitialize(&worldRuler_);
 	sceneMan_ = SceneManager::GetInstance();
 
 #pragma endregion
@@ -96,7 +99,7 @@ bool YFramework::Initialize()
 void YFramework::Finalize()
 {
 	// imguiをクリーン
-	imguiCon_.Finalize();
+	imguiMan_.Finalize();
 
 	// ウィンドウクラスを登録解除
 	window_.FinalProcess();
@@ -111,7 +114,7 @@ void YFramework::Update()
 	inputMan_->Update();
 
 	// imgui受付開始
-	imguiCon_.Begin();
+	imguiMan_.Begin();
 
 	// ゲームルール更新処理
 	worldRuler_.Update();
@@ -120,7 +123,7 @@ void YFramework::Update()
 	sceneMan_->Update();
 
 	// imgui受付終了
-	imguiCon_.End();
+	imguiMan_.End();
 
 	// ------------------- 終了処理 ------------------- //
 	// ×ボタンで終了メッセージ

@@ -3,12 +3,21 @@
 #include <cassert>
 #include <memory>
 
+#pragma region 名前空間
+
 using YGame::Sprite2DCommon;
 using YDX::PipelineSet;
+
+#pragma endregion
+
+#pragma region Static
 
 YMath::Matrix4 Sprite2DCommon::projection_ = YMath::Matrix4::Identity();
 PipelineSet Sprite2DCommon::pipelineSet_;
 YGame::TextureManager* Sprite2DCommon::pTexManager_ = nullptr;
+
+#pragma endregion
+
 
 void Sprite2DCommon::ShaderSet::Load(ID3DBlob* errorBlob)
 {
@@ -114,18 +123,21 @@ void Sprite2DCommon::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
 	primitive_ = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; // 三角形ストリップ
 }
 
-void Sprite2DCommon::StaticInitialize(const StaticInitStatus& state)
+void Sprite2DCommon::StaticInitialize()
 {
-	assert(state.pTexManager_);
-	pTexManager_ = state.pTexManager_;
+	// 代入
+	pTexManager_ = TextureManager::GetInstance();
 
+	// プロジェクション行列を設定
 	projection_ = YMath::MatOrthoGraphic();
 
+	// パイプライン初期化
 	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
 	pipelineSet_.Initialize(pplnState.get());
 }
 
 void Sprite2DCommon::StaticSetDrawCommand()
 {
+	// パイプラインをセット
 	pipelineSet_.SetDrawCommand();
 }

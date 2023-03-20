@@ -2,8 +2,21 @@
 #include "YAssert.h"
 #include <fstream>
 
+#pragma region 名前空間
+
 using YGame::AudioManager;
 using YDX::Result;
+
+#pragma endregion
+
+AudioManager* AudioManager::GetInstance()
+{
+	// インスタンス生成 (静的)
+	static AudioManager instance;
+
+	// インスタンスを返す
+	return &instance;
+}
 
 AudioManager::~AudioManager()
 {
@@ -80,6 +93,7 @@ UINT AudioManager::Load(const char* fileName)
 	// サウンドデータを保存
 	audios_.push_back(sound);
 
+	// オーディオ番号を返す
 	return static_cast<UINT>(audios_.size() - 1);
 }
 

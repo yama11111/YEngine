@@ -9,6 +9,7 @@
 
 namespace YGame
 {
+	// スプライト2Dコモンクラス
 	class Sprite2DCommon
 	{
 	public:
@@ -27,17 +28,10 @@ namespace YGame
 		// ルートパラメータ番号
 		enum class RootParameterIndex
 		{
-			SpriteCB = 0,
-			ColorCB = 1,
-			TexDT = 2,
+			ObjCB	 = 0, // 行列
+			ColorCB	 = 1, // 色
+			TexDT	 = 2, // テクスチャ
 		};
-	protected:
-		// 静的射影変換行列(平行投影)
-		static YMath::Matrix4 projection_;
-		// パイプライン設定
-		static YDX::PipelineSet pipelineSet_;
-		// 静的テクスチャマネージャーポインタ
-		static TextureManager* pTexManager_;
 	private:
 		// シェーダーセット
 		class ShaderSet : public YDX::ShaderCommon
@@ -54,18 +48,19 @@ namespace YGame
 		// パイプライン設定構造体
 		struct PipelineSetStatus : public YDX::PipelineSet::IStatus
 		{
+			// 初期化
 			void Initialize(ID3DBlob* errorBlob_) override;
 		};
-	public:
-		// 静的初期化ステータス
-		struct StaticInitStatus
-		{
-			// テクスチャマネージャーポインタ
-			TextureManager* pTexManager_;
-		};
+	protected:
+		// 静的射影変換行列(平行投影)
+		static YMath::Matrix4 projection_;
+		// パイプライン設定
+		static YDX::PipelineSet pipelineSet_;
+		// 静的テクスチャマネージャーポインタ
+		static TextureManager* pTexManager_;
 	public:
 		// 静的初期化
-		static void StaticInitialize(const StaticInitStatus& state);
+		static void StaticInitialize();
 		// 静的描画コマンド
 		static void StaticSetDrawCommand();
 	};

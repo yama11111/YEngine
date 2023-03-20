@@ -1,55 +1,86 @@
 #include "Sprite2D.h"
 
+#pragma region 名前空間
+
 using YGame::Sprite2DCommon;
 using YGame::Sprite2D;
 using YGame::ObjectSprite2D;
 using YMath::Vector2;
 using YMath::Matrix4;
 
-const UINT SprIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::SpriteCB);
-const UINT ColIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ColorCB);
-const UINT TexIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::TexDT);
+#pragma endregion
+
+#pragma region ルートパラメータ番号
+
+static const UINT ObjIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ObjCB); // obj
+static const UINT ColIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::ColorCB); // color
+static const UINT TexIndex	 = static_cast<UINT>(Sprite2DCommon::RootParameterIndex::TexDT); // tex
+
+#pragma endregion
 
 ObjectSprite2D* ObjectSprite2D::Create(const Status& state)
 {
+	// インスタンス生成 (動的)
 	ObjectSprite2D* instance = new ObjectSprite2D();
+	
+	// 定数バッファ生成
 	instance->cBuff_.Create();
+	// 初期化
 	instance->Initialize(state);
 
+	// インスタンスを返す
 	return instance;
 }
 
-void Sprite2D::Draw(ObjectSprite2D* obj, Color* color, const UINT tex)
+void Sprite2D::Draw(ObjectSprite2D* pObj, Color* pColor, const UINT tex)
 {
+	// 描画しないなら弾く
 	if (isInvisible_) { return; }
 
-	obj->cBuff_.map_->matWorld_ = obj->m_ * projection_;
-	obj->cBuff_.SetDrawCommand(SprIndex);
+	// ----- シェーダーに定数バッファを送る ----- //
+	
+	// 行列
+	pObj->cBuff_.map_->matWorld_ = pObj->m_ * projection_;
+	pObj->cBuff_.SetDrawCommand(ObjIndex);
 
-	color->SetDrawCommand(ColIndex);
+	// 色
+	pColor->SetDrawCommand(ColIndex);
 
+	// テクスチャ
 	pTexManager_->SetDrawCommand(TexIndex, tex);
+	
+	// 頂点バッファを送る + 描画コマンド
 	vt_.Draw();
 }
-void Sprite2D::Draw(ObjectSprite2D* obj, const UINT tex)
+void Sprite2D::Draw(ObjectSprite2D* pObj, const UINT tex)
 {
-	Draw(obj, defColor_.get(), tex);
+	// デフォルトの色を渡して描画
+	Draw(pObj, defColor_.get(), tex);
 }
-void Sprite2D::Draw(ObjectSprite2D* obj, Color* color)
+void Sprite2D::Draw(ObjectSprite2D* pObj, Color* pColor)
 {
+	// 描画しないなら弾く
 	if (isInvisible_) { return; }
 
-	obj->cBuff_.map_->matWorld_ = obj->m_ * projection_;
-	obj->cBuff_.SetDrawCommand(SprIndex);
+	// ----- シェーダーに定数バッファを送る ----- //
 
-	color->SetDrawCommand(ColIndex);
+	// 行列
+	pObj->cBuff_.map_->matWorld_ = pObj->m_ * projection_;
+	pObj->cBuff_.SetDrawCommand(ObjIndex);
 
+	// 色
+	pColor->SetDrawCommand(ColIndex);
+
+	// テクスチャ
 	pTexManager_->SetDrawCommand(TexIndex, tex_);
+	
+	// 頂点バッファを送る + 描画コマンド
 	vt_.Draw();
 }
-void Sprite2D::Draw(ObjectSprite2D* obj)
+void Sprite2D::Draw(ObjectSprite2D* pObj)
 {
-	Draw(obj, defColor_.get());
+	// デフォルトの色を渡して描画
+	Draw(pObj, defColor_.get());
 }
 
 Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const bool div)
@@ -59,9 +90,11 @@ Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const
 	
 	// ----- Status ----- //
 
+	// 反転設定
 	float flipX = state.isFlipX_ ? -1.0f : 1.0f;
 	float flipY = state.isFlipY_ ? -1.0f : 1.0f;
 
+	// 左右上下のポイント設定 (0.0~1,0)
 	float left   = (0.0f - state.anchor_.x_) * state.size_.x_ * flipX;
 	float right  = (1.0f - state.anchor_.x_) * state.size_.x_ * flipX;
 	float top    = (0.0f - state.anchor_.y_) * state.size_.y_ * flipY;
@@ -69,17 +102,22 @@ Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const
 
 	// ----- TexStatus ----- //
 
+	// テクスチャのサイズを取得
 	float rscSizeX = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Width);
 	float rscSizeY = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Height);
 
+	// テクスチャの左上と右下を設定 (画像に合わせるならそのまま)
 	Vector2 texLT = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
 	Vector2 texRB = div ? (texState.leftTop_ + texState.size_) : Vector2(rscSizeX, rscSizeY);
 
+	// UV座標を計算
 	float texLeft   = texLT.x_ / rscSizeX;
 	float texRight  = texRB.x_ / rscSizeX;
 	float texTop    = texLT.y_ / rscSizeY;
 	float texBottom = texRB.y_ / rscSizeY;
+	
 
+	// インスタンス生成 (動的)
 	instance->vt_.Initialize(
 		{
 			{ {  left,bottom,0.0f },{  texLeft,texBottom } }, // 左下
@@ -88,17 +126,19 @@ Sprite2D* Sprite2D::Create(const Status& state, const TexStatus& texState, const
 			{ { right,top,   0.0f },{ texRight,texTop } },    // 右上
 		});
 
-	instance->size_    = state.size_;
-	instance->anchor_  = state.anchor_;
-	instance->isFlipX_ = state.isFlipX_;
-	instance->isFlipY_ = state.isFlipY_;
+	// いろいろ設定
+	instance->size_    = state.size_; // 大きさ
+	instance->anchor_  = state.anchor_; // アンカーポイント
+	instance->isFlipX_ = state.isFlipX_; // X反転
+	instance->isFlipY_ = state.isFlipY_; // Y反転
 
-	instance->tex_		  = texState.index_;
-	instance->texLeftTop_ = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
-	instance->texSize_    = div ? texState.size_ : Vector2(rscSizeX, rscSizeY);
+	instance->tex_		  = texState.index_; // テクスチャインデックス
+	instance->texLeftTop_ = div ? texState.leftTop_ : Vector2(0.0f, 0.0f); // テクスチャの左上
+	instance->texSize_    = div ? texState.size_ : Vector2(rscSizeX, rscSizeY); // テクスチャの大きさ
 
-	instance->defColor_.reset(Color::Create());
+	instance->defColor_.reset(Color::Create()); // 色 (そのまま)
 
+	// インスタンスを返す
 	return instance;
 }
 
@@ -141,40 +181,48 @@ void Sprite2D::SetAllStatus(const Status& state, const TexStatus& texState, cons
 	std::vector<VData> v;
 
 	// ----- Status ----- //
-
+	
+	// 反転設定
 	float flipX = state.isFlipX_ ? -1.0f : 1.0f;
 	float flipY = state.isFlipY_ ? -1.0f : 1.0f;
 
-	float left   = (0.0f - state.anchor_.x_) * state.size_.x_ * flipX;
-	float right  = (1.0f - state.anchor_.x_) * state.size_.x_ * flipX;
-	float top    = (0.0f - state.anchor_.y_) * state.size_.y_ * flipY;
+	// 左右上下のポイント設定 (0.0~1,0)
+	float left = (0.0f - state.anchor_.x_) * state.size_.x_ * flipX;
+	float right = (1.0f - state.anchor_.x_) * state.size_.x_ * flipX;
+	float top = (0.0f - state.anchor_.y_) * state.size_.y_ * flipY;
 	float bottom = (1.0f - state.anchor_.y_) * state.size_.y_ * flipY;
 
 	// ----- TexStatus ----- //
 
+	// テクスチャのサイズを取得
 	float rscSizeX = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Width);
 	float rscSizeY = static_cast<float>(pTexManager_->TextureBuffer(texState.index_)->GetDesc().Height);
 
+	// テクスチャの左上と右下を設定 (画像に合わせるならそのまま)
 	Vector2 texLT = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
 	Vector2 texRB = div ? (texState.leftTop_ + texState.size_) : Vector2(rscSizeX, rscSizeY);
 
+	// UV座標を計算
 	float texLeft   = texLT.x_ / rscSizeX;
 	float texRight  = texRB.x_ / rscSizeX;
 	float texTop    = texLT.y_ / rscSizeY;
 	float texBottom = texRB.y_ / rscSizeY;
 
+
+	// 頂点を再設定
 	v.push_back({ {  left,bottom,0.0f },{  texLeft,texBottom } }); // 左下
 	v.push_back({ {  left,top,   0.0f },{  texLeft,texTop } });	   // 左上
 	v.push_back({ { right,bottom,0.0f },{ texRight,texBottom } }); // 右下
 	v.push_back({ { right,top,   0.0f },{ texRight,texTop } });	   // 右上
 	vt_.TransferMap(v);
 
-	size_    = state.size_;
-	anchor_  = state.anchor_;
-	isFlipX_ = state.isFlipX_;
-	isFlipY_ = state.isFlipY_;
+	// いろいろ設定
+	size_ = state.size_; // 大きさ
+	anchor_ = state.anchor_; // アンカーポイント
+	isFlipX_ = state.isFlipX_; // X反転
+	isFlipY_ = state.isFlipY_; // Y反転
 
-	tex_	    = texState.index_;
-	texLeftTop_ = div ? texState.leftTop_ : Vector2(0.0f, 0.0f);
-	texSize_    = div ? texState.size_ : Vector2(rscSizeX, rscSizeY);
+	tex_ = texState.index_; // テクスチャインデックス
+	texLeftTop_ = div ? texState.leftTop_ : Vector2(0.0f, 0.0f); // テクスチャの左上
+	texSize_ = div ? texState.size_ : Vector2(rscSizeX, rscSizeY); // テクスチャの大きさ
 }

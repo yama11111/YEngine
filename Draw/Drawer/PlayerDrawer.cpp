@@ -16,7 +16,7 @@ using YMath::Vector3;
 #pragma region Static
 
 // 静的 モデル配列 初期化
-std::array<std::unique_ptr<Model>, PlayerDrawerCommon::PartsNum_> PlayerDrawerCommon::models_ =
+std::array<std::unique_ptr<Model>, PlayerDrawerCommon::PartsNum_> PlayerDrawerCommon::sModels_ =
 { nullptr, nullptr, };
 
 void PlayerDrawerCommon::StaticInitialize()
@@ -24,8 +24,8 @@ void PlayerDrawerCommon::StaticInitialize()
 	// ----- モデル読み込み ----- //
 
 	// 体
-	models_[static_cast<size_t>(Parts::Body)].reset(Model::LoadObj("player/player_body", true));
-	models_[static_cast<size_t>(1)].reset(Model::LoadObj("player/player_body", true));
+	sModels_[static_cast<size_t>(Parts::Body)].reset(Model::LoadObj("player/player_body", true));
+	sModels_[static_cast<size_t>(1)].reset(Model::LoadObj("player/player_body", true));
 }
 
 #pragma endregion
@@ -106,9 +106,9 @@ void PlayerDrawer::Update()
 void PlayerDrawer::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
 {
 	// 描画
-	for (size_t i = 0; i < models_.size(); i++)
+	for (size_t i = 0; i < sModels_.size(); i++)
 	{
-		models_[i]->Draw(modelObjs_[i].get(), vp, lightGroup);
+		sModels_[i]->Draw(modelObjs_[i].get(), vp, lightGroup);
 	}
 }
 

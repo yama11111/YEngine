@@ -7,7 +7,7 @@
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
 
-class ImGuiContoroller
+class ImGuiManager
 {
 private:
 	// デスクリプターヒープ

@@ -4,8 +4,6 @@
 #include "Vector4.h"
 #include "Matrix4.h"
 
-#define PI 3.141592f
-
 namespace YMath
 {
 #pragma region •ÏŠ·Œn

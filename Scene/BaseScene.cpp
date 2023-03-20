@@ -13,7 +13,7 @@ using YGame::WorldRuler;
 
 #pragma endregion 
 
-#pragma region Static関連
+#pragma region Static
 
 Keys* BaseScene::sKeys_ = nullptr;
 Mouse* BaseScene::sMouse_ = nullptr;
@@ -22,23 +22,20 @@ WorldRuler* BaseScene::spWorldRuler_ = nullptr;
 TextureManager* BaseScene::spTexManager_ = nullptr;
 AudioManager* BaseScene::spAudioManager_ = nullptr;
 
-void BaseScene::StaticInitialize(
-	YGame::TextureManager* pTexManager,
-	YGame::AudioManager* pAudioManager,
-	YGame::WorldRuler* pWorldRuler)
+void BaseScene::StaticInitialize(YGame::WorldRuler* pWorldRuler)
 {
 	// nullチェック
-	assert(pTexManager);
-	assert(pAudioManager);
+	assert(pWorldRuler);
 
 	// シングルトン初期化
 	sKeys_ = Keys::GetInstance();
 	sMouse_ = Mouse::GetInstance();
 	sPad_ = Pad::GetInstance();
 
+	spTexManager_ = TextureManager::GetInstance();
+	spAudioManager_ = AudioManager::GetInstance();
+	
 	// ポインタ代入
-	spTexManager_ = pTexManager;
-	spAudioManager_ = pAudioManager;
 	spWorldRuler_ = pWorldRuler;
 }
 

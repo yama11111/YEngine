@@ -18,7 +18,7 @@ protected:
 	static const size_t PartsNum_ = 2;
 protected:
 	// モデル (パーツの数だけ)
-	static std::array<std::unique_ptr<YGame::Model>, PartsNum_> models_;
+	static std::array<std::unique_ptr<YGame::Model>, PartsNum_> sModels_;
 public:
 	// 静的初期化
 	static void StaticInitialize();
