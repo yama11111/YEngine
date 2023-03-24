@@ -4,6 +4,7 @@
 
 namespace YMath
 {
+	// スピード
 	class Speed : public YGame::WorldRuleAdopter
 	{
 	private:

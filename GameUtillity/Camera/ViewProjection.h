@@ -4,6 +4,7 @@
 
 namespace YGame
 {
+	// ビュープロジェクション
 	class ViewProjection
 	{
 	public:
@@ -28,7 +29,14 @@ namespace YGame
 	public:
 		// コンストラクタ
 		ViewProjection();
-		// 初期化
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="state"> : 初期化用ステータス</param>
+		/// <param name="------------------------------------"></param>
+		/// <param name="state.eye_"> : 視点</param>
+		/// <param name="state.target_"> : 注視点</param>
+		/// <param name="state.up_"> : 上方向ベクトル</param>
 		void Initialize(const InitStatus& state);
 		// ビュー変換 + プロジェクション変換
 		void Update();

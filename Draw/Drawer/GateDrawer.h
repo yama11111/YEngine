@@ -4,14 +4,14 @@
 #include <array>
 #include <memory>
 
-// プレイヤー描画用コモンクラス
-class PlayerDrawerCommon
+// ゲート描画用コモンクラス
+class GateDrawerCommon
 {
 protected:
 	// パーツの名前
 	enum class Parts
 	{
-		Body, // 体
+		Frame, // 枠
 	};
 protected:
 	// パーツの総数
@@ -24,9 +24,9 @@ public:
 	static void StaticInitialize();
 };
 
-// プレイヤー描画用クラス
-class PlayerDrawer :
-	private PlayerDrawerCommon,
+// ゲート描画用クラス
+class GateDrawer :
+	private GateDrawerCommon,
 	private YGame::SlimeActor
 {
 private:
@@ -34,8 +34,6 @@ private:
 	std::unique_ptr <YGame::ObjectModel> obj_;
 	// モデル用オブジェクト (子)
 	std::array<std::unique_ptr<YGame::ObjectModel>, PartsNum_> modelObjs_;
-	// 向きポインタ
-	YMath::Vector3* pDirection_ = nullptr;
 	// 立ちモーション用タイマー
 	YMath::Timer idelTim_;
 public:
@@ -43,8 +41,7 @@ public:
 	/// 初期化
 	/// </summary>
 	/// <param name="pParent"> : 親行列ポインタ (この行列に追従する)</param>
-	/// <param name="pDirection"> : 向きポインタ (この向きに向く)</param>
-	void Initialize(YMath::Matrix4* pParent, YMath::Vector3* pDirection);
+	void Initialize(YMath::Matrix4* pParent);
 	// リセット (中身だけ初期化)
 	void Reset();
 	// 更新
@@ -58,10 +55,6 @@ public:
 public:
 	// 立ちモーション
 	void IdleAnimation();
-	// 着地モーション
-	void LandingAnimation();
-	// ジャンプモーション
-	void JumpAnimation();
 	// 色替えアニメーション
 	//void ChangeColor(const );
 };

@@ -186,9 +186,6 @@
     <ClCompile Include="GameUtillity\AudioManager.cpp">
       <Filter>GameUtil</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\ViewProjection.cpp">
-      <Filter>GameUtil</Filter>
-    </ClCompile>
     <ClCompile Include="Chara\Attack.cpp">
       <Filter>ソース ファイル\Chara\Util</Filter>
     </ClCompile>
@@ -396,6 +393,15 @@
     <ClCompile Include="Draw\SceneChange\ITransition.cpp">
       <Filter>Draw\SceneChange</Filter>
     </ClCompile>
+    <ClCompile Include="GameUtillity\Camera\ViewProjection.cpp">
+      <Filter>GameUtil\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Drawer\FilterDrawer.cpp">
+      <Filter>Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Drawer\GateDrawer.cpp">
+      <Filter>Draw\Drawer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Def.h">
@@ -462,9 +468,6 @@
       <Filter>GameUtil\3D</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\AudioManager.h">
-      <Filter>GameUtil</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\ViewProjection.h">
       <Filter>GameUtil</Filter>
     </ClInclude>
     <ClInclude Include="Chara\Attack.h">
@@ -682,6 +685,15 @@
     </ClInclude>
     <ClInclude Include="Draw\SceneChange\ITransition.h">
       <Filter>Draw\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Camera\ViewProjection.h">
+      <Filter>GameUtil\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\FilterDrawer.h">
+      <Filter>Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\GateDrawer.h">
+      <Filter>Draw\Drawer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

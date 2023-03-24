@@ -3,6 +3,7 @@
 
 namespace YMath
 {
+	// —h‚ê
 	class Shake
 	{
 	private:
@@ -15,10 +16,20 @@ namespace YMath
 		// Œ¸Š—Ê
 		int dekey_ = 0;
 	public:
+		// ‰Šú‰»
 		void Initialize();
+		// XV
 		void Update();
+		/// <summary>
+		/// “®ìŠJn
+		/// </summary>
+		/// <param name="swing"> : —h‚ê‚é—Ê</param>
+		/// <param name="dekey"> : Œ¸Š—Ê</param>
 		void Activate(const int swing, const int dekey);
-		Vector3 Value() { return value_; }
-		bool IsAct() { return isAct_; }
+	public:
+		// —h‚ê—Ê
+		Vector3 Value() const { return value_; }
+		// “®ì’†‚©
+		bool IsAct() const { return isAct_; }
 	};
 }

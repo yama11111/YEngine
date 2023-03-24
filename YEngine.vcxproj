@@ -121,6 +121,8 @@
     <ClCompile Include="Draw\Actor\DeadActor.cpp" />
     <ClCompile Include="Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Draw\Actor\SlimeActor.cpp" />
+    <ClCompile Include="Draw\Drawer\FilterDrawer.cpp" />
+    <ClCompile Include="Draw\Drawer\GateDrawer.cpp" />
     <ClCompile Include="Draw\Drawer\PlayerDrawer.cpp" />
     <ClCompile Include="Draw\Particle\Particle.cpp" />
     <ClCompile Include="Draw\Particle\ParticleManager.cpp" />
@@ -142,6 +144,7 @@
     <ClCompile Include="GameUtillity\AudioManager.cpp" />
     <ClCompile Include="GameUtillity\Camera\Camera.cpp" />
     <ClCompile Include="GameUtillity\Camera\CameraManager.cpp" />
+    <ClCompile Include="GameUtillity\Camera\ViewProjection.cpp" />
     <ClCompile Include="GameUtillity\Collision\BaseCollider.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionManager.cpp" />
     <ClCompile Include="GameUtillity\Collision\CollisionPrimitive.cpp" />
@@ -157,7 +160,6 @@
     <ClCompile Include="GameUtillity\BaseObject.cpp" />
     <ClCompile Include="GameUtillity\Stuff\Floor.cpp" />
     <ClCompile Include="GameUtillity\Stuff\Skydome.cpp" />
-    <ClCompile Include="GameUtillity\ViewProjection.cpp" />
     <ClCompile Include="GameUtillity\WorldRuler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGame.cpp" />
@@ -216,6 +218,8 @@
     <ClInclude Include="Draw\Actor\DeadActor.h" />
     <ClInclude Include="Draw\Actor\HitActor.h" />
     <ClInclude Include="Draw\Actor\SlimeActor.h" />
+    <ClInclude Include="Draw\Drawer\FilterDrawer.h" />
+    <ClInclude Include="Draw\Drawer\GateDrawer.h" />
     <ClInclude Include="Draw\Drawer\PlayerDrawer.h" />
     <ClInclude Include="Draw\Particle\Particle.h" />
     <ClInclude Include="Draw\Particle\ParticleManager.h" />
@@ -237,6 +241,7 @@
     <ClInclude Include="GameUtillity\AudioManager.h" />
     <ClInclude Include="GameUtillity\Camera\Camera.h" />
     <ClInclude Include="GameUtillity\Camera\CameraManager.h" />
+    <ClInclude Include="GameUtillity\Camera\ViewProjection.h" />
     <ClInclude Include="GameUtillity\Collision\BaseCollider.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionConfig.h" />
     <ClInclude Include="GameUtillity\Collision\CollisionManager.h" />
@@ -253,7 +258,6 @@
     <ClInclude Include="GameUtillity\BaseObject.h" />
     <ClInclude Include="GameUtillity\Stuff\Floor.h" />
     <ClInclude Include="GameUtillity\Stuff\Skydome.h" />
-    <ClInclude Include="GameUtillity\ViewProjection.h" />
     <ClInclude Include="GameUtillity\WorldRuler.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="Scene\CollScene.h" />
