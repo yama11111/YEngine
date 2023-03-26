@@ -79,7 +79,7 @@ void ResultScene::Update()
 	}
 
 	// ビュープロジェクション
-	vp_.Update();
+	vp_.UpdateMatrix();
 }
 #pragma endregion
 

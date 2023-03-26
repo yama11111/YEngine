@@ -17,7 +17,7 @@ class Character :
 {
 protected:
 	// オブジェクト
-	std::unique_ptr<YGame::ObjectModel> obj_;
+	std::unique_ptr<YGame::ModelObject> obj_;
 	// 移動方向
 	YMath::Vector3 move_;
 	// スピード
@@ -29,12 +29,12 @@ protected:
 public:
 	// 初期化
 	void Initialize(
-		const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState,
+		const CharaStatus::InitStatus& charaStatus, const YGame::Transform::Status& objStatus,
 		const YMath::Vector3& acceleration, const YMath::Vector3& max, 
 		const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
 	// リセット
 	void Reset(
-		const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState, 
+		const CharaStatus::InitStatus& charaStatus, const YGame::Transform::Status& objStatus,
 		const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
 protected:
 	// 重力 + マップチップアタリ判定 + アニメーション

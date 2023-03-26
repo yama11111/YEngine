@@ -18,8 +18,8 @@ void Blackout::StaticInitialize()
 void Blackout::Initialize(const uint32_t changeFrame, const uint32_t loadFrame)
 {
 	// ‰Šú‰»
-	obj_.reset(ObjectSprite2D::Create({}));
 	color_.reset(Color::Create({ 0.0f,0.0f,0.0f,0.0f }));
+	obj_.reset(Sprite2DObject::Create({}, color_.get()));
 
 	blendEas_.Initialize(0.0f, 1.0f, 3.0f);
 	blendPow_.Initialize(changeFrame);
@@ -155,5 +155,5 @@ void Blackout::Update()
 
 void Blackout::Draw()
 {
-	sCurtenSpr_->Draw(obj_.get(), color_.get());
+	sCurtenSpr_->Draw(obj_.get());
 }

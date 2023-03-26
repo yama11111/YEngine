@@ -1,9 +1,11 @@
 #pragma once
-#include "Model.h"
+#include "Transform.h"
+#include "ViewProjection.h"
 #include "Shake.h"
 
 namespace YGame
 {
+	// カメラクラス
 	class Camera
 	{
 	public:
@@ -16,29 +18,31 @@ namespace YGame
 		YMath::Vector3* pFollowPoint_ = nullptr;
 		// 追従フラグ
 		bool isFollow_ = false;
-		// オブジェクト
-		std::unique_ptr<YGame::ObjectModel> obj_;
+		// トランスフォーム
+		Transform transform_;
 		// ビュープロジェクション
-		YGame::ViewProjection vp_;
+		ViewProjection vp_;
 		// カメラシェイク
 		YMath::Shake shake_;
 	public:
-		struct InitStatus 
-		{
-			YGame::BaseObject::Status objState_;
-			YMath::Vector3* pFollowPos_ = nullptr;
-			bool isFollow_ = false;
-		};
-	public:
-		// 初期化
-		void Initialize(const InitStatus& state);
-		// trfm → vp
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="status"> : トランスフォーム設定用ステータス</param>
+		/// <param name="status.pos_"> : 位置</param>
+		/// <param name="status.rota_"> : 回転</param>
+		/// <param name="status.scale_"> : 大きさ</param>
+		/// <param name="-------------------------------------------"></param>
+		/// <param name="pFollowPoint"> : 追従点ポインタ</param>
+		/// <param name="isFollow"> : 追従するか</param>
+		void Initialize(const Transform::Status& status, YMath::Vector3* pFollowPoint = nullptr, bool isFollow = false);
+		// 更新
 		void Update();
 	public:
 		// カメラシェイク
 		void Shaking(const int swing, const int dekey);
 		// ビュープロジェクション
-		YGame::ViewProjection GetViewProjection();
+		ViewProjection GetViewProjection();
 		// カメラ向き
 		YMath::Vector3 Direction();
 		// 揺れているか
@@ -48,6 +52,7 @@ namespace YGame
 		// 追従設定
 		void SetIsFollow(const bool isFollow);
 	private:
+		// 注視点更新
 		void UpdateTarget();
 	};
 }

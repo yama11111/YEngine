@@ -20,7 +20,7 @@ namespace YGame
 		// ブロック
 		struct Block
 		{
-			std::unique_ptr<ObjectSprite2D> obj_; // オブジェクト
+			std::unique_ptr<Sprite2DObject> obj_; // オブジェクト
 			YMath::Timer actTim_; // 動作タイマー
 		};
 	private:

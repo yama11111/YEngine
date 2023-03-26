@@ -49,7 +49,7 @@ void InfectionBlocks::Initialize(
 			// ƒuƒƒbƒN¶¬ + ‰Šú‰»
 			blocks_[y][x].reset(new Block());
 
-			blocks_[y][x]->obj_.reset(ObjectSprite2D::Create({}));
+			blocks_[y][x]->obj_.reset(Sprite2DObject::Create({}));
 			blocks_[y][x]->obj_->pos_ = { p.x_, p.y_, 0.0f };
 			blocks_[y][x]->actTim_.Initialize(changeFrame);
 		}

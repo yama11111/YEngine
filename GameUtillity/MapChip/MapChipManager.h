@@ -30,15 +30,15 @@ namespace YGame
 		};
 	public:
 		// ロード
-		void Load(const LoadStatus& state);
+		void Load(const LoadStatus& status);
 		// 初期化
-		void Initialize(const InitStatus& state);
+		void Initialize(const InitStatus& status);
 		// リセット
 		void Reset();
 		// 更新
 		void Update();
 		// 描画
-		void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color);
+		void Draw();
 		// 2D描画
 		void Draw2D();
 	public:

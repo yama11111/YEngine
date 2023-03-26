@@ -1,14 +1,34 @@
 #pragma once
+#include "Vertices.h"
 #include "ShaderCommon.h"
 #include "PipelineSet.h"
 #include "TextureManager.h"
+#include "Color.h"
 #include "Vector2.h"
-#include "Vector3.h"
 #include "Matrix4.h"
 #include <memory>
 
 namespace YGame
 {
+	// スプライト2D用オブジェクトコモンクラス
+	class Sprite2DObjectCommon
+	{
+	protected:
+		// 定数バッファデータ構造体
+		struct CBData
+		{
+			YMath::Matrix4 matWorld_; // 3D変換行列
+		};
+	protected:
+		// 静的射影変換行列(平行投影)
+		static YMath::Matrix4 sProjection_;
+		// 色 (デフォルト)
+		static std::unique_ptr<Color> sDefColor_;
+	public:
+		// 静的初期化 (デフォルト値設定)
+		static void StaticInitialize();
+	};
+	
 	// スプライト2Dコモンクラス
 	class Sprite2DCommon
 	{
@@ -19,18 +39,13 @@ namespace YGame
 			YMath::Vector3 pos_; // xyz座標
 			YMath::Vector2 uv_;  // uv座標
 		};
-		// 定数バッファデータ構造体
-		struct CBData
-		{
-			YMath::Matrix4 matWorld_; // 3D変換行列
-		};
 	public:
 		// ルートパラメータ番号
 		enum class RootParameterIndex
 		{
-			ObjCB	 = 0, // 行列
-			ColorCB	 = 1, // 色
-			TexDT	 = 2, // テクスチャ
+			TransformCB	 = 0, // 行列
+			ColorCB		 = 1, // 色
+			TexDT		 = 2, // テクスチャ
 		};
 	private:
 		// シェーダーセット
@@ -52,12 +67,10 @@ namespace YGame
 			void Initialize(ID3DBlob* errorBlob_) override;
 		};
 	protected:
-		// 静的射影変換行列(平行投影)
-		static YMath::Matrix4 projection_;
 		// パイプライン設定
-		static YDX::PipelineSet pipelineSet_;
+		static YDX::PipelineSet sPipelineSet_;
 		// 静的テクスチャマネージャーポインタ
-		static TextureManager* pTexManager_;
+		static TextureManager* spTexManager_;
 	public:
 		// 静的初期化
 		static void StaticInitialize();

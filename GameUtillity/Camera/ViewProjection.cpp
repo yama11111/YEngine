@@ -11,16 +11,16 @@ ViewProjection::ViewProjection() :
 	pro_(YMath::MatPerspective())
 {}
 
-void ViewProjection::Initialize(const InitStatus& state)
+void ViewProjection::Initialize(const InitStatus& status)
 {
-	eye_ = state.eye_;
-	target_ = state.target_;
-	up_ = state.up_;
+	eye_ = status.eye_;
+	target_ = status.target_;
+	up_ = status.up_;
 	view_ = YMath::MatLookAtLH(eye_, target_, up_);
 	pro_ = YMath::MatPerspective();
 }
 
-void ViewProjection::Update()
+void ViewProjection::UpdateMatrix()
 {
 	view_ = YMath::MatLookAtLH(eye_, target_, up_);
 }

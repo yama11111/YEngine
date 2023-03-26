@@ -39,7 +39,7 @@ namespace YGame
 		// チップ1つの情報
 		struct Chip
 		{
-			std::unique_ptr<ObjectModel> obj_; // オブジェクト
+			std::unique_ptr<ModelObject> obj_; // オブジェクト
 			std::unique_ptr<Color> color_; // 色
 			size_t number_ = UINT32_MAX; // 番号
 		};
@@ -64,7 +64,7 @@ namespace YGame
 		// 更新
 		void Update();
 		// 描画
-		void Draw(const ViewProjection& vp, LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color);
+		void Draw();
 	public:
 		// 衝突時処理
 		void PerfectPixelCollision(MapChipCollider& collider);
@@ -86,7 +86,7 @@ namespace YGame
 		// チップ1つの情報
 		struct Chip
 		{
-			std::unique_ptr<ObjectSprite2D> obj_;
+			std::unique_ptr<Sprite2DObject> obj_; // 定数バッファ
 			std::unique_ptr<Color> color_;
 		};
 	private:

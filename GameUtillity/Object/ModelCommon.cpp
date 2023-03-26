@@ -10,6 +10,7 @@
 
 #pragma region 名前空間
 
+using YGame::ModelObjectCommon;
 using YGame::ModelCommon;
 using YDX::PipelineSet;
 using YMath::Vector2;
@@ -18,28 +19,36 @@ using YMath::Vector4;
 
 #pragma endregion
 
-#pragma region Static
 
-PipelineSet ModelCommon::pipelineSet_;
-YGame::TextureManager* ModelCommon::pTexManager_ = nullptr;
+#pragma region ModelCBSetCommon
+
+std::unique_ptr<YGame::ViewProjection> ModelObjectCommon::sDefVP_ = nullptr;
+std::unique_ptr<YGame::LightGroup> ModelObjectCommon::sDefLightGroup_ = nullptr;
+std::unique_ptr<YGame::Color> ModelObjectCommon::sDefColor_ = nullptr;
+
+void ModelObjectCommon::StaticInitialize()
+{
+	// 生成
+	sDefVP_.reset(new YGame::ViewProjection());
+	sDefVP_->Initialize({});
+
+	sDefLightGroup_.reset(LightGroup::Create());
+
+	sDefColor_.reset(Color::Create());
+}
 
 #pragma endregion
 
-ModelCommon::Material::Material() :
-	name_(),
-	ambient_(0.2f, 0.2f, 0.2f),
-	diffuse_(0.5f, 0.5f, 0.5f),
-	specular_(0.10f, 0.10f, 0.10f),
-	alpha_(1.0f),
-	texFileName_(),
-	texIndex_(UINT32_MAX)
+
+#pragma region ModelCommon
+
+PipelineSet ModelCommon::sPipelineSet_;
+
+void ModelCommon::StaticInitialize()
 {
-	// 定数バッファ生成
-	cBuff_.Create();
-	cBuff_.map_->ambient_ = ambient_;
-	cBuff_.map_->diffuse_ = diffuse_;
-	cBuff_.map_->specular_ = specular_;
-	cBuff_.map_->alpha_ = alpha_;
+	// パイプライン初期化
+	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
+	sPipelineSet_.Initialize(pplnState.get());
 }
 
 void ModelCommon::ShaderSet::Load(ID3DBlob* errorBlob)
@@ -279,119 +288,11 @@ YDX::VertexIndex<ModelCommon::VData> ModelCommon::LoadVertices(const aiMesh* src
 	// 頂点インデックスを返す
 	return vtIdx;
 }
-ModelCommon::Material ModelCommon::LoadMaterial(const std::string directoryPath, const aiMaterial* src, const std::string extension)
-{
-	// 戻り値用
-	Material material = Material();
-
-	// 読み込み
-	aiString path;
-	if (src->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) == AI_SUCCESS)
-	{
-		// ファイル名
-		std::string fileName = std::string(path.C_Str());
-		
-		// 拡張子を変更するなら
-		if (extension != "")
-		{
-			// 拡張子設定
-			fileName = YUtil::ReplaceExtension(fileName, extension);
-		}
-		
-		// 読み込み(代入)
-		material.texFileName_ = fileName;
-		material.texIndex_ = pTexManager_->Load(directoryPath, fileName);
-	}
-
-	// マテリアルを返す
-	return material;
-}
-ModelCommon::Material ModelCommon::LoadMaterial(const std::string& directoryPath, const std::string& fileName)
-{
-	// 戻り値用
-	Material m;
-
-	// ファイルストリーム
-	std::ifstream file;
-	// .mtlファイルを開く
-	file.open(directoryPath + fileName);
-	// ファイルオープン失敗をチェック
-	assert(file);
-
-	// 1行ずつ読み込み
-	std::string line;
-	while (std::getline(file, line)) 
-	{
-		// 1行分の文字列をストリームに変換して解析しやすくする
-		std::istringstream lineStream(line);
-
-		// 半角スペース区切りで行の先頭文字列を取得
-		std::string key;
-		std::getline(lineStream, key, ' ');
-
-		// 先頭のタブ文字は無視する
-		if (key[0] == '\t') { key.erase(key.begin()); }
-
-		// 先頭文字列が "newmtl" ならマテリアル名
-		if (key == "newmtl")
-		{
-			// 読み込み
-			lineStream >> m.name_;
-		}
-		// 先頭文字列が "Ka" ならアンビエント色
-		if (key == "Ka")
-		{
-			// 読み込み
-			lineStream >> m.ambient_.x_;
-			lineStream >> m.ambient_.y_;
-			lineStream >> m.ambient_.z_;
-		}
-		// 先頭文字列が "Kd" ならディフューズ色
-		if (key == "Kd")
-		{
-			// 読み込み
-			lineStream >> m.diffuse_.x_;
-			lineStream >> m.diffuse_.y_;
-			lineStream >> m.diffuse_.z_;
-		}
-		// 先頭文字列が "vn" ならスペキュラー色
-		if (key == "Ks")
-		{
-			// 読み込み
-			lineStream >> m.specular_.x_;
-			lineStream >> m.specular_.y_;
-			lineStream >> m.specular_.z_;
-		}
-
-		// 先頭文字列が "map_Kd" ならテクスチャファイル名
-		if (key == "map_Kd")
-		{
-			// 読み込み
-			lineStream >> m.texFileName_;
-			m.texIndex_ = pTexManager_->Load(directoryPath, m.texFileName_);
-		}
-
-	}
-
-	// ファイルを閉じる
-	file.close();
-
-	// マテリアルを返す
-	return m;
-}
-
-void ModelCommon::StaticInitialize()
-{
-	// 代入
-	pTexManager_ = TextureManager::GetInstance();
-
-	// パイプライン初期化
-	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
-	pipelineSet_.Initialize(pplnState.get());
-}
 
 void ModelCommon::StaticSetDrawCommand()
 {
 	// パイプラインをセット
-	pipelineSet_.SetDrawCommand();
+	sPipelineSet_.SetDrawCommand();
 }
+
+#pragma endregion

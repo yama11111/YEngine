@@ -52,19 +52,19 @@ void CollScene::Load()
 void CollScene::Initialize()
 {
 	float plaSca = 5.0f; Vector3 plaNormal = { 1,1,0 };
-	planeObj_.reset(ObjectModel::Create({ {},AdjustAngle(plaNormal),{plaSca, plaSca, plaSca} }));
+	planeObj_.reset(ModelObject::Create({ {},AdjustAngle(plaNormal),{plaSca, plaSca, plaSca} }));
 	plane_.SafeSetNormal(plaNormal);
 	plane_.distance_ = 0.0f;
 	planeColor_.reset(Color::Create({ 0.5f,1.0f,1.0f,0.75f }));
 
 	float raySca = 1.0f; Vector3 rayDirection = { 0,-1,0 };
-	rayObj_.reset(ObjectModel::Create({ {},AdjustAngle(rayDirection),{raySca * 0.25f, raySca * 0.25f, raySca * 5.0f} }));
+	rayObj_.reset(ModelObject::Create({ {},AdjustAngle(rayDirection),{raySca * 0.25f, raySca * 0.25f, raySca * 5.0f} }));
 	ray_.start_ = Vector3(0, 1, 0);
 	ray_.SafeSetDirection(rayDirection);
 	rayColor_.reset(Color::Create({ 0.5f,0.5f,1.0f,0.75f }));
 
 	float triSca = 5.0f;
-	triangleObj_.reset(ObjectModel::Create({ {-2,2,-1},{},{triSca, triSca, 0.1f} }));
+	triangleObj_.reset(ModelObject::Create({ {-2,2,-1},{},{triSca, triSca, 0.1f} }));
 	triangle_.p0_ = Vector3(-triSca, 0, -triSca) + triangleObj_->pos_;
 	triangle_.p1_ = Vector3(-triSca, 0, +triSca) + triangleObj_->pos_;
 	triangle_.p2_ = Vector3(+triSca, 0, -triSca) + triangleObj_->pos_;
@@ -73,7 +73,7 @@ void CollScene::Initialize()
 	triangleColor_.reset(Color::Create({ 1.0f,0.5f,1.0f,0.75f }));
 
 	float sphSca = 1.0f;
-	sphereObj_.reset(ObjectModel::Create({ {0,2,0},{},{sphSca, sphSca, sphSca} }));
+	sphereObj_.reset(ModelObject::Create({ {0,2,0},{},{sphSca, sphSca, sphSca} }));
 	sphere_.center_ = sphereObj_->pos_;
 	sphere_.SafeSetRadius(sphSca);
 	sphereColor_.reset(Color::Create({ 1.0f,1.0f,0.5f,1.0f }));
@@ -174,7 +174,7 @@ void CollScene::Update()
 	}
 
 	// ビュープロジェクション
-	vp_.Update();
+	vp_.UpdateMatrix();
 
 	// アタリ判定マネージャー
 	collMan_.Update();
@@ -194,14 +194,14 @@ void CollScene::DrawBackSprite3Ds()
 
 void CollScene::DrawModels()
 {
-	groundMod_->Draw(planeObj_.get(), vp_, lightGroup_.get(), planeColor_.get());
+	groundMod_->Draw(planeObj_.get());
 
-	cubeMod_->Draw(rayObj_.get(), vp_, lightGroup_.get(), rayColor_.get(), plainTex_);
+	cubeMod_->Draw(rayObj_.get());
 
-	cubeMod_->Draw(triangleObj_.get(), vp_, lightGroup_.get(), triangleColor_.get(), plainTex_);
-	triangleMod_->Draw(triangleObj_.get(), vp_, lightGroup_.get(), triangleColor_.get());
+	cubeMod_->Draw(triangleObj_.get());
+	triangleMod_->Draw(triangleObj_.get());
 
-	sphereMod_->Draw(sphereObj_.get(), vp_, lightGroup_.get(), sphereColor_.get());
+	sphereMod_->Draw(sphereObj_.get());
 }
 
 void CollScene::DrawFrontSprite3Ds()

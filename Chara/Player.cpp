@@ -7,7 +7,7 @@
 
 #pragma region –¼‘O‹óŠÔ
 using YMath::Vector3;
-using YGame::BaseObject;
+using YGame::ModelObject;
 using namespace CharaConfig::Player;
 #pragma endregion
 
@@ -25,22 +25,22 @@ void Player::StaticIntialize(const StaticInitStatus& state)
 	keys_ = YInput::Keys::GetInstance();
 }
 
-void Player::Initialize(const YGame::BaseObject::Status& state)
+void Player::Initialize(const YGame::Transform::Status& status)
 {
 	Character::Initialize(
-		{ HP, CheatTime }, state,
+		{ HP, CheatTime }, status,
 		{ 0.5f,RisePower,0.0f }, { 3.0f,RisePower,0.0f }
 	);
 
-	drawer_.Initialize(&obj_->m_,  &direction_);
-	
-	Reset(state);
+	drawer_.Initialize(&obj_->m_, &direction_);
+
+	Reset(status);
 }
 
-void Player::Reset(const YGame::BaseObject::Status& state)
+void Player::Reset(const YGame::Transform::Status& status)
 {
 	Character::Reset(
-		{ HP, CheatTime }, state
+		{ HP, CheatTime }, status
 	);
 	MapChipCollider::Initialize({ obj_->scale_ });
 
@@ -111,12 +111,9 @@ void Player::Update()
 	drawer_.Update();
 }
 
-//void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup)
-void Player::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup, YGame::Color* color)
+void Player::Draw()
 {
-	//pModel_->Draw(obj_.get(), vp, lightGroup, color_.get());
-	//pModel_->Draw(obj_.get(), vp, lightGroup, color);
-	drawer_.Draw(vp, lightGroup);
+	drawer_.Draw();
 }
 
 void Player::Draw2D()

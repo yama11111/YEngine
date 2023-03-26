@@ -21,25 +21,23 @@ void Character::StaticInitialize(const StaticInitStatus& state)
 }
 
 void Character::Initialize(
-	const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState, 
-	const YMath::Vector3& acceleration, const YMath::Vector3& max, 
+	const CharaStatus::InitStatus& charaStatus, const YGame::Transform::Status& objStatus,
+	const YMath::Vector3& acceleration, const YMath::Vector3& max,
 	const YMath::Vector4& color)
 {
-	obj_.reset(YGame::ObjectModel::Create(objState));
+	obj_.reset(YGame::ModelObject::Create(objStatus));
 	speed_.Initialize(acceleration, max);
 	color_.reset(YGame::Color::Create(color));
 
-	Reset(charaState, objState);
+	Reset(charaStatus, objStatus);
 }
 
-void Character::Reset(
-	const CharaStatus::InitStatus& charaState, const YGame::ObjectModel::Status& objState,
-	const YMath::Vector4& color)
+void Character::Reset(const CharaStatus::InitStatus& charaStatus, const YGame::Transform::Status& objStatus, const YMath::Vector4& color)
 {
-	CharaStatus::Initialize(charaState);
+	CharaStatus::Initialize(charaStatus);
 	SlimeActor::Initialize();
 
-	obj_->Initialize(objState);
+	obj_->Initialize(objStatus);
 	speed_.Reset();
 	direction_ = { +1.0f,0.0f,0.0f };
 	color_->Initialize(color);

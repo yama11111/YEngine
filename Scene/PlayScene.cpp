@@ -88,7 +88,7 @@ void PlayScene::Update()
 	}
 
 	// ビュープロジェクション
-	vp_.Update();
+	vp_.UpdateMatrix();
 }
 #pragma endregion
 

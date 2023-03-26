@@ -36,8 +36,6 @@ void DemoScene::Load()
 
 	// ----- スプライト (3D) ----- //
 
-	filterSpr_.reset(Sprite3D::Create({ false,true }, { mapDispTex_ }));
-
 	// ------- モデル ------- //
 
 	cubeMod_.reset(Model::Create());
@@ -51,7 +49,6 @@ void DemoScene::Load()
 	mapMan_.Load({ { cubeMod_.get() }, { mapDispSpr_.get() } });
 
 	// ----- 静的初期化 ----- //
-
 	Character::StaticInitialize({ mapMan_.CurrentMapPointer(), &particleMan_ });
 	Player::StaticIntialize({ barrierMod_.get(), plainTex_});
 	FireSpark::StaticInitialize({ cubeMod_.get() });
@@ -70,22 +67,17 @@ void DemoScene::Initialize()
 	// プレイヤー
 	player_.Initialize({ {+100,-100,0}, YMath::AdjustAngle({0,0,1}), {10.0f,10.0f,10.0f} });
 
-	color_.reset(Color::Create());
-	fcolor_.reset(Color::Create({ 0.1f,0.25f,1.0f,0.25f }));
-
-	filter_.reset(ObjectSprite3D::Create({ {240,-120,0},{},{120.0f,80.0f,1.0f} }));
-
 	Vector2 sizeHalf = mapMan_.CurrentMapPointer()->Size();
 	center_ = { sizeHalf.x_, -sizeHalf.y_, 0.0f };
 
-	buildings_[0].reset(ObjectModel::Create({ center_ + Vector3(-100.0f, -120.0f, +120.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
-	buildings_[1].reset(ObjectModel::Create({ center_ + Vector3(- 60.0f, -120.0f, +100.0f), {}, Vector3(20.0f,20.0f,20.0f) * 2.0f }));
-	buildings_[2].reset(ObjectModel::Create({ center_ + Vector3(- 40.0f, -120.0f, +100.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
-	buildings_[3].reset(ObjectModel::Create({ center_ + Vector3(- 20.0f, -120.0f, + 80.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
-	buildings_[4].reset(ObjectModel::Create({ center_ + Vector3(- 10.0f, -120.0f, +140.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
-	buildings_[5].reset(ObjectModel::Create({ center_ + Vector3(+ 20.0f, -120.0f, +120.0f), {}, Vector3(25.0f,25.0f,25.0f) * 2.0f }));
-	buildings_[6].reset(ObjectModel::Create({ center_ + Vector3(+ 60.0f, -120.0f, + 80.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
-	buildings_[7].reset(ObjectModel::Create({ center_ + Vector3(+120.0f, -120.0f, +140.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
+	buildings_[0].reset(ModelObject::Create({ center_ + Vector3(-100.0f, -120.0f, +120.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
+	buildings_[1].reset(ModelObject::Create({ center_ + Vector3(- 60.0f, -120.0f, +100.0f), {}, Vector3(20.0f,20.0f,20.0f) * 2.0f }));
+	buildings_[2].reset(ModelObject::Create({ center_ + Vector3(- 40.0f, -120.0f, +100.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
+	buildings_[3].reset(ModelObject::Create({ center_ + Vector3(- 20.0f, -120.0f, + 80.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
+	buildings_[4].reset(ModelObject::Create({ center_ + Vector3(- 10.0f, -120.0f, +140.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
+	buildings_[5].reset(ModelObject::Create({ center_ + Vector3(+ 20.0f, -120.0f, +120.0f), {}, Vector3(25.0f,25.0f,25.0f) * 2.0f }));
+	buildings_[6].reset(ModelObject::Create({ center_ + Vector3(+ 60.0f, -120.0f, + 80.0f), {}, Vector3(15.0f,15.0f,15.0f) * 2.0f }));
+	buildings_[7].reset(ModelObject::Create({ center_ + Vector3(+120.0f, -120.0f, +140.0f), {}, Vector3(10.0f,10.0f,10.0f) * 2.0f }));
 	buildingColor_.reset(Color::Create({ 1.0f,1.0f,1.0f,1.0f }));
 
 
@@ -93,7 +85,11 @@ void DemoScene::Initialize()
 	skydome_.Initialize({ center_, {}, {600.0f,600.0f,600.0f} }, skydomeMod_.get());
 
 	// カメラ初期化
-	cameraMan_.Initialize(&center_);
+	cameraMan_.Initialize(
+		{ 
+			{ {}, &center_, true }, 
+		}
+	);
 
 	// ライト初期化
 	lightGroup_.reset(LightGroup::Create());
@@ -206,13 +202,6 @@ void DemoScene::Update()
 		buildings_[i]->UpdateMatrix();
 	}
 
-	if (isA)
-	{
-		filter_->pos_.x_ += 3.0f * sKeys_->Horizontal();
-		filter_->pos_.y_ += 3.0f * sKeys_->Vertical();
-	}
-	filter_->UpdateMatrix();
-
 	// マップマネージャー
 	mapMan_.Update();
 
@@ -221,7 +210,7 @@ void DemoScene::Update()
 
 	// ビュープロジェクション
 	vp_ = cameraMan_.GetViewProjection();
-	vp_.Update();
+	vp_.UpdateMatrix();
 
 	// パーティクルマネージャー
 	particleMan_.Update();
@@ -248,28 +237,27 @@ void DemoScene::DrawBackSprite3Ds()
 void DemoScene::DrawModels()
 {
 	// 天球
-	skydome_.Draw(vp_, lightGroup_.get(), color_.get());
+	skydome_.Draw();
 
 	// ビル
 	for (size_t i = 0; i < buildings_.size(); i++)
 	{
-		buildingMod_->Draw(buildings_[i].get(), vp_, lightGroup_.get(), color_.get());
+		buildingMod_->Draw(buildings_[i].get());
 	}
 
 	// マップチップ
-	mapMan_.Draw(vp_, lightGroup_.get(), mapTex_, color_.get());
+	mapMan_.Draw();
 	
 	// プレイヤー
-	player_.Draw(vp_, lightGroup2_.get(), buildingColor_.get());
+	player_.Draw();
 
 
 	// パーティクル
-	particleMan_.Draw(vp_, lightGroup2_.get());
+	particleMan_.Draw();
 }
 
 void DemoScene::DrawFrontSprite3Ds()
 {
-	filterSpr_->Draw(filter_.get(), vp_, fcolor_.get());
 
 }
 

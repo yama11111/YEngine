@@ -1,27 +1,27 @@
-#include "BaseObject.h"
+#include "Transform.h"
 #include "CalcTransform.h"
 
-using YGame::BaseObject;
+using YGame::Transform;
 using YMath::Matrix4;
 using YMath::Vector4;
 
-BaseObject::BaseObject() :
-	pos_(0.0f, 0.0f, 0.0f), 
-	rota_(0.0f, 0.0f, 0.0f), 
-	scale_(1.0f, 1.0f, 1.0f), 
+Transform::Transform() :
+	pos_(0.0f, 0.0f, 0.0f),
+	rota_(0.0f, 0.0f, 0.0f),
+	scale_(1.0f, 1.0f, 1.0f),
 	m_(Matrix4::Identity()),
 	parent_(nullptr)
 {}
 
-void BaseObject::Initialize(const Status& state)
+void Transform::Initialize(const Status& status)
 {
-	pos_ = state.pos_;
-	rota_ = state.rota_;
-	scale_ = state.scale_;
+	pos_ = status.pos_;
+	rota_ = status.rota_;
+	scale_ = status.scale_;
 	UpdateMatrix();
 }
 
-void BaseObject::UpdateMatrix()
+void Transform::UpdateMatrix()
 {
 	// アフィン変換
 	m_ = Matrix4::Identity();
@@ -29,12 +29,12 @@ void BaseObject::UpdateMatrix()
 	if (parent_) { m_ *= *parent_; }
 }
 
-void BaseObject::UpdateMatrix(const Status& state)
+void Transform::UpdateMatrix(const Status& status)
 {
 	Status s = { pos_,rota_,scale_ };
-	s.pos_ += state.pos_;
-	s.rota_ += state.rota_;
-	s.scale_ += state.scale_;
+	s.pos_ += status.pos_;
+	s.rota_ += status.rota_;
+	s.scale_ += status.scale_;
 
 	// アフィン変換
 	m_ = Matrix4::Identity();

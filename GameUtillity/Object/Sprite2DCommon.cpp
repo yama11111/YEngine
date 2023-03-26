@@ -5,19 +5,44 @@
 
 #pragma region 名前空間
 
+using YGame::Sprite2DObjectCommon;
 using YGame::Sprite2DCommon;
 using YDX::PipelineSet;
 
 #pragma endregion
 
-#pragma region Static
 
-YMath::Matrix4 Sprite2DCommon::projection_ = YMath::Matrix4::Identity();
-PipelineSet Sprite2DCommon::pipelineSet_;
-YGame::TextureManager* Sprite2DCommon::pTexManager_ = nullptr;
+#pragma region Sprite2DObjectCommon
+
+YMath::Matrix4 Sprite2DObjectCommon::sProjection_ = YMath::Matrix4::Identity();
+std::unique_ptr<YGame::Color> Sprite2DObjectCommon::sDefColor_ = nullptr;
+
+void Sprite2DObjectCommon::StaticInitialize()
+{
+	// プロジェクション行列を設定
+	sProjection_ = YMath::MatOrthoGraphic();
+
+	// 生成
+	sDefColor_.reset(Color::Create());
+}
 
 #pragma endregion
 
+
+#pragma region Sprite2DCommon
+
+PipelineSet Sprite2DCommon::sPipelineSet_;
+YGame::TextureManager* Sprite2DCommon::spTexManager_ = nullptr;
+
+void Sprite2DCommon::StaticInitialize()
+{
+	// 代入
+	spTexManager_ = TextureManager::GetInstance();
+
+	// パイプライン初期化
+	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
+	sPipelineSet_.Initialize(pplnState.get());
+}
 
 void Sprite2DCommon::ShaderSet::Load(ID3DBlob* errorBlob)
 {
@@ -123,21 +148,10 @@ void Sprite2DCommon::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
 	primitive_ = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; // 三角形ストリップ
 }
 
-void Sprite2DCommon::StaticInitialize()
-{
-	// 代入
-	pTexManager_ = TextureManager::GetInstance();
-
-	// プロジェクション行列を設定
-	projection_ = YMath::MatOrthoGraphic();
-
-	// パイプライン初期化
-	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
-	pipelineSet_.Initialize(pplnState.get());
-}
-
 void Sprite2DCommon::StaticSetDrawCommand()
 {
 	// パイプラインをセット
-	pipelineSet_.SetDrawCommand();
+	sPipelineSet_.SetDrawCommand();
 }
+
+#pragma endregion

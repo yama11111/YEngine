@@ -30,10 +30,10 @@ class GateDrawer :
 	private YGame::SlimeActor
 {
 private:
-	// オブジェクト (親)
-	std::unique_ptr <YGame::ObjectModel> obj_;
+	// トランスフォーム 
+	std::unique_ptr<YGame::Transform> transform_;
 	// モデル用オブジェクト (子)
-	std::array<std::unique_ptr<YGame::ObjectModel>, PartsNum_> modelObjs_;
+	std::array<std::unique_ptr<YGame::ModelObject>, PartsNum_> modelObjs_;
 	// 立ちモーション用タイマー
 	YMath::Timer idelTim_;
 public:
@@ -46,12 +46,8 @@ public:
 	void Reset();
 	// 更新
 	void Update();
-	/// <summary>
-	/// 描画
-	/// </summary>
-	/// <param name="vp"> : ビュープロジェクション (const 参照)</param>
-	/// <param name="lightGroup"> : ライトグループ (ポインタ)</param>
-	void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup);
+	// 描画
+	void Draw();
 public:
 	// 立ちモーション
 	void IdleAnimation();

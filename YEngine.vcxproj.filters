@@ -34,12 +34,6 @@
     <Filter Include="Base\Pipeline">
       <UniqueIdentifier>{89934d87-8bc8-47af-83e5-3e8d9ae60371}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameUtil\2D">
-      <UniqueIdentifier>{cb1cd272-8d3d-417c-a935-2c573bbfb8ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\3D">
-      <UniqueIdentifier>{b1c0a30a-9e3b-426a-87b7-c8859c4f0cb7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Chara\Util">
       <UniqueIdentifier>{67afe819-1f04-4c26-8a43-e29b287c246e}</UniqueIdentifier>
     </Filter>
@@ -60,9 +54,6 @@
     </Filter>
     <Filter Include="GameUtil\Coll">
       <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameUtil\Stuff">
-      <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Draw\SceneChange">
       <UniqueIdentifier>{47285198-de5e-4f87-a5a7-3414dbf214fb}</UniqueIdentifier>
@@ -121,31 +112,25 @@
     <Filter Include="ヘッダー ファイル\Player">
       <UniqueIdentifier>{0568335e-0f21-45cc-8964-242c186fd95c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameUtil\Object">
+      <UniqueIdentifier>{9e186df4-6779-4074-bf07-d96daf3a8771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw\Stuff">
+      <UniqueIdentifier>{7faaa0fc-33e9-48ee-a06d-9f2c68a6445f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Object\Model">
+      <UniqueIdentifier>{de1f8dd6-8271-4eb1-b69f-ad5c2f820209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Object\Sprite2D">
+      <UniqueIdentifier>{dba57100-b834-4a22-9036-5c52d178dd84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameUtil\Object\Sprite3D">
+      <UniqueIdentifier>{a0a9e3c4-d9e0-4de9-a19f-60e4a7e5eea2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\2D\Sprite2D.cpp">
-      <Filter>GameUtil\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\2D\TextureManager.cpp">
-      <Filter>GameUtil\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\3D\Sprite3D.cpp">
-      <Filter>GameUtil\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\3D\Model.cpp">
-      <Filter>GameUtil\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\2D\Sprite2DCommon.cpp">
-      <Filter>GameUtil\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\3D\ModelCommon.cpp">
-      <Filter>GameUtil\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\3D\Sprite3DCommon.cpp">
-      <Filter>GameUtil\3D</Filter>
     </ClCompile>
     <ClCompile Include="Chara\Enemy.cpp">
       <Filter>ソース ファイル\Chara\Enemy</Filter>
@@ -216,12 +201,6 @@
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp">
       <Filter>GameUtil\MapChip</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Stuff\Floor.cpp">
-      <Filter>GameUtil\Stuff</Filter>
-    </ClCompile>
-    <ClCompile Include="GameUtillity\Stuff\Skydome.cpp">
-      <Filter>GameUtil\Stuff</Filter>
-    </ClCompile>
     <ClCompile Include="Draw\Actor\AttackActor.cpp">
       <Filter>Draw\Actor</Filter>
     </ClCompile>
@@ -254,9 +233,6 @@
     </ClCompile>
     <ClCompile Include="Draw\UI\PushUIDrawer.cpp">
       <Filter>Draw\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Draw\Drawer\PlayerDrawer.cpp">
-      <Filter>Draw\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Color.cpp">
       <Filter>GameUtil</Filter>
@@ -357,9 +333,6 @@
     <ClCompile Include="GameUtillity\Collision\BaseCollider.cpp">
       <Filter>GameUtil\Coll</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\BaseObject.cpp">
-      <Filter>GameUtil</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\Collision\PrimitiveCollider.cpp">
       <Filter>GameUtil\Coll</Filter>
     </ClCompile>
@@ -396,10 +369,55 @@
     <ClCompile Include="GameUtillity\Camera\ViewProjection.cpp">
       <Filter>GameUtil\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="GameUtillity\Transform.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Stuff\Floor.cpp">
+      <Filter>Draw\Stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Stuff\Skydome.cpp">
+      <Filter>Draw\Stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\TextureManager.cpp">
+      <Filter>GameUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\Material.cpp">
+      <Filter>GameUtil\Object\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\Model.cpp">
+      <Filter>GameUtil\Object\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\ModelCommon.cpp">
+      <Filter>GameUtil\Object\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\Sprite2D.cpp">
+      <Filter>GameUtil\Object\Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\Sprite2DCommon.cpp">
+      <Filter>GameUtil\Object\Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\Sprite3D.cpp">
+      <Filter>GameUtil\Object\Sprite3D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Object\Sprite3DCommon.cpp">
+      <Filter>GameUtil\Object\Sprite3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Drawer\BlockDrawer.cpp">
+      <Filter>Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Drawer\BuildingDrawer.cpp">
+      <Filter>Draw\Drawer</Filter>
+    </ClCompile>
     <ClCompile Include="Draw\Drawer\FilterDrawer.cpp">
       <Filter>Draw\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Draw\Drawer\GateDrawer.cpp">
+      <Filter>Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Drawer\GoalDrawer.cpp">
+      <Filter>Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw\Drawer\PlayerDrawer.cpp">
       <Filter>Draw\Drawer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -446,27 +464,6 @@
     <ClInclude Include="Base\DX\Vertices.h">
       <Filter>Base\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\2D\Sprite2D.h">
-      <Filter>GameUtil\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\2D\Sprite2DCommon.h">
-      <Filter>GameUtil\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\2D\TextureManager.h">
-      <Filter>GameUtil\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Sprite3D.h">
-      <Filter>GameUtil\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Sprite3DCommon.h">
-      <Filter>GameUtil\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\Model.h">
-      <Filter>GameUtil\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\3D\ModelCommon.h">
-      <Filter>GameUtil\3D</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\AudioManager.h">
       <Filter>GameUtil</Filter>
     </ClInclude>
@@ -500,12 +497,6 @@
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h">
       <Filter>GameUtil\MapChip</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\Stuff\Floor.h">
-      <Filter>GameUtil\Stuff</Filter>
-    </ClInclude>
-    <ClInclude Include="GameUtillity\Stuff\Skydome.h">
-      <Filter>GameUtil\Stuff</Filter>
-    </ClInclude>
     <ClInclude Include="Draw\Actor\AttackActor.h">
       <Filter>Draw\Actor</Filter>
     </ClInclude>
@@ -538,9 +529,6 @@
     </ClInclude>
     <ClInclude Include="Draw\UI\PushUIDrawer.h">
       <Filter>Draw\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Draw\Drawer\PlayerDrawer.h">
-      <Filter>Draw\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Color.h">
       <Filter>GameUtil</Filter>
@@ -641,9 +629,6 @@
     <ClInclude Include="GameUtillity\Collision\BaseCollider.h">
       <Filter>GameUtil\Coll</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\BaseObject.h">
-      <Filter>GameUtil</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\Collision\PrimitiveCollider.h">
       <Filter>GameUtil\Coll</Filter>
     </ClInclude>
@@ -689,10 +674,58 @@
     <ClInclude Include="GameUtillity\Camera\ViewProjection.h">
       <Filter>GameUtil\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="GameUtillity\Transform.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Stuff\Floor.h">
+      <Filter>Draw\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Stuff\Skydome.h">
+      <Filter>Draw\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\TextureManager.h">
+      <Filter>GameUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\Material.h">
+      <Filter>GameUtil\Object\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\Model.h">
+      <Filter>GameUtil\Object\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\ModelCommon.h">
+      <Filter>GameUtil\Object\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\Sprite2D.h">
+      <Filter>GameUtil\Object\Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\Sprite2DCommon.h">
+      <Filter>GameUtil\Object\Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\Sprite3D.h">
+      <Filter>GameUtil\Object\Sprite3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Object\Sprite3DCommon.h">
+      <Filter>GameUtil\Object\Sprite3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\BlockDrawer.h">
+      <Filter>Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\BuildingDrawer.h">
+      <Filter>Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\DrawerConfig.h">
+      <Filter>Draw\Drawer</Filter>
+    </ClInclude>
     <ClInclude Include="Draw\Drawer\FilterDrawer.h">
       <Filter>Draw\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Draw\Drawer\GateDrawer.h">
+      <Filter>Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\GoalDrawer.h">
+      <Filter>Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw\Drawer\PlayerDrawer.h">
       <Filter>Draw\Drawer</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,10 +11,10 @@ namespace YGame
 	public:
 		bool isAlive_ = false;
 	protected:
-		std::unique_ptr<YGame::ObjectModel> obj_;
+		std::unique_ptr<YGame::ModelObject> obj_;
 	public:
 		virtual void Update() = 0;
-		virtual void Draw(const YGame::ViewProjection& pVP_, YGame::LightGroup* pLightGroup) = 0;
+		virtual void Draw() = 0;
 	public:
 		virtual ~IParticle() = default;
 	};
@@ -39,7 +39,7 @@ namespace YGame
 			const YMath::Vector3& pos, const float scale,
 			const YMath::Vector4& color);
 		void Update() override;
-		void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup) override;
+		void Draw() override;
 	public:
 		~FireSpark() override = default;
 	private:

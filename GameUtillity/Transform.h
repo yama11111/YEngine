@@ -4,8 +4,8 @@
 
 namespace YGame
 {
-	// オブジェクト基底クラス
-	class BaseObject
+	// トランスフォーム (位置、回転、大きさ)
+	class Transform
 	{
 	public:
 		// 位置
@@ -30,24 +30,23 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="state"> : 設定用ステータス</param>
-		/// <param name="(Vector3) state.pos_"> : 位置</param>
-		/// <param name="(Vector3) state.rota_"> : 回転</param>
-		/// <param name="(Vector3) state.scale_"> : 大きさ</param>
-		void Initialize(const Status& state);
+		/// <param name="status"> : 設定用ステータス</param>
+		/// <param name="(Vector3) status.pos_"> : 位置</param>
+		/// <param name="(Vector3) status.rota_"> : 回転</param>
+		/// <param name="(Vector3) status.scale_"> : 大きさ</param>
+		void Initialize(const Status& status);
 		// アフィン変換
 		void UpdateMatrix();
 		/// <summary>
 		/// アフィン変換 (位置、回転、大きさ を加算したオブジェクトで行列計算)
 		/// </summary>
-		/// <param name="state"> : 設定用ステータス</param>
-		/// <param name="(Vector3) state.pos_"> : 位置</param>
-		/// <param name="(Vector3) state.rota_"> : 回転</param>
-		/// <param name="(Vector3) state.scale_"> : 大きさ</param>
-		void UpdateMatrix(const Status& state);
-	protected:
-		BaseObject();
+		/// <param name="status"> : 設定用ステータス</param>
+		/// <param name="(Vector3) status.pos_"> : 位置</param>
+		/// <param name="(Vector3) status.rota_"> : 回転</param>
+		/// <param name="(Vector3) status.scale_"> : 大きさ</param>
+		void UpdateMatrix(const Status& status);
 	public:
-		virtual ~BaseObject() = default;
+		Transform();
+		virtual ~Transform() = default;
 	};
 }

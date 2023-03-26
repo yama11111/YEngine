@@ -75,6 +75,14 @@ bool YFramework::Initialize()
 	Sprite3DCommon	::StaticInitialize();
 	ModelCommon		::StaticInitialize();
 
+	// オブジェクト静的初期化
+	Sprite2DObjectCommon::StaticInitialize();
+	Sprite3DObjectCommon::StaticInitialize();
+	ModelObjectCommon	::StaticInitialize();
+
+	// マテリアル静的初期化
+	Material::StaticInitialize();
+
 #pragma endregion
 
 #pragma region Game

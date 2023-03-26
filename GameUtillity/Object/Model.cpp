@@ -10,9 +10,9 @@
 
 #pragma region 名前空間
 
+using YGame::ModelObject;
 using YGame::ModelCommon;
 using YGame::Model;
-using YGame::ObjectModel;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
@@ -21,103 +21,100 @@ using YMath::Vector4;
 
 #pragma region ルートパラメータ番号
 
-static const UINT ObjIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ObjCB); // obj
-static const UINT LigIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::LightCB); // light
+static const UINT TraIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TransformCB); // transform
 static const UINT ColIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::ColorCB); // color
+static const UINT LigIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::LightCB); // light
 static const UINT MateIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::MaterialCB); // material
 static const UINT TexIndex	 = static_cast<UINT>(ModelCommon::RootParameterIndex::TexDT); // tex
 
 #pragma endregion
 
 
-ObjectModel* ObjectModel::Create(const Status& state)
+#pragma region ModelObject
+
+ModelObject* ModelObject::Create(const Status& status)
+{
+	// インスタンスを返す
+	return Create(status, nullptr, nullptr, nullptr);
+}
+
+ModelObject* ModelObject::Create(const Status& status, ViewProjection* pVP, Color* pColor, LightGroup* pLightGroup)
 {
 	// インスタンス生成 (動的)
-	ObjectModel* instance = new ObjectModel();
+	ModelObject* instance = new ModelObject();
 
 	// 定数バッファ生成
 	instance->cBuff_.Create();
-	// 初期化
-	instance->Initialize(state);
+
+	// 初期化(デフォルト)
+	instance->Initialize(status);
+	instance->SetViewProjection(pVP);
+	instance->SetColor(pColor);
+	instance->SetLightGroup(pLightGroup);
 
 	// インスタンスを返す
 	return instance;
 }
 
-void Model::Draw(ObjectModel* pObj, const ViewProjection& vp, LightGroup* lightGroup, Color* pColor, const UINT tex)
+void ModelObject::SetViewProjection(ViewProjection* pVP)
 {
-	// 描画しないなら弾く
-	if (isInvisible_) { return; }
+	// nullなら
+	if (pVP == nullptr)
+	{
+		// デフォルト代入
+		pVP_ = sDefVP_.get();
+		return;
+	}
 
-	// ----- シェーダーに定数バッファを送る ----- //
+	// 代入
+	pVP_ = pVP;
+}
+void ModelObject::SetColor(Color* pColor)
+{
+	// nullなら
+	if (pColor == nullptr)
+	{
+		// デフォルト代入
+		pColor_ = sDefColor_.get();
+		return;
+	}
 
+	// 代入
+	pColor_ = pColor;
+}
+void ModelObject::SetLightGroup(LightGroup* pLightGroup)
+{
+	// nullなら
+	if (pLightGroup == nullptr)
+	{
+		// デフォルト代入
+		pLightGroup_ = sDefLightGroup_.get();
+		return;
+	}
+
+	// 代入
+	pLightGroup_ = pLightGroup;
+}
+
+void ModelObject::SetDrawCommand()
+{
 	// 行列
-	pObj->cBuff_.map_->matWorld_ = pObj->m_;
-	pObj->cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
-	pObj->cBuff_.map_->cameraPos_ = vp.eye_;
-	pObj->cBuff_.SetDrawCommand(ObjIndex);
-
-	// 光
-	lightGroup->SetDrawCommand(LigIndex);
+	cBuff_.map_->matWorld_ = m_;
+	cBuff_.map_->matViewProj_ = pVP_->view_ * pVP_->pro_;
+	cBuff_.map_->cameraPos_ = pVP_->eye_;
+	cBuff_.SetDrawCommand(TraIndex);
 
 	// 色
-	pColor->SetDrawCommand(ColIndex);
-
-	// メッシュ毎に違うバッファ
-	for (size_t i = 0; i < meshes_.size(); i++)
-	{
-		// マテリアル
-		meshes_[i].mtrl_.cBuff_.SetDrawCommand(MateIndex);
-		
-		// テクスチャ
-		pTexManager_->SetDrawCommand(TexIndex, tex);
-		
-		// 頂点バッファを送る + 描画コマンド
-		meshes_[i].vtIdx_.Draw();
-	}
-}
-void Model::Draw(ObjectModel* pObj, const ViewProjection& vp, LightGroup* pLightGroup, const UINT tex)
-{
-	// デフォルトの色を渡して描画
-	Draw(pObj, vp, pLightGroup, defColor_.get(), tex);
-}
-void Model::Draw(ObjectModel* pObj, const ViewProjection& vp, LightGroup* lightGroup, Color* pColor)
-{
-	// 描画しないなら弾く
-	if (isInvisible_) { return; }
-	
-	// ----- シェーダーに定数バッファを送る ----- //
-
-	// 行列
-	pObj->cBuff_.map_->matWorld_ = pObj->m_;
-	pObj->cBuff_.map_->matViewProj_ = vp.view_ * vp.pro_;
-	pObj->cBuff_.map_->cameraPos_ = vp.eye_;
-	pObj->cBuff_.SetDrawCommand(ObjIndex);
+	pColor_->SetDrawCommand(ColIndex);
 
 	// 光
-	lightGroup->SetDrawCommand(LigIndex);
-
-	// 色
-	pColor->SetDrawCommand(ColIndex);
-
-	// メッシュ毎に違うバッファ
-	for (size_t i = 0; i < meshes_.size(); i++)
-	{
-		// マテリアル
-		meshes_[i].mtrl_.cBuff_.SetDrawCommand(MateIndex);
-		
-		// テクスチャ
-		pTexManager_->SetDrawCommand(TexIndex, meshes_[i].mtrl_.texIndex_);
-		
-		// 頂点バッファを送る + 描画コマンド
-		meshes_[i].vtIdx_.Draw();
-	}
+	pLightGroup_->SetDrawCommand(LigIndex);
 }
-void Model::Draw(ObjectModel* pObj, const ViewProjection& vp, LightGroup* pLightGroup)
-{
-	// デフォルトの色を渡して描画
-	Draw(pObj, vp, pLightGroup, defColor_.get());
-}
+
+#pragma endregion
+
+
+#pragma region Model
 
 Model* Model::Create()
 {
@@ -202,8 +199,6 @@ Model* Model::Create()
 	instance->meshes_[0].vtIdx_.Initialize(v, i);
 	// マテリアル初期化
 	instance->meshes_[0].mtrl_ = Material();
-	// 色初期化
-	instance->defColor_.reset(Color::Create());
 
 	// インスタンスを返す
 	return instance;
@@ -266,7 +261,7 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 			std::string mtlFileName;
 			lineStream >> mtlFileName;
 			// マテリアル読み込み
-			m = LoadMaterial(directoryPath, mtlFileName);
+			m = Material::Load(directoryPath, mtlFileName);
 		}
 
 #pragma endregion
@@ -378,20 +373,18 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 	instance->meshes_[0].smoothData_ = sd;
 	// マテリアル代入
 	instance->meshes_[0].mtrl_ = m;
-	// 色初期化
-	instance->defColor_.reset(Color::Create());
 
 	// インスタンスを返す
 	return instance;
 }
 
-Model* Model::Load(const LoadStatus& state)
+Model* Model::Load(const LoadStatus& status)
 {
 	// インスタンス生成 (動的)
 	Model* instance = new Model();
 
 	// ディレクトリパス設定
-	std::string directoryPath = "Resources/Models/" + state.directoryPath_;
+	std::string directoryPath = "Resources/Models/" + status.directoryPath_;
 
 	// Assimp設定
 	Assimp::Importer importer;
@@ -405,7 +398,7 @@ Model* Model::Load(const LoadStatus& state)
 	flag |= aiProcess_OptimizeMeshes;
 
 	// ファイルを開く
-	const aiScene* scene = importer.ReadFile(directoryPath + state.modelFileName_, flag);
+	const aiScene* scene = importer.ReadFile(directoryPath + status.modelFileName_, flag);
 	if (scene == nullptr)
 	{
 		// 無いならエラー
@@ -424,20 +417,38 @@ Model* Model::Load(const LoadStatus& state)
 		// 頂点情報読み込み
 		const aiMesh* pMesh = scene->mMeshes[i];
 		instance->meshes_[i].vtIdx_ = 
-			LoadVertices(pMesh, state.isInverseU_, state.isInverseV_, state.isNormalized_);
+			LoadVertices(pMesh, status.isInverseU_, status.isInverseV_, status.isNormalized_);
 
 		// マテリアル読み込み
 		const aiMaterial* pMaterial = scene->mMaterials[i];
 		instance->meshes_[i].mtrl_ = 
-			LoadMaterial(directoryPath, pMaterial, state.extension_);
+			Material::Load(directoryPath, pMaterial, status.extension_);
 	}
 
 	// 後処理
 	scene = nullptr;
 
-	// 色初期化
-	instance->defColor_.reset(Color::Create());
-
 	// インスタンスを返す
 	return instance;
 }
+
+void Model::Draw(ModelObject* pObj)
+{
+	// 描画しないなら弾く
+	if (isInvisible_) { return; }
+
+	// 定数バッファをシェーダーに送る
+	pObj->SetDrawCommand();
+
+	// メッシュ毎に違うバッファ
+	for (size_t i = 0; i < meshes_.size(); i++)
+	{
+		// マテリアル
+		meshes_[i].mtrl_.SetDrawCommand(MateIndex, TexIndex);
+
+		// 頂点バッファを送る + 描画コマンド
+		meshes_[i].vtIdx_.Draw();
+	}
+}
+
+#pragma endregion

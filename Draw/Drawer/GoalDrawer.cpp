@@ -1,4 +1,4 @@
-#include "FilterDrawer.h"
+#include "GoalDrawer.h"
 #include "CalcTransform.h"
 #include "DrawerConfig.h"
 #include <cassert>
@@ -17,21 +17,21 @@ using YMath::Vector3;
 #pragma region Static
 
 // 静的 モデル配列 初期化
-std::array<std::unique_ptr<Model>, FilterDrawerCommon::PartsNum_> FilterDrawerCommon::sModels_ =
+std::array<std::unique_ptr<Model>, GoalDrawerCommon::PartsNum_> GoalDrawerCommon::sModels_ =
 { nullptr, nullptr, };
 
-void FilterDrawerCommon::StaticInitialize()
+void GoalDrawerCommon::StaticInitialize()
 {
 	// ----- モデル読み込み ----- //
 
 	// 体
-	sModels_[static_cast<size_t>(Parts::Monitor)].reset(Model::LoadObj("player/player_body", true));
+	sModels_[static_cast<size_t>(Parts::Cube)].reset(Model::LoadObj("player/player_body", true));
 	sModels_[static_cast<size_t>(1)].reset(Model::LoadObj("player/player_body", true));
 }
 
 #pragma endregion
 
-void FilterDrawer::Initialize(YMath::Matrix4* pParent)
+void GoalDrawer::Initialize(YMath::Matrix4* pParent)
 {
 	// nullチェック
 	assert(pParent);
@@ -52,7 +52,7 @@ void FilterDrawer::Initialize(YMath::Matrix4* pParent)
 	Reset();
 }
 
-void FilterDrawer::Reset()
+void GoalDrawer::Reset()
 {
 	// 初期化
 	SlimeActor::Initialize();
@@ -64,11 +64,11 @@ void FilterDrawer::Reset()
 		modelObjs_[i]->Initialize({});
 	}
 
-	idelTim_.Initialize(DrawerConfig::Filter::Idle::IntervalTime);
+	idelTim_.Initialize(DrawerConfig::Gate::Idle::IntervalTime);
 	idelTim_.SetActive(true);
 }
 
-void FilterDrawer::Update()
+void GoalDrawer::Update()
 {
 	// 立ちモーションタイマー更新
 	idelTim_.Update();
@@ -98,7 +98,7 @@ void FilterDrawer::Update()
 	}
 }
 
-void FilterDrawer::Draw()
+void GoalDrawer::Draw()
 {
 	// 描画
 	for (size_t i = 0; i < sModels_.size(); i++)
@@ -107,6 +107,6 @@ void FilterDrawer::Draw()
 	}
 }
 
-void FilterDrawer::IdleAnimation()
+void GoalDrawer::IdleAnimation()
 {
 }

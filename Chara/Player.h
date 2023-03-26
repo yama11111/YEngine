@@ -15,14 +15,13 @@ private:
 	PlayerDrawer drawer_;
 public:
 	// 初期化
-	void Initialize(const YGame::BaseObject::Status& state);
+	void Initialize(const YGame::Transform::Status& status);
 	// リセット
-	void Reset(const YGame::BaseObject::Status& state);
+	void Reset(const YGame::Transform::Status& status);
 	// 更新
 	void Update();
 	// 描画
-	//void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup);
-	void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* lightGroup, YGame::Color* color);
+	void Draw();
 	// 2D描画
 	void Draw2D();
 private:

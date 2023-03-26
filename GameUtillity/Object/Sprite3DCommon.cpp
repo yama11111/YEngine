@@ -4,18 +4,46 @@
 
 #pragma region 名前空間
 
+using YGame::Sprite3DObjectCommon;
 using YGame::Sprite3DCommon;
 using YGame::TextureManager;
 using YDX::PipelineSet;
 
 #pragma endregion
 
-#pragma region Static
 
-PipelineSet Sprite3DCommon::pipelineSet_;
-TextureManager* Sprite3DCommon::pTexManager_ = nullptr;
+#pragma region ModelCBSetCommon
+
+std::unique_ptr<YGame::ViewProjection> Sprite3DObjectCommon::sDefVP_ = nullptr;
+std::unique_ptr<YGame::Color> Sprite3DObjectCommon::sDefColor_ = nullptr;
+
+void Sprite3DObjectCommon::StaticInitialize()
+{
+	// 生成
+	sDefVP_.reset(new YGame::ViewProjection());
+	sDefVP_->Initialize({});
+
+	sDefColor_.reset(Color::Create());
+}
 
 #pragma endregion
+
+
+#pragma region ModelCommon
+
+PipelineSet Sprite3DCommon::sPipelineSet_;
+TextureManager* Sprite3DCommon::spTexManager_ = nullptr;
+
+void Sprite3DCommon::StaticInitialize()
+{
+	// 代入
+	spTexManager_ = TextureManager::GetInstance();
+
+	// パイプライン初期化
+	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
+	sPipelineSet_.Initialize(pplnState.get());
+}
+
 
 void Sprite3DCommon::ShaderSet::Load(ID3DBlob* errorBlob)
 {
@@ -126,18 +154,10 @@ void Sprite3DCommon::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
 	primitive_ = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ポイントリスト
 }
 
-void Sprite3DCommon::StaticInitialize()
-{
-	// 代入
-	pTexManager_ = TextureManager::GetInstance();
-
-	// パイプライン初期化
-	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
-	pipelineSet_.Initialize(pplnState.get());
-}
-
 void Sprite3DCommon::StaticSetDrawCommand()
 {
 	// パイプラインをセット
-	pipelineSet_.SetDrawCommand();
+	sPipelineSet_.SetDrawCommand();
 }
+
+#pragma endregion

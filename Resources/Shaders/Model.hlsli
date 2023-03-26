@@ -7,18 +7,18 @@ cbuffer cbuff0 : register(b0)
 	matrix matViewProj;	 // ビュープロジェクション行列
 	float3 cameraPos;	 // カメラ座標
 }
-// 光
+// 色
 cbuffer cbuff1 : register(b1)
+{
+	float4 color; // 色(RGBA)
+}
+// 光
+cbuffer cbuff2 : register(b2)
 {
 	float3 ambientColor;		 // 環境光色
 	DireLight direLights[DireLightNum];	 // 平行光源
 	PointLight pointLights[PointLightNum];	 // 点光源
 	//SpotLight spotLights[SpotLightNum];	 // スポットライト光源
-}
-// マテリアル1
-cbuffer cbuff2 : register(b2)
-{
-	float4 color; // 色(RGBA)
 }
 // マテリアル2
 cbuffer cbuff3 : register(b3)

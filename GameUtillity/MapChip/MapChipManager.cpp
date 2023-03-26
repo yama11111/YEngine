@@ -3,7 +3,7 @@
 
 using YGame::MapChipManager;
 
-void MapChipManager::Load(const LoadStatus& state)
+void MapChipManager::Load(const LoadStatus& status)
 {
 	if (mapDatas_.empty() == false)
 	{
@@ -14,13 +14,13 @@ void MapChipManager::Load(const LoadStatus& state)
 	}
 
 	mapDatas_.resize(1);
-	mapDatas_[0].Load("demo.csv", state.pModels_, state.pSprites_);
+	mapDatas_[0].Load("demo.csv", status.pModels_, status.pSprites_);
 }
 
-void MapChipManager::Initialize(const InitStatus& state)
+void MapChipManager::Initialize(const InitStatus& status)
 {
-	currentIndex_ = state.mapIndex_;
-	map_.Initialize(&mapDatas_[currentIndex_], state.leftTop_, state.chipSize_);
+	currentIndex_ = status.mapIndex_;
+	map_.Initialize(&mapDatas_[currentIndex_], status.leftTop_, status.chipSize_);
 }
 
 void MapChipManager::Reset()
@@ -38,9 +38,9 @@ void MapChipManager::Update()
 	map_.Update();
 }
 
-void MapChipManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color)
+void MapChipManager::Draw()
 {
-	map_.Draw(vp, pLightGroup, texIndex, color);
+	map_.Draw();
 }
 
 void MapChipManager::Draw2D()

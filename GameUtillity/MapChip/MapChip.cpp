@@ -9,6 +9,9 @@ using YMath::Vector4;
 using YGame::MapData;
 using YGame::MapChip;
 using YGame::MapChip2DDisplayer;
+using YGame::ModelObject;
+
+#pragma region MapData
 
 void MapData::Load(const std::string fileName, const std::vector<Model*>& pModels, const std::vector<Sprite2D*>& pSprites)
 {
@@ -99,23 +102,33 @@ void MapData::CollReset()
 	}
 }
 
+#pragma endregion
+
+
+#pragma region MapChip
 
 void MapChip::Initialize(MapData* pMapData, const YMath::Vector3& leftTop, const YMath::Vector3& chipScale)
 {
+	// nullチェック
 	assert(pMapData);
+	// 代入
 	pMapData_ = pMapData;
 
+	// 初期化
 	Initialize(leftTop, chipScale);
 }
 void MapChip::Initialize(const YMath::Vector3& leftTop, const YMath::Vector3& chipScale)
 {
+	// 代入
 	leftTop_ = leftTop;
 	chipScale_ = chipScale;
 
+	// リセット
 	Reset();
 }
 void MapChip::Reset()
 {
+	// nullチェック
 	assert(pMapData_);
 	
 	// 番号
@@ -138,8 +151,8 @@ void MapChip::Reset()
 				// オブジェクト
 				float posX = +(chipScale_.x_ * 2.0f) * x + chipScale_.x_;
 				float posY = -(chipScale_.y_ * 2.0f) * y - chipScale_.y_;
-
-				chip->obj_.reset(ObjectModel::Create({ {posX,posY,0.0f},{},chipScale_ }));
+				
+				chip->obj_.reset(ModelObject::Create({ {posX,posY,0.0f},{},chipScale_ }));
 				chip->obj_->pos_ += leftTop_;
 				
 				// 色
@@ -157,9 +170,13 @@ void MapChip::Reset()
 
 void MapChip::Update()
 {
+	// マップデータがnullなら弾く
 	if (pMapData_ == nullptr) { return; }
+
+	// マップデータがロードされていないなら弾く
 	if (pMapData_->isLoaded_ == false) { return; }
 
+	// 更新
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
 		chips_[i]->obj_->UpdateMatrix();
@@ -168,9 +185,13 @@ void MapChip::Update()
 
 void MapChip::PerfectPixelCollision(MapChipCollider& collider)
 {
+	// マップデータがnullなら弾く
 	if (pMapData_ == nullptr) { return; }
+
+	// マップデータがロードされていないなら弾く
 	if (pMapData_->isLoaded_ == false) { return; }
 
+	// 代入
 	Vector3& posRef = collider.PosRef();
 	Vector3 scale = collider.Scale();
 	Vector3& speedRef = collider.SpeedRef();
@@ -219,6 +240,7 @@ bool MapChip::CollisionTemporaryMap(const Vector3& pos, const Vector3 scale, con
 	float top    = -(temporary.y_ + scale.y_); // 上
 	float bottom = -(temporary.y_ - scale.y_); // 下
 
+	// 仮移動座標でアタリ判定
 	return CollisionMap(left, right, top, bottom);
 }
 bool MapChip::CollisionMap(const float left, const float right, const float top, const float bottom)
@@ -258,17 +280,20 @@ bool MapChip::CollisionChip(const int x, const int y)
 	return false;
 }
 
-//void MapChip::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex)
-void MapChip::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup, const UINT texIndex, YGame::Color* color)
+void MapChip::Draw()
 {
+	// マップデータがnullなら弾く
 	if (pMapData_ == nullptr) { return; }
+
+	// マップデータがロードされていないなら弾く
 	if (pMapData_->isLoaded_ == false) { return; }
 
+	// 描画
 	for (size_t i = 0; i < chips_.size(); i++)
 	{
+		// マップ番号に対応するモデルで描画
 		size_t idx = chips_[i]->number_ - 1;
-		//pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get(), vp, pLightGroup, chips_[i]->color_.get(), texIndex);
-		pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get(), vp, pLightGroup, color, texIndex);
+		pMapData_->pModels_[idx]->Draw(chips_[i]->obj_.get());
 	}
 }
 
@@ -280,10 +305,16 @@ YMath::Vector2 MapChip::Size()
 	);
 }
 
+#pragma endregion
+
+
+#pragma region MapChip2DDisplayer
 
 void MapChip2DDisplayer::Initialize(MapData* pMapData)
 {
+	// nullチェック
 	assert(pMapData);
+	// 代入
 	pMapData_ = pMapData;
 
 	std::vector<std::vector<int>> nums = pMapData_->chipNums_;
@@ -306,7 +337,7 @@ void MapChip2DDisplayer::Initialize(MapData* pMapData)
 			posX = +(scale * pMapData_->pSprites_[nums[y][x]]->Size().x_) * x;
 			posY = +(scale * pMapData_->pSprites_[nums[y][x]]->Size().y_) * y;
 
-			chip->obj_.reset(ObjectSprite2D::Create({ {posX,posY,0.0f},{},{scale,scale,1.0f} }));
+			chip->obj_.reset(Sprite2DObject::Create({ {posX,posY,0.0f},{},{scale,scale,1.0f} }));
 
 			// 色
 			chip->color_.reset(Color::Create());
@@ -319,11 +350,17 @@ void MapChip2DDisplayer::Initialize(MapData* pMapData)
 
 void MapChip2DDisplayer::Update()
 {
+	// マップデータがnullなら弾く
+	if (pMapData_ == nullptr) { return; }
+
+	// マップデータがロードされていないなら弾く
+	if (pMapData_->isLoaded_ == false) { return; }
+
+	// 更新
 	for (size_t y = 0; y < chips_.size(); y++)
 	{
 		for (size_t x = 0; x < chips_[y].size(); x++)
 		{
-			//chips_[y][x]->color_->SetRGBA({ 1.0f,1.0f,1.0f,1.0f });
 			chips_[y][x]->obj_->UpdateMatrix();
 		}
 	}
@@ -331,12 +368,22 @@ void MapChip2DDisplayer::Update()
 
 void MapChip2DDisplayer::Draw()
 {
+	// マップデータがnullなら弾く
+	if (pMapData_ == nullptr) { return; }
+
+	// マップデータがロードされていないなら弾く
+	if (pMapData_->isLoaded_ == false) { return; }
+
+	// 描画
 	for (size_t y = 0; y < chips_.size(); y++)
 	{
 		for (size_t x = 0; x < chips_[y].size(); x++)
 		{
+			// マップ番号に対応するスプライトで描画
 			int idx = pMapData_->chipNums_[y][x] - 1;
-			pMapData_->pSprites_[idx]->Draw(chips_[y][x]->obj_.get(), chips_[y][x]->color_.get());
+			pMapData_->pSprites_[idx]->Draw(chips_[y][x]->obj_.get());
 		}
 	}
 }
+
+#pragma endregion

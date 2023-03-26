@@ -1,14 +1,14 @@
 #include "CharaStatus.h"
 #include <cassert>
 
-void CharaStatus::Initialize(const InitStatus& state)
+void CharaStatus::Initialize(const InitStatus& status)
 {
-	assert(state.hp_ > 0);
+	assert(status.hp_ > 0);
 
-	hp_ = state.hp_;
+	hp_ = status.hp_;
 	isAlive_ = true;
 
-	cheatTim_.Initialize(state.chaetTime_);
+	cheatTim_.Initialize(status.chaetTime_);
 	isCheat_ = false;
 }
 

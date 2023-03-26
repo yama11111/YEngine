@@ -21,7 +21,7 @@ public:
 	};
 public:
 	// 初期化
-	void Initialize(const InitStatus& state);
+	void Initialize(const InitStatus& status);
 	// 更新
 	void Update();
 	// ダメージを受ける

@@ -36,12 +36,12 @@ void ParticleManager::Update()
 	}
 }
 
-void ParticleManager::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup)
+void ParticleManager::Draw()
 {
 	// パーティクル描画
 	for (std::unique_ptr<IParticle>& particle : particles_)
 	{
-		particle->Draw(vp, pLightGroup);
+		particle->Draw();
 	}
 }
 

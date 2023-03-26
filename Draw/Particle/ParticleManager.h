@@ -12,7 +12,7 @@ namespace YGame
 	public:
 		void Initialize();
 		void Update();
-		void Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup);
+		void Draw();
 	public:
 		void EmitFireSpark(
 			const YMath::Vector3& pos, 

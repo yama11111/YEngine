@@ -43,19 +43,19 @@ namespace YScene
 #pragma endregion
 #pragma region ゲームオブジェクト
 
-		std::unique_ptr<YGame::ObjectModel> planeObj_ = nullptr;
+		std::unique_ptr<YGame::ModelObject> planeObj_ = nullptr;
 		YGame::Plane plane_;
 		std::unique_ptr<YGame::Color> planeColor_;
 
-		std::unique_ptr<YGame::ObjectModel> rayObj_ = nullptr;
+		std::unique_ptr<YGame::ModelObject> rayObj_ = nullptr;
 		YGame::Ray ray_;
 		std::unique_ptr<YGame::Color> rayColor_;
 
-		std::unique_ptr<YGame::ObjectModel> triangleObj_ = nullptr;
+		std::unique_ptr<YGame::ModelObject> triangleObj_ = nullptr;
 		YGame::Triangle triangle_;
 		std::unique_ptr<YGame::Color> triangleColor_;
 
-		std::unique_ptr<YGame::ObjectModel> sphereObj_ = nullptr;
+		std::unique_ptr<YGame::ModelObject> sphereObj_ = nullptr;
 		YGame::Sphere sphere_;
 		std::unique_ptr<YGame::Color> sphereColor_;
 

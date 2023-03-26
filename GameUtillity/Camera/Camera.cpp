@@ -2,85 +2,119 @@
 #include "CalcTransform.h"
 #include <cassert>
 
+using YGame::Transform;
+using YGame::ViewProjection;
 using YGame::Camera;
 using YMath::Vector3;
 using YMath::MultVec3Mat4;
 
-void Camera::Initialize(const InitStatus& state)
+void Camera::Initialize(const Transform::Status& status, YMath::Vector3* pFollowPos, bool isFollow)
 {
+	// 初期化 + 代入
 	shake_.Initialize();
-	pos_ = state.objState_.pos_;
-	rota_ = state.objState_.rota_;
-	obj_.reset(YGame::ObjectModel::Create({ state.objState_ }));
+	pos_ = status.pos_;
+	rota_ = status.rota_;
+	transform_.Initialize(status);
 	vp_.Initialize({});
 
-	pFollowPoint_ = state.pFollowPos_;
-	SetIsFollow(state.isFollow_);
+	pFollowPoint_ = pFollowPos;
+	SetIsFollow(isFollow);
 
+	// 更新
 	Update();
 }
 
 void Camera::UpdateTarget()
 {
-	if (isFollow_ && 
-		vp_.eye_ != *pFollowPoint_)
+	// 追従する && 追従点が前回と違う場所にあるなら
+	if (isFollow_ && (vp_.eye_ != *pFollowPoint_))
 	{
+		// 注視点に追従点代入
 		vp_.target_ = *pFollowPoint_;
 	}
+	// 無いなら
 	else
 	{
-		Vector3 forward = MultVec3Mat4(Vector3(0, 0, 1), obj_->m_);
+		// 自分の向いている方向を注視点とする
+		Vector3 forward = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
 		vp_.target_ = vp_.eye_ + forward;
 	}
 }
 void Camera::Update()
 {
-	obj_->pos_ = pos_;
-	obj_->rota_ = rota_;
+	// 位置 + 回転更新
+	transform_.pos_ = pos_;
+	transform_.rota_ = rota_;
 	
-	obj_->UpdateMatrix();
+	// アフィン変換
+	transform_.UpdateMatrix();
+	
+	// カメラシェイク更新
 	shake_.Update();
 
-	// 視点
-	vp_.eye_ = obj_->pos_;
-	// 注視点
-	UpdateTarget();
-	// 上方向ベクトル
-	vp_.up_ = MultVec3Mat4(Vector3(0, 1, 0), obj_->m_);
 
-	vp_.Update();
+	// 視点更新
+	vp_.eye_ = transform_.pos_;
+	// 注視点更新
+	UpdateTarget();
+	// 上方向ベクトル更新
+	vp_.up_ = MultVec3Mat4(Vector3(0, 1, 0), transform_.m_);
+
+	// ビュープロジェクション行列更新
+	vp_.UpdateMatrix();
 }
 
 void Camera::Shaking(const int swing, const int dekey)
 {
+	// カメラシェイク
 	shake_.Activate(swing, dekey);
 }
 
 YGame::ViewProjection Camera::GetViewProjection()
 {
+	// 戻り値用
 	YGame::ViewProjection result = vp_;
+	
+	// カメラシェイク加算
 	result.eye_ += shake_.Value() / 10.0f;
 	result.target_ += shake_.Value() / 10.0f;
-	result.Update();
+	
+	// 行列更新
+	result.UpdateMatrix();
 
 	return result;
 }
 
 Vector3 Camera::Direction()
 {
-	Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), obj_->m_);
+	// 向きを計算
+	Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
+	
 	return vel.Normalized();
 }
 
 void Camera::SetFollowPoint(YMath::Vector3* pFollowPoint, const bool isFollow)
 {
+	// nullチェック
 	assert(pFollowPoint);
+	
+	// 代入
 	pFollowPoint_ = pFollowPoint;
 	isFollow_ = isFollow;
 }
 
 void Camera::SetIsFollow(const bool isFollow)
 {
-	if (pFollowPoint_) { isFollow_ = isFollow; }
-	else { isFollow_ = false; }
+	// 追従点があるなら
+	if (pFollowPoint_) 
+	{
+		// 代入
+		isFollow_ = isFollow; 
+	}
+	// 無いなら
+	else 
+	{
+		// 追従点しない
+		isFollow_ = false; 
+	}
 }

@@ -4,7 +4,7 @@ cbuffer cbuff0 : register(b0)
 	matrix matWorld; // 3D変換行列
 	matrix matBillboard; // ビルボード行列
 }
-// マテリアル
+// 色
 cbuffer cbuff1 : register(b1)
 {
 	float4 color; // 色(RGBA)

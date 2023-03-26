@@ -2,12 +2,14 @@
 #include <cassert>
 
 using YGame::IParticle;
-using YGame::ObjectModel;
+using YGame::FireSpark;
+using YGame::ModelObject;
+using YGame::Model;
 using YGame::Color;
 using YMath::Vector3;
 using YMath::Vector4;
 
-YGame::Model* YGame::FireSpark::pModel_ = nullptr;
+Model* FireSpark::pModel_ = nullptr;
 
 void YGame::FireSpark::StaticInitialize(YGame::Model* pModel)
 {
@@ -15,7 +17,7 @@ void YGame::FireSpark::StaticInitialize(YGame::Model* pModel)
 	pModel_ = pModel;
 }
 
-void YGame::FireSpark::Emit(
+void FireSpark::Emit(
 	const uint32_t aliveTime,
 	const uint32_t swayingTime,
 	const YMath::Vector3& speed,
@@ -31,14 +33,16 @@ void YGame::FireSpark::Emit(
 	swayingPow_.Initialize(swayingTime);
 	spd_ = speed;
 
-	obj_.reset(ObjectModel::Create({ pos, {}, {scale, scale, scale} }));
 	scaleEas_.Initialize(scale, 0.0f, 2.0f);
 
 	color_.reset(Color::Create(color));
 	alphaEas_.Initialize(color.a_, 0.0f, 3.0f);
+	
+	obj_.reset(ModelObject::Create({ pos, {}, { scale,scale,scale } }));
+	obj_->SetColor(color_.get());
 }
 
-void YGame::FireSpark::Update()
+void FireSpark::Update()
 {
 	if (isAlive_ == false) { return; }
 
@@ -50,11 +54,12 @@ void YGame::FireSpark::Update()
 	if (swayingPow_.IsZero()) { isSwitching_ = true; }
 
 	obj_->pos_.x_ += spd_.x_ * YMath::Lerp(-1.0f, +1.0f, swayingPow_.Ratio());
-	obj_->pos_.z_ += spd_.z_ * YMath::Lerp(-1.0f, +1.0f, swayingPow_.Ratio());
 	obj_->pos_.y_ += spd_.y_;
+	obj_->pos_.z_ += spd_.z_ * YMath::Lerp(-1.0f, +1.0f, swayingPow_.Ratio());
 
 	float sca = scaleEas_.In(aliveTim_.Ratio());
 	obj_->scale_ = { sca,sca,sca };
+	
 	obj_->UpdateMatrix();
 
 	Vector4 c = color_->GetRGBA();
@@ -62,9 +67,7 @@ void YGame::FireSpark::Update()
 	color_->SetRGBA(c);
 }
 
-void YGame::FireSpark::Draw(const YGame::ViewProjection& vp, YGame::LightGroup* pLightGroup)
+void FireSpark::Draw()
 {
-	assert(pModel_);
-
-	pModel_->Draw(obj_.get(), vp, pLightGroup, color_.get());
+	pModel_->Draw(obj_.get());
 }

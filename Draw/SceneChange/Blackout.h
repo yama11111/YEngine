@@ -17,7 +17,7 @@ namespace YGame
 		};
 	private:
 		// オブジェクト
-		std::unique_ptr<ObjectSprite2D> obj_;
+		std::unique_ptr<Sprite2DObject> obj_;
 		// 色
 		std::unique_ptr<Color> color_;
 

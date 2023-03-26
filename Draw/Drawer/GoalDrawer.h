@@ -4,14 +4,14 @@
 #include <array>
 #include <memory>
 
-// フィルター描画用コモンクラス
-class FilterDrawerCommon
+// ゴール描画用コモンクラス
+class GoalDrawerCommon
 {
 protected:
 	// パーツの名前
 	enum class Parts
 	{
-		Monitor, // モニター
+		Cube, // 正方形
 	};
 protected:
 	// パーツの総数
@@ -24,9 +24,9 @@ public:
 	static void StaticInitialize();
 };
 
-// フィルター描画用クラス
-class FilterDrawer :
-	private FilterDrawerCommon,
+// ゴール描画用クラス
+class GoalDrawer :
+	private GoalDrawerCommon,
 	private YGame::SlimeActor
 {
 private:
@@ -54,5 +54,4 @@ public:
 	// 色替えアニメーション
 	//void ChangeColor(const );
 };
-
 

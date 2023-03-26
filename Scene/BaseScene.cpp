@@ -10,6 +10,11 @@ using YInput::Pad;
 using YGame::TextureManager;
 using YGame::AudioManager;
 using YGame::WorldRuler;
+using YGame::ViewProjection;
+using YGame::LightGroup;
+using YGame::Sprite2DObjectCommon;
+using YGame::Sprite3DObjectCommon;
+using YGame::ModelObjectCommon;
 
 #pragma endregion 
 

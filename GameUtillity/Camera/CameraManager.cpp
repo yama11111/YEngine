@@ -2,24 +2,25 @@
 #include "CalcTransform.h"
 #include <cassert>
 
+using YGame::CameraManagerCommon;
 using YGame::CameraManager;
 using YMath::Vector3;
 
-YInput::Keys* CameraManager::keys_ = nullptr;
-YInput::Mouse* CameraManager::mouse_ = nullptr;
-YInput::Pad* CameraManager::pad_ = nullptr;
+YInput::Keys* CameraManagerCommon::keys_ = nullptr;
+YInput::Mouse* CameraManagerCommon::mouse_ = nullptr;
+YInput::Pad* CameraManagerCommon::pad_ = nullptr;
 
-void CameraManager::StaticInitialize()
+void CameraManagerCommon::StaticInitialize()
 {
 	keys_ = YInput::Keys::GetInstance();
 	mouse_ = YInput::Mouse::GetInstance();
 	pad_ = YInput::Pad::GetInstance();
 }
 
-void CameraManager::Initialize(YMath::Vector3* pFollowPoint)
+void CameraManager::Initialize(const std::vector<InitStatus>& statuses)
 {
-	pFollowPoint_ = pFollowPoint;
-	camera_.Initialize({ {}, pFollowPoint, true });
+	pFollowPoint_ = statuses[0].pFollowPoint_;
+	camera_.Initialize({}, pFollowPoint_, true);
 	Update();
 }
 
