@@ -1,27 +1,32 @@
 #include "Skydome.h"
 #include <cassert>
 
-using YGame::Skydome;
-
-void Skydome::Initialize(const Transform::Status status, YGame::Model* pModel)
+void Skydome::Initialize()
 {
-	// nullチェック
-	assert(pModel);
-	// 代入
-	pModel_ = pModel;
+	// 初期化
+	transform_.Initialize({});
+	drawer_.Initalize(&transform_.m_);
 
-	// 生成
-	obj_.reset(ModelObject::Create(status));
+	// リセット
+	Reset();
+}
+
+void Skydome::Reset()
+{
+	transform_.Initialize({});
+	drawer_.Reset();
 }
 
 void Skydome::Update()
 {
 	// 更新
-	obj_->UpdateMatrix();
+	transform_.UpdateMatrix();
+
+	drawer_.Update();
 }
 
 void Skydome::Draw()
 {
 	// 描画
-	pModel_->Draw(obj_.get());
+	drawer_.Draw();
 }

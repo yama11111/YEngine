@@ -8,15 +8,15 @@ using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Clamp;
 
-std::unique_ptr<YGame::Sprite2D> InfectionBlocks::sBlockSpr_ = nullptr;
+YGame::Sprite2D* InfectionBlocks::spBlockSpr_ = nullptr;
 
 void InfectionBlocks::StaticInitialize()
 {
 	// テクスチャ読み込み
-	UINT texIdx = TextureManager::GetInstance()->Load("white1x1.png", false);
+	Texture* pTex = Texture::Load("white1x1.png", false);
 
 	// スプライト生成
-	sBlockSpr_.reset(Sprite2D::Create({ {1.0f,1.0f} }, { texIdx }));
+	spBlockSpr_ = Sprite2D::Create({}, { pTex });
 }
 
 void InfectionBlocks::Initialize(
@@ -49,17 +49,26 @@ void InfectionBlocks::Initialize(
 			// ブロック生成 + 初期化
 			blocks_[y][x].reset(new Block());
 
-			blocks_[y][x]->obj_.reset(Sprite2DObject::Create({}));
+			blocks_[y][x]->color_.reset(Color::Create({ 0.0f,0.0f,0.0f,0.0f }, { 1.0f,1.0f,1.0f,1.0f }, false));
+			blocks_[y][x]->obj_.reset(Sprite2DObject::Create({}, blocks_[y][x]->color_.get(), false));
 			blocks_[y][x]->obj_->pos_ = { p.x_, p.y_, 0.0f };
 			blocks_[y][x]->actTim_.Initialize(changeFrame);
+			blocks_[y][x]->colorStartTim_.Initialize(changeFrame * 4);
+			blocks_[y][x]->colorEndTim_.Initialize(changeFrame / 4);
 		}
 	}
 
-	scaleEas_[0].Initialize(0.0f, size, 3.0f);
-	scaleEas_[1].Initialize(size, 0.0f, 3.0f);
+	scaleEas_[0].Initialize(0.0f, size, 4.0f);
+	scaleEas_[1].Initialize(size, 0.0f, 4.0f);
 
-	rotaEas_[0].Initialize(-PI, 0.0f, 3.0f);
-	rotaEas_[1].Initialize(0.0f, +PI, 3.0f);
+	rotaEas_[0].Initialize(-PI, 0.0f, 4.0f);
+	rotaEas_[1].Initialize(0.0f, +PI, 4.0f);
+
+	colorEas_[0].Initialize(0.8f, 0.0f, 2.0f);
+	colorEas_[1].Initialize(0.0f, 0.0f, 2.0f);
+	
+	alphaEas_[0].Initialize(0.5f, 1.0f, 2.0f);
+	alphaEas_[1].Initialize(1.0f, 0.5f, 2.0f);
 
 	loadTim_.Initialize(loadFrame);
 
@@ -74,7 +83,9 @@ void InfectionBlocks::Reset()
 	step_ = Step::Narrow;
 
 	isAct_ = false;
+	isPreChange_ = false;
 	isChangeMoment_ = false;
+	isEnd_ = false;
 
 	loadTim_.Reset(false);
 
@@ -85,6 +96,8 @@ void InfectionBlocks::Reset()
 			blocks_[y][x]->obj_->rota_ = {};
 			blocks_[y][x]->obj_->scale_ = {};
 			blocks_[y][x]->actTim_.Reset(false);
+			blocks_[y][x]->colorStartTim_.Reset(false);
+			blocks_[y][x]->colorEndTim_.Reset(false);
 		}
 	}
 
@@ -100,6 +113,7 @@ void InfectionBlocks::Activate()
 
 	// 動作開始
 	isAct_ = true;
+	isPreChange_ = true;
 
 	// 配列の x y の大きさ
 	Vector2 size =
@@ -108,19 +122,16 @@ void InfectionBlocks::Activate()
 		static_cast<float>(blocks_.size() - 1)
 	};
 
+
 	// アンカーポイント基準の位置 を 始点 とする
-	size_t sX = static_cast<size_t>(anchor_.x_ * size.x_);
-	size_t sY = static_cast<size_t>(anchor_.y_ * size.y_);
+	float sX = anchor_.x_ * size.x_;
+	float sY = anchor_.y_ * size.y_;
 
 	// 始点のタイマー開始
-	blocks_[sY][sX]->actTim_.SetActive(true);
+	blocks_[static_cast<size_t>(sY)][static_cast<size_t>(sX)]->SetTimerActive(true);
 
 	// 始点
-	start_ =
-	{
-		static_cast<float>(sX),
-		static_cast<float>(sY)
-	};
+	start_ = { sX,sY };
 
 
 	// 半分の地点
@@ -169,6 +180,8 @@ void InfectionBlocks::ChangeUpdate()
 			step_ = Step::Load;
 			// 瞬間フラグをtrueに
 			isChangeMoment_ = true;
+			// 遷移中フラグをfalseに
+			isPreChange_ = false;
 			// 読み込みタイマー開始
 			loadTim_.SetActive(true);
 		}
@@ -195,6 +208,8 @@ void InfectionBlocks::ChangeUpdate()
 				{
 					// タイマーリセット
 					blocks_[i][j]->actTim_.Reset(false);
+					blocks_[i][j]->colorStartTim_.Reset(false);
+					blocks_[i][j]->colorEndTim_.Reset(false);
 				}
 			}
 
@@ -203,15 +218,15 @@ void InfectionBlocks::ChangeUpdate()
 			size_t y = static_cast<size_t>(start_.y_);
 
 			// タイマースタート
-			blocks_[y][x]->actTim_.SetActive(true);
+			blocks_[y][x]->SetTimerActive(true);
 		}
 	}
 	// 広がっている なら
 	else if (step_ == Step::Spread)
 	{
 		// ブロックの終端
-		size_t y = static_cast<size_t>(end_.y_);
 		size_t x = static_cast<size_t>(end_.x_);
+		size_t y = static_cast<size_t>(end_.y_);
 
 		// ブロック終端のタイマーが終了したら
 		if (blocks_[y][x]->actTim_.IsEnd())
@@ -242,6 +257,8 @@ void InfectionBlocks::BlockUpdate()
 
 			// ブロックのタイマー更新
 			blocks_[y][x]->actTim_.Update();
+			blocks_[y][x]->colorStartTim_.Update();
+			blocks_[y][x]->colorEndTim_.Update();
 
 			// イージング
 			// stepIndex_ が 0 ならイーズアウト
@@ -262,6 +279,20 @@ void InfectionBlocks::BlockUpdate()
 			blocks_[y][x]->obj_->rota_.z_ = r;
 
 			blocks_[y][x]->obj_->UpdateMatrix();
+
+
+			// 色 (赤)
+			float red = 0.0f;
+			if (stepIndex_ == 0) { red = colorEas_[0].Out(blocks_[y][x]->colorStartTim_.Ratio()); }
+			if (stepIndex_ == 1) { red = colorEas_[1].Out(blocks_[y][x]->colorEndTim_.Ratio()); }			
+			
+			// アルファ値
+			float alpha = 0.0f;
+			if (stepIndex_ == 0) { alpha = alphaEas_[0].Out(blocks_[y][x]->colorStartTim_.Ratio()); }
+			if (stepIndex_ == 1) { alpha = alphaEas_[1].Out(blocks_[y][x]->colorEndTim_.Ratio()); }
+
+			// 色代入
+			blocks_[y][x]->color_->SetRGBA({red, 0.0f,0.0f,alpha});
 		}
 	}
 }
@@ -277,14 +308,14 @@ void InfectionBlocks::BlockPropagate(const size_t x, const size_t y)
 
 	// 全てのパターンでタイマー開始 (総当たり)
 	// 範囲内なら 要素 + 1 or 要素 - 1
-	if (!moreX) { blocks_[y][x + 1]->actTim_.SetActive(true); }
-	if (!moreY && !moreX) { blocks_[y + 1][x + 1]->actTim_.SetActive(true); }
-	if (!moreY) { blocks_[y + 1][x]->actTim_.SetActive(true); }
-	if (!moreY && !lessX) { blocks_[y + 1][x - 1]->actTim_.SetActive(true); }
-	if (!lessX) { blocks_[y][x - 1]->actTim_.SetActive(true); }
-	if (!lessY && !lessX) { blocks_[y - 1][x - 1]->actTim_.SetActive(true); }
-	if (!lessY) { blocks_[y - 1][x]->actTim_.SetActive(true); }
-	if (!lessY && !moreX) { blocks_[y - 1][x + 1]->actTim_.SetActive(true); }
+	if (!moreX) { blocks_[y][x + 1]->SetTimerActive(true); }
+	if (!moreY && !moreX) { blocks_[y + 1][x + 1]->SetTimerActive(true); }
+	if (!moreY) { blocks_[y + 1][x]->SetTimerActive(true); }
+	if (!moreY && !lessX) { blocks_[y + 1][x - 1]->SetTimerActive(true); }
+	if (!lessX) { blocks_[y][x - 1]->SetTimerActive(true); }
+	if (!lessY && !lessX) { blocks_[y - 1][x - 1]->SetTimerActive(true); }
+	if (!lessY) { blocks_[y - 1][x]->SetTimerActive(true); }
+	if (!lessY && !moreX) { blocks_[y - 1][x + 1]->SetTimerActive(true); }
 }
 
 void InfectionBlocks::Update()
@@ -299,7 +330,7 @@ void InfectionBlocks::Draw()
 	{
 		for (size_t x = 0; x < blocks_[y].size(); x++)
 		{
-			sBlockSpr_->Draw(blocks_[y][x]->obj_.get());
+			spBlockSpr_->Draw(blocks_[y][x]->obj_.get());
 		}
 	}
 }

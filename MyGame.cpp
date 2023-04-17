@@ -1,6 +1,7 @@
 #include "MyGame.h"
 #include "Def.h"
 #include "YGameSceneFactory.h"
+#include "YGameTransitionFactory.h"
 
 #pragma region 名前空間宣言
 using YBase::MyGame;
@@ -16,8 +17,13 @@ bool MyGame::Initialize()
 	// 基底クラス初期化処理
 	if (YFramework::Initialize() == false) { return false; }
 
+	// シーンファクトリー設定
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
-	sceneMan_->Change("DEMO");
+	// 遷移ファクトリー設定
+	sceneMan_->SetTransitionFactory(new YGameTransitionFactory());
+
+	// シーンマネージャー初期化
+	sceneMan_->Initialize("TITLE");
 
 	return true;
 }
@@ -51,8 +57,15 @@ void MyGame::Draw()
 	// シーン描画
 	sceneMan_->Draw();
 
+	// シーン遷移描画
+	transitionMan_->Draw();
+
+#ifdef _DEBUG
+
 	// imgui描画
 	imguiMan_.Draw();
+
+#endif // DEBUG
 
 	// 描画後処理
 	dx_.PostDraw();

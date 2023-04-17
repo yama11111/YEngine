@@ -48,7 +48,7 @@ namespace YDX
 		// 静的デバイスポインタ
 		static ID3D12Device* pDevice_;
 		// 静的コマンドリストポインタ
-		static ID3D12GraphicsCommandList* pCommandList_;
+		static ID3D12GraphicsCommandList* pCmdList_;
 	public:
 		// 静的初期化
 		static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList);

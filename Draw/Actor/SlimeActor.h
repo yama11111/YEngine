@@ -40,7 +40,14 @@ namespace YGame
 	public:
 		// 初期化
 		void Initialize();
-		// 動かす
+		/// <summary>
+		/// 動かす
+		/// </summary>
+		/// <param name="jiggles"> : 揺れステータス</param>
+		/// <param name="---------------------------"></param>
+		/// <param name="(Vector3) jiggles.value_"> : 揺れる量</param>
+		/// <param name="(uint) jiggles.frame_"> : フレーム</param>
+		/// <param name="(float) jiggles.exponent_"> : 指数</param>
 		void Activate(const std::vector<JiggleState>& jiggles);
 		// 更新
 		void Update();
@@ -52,6 +59,8 @@ namespace YGame
 		void ChangeAction();
 		// 実値更新
 		void UpdateValue();
+	public:
+		virtual ~SlimeActor() = default;
 	};
 }
 

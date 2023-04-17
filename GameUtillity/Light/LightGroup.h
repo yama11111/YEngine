@@ -41,7 +41,7 @@ namespace YGame
 	public:
 		float ratio_ = 0.0f;
 		// ¶¬
-		static LightGroup* Create();
+		static LightGroup* Create(const bool isMutable = true);
 	public:
 		// ‰Šú‰»
 		void Initialize(const YMath::Vector3& ambientColor = { 1.0f,1.0f,1.0f });

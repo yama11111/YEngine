@@ -55,7 +55,7 @@ namespace YGame
 		void UpdateBlend();
 	private:
 		// スプライト(2D)
-		static std::unique_ptr<Sprite2D> sCurtenSpr_;
+		static Sprite2D* spCurtenSpr_;
 	public:
 		// 静的初期化
 		static void StaticInitialize();

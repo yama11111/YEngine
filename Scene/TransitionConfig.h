@@ -7,6 +7,6 @@ namespace BlackoutFrame
 
 namespace InfectionBlocksFrame
 {
-	const int Change = 5;
+	const int Change = 8;
 	const int Load = 20;
 }

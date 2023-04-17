@@ -1,18 +1,22 @@
 #include "ParticleManager.h"
 #include "MathUtillity.h"
 #include "YAssert.h"
+#include "Def.h"
 
 using YGame::ParticleManager;
 using YGame::Model;
+using YMath::Ease;
 using YMath::Vector3;
 
-const float PI = 3.141592f;
-
-Model* ParticleManager::pModel_ = nullptr;
-
-void ParticleManager::StaticInitialize(YGame::Model* pModel)
+void ParticleManager::StaticInitialize(YGame::ViewProjection* pVP)
 {
-	pModel_ = pModel;
+	// 基底クラス
+	IParticle::StaticInitialize(pVP);
+
+	// ----- モデル設定 ----- //
+	
+	// 花火
+	FireWork::StaticInitialize(Model::CreateCube());
 }
 
 void ParticleManager::Initialize()
@@ -45,27 +49,53 @@ void ParticleManager::Draw()
 	}
 }
 
-void ParticleManager::EmitFireSpark(
-	const YMath::Vector3& pos,
-	const YMath::Vector3& range,
-	const float maxScale,
-	const YMath::Vector3& speed,
-	const YMath::Vector4& color,
-	const uint32_t frame, const size_t num)
+void YGame::ParticleManager::EmitFireWorks(
+	const uint32_t frame, const size_t num, 
+	const YMath::Vector3& pos, const float scale, 
+	const YMath::Vector4& color)
 {
 	for (size_t i = 0; i < num; i++)
 	{
-		std::unique_ptr<FireSpark> newParticle = std::make_unique<FireSpark>();
+		// パーティクル
+		std::unique_ptr<FireWork> newParticle = std::make_unique<FireWork>();
 
-		uint32_t swayT = frame / YMath::GetRand(1, 2);
+		// ----- 位置 ----- //
+		Ease<Vector3> posEas;
 
-		Vector3 p = pos;
-		p.x_ += YMath::GetRand(-range.x_, range.x_, 100.0f);
-		p.y_ += YMath::GetRand(-range.y_, range.y_, 100.0f);
-		p.z_ += YMath::GetRand(-range.z_, range.z_, 100.0f);
-		float s = YMath::GetRand(maxScale / 2.0f, maxScale, 100.0f);
+		// 終点
+		Vector3 posEnd = pos;
+		// 範囲
+		float posRange = scale * 3.0f;
+		
+		// 設定
+		posEnd.x_ += YMath::GetRand(-posRange, posRange, 100.0f);
+		posEnd.y_ += YMath::GetRand(-posRange, posRange, 100.0f);
+		posEnd.z_ += YMath::GetRand(-posRange, posRange, 100.0f);
 
-		newParticle->Emit(frame, swayT, speed, p, s, color);
+		// 初期化
+		posEas.Initialize(pos, posEnd, 3.0f);
+
+
+		// ----- 回転 ----- //
+		Ease<Vector3> rotaEas;
+		
+		// 終点
+		Vector3 rotaEnd = {};
+		// 範囲
+		float rotaRange = PI * 2.0f;
+
+		// 設定
+		rotaEnd.x_ += YMath::GetRand(-rotaRange, rotaRange, 100.0f);
+		rotaEnd.y_ += YMath::GetRand(-rotaRange, rotaRange, 100.0f);
+		rotaEnd.z_ += YMath::GetRand(-rotaRange, rotaRange, 100.0f);
+
+		// 初期化
+		rotaEas.Initialize({}, rotaEnd, 3.0f);
+
+
+		// 発生
+		newParticle->Emit(frame, posEas, rotaEas, scale / 3.0f, color);
+		// 挿入
 		particles_.push_back(std::move(newParticle));
 	}
 }

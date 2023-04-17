@@ -7,19 +7,19 @@ namespace YScene
 	{
 	private:
 		// タイトル
-		const std::string Title	 = "TITLE";
+		const std::string Title_	 = "TITLE";
 		// ステージセレクト
-		const std::string Select = "SELECT";
+		const std::string Select_	 = "SELECT";
 		// プレイ
-		const std::string Play	 = "PLAY";
+		const std::string Play_		 = "PLAY";
 		// リザルト
-		const std::string Result = "RESULT";
+		const std::string Result_	 = "RESULT";
 
-		// 
-		const std::string Coll	 = "COLL";
+		// エディター
+		const std::string Edit_	 = "EDIT";
 
-		//
-		const std::string Demo	 = "DEMO";
+		// テスト
+		const std::string Test_	 = "TEST";
 
 	public:
 		// シーン生成

@@ -1,23 +1,23 @@
 #include "DescriptorHeap.h"
 #include "YAssert.h"
+#include <imgui.h>
 
 using YDX::DescriptorHeap;
 
 ID3D12Device* DescriptorHeap::pDevice_ = nullptr;
-ID3D12GraphicsCommandList* DescriptorHeap::pCommandList_ = nullptr;
+ID3D12GraphicsCommandList* DescriptorHeap::pCmdList_ = nullptr;
 
-void DescriptorHeap::StaticInitialize(const StaticInitStatus& state)
+void DescriptorHeap::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCmdList)
 {
-	assert(state.pDevice_);
-	assert(state.pCommandList_);
+	assert(pDevice);
+	assert(pCmdList);
 
-	pDevice_  = state.pDevice_;
-	pCommandList_ = state.pCommandList_;
+	pDevice_  = pDevice;
+	pCmdList_ = pCmdList;
 }
 
 void DescriptorHeap::Initialize()
 {
-	srvCount_ = uavCount_ = cbvCount_ = 0;
 
 	// デスクリプタヒープ設定
 	D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
@@ -27,80 +27,256 @@ void DescriptorHeap::Initialize()
 
 	// 設定をもとにデスクリプタヒープ(SRV,UAV,CBV用)を生成
 	Result(pDevice_->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&descriptorHeap_)));
+
+
+	// インクリメントサイズ取得
+	incSize_ = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+
+	// カウント初期化
+	immutableCounter_.ResetCount();
+	mutableCounter_.ResetCount();
+
+
+	// CPU の先頭ハンドルを取得
+	immutableCounter_.startHandle_.cpu_ = mutableCounter_.startHandle_.cpu_ = descriptorHeap_->GetCPUDescriptorHandleForHeapStart();
+
+	// GPU の先頭ハンドルを取得
+	immutableCounter_.startHandle_.gpu_ = mutableCounter_.startHandle_.gpu_ = descriptorHeap_->GetGPUDescriptorHandleForHeapStart();
+
+
+	// 全不変許容カウント
+	UINT AllImmutableCount = ImmutableSRVCount_ + ImmutableUAVCount_ + ImmutableCBVCount_;
+
+	// 不変許容カウント分だけハンドルを進める
+	mutableCounter_.startHandle_.cpu_.ptr += static_cast<SIZE_T>(incSize_ * AllImmutableCount);
+	mutableCounter_.startHandle_.gpu_.ptr += static_cast<SIZE_T>(incSize_ * AllImmutableCount);
+
 }
 
-void DescriptorHeap::CreateSRV(ID3D12Resource* buff, const D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc, 
-	D3D12_CPU_DESCRIPTOR_HANDLE& cpuHandle, D3D12_GPU_DESCRIPTOR_HANDLE& gpuHandle)
+
+DescriptorHeap::Handle DescriptorHeap::CreateSRV(
+	ID3D12Resource* buff, const D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc, const bool isMutable)
 {
-	assert(srvCount_ < MaxSRVCount_);
-
-	// デスクリプターヒープの先頭ハンドル(CPU)を取得
-	cpuHandle = descriptorHeap_->GetCPUDescriptorHandleForHeapStart();
-	// デスクリプターヒープの先頭ハンドル(GPU)を取得
-	gpuHandle = descriptorHeap_->GetGPUDescriptorHandleForHeapStart();
-
-	// インクリメントサイズ獲得
-	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-	// SRVがある分だけハンドルを進める
-	cpuHandle.ptr += static_cast<SIZE_T>(incSize * srvCount_);
-	gpuHandle.ptr += static_cast<SIZE_T>(incSize * srvCount_);
+	// SRV追加
+	Handle handle = AddSRV(isMutable);
 
 	// ハンドルの指す位置にSRV作成
-	pDevice_->CreateShaderResourceView(buff, &srvDesc, cpuHandle);
+	pDevice_->CreateShaderResourceView(buff, &srvDesc, handle.cpu_);
 
-	srvCount_++;
+	// ハンドルを返す
+	return handle;
 }
 
-void DescriptorHeap::CreateUAV(ID3D12Resource* buff, const D3D12_UNORDERED_ACCESS_VIEW_DESC& uavDesc)
+DescriptorHeap::Handle DescriptorHeap::CreateUAV(
+	ID3D12Resource* buff, const D3D12_UNORDERED_ACCESS_VIEW_DESC& uavDesc, const bool isMutable)
 {
-	assert(uavCount_ < MaxUAVCount_);
-
-	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle;
-	D3D12_GPU_DESCRIPTOR_HANDLE gpuHandle;
-
-	// デスクリプターヒープの先頭ハンドル(CPU)を取得
-	cpuHandle = descriptorHeap_->GetCPUDescriptorHandleForHeapStart();
-	// デスクリプターヒープの先頭ハンドル(GPU)を取得
-	gpuHandle = descriptorHeap_->GetGPUDescriptorHandleForHeapStart();
-
-	// インクリメントサイズ獲得
-	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-	// UAV + 最大SRVがある分だけハンドルを進める
-	cpuHandle.ptr += static_cast<SIZE_T>(incSize * (uavCount_ + MaxSRVCount_));
-	gpuHandle.ptr += static_cast<SIZE_T>(incSize * (uavCount_ + MaxSRVCount_));
+	// UAV追加
+	Handle handle = AddUAV(isMutable);
 
 	// ハンドルの指す位置にUAV作成
-	pDevice_->CreateUnorderedAccessView(buff, nullptr, &uavDesc, cpuHandle);
+	pDevice_->CreateUnorderedAccessView(buff, nullptr, &uavDesc, handle.cpu_);
 
-	uavCount_++;
+	// ハンドルを返す
+	return handle;
 }
 
-void DescriptorHeap::CreateCBV(const D3D12_CONSTANT_BUFFER_VIEW_DESC& cbvDesc)
+DescriptorHeap::Handle DescriptorHeap::CreateCBV(
+	const D3D12_CONSTANT_BUFFER_VIEW_DESC& cbvDesc, const bool isMutable)
 {
-	assert(cbvCount_ < MaxCBVCount_);
-
-	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle;
-
-	// デスクリプターヒープの先頭ハンドル(CPU)を取得
-	cpuHandle = descriptorHeap_->GetCPUDescriptorHandleForHeapStart();
-
-	// インクリメントサイズ獲得
-	UINT incSize = pDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-	// CBV + 最大SRV + 最大UAV がある分だけハンドルを進める
-	cpuHandle.ptr += static_cast<SIZE_T>(incSize * (cbvCount_ + MaxSRVCount_ + MaxUAVCount_));
+	// CBV追加
+	Handle handle = AddCBV(isMutable);
 
 	// ハンドルの指す位置にCBV作成
-	pDevice_->CreateConstantBufferView(&cbvDesc, cpuHandle);
+	pDevice_->CreateConstantBufferView(&cbvDesc, handle.cpu_);
 
-	cbvCount_++;
+	// ハンドルを返す
+	return handle;
+}
+
+DescriptorHeap::Handle DescriptorHeap::AddSRV(const bool isMutable)
+{
+	// 不変カウントが許容値を超えたら弾く
+	assert(immutableCounter_.srvCount_ < ImmutableSRVCount_);
+	// カウントが最大値を超えたら弾く
+	assert(immutableCounter_.srvCount_ + mutableCounter_.srvCount_ < MaxSRVCount_);
+
+
+	// 戻り値用
+	Handle handle{};
+
+	// SRVカウント
+	UINT srvCount = 0;
+
+	// 既に使っている分
+	UINT alreadyCount = 0;
+
+
+	// 可変なら可変用
+	if (isMutable)
+	{
+		// 値代入
+		handle = mutableCounter_.startHandle_;
+		srvCount = mutableCounter_.srvCount_;
+
+		// 許容値分
+		alreadyCount = ImmutableSRVCount_;
+
+		// カウントを進める
+		mutableCounter_.srvCount_++;
+	}
+	// それ以外なら不変用
+	else
+	{
+		// 値代入
+		handle = immutableCounter_.startHandle_;
+		srvCount = immutableCounter_.srvCount_;
+
+		// 0
+		alreadyCount = 0;
+
+		// カウントを進める
+		immutableCounter_.srvCount_++;
+	}
+
+	// SRVがある分だけハンドルを進める
+	handle.cpu_.ptr += static_cast<SIZE_T>(incSize_ * (srvCount + alreadyCount));
+	handle.gpu_.ptr += static_cast<SIZE_T>(incSize_ * (srvCount + alreadyCount));
+
+	// ハンドルを返す
+	return handle;
+}
+
+DescriptorHeap::Handle DescriptorHeap::AddUAV(const bool isMutable)
+{
+	// 不変カウントが許容値を超えたら弾く
+	assert(immutableCounter_.uavCount_ < ImmutableUAVCount_);
+	// カウントが最大値を超えたら弾く
+	assert(immutableCounter_.uavCount_ + mutableCounter_.uavCount_ < MaxUAVCount_);
+
+
+	// 戻り値用
+	Handle handle{};
+
+	// UAVカウント
+	UINT uavCount = 0;
+
+	// 既に使っている分
+	UINT alreadyCount = 0;
+
+
+	// 可変なら可変用
+	if (isMutable)
+	{
+		// 値代入
+		handle = mutableCounter_.startHandle_;
+		uavCount = mutableCounter_.uavCount_;
+
+		// 最大SRV + 許容値分
+		alreadyCount = MaxSRVCount_ + ImmutableUAVCount_;
+
+		// カウントを進める
+		mutableCounter_.uavCount_++;
+	}
+	// それ以外なら不変用
+	else
+	{
+		// 値代入
+		handle = immutableCounter_.startHandle_;
+		uavCount = immutableCounter_.uavCount_;
+
+		// 最大SRV分
+		alreadyCount = MaxSRVCount_;
+
+		// カウントを進める
+		immutableCounter_.uavCount_++;
+	}
+
+	// UAV + 最大SRVがある分だけハンドルを進める
+	handle.cpu_.ptr += static_cast<SIZE_T>(incSize_ * (uavCount + alreadyCount));
+	handle.gpu_.ptr += static_cast<SIZE_T>(incSize_ * (uavCount + alreadyCount));
+
+	// ハンドルを返す
+	return handle;
+}
+
+DescriptorHeap::Handle DescriptorHeap::AddCBV(const bool isMutable)
+{
+	// 不変カウントが許容値を超えたら弾く
+	assert(immutableCounter_.cbvCount_ < ImmutableCBVCount_);
+	// カウントが最大値を超えたら弾く
+	assert(immutableCounter_.cbvCount_ + mutableCounter_.cbvCount_ < MaxCBVCount_);
+
+
+	// 戻り値用
+	Handle handle{};
+
+	// CBVカウント
+	UINT cbvCount = 0;
+
+	// 既に使っている分
+	UINT alreadyCount = 0;
+
+
+	// 可変なら可変用
+	if (isMutable)
+	{
+		// 値代入
+		handle = mutableCounter_.startHandle_;
+		cbvCount = mutableCounter_.cbvCount_;
+
+		// 最大SRV + 最大UAV + 許容値分
+		alreadyCount = MaxSRVCount_ + MaxUAVCount_ + ImmutableCBVCount_;
+
+		// カウントを進める
+		mutableCounter_.cbvCount_++;
+	}
+	// それ以外なら不変用
+	else
+	{
+		// 値代入
+		handle = immutableCounter_.startHandle_;
+		cbvCount = immutableCounter_.cbvCount_;
+
+		// 最大SRV + 最大UAV分
+		alreadyCount = MaxSRVCount_ + MaxUAVCount_;
+
+		// カウントを進める
+		immutableCounter_.cbvCount_++;
+	}
+
+	// CBV + 最大SRV + 最大UAVがある分だけハンドルを進める
+	handle.cpu_.ptr += static_cast<SIZE_T>(incSize_ * (cbvCount + alreadyCount));
+	handle.gpu_.ptr += static_cast<SIZE_T>(incSize_ * (cbvCount + alreadyCount));
+
+	// ハンドルを返す
+	return handle;
 }
 
 void DescriptorHeap::SetDrawCommand()
 {
 	// SRVヒープの設定コマンド
 	ID3D12DescriptorHeap* ppHeaps[] = { descriptorHeap_.Get() };
-	pCommandList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
+	pCmdList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
+}
+
+
+void DescriptorHeap::ShowCount()
+{
+	ImGui::Begin("DescriptorCount");
+	
+	ImGui::Text("----- Immutable -----");
+	{
+		ImGui::Text("SRV : %u", immutableCounter_.srvCount_);
+		ImGui::Text("UAV : %u", immutableCounter_.uavCount_);
+		ImGui::Text("CBV : %u", immutableCounter_.cbvCount_);
+	}
+	ImGui::Text("----- Mutable -----");
+	{
+		ImGui::Text("SRV : %u", mutableCounter_.srvCount_);
+		ImGui::Text("UAV : %u", mutableCounter_.uavCount_);
+		ImGui::Text("CBV : %u", mutableCounter_.cbvCount_);
+	}
+
+	ImGui::End();
 }

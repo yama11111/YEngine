@@ -11,6 +11,7 @@ cbuffer cbuff0 : register(b0)
 cbuffer cbuff1 : register(b1)
 {
 	float4 color; // F(RGBA)
+	float4 originalColorRate; // Œ³‚ÌF‚ÌŠ„‡
 }
 // Œõ
 cbuffer cbuff2 : register(b2)

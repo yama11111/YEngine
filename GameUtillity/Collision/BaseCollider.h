@@ -62,6 +62,6 @@ namespace YGame
 		inline void SetIsInvincible(const bool isInvincible) { isInvincible_ = isInvincible; }
 	public:
 		BaseCollider() = default;
-		~BaseCollider() = default;
+		virtual ~BaseCollider() = default;
 	};
 }

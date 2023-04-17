@@ -7,14 +7,14 @@ using YScene::BaseScene;
 using YInput::Keys;
 using YInput::Mouse;
 using YInput::Pad;
-using YGame::TextureManager;
-using YGame::AudioManager;
+using YGame::Texture;
+using YGame::Audio;
 using YGame::WorldRuler;
 using YGame::ViewProjection;
 using YGame::LightGroup;
-using YGame::Sprite2DObjectCommon;
-using YGame::Sprite3DObjectCommon;
-using YGame::ModelObjectCommon;
+using YGame::Sprite2DObject;
+using YGame::Sprite3DObject;
+using YGame::ModelObject;
 
 #pragma endregion 
 
@@ -24,8 +24,6 @@ Keys* BaseScene::sKeys_ = nullptr;
 Mouse* BaseScene::sMouse_ = nullptr;
 Pad* BaseScene::sPad_ = nullptr;
 WorldRuler* BaseScene::spWorldRuler_ = nullptr;
-TextureManager* BaseScene::spTexManager_ = nullptr;
-AudioManager* BaseScene::spAudioManager_ = nullptr;
 
 void BaseScene::StaticInitialize(YGame::WorldRuler* pWorldRuler)
 {
@@ -36,9 +34,6 @@ void BaseScene::StaticInitialize(YGame::WorldRuler* pWorldRuler)
 	sKeys_ = Keys::GetInstance();
 	sMouse_ = Mouse::GetInstance();
 	sPad_ = Pad::GetInstance();
-
-	spTexManager_ = TextureManager::GetInstance();
-	spAudioManager_ = AudioManager::GetInstance();
 	
 	// ƒ|ƒCƒ“ƒ^‘ã“ü
 	spWorldRuler_ = pWorldRuler;

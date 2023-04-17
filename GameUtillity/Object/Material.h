@@ -1,10 +1,7 @@
 #pragma once
 #include "ConstBuffer.h"
-#include "TextureManager.h"
+#include "Texture.h"
 #include "Vector3.h"
-
-// include回避用
-struct aiMaterial;
 
 namespace YGame
 {
@@ -36,8 +33,8 @@ namespace YGame
 
 		// テクスチャファイル名
 		std::string texFileName_;
-		// テクスチャインデックス
-		UINT texIndex_;
+		// テクスチャ
+		Texture* pTex_ = nullptr;
 		
 		// 定数バッファ(マテリアル)
 		YDX::ConstBuffer<CBData> cBuff_;
@@ -49,15 +46,12 @@ namespace YGame
 		/// <param name="fileName"> : ファイル名</param>
 		/// <returns>マテリアル</returns>
 		static Material Load(const std::string& directoryPath, const std::string& fileName);
-		/// <summary>
-		/// マテリアル読み込み(assimp)
-		/// </summary>
-		/// <param name="directoryPath"> : ディレクトリパス</param>
-		/// <param name="src"> : assimp用マテリアル</param>
-		/// <param name="extension"> : 拡張子</param>
-		/// <returns>マテリアル</returns>
-		static Material Load(const std::string directoryPath, const aiMaterial* src, const std::string extension);
 	public:
+		/// <summary>
+		/// 画像読み込み
+		/// </summary>
+		/// <param name="texFileName"> : 画像ファイル名</param>
+		void LoadTexture(const std::string& texFileName);
 		/// <summary>
 		/// 描画前コマンド
 		/// </summary>
@@ -65,10 +59,8 @@ namespace YGame
 		/// <param name="texRPIndex"> : ルートパラメータ番号</param>
 		void SetDrawCommand(UINT mateRPIndex, UINT texRPIndex);
 	private:
-		// 静的テクスチャマネージャーポインタ
-		static TextureManager* spTexManager_;
 		// 静的デフォルトテクスチャ
-		static UINT sDefTexIndex_;
+		static Texture* spDefTexIndex_;
 	public:
 		// 静的初期化
 		static void StaticInitialize();

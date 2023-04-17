@@ -4,43 +4,37 @@
 #include <cassert>
 #include <fstream>
 #include <sstream>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
 #pragma region 名前空間
 
 using YGame::Material;
+using YGame::Texture;
 
 #pragma endregion
 
 #pragma region Static
 
-YGame::TextureManager* Material::spTexManager_ = nullptr;
-UINT Material::sDefTexIndex_ = UINT32_MAX;
+Texture* Material::spDefTexIndex_ = nullptr;
 
 void Material::StaticInitialize()
 {
-	// 代入
-	spTexManager_ = TextureManager::GetInstance();
-
 	// デフォルトのテクスチャを設定
-	sDefTexIndex_ = spTexManager_->Load("white1x1.png", false);
+	spDefTexIndex_ = Texture::Load("white1x1.png", false);
 }
 
 #pragma endregion
 
 Material::Material() :
 	name_(),
-	ambient_(0.2f, 0.2f, 0.2f),
+	ambient_(0.8f, 0.8f, 0.8f),
 	diffuse_(0.5f, 0.5f, 0.5f),
 	specular_(0.10f, 0.10f, 0.10f),
 	alpha_(1.0f),
 	texFileName_(),
-	texIndex_(sDefTexIndex_)
+	pTex_(spDefTexIndex_)
 {
 	// 定数バッファ生成
-	cBuff_.Create();
+	cBuff_.Create(false);
 	cBuff_.map_->ambient_ = ambient_;
 	cBuff_.map_->diffuse_ = diffuse_;
 	cBuff_.map_->specular_ = specular_;
@@ -109,7 +103,7 @@ Material Material::Load(const std::string& directoryPath, const std::string& fil
 		{
 			// 読み込み
 			lineStream >> m.texFileName_;
-			m.texIndex_ = spTexManager_->Load(directoryPath, m.texFileName_);
+			m.pTex_ = Texture::Load(directoryPath, m.texFileName_);
 		}
 
 	}
@@ -121,32 +115,13 @@ Material Material::Load(const std::string& directoryPath, const std::string& fil
 	return m;
 }
 
-Material Material::Load(const std::string directoryPath, const aiMaterial* src, const std::string extension)
+void Material::LoadTexture(const std::string& texFileName)
 {
-	// 戻り値用
-	Material material = Material();
-
-	// 読み込み
-	aiString path;
-	if (src->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) == AI_SUCCESS)
-	{
-		// ファイル名
-		std::string fileName = std::string(path.C_Str());
-
-		// 拡張子を変更するなら
-		if (extension != "")
-		{
-			// 拡張子設定
-			fileName = YUtil::ReplaceExtension(fileName, extension);
-		}
-
-		// 読み込み(代入)
-		material.texFileName_ = fileName;
-		material.texIndex_ = spTexManager_->Load(directoryPath, fileName);
-	}
-
-	// マテリアルを返す
-	return material;
+	// 画像名代入
+	texFileName_ = texFileName;
+	
+	// 画像読み込み
+	pTex_ = Texture::Load(texFileName);
 }
 
 void Material::SetDrawCommand(UINT mateRPIndex, UINT texRPIndex)
@@ -155,5 +130,5 @@ void Material::SetDrawCommand(UINT mateRPIndex, UINT texRPIndex)
 	cBuff_.SetDrawCommand(mateRPIndex);
 
 	// テクスチャ
-	spTexManager_->SetDrawCommand(texRPIndex, texIndex_);
+	pTex_->SetDrawCommand(texRPIndex);
 }

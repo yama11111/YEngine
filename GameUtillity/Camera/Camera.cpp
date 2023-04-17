@@ -8,16 +8,36 @@ using YGame::Camera;
 using YMath::Vector3;
 using YMath::MultVec3Mat4;
 
-void Camera::Initialize(const Transform::Status& status, YMath::Vector3* pFollowPos, bool isFollow)
+void Camera::Initialize(const Vector3 pos, const Vector3 rota)
 {
 	// 初期化 + 代入
 	shake_.Initialize();
-	pos_ = status.pos_;
-	rota_ = status.rota_;
-	transform_.Initialize(status);
+	pos_ = pos;
+	rota_ = rota;
+	transform_.Initialize({ pos_, rota_ });
 	vp_.Initialize({});
 
-	pFollowPoint_ = pFollowPos;
+	pFollowPoint_ = nullptr;
+	SetIsFollow(false);
+
+	// 更新
+	Update();
+}
+
+void Camera::Initialize(const Vector3 pos, Vector3* pFollowPoint, bool isFollow)
+{
+	// nullチェック
+	assert(pFollowPoint);
+	// 代入
+	pFollowPoint_ = pFollowPoint;
+
+	// 初期化 + 代入
+	shake_.Initialize();
+	pos_ = pos;
+	rota_ = {};
+	transform_.Initialize({ pos_, rota_ });
+	vp_.Initialize({});
+	
 	SetIsFollow(isFollow);
 
 	// 更新
@@ -26,13 +46,13 @@ void Camera::Initialize(const Transform::Status& status, YMath::Vector3* pFollow
 
 void Camera::UpdateTarget()
 {
-	// 追従する && 追従点が前回と違う場所にあるなら
-	if (isFollow_ && (vp_.eye_ != *pFollowPoint_))
+	// 追従点がある && 追従するなら
+	if (pFollowPoint_ && isFollow_)
 	{
 		// 注視点に追従点代入
 		vp_.target_ = *pFollowPoint_;
 	}
-	// 無いなら
+	// それ以外なら
 	else
 	{
 		// 自分の向いている方向を注視点とする
@@ -70,10 +90,10 @@ void Camera::Shaking(const int swing, const int dekey)
 	shake_.Activate(swing, dekey);
 }
 
-YGame::ViewProjection Camera::GetViewProjection()
+ViewProjection Camera::GetViewProjection()
 {
 	// 戻り値用
-	YGame::ViewProjection result = vp_;
+	ViewProjection result = vp_;
 	
 	// カメラシェイク加算
 	result.eye_ += shake_.Value() / 10.0f;
@@ -93,14 +113,17 @@ Vector3 Camera::Direction()
 	return vel.Normalized();
 }
 
-void Camera::SetFollowPoint(YMath::Vector3* pFollowPoint, const bool isFollow)
+void Camera::SetFollowPoint(Vector3* pFollowPoint)
 {
-	// nullチェック
-	assert(pFollowPoint);
-	
 	// 代入
 	pFollowPoint_ = pFollowPoint;
-	isFollow_ = isFollow;
+	
+	// nullなら
+	if (pFollowPoint == nullptr)
+	{
+		// 追従しない
+		isFollow_ = false;
+	}
 }
 
 void Camera::SetIsFollow(const bool isFollow)
@@ -114,7 +137,7 @@ void Camera::SetIsFollow(const bool isFollow)
 	// 無いなら
 	else 
 	{
-		// 追従点しない
+		// 追従しない
 		isFollow_ = false; 
 	}
 }

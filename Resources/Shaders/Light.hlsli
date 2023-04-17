@@ -16,7 +16,7 @@ struct PointLight
 	uint active;		 // 動作フラグ
 };
 // スポットライト光源
-//static const int SpotLightNum = 3;
+static const int SpotLightNum = 3;
 //struct SpotLight
 //{
 //	float3 lightPos;	 // 座標

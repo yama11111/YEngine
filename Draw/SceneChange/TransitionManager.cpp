@@ -4,11 +4,11 @@
 #include "InfectionBlocks.h"
 
 using YGame::ITransition;
-using YGame::TransitionManagaer;
+using YGame::TransitionManager;
 using YGame::Blackout;
 using YGame::InfectionBlocks;
 
-void TransitionManagaer::Initialize()
+void TransitionManager::Initialize()
 {
 	// 暗転
 	Blackout* newBO = new Blackout();
@@ -18,18 +18,19 @@ void TransitionManagaer::Initialize()
 	InfectionBlocks* newIB = new InfectionBlocks();
 	newIB->Initialize(
 		InfectionBlocksFrame::Change, InfectionBlocksFrame::Load,
-		{ 0.0f,0.0f }, 64.0f, { 20.0f,10.0f });
+		{ 0.0f,0.0f }, 128.0f, { 15.0f,8.0f },
+		{ 0.0f,1.0f });
 	
 
 	// リサイズ
 	tras_.resize(static_cast<size_t>(Type::End));
 
 	// インデックスに合わせた位置に挿入
-	tras_[static_cast<size_t>(TransitionManagaer::Type::Blackout)].reset(newBO);
-	tras_[static_cast<size_t>(TransitionManagaer::Type::InfectionBlocks)].reset(newIB);
+	tras_[static_cast<size_t>(TransitionManager::Type::Blackout)].reset(newBO);
+	tras_[static_cast<size_t>(TransitionManager::Type::InfectionBlocks)].reset(newIB);
 }
 
-void TransitionManagaer::Reset()
+void TransitionManager::Reset()
 {
 	for (size_t i = 0; i < tras_.size(); i++)
 	{
@@ -38,7 +39,7 @@ void TransitionManagaer::Reset()
 	}
 }
 
-void TransitionManagaer::Update()
+void TransitionManager::Update()
 {
 	for (size_t i = 0; i < tras_.size(); i++)
 	{
@@ -47,7 +48,7 @@ void TransitionManagaer::Update()
 	}
 }
 
-void TransitionManagaer::Draw()
+void TransitionManager::Draw()
 {
 	for (size_t i = 0; i < tras_.size(); i++)
 	{
@@ -56,7 +57,7 @@ void TransitionManagaer::Draw()
 	}
 }
 
-void TransitionManagaer::Activate(const Type& type)
+void TransitionManager::Activate(const Type& type)
 {
 	// リサイズ用使っていたら弾く
 	if (type == Type::End) { return; }
@@ -68,7 +69,22 @@ void TransitionManagaer::Activate(const Type& type)
 	tras_[idx]->Activate();
 }
 
-bool TransitionManagaer::IsChangeMoment() const 
+bool TransitionManager::IsPreChange() const
+{
+	// 戻り値用
+	bool result = false;
+
+	// トランジションごとに
+	for (size_t i = 0; i < tras_.size(); i++)
+	{
+		// 論理演算 (OR)
+		result |= tras_[i]->IsPreChange();
+	}
+
+	return result;
+}
+
+bool TransitionManager::IsChangeMoment() const
 {
 	// 戻り値用
 	bool result = false;
@@ -83,7 +99,7 @@ bool TransitionManagaer::IsChangeMoment() const
 	return result;
 }
 
-bool TransitionManagaer::IsEnd() const
+bool TransitionManager::IsEnd() const
 {
 	// 戻り値用
 	bool result = false;
@@ -98,8 +114,14 @@ bool TransitionManagaer::IsEnd() const
 	return result;
 }
 
-void TransitionManagaer::StaticInitialize()
+void TransitionManager::StaticInitialize()
 {
 	Blackout::StaticInitialize();
 	InfectionBlocks::StaticInitialize();
+}
+
+TransitionManager* TransitionManager::GetInstance()
+{
+	static TransitionManager instance;
+	return &instance;
 }

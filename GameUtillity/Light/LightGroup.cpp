@@ -32,10 +32,10 @@ LightGroup::LightGroup() :
 	direLights_(), pointLights_()//, spotLights_()
 {}
 
-LightGroup* LightGroup::Create()
+LightGroup* LightGroup::Create(const bool isMutable)
 {
 	LightGroup* instance = new LightGroup();
-	instance->cBuff_.Create();
+	instance->cBuff_.Create(isMutable);
 	instance->Initialize();
 
 	return instance;
@@ -49,13 +49,13 @@ void LightGroup::Initialize(const YMath::Vector3& ambientColor)
 	for (size_t i = 0; i < DireLightNum_; i++)
 	{
 		direLights_[i].Initialize(DefaultDirection1[i]);
-		direLights_[i].SetActive(true);
+		direLights_[i].SetActive(false);
 	}
 	// ----- 点光源 ----- //
 	for (size_t i = 0; i < PointLightNum_; i++)
 	{
 		pointLights_[i].Initialize(DefaultPos1[i]);
-		pointLights_[i].SetActive(true);
+		pointLights_[i].SetActive(false);
 	}
 	// ----- スポットライト光源 ----- //
 	for (size_t i = 0; i < SpotLightNum_; i++)

@@ -11,6 +11,8 @@ namespace YGame
 	protected:
 		// “®ì‚µ‚Ä‚¢‚é‚©
 		bool isAct_ = false;
+		// Ø‚è‘Ö‚í‚Á‚Ä‚¢‚é“r’†‚©
+		bool isPreChange_ = false;
 		// Ø‚è‘Ö‚í‚è‚ÌuŠÔ
 		bool isChangeMoment_ = false;
 		// I—¹‚µ‚Ä‚¢‚é‚©
@@ -27,6 +29,8 @@ namespace YGame
 	public:
 		// “®ìŠJn
 		virtual void Activate() = 0;
+		// Ø‚è‘Ö‚í‚Á‚Ä‚¢‚é“r’†‚©
+		bool IsPreChange() const { return isPreChange_; }
 		// Ø‚è‘Ö‚í‚è‚ÌuŠÔ‚©
 		bool IsChangeMoment() const { return isChangeMoment_; }
 		// I—¹‚µ‚Ä‚¢‚é‚©

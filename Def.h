@@ -17,3 +17,6 @@ const float FixFPS = 60.0f;
 
 // ƒÎ
 const float PI = 3.141592f;
+
+//”¼Œa
+const float harfScale = 1.0f;

@@ -5,7 +5,7 @@
 namespace YGame
 {
 	// シーン遷移マネージャー
-	class TransitionManagaer
+	class TransitionManager
 	{
 	public:
 		// 種類
@@ -37,6 +37,9 @@ namespace YGame
 		/// <param name="Type::InfectionBlocks"> : 浸食ブロック(画面全体が埋め尽くされる)</param>
 		/// <param name="Type::End"> : リサイズ用 (使わない)</param>
 		void Activate(const Type& type);
+	public:
+		// 切り替わっている途中か
+		bool IsPreChange() const;
 		// 切り替わりの瞬間か
 		bool IsChangeMoment() const;
 		// 終了しているか
@@ -44,6 +47,17 @@ namespace YGame
 	public:
 		// 静的初期化
 		static void StaticInitialize();
+	public:
+		// シングルトン
+		static TransitionManager* GetInstance();
+	private:
+		TransitionManager() = default;
+		~TransitionManager() = default;
+		TransitionManager(const TransitionManager&) = delete;
+		const TransitionManager& operator=(const TransitionManager&) = delete;
 	};
+
+	// シーン遷移の種類
+	using TransitionType = TransitionManager::Type;
 }
 

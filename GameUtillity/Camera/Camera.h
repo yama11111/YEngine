@@ -13,7 +13,7 @@ namespace YGame
 		YMath::Vector3 pos_;
 		// 回転
 		YMath::Vector3 rota_;
-	private:
+	protected:
 		// 追従点ポインタ
 		YMath::Vector3* pFollowPoint_ = nullptr;
 		// 追従フラグ
@@ -28,31 +28,34 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="status"> : トランスフォーム設定用ステータス</param>
-		/// <param name="status.pos_"> : 位置</param>
-		/// <param name="status.rota_"> : 回転</param>
-		/// <param name="status.scale_"> : 大きさ</param>
-		/// <param name="-------------------------------------------"></param>
+		/// <param name="pos"> : 位置</param>
+		/// <param name="rota"> : 回転</param>
+		void Initialize(const YMath::Vector3 pos, const YMath::Vector3 rota);
+		/// <summary>
+		/// 初期化 (追従ver)
+		/// </summary>
+		/// <param name="pos"> : 位置</param>
 		/// <param name="pFollowPoint"> : 追従点ポインタ</param>
 		/// <param name="isFollow"> : 追従するか</param>
-		void Initialize(const Transform::Status& status, YMath::Vector3* pFollowPoint = nullptr, bool isFollow = false);
+		void Initialize(const YMath::Vector3 pos, YMath::Vector3* pFollowPoint, bool isFollow = true);
 		// 更新
 		void Update();
 	public:
 		// カメラシェイク
-		void Shaking(const int swing, const int dekey);
+		virtual void Shaking(const int swing, const int dekey);
 		// ビュープロジェクション
-		ViewProjection GetViewProjection();
+		virtual ViewProjection GetViewProjection();
 		// カメラ向き
-		YMath::Vector3 Direction();
-		// 揺れているか
-		bool IsAct() { return shake_.IsAct(); }
+		virtual YMath::Vector3 Direction();
 		// 追従点設定
-		void SetFollowPoint(YMath::Vector3* pFollowPoint, const bool isFollow = true);
+		virtual void SetFollowPoint(YMath::Vector3* pFollowPoint);
 		// 追従設定
-		void SetIsFollow(const bool isFollow);
+		virtual void SetIsFollow(const bool isFollow);
 	private:
 		// 注視点更新
 		void UpdateTarget();
+	public:
+		Camera() = default;
+		~Camera() = default;
 	};
 }

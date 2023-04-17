@@ -6,13 +6,26 @@ namespace YBase
 	class MyGame : public YFramework
 	{
 	public:
-		// 初期化
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <returns>成功したか</returns>
 		bool Initialize() override;
-		// 終了処理
+		
+		/// <summary>
+		/// 終了処理
+		/// </summary>
 		void Finalize() override;
-		// 更新
+		
+		/// <summary>
+		/// 更新
+		/// </summary>
 		void Update() override;
-		// 描画
+
+		/// <summary>
+		/// 描画
+		/// </summary>
 		void Draw() override;
 	};
 }

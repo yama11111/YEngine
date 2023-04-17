@@ -5,7 +5,9 @@
 
 #pragma region 名前空間宣言
 using YScene::TitleScene;
+using namespace YInput;
 using namespace YGame;
+using namespace YMath;
 #pragma endregion 
 
 #pragma region Static関連
@@ -16,23 +18,13 @@ void TitleScene::Load()
 {
 	// ----- テクスチャ ----- //
 
-	plainTex_ = spTexManager_->Load("white1x1.png", false);
-
 	// ----- オーディオ ----- //
 
-	//aA_ = pAudioManager_->Load("Resources/Audios/fanfare.wav");
-
 	// ----- スプライト (2D) ----- //
-
-	windowSpr_.reset(Sprite2D::Create({ WinSize }, { plainTex_ }));
-
+	
 	// ----- スプライト (3D) ----- //
 
-	//debriB_.reset(Sprite3D::Create(false));
-
 	// ------- モデル ------- //
-
-	cubeMod_.reset(Model::Create());
 
 	// ----- 静的初期化 ----- //
 }
@@ -42,11 +34,6 @@ void TitleScene::Load()
 #pragma region 初期化
 void TitleScene::Initialize()
 {
-	// ライト初期化
-	lightGroup_.reset(LightGroup::Create());
-
-	// ビュープロジェクション初期化
-	vp_.Initialize({});
 }
 #pragma endregion
 
@@ -60,27 +47,6 @@ void TitleScene::Finalize()
 #pragma region 更新
 void TitleScene::Update()
 {
-	// ホットリロード
-	if (sKeys_->IsTrigger(DIK_L))
-	{
-
-	}
-
-	// リセット
-	if (sKeys_->IsTrigger(DIK_R))
-	{
-
-	}
-
-	// 次のシーンへ
-	if (sKeys_->IsTrigger(DIK_0))
-	{
-		SceneManager::GetInstance()->Change("SELECT");
-	}
-	
-
-	// ビュープロジェクション
-	vp_.UpdateMatrix();
 }
 #pragma endregion
 
@@ -88,7 +54,7 @@ void TitleScene::Update()
 #pragma region 描画
 void TitleScene::DrawBackSprite2Ds()
 {
-
+	
 }
 
 void TitleScene::DrawModels()
@@ -109,25 +75,25 @@ void TitleScene::DrawFrontSprite2Ds()
 void TitleScene::Draw()
 {
 	// -------------------------- //
-	Sprite2DCommon::StaticSetDrawCommand();
+	Sprite2D::Common::StaticSetPipeline();
 	// ----- 背景スプライト ----- //
 
 	DrawBackSprite2Ds();
 
 	// -------------------------- //
-	ModelCommon::StaticSetDrawCommand();
+	Model::Common::StaticSetPipeline();
 	// --------- モデル --------- //
 
 	DrawModels();
 
 	// -------------------------- //
-	Sprite3DCommon::StaticSetDrawCommand();
+	Sprite3D::Common::StaticSetPipeline();
 	// ------- ビルボード ------- //
 
 	DrawSprite3Ds();
 
 	// -------------------------- //
-	Sprite2DCommon::StaticSetDrawCommand();
+	Sprite2D::Common::StaticSetPipeline();
 	// ----- 前景スプライト ----- //
 
 	DrawFrontSprite2Ds();

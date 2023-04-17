@@ -5,7 +5,7 @@
 using YDX::PipelineSet;
 
 ID3D12Device* PipelineSet::pDevice_ = nullptr;
-ID3D12GraphicsCommandList* PipelineSet::pCommandList_ = nullptr;
+ID3D12GraphicsCommandList* PipelineSet::pCmdList_ = nullptr;
 
 void PipelineSet::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList)
 {
@@ -13,7 +13,7 @@ void PipelineSet::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandL
 	assert(pCommandList);
 
 	pDevice_ = pDevice;
-	pCommandList_ = pCommandList;
+	pCmdList_ = pCommandList;
 }
 
 void PipelineSet::Initialize(IStatus* state)
@@ -90,11 +90,11 @@ void PipelineSet::Initialize(IStatus* state)
 void PipelineSet::SetDrawCommand()
 {
 	// パイプラインステートの設定コマンド
-	pCommandList_->SetPipelineState(pipelineState_.Get());
+	pCmdList_->SetPipelineState(pipelineState_.Get());
 
 	// ルートシグネチャの設定コマンド
-	pCommandList_->SetGraphicsRootSignature(rootSignature_.Get());
+	pCmdList_->SetGraphicsRootSignature(rootSignature_.Get());
 
 	// プリミティブ形状の設定コマンド
-	pCommandList_->IASetPrimitiveTopology(primitive_);
+	pCmdList_->IASetPrimitiveTopology(primitive_);
 }

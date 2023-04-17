@@ -1,4 +1,5 @@
 #include "Lerp.h"
+#include "Vector4.h"
 #include <math.h>
 #include <cassert>
 
@@ -6,6 +7,7 @@ using YMath::Ease;
 using YMath::BezierEase;
 using YMath::Vector2;
 using YMath::Vector3;
+using YMath::Vector4;
 
 #pragma region ï‚ä‘
 
@@ -143,6 +145,7 @@ template class Ease<float>;
 template class Ease<double>;
 template class Ease<Vector2>;
 template class Ease<Vector3>;
+template class Ease<Vector4>;
 
 #pragma endregion 
 

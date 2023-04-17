@@ -22,6 +22,16 @@ namespace YGame
 		{
 			std::unique_ptr<Sprite2DObject> obj_; // オブジェクト
 			YMath::Timer actTim_; // 動作タイマー
+			std::unique_ptr<Color> color_; // 色
+			YMath::Timer colorStartTim_; // 色タイマー (始)
+			YMath::Timer colorEndTim_; // 色タイマー (終)
+			// タイマー動作
+			void SetTimerActive(const bool isAct)
+			{
+				actTim_.SetActive(isAct);
+				colorStartTim_.SetActive(isAct);
+				colorEndTim_.SetActive(isAct);
+			};
 		};
 	private:
 		// ブロック配列
@@ -33,6 +43,8 @@ namespace YGame
 		// イージング
 		std::array<YMath::Ease<float>, 2> scaleEas_;
 		std::array<YMath::Ease<float>, 2> rotaEas_;
+		std::array<YMath::Ease<float>, 2> colorEas_;
+		std::array<YMath::Ease<float>, 2> alphaEas_;
 		// 現段階のインデックス
 		size_t stepIndex_ = 0;
 
@@ -53,7 +65,7 @@ namespace YGame
 		/// <param name="num"> : 要素数 (小数点切り捨て)</param>
 		/// <param name="anchor"> : 開始点のアンカーポイント (初期値は中心)</param>
 		void Initialize(
-			const uint32_t changeFrame, const uint32_t loadFrame, 
+			const uint32_t changeFrame, const uint32_t loadFrame,
 			const YMath::Vector2& leftTop, const float size, const YMath::Vector2& num,
 			const YMath::Vector2& anchor = { 0.5f,0.5f });
 		// リセット(中身だけ初期化)
@@ -76,7 +88,7 @@ namespace YGame
 		void BlockPropagate(const size_t x, const size_t y);
 	private:
 		// スプライト(2D)
-		static std::unique_ptr<Sprite2D> sBlockSpr_;
+		static Sprite2D* spBlockSpr_;
 	public:
 		// 静的初期化
 		static void StaticInitialize();

@@ -1,7 +1,7 @@
 #include "ConstBuffer.h"
-#include "Sprite2DCommon.h"
-#include "Sprite3DCommon.h"
-#include "ModelCommon.h"
+#include "Sprite2D.h"
+#include "Sprite3D.h"
+#include "Model.h"
 #include "Material.h"
 #include "LightGroup.h"
 #include "Color.h"
@@ -9,22 +9,22 @@
 
 using YDX::ConstBufferCommon;
 
-ID3D12GraphicsCommandList* ConstBufferCommon::pCommandList_ = nullptr;
+ID3D12GraphicsCommandList* ConstBufferCommon::pCmdList_ = nullptr;
 YDX::DescriptorHeap* ConstBufferCommon::pDescHeap_ = nullptr;
 
-void ConstBufferCommon::StaticInitialize(const StaticInitStatus& state)
+void ConstBufferCommon::StaticInitialize(ID3D12GraphicsCommandList* pCmdList, DescriptorHeap* pDescHeap)
 {
-	assert(state.pCommandList_);
-	assert(state.pDescHeap_);
+	assert(pCmdList);
+	assert(pDescHeap);
 
-	pCommandList_ = state.pCommandList_;
-	pDescHeap_ = state.pDescHeap_;
+	pCmdList_ = pCmdList;
+	pDescHeap_ = pDescHeap;
 }
 
 using YDX::ConstBuffer;
 
 template<typename T>
-void ConstBuffer<T>::Create()
+void ConstBuffer<T>::Create(const bool isMutable)
 {
 	GPUResource::CreateStatus state;
 	// ヒープ設定
@@ -47,19 +47,19 @@ void ConstBuffer<T>::Create()
 	// CBV生成
 	viewDesc_.BufferLocation = rsc_.Get()->GetGPUVirtualAddress();
 	viewDesc_.SizeInBytes = static_cast<UINT>(state.resDesc_.Width);
-	pDescHeap_->CreateCBV(viewDesc_);
+	pDescHeap_->CreateCBV(viewDesc_, isMutable);
 }
 
 template<typename T>
 void ConstBuffer<T>::SetDrawCommand(const UINT rootParamIndex)
 {
 	// 定数バッファビュー(3D変換行列)の設定コマンド
-	pCommandList_->SetGraphicsRootConstantBufferView(rootParamIndex, viewDesc_.BufferLocation);
+	pCmdList_->SetGraphicsRootConstantBufferView(rootParamIndex, viewDesc_.BufferLocation);
 }
 
-template class ConstBuffer<YGame::Sprite2DObjectCommon::CBData>;
-template class ConstBuffer<YGame::Sprite3DObjectCommon::CBData>;
-template class ConstBuffer<YGame::ModelObjectCommon::CBData>;
+template class ConstBuffer<YGame::Sprite2DObject::CBData>;
+template class ConstBuffer<YGame::Sprite3DObject::CBData>;
+template class ConstBuffer<YGame::ModelObject::CBData>;
 template class ConstBuffer<YGame::Material::CBData>;
 template class ConstBuffer<YGame::Color::CBData>;
 template class ConstBuffer<YGame::LightGroup::CBData>;

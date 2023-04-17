@@ -48,7 +48,7 @@ void Keys::Update()
 	device_->Acquire();
 
 	// “ü—Íó‘Ô‚ðŽæ“¾
-	BYTE key[256];
+	BYTE key[256] = {};
 	device_->GetDeviceState(sizeof(key), key);
 
 	for (int i = 0; i < 256; i++) { *keys_[i] = key[i]; }

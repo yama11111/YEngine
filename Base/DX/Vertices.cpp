@@ -1,8 +1,8 @@
 #include "Vertices.h"
 #include "YAssert.h"
-#include "Sprite2DCommon.h"
-#include "Sprite3DCommon.h"
-#include "ModelCommon.h"
+#include "Sprite2D.h"
+#include "Sprite3D.h"
+#include "Mesh.h"
 
 using YDX::Vertices;
 using YDX::VertexIndex;
@@ -146,9 +146,9 @@ void VertexIndex<T>::Draw()
 	this->pCmdList_->DrawIndexedInstanced((UINT)idx_.size(), 1, 0, 0, 0); // ‘S‚Ä‚Ì’¸“_‚ðŽg‚Á‚Ä•`‰æ
 }
 
-template class YDX::Vertices<YGame::Sprite2DCommon::VData>;
-template class YDX::Vertices<YGame::Sprite3DCommon::VData>;
-template class YDX::Vertices<YGame::ModelCommon::VData>;
-template class YDX::VertexIndex<YGame::Sprite2DCommon::VData>;
-template class YDX::VertexIndex<YGame::Sprite3DCommon::VData>;
-template class YDX::VertexIndex<YGame::ModelCommon::VData>;
+template class YDX::Vertices<YGame::Sprite2D::VData>;
+template class YDX::Vertices<YGame::Sprite3D::VData>;
+template class YDX::Vertices<YGame::Mesh::VData>;
+template class YDX::VertexIndex<YGame::Sprite2D::VData>;
+template class YDX::VertexIndex<YGame::Sprite3D::VData>;
+template class YDX::VertexIndex<YGame::Mesh::VData>;

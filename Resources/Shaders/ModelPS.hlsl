@@ -17,9 +17,7 @@ SamplerState smp : register(s0);      // 0番スロットに設定されたサンプラー
 float4 main(PSInput input) : SV_TARGET
 {
 	// テクスチャマッピング
-	float4 texColor = tex.Sample(smp, input.uv);
-	//texColor.y = texColor.x + (texColor.y - texColor.x) * ratio;
-	//texColor.z = texColor.x + (texColor.z - texColor.x) * ratio;
+	float4 texColor = tex.Sample(smp, input.uv) * originalColorRate;
 	// 光沢度
 	const float shininess = 4.0f;
 	// 頂点から視点への方向ベクトル
@@ -76,8 +74,8 @@ float4 main(PSInput input) : SV_TARGET
 			shaderColor.rgb += atten * (diffuse + specular) * pointLights[j].lightColor;
 		}
 	}
-	//for (int k = 0; k < SpotLightNum; k++)
-	//{
+	for (int k = 0; k < SpotLightNum; k++)
+	{
 	//	// スポットライト光源
 	//	if (spotLights[k].active)
 	//	{
@@ -107,8 +105,8 @@ float4 main(PSInput input) : SV_TARGET
 	//		// 全て加算
 	//		shaderColor.rgb += atten * (diffuse + specular) * pointLights[k].lightColor;
 	//	}
-	//}
+	}
 
-	// シェーディング色で描画
+	// 計算した色で描画
 	return (shaderColor * texColor) * color;
 }

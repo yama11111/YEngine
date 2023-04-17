@@ -2,72 +2,86 @@
 #include <cassert>
 
 using YGame::IParticle;
-using YGame::FireSpark;
+using YGame::FireWork;
 using YGame::ModelObject;
+using YGame::ViewProjection;
 using YGame::Model;
 using YGame::Color;
 using YMath::Vector3;
 using YMath::Vector4;
 
-Model* FireSpark::pModel_ = nullptr;
+ViewProjection* IParticle::spVP_ = nullptr;
+Model* FireWork::spModel_ = nullptr;
 
-void YGame::FireSpark::StaticInitialize(YGame::Model* pModel)
+void IParticle::StaticInitialize(YGame::ViewProjection* pVP)
 {
-	assert(pModel);
-	pModel_ = pModel;
+	// nullチェック
+	assert(pVP);
+	// 代入
+	spVP_ = pVP;
 }
 
-void FireSpark::Emit(
+void FireWork::StaticInitialize(YGame::Model* pModel)
+{
+	// nullチェック
+	assert(pModel);
+	// 初期化
+	spModel_ = pModel;
+}
+
+void FireWork::Emit(
 	const uint32_t aliveTime,
-	const uint32_t swayingTime,
-	const YMath::Vector3& speed,
-	const YMath::Vector3& pos, const float scale,
+	const YMath::Ease<YMath::Vector3>& pos,
+	const YMath::Ease<YMath::Vector3>& rota,
+	const float scale,
 	const YMath::Vector4& color)
 {
+	// 生存フラグ
 	isAlive_ = true;
 
+	// 生存タイマー初期化 + 開始
 	aliveTim_.Initialize(aliveTime);
 	aliveTim_.SetActive(true);
-
-	isSwitching_ = false;
-	swayingPow_.Initialize(swayingTime);
-	spd_ = speed;
-
-	scaleEas_.Initialize(scale, 0.0f, 2.0f);
-
-	color_.reset(Color::Create(color));
-	alphaEas_.Initialize(color.a_, 0.0f, 3.0f);
 	
-	obj_.reset(ModelObject::Create({ pos, {}, { scale,scale,scale } }));
-	obj_->SetColor(color_.get());
+	// 生成
+	color_.reset(Color::Create(color));
+	obj_.reset(ModelObject::Create({ pos.SetStart(), {}, {scale,scale,scale} }, spVP_, color_.get(), nullptr));
+
+	// 代入
+	posEas_ = pos;
+	rotaEas_ = rota;
+	scaleEas_.Initialize(scale, scale / 2.0f, 3.0f);
+	alphaEas_.Initialize(color.a_, 0.0f, 3.0f);
+
 }
 
-void FireSpark::Update()
+void FireWork::Update()
 {
+	// 死んでいるなら弾く
 	if (isAlive_ == false) { return; }
 
+	// 生存タイマー更新
 	aliveTim_.Update();
+	// 生存タイマー終了 → 死亡
 	if (aliveTim_.IsEnd()) { isAlive_ = false; }
 
-	swayingPow_.Update(isSwitching_);
-	if (swayingPow_.IsMax()) { isSwitching_ = false; }
-	if (swayingPow_.IsZero()) { isSwitching_ = true; }
+	// 位置
+	obj_->pos_ = posEas_.In(aliveTim_.Ratio());
+	// 回転
+	obj_->rota_ = rotaEas_.In(aliveTim_.Ratio());
+	// 大きさ
+	float scale = scaleEas_.In(aliveTim_.Ratio());
+	obj_->scale_ = { scale, scale, scale };
 
-	obj_->pos_.x_ += spd_.x_ * YMath::Lerp(-1.0f, +1.0f, swayingPow_.Ratio());
-	obj_->pos_.y_ += spd_.y_;
-	obj_->pos_.z_ += spd_.z_ * YMath::Lerp(-1.0f, +1.0f, swayingPow_.Ratio());
-
-	float sca = scaleEas_.In(aliveTim_.Ratio());
-	obj_->scale_ = { sca,sca,sca };
-	
+	// Object更新
 	obj_->UpdateMatrix();
 
-	Vector4 c = color_->GetRGBA();
-	c.a_ = alphaEas_.In(aliveTim_.Ratio());
-	color_->SetRGBA(c);
+	// アルファ値
+	color_->SetAlpha(alphaEas_.In(aliveTim_.Ratio()));
 }
 
-void FireSpark::Draw()
+void FireWork::Draw()
 {
-	pModel_->Draw(obj_.get());
+	// 描画
+	spModel_->Draw(obj_.get());
 }

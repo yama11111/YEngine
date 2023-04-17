@@ -124,6 +124,13 @@ namespace YMath
 		void SetEnd(const T& end) { end_ = end; };
 		// ŠÉ‹}İ’è
 		void SetExponent(const float exponent) { exponent_ = exponent; }
+	public:
+		// ‰Šú’lİ’è
+		T SetStart() const { return start_; };
+		// ÅI’lİ’è 
+		T SetEnd() const { return end_; };
+		// ŠÉ‹}İ’è
+		float SetExponent() const { return exponent_; }
 	};
 
 

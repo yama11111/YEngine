@@ -8,6 +8,7 @@ cbuffer cbuff0 : register(b0)
 cbuffer cbuff1 : register(b1)
 {
 	float4 color; // 色(RGBA)
+	float4 originalColorRate; // 元の色の割合
 }
 
 // 頂点シェーダーの入力構造体 

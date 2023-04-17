@@ -7,63 +7,83 @@ namespace YScene
 	class ResultScene : public BaseScene
 	{
 	public:
+
 #pragma region リソース
 
 		// ----- テクスチャ ----- //
-
-		// 無地画像
-		UINT plainTex_ = 0;
-
+		
 		// ----- オーディオ ----- //
 
 		// ----- スプライト (2D) ----- //
-
-		// 画面全部
-		std::unique_ptr<YGame::Sprite2D> windowSpr_ = nullptr;
 
 		// ----- スプライト (3D) ----- //
 
 		// ----- モデル ----- //
 
-		// 立方体モデル
-		std::unique_ptr<YGame::Model> cubeMod_ = nullptr;
-
 #pragma endregion
+
 #pragma region ゲームオブジェクト
 
 
-		// 転送用ライトグループ
-		std::unique_ptr<YGame::LightGroup> lightGroup_;
-
-		// 転送用ビュープロジェクション
-		YGame::ViewProjection vp_;
-
 #pragma endregion
+
 	public:
-		// 読み込み
+
+		/// <summary>
+		/// 読み込み
+		/// </summary>
 		void Load() override;
-		// 初期化
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
 		void Initialize() override;
-		// 終了処理
+
+		/// <summary>
+		/// 終了処理
+		/// </summary>
 		void Finalize() override;
-		// 更新
+
+		/// <summary>
+		/// 更新
+		/// </summary>
 		void Update() override;
-		// 描画
+
+		/// <summary>
+		/// 描画
+		/// </summary>
 		void Draw() override;
+
 	private:
-		// 背景スプライト2D描画
+
+		/// <summary>
+		/// 背景スプライト2D描画
+		/// </summary>
 		void DrawBackSprite2Ds();
-		// モデル描画
+
+		/// <summary>
+		/// モデル描画
+		/// </summary>
 		void DrawModels();
-		// スプライト3D描画
+
+		/// <summary>
+		/// スプライト3D描画
+		/// </summary>
 		void DrawSprite3Ds();
-		// 前景スプライト2D描画
+
+		/// <summary>
+		/// 前景スプライト2D描画
+		/// </summary>
 		void DrawFrontSprite2Ds();
+
 	public:
+		
 		// コンストラクタ
 		ResultScene() = default;
+		
 		// デストラクタ
 		~ResultScene() = default;
+	
 	};
 }
 
