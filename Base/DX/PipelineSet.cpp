@@ -16,28 +16,24 @@ void PipelineSet::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandL
 	pCmdList_ = pCommandList;
 }
 
-void PipelineSet::Initialize(IStatus* state)
+void PipelineSet::CreateRootSignature(
+	const std::vector<D3D12_ROOT_PARAMETER>& rootParams, 
+	const std::vector<D3D12_STATIC_SAMPLER_DESC>& samplerDescs)
 {
 	// エラーオブジェクト
 	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
 
-	// ----- PipelineSetStatus ----- //
-
-	state->Initialize(errorBlob.Get());
-
-	// ----- RootSignature ----- //
-
 	// ルートシグネチャの設定
 	D3D12_ROOT_SIGNATURE_DESC rsDesc{};
 	rsDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	rsDesc.pParameters		 = state->rootParams_.data();		 // ルートパラメータの先頭アドレス
-	rsDesc.NumParameters	 = (UINT)state->rootParams_.size();	 // ルートパラメータ数
-	rsDesc.pStaticSamplers	 = state->sampleDesc_.data();		 // テクスチャサンプラーの先頭アドレス
-	rsDesc.NumStaticSamplers = (UINT)state->sampleDesc_.size();	 // テクスチャサンプラー数
+	rsDesc.pParameters = rootParams.data();					 // ルートパラメータの先頭アドレス
+	rsDesc.NumParameters = (UINT)rootParams.size();			 // ルートパラメータ数
+	rsDesc.pStaticSamplers = samplerDescs.data();			 // テクスチャサンプラーの先頭アドレス
+	rsDesc.NumStaticSamplers = (UINT)samplerDescs.size();	 // テクスチャサンプラー数
 
 	// ルートシグネチャのシリアライズ
 	Microsoft::WRL::ComPtr<ID3DBlob> rootSigBlob = nullptr; // ルートシグネチャオブジェクト
-	Result(D3D12SerializeRootSignature(&rsDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, &errorBlob));
+	Result(D3D12SerializeRootSignature(&rsDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, errorBlob.GetAddressOf()));
 
 	// ルートシグネチャの生成
 	Result(pDevice_->CreateRootSignature(
@@ -45,18 +41,21 @@ void PipelineSet::Initialize(IStatus* state)
 		rootSigBlob->GetBufferPointer(),
 		rootSigBlob->GetBufferSize(),
 		IID_PPV_ARGS(&rootSignature_)));
+}
 
-	// ----- PipelineState ----- //
-
+void PipelineSet::CreatePipelineState(
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC& pipelineDesc, 
+	const std::vector<D3D12_INPUT_ELEMENT_DESC>& inputLayout)
+{
 	// サンプルマスクの設定
-	state->pipelineDesc_.SampleMask = D3D12_DEFAULT_SAMPLE_MASK; // 標準設定
+	pipelineDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK; // 標準設定
 
 	// ラスタライザの設定
-	state->pipelineDesc_.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID; // ポリゴン内塗りつぶし
-	state->pipelineDesc_.RasterizerState.DepthClipEnable = true; // 深度クリッピングを有効に
+	pipelineDesc.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID; // ポリゴン内塗りつぶし
+	pipelineDesc.RasterizerState.DepthClipEnable = true; // 深度クリッピングを有効に
 
 	// ブレンドステート
-	D3D12_RENDER_TARGET_BLEND_DESC& blendDesc = state->pipelineDesc_.BlendState.RenderTarget[0];
+	D3D12_RENDER_TARGET_BLEND_DESC& blendDesc = pipelineDesc.BlendState.RenderTarget[0];
 	blendDesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL; // RBGA全てのチャンネルを描画
 
 	blendDesc.BlendEnable = true;                // ブレンドを有効にする
@@ -70,21 +69,40 @@ void PipelineSet::Initialize(IStatus* state)
 	blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA; // 1.0f - ソースのアルファ値
 
 	// 頂点レイアウトの設定
-	state->pipelineDesc_.InputLayout.pInputElementDescs = state->inputLayout_.data(); // 頂点レイアウトの先頭アドレス
-	state->pipelineDesc_.InputLayout.NumElements = (UINT)state->inputLayout_.size(); // 頂点レイアウト数
+	pipelineDesc.InputLayout.pInputElementDescs = inputLayout.data(); // 頂点レイアウトの先頭アドレス
+	pipelineDesc.InputLayout.NumElements = (UINT)inputLayout.size(); // 頂点レイアウト数
 
 	// その他の設定
-	state->pipelineDesc_.NumRenderTargets = 1; // 描画対象は1つ
-	state->pipelineDesc_.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // 0~255指定のRGBA
-	state->pipelineDesc_.SampleDesc.Count = 1; // 1ピクセルにつき1回サンプリング
+	pipelineDesc.NumRenderTargets = 1; // 描画対象は1つ
+	pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // 0~255指定のRGBA
+	pipelineDesc.SampleDesc.Count = 1; // 1ピクセルにつき1回サンプリング
 
 	// パイプラインにルートシグネチャをセット
-	state->pipelineDesc_.pRootSignature = rootSignature_.Get();
+	pipelineDesc.pRootSignature = rootSignature_.Get();
 
 	// パイプランステートの生成
-	Result(pDevice_->CreateGraphicsPipelineState(&state->pipelineDesc_, IID_PPV_ARGS(&pipelineState_)));
+	Result(pDevice_->CreateGraphicsPipelineState(&pipelineDesc, IID_PPV_ARGS(&pipelineState_)));
+}
 
-	primitive_ = state->primitive_;
+void PipelineSet::SetPrimitiveTopology(const D3D_PRIMITIVE_TOPOLOGY& primitive)
+{
+	// 未定義なら弾く
+	assert(primitive != D3D_PRIMITIVE_TOPOLOGY_UNDEFINED);
+
+	// 代入
+	primitive_ = primitive;
+}
+
+void PipelineSet::Initialize(InitStatus& status)
+{
+	// ルートシグネチャ生成
+	CreateRootSignature(status.rootParams_, status.samplerDescs_);
+
+	// パイプラインステート生成
+	CreatePipelineState(status.pipelineDesc_, status.inputLayout_);
+
+	// プリミティブ形状設定
+	SetPrimitiveTopology(status.primitive_);
 }
 
 void PipelineSet::SetDrawCommand()

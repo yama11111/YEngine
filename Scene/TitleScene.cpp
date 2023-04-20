@@ -75,25 +75,25 @@ void TitleScene::DrawFrontSprite2Ds()
 void TitleScene::Draw()
 {
 	// -------------------------- //
-	Sprite2D::Common::StaticSetPipeline();
+	Sprite2D::Pipeline::StaticSetDrawCommond();
 	// ----- 背景スプライト ----- //
 
 	DrawBackSprite2Ds();
 
 	// -------------------------- //
-	Model::Common::StaticSetPipeline();
+	Model::Pipeline::StaticSetDrawCommond();
 	// --------- モデル --------- //
 
 	DrawModels();
 
 	// -------------------------- //
-	Sprite3D::Common::StaticSetPipeline();
+	Sprite3D::Pipeline::StaticSetDrawCommond();
 	// ------- ビルボード ------- //
 
 	DrawSprite3Ds();
 
 	// -------------------------- //
-	Sprite2D::Common::StaticSetPipeline();
+	Sprite2D::Pipeline::StaticSetDrawCommond();
 	// ----- 前景スプライト ----- //
 
 	DrawFrontSprite2Ds();

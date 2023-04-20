@@ -1,13 +1,13 @@
-#include "ShaderCommon.h"
+#include "IShaderSet.h"
 #include <d3dcompiler.h>
 #include <string>
 #include "YAssert.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 
-using YDX::ShaderCommon;
+using YDX::IShaderSet;
 
-void ShaderCommon::LoadShader(const wchar_t* fileName, const char* entryPoint, const char* target,
+void IShaderSet::LoadShader(const wchar_t* fileName, const char* entryPoint, const char* target,
 		ID3DBlob*& shaderBlob, ID3DBlob* errorBlob)
 {
 	if (IsFailed(D3DCompileFromFile(
@@ -25,7 +25,7 @@ void ShaderCommon::LoadShader(const wchar_t* fileName, const char* entryPoint, c
 	}
 }
 
-void ShaderCommon::LoadErrorProcess(ID3DBlob* errorBlob)
+void IShaderSet::LoadErrorProcess(ID3DBlob* errorBlob)
 {
 	// errorBlobからエラー内容をstring型にコピー
 	std::string error;

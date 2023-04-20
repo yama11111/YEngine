@@ -1,6 +1,6 @@
 #pragma once
 #include "Mesh.h"
-#include "ShaderCommon.h"
+#include "IShaderSet.h"
 #include "PipelineSet.h"
 #include "ModelObject.h"
 
@@ -67,12 +67,12 @@ namespace YGame
 		/// <param name="isInvisible"> : 非表示か</param>
 		void SetInvisible(const bool isInvisible) { isInvisible_ = isInvisible; }
 
-#pragma region Common
+#pragma region Pipeline
 
 	public:
 
-		// コモンクラス
-		class Common
+		// パイプラインクラス
+		class Pipeline
 		{
 		public:
 
@@ -89,7 +89,7 @@ namespace YGame
 		private:
 
 			// シェーダーセット
-			class ShaderSet : public YDX::ShaderCommon
+			class ShaderSet : public YDX::IShaderSet
 			{
 			public:
 				
@@ -104,20 +104,7 @@ namespace YGame
 				/// <summary>
 				/// シェーダーファイル読み込み
 				/// </summary>
-				/// <param name="errorBlob"> : エラー用</param>
-				void Load(ID3DBlob* errorBlob);
-			
-			};
-			
-			// パイプライン設定構造体
-			struct PipelineSetStatus : public YDX::PipelineSet::IStatus
-			{
-
-				/// <summary>
-				/// 初期化
-				/// </summary>
-				/// <param name="errorBlob_"> : エラー用</param>
-				void Initialize(ID3DBlob* errorBlob_) override;
+				void Load() override;
 			
 			};
 
@@ -134,16 +121,11 @@ namespace YGame
 			static void StaticInitialize();
 
 			/// <summary>
-			/// パイプラインセット
+			/// パイプライン描画コマンド
 			/// </summary>
-			static void StaticSetPipeline();
+			static void StaticSetDrawCommond();
 
 		};
-
-	private:
-
-		// コモン
-		static Common common_;
 
 #pragma endregion
 

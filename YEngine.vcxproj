@@ -106,7 +106,7 @@
     <ClCompile Include="Base\DX\GPUResource.cpp" />
     <ClCompile Include="Base\DX\PipelineSet.cpp" />
     <ClCompile Include="Base\DX\ScreenDesc.cpp" />
-    <ClCompile Include="Base\DX\ShaderCommon.cpp" />
+    <ClCompile Include="Base\DX\IShaderSet.cpp" />
     <ClCompile Include="Base\DX\Vertices.cpp" />
     <ClCompile Include="Base\DX\YAssert.cpp" />
     <ClCompile Include="Base\DX\YDirectX.cpp" />
@@ -189,7 +189,7 @@
     <ClInclude Include="Base\DX\GPUResource.h" />
     <ClInclude Include="Base\DX\PipelineSet.h" />
     <ClInclude Include="Base\DX\ScreenDesc.h" />
-    <ClInclude Include="Base\DX\ShaderCommon.h" />
+    <ClInclude Include="Base\DX\IShaderSet.h" />
     <ClInclude Include="Base\DX\Vertices.h" />
     <ClInclude Include="Base\DX\YAssert.h" />
     <ClInclude Include="Base\DX\YDirectX.h" />

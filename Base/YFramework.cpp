@@ -72,9 +72,9 @@ bool YFramework::Initialize()
 	Vertices<Mesh::VData>::StaticInitialize(pCmdList);
 
 	// コモンクラス静的初期化
-	Sprite2D::Common::StaticInitialize();
-	Sprite3D::Common::StaticInitialize();
-	Model::Common::StaticInitialize();
+	Sprite2D::Pipeline::StaticInitialize();
+	Sprite3D::Pipeline::StaticInitialize();
+	Model::Pipeline::StaticInitialize();
 
 	// オブジェクト静的初期化
 	Sprite2DObject::Common::StaticInitialize();

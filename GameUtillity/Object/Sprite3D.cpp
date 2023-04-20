@@ -14,17 +14,16 @@ using YMath::Matrix4;
 
 #pragma region ルートパラメータ番号
 
-static const UINT TraIndex = static_cast<UINT>(Sprite3D::Common::RootParameterIndex::TransformCB); // obj
-static const UINT ColIndex = static_cast<UINT>(Sprite3D::Common::RootParameterIndex::ColorCB); // color
-static const UINT TexIndex = static_cast<UINT>(Sprite3D::Common::RootParameterIndex::TexDT); // tex
+static const UINT TraIndex = static_cast<UINT>(Sprite3D::Pipeline::RootParameterIndex::TransformCB); // obj
+static const UINT ColIndex = static_cast<UINT>(Sprite3D::Pipeline::RootParameterIndex::ColorCB); // color
+static const UINT TexIndex = static_cast<UINT>(Sprite3D::Pipeline::RootParameterIndex::TexDT); // tex
 
 #pragma endregion
 
 #pragma region Static
 
 std::vector<std::unique_ptr<Sprite3D>> Sprite3D::sprites_{};
-Sprite3D::Common Sprite3D::common_{};
-YDX::PipelineSet Sprite3D::Common::sPipelineSet_{};
+YDX::PipelineSet Sprite3D::Pipeline::sPipelineSet_{};
 
 #pragma endregion
 
@@ -83,42 +82,46 @@ void Sprite3D::Draw(Sprite3DObject* pObj)
 
 #pragma endregion
 
-#pragma region Common
+#pragma region Pipeline
 
-void Sprite3D::Common::StaticInitialize()
+void Sprite3D::Pipeline::ShaderSet::Load()
 {
-	// パイプライン初期化
-	std::unique_ptr<PipelineSet::IStatus> pplnState = std::make_unique<PipelineSetStatus>();
-	sPipelineSet_.Initialize(pplnState.get());
-}
+	// エラーオブジェクト
+	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
 
-
-void Sprite3D::Common::ShaderSet::Load(ID3DBlob* errorBlob)
-{
 	ID3DBlob* vs = nullptr;
 	ID3DBlob* gs = nullptr;
 	ID3DBlob* ps = nullptr;
 
 	// 頂点シェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/Sprite3DVS.hlsl", "main", "vs_5_0", vs, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite3DVS.hlsl", "main", "vs_5_0", vs, errorBlob.Get());
 	// ジオメトリシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/Sprite3DGS.hlsl", "main", "gs_5_0", gs, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite3DGS.hlsl", "main", "gs_5_0", gs, errorBlob.Get());
 	// ピクセルシェーダの読み込みとコンパイル
-	LoadShader(L"Resources/Shaders/Sprite3DPS.hlsl", "main", "ps_5_0", ps, errorBlob);
+	LoadShader(L"Resources/Shaders/Sprite3DPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
 
 	vsBlob_ = vs;
 	gsBlob_ = gs;
 	psBlob_ = ps;
 }
 
-void Sprite3D::Common::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
+void Sprite3D::Pipeline::StaticInitialize()
 {
-	// シェーダー読み込み
-	ShaderSet shdrs;
-	shdrs.Load(errorBlob_);
+	// パイプライン初期化用設定
+	PipelineSet::InitStatus initStatus;
 
-	// 頂点レイアウトの設定
-	inputLayout_ =
+
+#pragma region シェーダー読み込み
+
+	ShaderSet shdrs;
+	shdrs.Load();
+
+#pragma endregion
+
+
+#pragma region 頂点レイアウトの設定
+
+	initStatus.inputLayout_ =
 	{
 		// 頂点座標	 (x, y, z)
 		{
@@ -126,83 +129,100 @@ void Sprite3D::Common::PipelineSetStatus::Initialize(ID3DBlob* errorBlob_)
 		},
 	};
 
-	// テクスチャサンプラーの設定
+#pragma endregion
+
+
+#pragma region テクスチャサンプラーの設定
+
+	D3D12_STATIC_SAMPLER_DESC samplerDesc{};
+	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // 横折り返し   (タイリング)
+	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // 縦折り返し   (タイリング)
+	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // 奥行折り返し (タイリング)
+	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ボーダーの時は黒
+	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // 全てリニア補間
+	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ミニマップ最大値
+	samplerDesc.MinLOD = 0.0f;              // ミニマップ最小値
+	samplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ピクセルシェーダーからのみ使用可能
+
+	initStatus.samplerDescs_.push_back(samplerDesc);
+
+#pragma endregion
+
+
+#pragma region ルートパラメータの設定
+
+	size_t rpIdxCBNum = static_cast<size_t> (RootParameterIndex::TexDT);
+
+	for (size_t i = 0; i < rpIdxCBNum; i++)
 	{
-		D3D12_STATIC_SAMPLER_DESC sampleDesc{};
-		sampleDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // 横折り返し   (タイリング)
-		sampleDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // 縦折り返し   (タイリング)
-		sampleDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // 奥行折り返し (タイリング)
-		sampleDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ボーダーの時は黒
-		sampleDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // 全てリニア補間
-		sampleDesc.MaxLOD = D3D12_FLOAT32_MAX; // ミニマップ最大値
-		sampleDesc.MinLOD = 0.0f;              // ミニマップ最小値
-		sampleDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
-		sampleDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ピクセルシェーダーからのみ使用可能
-
-		sampleDesc_.push_back(sampleDesc);
-	}
-
-	// ルートパラメータの設定
-	{
-		size_t rpIdxCBNum = static_cast<size_t> (RootParameterIndex::TexDT);
-
-		for (size_t i = 0; i < rpIdxCBNum; i++)
-		{
-			// 定数バッファ
-			D3D12_ROOT_PARAMETER rootParam{};
-			rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;  // 定数バッファビュー
-			rootParam.Descriptor.ShaderRegister = static_cast<UINT>(i); // 定数バッファ番号
-			rootParam.Descriptor.RegisterSpace = 0;					  // デフォルト値
-			rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
-
-			rootParams_.push_back(rootParam);
-		}
-
-		// デスクリプタレンジの設定
-		descriptorRange_.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
-		descriptorRange_.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-		descriptorRange_.BaseShaderRegister = 0; // テクスチャレジスタ0番
-		descriptorRange_.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-
-		// テクスチャレジスタ
+		// 定数バッファ
 		D3D12_ROOT_PARAMETER rootParam{};
-		rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-		rootParam.DescriptorTable.pDescriptorRanges = &descriptorRange_;
-		rootParam.DescriptorTable.NumDescriptorRanges = 1;
+		rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;  // 定数バッファビュー
+		rootParam.Descriptor.ShaderRegister = static_cast<UINT>(i); // 定数バッファ番号
+		rootParam.Descriptor.RegisterSpace = 0;					  // デフォルト値
 		rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
 
-		rootParams_.push_back(rootParam);
+		initStatus.rootParams_.push_back(rootParam);
 	}
 
-	// パイプライン設定
-	{
-		// シェーダーの設定
-		pipelineDesc_.VS.pShaderBytecode = shdrs.vsBlob_.Get()->GetBufferPointer();
-		pipelineDesc_.VS.BytecodeLength = shdrs.vsBlob_.Get()->GetBufferSize();
-		pipelineDesc_.GS.pShaderBytecode = shdrs.gsBlob_.Get()->GetBufferPointer();
-		pipelineDesc_.GS.BytecodeLength = shdrs.gsBlob_.Get()->GetBufferSize();
-		pipelineDesc_.PS.pShaderBytecode = shdrs.psBlob_.Get()->GetBufferPointer();
-		pipelineDesc_.PS.BytecodeLength = shdrs.psBlob_.Get()->GetBufferSize();
+	// デスクリプタレンジの設定
+	initStatus.descriptorRange_.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
+	initStatus.descriptorRange_.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	initStatus.descriptorRange_.BaseShaderRegister = 0; // テクスチャレジスタ0番
+	initStatus.descriptorRange_.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
-		// ラスタライザの設定
-		pipelineDesc_.RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
+	// テクスチャレジスタ
+	D3D12_ROOT_PARAMETER rootParam{};
+	rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParam.DescriptorTable.pDescriptorRanges = &initStatus.descriptorRange_;
+	rootParam.DescriptorTable.NumDescriptorRanges = 1;
+	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
 
-		// デプスステンシルステートの設定
-		pipelineDesc_.DepthStencilState.DepthEnable = false; // 深度テストしない
-		pipelineDesc_.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS; // 常に上書き
+	initStatus.rootParams_.push_back(rootParam);
 
-		// 図形の形状設定
-		pipelineDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+#pragma endregion
 
-		// 画像の透過適用
-		//pipelineDesc_.BlendState.AlphaToCoverageEnable = true;
-	}
 
-	// プリミティブ形状の設定
-	primitive_ = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ポイントリスト
+#pragma region パイプライン設定
+	
+	// シェーダーの設定
+	initStatus.pipelineDesc_.VS.pShaderBytecode = shdrs.vsBlob_.Get()->GetBufferPointer();
+	initStatus.pipelineDesc_.VS.BytecodeLength  = shdrs.vsBlob_.Get()->GetBufferSize();
+	initStatus.pipelineDesc_.GS.pShaderBytecode = shdrs.gsBlob_.Get()->GetBufferPointer();
+	initStatus.pipelineDesc_.GS.BytecodeLength  = shdrs.gsBlob_.Get()->GetBufferSize();
+	initStatus.pipelineDesc_.PS.pShaderBytecode = shdrs.psBlob_.Get()->GetBufferPointer();
+	initStatus.pipelineDesc_.PS.BytecodeLength  = shdrs.psBlob_.Get()->GetBufferSize();
+
+	// ラスタライザの設定
+	initStatus.pipelineDesc_.RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
+
+	// デプスステンシルステートの設定
+	initStatus.pipelineDesc_.DepthStencilState.DepthEnable = false; // 深度テストしない
+	initStatus.pipelineDesc_.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS; // 常に上書き
+
+	// 図形の形状設定
+	initStatus.pipelineDesc_.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
+
+	// 画像の透過適用
+	//initStatus.pipelineDesc_.BlendState.AlphaToCoverageEnable = true;
+
+#pragma endregion
+
+
+#pragma region プリミティブ形状の設定
+
+	initStatus.primitive_ = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ポイントリスト
+
+#pragma endregion
+
+
+	// パイプライン初期化
+	sPipelineSet_.Initialize(initStatus);
+
 }
 
-void Sprite3D::Common::StaticSetPipeline()
+void Sprite3D::Pipeline::StaticSetDrawCommond()
 {
 	// パイプラインをセット
 	sPipelineSet_.SetDrawCommand();

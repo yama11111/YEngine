@@ -141,7 +141,7 @@
     <ClCompile Include="Base\DX\PipelineSet.cpp">
       <Filter>Base\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Base\DX\ShaderCommon.cpp">
+    <ClCompile Include="Base\DX\IShaderSet.cpp">
       <Filter>Base\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Base\DX\Vertices.cpp">
@@ -386,7 +386,7 @@
     <ClInclude Include="Base\DX\PipelineSet.h">
       <Filter>Base\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Base\DX\ShaderCommon.h">
+    <ClInclude Include="Base\DX\IShaderSet.h">
       <Filter>Base\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Base\DX\Vertices.h">
