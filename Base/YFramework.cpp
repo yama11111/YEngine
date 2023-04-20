@@ -60,26 +60,24 @@ bool YFramework::Initialize()
 	ConstBufferCommon::StaticInitialize(pCmdList, &descHeap_);
 
 	// テクスチャ静的初期化
-	Texture::Common::StaticInitialize(pDev, pCmdList, &descHeap_);
+	Texture::Base::StaticInitialize(pDev, pCmdList, &descHeap_);
 	Texture::AllClear();
 
 	// パイプライン静的初期化
 	PipelineSet::StaticInitialize(pDev, pCmdList);
 
 	// 頂点
-	Vertices<Sprite2D::VData>::StaticInitialize(pCmdList);
-	Vertices<Sprite3D::VData>::StaticInitialize(pCmdList);
-	Vertices<Mesh::VData>::StaticInitialize(pCmdList);
+	VertexCommon::StaticInitialize(pCmdList);
 
 	// コモンクラス静的初期化
 	Sprite2D::Pipeline::StaticInitialize();
 	Sprite3D::Pipeline::StaticInitialize();
 	Model::Pipeline::StaticInitialize();
 
-	// オブジェクト静的初期化
-	Sprite2DObject::Common::StaticInitialize();
-	Sprite3DObject::Common::StaticInitialize();
-	ModelObject::Common::StaticInitialize();
+	// オブジェクトデフォルト値静的初期化
+	Sprite2DObject::Default::StaticInitialize();
+	Sprite3DObject::Default::StaticInitialize();
+	ModelObject::Default::StaticInitialize();
 
 	// マテリアル静的初期化
 	Material::StaticInitialize();
@@ -92,7 +90,7 @@ bool YFramework::Initialize()
 	imguiMan_.Initialize({ window_.HandleWindow(), pDev, pCmdList, &descHeap_, dx_.BackBufferCount() });
 
 	// オーディオ初期化
-	Audio::Common::StaticInitialize();
+	Audio::Base::StaticInitialize();
 	Audio::AllClear();
 
 	// シーン遷移初期化

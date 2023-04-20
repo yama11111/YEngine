@@ -12,6 +12,7 @@ namespace YGame
 	// オーディオクラス
 	class Audio
 	{
+
 	private:
 
 		// チャンクヘッダ
@@ -20,18 +21,21 @@ namespace YGame
 			char id_[4]; // チャンクごとのid
 			int32_t size_; // チャンクサイズ
 		};
+
 		// RIFFヘッダチャンク
 		struct RiffHeader
 		{
 			ChunkHeader chunk_; // "RIFF"
 			char type_[4]; // "WAVE"
 		};
+
 		// FMIチャンク
 		struct FormatChunk
 		{
 			ChunkHeader chunk_; // "fmt"
 			WAVEFORMATEX fmt_; // 波形フォーマット
 		};
+
 		// 音声データ
 		struct SoundData 
 		{
@@ -79,9 +83,10 @@ namespace YGame
 
 	public:
 
-		// コモンクラス
-		class Common
+		// 基礎クラス
+		class Base
 		{
+
 		public:
 
 			// XAudio2エンジン
@@ -99,15 +104,10 @@ namespace YGame
 
 		public:
 
-			Common() = default;
+			Base() = default;
 
-			~Common();
+			~Base();
 		};
-
-	public:
-
-		// コモン
-		static Common common_;
 
 	public:
 		

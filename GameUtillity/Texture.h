@@ -11,6 +11,7 @@ namespace YGame
 	// テクスチャ
 	class Texture
 	{
+
 	private:
 		
 		// テクスチャバッファ
@@ -75,9 +76,11 @@ namespace YGame
 		ID3D12Resource* Buffer();
 
 	public:
-		// コモンクラス
-		class Common
+
+		// 基礎クラス
+		class Base
 		{
+
 		public:
 
 			// 静的デバイスポインタ
@@ -97,20 +100,18 @@ namespace YGame
 			/// <param name="pDevice"> : デバイスポインタ</param>
 			/// <param name="pCmdList"> : コマンドリストポインタ</param>
 			/// <param name="pDescHeap"> : デスクリプターヒープポインタ</param>
-			static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCmdList, YDX::DescriptorHeap* pDescHeap);
+			static void StaticInitialize(
+				ID3D12Device* pDevice, 
+				ID3D12GraphicsCommandList* pCmdList, 
+				YDX::DescriptorHeap* pDescHeap);
 
 		public:
 
-			Common() = default;
+			Base() = default;
 
-			~Common() = default;
+			~Base() = default;
 
 		};
-
-	private:
-
-		// コモン
-		static Common common_;
 
 	public:
 

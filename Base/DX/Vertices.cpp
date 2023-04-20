@@ -4,14 +4,13 @@
 #include "Sprite3D.h"
 #include "Mesh.h"
 
+using YDX::VertexCommon;
 using YDX::Vertices;
 using YDX::VertexIndex;
 
-template <typename T>
-ID3D12GraphicsCommandList* Vertices<T>::pCmdList_ = nullptr;
+ID3D12GraphicsCommandList* VertexCommon::pCmdList_ = nullptr;
 
-template <typename T>
-void Vertices<T>::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
+void VertexCommon::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 {
 	assert(pCommandList);
 	pCmdList_ = pCommandList;

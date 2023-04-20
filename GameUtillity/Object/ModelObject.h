@@ -10,6 +10,7 @@ namespace YGame
 	// モデル用オブジェクトクラス
 	class ModelObject : public Transform
 	{
+
 	private:
 
 		// 定数バッファデータ構造体
@@ -92,23 +93,24 @@ namespace YGame
 		/// <param name="pLightGroup"> : 光源ポインタ</param>
 		void SetLightGroup(LightGroup* pLightGroup);
 	
-#pragma region Common
+#pragma region Default
 
 	public:
 
-		// コモンクラス
-		class Common
+		// 既定値クラス
+		class Default
 		{
+
 		public:
 
 			// ビュープロジェクションポインタ (デフォルト)
-			static std::unique_ptr<ViewProjection> sDefVP_;
+			static std::unique_ptr<ViewProjection> sVP_;
 			
 			// 光源ポインタ (デフォルト)
-			static std::unique_ptr<LightGroup> sDefLightGroup_;
+			static std::unique_ptr<LightGroup> sLightGroup_;
 			
 			// 色 (デフォルト)
-			static std::unique_ptr<Color> sDefColor_;
+			static std::unique_ptr<Color> sColor_;
 
 		public:
 
@@ -118,11 +120,6 @@ namespace YGame
 			static void StaticInitialize();
 
 		};
-
-	private:
-
-		// コモン
-		static Common common_;
 
 #pragma endregion
 

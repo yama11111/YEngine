@@ -6,6 +6,7 @@ namespace YScene
 	// テストシーン
 	class TestScene : public BaseScene
 	{
+
 	public:
 
 #pragma region リソース

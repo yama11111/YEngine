@@ -8,6 +8,7 @@ namespace YGame
 	// スプライト2D用オブジェクトクラス
 	class Sprite2DObject : public Transform
 	{
+
 	private:
 		
 		// 定数バッファデータ構造体
@@ -66,20 +67,21 @@ namespace YGame
 		/// <param name="pColor"> : 色ポインタ</param>
 		void SetColor(Color* pColor);
 	
-#pragma region Common
+#pragma region Default
 
 	public:
 
-		// コモンクラス
-		class Common
+		// 既定値クラス
+		class Default
 		{
+		
 		public:
 
 			// 静的射影変換行列(平行投影)
 			static YMath::Matrix4 sProjection_;
 
 			// 色 (デフォルト)
-			static std::unique_ptr<Color> sDefColor_;
+			static std::unique_ptr<Color> sColor_;
 
 		public:
 
@@ -89,11 +91,6 @@ namespace YGame
 			static void StaticInitialize();
 
 		};
-
-	private:
-
-		// コモン
-		static Common common_;
 
 #pragma endregion
 	

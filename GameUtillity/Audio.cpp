@@ -13,13 +13,12 @@ using YDX::Result;
 #pragma region Static
 
 std::vector<unique_ptr<Audio>> Audio::audios_{};
-Audio::Common Audio::common_{};
-Microsoft::WRL::ComPtr<IXAudio2> Audio::Common::xAudio2_{};
-IXAudio2MasteringVoice* Audio::Common::masterVoice_ = nullptr;
+Microsoft::WRL::ComPtr<IXAudio2> Audio::Base::xAudio2_{};
+IXAudio2MasteringVoice* Audio::Base::masterVoice_ = nullptr;
 
 #pragma endregion
 
-void Audio::Common::StaticInitialize()
+void Audio::Base::StaticInitialize()
 {
 	// XAudio2のインスタンス生成
 	Result(XAudio2Create(&xAudio2_, 0, XAUDIO2_DEFAULT_PROCESSOR));
@@ -111,7 +110,7 @@ void Audio::Play()
 {
 	// 波形フォーマットを元にSourceVoice生成
 	IXAudio2SourceVoice* pSourceVoice = nullptr;
-	Result(common_.xAudio2_->CreateSourceVoice(&pSourceVoice, &sound_.wfex_));
+	Result(Base::xAudio2_->CreateSourceVoice(&pSourceVoice, &sound_.wfex_));
 
 	// 再生する波形データの設定
 	XAUDIO2_BUFFER buff{};
@@ -135,7 +134,7 @@ void Audio::AllClear()
 	audios_.clear();
 }
 
-Audio::Common::~Common()
+Audio::Base::~Base()
 {
 	xAudio2_.Reset();
 }

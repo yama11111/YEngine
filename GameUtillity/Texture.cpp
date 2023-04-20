@@ -17,10 +17,9 @@ using YDX::Result;
 #pragma region Static
 
 std::vector<unique_ptr<Texture>> Texture::texs_{};
-Texture::Common Texture::common_{};
-ID3D12Device* Texture::Common::pDevice_ = nullptr;
-ID3D12GraphicsCommandList* Texture::Common::pCmdList_ = nullptr;
-YDX::DescriptorHeap* Texture::Common::pDescHeap_ = nullptr;
+ID3D12Device* Texture::Base::pDevice_ = nullptr;
+ID3D12GraphicsCommandList* Texture::Base::pCmdList_ = nullptr;
+YDX::DescriptorHeap* Texture::Base::pDescHeap_ = nullptr;
 
 #pragma endregion
 
@@ -88,7 +87,7 @@ Texture* Texture::Create(const Vector4& color)
 
 	// SRV生成
 	DescriptorHeap::Handle handle{};
-	handle = common_.pDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
+	handle = Base::pDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
 
 	// ハンドル代入
 	newTex->srvCpuHandle_ = handle.cpu_;
@@ -214,7 +213,7 @@ Texture* Texture::Load(const std::string& directoryPath, const std::string texFi
 
 	// SRV生成
 	DescriptorHeap::Handle handle{};
-	handle = common_.pDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
+	handle = Base::pDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
 
 	// ハンドル代入
 	newTex->srvCpuHandle_ = handle.cpu_;
@@ -247,7 +246,7 @@ void Texture::AllClear()
 void Texture::SetDrawCommand(const UINT rootParamIndex)
 {	
 	// シェーダーにテクスチャを設定
-	common_.pCmdList_->SetGraphicsRootDescriptorTable(rootParamIndex, srvGpuHandle_);
+	Base::pCmdList_->SetGraphicsRootDescriptorTable(rootParamIndex, srvGpuHandle_);
 }
 
 ID3D12Resource* Texture::Buffer()
@@ -256,7 +255,7 @@ ID3D12Resource* Texture::Buffer()
 	return buff_.Get();
 }
 
-void Texture::Common::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCmdList, YDX::DescriptorHeap* pDescHeap)
+void Texture::Base::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCmdList, YDX::DescriptorHeap* pDescHeap)
 {
 	// nullチェック
 	assert(pDevice);

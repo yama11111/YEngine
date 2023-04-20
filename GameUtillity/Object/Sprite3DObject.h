@@ -9,6 +9,7 @@ namespace YGame
 	// スプライト3D用オブジェクトクラス
 	class Sprite3DObject : public Transform
 	{
+
 	private:
 
 		// 定数バッファデータ構造体
@@ -105,20 +106,21 @@ namespace YGame
 		/// <returns>ビルボード行列</returns>
 		YMath::Matrix4 BillboardMatrix();
 	
-#pragma region Common
+#pragma region Default
 
 	public:
 
-		// コモンクラス
-		class Common
+		// 既定値クラス
+		class Default
 		{
+
 		public:
 
 			// ビュープロジェクションポインタ (デフォルト)
-			static std::unique_ptr<ViewProjection> sDefVP_;
+			static std::unique_ptr<ViewProjection> sVP_;
 			
 			// 色 (デフォルト)
-			static std::unique_ptr<Color> sDefColor_;
+			static std::unique_ptr<Color> sColor_;
 
 		public:
 
@@ -128,11 +130,6 @@ namespace YGame
 			static void StaticInitialize();
 
 		};
-
-	private:
-
-		// コモン
-		static Common common_;
 
 #pragma endregion
 

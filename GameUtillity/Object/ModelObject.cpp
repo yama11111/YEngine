@@ -57,7 +57,7 @@ void ModelObject::SetViewProjection(ViewProjection* pVP)
 	if (pVP == nullptr)
 	{
 		// デフォルト代入
-		pVP_ = common_.sDefVP_.get();
+		pVP_ = Default::sVP_.get();
 		return;
 	}
 
@@ -70,7 +70,7 @@ void ModelObject::SetColor(Color* pColor)
 	if (pColor == nullptr)
 	{
 		// デフォルト代入
-		pColor_ = common_.sDefColor_.get();
+		pColor_ = Default::sColor_.get();
 		return;
 	}
 
@@ -83,7 +83,7 @@ void ModelObject::SetLightGroup(LightGroup* pLightGroup)
 	if (pLightGroup == nullptr)
 	{
 		// デフォルト代入
-		pLightGroup_ = common_.sDefLightGroup_.get();
+		pLightGroup_ = Default::sLightGroup_.get();
 		return;
 	}
 
@@ -95,19 +95,19 @@ void ModelObject::SetLightGroup(LightGroup* pLightGroup)
 
 #pragma region Common
 
-std::unique_ptr<YGame::ViewProjection> ModelObject::Common::sDefVP_ = nullptr;
-std::unique_ptr<YGame::LightGroup> ModelObject::Common::sDefLightGroup_ = nullptr;
-std::unique_ptr<YGame::Color> ModelObject::Common::sDefColor_ = nullptr;
+std::unique_ptr<YGame::ViewProjection> ModelObject::Default::sVP_ = nullptr;
+std::unique_ptr<YGame::LightGroup> ModelObject::Default::sLightGroup_ = nullptr;
+std::unique_ptr<YGame::Color> ModelObject::Default::sColor_ = nullptr;
 
-void ModelObject::Common::StaticInitialize()
+void ModelObject::Default::StaticInitialize()
 {
 	// 生成
-	sDefVP_.reset(new YGame::ViewProjection());
-	sDefVP_->Initialize({});
+	sVP_.reset(new YGame::ViewProjection());
+	sVP_->Initialize({});
 
-	sDefLightGroup_.reset(LightGroup::Create(false));
+	sLightGroup_.reset(LightGroup::Create(false));
 
-	sDefColor_.reset(Color::Create({ 1.0f,1.0f,1.0f,1.0f }, { 1.0f,1.0f,1.0f,1.0f }, false));
+	sColor_.reset(Color::Create({ 1.0f,1.0f,1.0f,1.0f }, { 1.0f,1.0f,1.0f,1.0f }, false));
 }
 
 #pragma endregion

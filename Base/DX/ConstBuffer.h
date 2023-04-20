@@ -26,6 +26,7 @@ namespace YDX
 	
 	};
 
+
 	// 定数バッファ
 	template <typename T>
 	class ConstBuffer : private ConstBufferCommon
