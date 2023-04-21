@@ -1,10 +1,10 @@
 #include "ConstBuffer.h"
-#include "Sprite2D.h"
-#include "Sprite3D.h"
-#include "Model.h"
-#include "Material.h"
+#include "Sprite2DObject.h"
+#include "Sprite3DObject.h"
+#include "ModelObject.h"
 #include "LightGroup.h"
 #include "Color.h"
+#include "Material.h"
 #include "YAssert.h"
 
 using YDX::ConstBufferCommon;
@@ -60,6 +60,6 @@ void ConstBuffer<T>::SetDrawCommand(const UINT rootParamIndex)
 template class ConstBuffer<YGame::Sprite2DObject::CBData>;
 template class ConstBuffer<YGame::Sprite3DObject::CBData>;
 template class ConstBuffer<YGame::ModelObject::CBData>;
-template class ConstBuffer<YGame::Material::CBData>;
 template class ConstBuffer<YGame::Color::CBData>;
 template class ConstBuffer<YGame::LightGroup::CBData>;
+template class ConstBuffer<YGame::Material::CBData>;

@@ -39,10 +39,10 @@ struct VSInput
 	float3 normal : NORMAL;
 	// uv値
 	float2 uv : TEXCOORD;
-	// 接空間
-	float3 tangent : TANGENT;
-	// 頂点色
-	float4 color : COLOR;
+	//// 接空間
+	//float3 tangent : TANGENT;
+	//// 頂点色
+	//float4 color : COLOR;
 };
 // ピクセルシェーダーの入力構造体 
 struct PSInput

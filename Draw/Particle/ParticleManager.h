@@ -18,12 +18,6 @@ namespace YGame
 		// •`‰æ
 		void Draw();
 	public:
-		// F‘Ö‚¦—p
-		void EmitFireWorks(
-			const uint32_t frame, const size_t num, 
-			const YMath::Vector3& pos, const float scale,
-			const YMath::Vector4& color);
-	public:
 		// Ã“I‰Šú‰»
 		static void StaticInitialize(YGame::ViewProjection* pVP);
 	public:

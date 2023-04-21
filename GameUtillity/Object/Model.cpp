@@ -149,13 +149,13 @@ void Model::Draw(ModelObject* pObj)
 	if (isInvisible_) { return; }
 
 	// 定数バッファをシェーダーに送る
-	pObj->SetDrawCommand(TraIndex, ColIndex, LigIndex);
+	pObj->SetDrawCommand(TraIndex, ColIndex, LigIndex, MateIndex);
 
 	// メッシュ毎に違うバッファ
 	for (size_t i = 0; i < meshes_.size(); i++)
 	{
 		// 描画
-		meshes_[i]->Draw(MateIndex, TexIndex);
+		meshes_[i]->Draw(TexIndex);
 	}
 }
 
@@ -210,14 +210,14 @@ void Model::Pipeline::StaticInitialize()
 		{
 			"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
-		// 接空点	 (x, y, z)
-		{
-			"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
-		},
-		// 頂点色	 (x, y, z, w)
-		{
-			"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
-		}
+		//// 接空点	 (x, y, z)
+		//{
+		//	"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		//},
+		//// 頂点色	 (x, y, z, w)
+		//{
+		//	"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		//}
 	};
 
 #pragma endregion

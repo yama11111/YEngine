@@ -13,6 +13,7 @@ using YMath::Matrix4;
 
 #pragma endregion
 
+
 #pragma region Sprite2DObject
 
 Sprite2DObject* Sprite2DObject::Create(const Status& status, const bool isMutable)
@@ -74,7 +75,7 @@ void Sprite2DObject::Default::StaticInitialize()
 	// プロジェクション行列を設定
 	sProjection_ = YMath::MatOrthoGraphic();
 
-	// 生成
+	// 生成 + 初期化
 	sColor_.reset(Color::Create({ 1.0f,1.0f,1.0f,1.0f }, { 1.0f,1.0f,1.0f,1.0f }, false));
 }
 

@@ -6,20 +6,22 @@ using YMath::Vector4;
 using YMath::Vector3;
 using YMath::Clamp;
 
-Color::Color() :
-	color_(1.0f, 1.0f, 1.0f, 1.0f)
-{}
-
-Color* Color::Create(const YMath::Vector4& color, const YMath::Vector4& originalColorRate, const bool isMutable)
+Color* Color::Create(const Vector4& color, const Vector4& originalColorRate, const bool isMutable)
 {
+	// インスタンス生成 (動的)
 	Color* instance = new Color();
+
+	// 定数バッファ生成
 	instance->cBuff_.Create(isMutable);
+
+	// 初期化
 	instance->Initialize(color, originalColorRate);
 
+	// インスタンスを返す
 	return instance;
 }
 
-void Color::Initialize(const YMath::Vector4& color, const YMath::Vector4& originalRate)
+void Color::Initialize(const Vector4& color, const Vector4& originalRate)
 {
 	SetRGBA(color);
 	SetOriginalRateRGBA(originalRate);
@@ -30,12 +32,13 @@ void Color::SetDrawCommand(const UINT rootParamIndex)
 	// 定数バッファに設定
 	cBuff_.map_->color_ = color_;
 	cBuff_.map_->originalRate_ = originalRate_;
+
 	// シェーダーに送る
 	cBuff_.SetDrawCommand(rootParamIndex);
 }
 
 
-void Color::SetRGBA(const YMath::Vector4& color)
+void Color::SetRGBA(const Vector4& color)
 {
 	// 0.0f ~ 1.0f の間になるように
 	float r = Clamp<float>(color.r_, 0.0f, 1.0f);
@@ -43,7 +46,7 @@ void Color::SetRGBA(const YMath::Vector4& color)
 	float b = Clamp<float>(color.b_, 0.0f, 1.0f);
 	float a = Clamp<float>(color.a_, 0.0f, 1.0f);
 
-	// 定数バッファに設定
+	// 定数バッファごと代入
 	cBuff_.map_->color_ = color_ = Vector4(r, g, b, a);
 }
 
@@ -59,7 +62,7 @@ void Color::SetRGBA(const UINT R, const UINT G, const UINT B, const UINT A)
 	SetRGBA(c);
 }
 
-void Color::SetRGB(const YMath::Vector3& color)
+void Color::SetRGB(const Vector3& color)
 {
 	// 0.0f ~ 1.0f の間になるように
 	float r = Clamp<float>(color.x_, 0.0f, 1.0f);
@@ -68,7 +71,7 @@ void Color::SetRGB(const YMath::Vector3& color)
 
 	Vector4 c = { color.x_, color.y_, color.z_, color_.a_ };
 
-	// 定数バッファに設定
+	// 定数バッファごと代入
 	cBuff_.map_->color_ = color_ = c;
 }
 
@@ -87,8 +90,8 @@ void Color::SetAlpha(const float alpha)
 {
 	// 0.0f ~ 1.0f の間になるように
 	float a = Clamp<float>(alpha, 0.0f, 1.0f);
-	
-	// 定数バッファに設定
+
+	// 定数バッファごと代入
 	cBuff_.map_->color_.a_ = color_.a_ = a;
 }
 
@@ -101,7 +104,7 @@ void Color::SetAlpha(const UINT alpha)
 }
 
 
-void Color::SetOriginalRateRGBA(const YMath::Vector4& color)
+void Color::SetOriginalRateRGBA(const Vector4& color)
 {
 	// 0.0f ~ 1.0f の間になるように
 	float r = Clamp<float>(color.r_, 0.0f, 1.0f);
@@ -109,7 +112,7 @@ void Color::SetOriginalRateRGBA(const YMath::Vector4& color)
 	float b = Clamp<float>(color.b_, 0.0f, 1.0f);
 	float a = Clamp<float>(color.a_, 0.0f, 1.0f);
 
-	// 定数バッファに設定
+	// 定数バッファごと代入
 	cBuff_.map_->originalRate_ = originalRate_ = Vector4(r, g, b, a);
 }
 
@@ -125,7 +128,7 @@ void Color::SetOriginalRateRGBA(const UINT R, const UINT G, const UINT B, const 
 	SetOriginalRateRGBA(c);
 }
 
-void Color::SetOriginalRateRGB(const YMath::Vector3& color)
+void Color::SetOriginalRateRGB(const Vector3& color)
 {
 	// 0.0f ~ 1.0f の間になるように
 	float r = Clamp<float>(color.x_, 0.0f, 1.0f);
@@ -134,7 +137,7 @@ void Color::SetOriginalRateRGB(const YMath::Vector3& color)
 
 	Vector4 c = { color.x_, color.y_, color.z_, color_.a_ };
 
-	// 定数バッファに設定
+	// 定数バッファごと代入
 	cBuff_.map_->originalRate_ = originalRate_ = c;
 }
 
@@ -154,7 +157,7 @@ void Color::SetOriginalRateAlpha(const float alpha)
 	// 0.0f ~ 1.0f の間になるように
 	float a = Clamp<float>(alpha, 0.0f, 1.0f);
 
-	// 定数バッファに設定
+	// 定数バッファごと代入
 	cBuff_.map_->originalRate_.a_ = originalRate_.a_ = a;
 }
 

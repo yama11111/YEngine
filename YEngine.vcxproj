@@ -140,8 +140,8 @@
     <ClCompile Include="GameUtillity\MapChip\MapChip.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="GameUtillity\MapChip\MapChipManager.cpp" />
+    <ClCompile Include="GameUtillity\Material.cpp" />
     <ClCompile Include="GameUtillity\Object\Color.cpp" />
-    <ClCompile Include="GameUtillity\Object\Material.cpp" />
     <ClCompile Include="GameUtillity\Object\Mesh.cpp" />
     <ClCompile Include="GameUtillity\Object\Model.cpp" />
     <ClCompile Include="GameUtillity\Object\ModelObject.cpp" />
@@ -226,8 +226,8 @@
     <ClInclude Include="GameUtillity\MapChip\MapChip.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipCollider.h" />
     <ClInclude Include="GameUtillity\MapChip\MapChipManager.h" />
+    <ClInclude Include="GameUtillity\Material.h" />
     <ClInclude Include="GameUtillity\Object\Color.h" />
-    <ClInclude Include="GameUtillity\Object\Material.h" />
     <ClInclude Include="GameUtillity\Object\Mesh.h" />
     <ClInclude Include="GameUtillity\Object\Model.h" />
     <ClInclude Include="GameUtillity\Object\ModelObject.h" />

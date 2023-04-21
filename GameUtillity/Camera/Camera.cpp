@@ -37,7 +37,7 @@ void Camera::Initialize(const Vector3 pos, Vector3* pFollowPoint, bool isFollow)
 	rota_ = {};
 	transform_.Initialize({ pos_, rota_ });
 	vp_.Initialize({});
-	
+
 	SetIsFollow(isFollow);
 
 	// 更新
@@ -65,10 +65,10 @@ void Camera::Update()
 	// 位置 + 回転更新
 	transform_.pos_ = pos_;
 	transform_.rota_ = rota_;
-	
+
 	// アフィン変換
 	transform_.UpdateMatrix();
-	
+
 	// カメラシェイク更新
 	shake_.Update();
 
@@ -84,21 +84,21 @@ void Camera::Update()
 	vp_.UpdateMatrix();
 }
 
-void Camera::Shaking(const int swing, const int dekey)
+void Camera::Shaking(const float swing, const float dekey, const float place)
 {
 	// カメラシェイク
-	shake_.Activate(swing, dekey);
+	shake_.Activate(swing, dekey, place);
 }
 
 ViewProjection Camera::GetViewProjection()
 {
 	// 戻り値用
 	ViewProjection result = vp_;
-	
+
 	// カメラシェイク加算
-	result.eye_ += shake_.Value() / 10.0f;
-	result.target_ += shake_.Value() / 10.0f;
-	
+	result.eye_ += shake_.Value();
+	result.target_ += shake_.Value();
+
 	// 行列更新
 	result.UpdateMatrix();
 
@@ -109,7 +109,7 @@ Vector3 Camera::Direction()
 {
 	// 向きを計算
 	Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
-	
+
 	return vel.Normalized();
 }
 
@@ -117,7 +117,7 @@ void Camera::SetFollowPoint(Vector3* pFollowPoint)
 {
 	// 代入
 	pFollowPoint_ = pFollowPoint;
-	
+
 	// nullなら
 	if (pFollowPoint == nullptr)
 	{
@@ -129,15 +129,15 @@ void Camera::SetFollowPoint(Vector3* pFollowPoint)
 void Camera::SetIsFollow(const bool isFollow)
 {
 	// 追従点があるなら
-	if (pFollowPoint_) 
+	if (pFollowPoint_)
 	{
 		// 代入
-		isFollow_ = isFollow; 
+		isFollow_ = isFollow;
 	}
 	// 無いなら
-	else 
+	else
 	{
 		// 追従しない
-		isFollow_ = false; 
+		isFollow_ = false;
 	}
 }

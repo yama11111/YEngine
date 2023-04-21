@@ -8,7 +8,7 @@ using YMath::Vector3;
 void ScrollCamera::Initialize(const Vector3 distance, Vector3* pFollowPoint, const Vector3 tolerance)
 {
 	// ‰Šú‰» + ‘ã“ü
-	Camera::Initialize(*pFollowPoint + distance, pFollowPoint);
+	Camera::Initialize(*pFollowPoint + distance, pFollowPoint, true);
 
 	distance_ = distance;
 	tolerance_ = tolerance;

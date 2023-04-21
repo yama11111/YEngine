@@ -330,9 +330,6 @@
     <ClCompile Include="GameUtillity\Object\Color.cpp">
       <Filter>GameUtil\Object</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtillity\Object\Material.cpp">
-      <Filter>GameUtil\Object\Model</Filter>
-    </ClCompile>
     <ClCompile Include="GameUtillity\Object\Mesh.cpp">
       <Filter>GameUtil\Object\Model</Filter>
     </ClCompile>
@@ -358,6 +355,9 @@
       <Filter>GameUtil\Camera</Filter>
     </ClCompile>
     <ClCompile Include="GameUtillity\Object\Transform.cpp">
+      <Filter>GameUtil\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtillity\Material.cpp">
       <Filter>GameUtil\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -593,9 +593,6 @@
     <ClInclude Include="GameUtillity\Object\Color.h">
       <Filter>GameUtil\Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtillity\Object\Material.h">
-      <Filter>GameUtil\Object\Model</Filter>
-    </ClInclude>
     <ClInclude Include="GameUtillity\Object\Mesh.h">
       <Filter>GameUtil\Object\Model</Filter>
     </ClInclude>
@@ -618,6 +615,9 @@
       <Filter>GameUtil\Object\Sprite3D</Filter>
     </ClInclude>
     <ClInclude Include="GameUtillity\Object\Transform.h">
+      <Filter>GameUtil\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtillity\Material.h">
       <Filter>GameUtil\Object</Filter>
     </ClInclude>
   </ItemGroup>

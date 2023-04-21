@@ -32,34 +32,4 @@ namespace YGame
 		// デストラクタ
 		virtual ~IParticle() = default;
 	};
-
-	class FireWork : public IParticle
-	{
-	private:
-		// 位置
-		YMath::Ease<YMath::Vector3> posEas_;
-		// 回転
-		YMath::Ease<YMath::Vector3> rotaEas_;
-		// 大きさ
-		YMath::Ease<float> scaleEas_;
-		// 色
-		std::unique_ptr<YGame::Color> color_;
-		// アルファ値
-		YMath::Ease<float> alphaEas_;
-	public:
-		void Emit(
-			const uint32_t aliveTime,
-			const YMath::Ease<YMath::Vector3>& pos,
-			const YMath::Ease<YMath::Vector3>& rota,
-			const float scale, 
-			const YMath::Vector4& color);
-		void Update() override;
-		void Draw() override;
-	private:
-		static YGame::Model* spModel_;
-	public:
-		static void StaticInitialize(YGame::Model* pModel);
-	public:
-		~FireWork() = default;
-	};
 }

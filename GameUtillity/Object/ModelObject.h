@@ -1,8 +1,9 @@
 #pragma once
 #include "Transform.h"
 #include "ViewProjection.h"
-#include "LightGroup.h"
 #include "Color.h"
+#include "LightGroup.h"
+#include "Material.h"
 #include <memory>
 
 namespace YGame
@@ -34,7 +35,10 @@ namespace YGame
 		
 		// 光源ポインタ
 		LightGroup* pLightGroup_ = nullptr;
-	
+
+		// マテリアルポインタ
+		Material* pMaterial_ = nullptr;
+
 	public:
 		
 		/// <summary>
@@ -59,9 +63,15 @@ namespace YGame
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		/// <param name="pColor"> : 色ポインタ</param>
 		/// <param name="pLightGroup"> : 光源ポインタ</param>
+		/// <param name="pMaterial"> : 光源ポインタ</param>
 		/// <param name="isMutable"> : シーン遷移時に開放するか</param>
 		/// <returns>動的インスタンス (newされたもの)</returns>
-		static ModelObject* Create(const Status& status, ViewProjection* pVP, Color* pColor, LightGroup* pLightGroup, 
+		static ModelObject* Create(
+			const Status& status,
+			ViewProjection* pVP,
+			Color* pColor,
+			LightGroup* pLightGroup,
+			Material* pMaterial,
 			const bool isMutable = true);
 	
 	public:
@@ -69,10 +79,15 @@ namespace YGame
 		/// <summary>
 		/// 描画前コマンド
 		/// </summary>
-		/// <param name="transformRPIndex"></param>
-		/// <param name="colorRPIndex"></param>
-		/// <param name="lightRPIndex"></param>
-		void SetDrawCommand(const UINT transformRPIndex, const UINT colorRPIndex, const UINT lightRPIndex);
+		/// <param name="transformRPIndex"> : トランスフォームルートパラメータ番号</param>
+		/// <param name="colorRPIndex"> : 色ルートパラメータ番号</param>
+		/// <param name="lightRPIndex"> : ライトグループルートパラメータ番号</param>
+		/// <param name="materialRPIndex"> : マテリアルルートパラメータ番号</param>
+		void SetDrawCommand(
+			const UINT transformRPIndex,
+			const UINT colorRPIndex,
+			const UINT lightRPIndex,
+			const UINT materialRPIndex);
 		
 
 		/// <summary>
@@ -92,6 +107,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="pLightGroup"> : 光源ポインタ</param>
 		void SetLightGroup(LightGroup* pLightGroup);
+
+		/// <summary>
+		/// マテリアル設定 (null = Default)
+		/// </summary>
+		/// <param name="pMaterial"> : マテリアルポインタ</param>
+		void SetMaterial(Material* pMaterial);
 	
 #pragma region Default
 
@@ -111,6 +132,9 @@ namespace YGame
 			
 			// 色 (デフォルト)
 			static std::unique_ptr<Color> sColor_;
+
+			// マテリアル (デフォルト)
+			static std::unique_ptr<Material> sMaterial_;
 
 		public:
 

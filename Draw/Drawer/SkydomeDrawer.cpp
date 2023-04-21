@@ -18,7 +18,7 @@ void SkydomeDrawer::Initalize(YMath::Matrix4* pParent)
 	color_.reset(Color::Create());
 
 	// オブジェクト生成
-	obj_.reset(ModelObject::Create({}, nullptr, color_.get(), nullptr));
+	obj_.reset(ModelObject::Create({}, nullptr, color_.get(), nullptr, nullptr));
 	
 	// 親行列代入
 	obj_->parent_ = pParent;

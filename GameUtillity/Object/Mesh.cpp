@@ -7,7 +7,7 @@
 #pragma region 名前空間
 
 using YGame::Mesh;
-using YGame::Material;
+using YGame::Texture;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
@@ -92,7 +92,7 @@ Mesh* Mesh::CreateCube()
 	// 頂点インデックス初期化(代入)
 	instance->vtIdx_.Initialize(v, i);
 	// マテリアル初期化
-	instance->mtrl_ = Material();
+	instance->pTex_ = Texture::Load("white1x1.png", false);
 
 	// インスタンスを返す
 	return instance;
@@ -103,8 +103,8 @@ Mesh* Mesh::CreateCube(const std::string& texFileName)
 	// 生成
 	Mesh* instance = CreateCube();
 
-	// 画像読み込み
-	instance->mtrl_.LoadTexture(texFileName);
+	// マテリアル初期化
+	instance->pTex_ = Texture::Load(texFileName, true);
 
 	// インスタンスを返す
 	return instance;
@@ -121,8 +121,8 @@ Mesh* Mesh::Load(const std::string& directoryPath, const std::string& objFileNam
 	std::vector<uint16_t> i;
 	// 頂点法線スムーシング用データ
 	std::unordered_map<unsigned short, std::vector<unsigned short>> sd;
-	// マテリアル
-	Material m;
+	// テクスチャ
+	Texture* pTex = nullptr;
 
 	// ファイルストリーム
 	std::ifstream file;
@@ -159,7 +159,7 @@ Mesh* Mesh::Load(const std::string& directoryPath, const std::string& objFileNam
 			std::string mtlFileName;
 			lineStream >> mtlFileName;
 			// マテリアル読み込み
-			m = Material::Load(directoryPath, mtlFileName);
+			pTex = LoadMaterial(directoryPath, mtlFileName);
 		}
 
 #pragma endregion
@@ -269,8 +269,8 @@ Mesh* Mesh::Load(const std::string& directoryPath, const std::string& objFileNam
 	instance->vtIdx_.Initialize(v, i);
 	// スムースデータ代入
 	instance->smoothData_ = sd;
-	// マテリアル代入
-	instance->mtrl_ = m;
+	// テクスチャ代入
+	instance->pTex_ = pTex;
 
 	// インスタンスを返す
 	return instance;
@@ -308,7 +308,7 @@ void Mesh::CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t>& 
 	}
 }
 
-void Mesh::CalculateSmoothedVertexNormals(std::vector<VData>& vertices, 
+void Mesh::CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
 	std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData)
 {
 	// スムースデータの数だけ
@@ -336,10 +336,89 @@ void Mesh::CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
 	}
 }
 
-void Mesh::Draw(UINT mateRPIndex, UINT texRPIndex)
+Texture* Mesh::LoadMaterial(const std::string& directoryPath, const std::string& fileName)
 {
-	// マテリアル
-	mtrl_.SetDrawCommand(mateRPIndex, texRPIndex);
+	// 戻り値用
+	Texture* pTex = nullptr;
+
+	// ファイルストリーム
+	std::ifstream file;
+	// .mtlファイルを開く
+	file.open(directoryPath + fileName);
+	// ファイルオープン失敗をチェック
+	assert(file);
+
+	// 1行ずつ読み込み
+	std::string line;
+	while (std::getline(file, line))
+	{
+		// 1行分の文字列をストリームに変換して解析しやすくする
+		std::istringstream lineStream(line);
+
+		// 半角スペース区切りで行の先頭文字列を取得
+		std::string key;
+		std::getline(lineStream, key, ' ');
+
+		// 先頭のタブ文字は無視する
+		if (key[0] == '\t') { key.erase(key.begin()); }
+
+		//// 先頭文字列が "newmtl" ならマテリアル名
+		//if (key == "newmtl")
+		//{
+		//	// 読み込み
+		//	lineStream >> m.name_;
+		//}
+		//// 先頭文字列が "Ka" ならアンビエント色
+		//if (key == "Ka")
+		//{
+		//	// 読み込み
+		//	lineStream >> m.ambient_.x_;
+		//	lineStream >> m.ambient_.y_;
+		//	lineStream >> m.ambient_.z_;
+		//}
+		//// 先頭文字列が "Kd" ならディフューズ色
+		//if (key == "Kd")
+		//{
+		//	// 読み込み
+		//	lineStream >> m.diffuse_.x_;
+		//	lineStream >> m.diffuse_.y_;
+		//	lineStream >> m.diffuse_.z_;
+		//}
+		//// 先頭文字列が "vn" ならスペキュラー色
+		//if (key == "Ks")
+		//{
+		//	// 読み込み
+		//	lineStream >> m.specular_.x_;
+		//	lineStream >> m.specular_.y_;
+		//	lineStream >> m.specular_.z_;
+		//}
+
+		// 先頭文字列が "map_Kd" ならテクスチャファイル名
+		if (key == "map_Kd")
+		{
+			//// 読み込み
+			//lineStream >> m.texFileName_;
+
+			// テクスチャファイル名取得
+			std::string texFileName;
+			lineStream >> texFileName;
+
+			// 読み込み
+			pTex = Texture::Load(directoryPath, texFileName);
+		}
+	}
+
+	// ファイルを閉じる
+	file.close();
+
+	// テクスチャを返す
+	return pTex;
+}
+
+void Mesh::Draw(const UINT texRPIndex)
+{
+	// テクスチャ
+	pTex_->SetDrawCommand(texRPIndex);
 
 	// 頂点バッファを送る + 描画コマンド
 	vtIdx_.Draw();

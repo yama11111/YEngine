@@ -22,7 +22,7 @@ namespace YGame
 		void Update();
 	public:
 		// カメラシェイク
-		void Shaking(const int swing, const int dekey) override { Camera::Shaking(swing, dekey); }
+		void Shaking(const float swing, const float dekey, const float place) override { Camera::Shaking(swing, dekey, place); }
 		// ビュープロジェクション
 		ViewProjection GetViewProjection() override { return Camera::GetViewProjection(); }
 		// カメラ向き

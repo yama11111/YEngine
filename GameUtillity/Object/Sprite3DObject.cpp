@@ -11,6 +11,7 @@ using YMath::Matrix4;
 
 #pragma endregion
 
+
 #pragma region Sprite3D
 
 Sprite3DObject* Sprite3DObject::Create(const Status& status, bool isXAxisBillboard, bool isYAxisBillboard, const bool isMutable)
@@ -115,6 +116,7 @@ void Sprite3DObject::SetIsBillboard(bool isXAxisBillboard, bool isYAxisBillboard
 
 #pragma endregion
 
+
 #pragma region Default
 
 std::unique_ptr<YGame::ViewProjection> Sprite3DObject::Default::sVP_ = nullptr;
@@ -126,6 +128,7 @@ void Sprite3DObject::Default::StaticInitialize()
 	sVP_.reset(new YGame::ViewProjection());
 	sVP_->Initialize({});
 
+	// ê∂ê¨ + èâä˙âª
 	sColor_.reset(Color::Create({ 1.0f,1.0f,1.0f,1.0f }, { 1.0f,1.0f,1.0f,1.0f }, false));
 }
 

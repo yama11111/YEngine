@@ -79,9 +79,6 @@ bool YFramework::Initialize()
 	Sprite3DObject::Default::StaticInitialize();
 	ModelObject::Default::StaticInitialize();
 
-	// マテリアル静的初期化
-	Material::StaticInitialize();
-
 #pragma endregion
 
 #pragma region Game
