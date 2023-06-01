@@ -5,9 +5,9 @@ namespace YGame
 	// •`‰æêŠ
 	enum class DrawLocation
 	{
-		Back,
-		Center,
-		Front,
+		eBack,
+		eCenter,
+		eFront,
 	};
 
 	// •`‰æêŠ‚Ì”

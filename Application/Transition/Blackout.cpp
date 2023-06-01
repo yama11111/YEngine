@@ -186,5 +186,5 @@ void Blackout::Update()
 
 void Blackout::Draw()
 {
-	spCurtenSpr_->SetDrawCommand(obj_.get(), YGame::DrawLocation::Front);
+	spCurtenSpr_->SetDrawCommand(obj_.get(), YGame::DrawLocation::eFront);
 }

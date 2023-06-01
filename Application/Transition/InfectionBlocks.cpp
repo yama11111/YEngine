@@ -366,7 +366,7 @@ void InfectionBlocks::Draw()
 	{
 		for (size_t x = 0; x < blocks_[y].size(); x++)
 		{
-			spBlockSpr_->SetDrawCommand(blocks_[y][x]->obj_.get(), YGame::DrawLocation::Front);
+			spBlockSpr_->SetDrawCommand(blocks_[y][x]->obj_.get(), YGame::DrawLocation::eFront);
 		}
 	}
 }

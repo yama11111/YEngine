@@ -186,7 +186,7 @@ void Level::UpdateObjSet(ObjectSet* obj)
 
 void Level::DrawObjSet(ObjectSet* obj)
 {
-	obj->pModel_->SetDrawCommand(obj->pObjs_.get(), DrawLocation::Center);
+	obj->pModel_->SetDrawCommand(obj->pObjs_.get(), DrawLocation::eCenter);
 	if (obj->child_)
 	{
 		DrawObjSet(obj->child_.get());

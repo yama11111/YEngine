@@ -61,12 +61,12 @@ void UIChargeButtonDrawer::Draw(Sprite2D::Object* pObject)
 	if (isDead_)
 	{
 		// デッドボタン描画
-		pDeadButtonSpr_->SetDrawCommand(pObject, DrawLocation::Front);
+		pDeadButtonSpr_->SetDrawCommand(pObject, DrawLocation::eFront);
 	}
 	else
 	{
 		// ボタン描画
-		pButtonSpr_[isPush_]->SetDrawCommand(pObject, DrawLocation::Front);
+		pButtonSpr_[isPush_]->SetDrawCommand(pObject, DrawLocation::eFront);
 
 		chargeGaugeObj1_->parent_ = &pObject->m_;
 		chargeGaugeObj1_->UpdateMatrix();
@@ -80,9 +80,9 @@ void UIChargeButtonDrawer::Draw(Sprite2D::Object* pObject)
 		chargeGaugeObj3_->UpdateMatrix();
 		chargeGaugeObj3_->parent_ = nullptr;
 
-		spChargeGauge_->SetDrawCommand(chargeGaugeObj3_.get(), DrawLocation::Front);
-		spChargeGauge_->SetDrawCommand(chargeGaugeObj2_.get(), DrawLocation::Front);
-		spChargeGauge_->SetDrawCommand(chargeGaugeObj1_.get(), DrawLocation::Front);
+		spChargeGauge_->SetDrawCommand(chargeGaugeObj3_.get(), DrawLocation::eFront);
+		spChargeGauge_->SetDrawCommand(chargeGaugeObj2_.get(), DrawLocation::eFront);
+		spChargeGauge_->SetDrawCommand(chargeGaugeObj1_.get(), DrawLocation::eFront);
 	}
 }
 

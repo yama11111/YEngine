@@ -130,6 +130,9 @@
     <Filter Include="Application\Game">
       <UniqueIdentifier>{e3fc16ed-1190-4275-bc3b-57861fa94768}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Base">
+      <UniqueIdentifier>{5b6ea720-c9ca-427e-9ffd-32514f21a4d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -362,6 +365,21 @@
     </ClCompile>
     <ClCompile Include="Engine\main.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CharacterStatus.cpp">
+      <Filter>Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IGameCharacter.cpp">
+      <Filter>Application\Game\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IGameObject.cpp">
+      <Filter>Application\Game\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Player.cpp">
+      <Filter>Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IPet.cpp">
+      <Filter>Application\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -610,6 +628,21 @@
     </ClInclude>
     <ClInclude Include="Engine\Def.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CharacterStatus.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IGameCharacter.h">
+      <Filter>Application\Game\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IGameObject.h">
+      <Filter>Application\Game\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Player.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IPet.h">
+      <Filter>Application\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -36,13 +36,13 @@ void UIButtonDrawer::Update(const bool isPush)
 void UIButtonDrawer::Draw(Sprite2D::Object* pObject)
 {
 	// ボタン描画
-	pButtonSpr_[isPush_]->SetDrawCommand(pObject, DrawLocation::Front);
+	pButtonSpr_[isPush_]->SetDrawCommand(pObject, DrawLocation::eFront);
 
 	// 死んでいたら
 	if (isDead_)
 	{
 		// デッドボタン描画
-		pDeadButtonSpr_->SetDrawCommand(pObject, DrawLocation::Front);
+		pDeadButtonSpr_->SetDrawCommand(pObject, DrawLocation::eFront);
 	}
 }
 
