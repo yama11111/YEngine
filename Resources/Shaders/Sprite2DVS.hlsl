@@ -3,7 +3,7 @@
 PSInput main(VSInput input)
 {
 	PSInput output; // ピクセルシェーダーに渡す値
-	output.svpos = mul(matWorld, input.pos); // 座標に行列を乗算
-	output.uv = input.uv;
+	output.svpos_ = mul(matWorld_, input.pos_); // 座標に行列を乗算
+	output.uv_ = input.uv_;
 	return output;
 }

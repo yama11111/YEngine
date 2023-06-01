@@ -3,6 +3,6 @@
 GSInput main(VSInput input)
 {
 	GSInput output; // ジオメトリシェーダーに渡す値
-	output.pos = input.pos;
+	output.pos_ = input.pos_;
 	return output;
 }

@@ -27,11 +27,11 @@ void main(
 	PSInput element;
 	for (uint i = 0; i < vnum; i++)
 	{
-		float4 offset = mul(matBillboard, offset_array[i]);
+		float4 offset = mul(matBillboard_, offset_array[i]);
 
-		element.svpos = input[0].pos + offset;
-		element.svpos = mul(matWorld, element.svpos);
-		element.uv = uv_array[i];
+		element.svpos_ = input[0].pos_ + offset;
+		element.svpos_ = mul(matWorld_, element.svpos_);
+		element.uv_ = uv_array[i];
 		output.Append(element);
 	}
 }
