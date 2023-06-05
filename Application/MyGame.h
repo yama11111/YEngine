@@ -8,6 +8,9 @@ namespace YBase
 
 	private:
 
+		bool shaderSwitch_ = false;
+		YGame::PostEffect* pPostEffect_ = nullptr;
+		std::unique_ptr<YGame::PostEffect::Object> postEffectObject_;
 
 	public:
 

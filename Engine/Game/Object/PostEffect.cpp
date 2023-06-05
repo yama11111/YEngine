@@ -446,8 +446,9 @@ void PostEffect::Object::Default::StaticInitialize()
 
 #pragma region シェーダー番号
 
-static const UINT BloomIndex = static_cast<UINT>(PostEffect::ShaderType::eBloom);
 static const UINT DefaultIndex = static_cast<UINT>(PostEffect::ShaderType::eDefault);
+static const UINT BloomIndex = static_cast<UINT>(PostEffect::ShaderType::eBloom);
+static const UINT GaussianIndex = static_cast<UINT>(PostEffect::ShaderType::eGaussian);
 
 #pragma endregion
 
@@ -458,20 +459,6 @@ void PostEffect::Pipeline::ShaderSet::Load()
 {
 	// エラーオブジェクト
 	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
-
-	// Bloom
-	{
-		ID3DBlob* vs = nullptr;
-		ID3DBlob* ps = nullptr;
-
-		// 頂点シェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/BloomVS.hlsl", "main", "vs_5_0", vs, errorBlob.Get());
-		// ピクセルシェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/BloomPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
-
-		bloomVSBlob_ = vs;
-		bloomPSBlob_ = ps;
-	}
 
 	// Default
 	{
@@ -485,6 +472,26 @@ void PostEffect::Pipeline::ShaderSet::Load()
 
 		defaultVSBlob_ = vs;
 		defaultPSBlob_ = ps;
+	}
+
+	// Bloom
+	{
+		ID3DBlob* ps = nullptr;
+
+		// ピクセルシェーダの読み込みとコンパイル
+		LoadShader(L"Resources/Shaders/BloomPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+
+		bloomPSBlob_ = ps;
+	}
+
+	// Gaussian
+	{
+		ID3DBlob* ps = nullptr;
+
+		// ピクセルシェーダの読み込みとコンパイル
+		LoadShader(L"Resources/Shaders/GaussianBlurPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+
+		gaussianPSBlob_ = ps;
 	}
 }
 
@@ -590,16 +597,21 @@ void PostEffect::Pipeline::StaticInitialize()
 	// パイプライン設定
 	std::array<D3D12_GRAPHICS_PIPELINE_STATE_DESC, sPipelineSets_.size()> pipelineDescs{};
 
-	// シェーダーの設定
-	pipelineDescs[BloomIndex].VS.pShaderBytecode = shdrs.bloomVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[BloomIndex].VS.BytecodeLength = shdrs.bloomVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[BloomIndex].PS.pShaderBytecode = shdrs.bloomPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[BloomIndex].PS.BytecodeLength = shdrs.bloomPSBlob_.Get()->GetBufferSize();
-	
-	pipelineDescs[DefaultIndex].VS.pShaderBytecode = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[DefaultIndex].VS.BytecodeLength = shdrs.defaultVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[DefaultIndex].PS.pShaderBytecode = shdrs.defaultPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[DefaultIndex].PS.BytecodeLength = shdrs.defaultPSBlob_.Get()->GetBufferSize();
+	// シェーダーの設定	
+	pipelineDescs[DefaultIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[DefaultIndex].VS.BytecodeLength	 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[DefaultIndex].PS.pShaderBytecode	 = shdrs.defaultPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[DefaultIndex].PS.BytecodeLength	 = shdrs.defaultPSBlob_.Get()->GetBufferSize();
+
+	pipelineDescs[BloomIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[BloomIndex].VS.BytecodeLength		 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[BloomIndex].PS.pShaderBytecode	 = shdrs.bloomPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[BloomIndex].PS.BytecodeLength		 = shdrs.bloomPSBlob_.Get()->GetBufferSize();
+
+	pipelineDescs[GaussianIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[GaussianIndex].VS.BytecodeLength	 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[GaussianIndex].PS.pShaderBytecode	 = shdrs.bloomPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[GaussianIndex].PS.BytecodeLength	 = shdrs.bloomPSBlob_.Get()->GetBufferSize();
 
 	// パイプラインの数だけ
 	for (size_t i = 0; i < sPipelineSets_.size(); i++)

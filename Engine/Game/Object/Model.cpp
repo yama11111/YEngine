@@ -511,34 +511,6 @@ void Model::Pipeline::ShaderSet::Load()
 	// エラーオブジェクト
 	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
 
-	// phong
-	{
-		ID3DBlob* vs = nullptr;
-		ID3DBlob* ps = nullptr;
-
-		// 頂点シェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/PhongVS.hlsl", "main", "vs_5_0", vs, errorBlob.Get());
-		// ピクセルシェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/PhongPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
-
-		phongVSBlob_ = vs;
-		phongPSBlob_ = ps;
-	}
-
-	// toon
-	{
-		ID3DBlob* vs = nullptr;
-		ID3DBlob* ps = nullptr;
-
-		// 頂点シェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/ToonVS.hlsl", "main", "vs_5_0", vs, errorBlob.Get());
-		// ピクセルシェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/ToonPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
-
-		toonVSBlob_ = vs;
-		toonPSBlob_ = ps;
-	}
-
 	// Default
 	{
 		ID3DBlob* vs = nullptr;
@@ -551,6 +523,26 @@ void Model::Pipeline::ShaderSet::Load()
 
 		defaultVSBlob_ = vs;
 		defaultPSBlob_ = ps;
+	}
+
+	// phong
+	{
+		ID3DBlob* ps = nullptr;
+
+		// ピクセルシェーダの読み込みとコンパイル
+		LoadShader(L"Resources/Shaders/PhongPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+
+		phongPSBlob_ = ps;
+	}
+
+	// toon
+	{
+		ID3DBlob* ps = nullptr;
+
+		// ピクセルシェーダの読み込みとコンパイル
+		LoadShader(L"Resources/Shaders/ToonPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+
+		toonPSBlob_ = ps;
 	}
 
 }
@@ -671,20 +663,20 @@ void Model::Pipeline::StaticInitialize()
 	std::array<D3D12_GRAPHICS_PIPELINE_STATE_DESC, sPipelineSets_.size()> pipelineDescs{};
 
 	// シェーダーの設定
-	pipelineDescs[PhongIndex].VS.pShaderBytecode	 = shdrs.phongVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[PhongIndex].VS.BytecodeLength		 = shdrs.phongVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[PhongIndex].PS.pShaderBytecode	 = shdrs.phongPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[PhongIndex].PS.BytecodeLength		 = shdrs.phongPSBlob_.Get()->GetBufferSize();
-
-	pipelineDescs[ToonIndex].VS.pShaderBytecode		 = shdrs.toonVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[ToonIndex].VS.BytecodeLength		 = shdrs.toonVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[ToonIndex].PS.pShaderBytecode		 = shdrs.toonPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[ToonIndex].PS.BytecodeLength		 = shdrs.toonPSBlob_.Get()->GetBufferSize();
-
 	pipelineDescs[DefaultIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
 	pipelineDescs[DefaultIndex].VS.BytecodeLength	 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
 	pipelineDescs[DefaultIndex].PS.pShaderBytecode	 = shdrs.defaultPSBlob_.Get()->GetBufferPointer();
 	pipelineDescs[DefaultIndex].PS.BytecodeLength	 = shdrs.defaultPSBlob_.Get()->GetBufferSize();
+
+	pipelineDescs[PhongIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[PhongIndex].VS.BytecodeLength		 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[PhongIndex].PS.pShaderBytecode	 = shdrs.phongPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[PhongIndex].PS.BytecodeLength		 = shdrs.phongPSBlob_.Get()->GetBufferSize();
+
+	pipelineDescs[ToonIndex].VS.pShaderBytecode		 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[ToonIndex].VS.BytecodeLength		 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[ToonIndex].PS.pShaderBytecode		 = shdrs.toonPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[ToonIndex].PS.BytecodeLength		 = shdrs.toonPSBlob_.Get()->GetBufferSize();
 
 	// パイプラインの数だけ
 	for (size_t i = 0; i < sPipelineSets_.size(); i++)

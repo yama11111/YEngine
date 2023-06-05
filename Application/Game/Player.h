@@ -4,8 +4,8 @@
 
 namespace YGame
 {
-    class Player :
-        public IGameCharacter
+    class Player final :
+        public IGameCharacter 
     {
 
     public:

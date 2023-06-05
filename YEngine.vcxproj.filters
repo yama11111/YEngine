@@ -687,12 +687,6 @@
     <FxCompile Include="Resources\Shaders\ToonPS.hlsl">
       <Filter>Engine\Game\Shader\Model</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ToonVS.hlsl">
-      <Filter>Engine\Game\Shader\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\PhongVS.hlsl">
-      <Filter>Engine\Game\Shader\Model</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shaders\PhongPS.hlsl">
       <Filter>Engine\Game\Shader\Model</Filter>
     </FxCompile>
@@ -705,7 +699,7 @@
     <FxCompile Include="Resources\Shaders\BloomPS.hlsl">
       <Filter>Engine\Game\Shader\PostEffect</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\BloomVS.hlsl">
+    <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
       <Filter>Engine\Game\Shader\PostEffect</Filter>
     </FxCompile>
   </ItemGroup>

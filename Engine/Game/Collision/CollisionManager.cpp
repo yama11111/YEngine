@@ -52,13 +52,13 @@ void CollisionManager::CheckCollisionPair(BaseCollider* pColliderA, BaseCollider
 	// 属性マスク判定
 	bool isAct1 = (pColliderA->GetAttribute() & pColliderB->GetMask()) == 0 || (pColliderB->GetAttribute() & pColliderA->GetMask()) == 0;
 	// 無敵フラグ確認
-	bool isAct2 = pColliderA->GetIsInvincible() || pColliderB->GetIsInvincible();
+	bool isAct2 = pColliderA->GetIsSlip() || pColliderB->GetIsSlip();
 
 	if (isAct1 || isAct2) { return; }
 
 	// 球 × 球
-	if (pColliderA->GetShapeType() == ShapeType::CollsionShapeSphere && 
-		pColliderB->GetShapeType() == ShapeType::CollsionShapeSphere)
+	if (pColliderA->GetShapeType() == BaseCollider::ShapeType::eSphere && 
+		pColliderB->GetShapeType() == BaseCollider::ShapeType::eSphere)
 	{
 		Sphere* sphereA = dynamic_cast<Sphere*>(pColliderA);
 		Sphere* sphereB = dynamic_cast<Sphere*>(pColliderB);

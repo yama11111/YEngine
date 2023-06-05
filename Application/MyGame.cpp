@@ -23,6 +23,13 @@ bool MyGame::Initialize()
 	// シーンエグゼクティブ初期化
 	sceneExe_->Initialize(YGameSceneFactory::Play_, YGameTransitionFactory::Blackout_);
 
+	postEffectObject_.reset(PostEffect::Object::Create({ {WinSize.x_ / 2.0f, WinSize.y_ / 2.0f, 0.0f}, {}, {1.0f,1.0f,1.0f} }));
+	
+	pPostEffect_ = PostEffect::Create({}, { Texture::CreateRender() });
+
+	pPostEffect_->SetDrawCommand(postEffectObject_.get(), PostEffect::ShaderType::eGaussian);
+	shaderSwitch_ = true;
+
 	return true;
 }
 
@@ -46,23 +53,34 @@ void MyGame::Draw()
 	// デスクリプターヒープセット
 	descHeap_.SetDrawCommand();
 
-	//pPostEffect_->StartRender();
+	pPostEffect_->StartRender();
 
 	
+	// ゲームシーン描画
+	DrawGameScene();
 	
-	//pPostEffect_->EndRender();
+	
+	pPostEffect_->EndRender();
 
-	//pPostEffect_->SetDrawCommand(postEffectObject_.get());
-	//pPostEffect_->SetDrawCommand(postEffectObject_.get(), PostEffect::ShaderType::eBloom);
+	if (Keys::GetInstance()->IsTrigger(DIK_SPACE))
+	{
+		if (shaderSwitch_)
+		{
+			pPostEffect_->SetDrawCommand(postEffectObject_.get());
+			shaderSwitch_ = false;
+		}
+		else
+		{
+			pPostEffect_->SetDrawCommand(postEffectObject_.get(), PostEffect::ShaderType::eGaussian);
+			shaderSwitch_ = true;
+		}
+	}
 
 	// 描画準備
 	dx_.PreDraw(ClearColor);
 
 	// スクリーン設定セット
 	screenDesc_.SetDrawCommand();
-	
-	// ゲームシーン描画
-	DrawGameScene();
 	
 	// ポストエフェクト描画
 	PostEffect::Pipeline::StaticDraw();

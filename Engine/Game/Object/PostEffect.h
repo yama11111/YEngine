@@ -24,8 +24,10 @@ namespace YGame
 		// シェーダーの種類
 		enum class ShaderType
 		{
-			eBloom	 = 0, // Bloom
-			eDefault = 1, // デフォルト
+			eDefault	 = 0, // デフォルト
+			eBloom		 = 1, // Bloom
+			eGaussian	 = 2, // Gaussian
+			eEnd,
 		};
 
 	public:
@@ -438,11 +440,11 @@ namespace YGame
 			// DefaultPS
 			Microsoft::WRL::ComPtr<ID3DBlob> defaultPSBlob_ = nullptr;
 
-			// VS
-			Microsoft::WRL::ComPtr<ID3DBlob> bloomVSBlob_ = nullptr;
-
-			// PS
+			// BloomPS
 			Microsoft::WRL::ComPtr<ID3DBlob> bloomPSBlob_ = nullptr;
+			
+			// GaussianPS
+			Microsoft::WRL::ComPtr<ID3DBlob> gaussianPSBlob_ = nullptr;
 
 		public:
 
@@ -482,7 +484,7 @@ namespace YGame
 	private:
 
 		// シェーダーの数
-		static const size_t sShaderNum_ = static_cast<size_t>(ShaderType::eDefault) + 1;
+		static const size_t sShaderNum_ = static_cast<size_t>(ShaderType::eEnd);
 
 		// パイプライン設定
 		static std::array<YDX::PipelineSet, sShaderNum_> sPipelineSets_;

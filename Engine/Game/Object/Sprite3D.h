@@ -27,6 +27,7 @@ namespace YGame
 		enum class ShaderType
 		{
 			eDefault = 0, // デフォルト
+			eEnd,
 		};
 
 	public:
@@ -333,7 +334,7 @@ namespace YGame
 	private:
 
 		// シェーダーの数
-		static const size_t sShaderNum_ = static_cast<size_t>(ShaderType::eDefault) + 1;
+		static const size_t sShaderNum_ = static_cast<size_t>(ShaderType::eEnd);
 
 		// パイプライン設定
 		static std::array<YDX::PipelineSet, sShaderNum_> sPipelineSets_;

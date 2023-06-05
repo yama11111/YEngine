@@ -23,9 +23,10 @@ namespace YGame
 		// シェーダーの種類
 		enum class ShaderType
 		{
-			ePhong	 = 0, // Phong
-			eToon	 = 1, // Toon
-			eDefault = 2, // デフォルト
+			eDefault = 0, // デフォルト
+			ePhong	 = 1, // Phong
+			eToon	 = 2, // Toon
+			eEnd, 
 		};
 
 	public:
@@ -330,25 +331,20 @@ namespace YGame
 
 		public:
 
-			// PhongVS
-			Microsoft::WRL::ComPtr<ID3DBlob> phongVSBlob_ = nullptr;
-
-			// PhongPS
-			Microsoft::WRL::ComPtr<ID3DBlob> phongPSBlob_ = nullptr;
-
-
-			// ToonVS
-			Microsoft::WRL::ComPtr<ID3DBlob> toonVSBlob_ = nullptr;
-
-			// ToonPS
-			Microsoft::WRL::ComPtr<ID3DBlob> toonPSBlob_ = nullptr;
-
-
 			// DefaultVS
 			Microsoft::WRL::ComPtr<ID3DBlob> defaultVSBlob_ = nullptr;
 
 			// DefaultPS
 			Microsoft::WRL::ComPtr<ID3DBlob> defaultPSBlob_ = nullptr;
+
+
+			// PhongPS
+			Microsoft::WRL::ComPtr<ID3DBlob> phongPSBlob_ = nullptr;
+
+
+			// ToonPS
+			Microsoft::WRL::ComPtr<ID3DBlob> toonPSBlob_ = nullptr;
+
 
 		public:
 
@@ -385,7 +381,7 @@ namespace YGame
 	private:
 
 		// シェーダーの数
-		static const size_t sShaderNum_ = static_cast<size_t>(ShaderType::eDefault) + 1;
+		static const size_t sShaderNum_ = static_cast<size_t>(ShaderType::eEnd);
 
 		// パイプライン設定
 		static std::array<YDX::PipelineSet, sShaderNum_> sPipelineSets_;
