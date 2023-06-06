@@ -1,5 +1,5 @@
 #include "ParticleManager.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 #include "YAssert.h"
 #include "Def.h"
 

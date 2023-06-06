@@ -1,7 +1,7 @@
 #include "Model.h"
-#include "CalcTransform.h"
-#include "MathUtillity.h"
-#include "FileUtillity.h"
+#include "MathVector.h"
+#include "MathUtil.h"
+#include "FileUtil.h"
 #include <cassert>
 #include <fstream>
 #include <sstream>
@@ -123,7 +123,7 @@ Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 	
 	// FBXファイル名
 	std::string objFileName = modelFileName + ".obj";
-	objFileName = YUtil::FilePath(objFileName);
+	objFileName = YFile::FilePath(objFileName);
 	
 
 	// メッシュロード

@@ -107,6 +107,7 @@
   <ItemGroup>
     <ClCompile Include="Application\Draw\Drawer\UIChargeButtonDrawer.cpp" />
     <ClCompile Include="Application\Game\CharacterStatus.cpp" />
+    <ClCompile Include="Application\Game\IEnemy.cpp" />
     <ClCompile Include="Application\Game\IGameCharacter.cpp" />
     <ClCompile Include="Application\Game\IGameObject.cpp" />
     <ClCompile Include="Application\Game\IPet.cpp" />
@@ -170,16 +171,17 @@
     <ClCompile Include="Application\Transition\Blackout.cpp" />
     <ClCompile Include="Application\Transition\InfectionBlocks.cpp" />
     <ClCompile Include="Application\Transition\YGameTransitionFactory.cpp" />
-    <ClCompile Include="Engine\Utillity\FileUtillity.cpp" />
+    <ClCompile Include="Engine\Utillity\FileUtil.cpp" />
     <ClCompile Include="Engine\Utillity\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Utillity\Input\Keys.cpp" />
     <ClCompile Include="Engine\Utillity\Input\Mouse.cpp" />
     <ClCompile Include="Engine\Utillity\Input\Pad.cpp" />
-    <ClCompile Include="Engine\Utillity\Math\CalcTransform.cpp" />
+    <ClCompile Include="Engine\Utillity\Math\MathVector.cpp" />
     <ClCompile Include="Engine\Utillity\Math\CollisionDetection.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Lerp.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Matrix4.cpp" />
-    <ClCompile Include="Engine\Utillity\Math\MathUtillity.cpp" />
+    <ClCompile Include="Engine\Utillity\Math\MathUtil.cpp" />
+    <ClCompile Include="Engine\Utillity\Math\Physics.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Power.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Shake.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Speed.cpp" />
@@ -191,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="Application\Draw\Drawer\UIChargeButtonDrawer.h" />
     <ClInclude Include="Application\Game\CharacterStatus.h" />
+    <ClInclude Include="Application\Game\IEnemy.h" />
     <ClInclude Include="Application\Game\IGameCharacter.h" />
     <ClInclude Include="Application\Game\IGameObject.h" />
     <ClInclude Include="Application\Game\IPet.h" />
@@ -259,16 +262,17 @@
     <ClInclude Include="Application\Transition\Blackout.h" />
     <ClInclude Include="Application\Transition\InfectionBlocks.h" />
     <ClInclude Include="Application\Transition\YGameTransitionFactory.h" />
-    <ClInclude Include="Engine\Utillity\FileUtillity.h" />
+    <ClInclude Include="Engine\Utillity\FileUtil.h" />
     <ClInclude Include="Engine\Utillity\Input\InputManager.h" />
     <ClInclude Include="Engine\Utillity\Input\Keys.h" />
     <ClInclude Include="Engine\Utillity\Input\Mouse.h" />
     <ClInclude Include="Engine\Utillity\Input\Pad.h" />
-    <ClInclude Include="Engine\Utillity\Math\CalcTransform.h" />
+    <ClInclude Include="Engine\Utillity\Math\MathVector.h" />
     <ClInclude Include="Engine\Utillity\Math\CollisionDetection.h" />
     <ClInclude Include="Engine\Utillity\Math\Lerp.h" />
     <ClInclude Include="Engine\Utillity\Math\Matrix4.h" />
-    <ClInclude Include="Engine\Utillity\Math\MathUtillity.h" />
+    <ClInclude Include="Engine\Utillity\Math\MathUtil.h" />
+    <ClInclude Include="Engine\Utillity\Math\Physics.h" />
     <ClInclude Include="Engine\Utillity\Math\Power.h" />
     <ClInclude Include="Engine\Utillity\Math\Shake.h" />
     <ClInclude Include="Engine\Utillity\Math\Speed.h" />

@@ -11,15 +11,10 @@ namespace YScene
 
 #pragma region リソース
 
-		YGame::Model* pModel_ = nullptr;
-
-
 
 #pragma endregion
 
 #pragma region ゲームオブジェクト
-
-		std::unique_ptr<YGame::Model::Object> modelObj_;
 
 
 		// 転送用ビュープロジェクション

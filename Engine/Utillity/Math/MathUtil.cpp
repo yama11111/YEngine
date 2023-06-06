@@ -1,4 +1,4 @@
-#include "MathUtillity.h"
+#include "MathUtil.h"
 #include <cmath>
 #include <algorithm>
 #include <stdlib.h>

@@ -1,7 +1,7 @@
 #include "Level.h"
-#include "CalcTransform.h"
-#include "MathUtillity.h"
-#include "FileUtillity.h"
+#include "MathVector.h"
+#include "MathUtil.h"
+#include "FileUtil.h"
 #include <cassert>
 #include <fstream>
 #include <sstream>

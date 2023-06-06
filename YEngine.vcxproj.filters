@@ -37,9 +37,6 @@
     <Filter Include="Engine\Util\Math">
       <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Util\Math\Transform">
-      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Util\Math\Lerp">
       <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
     </Filter>
@@ -66,9 +63,6 @@
     </Filter>
     <Filter Include="Engine\Util\DebugText">
       <UniqueIdentifier>{d17d5504-a51c-4494-83e9-8e8fbb6621aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="game">
-      <UniqueIdentifier>{f55c61c6-6faa-47c5-aa7f-38a2dc214b25}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Game">
       <UniqueIdentifier>{b7e1ea2a-a1ae-47a4-8e59-6798e60a7a6a}</UniqueIdentifier>
@@ -133,6 +127,9 @@
     <Filter Include="Application\Game\Base">
       <UniqueIdentifier>{5b6ea720-c9ca-427e-9ffd-32514f21a4d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Util\Math\Vector">
+      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -192,25 +189,25 @@
     <ClCompile Include="Engine\Utillity\Input\Pad.cpp">
       <Filter>Engine\Util\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\FileUtillity.cpp">
+    <ClCompile Include="Engine\Utillity\FileUtil.cpp">
       <Filter>Engine\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\CalcTransform.cpp">
-      <Filter>Engine\Util\Math\Transform</Filter>
+    <ClCompile Include="Engine\Utillity\Math\MathVector.cpp">
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Matrix4.cpp">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Vector2.cpp">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Vector3.cpp">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Vector4.cpp">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\MathUtillity.cpp">
+    <ClCompile Include="Engine\Utillity\Math\MathUtil.cpp">
       <Filter>Engine\Util\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Shake.cpp">
@@ -381,6 +378,12 @@
     <ClCompile Include="Application\Game\IPet.cpp">
       <Filter>Application\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\IEnemy.cpp">
+      <Filter>Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utillity\Math\Physics.cpp">
+      <Filter>Engine\Util\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -443,25 +446,25 @@
     <ClInclude Include="Engine\Utillity\Input\Pad.h">
       <Filter>Engine\Util\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\FileUtillity.h">
+    <ClInclude Include="Engine\Utillity\FileUtil.h">
       <Filter>Engine\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\CalcTransform.h">
-      <Filter>Engine\Util\Math\Transform</Filter>
+    <ClInclude Include="Engine\Utillity\Math\MathVector.h">
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Matrix4.h">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Vector2.h">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Vector3.h">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Vector4.h">
-      <Filter>Engine\Util\Math\Transform</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\MathUtillity.h">
+    <ClInclude Include="Engine\Utillity\Math\MathUtil.h">
       <Filter>Engine\Util\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Shake.h">
@@ -643,6 +646,12 @@
     </ClInclude>
     <ClInclude Include="Application\Game\IPet.h">
       <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IEnemy.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utillity\Math\Physics.h">
+      <Filter>Engine\Util\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

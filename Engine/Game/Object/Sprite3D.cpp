@@ -1,5 +1,5 @@
 #include "Sprite3D.h"
-#include "CalcTransform.h"
+#include "MathVector.h"
 #include <cassert>
 
 #pragma region –¼‘O‹óŠÔ

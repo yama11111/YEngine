@@ -1,5 +1,5 @@
 #include "Shake.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 
 using YMath::Shake;
 

@@ -21,7 +21,6 @@ using namespace YGame;
 #pragma region 読み込み
 void PlayScene::Load()
 {
-	pModel_ = Model::CreateCube("face.png");
 
 }
 #pragma endregion
@@ -30,8 +29,6 @@ void PlayScene::Load()
 #pragma region 初期化
 void PlayScene::Initialize()
 {
-	modelObj_.reset(Model::Object::Create());
-	modelObj_->SetViewProjection(&transferVP_);
 
 	// ビュープロジェクション初期化
 	transferVP_.Initialize();
@@ -50,9 +47,6 @@ void PlayScene::Finalize()
 #pragma region 更新
 void PlayScene::Update()
 {
-	modelObj_->rota_.y_ += 0.025f;
-	modelObj_->UpdateMatrix();
-
 	// ビュープロジェクション更新
 	transferVP_.UpdateMatrix();
 }
@@ -62,6 +56,5 @@ void PlayScene::Update()
 #pragma region 描画
 void PlayScene::Draw()
 {
-	pModel_->SetDrawCommand(modelObj_.get(), DrawLocation::eCenter);
 }
 #pragma endregion

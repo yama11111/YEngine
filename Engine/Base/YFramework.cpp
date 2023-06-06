@@ -1,5 +1,5 @@
 #include "YFramework.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 #include "Def.h"
 #include <cassert>
 

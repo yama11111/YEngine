@@ -4,23 +4,53 @@
 
 namespace YGame
 {
-    class Player final :
-        public IGameCharacter 
-    {
+	// プレイヤー
+	class Player final :
+		public IGameCharacter
+	{
 
-    public:
+	public:
 
-        Player() = default;
-        
-        ~Player() = default;
-    
-    public:
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="pos"> : 位置</param>
+		/// <param name="pPet"> : ペットポインタ</param>
+		void Initialize(
+			const YMath::Vector3& pos, 
+			IPet* pPet = nullptr);
 
-    
-    private:
+		/// <summary>
+		/// 更新
+		/// </summary>
+		void Update() override;
 
-        // ペットポインタ
-        IPet* pPet_ = nullptr;
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw() override;
 
-    };
+	public:
+
+		/// <summary>
+		/// ペットポインタ設定
+		/// </summary>
+		/// <param name="pPet"> : ペットポインタ</param>
+		void SetPointer(IPet* pPet);
+
+	public:
+
+		Player() = default;
+
+		~Player() = default;
+
+	private:
+
+		// 鎧を着ているか
+		bool isArmed_ = false;
+
+		// ペットポインタ
+		IPet* pPet_ = nullptr;
+
+	};
 }

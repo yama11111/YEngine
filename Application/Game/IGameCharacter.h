@@ -5,28 +5,43 @@
 
 namespace YGame
 {
-    class IGameCharacter :
-        public IGameObject
-    {
+	class IGameCharacter :
+		public IGameObject
+	{
 
-    public:
-    
-    public:
+	public:
 
-        IGameCharacter() = default;
-        
-        ~IGameCharacter() = default;
+		IGameCharacter() = default;
 
-    protected:
+		virtual ~IGameCharacter() = default;
 
-        // スピード
-        YMath::Speed speed_;
+	protected:
 
-        // ジャンプカウンター
-        int jumpCount_ = 0;
+		/// <summary>
+		/// ジャンプ
+		/// </summary>
+		void Jump();
 
-        // キャラクターステータス
-        CharacterStatus status_;
-    };
+		/// <summary>
+		/// 重力
+		/// </summary>
+		void UpdatePhysics();
+
+	protected:
+
+		// スピード
+		YMath::Speed speed_;
+
+		// ジャンプカウンター
+		unsigned int jumpCounter_ = 0;
+		
+		// 最大ジャンプ回数
+		unsigned int maxJumpCount_ = 0;
+
+		// 着地フラグ
+		bool isLanding_ = false;
+
+		// キャラクターステータス
+		CharacterStatus status_;
+	};
 }
-

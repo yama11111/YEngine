@@ -1,5 +1,5 @@
 #include "Mesh.h"
-#include "FileUtillity.h"
+#include "FileUtil.h"
 #include <cassert>
 #include <fstream>
 #include <sstream>
@@ -657,7 +657,7 @@ void Mesh::FbxLoader::ParseMaterial(const std::string& folderPath, Texture*& ref
 					const std::string texFilePath = pTexture->GetFileName();
 
 					// テクスチャファイル名取得
-					const std::string texFileName = YUtil::FilePath(texFilePath);
+					const std::string texFileName = YFile::FilePath(texFilePath);
 
 					// テクスチャ読み込み
 					refPtrTex = Texture::Load(folderPath, texFileName);

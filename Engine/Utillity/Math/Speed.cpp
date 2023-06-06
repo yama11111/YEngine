@@ -1,5 +1,5 @@
 #include "Speed.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 
 using YMath::Vector3;
 using YMath::Speed;

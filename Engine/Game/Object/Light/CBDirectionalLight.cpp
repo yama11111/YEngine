@@ -1,5 +1,5 @@
 #include "CBDirectionalLight.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 
 #pragma region –¼‘O‹óŠÔ
 

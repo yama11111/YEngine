@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "FileUtillity.h"
+#include "FileUtil.h"
 #include "YAssert.h"
 #include "Def.h"
 #include <DirectXTex.h>
@@ -234,7 +234,7 @@ Texture* Texture::Load(const std::string& directoryPath, const std::string texFi
 	const wchar_t* fileName = wFilePath.c_str();
 
 	// ägí£éqéÊìæ
-	std::string ext = YUtil::FileExtension(texFileName);
+	std::string ext = YFile::FileExtension(texFileName);
 
 	if (ext == "png" || ext == "jpg") // png || jpg Å® WIC
 	{

@@ -1,5 +1,5 @@
 #include "CBColor.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 
 #pragma region –¼‘O‹óŠÔ
 

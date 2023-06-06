@@ -1,6 +1,6 @@
-#include "FileUtillity.h"
+#include "FileUtil.h"
 
-std::string YUtil::FilePath(const std::string path)
+std::string YFile::FilePath(const std::string path)
 {
 	size_t pos1;
 
@@ -17,7 +17,7 @@ std::string YUtil::FilePath(const std::string path)
 	return path;
 }
 
-std::string YUtil::ReplaceExtension(const std::string fileName, const std::string extention)
+std::string YFile::ReplaceExtension(const std::string fileName, const std::string extention)
 {
 	std::string result = fileName;
 
@@ -29,7 +29,7 @@ std::string YUtil::ReplaceExtension(const std::string fileName, const std::strin
 	return result.substr(0, pos) + "." + extention;
 }
 
-std::string YUtil::FileExtension(const std::string path)
+std::string YFile::FileExtension(const std::string path)
 {
 	size_t idx = path.rfind('.') + 1;
 	return path.substr(idx, path.length() - idx);

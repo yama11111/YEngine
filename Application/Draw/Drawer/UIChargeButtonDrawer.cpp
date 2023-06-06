@@ -1,5 +1,5 @@
 #include "UIChargeButtonDrawer.h"
-#include "MathUtillity.h"
+#include "MathUtil.h"
 
 using YGame::UIChargeButtonDrawer;
 

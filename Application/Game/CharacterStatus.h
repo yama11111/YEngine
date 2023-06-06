@@ -4,10 +4,6 @@ namespace YGame
 {
 	class CharacterStatus
 	{
-	
-	public:
-
-		bool IsAlive() { return isAlive_; }
 
 	public:
 
@@ -15,7 +11,7 @@ namespace YGame
 		
 		~CharacterStatus() = default;
 
-	private:
+	protected:
 
 		// ¶‘¶ƒtƒ‰ƒO
 		bool isAlive_ = true;
