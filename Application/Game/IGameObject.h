@@ -1,9 +1,11 @@
 #pragma once
 #include "Model.h"
+#include "GameObjectCollider.h"
 
 namespace YGame
 {
-	class IGameObject
+	class IGameObject : 
+		public GameObjectCollider
 	{
 
 	public:
@@ -11,13 +13,20 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
+		/// <param name="type"> : 種類</param>
 		/// <param name="status"> : 初期化ステータス</param>
-		void Initialize(const Transform::Status& status);
+		/// <param name="radius"> : 半径</param>
+		/// <param name="isSlip"> : すりぬけフラグ</param>
+		void Initialize(
+			const Type type,
+			const Transform::Status& status,
+			const float radius,
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update();
 
 		/// <summary>
 		/// 描画
@@ -40,8 +49,8 @@ namespace YGame
 	
 	protected:
 
-		// 核
-		std::unique_ptr<Transform> core_;
+		// トランスフォーム
+		std::unique_ptr<Transform> transform_;
 
 		// 3D用オブジェクト
 		std::unique_ptr<Model::Object> obj_;

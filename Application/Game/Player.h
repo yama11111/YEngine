@@ -36,7 +36,7 @@ namespace YGame
 		/// ペットポインタ設定
 		/// </summary>
 		/// <param name="pPet"> : ペットポインタ</param>
-		void SetPointer(IPet* pPet);
+		void SetPetPointer(IPet* pPet);
 
 	public:
 

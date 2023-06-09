@@ -49,8 +49,8 @@ void MyGame::Draw()
 	//pPostEffect_->StartRender();
 
 	
-	// ゲームシーン描画
-	DrawGameScene();
+	//// ゲームシーン描画
+	//DrawGameScene();
 	
 	
 	//pPostEffect_->EndRender();
@@ -60,6 +60,9 @@ void MyGame::Draw()
 
 	// スクリーン設定セット
 	screenDesc_.SetDrawCommand();
+
+	// ゲームシーン描画
+	DrawGameScene();
 	
 	// ポストエフェクト描画
 	PostEffect::Pipeline::StaticDraw();

@@ -15,50 +15,10 @@ void Speed::Initialize(const Vector3& acceleration, const Vector3& max, const bo
 
 void Speed::Reset()
 {
-	value_ = {};
+	velocity_ = {};
 }
 
-void Speed::Update(const Vector3& power)
+void Speed::Update(const Vector3& direction)
 {
-	Calculate(value_.x_, power.x_, acceleration_.x_, max_.x_, spWorldRuler_->GetFriction());
-	if (isGravity_)
-	{
-		Gravity(value_.y_, power.y_, acceleration_.y_, max_.y_, spWorldRuler_->GetGravity());
-	}
-	else
-	{
-		Calculate(value_.y_, power.y_, acceleration_.y_, max_.y_, spWorldRuler_->GetFriction());
-	}
-	Calculate(value_.z_, power.z_, acceleration_.z_, max_.z_, spWorldRuler_->GetFriction());
-
-	value_*= spWorldRuler_->GetTimeSpeed();
-}
-
-void Speed::Calculate(float& value, const float power, const float acceleration, const float max, const float dekey)
-{
-	value += power * acceleration;
-	if (power == 0.0f)
-	{
-		if (value > 0.0f)
-		{
-			value -= dekey;
-			if (value <= 0.0f) { value = 0.0f; }
-		}
-		if (value < 0.0f)
-		{
-			value += dekey;
-			if (value >= 0.0f) { value = 0.0f; }
-		}
-	}
-	value = Clamp(value, -max, +max);
-}
-
-void Speed::Gravity(float& value, const float power, const float acceleration, const float max, const float dekey)
-{
-	value += power * acceleration;
-	if (power == 0.0f)
-	{
-		value -= dekey;
-	}
-	value = Clamp(value, -max * 2.0f, +max);
+	
 }

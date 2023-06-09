@@ -5,37 +5,58 @@
 namespace YMath
 {
 	// スピード
-	class Speed : public YGame::WorldRuleAdopter
+	class Speed
 	{
-	private:
-		// 加速度
-		Vector3 acceleration_;
-		// 最高速度
-		Vector3 max_;
-		// 実値
-		Vector3 value_;
-
-		bool isGravity_ = false;
+	
 	public:
-		// 初期化
+		
+		/// <summary>
+		/// </summary>
+		/// 初期化
+		/// <param name="acceleration"> : 加速度</param>
+		/// <param name="max"> : 最大速度</param>
+		/// <param name="isGravity"> : 重力フラグ</param>
 		void Initialize(const Vector3& acceleration, const Vector3& max, const bool isGravity = true);
-		// リセット
+
+		/// <summary>
+		/// リセット
+		/// </summary>
 		void Reset();
-		// 更新
-		void Update(const Vector3& power);
-	private:
-		// 計算
-		static void Calculate(float& value, const float power, const float acceleration, const float max, const float dekey);
-		// 計算 (重力)
-		static void Gravity(float& value, const float power, const float acceleration, const float max, const float dekey);
+
+		/// <summary>
+		/// 更新
+		/// </summary>
+		/// <param name="direction"> : 向き</param>
+		void Update(const Vector3& direction);
+	
 	public:
-		// 実値取得
-		Vector3 Value() const { return value_; }
+		
+		// 速度取得
+		Vector3 Velocity() const { return velocity_; }
+		
 		// 最高速度
 		Vector3 Max() const { return max_; }
-		// 実値取得 (参照渡し)
-		Vector3& ValueRef() { return value_; }
+		
+		// 速度取得 (参照渡し)
+		Vector3& VelocityRef() { return velocity_; }
+		
 		// 向き取得
-		Vector3 Direction() const { return value_.Normalized(); }
+		Vector3 Direction() const { return velocity_.Normalized(); }
+	
+	private:
+		
+		// 加速度
+		Vector3 acceleration_;
+		
+		// 最高速度
+		Vector3 max_;
+		
+		// 速度
+		Vector3 velocity_;
+
+
+		// 重力フラグ
+		bool isGravity_ = false;
+	
 	};
 }

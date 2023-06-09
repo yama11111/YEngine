@@ -124,11 +124,26 @@
     <Filter Include="Application\Game">
       <UniqueIdentifier>{e3fc16ed-1190-4275-bc3b-57861fa94768}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Base">
-      <UniqueIdentifier>{5b6ea720-c9ca-427e-9ffd-32514f21a4d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Util\Math\Vector">
       <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\MapChip">
+      <UniqueIdentifier>{f44abf95-46f4-47da-b0b9-7729309f20e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Chara">
+      <UniqueIdentifier>{15f69323-8672-45d3-a98b-5c51b73b7b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Chara\Enemy">
+      <UniqueIdentifier>{a822410d-4324-459f-83d2-237ed272e10c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Chara\Base">
+      <UniqueIdentifier>{5b6ea720-c9ca-427e-9ffd-32514f21a4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Chara\Player">
+      <UniqueIdentifier>{7f427dfb-24a5-4964-b8a2-1f56cdcd4c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Chara\Pet">
+      <UniqueIdentifier>{c726d973-737b-43fb-996e-7ebbceb701ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,13 +180,10 @@
     <ClCompile Include="Engine\Game\Collision\CollisionManager.cpp">
       <Filter>Engine\Game\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\MapChip\MapChip.cpp">
+    <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp">
       <Filter>Engine\Game\MapChip</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp">
-      <Filter>Engine\Game\MapChip</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\MapChip\MapChipManager.cpp">
       <Filter>Engine\Game\MapChip</Filter>
     </ClCompile>
     <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp">
@@ -363,26 +375,41 @@
     <ClCompile Include="Engine\main.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\CharacterStatus.cpp">
-      <Filter>Application\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\IGameCharacter.cpp">
-      <Filter>Application\Game\Base</Filter>
+      <Filter>Application\Game\Chara\Base</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\IGameObject.cpp">
-      <Filter>Application\Game\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Player.cpp">
-      <Filter>Application\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\IPet.cpp">
-      <Filter>Application\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\IEnemy.cpp">
-      <Filter>Application\Game</Filter>
+      <Filter>Application\Game\Chara\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Physics.cpp">
       <Filter>Engine\Util\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\MapChipManager.cpp">
+      <Filter>Application\Game\MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\MapChip.cpp">
+      <Filter>Application\Game\MapChip</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IEnemy.cpp">
+      <Filter>Application\Game\Chara\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IPet.cpp">
+      <Filter>Application\Game\Chara\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Player.cpp">
+      <Filter>Application\Game\Chara\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GameObjectCollider.cpp">
+      <Filter>Application\Game\Chara\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CharacterStatus.cpp">
+      <Filter>Application\Game\Chara\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GameCharacterManager.cpp">
+      <Filter>Application\Game\Chara\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GameObjectCollisionManager.cpp">
+      <Filter>Application\Game\Chara\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -422,13 +449,10 @@
     <ClInclude Include="Engine\Game\Collision\CollisionManager.h">
       <Filter>Engine\Game\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\MapChip\MapChip.h">
+    <ClInclude Include="Engine\Game\MapChip\IMapChip.h">
       <Filter>Engine\Game\MapChip</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h">
-      <Filter>Engine\Game\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\MapChip\MapChipManager.h">
       <Filter>Engine\Game\MapChip</Filter>
     </ClInclude>
     <ClInclude Include="Application\Draw\Actor\SlimeActor.h">
@@ -632,26 +656,41 @@
     <ClInclude Include="Engine\Def.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\CharacterStatus.h">
-      <Filter>Application\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\IGameCharacter.h">
-      <Filter>Application\Game\Base</Filter>
+      <Filter>Application\Game\Chara\Base</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\IGameObject.h">
-      <Filter>Application\Game\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Player.h">
-      <Filter>Application\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\IPet.h">
-      <Filter>Application\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\IEnemy.h">
-      <Filter>Application\Game</Filter>
+      <Filter>Application\Game\Chara\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Physics.h">
       <Filter>Engine\Util\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\MapChipManager.h">
+      <Filter>Application\Game\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\MapChip.h">
+      <Filter>Application\Game\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IEnemy.h">
+      <Filter>Application\Game\Chara\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IPet.h">
+      <Filter>Application\Game\Chara\Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Player.h">
+      <Filter>Application\Game\Chara\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GameObjectCollider.h">
+      <Filter>Application\Game\Chara\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CharacterStatus.h">
+      <Filter>Application\Game\Chara\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GameCharacterManager.h">
+      <Filter>Application\Game\Chara\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GameObjectCollisionManager.h">
+      <Filter>Application\Game\Chara\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

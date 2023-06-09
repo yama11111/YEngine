@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Light;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Light;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -84,7 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Light;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Light;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -107,10 +107,14 @@
   <ItemGroup>
     <ClCompile Include="Application\Draw\Drawer\UIChargeButtonDrawer.cpp" />
     <ClCompile Include="Application\Game\CharacterStatus.cpp" />
+    <ClCompile Include="Application\Game\GameCharacterManager.cpp" />
+    <ClCompile Include="Application\Game\GameObjectCollider.cpp" />
+    <ClCompile Include="Application\Game\GameObjectCollisionManager.cpp" />
     <ClCompile Include="Application\Game\IEnemy.cpp" />
     <ClCompile Include="Application\Game\IGameCharacter.cpp" />
     <ClCompile Include="Application\Game\IGameObject.cpp" />
     <ClCompile Include="Application\Game\IPet.cpp" />
+    <ClCompile Include="Application\Game\MapChip.cpp" />
     <ClCompile Include="Application\Game\Player.cpp" />
     <ClCompile Include="Engine\Game\Level\Level.cpp" />
     <ClCompile Include="Engine\Base\DX\ConstBuffer.cpp" />
@@ -149,9 +153,9 @@
     <ClCompile Include="Engine\Game\Collision\CollisionManager.cpp" />
     <ClCompile Include="Engine\Game\Collision\CollisionPrimitive.cpp" />
     <ClCompile Include="Engine\Game\Collision\PrimitiveCollider.cpp" />
-    <ClCompile Include="Engine\Game\MapChip\MapChip.cpp" />
+    <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp" />
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp" />
-    <ClCompile Include="Engine\Game\MapChip\MapChipManager.cpp" />
+    <ClCompile Include="Application\Game\MapChipManager.cpp" />
     <ClCompile Include="Engine\Game\Object\CBColor.cpp" />
     <ClCompile Include="Engine\Game\Object\CBMaterial.cpp" />
     <ClCompile Include="Engine\Game\Object\Mesh.cpp" />
@@ -193,10 +197,14 @@
   <ItemGroup>
     <ClInclude Include="Application\Draw\Drawer\UIChargeButtonDrawer.h" />
     <ClInclude Include="Application\Game\CharacterStatus.h" />
+    <ClInclude Include="Application\Game\GameCharacterManager.h" />
+    <ClInclude Include="Application\Game\GameObjectCollider.h" />
+    <ClInclude Include="Application\Game\GameObjectCollisionManager.h" />
     <ClInclude Include="Application\Game\IEnemy.h" />
     <ClInclude Include="Application\Game\IGameCharacter.h" />
     <ClInclude Include="Application\Game\IGameObject.h" />
     <ClInclude Include="Application\Game\IPet.h" />
+    <ClInclude Include="Application\Game\MapChip.h" />
     <ClInclude Include="Application\Game\Player.h" />
     <ClInclude Include="Engine\Game\Level\Level.h" />
     <ClInclude Include="Engine\Game\Object\ObjectConfig.h" />
@@ -241,9 +249,9 @@
     <ClInclude Include="Engine\Game\Collision\CollisionManager.h" />
     <ClInclude Include="Engine\Game\Collision\CollisionPrimitive.h" />
     <ClInclude Include="Engine\Game\Collision\PrimitiveCollider.h" />
-    <ClInclude Include="Engine\Game\MapChip\MapChip.h" />
+    <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />
-    <ClInclude Include="Engine\Game\MapChip\MapChipManager.h" />
+    <ClInclude Include="Application\Game\MapChipManager.h" />
     <ClInclude Include="Engine\Game\Object\CBColor.h" />
     <ClInclude Include="Engine\Game\Object\CBMaterial.h" />
     <ClInclude Include="Engine\Game\Object\Mesh.h" />
