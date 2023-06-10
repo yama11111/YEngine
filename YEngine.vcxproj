@@ -61,6 +61,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Light;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -87,6 +88,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Light;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
