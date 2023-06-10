@@ -7,7 +7,8 @@ void IGameObject::Initialize(
 	const Type type, 
 	const Transform::Status& status, 
 	const float radius, 
-	const bool isSlip)
+	const bool isSlip,
+	IDrawer* drawer)
 {
 	// 核生成
 	transform_.reset(new Transform());
@@ -15,13 +16,8 @@ void IGameObject::Initialize(
 	// 初期化
 	transform_->Initialize(status);
 
-
-	// オブジェクト生成
-	obj_.reset(Model::Object::Create());
-
-	// 親子関係設定
-	obj_->parent_ = &transform_->m_;
-
+	// 描画クラス
+	SetDrawer(drawer);
 
 	// コライダー初期化
 	GameObjectCollider::Initialize(type, &transform_->pos_, radius, isSlip);
@@ -32,18 +28,27 @@ void IGameObject::Update()
 	// 核更新
 	transform_->UpdateMatrix();
 
-	// オブジェクト更新
-	obj_->UpdateMatrix();
+	// 描画クラス更新
+	drawer_->Update();
 	
 	// コライダー更新
 	GameObjectCollider::Update();
 }
 
-void IGameObject::SetModel(Model* pModel)
+void IGameObject::SetDrawer(IDrawer* drawer)
 {
-	// nullチェック
-	assert(pModel);
+	// null なら
+	if (drawer == nullptr && drawer_ == nullptr)
+	{
+		// スタンダード描画クラス設定
+		// drawer_.reset(スタンダード);
+	}
+	else
+	{
+		// 描画クラス設定
+		drawer_.reset(drawer);
+	}
 
-	// 代入
-	pModel_ = pModel;
+	// 描画クラス初期化
+	drawer_->Initialize(transform_.get());
 }

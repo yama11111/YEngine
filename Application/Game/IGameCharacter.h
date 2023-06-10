@@ -52,18 +52,20 @@ namespace YGame
 		/// <param name="type"> : 種類</param>
 		/// <param name="status"> : ステータス</param>
 		/// <param name="radius"> : 半径</param>
-		/// <param name="acceleration"></param>
-		/// <param name="max"></param>
-		/// <param name="maxJumpCount"></param>
-		/// <param name="hp"></param>
-		/// <param name="attack"></param>
+		/// <param name="acceleration"> : 加速度</param>
+		/// <param name="maxSpeed"> : 最大速度</param>
+		/// <param name="maxJumpCount"> : </param>
+		/// <param name="hp"> : HP</param>
+		/// <param name="attack"> : 攻撃力</param>
+		/// <param name="drawer"> : 描画クラス</param>
 		void Initialize(
 			const Type type,
 			const Transform::Status& status, 
 			const float radius,
-			const YMath::Vector3& acceleration, const YMath::Vector3& max,
+			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
 			const uint16_t maxJumpCount,
-			const uint32_t hp, const uint32_t attack);
+			const uint32_t hp, const uint32_t attack,
+			IDrawer* drawer);
 
 		/// <summary>
 		/// ジャンプ

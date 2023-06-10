@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "PlayerDrawer.h"
 #include "Keys.h"
 #include "Pad.h"
 #include <cassert>
@@ -18,8 +19,6 @@ static const uint32_t Attack = 20;
 
 void Player::Initialize(const Vector3& pos, IPet* pPet)
 {
-	SetModel(Model::CreateCube("face.png"));
-
 	// ゲームキャラクター初期化
 	IGameCharacter::Initialize(
 		GameObjectCollider::Type::ePlayer,
@@ -27,7 +26,8 @@ void Player::Initialize(const Vector3& pos, IPet* pPet)
 		Radius, 
 		Acceleration, MaxSpeed,
 		MaxJumpCount,
-		HP, Attack);
+		HP, Attack,
+		new PlayerDrawer());
 
 	// 開始時は武装する
 	isArmed_ = true;
@@ -59,7 +59,7 @@ void Player::Update()
 void Player::Draw()
 {
 	// 描画
-	pModel_->SetDrawCommand(obj_.get(), DrawLocation::eCenter);
+	drawer_->Draw(DrawLocation::eCenter);
 }
 
 void Player::SetPetPointer(IPet* pPet)

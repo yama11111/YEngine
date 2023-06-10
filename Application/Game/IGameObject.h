@@ -1,5 +1,5 @@
 #pragma once
-#include "Model.h"
+#include "IDrawer.h"
 #include "GameObjectCollider.h"
 
 namespace YGame
@@ -17,11 +17,13 @@ namespace YGame
 		/// <param name="status"> : 初期化ステータス</param>
 		/// <param name="radius"> : 半径</param>
 		/// <param name="isSlip"> : すりぬけフラグ</param>
+		/// <param name="drawer"> : 描画クラス</param>
 		void Initialize(
 			const Type type,
 			const Transform::Status& status,
 			const float radius,
-			const bool isSlip = false);
+			const bool isSlip = false,
+			IDrawer* drawer = nullptr);
 
 		/// <summary>
 		/// 更新
@@ -33,13 +35,13 @@ namespace YGame
 		/// </summary>
 		virtual void Draw() = 0;
 	
-	public:
+	protected:
 
 		/// <summary>
-		/// モデル設定
+		/// 描画クラス設定
 		/// </summary>
-		/// <param name="pModel"> : モデルポインタ</param>
-		void SetModel(Model* pModel);
+		/// <param name="drawer"> : 描画クラス</param>
+		void SetDrawer(IDrawer* drawer);
 
 	public:
 
@@ -52,11 +54,7 @@ namespace YGame
 		// トランスフォーム
 		std::unique_ptr<Transform> transform_;
 
-		// 3D用オブジェクト
-		std::unique_ptr<Model::Object> obj_;
-
-		// モデルポインタ
-		Model* pModel_ = nullptr;
+		// 描画クラス
+		std::unique_ptr<IDrawer> drawer_;
 	};
 }
-

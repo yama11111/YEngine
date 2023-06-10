@@ -9,18 +9,19 @@ void IGameCharacter::Initialize(
 	const Type type, 
 	const Transform::Status& status, 
 	const float radius, 
-	const Vector3& acceleration, const Vector3& max, 
+	const Vector3& acceleration, const Vector3& maxSpeed, 
 	const uint16_t maxJumpCount, 
-	const uint32_t hp, const uint32_t attack)
+	const uint32_t hp, const uint32_t attack,
+	IDrawer* drawer)
 {
 	// オブジェクト初期化
-	IGameObject::Initialize(type, status, radius);
+	IGameObject::Initialize(type, status, radius, false, drawer);
 
 	// マップチップコライダー初期化
 	MapChipCollider::Initialize(status.scale_);
 
 	// スピード初期化
-	speed_.Initialize(acceleration, max);
+	speed_.Initialize(acceleration, maxSpeed);
 
 	// 最大ジャンプ回数初期化
 	maxJumpCount_ = maxJumpCount;
