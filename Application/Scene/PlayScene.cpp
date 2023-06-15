@@ -33,11 +33,11 @@ void PlayScene::Load()
 void PlayScene::Initialize()
 {
 	// マップチップ初期化
-	pMapChipManager_->Initialize(0, Vector3(), Vector3());
+	pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 	// ビュープロジェクション初期化
 	transferVP_.Initialize();
-	transferVP_.eye_ = Vector3(0, +2.5f, -20.0f);
+	transferVP_.eye_ = Vector3(0, +2.5f, -10.0f);
 
 	// ゲームキャラクターマネージャー生成 + 初期化
 	gameCharacterManager_.reset(new GameCharacterManager());

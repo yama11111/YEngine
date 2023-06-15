@@ -145,6 +145,9 @@
     <Filter Include="Application\Game\Chara\Pet">
       <UniqueIdentifier>{c726d973-737b-43fb-996e-7ebbceb701ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Chara\Collider">
+      <UniqueIdentifier>{ab8f6ab1-beef-4732-a619-3c07bf5a3e32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -399,16 +402,10 @@
     <ClCompile Include="Application\Game\Player.cpp">
       <Filter>Application\Game\Chara\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\GameObjectCollider.cpp">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\CharacterStatus.cpp">
       <Filter>Application\Game\Chara\Base</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\GameCharacterManager.cpp">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\GameObjectCollisionManager.cpp">
       <Filter>Application\Game\Chara\Base</Filter>
     </ClCompile>
     <ClCompile Include="Application\Draw\Drawer\IDrawer.cpp">
@@ -416,6 +413,15 @@
     </ClCompile>
     <ClCompile Include="Application\Draw\Drawer\PlayerDrawer.cpp">
       <Filter>Application\Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\Drawer\BlockDrawer.cpp">
+      <Filter>Application\Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GameObjectCollider.cpp">
+      <Filter>Application\Game\Chara\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GameObjectCollisionManager.cpp">
+      <Filter>Application\Game\Chara\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -686,16 +692,10 @@
     <ClInclude Include="Application\Game\Player.h">
       <Filter>Application\Game\Chara\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\GameObjectCollider.h">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\CharacterStatus.h">
       <Filter>Application\Game\Chara\Base</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\GameCharacterManager.h">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\GameObjectCollisionManager.h">
       <Filter>Application\Game\Chara\Base</Filter>
     </ClInclude>
     <ClInclude Include="Application\Draw\Drawer\IDrawer.h">
@@ -703,6 +703,15 @@
     </ClInclude>
     <ClInclude Include="Application\Draw\Drawer\PlayerDrawer.h">
       <Filter>Application\Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Drawer\BlockDrawer.h">
+      <Filter>Application\Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GameObjectCollider.h">
+      <Filter>Application\Game\Chara\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GameObjectCollisionManager.h">
+      <Filter>Application\Game\Chara\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

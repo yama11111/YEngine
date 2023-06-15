@@ -86,9 +86,6 @@ namespace YGame
 		// 最大ジャンプ回数
 		uint16_t maxJumpCount_ = 0;
 
-		// 着地フラグ
-		bool isLanding_ = false;
-
 		// キャラクターステータス
 		CharacterStatus status_;
 	};

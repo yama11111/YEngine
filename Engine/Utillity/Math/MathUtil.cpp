@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Def.h"
+#include "Vector3.h"
 
 void YMath::Srand() { srand(static_cast<unsigned int>(time(NULL))); }
 
@@ -57,6 +58,17 @@ template<>
 double YMath::Clamp(const double num, const double lower, const double upper)
 {
 	return std::fmin(std::fmax(num, lower), upper);
+}
+template<>
+YMath::Vector3 YMath::Clamp(const YMath::Vector3 num, const YMath::Vector3 lower, const YMath::Vector3 upper)
+{
+	Vector3 result;
+
+	result.x_ = std::fminf(std::fmaxf(num.x_, lower.x_), upper.x_);
+	result.y_ = std::fminf(std::fmaxf(num.y_, lower.y_), upper.y_);
+	result.z_ = std::fminf(std::fmaxf(num.z_, lower.z_), upper.z_);
+
+	return result;
 }
 
 YMath::Vector4 YMath::GetColor(const int R, const int G, const int B, const int A)

@@ -1,5 +1,4 @@
 #include "IGameCharacter.h"
-#include "Physics.h"
 #include "MapChipManager.h"
 
 using YGame::IGameCharacter;
@@ -42,11 +41,16 @@ void IGameCharacter::Update()
 	MapChipManager::GetInstance()->CurrentMapPointer()->PerfectPixelCollision(*this);
 
 	// 着地しているなら
-	if (isLanding_)
+	if (MapChipCollider::IsLanding())
 	{
 		// ジャンプ回数初期化
 		jumpCounter_ = 0;
 	}
+
+	transform_->pos_ += speed_.Velocity();
+
+	// オブジェクト更新
+	IGameObject::Update();
 }
 
 bool IGameCharacter::IsAlive() const

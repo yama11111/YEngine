@@ -109,6 +109,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application\Draw\Drawer\BlockDrawer.cpp" />
     <ClCompile Include="Application\Draw\Drawer\IDrawer.cpp" />
     <ClCompile Include="Application\Draw\Drawer\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Draw\Drawer\UIChargeButtonDrawer.cpp" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Engine\Utillity\Math\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application\Draw\Drawer\BlockDrawer.h" />
     <ClInclude Include="Application\Draw\Drawer\IDrawer.h" />
     <ClInclude Include="Application\Draw\Drawer\PlayerDrawer.h" />
     <ClInclude Include="Application\Draw\Drawer\UIChargeButtonDrawer.h" />

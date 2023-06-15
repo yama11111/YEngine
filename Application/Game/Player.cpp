@@ -11,8 +11,8 @@ using YInput::Pad;
 
 static const float Radius = 0.0f;
 static const Vector3 ScaleSize = { 1.0f,1.0f,1.0f };
-static const Vector3 Acceleration = { 0.3f,1.5f,0.0f };
-static const Vector3 MaxSpeed = { 1.5f,1.5f,0.0f };
+static const Vector3 Acceleration = { 0.1f,1.0f,0.0f };
+static const Vector3 MaxSpeed = { 0.3f,1.0f,0.0f };
 static const uint16_t MaxJumpCount = 2;
 static const uint32_t HP = 3;
 static const uint32_t Attack = 20;
@@ -39,7 +39,7 @@ void Player::Initialize(const Vector3& pos, IPet* pPet)
 void Player::Update()
 {
 	// 自動で前に進む
-	moveDirection_.x_ = 1.0f;
+	moveDirection_.x_ = +1.0f;
 
 	// SPACE キー or A ボタン
 	if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
@@ -51,9 +51,6 @@ void Player::Update()
 	
 	// キャラクター更新
 	IGameCharacter::Update();
-
-	// オブジェクト更新
-	IGameObject::Update();
 }
 
 void Player::Draw()

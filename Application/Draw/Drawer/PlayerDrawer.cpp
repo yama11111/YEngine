@@ -9,13 +9,13 @@ void PlayerDrawer::Initialize(Transform* pParent)
 	IDrawer::Initialize(pParent);
 	
 	// モデル設定
-	pModel_ = Model::CreateCube("face.png");
+	pModel_ = Model::CreateCube("player.png");
 }
 
 void PlayerDrawer::Update()
 {
 	// オブジェクト更新
-
+	obj_->UpdateMatrix();
 }
 
 void PlayerDrawer::Draw(const DrawLocation location)

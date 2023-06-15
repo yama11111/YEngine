@@ -2,6 +2,7 @@
 #include "Def.h"
 #include "YGameSceneFactory.h"
 #include "YGameTransitionFactory.h"
+#include "MapChipManager.h"
 
 #pragma region 名前空間宣言
 using YBase::MyGame;
@@ -16,6 +17,9 @@ bool MyGame::Initialize()
 {
 	// 基底クラス初期化処理
 	if (YFramework::Initialize() == false) { return false; }
+
+	// ステージ
+	MapChipManager::GetInstance()->Load("demo.csv");
 
 	// シーンファクトリー設定
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());

@@ -1,4 +1,5 @@
 #include "MapChip.h"
+#include "BlockDrawer.h"
 #include <cassert>
 
 using YGame::MapChip;
@@ -21,7 +22,7 @@ void MapChip::Reset()
 		for (size_t x = 0; x < nums[y].size(); x++)
 		{
 			// 0‚È‚ç’e‚­
-			if (nums[y][x] == 0) { break; }
+			if (nums[y][x] == 0) { continue; }
 
 			// ƒ`ƒbƒv¶¬
 			std::unique_ptr<ChipData> chip = std::make_unique<ChipData>();
@@ -34,6 +35,10 @@ void MapChip::Reset()
 
 			// ‰Šú‰»
 			chip->transform_.Initialize({ pos,{},chipScale_ });
+
+			// •`‰æƒNƒ‰ƒX
+			chip->drawer_.reset(new BlockDrawer());
+			chip->drawer_->Initialize(&chip->transform_);
 
 			// 1”ÔŒã‚ë‚É‘}“ü
 			chips_.push_back(std::move(chip));
@@ -50,6 +55,7 @@ void MapChip::Update()
 	for (std::unique_ptr<ChipData>& chip : chips_)
 	{
 		chip->transform_.UpdateMatrix();
+		chip->drawer_->Update();
 	}
 }
 
@@ -61,13 +67,13 @@ void MapChip::Draw()
 	// •`‰æ
 	for (std::unique_ptr<ChipData>& chip : chips_)
 	{
-		
+		chip->drawer_->Draw(YGame::DrawLocation::eCenter);
 	}
 }
 
 bool MapChip::CollisionChip(const int x, const int y)
 {
-
+	if (pMapData_->chipNums_[y][x] == 1) { return true; }
 
 	return false;
 }

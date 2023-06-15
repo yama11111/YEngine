@@ -36,7 +36,7 @@ void MapData::LoadCSV(const std::string& mapFileName)
 	while (true)
 	{
 		// 文字取得
-		uint16_t c = fgetc(fp);
+		int16_t c = fgetc(fp);
 
 		// 列
 		if (c == ',') 
@@ -67,7 +67,7 @@ void MapData::LoadCSV(const std::string& mapFileName)
 		}
 
 		// 保存用に挿入
-		column.push_back(c - 48);
+		column.push_back(static_cast<uint16_t>(c - 48));
 	}
 
 	// ファイルを閉じる

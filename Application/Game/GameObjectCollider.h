@@ -81,9 +81,6 @@ namespace YGame
 		// 位置ポインタ
 		YMath::Vector3* pPos_ = nullptr;
 
-		// 球
-		YGame::Sphere sphere_;
-
 		// すり抜けるか
 		bool isSlip_ = false;
 
