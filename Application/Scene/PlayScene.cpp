@@ -5,6 +5,7 @@
 #include <imgui.h>
 
 #include "Player.h"
+#include "Slime.h"
 
 #pragma region 名前空間宣言
 
@@ -25,6 +26,12 @@ void PlayScene::Load()
 {
 	// シングルトン
 	pMapChipManager_ = MapChipManager::GetInstance();
+
+	// 描画クラス
+	IDrawer::StaticInitialize(&transferVP_);
+
+	// プレイヤー
+	Player::StaticInitialize(&scrollCamera_);
 }
 #pragma endregion
 
@@ -35,26 +42,40 @@ void PlayScene::Initialize()
 	// マップチップ初期化
 	pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
-	// ビュープロジェクション初期化
-	transferVP_.Initialize();
-	transferVP_.eye_ = Vector3(0, +2.5f, -10.0f);
-
 	// ゲームキャラクターマネージャー生成 + 初期化
 	gameCharacterManager_.reset(new GameCharacterManager());
 	gameCharacterManager_->Initialize();
+
+	// カメラ初期化
+	scrollCamera_.Initialize(Vector3(-20.0f, +10.0f, -20.0f), nullptr, Vector3());
+
+	// ビュープロジェクション初期化
+	transferVP_.Initialize();
 
 	// キャラクター
 	{
 		// プレイヤー
 		{
 			// プレイヤー生成
-			Player* player = new Player();
+			Player* newPlayer = new Player();
 
 			// プレイヤー初期化
-			player->Initialize({});
+			newPlayer->Initialize({ {}, {}, {1.0f,1.0f,1.0f} });
 
 			// 挿入
-			gameCharacterManager_->PushBack(player);
+			gameCharacterManager_->PushBack(newPlayer);
+		}
+
+		// スライム
+		{
+			// スライム生成
+			Slime* newSlime = new Slime();
+
+			// スライム初期化
+			newSlime->Initialize({ {10.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			gameCharacterManager_->PushBack(newSlime);
 		}
 	}
 }
@@ -77,8 +98,20 @@ void PlayScene::Update()
 	// ゲームキャラクター更新
 	gameCharacterManager_->Update();
 
+	// カメラ更新
+	scrollCamera_.Update();
+
+	// ビュープロジェクション代入
+	transferVP_ = scrollCamera_.GetViewProjection();
+
 	// ビュープロジェクション更新
 	transferVP_.UpdateMatrix();
+
+	// リセット
+	if (sKeys_->IsTrigger(DIK_R))
+	{
+		SceneManager::GetInstance()->Change("PLAY");
+	}
 }
 #pragma endregion
 

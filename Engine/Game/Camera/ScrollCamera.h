@@ -28,7 +28,7 @@ namespace YGame
 		// ƒJƒƒ‰Œü‚«
 		YMath::Vector3 Direction() override { return Camera::Direction(); }
 		// ’Ç]“_İ’è
-		void SetFollowPoint(YMath::Vector3* pFollowPoint) override { Camera::SetFollowPoint(pFollowPoint); }
+		void SetFollowPoint(YMath::Vector3* pFollowPoint) override;
 		// ’Ç]İ’è
 		void SetIsFollow(const bool isFollow) override { Camera::SetIsFollow(isFollow); }
 	public:

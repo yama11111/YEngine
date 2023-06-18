@@ -423,6 +423,18 @@
     <ClCompile Include="Application\Game\GameObjectCollisionManager.cpp">
       <Filter>Application\Game\Chara\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\Slime.cpp">
+      <Filter>Application\Game\Chara\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\Drawer\SlimeDrawer.cpp">
+      <Filter>Application\Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\Drawer\HorseDrawer.cpp">
+      <Filter>Application\Draw\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Horse.cpp">
+      <Filter>Application\Game\Chara\Pet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -712,6 +724,18 @@
     </ClInclude>
     <ClInclude Include="Application\Game\GameObjectCollisionManager.h">
       <Filter>Application\Game\Chara\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Slime.h">
+      <Filter>Application\Game\Chara\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Drawer\SlimeDrawer.h">
+      <Filter>Application\Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Drawer\HorseDrawer.h">
+      <Filter>Application\Draw\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Horse.h">
+      <Filter>Application\Game\Chara\Pet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "IGameCharacter.h"
 #include "IPet.h"
+#include "ScrollCamera.h"
 
 namespace YGame
 {
@@ -14,10 +15,10 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pos"> : 位置</param>
+		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="pPet"> : ペットポインタ</param>
 		void Initialize(
-			const YMath::Vector3& pos, 
+			const Transform::Status& status, 
 			IPet* pPet = nullptr);
 
 		/// <summary>
@@ -40,6 +41,14 @@ namespace YGame
 
 	public:
 
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		/// <param name="pScrollCamera"> : スクロールカメラポインタ</param>
+		static void StaticInitialize(ScrollCamera* pScrollCamera);
+
+	public:
+
 		Player() = default;
 
 		~Player() = default;
@@ -51,6 +60,11 @@ namespace YGame
 
 		// ペットポインタ
 		IPet* pPet_ = nullptr;
+
+	private:
+
+		// 静的スクロールカメラポインタ
+		static ScrollCamera* spScrollCamera_;
 
 	};
 }

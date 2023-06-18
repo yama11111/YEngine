@@ -36,6 +36,14 @@ namespace YGame
 
 	public:
 
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		static void StaticInitialize(ViewProjection* pVP);
+	
+	public:
+
 		IDrawer() = default;
 
 		virtual ~IDrawer() = default;
@@ -47,5 +55,10 @@ namespace YGame
 
 		// モデルポインタ
 		Model* pModel_ = nullptr;
+
+	protected:
+
+		// ビュープロジェクションポインタ
+		static ViewProjection* spVP_;
 	};
 }

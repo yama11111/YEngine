@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "MapChipManager.h"
 #include "GameCharacterManager.h"
+#include "ScrollCamera.h"
 
 namespace YScene
 {
@@ -23,6 +24,9 @@ namespace YScene
 
 		// マップチップマネージャー
 		YGame::MapChipManager* pMapChipManager_ = nullptr;
+
+		// スクロールカメラ
+		YGame::ScrollCamera scrollCamera_;
 
 		// 転送用ビュープロジェクション
 		YGame::ViewProjection transferVP_;

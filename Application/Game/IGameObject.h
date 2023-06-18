@@ -31,6 +31,12 @@ namespace YGame
 		virtual void Update();
 
 		/// <summary>
+		/// デバッグ描画
+		/// </summary>
+		/// <param name="isWindow"> : ウィンドウにするか</param>
+		virtual void DrawDebugText(const bool isWindow = true);
+		
+		/// <summary>
 		/// 描画
 		/// </summary>
 		virtual void Draw() = 0;

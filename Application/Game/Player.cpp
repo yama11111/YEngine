@@ -9,20 +9,21 @@ using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
 
+YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
+
 static const float Radius = 0.0f;
-static const Vector3 ScaleSize = { 1.0f,1.0f,1.0f };
 static const Vector3 Acceleration = { 0.1f,1.0f,0.0f };
 static const Vector3 MaxSpeed = { 0.3f,1.0f,0.0f };
 static const uint16_t MaxJumpCount = 2;
 static const uint32_t HP = 3;
 static const uint32_t Attack = 20;
 
-void Player::Initialize(const Vector3& pos, IPet* pPet)
+void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
 	// ゲームキャラクター初期化
 	IGameCharacter::Initialize(
 		GameObjectCollider::Type::ePlayer,
-		{ pos, {}, ScaleSize },
+		status,
 		Radius, 
 		Acceleration, MaxSpeed,
 		MaxJumpCount,
@@ -34,6 +35,9 @@ void Player::Initialize(const Vector3& pos, IPet* pPet)
 
 	// ペット設定
 	pPet_ = pPet;
+
+	// スクロールカメラ追従点設定
+	spScrollCamera_->SetFollowPoint(&transform_->pos_);
 }
 
 void Player::Update()
@@ -66,4 +70,13 @@ void Player::SetPetPointer(IPet* pPet)
 
 	// 代入
 	pPet_ = pPet;
+}
+
+void Player::StaticInitialize(ScrollCamera* pScrollCamera)
+{
+	// nullチェック
+	assert(pScrollCamera);
+
+	// 代入
+	spScrollCamera_ = pScrollCamera;
 }

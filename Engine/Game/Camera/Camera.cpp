@@ -26,17 +26,13 @@ void Camera::Initialize(const Vector3 pos, const Vector3 rota)
 
 void Camera::Initialize(const Vector3 pos, Vector3* pFollowPoint, bool isFollow)
 {
-	// nullチェック
-	assert(pFollowPoint);
-	// 代入
-	pFollowPoint_ = pFollowPoint;
-
 	// 初期化 + 代入
 	shake_.Initialize();
 	pos_ = pos;
 	rota_ = {};
 	transform_.Initialize({ pos_, rota_, {1.0f,1.0f,1.0f} });
 	vp_.Initialize();
+	pFollowPoint_ = pFollowPoint;
 	
 	SetIsFollow(isFollow);
 
@@ -143,12 +139,8 @@ void Camera::SetFollowPoint(Vector3* pFollowPoint)
 	// 代入
 	pFollowPoint_ = pFollowPoint;
 	
-	// nullなら
-	if (pFollowPoint == nullptr)
-	{
-		// 追従しない
-		isFollow_ = false;
-	}
+	// 追従するか
+	isFollow_ = (pFollowPoint != nullptr);
 }
 
 void Camera::SetIsFollow(const bool isFollow)

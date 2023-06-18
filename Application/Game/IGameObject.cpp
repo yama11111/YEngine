@@ -35,6 +35,15 @@ void IGameObject::Update()
 	GameObjectCollider::Update();
 }
 
+void IGameObject::DrawDebugText(const bool isWindow)
+{
+	// ウィンドウなら
+	if (isWindow)
+	{
+
+	}
+}
+
 void IGameObject::SetDrawer(IDrawer* drawer)
 {
 	// null なら
