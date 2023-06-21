@@ -17,7 +17,7 @@ void Slime::Initialize(const Transform::Status& status)
 {
 	// ゲームキャラクター初期化
 	IGameCharacter::Initialize(
-		Attribute::Enemy, Attribute::Player,
+		Attribute::kEnemy, Attribute::kPlayer,
 		status,
 		Radius,
 		Acceleration, MaxSpeed,

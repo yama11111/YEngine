@@ -18,12 +18,12 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="type"> : 種類</param>
+		/// <param name="attribute"> : 属性</param>
+		/// <param name="mask"> : マスク</param>
 		/// <param name="status"> : ステータス</param>
 		/// <param name="radius"> : 半径</param>
 		/// <param name="acceleration"> : 加速度</param>
 		/// <param name="maxSpeed"> : 最大速度</param>
-		/// <param name="maxJumpCount"> : </param>
 		/// <param name="hp"> : HP</param>
 		/// <param name="attack"> : 攻撃力</param>
 		/// <param name="invincibleTime"> : 無敵時間</param>
@@ -31,8 +31,7 @@ namespace YGame
 		/// <param name="location"> : 描画位置</param>
 		void Initialize(
 			const uint32_t attribute, const uint32_t mask,
-			const Transform::Status& status, 
-			const float radius,
+			const Transform::Status& status, const float radius,
 			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
 			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
 			IDrawer* drawer, const DrawLocation location);

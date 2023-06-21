@@ -1,9 +1,11 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
 #include "CollisionConfig.h"
+#include "MapChipCollisionBitConfig.h"
 #include "Keys.h"
 #include "Pad.h"
 #include <cassert>
+#include <imgui.h>
 
 using YGame::Player;
 using YMath::Vector3;
@@ -24,7 +26,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
 	// ゲームキャラクター初期化
 	IGameCharacter::Initialize(
-		Attribute::Player, Attribute::All, 
+		Attribute::kPlayer, Attribute::kAll, 
 		status,
 		Radius, 
 		Acceleration, MaxSpeed,
@@ -64,7 +66,7 @@ void Player::Update()
 	IGameCharacter::Update();
 
 	// 着地しているなら
-	if (MapChipCollider::IsLanding())
+	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
 	{
 		// ジャンプ回数初期化
 		jumpCounter_ = 0;
@@ -83,14 +85,9 @@ void Player::Jump()
 	jumpCounter_++;
 }
 
-void Player::Draw()
-{
-	// 描画
-	drawer_->Draw(DrawLocation::eCenter);
-}
-
 void Player::OnCollision(IGameCharacter* pPair)
 {
+
 }
 
 void Player::SetPetPointer(IPet* pPet)
