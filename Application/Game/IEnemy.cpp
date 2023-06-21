@@ -13,3 +13,8 @@ void IEnemy::Draw()
 	// •`‰æ
 	drawer_->Draw(DrawLocation::eCenter);
 }
+
+void IEnemy::OnCollision(IGameCharacter* pPair)
+{
+
+}

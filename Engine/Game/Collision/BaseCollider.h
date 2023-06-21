@@ -1,83 +1,102 @@
 #pragma once
-#include "Vector3.h"
+#include "CollisionPrimitive.h"
 #include <cstdint>
 
 namespace YGame
 {
 
 	// コライダー基底クラス
-	class BaseCollider
+	class BaseCollider : 
+		public Sphere
 	{
+	
+	public:
+
+		/// <summary>
+		/// 属性取得
+		/// </summary>
+		/// <returns>属性</returns>
+		inline uint32_t Attribute() const { return attribute_; }
+
+		/// <summary>
+		/// マスク取得
+		/// </summary>
+		/// <returns>マスク</returns>
+		inline uint32_t Mask() const { return mask_; }
+
+		/// <summary>
+		/// すり抜けフラグ取得
+		/// </summary>
+		/// <returns>すり抜けフラグ</returns>
+		inline bool IsSlip() const { return isSlip_; };
+	
+	protected:
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="attribute"> : 属性</param>
+		/// <param name="mask"> : マスク</param>
+		/// <param name="pPos"> : 位置ポインタ</param>
+		/// <param name="radius"> : 半径</param>
+		/// <param name="isSlip"> : すり抜けフラグ</param>
+		void Initialize(
+			const uint32_t attribute, 
+			const uint32_t mask, 
+			YMath::Vector3* pPos,
+			const float radius,
+			const bool isSlip = false);
+		
+		/// <summary>
+		/// 更新
+		/// </summary>
+		void Update();
+
+	protected:
+
+		/// <summary>
+		/// 属性設定
+		/// </summary>
+		/// <param name="attribute"> : 属性</param>
+		inline void SetAttribute(const uint32_t attribute) { attribute_ = attribute; }
+
+		/// <summary>
+		/// マスク設定
+		/// </summary>
+		/// <param name="mask"> : マスク</param>
+		inline void SetMask(const uint32_t mask) { mask_ = mask; }
+
+		/// <summary>
+		/// すり抜けフラグ設定
+		/// </summary>
+		/// <param name="isSlip"> : すり抜けフラグ</param>
+		inline void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
+
+		/// <summary>
+		/// 位置ポインタ設定
+		/// </summary>
+		/// <param name="pPos"> : 位置ポインタ</param>
+		void SetPosPointer(YMath::Vector3* pPos);
 
 	public:
 
-		// 衝突型
-		enum class ShapeType
-		{
-			eUnkown = -1, // 未設定
+		BaseCollider() = default;
 
-			eSphere, // 球
-		};
+		virtual ~BaseCollider() = default;
 	
 	protected:
-		
-		// オフセット
-		YMath::Vector3 offset_;
-		
-		// 衝突型
-		ShapeType shape_ = ShapeType::eUnkown;
 		
 		// 属性 (自分)
 		uint32_t attribute_ = 0xffffffff;
 		
 		// マスク (相手)
 		uint32_t mask_ = 0xffffffff;
+
+		// 位置ポインタ
+		YMath::Vector3* pPos_ = nullptr;
 		
 		// すり抜けフラグ
 		bool isSlip_ = false;
-	
-	public:
-		
-		// 衝突情報
-		struct CollsionInfo
-		{
-		
-		public:
-			BaseCollider* pair_ = nullptr; // コライダー (相手)
-			//YMath::Vector3 inter; // 衝突点
-		};
-	
-	public:
-		
-		// 更新
-		virtual void Update() = 0;
-		
-		// 衝突時コールバック関数
-		virtual void OnCollision(const CollsionInfo& info) = 0;
-	
-	public:
-		// オフセット値取得
-		inline virtual YMath::Vector3 GetPos() const;
-		// オフセット値取得
-		inline YMath::Vector3 SetOffset() const { return offset_; }
-		// オフセット値設定
-		inline void SetOffset(const YMath::Vector3& offset) { offset_ = offset; }
-		// 衝突型取得
-		inline ShapeType GetShapeType() const { return shape_; }
-		// 属性取得
-		inline uint32_t GetAttribute() const { return attribute_; }
-		// 属性設定
-		inline void SetAttribute(const uint32_t attribute) { attribute_ = attribute; }
-		// マスク取得
-		inline uint32_t GetMask() const { return mask_; }
-		// マスク設定
-		inline void SetMask(const uint32_t mask) { mask_ = mask; }
-		// すり抜けフラグ取得
-		inline bool GetIsSlip() const { return isSlip_; }
-		// すり抜けフラグ設定
-		inline void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
-	public:
-		BaseCollider() = default;
-		virtual ~BaseCollider() = default;
+
 	};
 }

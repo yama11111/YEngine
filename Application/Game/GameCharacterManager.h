@@ -1,6 +1,5 @@
 #pragma once
 #include "IGameCharacter.h"
-#include "GameObjectCollisionManager.h"
 
 namespace YGame
 {
@@ -34,16 +33,27 @@ namespace YGame
 		/// <summary>
 		/// 挿入
 		/// </summary>
-		/// <param name="character"> : キャラクター</param>
+		/// <param name="character"> : キャラクター (動的)</param>
 		void PushBack(IGameCharacter* character);
+
+	private:
+
+		/// <summary>
+		/// アタリ判定全チェック
+		/// </summary>
+		void CheckAllCollision();
+
+		/// <summary>
+		/// ペアのアタリ判定チェック
+		/// </summary>
+		/// <param name="pCharacterA"> : キャラA</param>
+		/// <param name="pCharacterB"> : キャラB</param>
+		static void CheckCollisionPair(IGameCharacter* pCharacterA, IGameCharacter* pCharacterB);
 
 	private:
 
 		// オブジェクトリスト
 		std::list<std::unique_ptr<IGameCharacter>> characters_;
-
-		// オブジェクト同士の判定マネージャー
-		GameObjectCollisionManager collMan_;
 
 	};
 }

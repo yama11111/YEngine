@@ -31,7 +31,11 @@ namespace YGame
 		/// </summary>
 		void Draw() override;
 
-	public:
+		/// <summary>
+		/// 衝突判定
+		/// </summary>
+		/// <param name="pPair"> : 相手のキャラクターポインタ</param>
+		void OnCollision(IGameCharacter* pPair) override;
 
 		/// <summary>
 		/// ペットポインタ設定
@@ -55,6 +59,12 @@ namespace YGame
 
 	private:
 
+		// ジャンプカウンター
+		uint16_t jumpCounter_ = 0;
+
+		// 最大ジャンプ回数
+		uint16_t maxJumpCount_ = 0;
+
 		// 鎧を着ているか
 		bool isArmed_ = false;
 
@@ -65,6 +75,13 @@ namespace YGame
 
 		// 静的スクロールカメラポインタ
 		static ScrollCamera* spScrollCamera_;
+
+	private:
+
+		/// <summary>
+		/// ジャンプ
+		/// </summary>
+		void Jump();
 
 	};
 }

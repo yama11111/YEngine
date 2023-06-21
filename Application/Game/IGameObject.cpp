@@ -4,11 +4,9 @@
 using YGame::IGameObject;
 
 void IGameObject::Initialize(
-	const Type type, 
-	const Transform::Status& status, 
-	const float radius, 
-	const bool isSlip,
-	IDrawer* drawer)
+	const Transform::Status& status,
+	IDrawer* drawer,
+	const DrawLocation location)
 {
 	// 核生成
 	transform_.reset(new Transform());
@@ -19,8 +17,8 @@ void IGameObject::Initialize(
 	// 描画クラス
 	SetDrawer(drawer);
 
-	// コライダー初期化
-	GameObjectCollider::Initialize(type, &transform_->pos_, radius, isSlip);
+	// 描画位置設定
+	SetDrawLocation(location);
 }
 
 void IGameObject::Update()
@@ -30,27 +28,21 @@ void IGameObject::Update()
 
 	// 描画クラス更新
 	drawer_->Update();
-	
-	// コライダー更新
-	GameObjectCollider::Update();
 }
 
-void IGameObject::DrawDebugText(const bool isWindow)
+void IGameObject::Draw()
 {
-	// ウィンドウなら
-	if (isWindow)
-	{
-
-	}
+	// 描画
+	drawer_->Draw(location_);
 }
 
 void IGameObject::SetDrawer(IDrawer* drawer)
 {
 	// null なら
-	if (drawer == nullptr && drawer_ == nullptr)
+	if (drawer == nullptr)
 	{
 		// スタンダード描画クラス設定
-		// drawer_.reset(スタンダード);
+		//drawer_.reset(スタンダード);
 	}
 	else
 	{
@@ -60,4 +52,10 @@ void IGameObject::SetDrawer(IDrawer* drawer)
 
 	// 描画クラス初期化
 	drawer_->Initialize(transform_.get());
+}
+
+void IGameObject::SetDrawLocation(const DrawLocation location)
+{
+	// 代入
+	location_ = location;
 }

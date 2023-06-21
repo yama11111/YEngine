@@ -1,9 +1,9 @@
 #pragma once
-#include <cstdint>
+#include "Timer.h"
 
 namespace YGame
 {
-	class CharacterStatus
+	class CharacterStatus final
 	{
 
 	public:
@@ -13,13 +13,20 @@ namespace YGame
 		/// </summary>
 		/// <param name="hp"> : ‘Ì—Í</param>
 		/// <param name="attack"> : UŒ‚—Í</param>
-		void Initialize(const uint32_t hp, const uint32_t attack);
+		/// <param name="invincibleTime"> : –³“GŠÔ</param>
+		void Initialize(const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime);
+
+		/// <summary>
+		/// XV
+		/// </summary>
+		void Update();
 
 		/// <summary>
 		/// ƒ_ƒ[ƒW
 		/// </summary>
 		/// <param name="attack"> : UŒ‚—Í</param>
-		void Damage(const uint32_t attack);
+		/// <param name="isInvincible"> : –³“G‚É‚·‚é‚©</param>
+		void Damage(const uint32_t attack, const bool isInvincible);
 
 	public:
 
@@ -66,6 +73,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="isInvincible"> : –³“Gƒ‚[ƒh</param>
 		void SetInvincible(const bool isInvincible);
+		
+		/// <summary>
+		/// –³“GŠÔİ’è
+		/// </summary>
+		/// <param name="invincibleTime">–³“GŠÔ</param>
+		void SetInvincibleTime(const uint32_t invincibleTime);
 	
 	public:
 
@@ -86,6 +99,9 @@ namespace YGame
 		
 		// –³“Gƒ‚[ƒh
 		bool isInvincible_ = true;
+
+		// –³“Gƒ^ƒCƒ}[
+		YMath::Timer invincibleTimer_;
 
 	};
 }

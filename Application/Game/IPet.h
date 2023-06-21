@@ -3,15 +3,23 @@
 
 namespace YGame
 {
-    class IPet :
-        public IGameCharacter
-    {
+	class IPet :
+		public IGameCharacter
+	{
 
-    public:
+	public:
 
-        IPet() = default;
+		/// <summary>
+		/// 衝突判定
+		/// </summary>
+		/// <param name="pPair"> : 相手のキャラクターポインタ</param>
+		void OnCollision(IGameCharacter* pPair) override;
 
-        ~IPet() = default;
+	public:
 
-    };
+		IPet() = default;
+
+		~IPet() = default;
+
+	};
 }

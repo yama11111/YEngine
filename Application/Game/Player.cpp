@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
+#include "CollisionConfig.h"
 #include "Keys.h"
 #include "Pad.h"
 #include <cassert>
@@ -11,24 +12,30 @@ using YInput::Pad;
 
 YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
 
-static const float Radius = 0.0f;
+static const float Radius = 1.0f;
 static const Vector3 Acceleration = { 0.1f,1.0f,0.0f };
 static const Vector3 MaxSpeed = { 0.3f,1.0f,0.0f };
 static const uint16_t MaxJumpCount = 2;
 static const uint32_t HP = 3;
 static const uint32_t Attack = 20;
+static const uint32_t InvincibleTime = 10;
 
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
 	// ゲームキャラクター初期化
 	IGameCharacter::Initialize(
-		GameObjectCollider::Type::ePlayer,
+		Attribute::Player, Attribute::All, 
 		status,
 		Radius, 
 		Acceleration, MaxSpeed,
-		MaxJumpCount,
-		HP, Attack,
-		new PlayerDrawer());
+		HP, Attack, InvincibleTime,
+		new PlayerDrawer(), DrawLocation::eCenter);
+
+	// ジャンプカウンター初期化
+	jumpCounter_ = 0;
+
+	// 最大ジャンプ回数初期化
+	maxJumpCount_ = MaxJumpCount;
 
 	// 開始時は武装する
 	isArmed_ = true;
@@ -55,12 +62,35 @@ void Player::Update()
 	
 	// キャラクター更新
 	IGameCharacter::Update();
+
+	// 着地しているなら
+	if (MapChipCollider::IsLanding())
+	{
+		// ジャンプ回数初期化
+		jumpCounter_ = 0;
+	}
+}
+
+void Player::Jump()
+{
+	// ジャンプ回数 が 最大回数超えてたら 弾く
+	if (jumpCounter_ >= maxJumpCount_) { return; }
+
+	// y軸 に進む
+	moveDirection_.y_ = 1.0f;
+
+	// ジャンプカウント
+	jumpCounter_++;
 }
 
 void Player::Draw()
 {
 	// 描画
 	drawer_->Draw(DrawLocation::eCenter);
+}
+
+void Player::OnCollision(IGameCharacter* pPair)
+{
 }
 
 void Player::SetPetPointer(IPet* pPet)

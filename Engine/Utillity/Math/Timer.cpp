@@ -2,10 +2,10 @@
 
 using YMath::Timer;
 
-void Timer::Initialize(const unsigned int end, const bool isApply)
+void Timer::Initialize(const uint32_t end, const bool isApply)
 {
 	// 代入
-	end_ = static_cast<float>(end);
+	SetEnd(end);
 	isApply_ = isApply;
 
 	// リセット
@@ -45,4 +45,10 @@ float Timer::Ratio()
 	// 0で割らないように
 	if (end_ == 0) { return 0.0f; }
 	return count_ / end_;
+}
+
+void Timer::SetEnd(const uint32_t end)
+{
+	// キャストして代入
+	end_ = static_cast<float>(end);
 }

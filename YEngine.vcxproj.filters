@@ -136,17 +136,11 @@
     <Filter Include="Application\Game\Chara\Enemy">
       <UniqueIdentifier>{a822410d-4324-459f-83d2-237ed272e10c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Chara\Base">
-      <UniqueIdentifier>{5b6ea720-c9ca-427e-9ffd-32514f21a4d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Chara\Player">
       <UniqueIdentifier>{7f427dfb-24a5-4964-b8a2-1f56cdcd4c3d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\Game\Chara\Pet">
       <UniqueIdentifier>{c726d973-737b-43fb-996e-7ebbceb701ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Game\Chara\Collider">
-      <UniqueIdentifier>{ab8f6ab1-beef-4732-a619-3c07bf5a3e32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Camera\Camera.cpp">
       <Filter>Engine\Game\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Collision\CollisionManager.cpp">
-      <Filter>Engine\Game\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp">
       <Filter>Engine\Game\MapChip</Filter>
@@ -243,13 +234,7 @@
     <ClCompile Include="Engine\Utillity\Math\CollisionDetection.cpp">
       <Filter>Engine\Util\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Collision\CollisionPrimitive.cpp">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Collision\BaseCollider.cpp">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Collision\PrimitiveCollider.cpp">
       <Filter>Engine\Game\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\WorldRuler.cpp">
@@ -378,12 +363,6 @@
     <ClCompile Include="Engine\main.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\IGameCharacter.cpp">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\IGameObject.cpp">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Physics.cpp">
       <Filter>Engine\Util\Math</Filter>
     </ClCompile>
@@ -402,12 +381,6 @@
     <ClCompile Include="Application\Game\Player.cpp">
       <Filter>Application\Game\Chara\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\CharacterStatus.cpp">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\GameCharacterManager.cpp">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Draw\Drawer\IDrawer.cpp">
       <Filter>Application\Draw\Drawer</Filter>
     </ClCompile>
@@ -416,12 +389,6 @@
     </ClCompile>
     <ClCompile Include="Application\Draw\Drawer\BlockDrawer.cpp">
       <Filter>Application\Draw\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\GameObjectCollider.cpp">
-      <Filter>Application\Game\Chara\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\GameObjectCollisionManager.cpp">
-      <Filter>Application\Game\Chara\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Slime.cpp">
       <Filter>Application\Game\Chara\Enemy</Filter>
@@ -434,6 +401,24 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Horse.cpp">
       <Filter>Application\Game\Chara\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utillity\DebugText\DebugTextAttacher.cpp">
+      <Filter>Engine\Util\DebugText</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IGameObject.cpp">
+      <Filter>Application\Game\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IGameCharacter.cpp">
+      <Filter>Application\Game\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GameCharacterManager.cpp">
+      <Filter>Application\Game\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CharacterStatus.cpp">
+      <Filter>Application\Game\Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Collision\CollisionPrimitive.cpp">
+      <Filter>Engine\Game\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -466,12 +451,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Camera\Camera.h">
       <Filter>Engine\Game\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Collision\CollisionConfig.h">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Collision\CollisionManager.h">
-      <Filter>Engine\Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h">
       <Filter>Engine\Game\MapChip</Filter>
@@ -537,9 +516,6 @@
       <Filter>Engine\Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Collision\BaseCollider.h">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Collision\PrimitiveCollider.h">
       <Filter>Engine\Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\WorldRuler.h">
@@ -680,12 +656,6 @@
     <ClInclude Include="Engine\Def.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\IGameCharacter.h">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\IGameObject.h">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Physics.h">
       <Filter>Engine\Util\Math</Filter>
     </ClInclude>
@@ -704,12 +674,6 @@
     <ClInclude Include="Application\Game\Player.h">
       <Filter>Application\Game\Chara\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\CharacterStatus.h">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\GameCharacterManager.h">
-      <Filter>Application\Game\Chara\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Draw\Drawer\IDrawer.h">
       <Filter>Application\Draw\Drawer</Filter>
     </ClInclude>
@@ -718,12 +682,6 @@
     </ClInclude>
     <ClInclude Include="Application\Draw\Drawer\BlockDrawer.h">
       <Filter>Application\Draw\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\GameObjectCollider.h">
-      <Filter>Application\Game\Chara\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\GameObjectCollisionManager.h">
-      <Filter>Application\Game\Chara\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Slime.h">
       <Filter>Application\Game\Chara\Enemy</Filter>
@@ -736,6 +694,24 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Horse.h">
       <Filter>Application\Game\Chara\Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utillity\DebugText\DebugTextAttacher.h">
+      <Filter>Engine\Util\DebugText</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IGameObject.h">
+      <Filter>Application\Game\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IGameCharacter.h">
+      <Filter>Application\Game\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GameCharacterManager.h">
+      <Filter>Application\Game\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CharacterStatus.h">
+      <Filter>Application\Game\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CollisionConfig.h">
+      <Filter>Application\Game\Chara</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

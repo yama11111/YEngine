@@ -1,11 +1,9 @@
 #pragma once
 #include "IDrawer.h"
-#include "GameObjectCollider.h"
 
 namespace YGame
 {
-	class IGameObject : 
-		public GameObjectCollider
+	class IGameObject
 	{
 
 	public:
@@ -13,17 +11,13 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="type"> : 種類</param>
 		/// <param name="status"> : 初期化ステータス</param>
-		/// <param name="radius"> : 半径</param>
-		/// <param name="isSlip"> : すりぬけフラグ</param>
-		/// <param name="drawer"> : 描画クラス</param>
+		/// <param name="drawer"> : 描画クラス(動的)</param>
+		/// <param name="location"> : 描画位置</param>
 		void Initialize(
-			const Type type,
 			const Transform::Status& status,
-			const float radius,
-			const bool isSlip = false,
-			IDrawer* drawer = nullptr);
+			IDrawer* drawer = nullptr, 
+			const DrawLocation location = DrawLocation::eCenter);
 
 		/// <summary>
 		/// 更新
@@ -31,23 +25,23 @@ namespace YGame
 		virtual void Update();
 
 		/// <summary>
-		/// デバッグ描画
-		/// </summary>
-		/// <param name="isWindow"> : ウィンドウにするか</param>
-		virtual void DrawDebugText(const bool isWindow = true);
-		
-		/// <summary>
 		/// 描画
 		/// </summary>
-		virtual void Draw() = 0;
+		virtual void Draw();
 	
 	protected:
 
 		/// <summary>
 		/// 描画クラス設定
 		/// </summary>
-		/// <param name="drawer"> : 描画クラス</param>
+		/// <param name="drawer"> : 描画クラス(動的)</param>
 		void SetDrawer(IDrawer* drawer);
+
+		/// <summary>
+		/// 描画位置設定
+		/// </summary>
+		/// <param name="location"> : 描画位置</param>
+		void SetDrawLocation(const DrawLocation location);
 
 	public:
 
@@ -62,5 +56,9 @@ namespace YGame
 
 		// 描画クラス
 		std::unique_ptr<IDrawer> drawer_;
+
+		// 描画位置
+		DrawLocation location_;
+
 	};
 }
