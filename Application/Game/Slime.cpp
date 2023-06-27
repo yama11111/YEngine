@@ -1,5 +1,6 @@
 #include "Slime.h"
 #include "SlimeDrawer.h"
+#include "SphereCollider.h"
 #include "CollisionConfig.h"
 #include <cassert>
 
@@ -16,13 +17,12 @@ static const uint32_t InvincibleTime = 10;
 void Slime::Initialize(const Transform::Status& status)
 {
 	// ゲームキャラクター初期化
-	IGameCharacter::Initialize(
-		Attribute::kEnemy, Attribute::kPlayer,
+	ICharacter::Initialize(
 		status,
-		Radius,
 		Acceleration, MaxSpeed,
 		HP, Attack, InvincibleTime,
-		new SlimeDrawer(), DrawLocation::eCenter);
+		new SphereCollider({}, Attribute::kEnemy, Attribute::kPlayer, Radius),
+		new SlimeDrawer(DrawLocation::eCenter));
 }
 
 void Slime::Update()

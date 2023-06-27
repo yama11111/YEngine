@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 #include "MapChipManager.h"
-#include "GameCharacterManager.h"
+#include "CharacterManager.h"
 #include "ScrollCamera.h"
 
 namespace YScene
@@ -20,7 +20,7 @@ namespace YScene
 #pragma region ゲームオブジェクト
 
 		// キャラクターマネージャー
-		std::unique_ptr<YGame::GameCharacterManager> gameCharacterManager_;
+		std::unique_ptr<YGame::CharacterManager> characterMan_;
 
 		// マップチップマネージャー
 		YGame::MapChipManager* pMapChipManager_ = nullptr;

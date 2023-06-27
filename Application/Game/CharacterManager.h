@@ -1,9 +1,9 @@
 #pragma once
-#include "IGameCharacter.h"
+#include "ICharacter.h"
 
 namespace YGame
 {
-	class GameCharacterManager
+	class CharacterManager
 	{
 		
 	public:
@@ -34,7 +34,7 @@ namespace YGame
 		/// 挿入
 		/// </summary>
 		/// <param name="character"> : キャラクター (動的)</param>
-		void PushBack(IGameCharacter* character);
+		void PushBack(ICharacter* character);
 
 	private:
 
@@ -48,12 +48,19 @@ namespace YGame
 		/// </summary>
 		/// <param name="pCharacterA"> : キャラA</param>
 		/// <param name="pCharacterB"> : キャラB</param>
-		static void CheckCollisionPair(IGameCharacter* pCharacterA, IGameCharacter* pCharacterB);
+		static void CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB);
+		
+		/// <summary>
+		/// アタリ判定チェック
+		/// </summary>
+		/// <param name="pColliderA"> : コライダーA</param>
+		/// <param name="pColliderB"> : コライダーB</param>
+		static bool CheckCollision(BaseCollider* pColliderA, BaseCollider* pColliderB);
 
 	private:
 
 		// オブジェクトリスト
-		std::list<std::unique_ptr<IGameCharacter>> characters_;
+		std::list<std::unique_ptr<ICharacter>> characters_;
 
 	};
 }

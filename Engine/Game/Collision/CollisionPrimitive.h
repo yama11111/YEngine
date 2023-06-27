@@ -27,14 +27,18 @@ namespace YGame
 	public:
 		
 		// レイ開始位置取得
-		YMath::Vector3 GetRayStart() const { return start_; }
+		inline YMath::Vector3 GetRayStart() const { return start_; }
 		
 		// レイ方向取得
-		YMath::Vector3 GetRayDirection() const { return direction_; }
+		inline YMath::Vector3 GetRayDirection() const { return direction_; }
 
 	public:
 
-		~Ray() = default;
+		Ray() = default;
+
+		Ray(const YMath::Vector3& start, const YMath::Vector3& direction);
+
+		virtual ~Ray() = default;
 
 	};
 
@@ -61,14 +65,18 @@ namespace YGame
 	public:
 
 		// 平面法線取得
-		YMath::Vector3 GetPlaneNormal() const { return normal_; }
+		inline YMath::Vector3 GetPlaneNormal() const { return normal_; }
 
 		// 平面の原点からの位置取得
-		float GetPlaneDistance() const { return distance_; }
+		inline float GetPlaneDistance() const { return distance_; }
 
 	public:
 
-		~Plane() = default;
+		Plane() = default;
+
+		Plane(const YMath::Vector3& normal, const float distance);
+
+		virtual ~Plane() = default;
 
 	};
 
@@ -103,11 +111,17 @@ namespace YGame
 		YMath::Vector3 GetTrianglePos(const size_t index) const;
 
 		// 三角形法線設定
-		YMath::Vector3 GetTriangleNormal() const { return normal_; }
+		inline YMath::Vector3 GetTriangleNormal() const { return normal_; }
 
 	public:
 
-		~Triangle() = default;
+		Triangle() = default;
+		
+		Triangle(const YMath::Vector3& p0, const YMath::Vector3& p1, const YMath::Vector3& p2);
+		
+		Triangle(const YMath::Vector3& p0, const YMath::Vector3& p1, const YMath::Vector3& p2, const YMath::Vector3& normal);
+
+		virtual ~Triangle() = default;
 
 	};
 
@@ -134,14 +148,18 @@ namespace YGame
 	public:
 
 		// 球の中心座標取得
-		YMath::Vector3 GetSphereCenter() const { return center_; }
+		inline YMath::Vector3 GetSphereCenter() const { return center_; }
 
 		// 球の半径取得
-		float GetSphereRadius() const { return radius_; }
+		inline float GetSphereRadius() const { return radius_; }
 
 	public:
 
-		~Sphere() = default;
+		Sphere() = default;
+
+		Sphere(const YMath::Vector3& center, const float radius);
+
+		virtual ~Sphere() = default;
 	
 	};
 
@@ -175,7 +193,11 @@ namespace YGame
 
 	public:
 
-		~Box2D() = default;
+		Box2D() = default;
+
+		Box2D(const YMath::Vector2& center, const YMath::Vector2& radSize);
+
+		virtual ~Box2D() = default;
 
 	};
 

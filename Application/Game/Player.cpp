@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
+#include "SphereCollider.h"
 #include "CollisionConfig.h"
 #include "MapChipCollisionBitConfig.h"
 #include "Keys.h"
@@ -25,13 +26,12 @@ static const uint32_t InvincibleTime = 10;
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
 	// ゲームキャラクター初期化
-	IGameCharacter::Initialize(
-		Attribute::kPlayer, Attribute::kAll, 
+	ICharacter::Initialize(
 		status,
-		Radius, 
 		Acceleration, MaxSpeed,
 		HP, Attack, InvincibleTime,
-		new PlayerDrawer(), DrawLocation::eCenter);
+		new SphereCollider({}, Attribute::kPlayer, Attribute::kAll, Radius),
+		new PlayerDrawer(DrawLocation::eCenter));
 
 	// ジャンプカウンター初期化
 	jumpCounter_ = 0;
@@ -63,7 +63,7 @@ void Player::Update()
 	}
 	
 	// キャラクター更新
-	IGameCharacter::Update();
+	ICharacter::Update();
 
 	// 着地しているなら
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
@@ -71,6 +71,10 @@ void Player::Update()
 		// ジャンプ回数初期化
 		jumpCounter_ = 0;
 	}
+}
+
+void Player::OnCollision(const CollisionInfo& info)
+{
 }
 
 void Player::Jump()
@@ -83,11 +87,6 @@ void Player::Jump()
 
 	// ジャンプカウント
 	jumpCounter_++;
-}
-
-void Player::OnCollision(IGameCharacter* pPair)
-{
-
 }
 
 void Player::SetPetPointer(IPet* pPet)

@@ -37,8 +37,7 @@ void MapChip::Reset()
 			chip->transform_.Initialize({ pos,{},chipScale_ });
 
 			// •`‰æƒNƒ‰ƒX
-			chip->drawer_.reset(new BlockDrawer());
-			chip->drawer_->Initialize(&chip->transform_);
+			chip->drawer_.reset(new BlockDrawer(&chip->transform_, DrawLocation::eCenter));
 
 			// 1”ÔŒã‚ë‚É‘}“ü
 			chips_.push_back(std::move(chip));
@@ -67,7 +66,7 @@ void MapChip::Draw()
 	// •`‰æ
 	for (std::unique_ptr<ChipData>& chip : chips_)
 	{
-		chip->drawer_->Draw(YGame::DrawLocation::eCenter);
+		chip->drawer_->Draw();
 	}
 }
 

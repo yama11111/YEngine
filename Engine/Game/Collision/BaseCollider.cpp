@@ -5,39 +5,55 @@ using YGame::BaseCollider;
 using YMath::Vector3;
 
 void BaseCollider::Initialize(
-	const uint32_t attribute, 
-	const uint32_t mask, 
-	Vector3* pPos, 
-	const float radius, 
+	const Vector3& offset, 
+	const uint32_t attribute, const uint32_t mask, 
 	const bool isSlip)
 {
+	// 親ポインタ null で初期化
+	Initialize(nullptr, offset, attribute, mask, isSlip);
+}
+
+void BaseCollider::Initialize(
+	Transform* pParent, const Vector3& offset, 
+	const uint32_t attribute, const uint32_t mask, 
+	const bool isSlip)
+{
+	// 親トランスフォームポインタ設定
+	SetParent(pParent);
+
+	// オフセット設定
+	SetOffset(offset);
+
 	// 属性設定
 	SetAttribute(attribute);
-	
+
 	// マスク設定
 	SetMask(mask);
-
-	// 位置ポインタ変更
-	SetPosPointer(pPos);
-	
-	// 球の半径
-	SetSphereRadius(radius);
 
 	// すり抜けフラグ設定
 	SetIsSlip(isSlip);
 }
 
-void BaseCollider::Update()
+void BaseCollider::SetParent(Transform* pParent)
 {
-	// 球の中心点
-	SetSphereCenter(*pPos_);
+	// 親トランスフォームポインタ設定
+	pParent_ = pParent;
 }
 
-void BaseCollider::SetPosPointer(Vector3* pPos)
-{
-	// nullチェック
-	assert(pPos);
+BaseCollider::BaseCollider(
+	const Vector3& offset, 
+	const uint32_t attribute, const uint32_t mask, 
+	const bool isSlip) : 
+	pParent_(nullptr), offset_(offset),
+	attribute_(attribute), mask_(mask),
+	isSlip_(isSlip)
+{}
 
-	// 代入
-	pPos_ = pPos;
-}
+BaseCollider::BaseCollider(
+	Transform* pParent, const Vector3& offset, 
+	const uint32_t attribute, const uint32_t mask, 
+	const bool isSlip) :
+	pParent_(pParent), offset_(offset),
+	attribute_(attribute), mask_(mask),
+	isSlip_(isSlip)
+{}

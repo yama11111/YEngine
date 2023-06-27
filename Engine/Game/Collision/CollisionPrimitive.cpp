@@ -18,6 +18,10 @@ void Ray::SetRayDirection(const Vector3& direction)
 {
 	direction_ = direction.Normalized();
 }
+Ray::Ray(const Vector3& start, const Vector3& direction) : 
+	start_(start), direction_(direction.Normalized())
+{
+}
 
 void Plane::SetPlaneNormal(const Vector3& normal)
 {
@@ -26,6 +30,10 @@ void Plane::SetPlaneNormal(const Vector3& normal)
 void Plane::SetPlaneDistance(const float distance)
 {
 	distance_ = distance;
+}
+Plane::Plane(const Vector3& normal, const float distance) :
+	normal_(normal.Normalized()), distance_(distance)
+{
 }
 
 void Triangle::SetTrianglePos(const Vector3& p0, const Vector3& p1, const Vector3& p2)
@@ -46,6 +54,25 @@ void Triangle::CalcTriangleNormal()
 	// 外積 (2辺に垂直なベクトル)
 	SetTriangleNormal(p0_p1.Cross(p0_p2));
 }
+Vector3 Triangle::GetTrianglePos(const size_t index) const 
+{
+	Vector3 result;
+
+	if (index == 0) { result = p0_; }
+	if (index == 1) { result = p1_; }
+	if (index == 2) { result = p2_; }
+
+	return result;
+}
+Triangle::Triangle(const Vector3& p0, const Vector3& p1, const Vector3& p2) : 
+	p0_(p0), p1_(p1), p2_(p2)
+{
+	CalcTriangleNormal();
+}
+Triangle::Triangle(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& normal) : 
+	p0_(p0), p1_(p1), p2_(p2), normal_(normal.Normalized())
+{
+}
 
 void Sphere::SetSphereCenter(const Vector3& center)
 {
@@ -55,15 +82,9 @@ void Sphere::SetSphereRadius(const float radius)
 {
 	radius_ = fabs(radius);
 }
-Vector3 Triangle::GetTrianglePos(const size_t index) const 
+Sphere::Sphere(const Vector3& center, const float radius) :
+	center_(center), radius_(fabs(radius))
 {
-	YMath::Vector3 result;
-
-	if (index == 0) { result = p0_; }
-	if (index == 1) { result = p1_; }
-	if (index == 2) { result = p2_; }
-
-	return result;
 }
 
 void Box2D::SetBox2DCenter(const Vector2& center)
@@ -72,8 +93,11 @@ void Box2D::SetBox2DCenter(const Vector2& center)
 }
 void Box2D::SetBox2DRadSize(const Vector2& radSize)
 {
-	radSize_.x_ = fabs(radSize.x_);
-	radSize_.y_ = fabs(radSize.y_);
+	radSize_ = Vector2(fabs(radSize.x_), fabs(radSize.y_));
+}
+Box2D::Box2D(const Vector2& center, const Vector2& radSize) :
+	center_(center), radSize_(Vector2(fabs(radSize.x_), fabs(radSize.y_)))
+{
 }
 
 

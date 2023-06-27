@@ -78,6 +78,8 @@ namespace YGame
 		
 		Transform();
 		
+		Transform(const Status& status);
+		
 		virtual ~Transform() = default;
 	};
 }

@@ -111,21 +111,23 @@
   <ItemGroup>
     <ClCompile Include="Application\Game\BlockDrawer.cpp" />
     <ClCompile Include="Application\Game\HorseDrawer.cpp" />
-    <ClCompile Include="Application\Game\IDrawer.cpp" />
+    <ClCompile Include="Application\Game\BaseDrawer.cpp" />
+    <ClCompile Include="Application\Game\IItem.cpp" />
     <ClCompile Include="Application\Game\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Game\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Draw\HUD\UIChargeButtonDrawer.cpp" />
     <ClCompile Include="Application\Game\CharacterStatus.cpp" />
-    <ClCompile Include="Application\Game\GameCharacterManager.cpp" />
+    <ClCompile Include="Application\Game\CharacterManager.cpp" />
     <ClCompile Include="Application\Game\Horse.cpp" />
     <ClCompile Include="Application\Game\IAttack.cpp" />
     <ClCompile Include="Application\Game\IEnemy.cpp" />
-    <ClCompile Include="Application\Game\IGameCharacter.cpp" />
-    <ClCompile Include="Application\Game\IGameObject.cpp" />
+    <ClCompile Include="Application\Game\ICharacter.cpp" />
+    <ClCompile Include="Application\Game\GameObject.cpp" />
     <ClCompile Include="Application\Game\IPet.cpp" />
     <ClCompile Include="Application\Game\MapChip.cpp" />
     <ClCompile Include="Application\Game\Player.cpp" />
     <ClCompile Include="Application\Game\Slime.cpp" />
+    <ClCompile Include="Engine\Game\Collision\SphereCollider.cpp" />
     <ClCompile Include="Engine\Game\Level\Level.cpp" />
     <ClCompile Include="Engine\Base\DX\ConstBuffer.cpp" />
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp" />
@@ -205,22 +207,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Game\BlockDrawer.h" />
+    <ClInclude Include="Application\Game\CollisionInfo.h" />
     <ClInclude Include="Application\Game\HorseDrawer.h" />
-    <ClInclude Include="Application\Game\IDrawer.h" />
+    <ClInclude Include="Application\Game\BaseDrawer.h" />
+    <ClInclude Include="Application\Game\IItem.h" />
     <ClInclude Include="Application\Game\PlayerDrawer.h" />
     <ClInclude Include="Application\Game\SlimeDrawer.h" />
     <ClInclude Include="Application\Draw\HUD\UIChargeButtonDrawer.h" />
     <ClInclude Include="Application\Game\CharacterStatus.h" />
-    <ClInclude Include="Application\Game\GameCharacterManager.h" />
+    <ClInclude Include="Application\Game\CharacterManager.h" />
     <ClInclude Include="Application\Game\Horse.h" />
     <ClInclude Include="Application\Game\IAttack.h" />
     <ClInclude Include="Application\Game\IEnemy.h" />
-    <ClInclude Include="Application\Game\IGameCharacter.h" />
-    <ClInclude Include="Application\Game\IGameObject.h" />
+    <ClInclude Include="Application\Game\ICharacter.h" />
+    <ClInclude Include="Application\Game\GameObject.h" />
     <ClInclude Include="Application\Game\IPet.h" />
     <ClInclude Include="Application\Game\MapChip.h" />
     <ClInclude Include="Application\Game\Player.h" />
     <ClInclude Include="Application\Game\Slime.h" />
+    <ClInclude Include="Engine\Game\Collision\SphereCollider.h" />
     <ClInclude Include="Engine\Game\Level\Level.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h" />
     <ClInclude Include="Engine\Game\Object\ObjectConfig.h" />

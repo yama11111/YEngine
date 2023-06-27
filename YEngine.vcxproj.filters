@@ -148,6 +148,9 @@
     <Filter Include="Application\Draw\HUD">
       <UniqueIdentifier>{16ef26ea-5fb0-4b76-9dd0-6cf9f6098c19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Chara\Item">
+      <UniqueIdentifier>{e13fc05c-b636-435f-9f3c-30fd32b9d714}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -387,13 +390,13 @@
     <ClCompile Include="Engine\Utillity\DebugText\DebugTextAttacher.cpp">
       <Filter>Engine\Util\DebugText</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\IGameObject.cpp">
+    <ClCompile Include="Application\Game\GameObject.cpp">
       <Filter>Application\Game\Chara</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\IGameCharacter.cpp">
+    <ClCompile Include="Application\Game\ICharacter.cpp">
       <Filter>Application\Game\Chara</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\GameCharacterManager.cpp">
+    <ClCompile Include="Application\Game\CharacterManager.cpp">
       <Filter>Application\Game\Chara</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\CharacterStatus.cpp">
@@ -405,7 +408,7 @@
     <ClCompile Include="Application\Game\IAttack.cpp">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\IDrawer.cpp">
+    <ClCompile Include="Application\Game\BaseDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\PlayerDrawer.cpp">
@@ -428,6 +431,12 @@
     </ClCompile>
     <ClCompile Include="Application\Draw\HUD\UIChargeButtonDrawer.cpp">
       <Filter>Application\Draw\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\IItem.cpp">
+      <Filter>Application\Game\Chara\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Collision\SphereCollider.cpp">
+      <Filter>Engine\Game\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -683,13 +692,13 @@
     <ClInclude Include="Engine\Utillity\DebugText\DebugTextAttacher.h">
       <Filter>Engine\Util\DebugText</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\IGameObject.h">
+    <ClInclude Include="Application\Game\GameObject.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\IGameCharacter.h">
+    <ClInclude Include="Application\Game\ICharacter.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\GameCharacterManager.h">
+    <ClInclude Include="Application\Game\CharacterManager.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\CharacterStatus.h">
@@ -701,7 +710,7 @@
     <ClInclude Include="Application\Game\IAttack.h">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\IDrawer.h">
+    <ClInclude Include="Application\Game\BaseDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\PlayerDrawer.h">
@@ -727,6 +736,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h">
       <Filter>Engine\Game\MapChip</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\IItem.h">
+      <Filter>Application\Game\Chara\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CollisionInfo.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Collision\SphereCollider.h">
+      <Filter>Engine\Game\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

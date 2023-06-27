@@ -1,10 +1,10 @@
 #pragma once
-#include "IDrawer.h"
+#include "BaseDrawer.h"
 
 namespace YGame
 {
     class PlayerDrawer final :
-        public IDrawer
+        public BaseDrawer
     {
 
 	public:
@@ -13,7 +13,8 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		void Initialize(Transform* pParent) override;
+		/// <param name="location"> : 描画位置</param>
+		virtual void Initialize(Transform* pParent, const DrawLocation location) override;
 
 		/// <summary>
 		/// 更新
@@ -23,8 +24,7 @@ namespace YGame
 		/// <summary>
 		/// 描画
 		/// </summary>
-		/// <param name="location"> : 場所</param>
-		void Draw(const DrawLocation location) override;
+		void Draw() override;
 
 	public:
 
@@ -39,9 +39,20 @@ namespace YGame
 
 		PlayerDrawer() = default;
 
-		~PlayerDrawer() = default;
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="location"> : 描画位置</param>
+		PlayerDrawer(const DrawLocation location);
 
-	private:
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="pParent"> : 親ポインタ</param>
+		/// <param name="location"> : 描画位置</param>
+		PlayerDrawer(Transform* pParent, const DrawLocation location);
+
+		~PlayerDrawer() = default;
 
     };
 }

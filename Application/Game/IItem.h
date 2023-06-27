@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-	class IAttack :
+	class IItem :
 		public ICharacter
 	{
 
@@ -14,12 +14,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="info"> : Õ“Ëî•ñ</param>
 		virtual void OnCollision(const CollisionInfo& info) override;
-	
+
 	public:
 
-		IAttack() = default;
+		IItem() = default;
 
-		virtual ~IAttack() = default;
+		virtual ~IItem() = default;
 
 	};
 }

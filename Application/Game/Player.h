@@ -1,5 +1,5 @@
 #pragma once
-#include "IGameCharacter.h"
+#include "ICharacter.h"
 #include "IPet.h"
 #include "ScrollCamera.h"
 
@@ -7,7 +7,7 @@ namespace YGame
 {
 	// プレイヤー
 	class Player final :
-		public IGameCharacter
+		public ICharacter
 	{
 
 	public:
@@ -29,8 +29,8 @@ namespace YGame
 		/// <summary>
 		/// 衝突判定
 		/// </summary>
-		/// <param name="pPair"> : 相手のキャラクターポインタ</param>
-		void OnCollision(IGameCharacter* pPair) override;
+		/// <param name="info"> : 衝突時情報</param>
+		virtual void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
 		/// ペットポインタ設定

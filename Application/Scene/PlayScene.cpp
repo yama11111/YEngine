@@ -28,7 +28,7 @@ void PlayScene::Load()
 	pMapChipManager_ = MapChipManager::GetInstance();
 
 	// 描画クラス
-	IDrawer::StaticInitialize(&transferVP_);
+	BaseDrawer::StaticInitialize(&transferVP_);
 
 	// プレイヤー
 	Player::StaticInitialize(&scrollCamera_);
@@ -43,8 +43,8 @@ void PlayScene::Initialize()
 	pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 	// ゲームキャラクターマネージャー生成 + 初期化
-	gameCharacterManager_.reset(new GameCharacterManager());
-	gameCharacterManager_->Initialize();
+	characterMan_.reset(new CharacterManager());
+	characterMan_->Initialize();
 
 	// カメラ初期化
 	scrollCamera_.Initialize(Vector3(-20.0f, +10.0f, -20.0f), nullptr, Vector3());
@@ -63,7 +63,7 @@ void PlayScene::Initialize()
 			newPlayer->Initialize({ {}, {}, {1.0f,1.0f,1.0f} });
 
 			// 挿入
-			gameCharacterManager_->PushBack(newPlayer);
+			characterMan_->PushBack(newPlayer);
 		}
 
 		// スライム
@@ -75,7 +75,7 @@ void PlayScene::Initialize()
 			newSlime->Initialize({ {10.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
 			// 挿入
-			gameCharacterManager_->PushBack(newSlime);
+			characterMan_->PushBack(newSlime);
 		}
 	}
 }
@@ -96,7 +96,7 @@ void PlayScene::Update()
 	pMapChipManager_->Update();
 	
 	// ゲームキャラクター更新
-	gameCharacterManager_->Update();
+	characterMan_->Update();
 
 	// カメラ更新
 	scrollCamera_.Update();
@@ -123,6 +123,6 @@ void PlayScene::Draw()
 	pMapChipManager_->Draw();
 
 	// ゲームキャラクター描画
-	gameCharacterManager_->Draw();
+	characterMan_->Draw();
 }
 #pragma endregion

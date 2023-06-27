@@ -1,6 +1,6 @@
 #pragma once
 #include "IMapChip.h"
-#include "IDrawer.h"
+#include "BaseDrawer.h"
 
 namespace YGame
 {
@@ -39,7 +39,7 @@ namespace YGame
 			Transform transform_;
 
 			// 描画クラス
-			std::unique_ptr<IDrawer> drawer_;
+			std::unique_ptr<BaseDrawer> drawer_;
 
 			// アタリ判定ポインタ
 			bool* pIsColl_ = nullptr;

@@ -11,7 +11,21 @@ Transform::Transform() :
 	scale_(1.0f, 1.0f, 1.0f),
 	m_(Matrix4::Identity()),
 	parent_(nullptr)
-{}
+{
+	// 行列更新
+	UpdateMatrix();
+}
+
+Transform::Transform(const Status & status) :
+	pos_(status.pos_),
+	rota_(status.rota_),
+	scale_(status.scale_),
+	m_(Matrix4::Identity()),
+	parent_(nullptr)
+{
+	// 行列更新
+	UpdateMatrix();
+}
 
 Transform::Status Transform::Status::Default()
 {

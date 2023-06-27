@@ -5,16 +5,16 @@ using YGame::IEnemy;
 void IEnemy::Update()
 {
 	// キャラクター更新
-	IGameCharacter::Update();
+	ICharacter::Update();
 }
 
 void IEnemy::Draw()
 {
 	// 描画
-	drawer_->Draw(DrawLocation::eCenter);
+	drawer_->Draw();
 }
 
-void IEnemy::OnCollision(IGameCharacter* pPair)
+void IEnemy::OnCollision(const CollisionInfo& info)
 {
 
 }

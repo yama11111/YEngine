@@ -2,6 +2,6 @@
 
 using YGame::IPet;
 
-void IPet::OnCollision(IGameCharacter* pPair)
+void IPet::OnCollision(const CollisionInfo& info)
 {
 }
