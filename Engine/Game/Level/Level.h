@@ -1,5 +1,8 @@
 #pragma once
-#include "Model.h"
+#include "CharacterManager.h"
+#include "MapChipManager.h"
+#include "Camera.h"
+#include <json.hpp>
 
 namespace YGame
 {
@@ -8,20 +11,7 @@ namespace YGame
 
 	public:
 
-		// オブジェクトセット
-		struct ObjectSet
-		{
-			// モデルポインタ
-			Model* pModel_ = nullptr;
-			// オブジェクトポインタ
-			std::unique_ptr<Model::Object> pObjs_;
-			// オブジェクトファイル名
-			std::string objFileName_;
-			// 子
-			std::unique_ptr<ObjectSet> child_;
-		};
-
-	public:
+		static void LoadAsset();
 
 		/// <summary>
 		/// レベルデータ読み込み (.json)
@@ -36,6 +26,8 @@ namespace YGame
 		static void ClearAllData();
 
 	public:
+		
+		void Initialize();
 
 		/// <summary>
 		/// 更新
@@ -46,18 +38,6 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		void Draw();
-	
-	public:
-
-		/// <summary>
-		/// 更新
-		/// </summary>
-		void UpdateObjSet(ObjectSet* obj);
-		
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void DrawObjSet(ObjectSet* obj);
 
 	public:
 
@@ -70,9 +50,30 @@ namespace YGame
 		const Level& operator=(const Level&) = delete;
 
 	private:
+		
+		/// <summary>
+		/// データ読み込み
+		/// </summary>
+		/// <param name="object"> : オブジェクト(json)</param>
+		/// <param name="pParent"> : 親オブジェクトポインタ</param>
+		void LoadData(nlohmann::json& object, GameObject* pParent = nullptr);
+	
+	private:
 
 		// 全オブジェクト
-		std::list<std::unique_ptr<ObjectSet>> objSets_;
+		std::list<std::unique_ptr<GameObject>> objs_;
+
+		// キャラクターマネージャー
+		std::unique_ptr<YGame::CharacterManager> characterMan_;
+
+		// マップチップマネージャー
+		YGame::MapChipManager* pMapChipManager_ = nullptr;
+
+		// カメラ
+		std::vector<std::unique_ptr<Camera>> cameras_;
+
+		// 転送用ビュープロジェクション
+		static ViewProjection transferVP_;
 
 		// ファイルパス
 		std::string fileName_;
@@ -81,7 +82,6 @@ namespace YGame
 
 		// 静的レベルデータ格納用list
 		static std::list<std::unique_ptr<Level>> sLevelDatas_;
-
 
 	};
 }

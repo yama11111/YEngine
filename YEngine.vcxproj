@@ -110,10 +110,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Game\BlockDrawer.cpp" />
+    <ClCompile Include="Application\Game\DefaultDrawer.cpp" />
+    <ClCompile Include="Application\Game\GridDrawer.cpp" />
     <ClCompile Include="Application\Game\HorseDrawer.cpp" />
     <ClCompile Include="Application\Game\BaseDrawer.cpp" />
     <ClCompile Include="Application\Game\IItem.cpp" />
     <ClCompile Include="Application\Game\PlayerDrawer.cpp" />
+    <ClCompile Include="Application\Game\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Draw\HUD\UIChargeButtonDrawer.cpp" />
     <ClCompile Include="Application\Game\CharacterStatus.cpp" />
@@ -207,11 +210,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Game\BlockDrawer.h" />
-    <ClInclude Include="Application\Game\CollisionInfo.h" />
+    <ClInclude Include="Application\Game\DefaultDrawer.h" />
+    <ClInclude Include="Application\Game\GridDrawer.h" />
     <ClInclude Include="Application\Game\HorseDrawer.h" />
     <ClInclude Include="Application\Game\BaseDrawer.h" />
     <ClInclude Include="Application\Game\IItem.h" />
     <ClInclude Include="Application\Game\PlayerDrawer.h" />
+    <ClInclude Include="Application\Game\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\SlimeDrawer.h" />
     <ClInclude Include="Application\Draw\HUD\UIChargeButtonDrawer.h" />
     <ClInclude Include="Application\Game\CharacterStatus.h" />
@@ -321,6 +326,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
@@ -336,6 +345,10 @@
     <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\UVShiftBlurPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

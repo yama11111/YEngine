@@ -3,8 +3,10 @@
 Texture2D<float4> tex : register(t0); // 0番スロットに設定されたテクスチャ
 SamplerState smp : register(s0);      // 0番スロットに設定されたサンプラー
 
-float4 main(PSInput input) : SV_TARGET
+PSOutput main(PSInput input)
 {
+	PSOutput output;
+
 	// テクスチャマッピング
 	float4 texColor = tex.Sample(smp, input.uv_ * texTiling_ + texOffset_) * texColorRate_;
 
@@ -124,5 +126,8 @@ float4 main(PSInput input) : SV_TARGET
 	}
 
 	// 計算した色で描画
-	return float4(shaderColor, color.a * mAlpha_);
+	output.target0_ = float4(shaderColor, color.a * mAlpha_);
+	output.target1_ = float4(shaderColor, color.a * mAlpha_);
+
+	return output;
 }

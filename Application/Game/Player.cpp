@@ -75,6 +75,21 @@ void Player::Update()
 
 void Player::OnCollision(const CollisionInfo& info)
 {
+	// 敵
+	if (info.attribute_  == Attribute::kEnemy)
+	{
+		// 自分 が 敵 より上にいる ダメージを与える
+		if (transform_->pos_.y_ - Radius >= 
+			info.pos_.y_ + info.radius_) 
+		{
+			return; 
+		}
+		else
+		{
+			// 自分が下なら ダメージ受ける
+			status_.Damage(info.status_.Attack(), true);
+		}
+	}
 }
 
 void Player::Jump()

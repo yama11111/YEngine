@@ -30,7 +30,7 @@ namespace YGame
 		/// 衝突判定
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
-		virtual void OnCollision(const CollisionInfo& info) override;
+		void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
 		/// ペットポインタ設定

@@ -3,9 +3,9 @@
 
 namespace YGame
 {
-    class PlayerDrawer final :
-        public BaseDrawer
-    {
+	class SkydomeDrawer :
+		public BaseDrawer
+	{
 
 	public:
 
@@ -37,33 +37,22 @@ namespace YGame
 
 	public:
 
-		PlayerDrawer() = default;
+		SkydomeDrawer() = default;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
-		PlayerDrawer(const DrawLocation location);
+		SkydomeDrawer(const DrawLocation location);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		PlayerDrawer(Transform* pParent, const DrawLocation location);
+		SkydomeDrawer(Transform* pParent, const DrawLocation location);
 
-		~PlayerDrawer() = default;
-	
-	public:
+		~SkydomeDrawer() = default;
 
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		static void StaticInitialize();
-	
-	private:
-
-		// モデルポインタ
-		static Model* spModel_;
-    };
+	};
 }

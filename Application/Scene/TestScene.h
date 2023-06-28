@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+#include "Level.h"
 
 namespace YScene
 {
@@ -9,17 +10,7 @@ namespace YScene
 
 	private:
 
-#pragma region リソース
-
-#pragma endregion
-
-
-#pragma region ゲームオブジェクト
-
-		// 転送用ビュープロジェクション
-		YGame::ViewProjection transferVP_;
-
-#pragma endregion
+		YGame::Level* pLevel_ = nullptr;
 
 	public:
 

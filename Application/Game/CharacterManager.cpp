@@ -88,17 +88,23 @@ void CharacterManager::CheckAllCollision()
 
 void CharacterManager::CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB)
 {
-	//// ‹… ‚Æ ‹… ‚Ì”»’è
-	//if (CheckCollision(pCharacterA->, pCharacterB->))
-	//{
-	//	// ‚¨ŒÝ‚¢‚ÉÕ“ËŽž”»’è
-	//	pCharacterA->OnCollision();
-	//	pCharacterB->OnCollision();
-	//}
+	// ‹… ‚Æ ‹… ‚Ì”»’è
+	if (CheckCollision(pCharacterA->ColliderPtr(), pCharacterB->ColliderPtr()))
+	{
+		// ‚¨ŒÝ‚¢‚ÉÕ“ËŽž”»’è
+		//pCharacterA->OnCollision({});
+		//pCharacterB->OnCollision({});
+	}
 }
 
 bool CharacterManager::CheckCollision(BaseCollider* pColliderA, BaseCollider* pColliderB)
 {
+	// ƒRƒ‰ƒCƒ_[‚ª–³‚¢‚È‚ç’e‚­
+	if (pColliderA == nullptr || pColliderB == nullptr)
+	{
+		return false;
+	}
+
 	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
 	if (pColliderA->IsSlip() || pColliderB->IsSlip()) 
 	{

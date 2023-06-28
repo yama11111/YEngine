@@ -76,7 +76,7 @@ bool YFramework::Initialize()
 	Model::Pipeline::StaticInitialize();
 	PostEffect::Pipeline::StaticInitialize();
 
-	PostEffect::StaticInitialize(pDev, pCmdList, &screenDesc_);
+	PostEffect::StaticInitialize(pDev, pCmdList);
 
 	// FBXLoaderì«Ç›çûÇ›
 	Model::FbxLoader::StaticInitialize();

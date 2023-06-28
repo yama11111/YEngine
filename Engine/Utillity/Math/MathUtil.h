@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector3.h"
 #include "Vector4.h"
 
 namespace YMath
@@ -23,5 +24,7 @@ namespace YMath
 
 	// “x”‚©‚çƒ‰ƒWƒAƒ“‚É•ÏŠ·
 	float ConvertFromDegreeToRadian(const float degree);
+	
+	Vector3 ConvertFromDegreeToRadian(const Vector3& degree);
 }
 

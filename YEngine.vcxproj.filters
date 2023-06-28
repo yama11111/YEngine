@@ -109,9 +109,6 @@
     <Filter Include="Engine\Game\Collision">
       <UniqueIdentifier>{1ae737d4-21ca-4d56-b945-6c0b5710617f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Game\Level">
-      <UniqueIdentifier>{4eba86e2-5c39-46a2-9a0d-cd7530b4250a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Game\Particle">
       <UniqueIdentifier>{bb4dabc7-ee27-47c5-b886-28303885caef}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,9 @@
     </Filter>
     <Filter Include="Application\Game\Chara\Item">
       <UniqueIdentifier>{e13fc05c-b636-435f-9f3c-30fd32b9d714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Level">
+      <UniqueIdentifier>{4eba86e2-5c39-46a2-9a0d-cd7530b4250a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -349,7 +349,7 @@
       <Filter>Engine\Game\Object\CB</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Level\Level.cpp">
-      <Filter>Engine\Game\Level</Filter>
+      <Filter>Application\Game\Level</Filter>
     </ClCompile>
     <ClCompile Include="Application\MyGame.cpp">
       <Filter>Application</Filter>
@@ -437,6 +437,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Collision\SphereCollider.cpp">
       <Filter>Engine\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\DefaultDrawer.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GridDrawer.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SkydomeDrawer.cpp">
+      <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -651,7 +660,7 @@
       <Filter>Engine\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Level\Level.h">
-      <Filter>Engine\Game\Level</Filter>
+      <Filter>Application\Game\Level</Filter>
     </ClInclude>
     <ClInclude Include="Application\MyGame.h">
       <Filter>Application</Filter>
@@ -740,11 +749,17 @@
     <ClInclude Include="Application\Game\IItem.h">
       <Filter>Application\Game\Chara\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\CollisionInfo.h">
-      <Filter>Application</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Collision\SphereCollider.h">
       <Filter>Engine\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\DefaultDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GridDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SkydomeDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -802,6 +817,12 @@
       <Filter>Engine\Game\Shader\PostEffect</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
+      <Filter>Engine\Game\Shader\PostEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\UVShiftBlurPS.hlsl">
+      <Filter>Engine\Game\Shader\PostEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
       <Filter>Engine\Game\Shader\PostEffect</Filter>
     </FxCompile>
   </ItemGroup>

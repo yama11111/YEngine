@@ -2,6 +2,7 @@
 #include "MathVector.h"
 #include "YAssert.h"
 #include "Def.h"
+#include <d3dx12.h>
 
 #pragma region 名前空間
 
@@ -12,6 +13,7 @@ using std::unique_ptr;
 using YGame::PostEffect;
 using YDX::PipelineSet;
 using YMath::Vector2;
+using YMath::Vector3;
 using YMath::Matrix4;
 
 #pragma endregion
@@ -21,7 +23,8 @@ using YMath::Matrix4;
 static const UINT TraIndex = static_cast<UINT>(PostEffect::Pipeline::RootParameterIndex::eTransformCB); // transform
 static const UINT ColIndex = static_cast<UINT>(PostEffect::Pipeline::RootParameterIndex::eColorCB); // color
 static const UINT TexConfigIndex = static_cast<UINT>(PostEffect::Pipeline::RootParameterIndex::eTexConfigCB); // texConfig
-static const UINT TexIndex = static_cast<UINT>(PostEffect::Pipeline::RootParameterIndex::eTexDT); // tex
+static const UINT Tex0Index = static_cast<UINT>(PostEffect::Pipeline::RootParameterIndex::eTex0DT); // tex0
+static const UINT Tex1Index = static_cast<UINT>(PostEffect::Pipeline::RootParameterIndex::eTex1DT); // tex1
 
 #pragma endregion
 
@@ -32,88 +35,50 @@ array<PipelineSet, PostEffect::Pipeline::sShaderNum_> PostEffect::Pipeline::sPip
 list<unique_ptr<PostEffect::Pipeline::DrawSet>> PostEffect::Pipeline::sDrawSets_;
 ID3D12Device* PostEffect::spDevice_ = nullptr;
 ID3D12GraphicsCommandList* PostEffect::spCmdList_ = nullptr;
-YDX::ScreenDesc* PostEffect::spScreenDesc_ = nullptr;
+YDX::ScreenDesc PostEffect::sScreenDesc_{};
 
 #pragma endregion
 
 
 #pragma region PostEffect
 
-PostEffect* PostEffect::Create(const Status& status, const TexStatus& texStatus)
+PostEffect* PostEffect::Create()
 {
 	// スプライト生成
-	unique_ptr<PostEffect> newSprite = std::make_unique<PostEffect>();
+	unique_ptr<PostEffect> newPostEffect = std::make_unique<PostEffect>();
 
-
-	// テクスチャのサイズを取得
-	float rscSizeX = static_cast<float>(texStatus.pTex_->Buffer()->GetDesc().Width);
-	float rscSizeY = static_cast<float>(texStatus.pTex_->Buffer()->GetDesc().Height);
-
-	// ----- Status ----- //
-
-	// 反転設定
-	float flipX = status.isFlipX_ ? -1.0f : 1.0f;
-	float flipY = status.isFlipY_ ? -1.0f : 1.0f;
-
-	// サイズを設定 (画像に合わせるならそのまま)
-	Vector2 size = status.isDiv_ ? Vector2(rscSizeX, rscSizeY) : status.size_;
-
-	// 左右上下のポイント設定 (0.0~1,0)
-	float left = (0.0f - status.anchor_.x_) * size.x_ * flipX;
-	float right = (1.0f - status.anchor_.x_) * size.x_ * flipX;
-	float top = (0.0f - status.anchor_.y_) * size.y_ * flipY;
-	float bottom = (1.0f - status.anchor_.y_) * size.y_ * flipY;
-
-	// ----- TexStatus ----- //
-
-	// テクスチャの左上と右下を設定 (画像に合わせるならそのまま)
-	Vector2 texLT = texStatus.isDiv_ ? Vector2(0.0f, 0.0f) : texStatus.leftTop_;
-	Vector2 texRB = texStatus.isDiv_ ? Vector2(rscSizeX, rscSizeY) : (texStatus.leftTop_ + texStatus.size_);
-
-	// UV座標を計算
-	float texLeft = texLT.x_ / rscSizeX;
-	float texRight = texRB.x_ / rscSizeX;
-	float texTop = texLT.y_ / rscSizeY;
-	float texBottom = texRB.y_ / rscSizeY;
-
-
-	// インスタンス生成 (動的)
-	newSprite->vt_.Initialize(
+	// 頂点バッファ生成
+	newPostEffect->vt_.Initialize(
 		{
-			{ {  left,bottom,0.0f },{  texLeft,texBottom } }, // 左下
-			{ {  left,top,   0.0f },{  texLeft,texTop } },    // 左上
-			{ { right,bottom,0.0f },{ texRight,texBottom } }, // 右下
-			{ { right,top,   0.0f },{ texRight,texTop } },    // 右上
+			{ Vector3(       0.0f, +WinSize.y_, 0.0f), Vector2(0.0f, 1.0f) }, // 左下
+			{ Vector3(       0.0f,        0.0f, 0.0f), Vector2(0.0f, 0.0f) }, // 左上
+			{ Vector3(+WinSize.x_, +WinSize.y_, 0.0f), Vector2(1.0f, 1.0f) }, // 右下
+			{ Vector3(+WinSize.x_,        0.0f, 0.0f), Vector2(1.0f, 0.0f) }, // 右上
 		});
 
-	// いろいろ設定
-	newSprite->size_ = status.size_; // 大きさ
-	newSprite->anchor_ = status.anchor_; // アンカーポイント
-	newSprite->isFlipX_ = status.isFlipX_; // X反転
-	newSprite->isFlipY_ = status.isFlipY_; // Y反転
-
-	newSprite->pTex_ = texStatus.pTex_; // テクスチャインデックス
-	newSprite->texLeftTop_ = texStatus.isDiv_ ? Vector2(0.0f, 0.0f) : texStatus.leftTop_; // テクスチャの左上
-	newSprite->texSize_ = texStatus.isDiv_ ? Vector2(rscSizeX, rscSizeY) : texStatus.size_; // テクスチャの大きさ
+	for (size_t i = 0; i < newPostEffect->pTexs_.size(); i++)
+	{
+		// レンダーテクスチャ生成
+		newPostEffect->pTexs_[i] = Texture::CreateRender();
+	}
 
 	// RTV初期化
-	newSprite->CreateRTV();
-	
-	// 深度バッファ生成
-	newSprite->CreateDepthBuff(newSprite->texSize_);
-	
-	// DSV初期化
-	newSprite->CreateDSV();
+	newPostEffect->CreateRTV();
 
+	// 深度バッファ生成
+	newPostEffect->CreateDepthBuff(WinSize);
+
+	// DSV初期化
+	newPostEffect->CreateDSV();
 
 	// ポインタを獲得
-	PostEffect* newSpritePtr = newSprite.get();
+	PostEffect* newPostEffectPtr = newPostEffect.get();
 
 	// スプライトを保存
-	sPostEffects_.push_back(std::move(newSprite));
+	sPostEffects_.push_back(std::move(newPostEffect));
 
 	// スプライトポインタを返す
-	return newSpritePtr;
+	return newPostEffectPtr;
 }
 
 void PostEffect::AllClear()
@@ -134,31 +99,45 @@ void PostEffect::SetDrawCommand(PostEffect::Object* pObj, const ShaderType& shad
 
 void PostEffect::StartRender()
 {
-	// リソースバリア設定
-	D3D12_RESOURCE_BARRIER barrierDesc{};
-	barrierDesc.Transition.pResource = pTex_->Buffer(); // テクスチャを指定
-	barrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE; // シェーダーリソース 状態から
-	barrierDesc.Transition.StateAfter  = D3D12_RESOURCE_STATE_RENDER_TARGET;  // 描画 状態へ
+	for (size_t i = 0; i < pTexs_.size(); i++)
+	{
+		// リソースバリア設定
+		D3D12_RESOURCE_BARRIER barrierDesc{};
+		barrierDesc.Transition.pResource = pTexs_[i]->Buffer(); // テクスチャを指定
+		barrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE; // シェーダーリソース 状態から
+		barrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;  // 描画 状態へ
 
-	// リソースバリアを変更
-	spCmdList_->ResourceBarrier(1, &barrierDesc);
+		// リソースバリアを変更
+		spCmdList_->ResourceBarrier(1, &barrierDesc);
+	}
 
 	// RTVのハンドルを取得
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvHeap_->GetCPUDescriptorHandleForHeapStart();
+	std::array<D3D12_CPU_DESCRIPTOR_HANDLE, kTextureNum_> rtvHandles{};
+	
+	for (size_t i = 0; i < rtvHandles.size(); i++)
+	{
+		rtvHandles[i] = 
+			CD3DX12_CPU_DESCRIPTOR_HANDLE(
+			rtvHeap_->GetCPUDescriptorHandleForHeapStart(), static_cast<INT>(i),
+			spDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV));
+	}
+	
 	// DSVのハンドルを取得
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvHeap_->GetCPUDescriptorHandleForHeapStart();
 	
 	// レンダーターゲットをセット
-	spCmdList_->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
+	spCmdList_->OMSetRenderTargets(2, rtvHandles.data(), true, &dsvHandle);
 
 	// スクリーン設定の描画コマンド
-	spScreenDesc_->SetDrawCommand();
+	sScreenDesc_.SetDrawCommand();
 
-
-	// 画面クリア
-	//FLOAT clear[] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,ClearColor.a_ };
-	FLOAT clear[] = { 0.25f, 0.5f ,0.1f, 0.0f };
-	spCmdList_->ClearRenderTargetView(rtvHandle, clear, 0, nullptr); // 青っぽい色
+	for (size_t i = 0; i < rtvHandles.size(); i++)
+	{
+		// 画面クリア
+		//FLOAT clear[] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,ClearColor.a_ };
+		FLOAT clear[] = { 0.25f, 0.5f ,0.1f, 0.0f };
+		spCmdList_->ClearRenderTargetView(rtvHandles[i], clear, 0, nullptr); // 青っぽい色
+	}
 	
 	// 深度バッファクリア
 	spCmdList_->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
@@ -166,108 +145,17 @@ void PostEffect::StartRender()
 
 void PostEffect::EndRender()
 {
-	// リソースバリア設定
-	D3D12_RESOURCE_BARRIER barrierDesc{};
-	barrierDesc.Transition.pResource = pTex_->Buffer(); // テクスチャを指定
-	barrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET; // 描画 状態から
-	barrierDesc.Transition.StateAfter  = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE; // シェーダーリソース 状態へ
-	
-	// リソースバリアを戻す
-	spCmdList_->ResourceBarrier(1, &barrierDesc);
-}
+	for (size_t i = 0; i < pTexs_.size(); i++)
+	{
+		// リソースバリア設定
+		D3D12_RESOURCE_BARRIER barrierDesc{};
+		barrierDesc.Transition.pResource = pTexs_[i]->Buffer(); // テクスチャを指定
+		barrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET; // 描画 状態から
+		barrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE; // シェーダーリソース 状態へ
 
-void PostEffect::SetSize(const Vector2& size)
-{
-	if (size_ == size) { return; }
-	SetAllStatus({ false, size, anchor_, isFlipX_, isFlipY_ }, { pTex_, false, texLeftTop_, texLeftTop_ });
-}
-void PostEffect::SetAnchorPoint(const Vector2& anchor)
-{
-	if (anchor_ == anchor) { return; }
-	SetAllStatus({ false, size_, anchor, isFlipX_, isFlipY_ }, { pTex_, false, texLeftTop_, texLeftTop_ });
-}
-void PostEffect::SetFrip(const bool isFlipX, const bool isFlipY)
-{
-	if (isFlipX_ == isFlipX && isFlipY_ == isFlipY) { return; }
-	SetAllStatus({ false, size_, anchor_, isFlipX, isFlipY }, { pTex_, false, texLeftTop_, texLeftTop_ });
-}
-void PostEffect::SetTextureLeftTop(const Vector2& leftTop, const bool adjust)
-{
-	if (texLeftTop_ == leftTop) { return; }
-
-	float adjX = adjust && (texLeftTop_.x_ < leftTop.x_) ? (leftTop.x_ - texLeftTop_.x_) : 0.0f;
-	float adjY = adjust && (texLeftTop_.y_ < leftTop.y_) ? (leftTop.y_ - texLeftTop_.y_) : 0.0f;
-
-	SetAllStatus({ false, size_, anchor_, isFlipX_, isFlipY_ }, { pTex_, false, leftTop, texSize_ - Vector2(adjX, adjY) });
-}
-void PostEffect::SetTextureSize(const Vector2& texSize)
-{
-	if (texSize_ == texSize) { return; }
-	SetAllStatus({ false, size_, anchor_, isFlipX_, isFlipY_ }, { pTex_, false, texLeftTop_, texSize });
-}
-void PostEffect::SetTextureRectangle(const Vector2& leftTop, const Vector2& texSize)
-{
-	if (texLeftTop_ == leftTop && texSize_ == texSize) { return; }
-	SetAllStatus({ false, size_, anchor_, isFlipX_, isFlipY_ }, { pTex_, false, leftTop, texSize });
-}
-void PostEffect::SetAllStatus(const Status& status, const TexStatus& texStatus)
-{
-	// 頂点データ
-	std::vector<VData> v;
-
-	// テクスチャのサイズを取得
-	float rscSizeX = static_cast<float>(texStatus.pTex_->Buffer()->GetDesc().Width);
-	float rscSizeY = static_cast<float>(texStatus.pTex_->Buffer()->GetDesc().Height);
-
-	// ----- Status ----- //
-
-	// 反転設定
-	float flipX = status.isFlipX_ ? -1.0f : 1.0f;
-	float flipY = status.isFlipY_ ? -1.0f : 1.0f;
-
-	// サイズを設定 (画像に合わせるならそのまま)
-	Vector2 size = status.isDiv_ ? Vector2(rscSizeX, rscSizeY) : status.size_;
-
-	// 左右上下のポイント設定 (0.0~1,0)
-	float left = (0.0f - status.anchor_.x_) * size.x_ * flipX;
-	float right = (1.0f - status.anchor_.x_) * size.x_ * flipX;
-	float top = (0.0f - status.anchor_.y_) * size.y_ * flipY;
-	float bottom = (1.0f - status.anchor_.y_) * size.y_ * flipY;
-
-	// ----- TexStatus ----- //
-
-	// テクスチャの左上と右下を設定 (画像に合わせるならそのまま)
-	Vector2 texLT = texStatus.isDiv_ ? Vector2(0.0f, 0.0f) : texStatus.leftTop_;
-	Vector2 texRB = texStatus.isDiv_ ? Vector2(rscSizeX, rscSizeY) : (texStatus.leftTop_ + texStatus.size_);
-
-	// UV座標を計算
-	float texLeft = texLT.x_ / rscSizeX;
-	float texRight = texRB.x_ / rscSizeX;
-	float texTop = texLT.y_ / rscSizeY;
-	float texBottom = texRB.y_ / rscSizeY;
-
-
-	// 頂点を再設定
-	v.push_back({ {  left,bottom,0.0f },{  texLeft,texBottom } }); // 左下
-	v.push_back({ {  left,top,   0.0f },{  texLeft,texTop } });	   // 左上
-	v.push_back({ { right,bottom,0.0f },{ texRight,texBottom } }); // 右下
-	v.push_back({ { right,top,   0.0f },{ texRight,texTop } });	   // 右上
-	vt_.TransferMap(v);
-
-	// いろいろ設定
-	size_ = status.size_; // 大きさ
-	anchor_ = status.anchor_; // アンカーポイント
-	isFlipX_ = status.isFlipX_; // X反転
-	isFlipY_ = status.isFlipY_; // Y反転
-
-	pTex_ = texStatus.pTex_; // テクスチャインデックス
-	texLeftTop_ = texStatus.isDiv_ ? Vector2(0.0f, 0.0f) : texStatus.leftTop_; // テクスチャの左上
-	texSize_ = texStatus.isDiv_ ? Vector2(rscSizeX, rscSizeY) : texStatus.size_; // テクスチャの大きさ
-}
-
-void PostEffect::SetIsVisible(const bool isVisible)
-{
-	isVisible_ = isVisible;
+		// リソースバリアを変更
+		spCmdList_->ResourceBarrier(1, &barrierDesc);
+	}
 }
 
 void PostEffect::CreateRTV()
@@ -275,7 +163,7 @@ void PostEffect::CreateRTV()
 	// デスクリプタヒープ設定
 	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc{};
 	rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; // レンダーターゲットビュー
-	rtvHeapDesc.NumDescriptors = 1;
+	rtvHeapDesc.NumDescriptors = 2;
 
 	// デスクリプタヒープ生成
 	YDX::Result(spDevice_->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&rtvHeap_)));
@@ -288,8 +176,14 @@ void PostEffect::CreateRTV()
 	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
 	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
 	
-	// レンダーターゲットビュー生成
-	spDevice_->CreateRenderTargetView(pTex_->Buffer(), &rtvDesc, rtvHeap_->GetCPUDescriptorHandleForHeapStart());
+	for (size_t i = 0; i < pTexs_.size(); i++)
+	{
+		// レンダーターゲットビュー生成
+		spDevice_->CreateRenderTargetView(pTexs_[i]->Buffer(), &rtvDesc, 
+			CD3DX12_CPU_DESCRIPTOR_HANDLE(
+				rtvHeap_->GetCPUDescriptorHandleForHeapStart(), static_cast<INT>(i),
+				spDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV)));
+	}
 }
 
 void PostEffect::CreateDepthBuff(const YMath::Vector2& size)
@@ -341,18 +235,18 @@ void PostEffect::CreateDSV()
 
 void PostEffect::StaticInitialize(
 	ID3D12Device* pDevice,
-	ID3D12GraphicsCommandList* pCmdList,
-	YDX::ScreenDesc* pScreenDesc)
+	ID3D12GraphicsCommandList* pCmdList)
 {
 	// nullチェック
 	assert(pDevice);
 	assert(pCmdList);
-	assert(pScreenDesc);
 
 	// 代入
 	spDevice_ = pDevice;
 	spCmdList_ = pCmdList;
-	spScreenDesc_ = pScreenDesc;
+	
+	// スクリーン設定初期化
+	sScreenDesc_.Initialize({ 0,0 }, WinSize, kTextureNum_);
 }
 
 #pragma endregion
@@ -446,9 +340,11 @@ void PostEffect::Object::Default::StaticInitialize()
 
 #pragma region シェーダー番号
 
-static const UINT DefaultIndex = static_cast<UINT>(PostEffect::ShaderType::eDefault);
-static const UINT BloomIndex = static_cast<UINT>(PostEffect::ShaderType::eBloom);
-static const UINT GaussianIndex = static_cast<UINT>(PostEffect::ShaderType::eGaussian);
+static const UINT DefaultIndex			 = static_cast<UINT>(PostEffect::ShaderType::eDefault);
+static const UINT ColorInversionIndex	 = static_cast<UINT>(PostEffect::ShaderType::eColorInversion);
+static const UINT UVShiftBlurIndex		 = static_cast<UINT>(PostEffect::ShaderType::eUVShiftBlur);
+static const UINT GaussianBlurIndex		 = static_cast<UINT>(PostEffect::ShaderType::eGaussianBlur);
+static const UINT BloomIndex			 = static_cast<UINT>(PostEffect::ShaderType::eBloom);
 
 #pragma endregion
 
@@ -474,14 +370,24 @@ void PostEffect::Pipeline::ShaderSet::Load()
 		defaultPSBlob_ = ps;
 	}
 
-	// Bloom
+	// ColorInversion
 	{
 		ID3DBlob* ps = nullptr;
 
 		// ピクセルシェーダの読み込みとコンパイル
-		LoadShader(L"Resources/Shaders/BloomPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+		LoadShader(L"Resources/Shaders/ColorInversionPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
 
-		bloomPSBlob_ = ps;
+		colorInversionPSBlob_ = ps;
+	}
+
+	// UVShiftBlur
+	{
+		ID3DBlob* ps = nullptr;
+
+		// ピクセルシェーダの読み込みとコンパイル
+		LoadShader(L"Resources/Shaders/UVShiftBlurPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+
+		uvShiftBlurPSBlob_ = ps;
 	}
 
 	// Gaussian
@@ -491,7 +397,17 @@ void PostEffect::Pipeline::ShaderSet::Load()
 		// ピクセルシェーダの読み込みとコンパイル
 		LoadShader(L"Resources/Shaders/GaussianBlurPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
 
-		gaussianPSBlob_ = ps;
+		gaussianBlurPSBlob_ = ps;
+	}
+
+	// Bloom
+	{
+		ID3DBlob* ps = nullptr;
+
+		// ピクセルシェーダの読み込みとコンパイル
+		LoadShader(L"Resources/Shaders/BloomPS.hlsl", "main", "ps_5_0", ps, errorBlob.Get());
+
+		bloomPSBlob_ = ps;
 	}
 }
 
@@ -555,8 +471,11 @@ void PostEffect::Pipeline::StaticInitialize()
 	// ルートパラメータ
 	std::vector<D3D12_ROOT_PARAMETER> rootParams;
 
+	// メモリ領域を確保
+	rootParams.reserve(static_cast<size_t>(RootParameterIndex::eTex1DT) + 1);
+
 	// 定数バッファの数
-	size_t rpIdxCBNum = static_cast<size_t> (RootParameterIndex::eTexDT);
+	size_t rpIdxCBNum = static_cast<size_t>(RootParameterIndex::eTexConfigCB) + 1;
 
 	// 定数バッファの数だけ
 	for (size_t i = 0; i < rpIdxCBNum; i++)
@@ -572,22 +491,31 @@ void PostEffect::Pipeline::StaticInitialize()
 		rootParams.push_back(rootParam);
 	}
 
-	// デスクリプタレンジの設定
-	D3D12_DESCRIPTOR_RANGE descriptorRange{};
-	descriptorRange.NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
-	descriptorRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-	descriptorRange.BaseShaderRegister = 0; // テクスチャレジスタ0番
-	descriptorRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+	// デスクリプタテーブルの数
+	size_t rpIdxDTNum = static_cast<size_t>(RootParameterIndex::eTex1DT) - static_cast<size_t>(RootParameterIndex::eTexConfigCB);
 
-	// テクスチャレジスタ
-	D3D12_ROOT_PARAMETER rootParam{};
-	rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-	rootParam.DescriptorTable.pDescriptorRanges = &descriptorRange;
-	rootParam.DescriptorTable.NumDescriptorRanges = 1;
-	rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
+	// デスクリプタレンジ
+	std::array<D3D12_DESCRIPTOR_RANGE, kTextureNum_> descriptorRanges{};
 
-	// 配列に挿入
-	rootParams.push_back(rootParam);
+	// デスクリプタテーブルの数だけ
+	for (size_t i = 0; i < rpIdxDTNum; i++)
+	{
+		// デスクリプタレンジの設定
+		descriptorRanges[i].NumDescriptors = 1; // 1度の描画に使うテクスチャが1枚なので1
+		descriptorRanges[i].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+		descriptorRanges[i].BaseShaderRegister = static_cast<UINT>(i); // テクスチャレジスタ番号
+		descriptorRanges[i].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+		// テクスチャレジスタ
+		D3D12_ROOT_PARAMETER rootParam{};
+		rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+		rootParam.DescriptorTable.pDescriptorRanges = &descriptorRanges[i];
+		rootParam.DescriptorTable.NumDescriptorRanges = 1;
+		rootParam.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL; // 全てのシェーダから見える
+
+		// 配列に挿入
+		rootParams.push_back(rootParam);
+	}
 
 #pragma endregion
 
@@ -598,20 +526,30 @@ void PostEffect::Pipeline::StaticInitialize()
 	std::array<D3D12_GRAPHICS_PIPELINE_STATE_DESC, sPipelineSets_.size()> pipelineDescs{};
 
 	// シェーダーの設定	
-	pipelineDescs[DefaultIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[DefaultIndex].VS.BytecodeLength	 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[DefaultIndex].PS.pShaderBytecode	 = shdrs.defaultPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[DefaultIndex].PS.BytecodeLength	 = shdrs.defaultPSBlob_.Get()->GetBufferSize();
+	pipelineDescs[DefaultIndex].VS.pShaderBytecode			 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[DefaultIndex].VS.BytecodeLength			 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[DefaultIndex].PS.pShaderBytecode			 = shdrs.defaultPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[DefaultIndex].PS.BytecodeLength			 = shdrs.defaultPSBlob_.Get()->GetBufferSize();
 
-	pipelineDescs[BloomIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[BloomIndex].VS.BytecodeLength		 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[BloomIndex].PS.pShaderBytecode	 = shdrs.bloomPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[BloomIndex].PS.BytecodeLength		 = shdrs.bloomPSBlob_.Get()->GetBufferSize();
+	pipelineDescs[ColorInversionIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[ColorInversionIndex].VS.BytecodeLength	 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[ColorInversionIndex].PS.pShaderBytecode	 = shdrs.colorInversionPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[ColorInversionIndex].PS.BytecodeLength	 = shdrs.colorInversionPSBlob_.Get()->GetBufferSize();
 
-	pipelineDescs[GaussianIndex].VS.pShaderBytecode	 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[GaussianIndex].VS.BytecodeLength	 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
-	pipelineDescs[GaussianIndex].PS.pShaderBytecode	 = shdrs.bloomPSBlob_.Get()->GetBufferPointer();
-	pipelineDescs[GaussianIndex].PS.BytecodeLength	 = shdrs.bloomPSBlob_.Get()->GetBufferSize();
+	pipelineDescs[UVShiftBlurIndex].VS.pShaderBytecode		 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[UVShiftBlurIndex].VS.BytecodeLength		 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[UVShiftBlurIndex].PS.pShaderBytecode		 = shdrs.uvShiftBlurPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[UVShiftBlurIndex].PS.BytecodeLength		 = shdrs.uvShiftBlurPSBlob_.Get()->GetBufferSize();
+
+	pipelineDescs[GaussianBlurIndex].VS.pShaderBytecode		 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[GaussianBlurIndex].VS.BytecodeLength		 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[GaussianBlurIndex].PS.pShaderBytecode		 = shdrs.gaussianBlurPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[GaussianBlurIndex].PS.BytecodeLength		 = shdrs.gaussianBlurPSBlob_.Get()->GetBufferSize();
+
+	pipelineDescs[BloomIndex].VS.pShaderBytecode			 = shdrs.defaultVSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[BloomIndex].VS.BytecodeLength				 = shdrs.defaultVSBlob_.Get()->GetBufferSize();
+	pipelineDescs[BloomIndex].PS.pShaderBytecode			 = shdrs.bloomPSBlob_.Get()->GetBufferPointer();
+	pipelineDescs[BloomIndex].PS.BytecodeLength				 = shdrs.bloomPSBlob_.Get()->GetBufferSize();
 
 	// パイプラインの数だけ
 	for (size_t i = 0; i < sPipelineSets_.size(); i++)
@@ -622,7 +560,7 @@ void PostEffect::Pipeline::StaticInitialize()
 		// ラスタライザの設定
 		pipelineDescs[i].RasterizerState.FillMode = D3D12_FILL_MODE_SOLID; // ポリゴン内塗りつぶし
 		pipelineDescs[i].RasterizerState.DepthClipEnable = true; // 深度クリッピングを有効に
-		pipelineDescs[i].RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
+		pipelineDescs[i].RasterizerState.CullMode = D3D12_CULL_MODE_BACK; // 背面をカリング
 
 		// デプスステンシルステートの設定
 		pipelineDescs[i].DepthStencilState.DepthEnable = false; // 深度テストしない
@@ -636,7 +574,7 @@ void PostEffect::Pipeline::StaticInitialize()
 		blendDesc.BlendOpAlpha = D3D12_BLEND_OP_ADD; // 加算
 		blendDesc.SrcBlendAlpha = D3D12_BLEND_ONE;   // ソースの値を100%使う
 		blendDesc.DestBlendAlpha = D3D12_BLEND_ZERO; // デストの値を  0%使う
-		
+
 		if (i == BloomIndex)
 		{
 			// 加算合成
@@ -674,7 +612,6 @@ void PostEffect::Pipeline::StaticInitialize()
 	D3D_PRIMITIVE_TOPOLOGY primitive = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; // 三角形ストリップ
 
 #pragma endregion
-
 
 	// パイプラインの数だけ
 	for (size_t i = 0; i < sPipelineSets_.size(); i++)
@@ -734,8 +671,11 @@ void PostEffect::Pipeline::DrawSet::Draw()
 	// 定数バッファをシェーダーに送る
 	pObj_->SetDrawCommand(TraIndex, ColIndex, TexConfigIndex);
 
-	// テクスチャ
-	pPostEffect_->pTex_->SetDrawCommand(TexIndex);
+	// テクスチャ0
+	pPostEffect_->pTexs_[0]->SetDrawCommand(Tex0Index);
+	
+	// テクスチャ1
+	pPostEffect_->pTexs_[1]->SetDrawCommand(Tex1Index);
 
 	// 頂点バッファを送る + 描画コマンド
 	pPostEffect_->vt_.Draw();

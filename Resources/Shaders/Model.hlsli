@@ -71,3 +71,12 @@ struct PSInput
 	// 視線ベクトル
 	float3 eyeDir_ : EYE_DIRECTION;
 };
+
+// ピクセルシェーダーの出力構造体
+struct PSOutput
+{
+	// 描画 0
+	float4 target0_ : SV_TARGET0;
+	// 描画 1
+	float4 target1_ : SV_TARGET1;
+};

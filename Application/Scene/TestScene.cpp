@@ -23,6 +23,12 @@ using namespace YGame;
 #pragma region 読み込み
 void TestScene::Load()
 {
+	Level::ClearAllData();
+	
+	Level::LoadAsset();
+	
+	pLevel_ = Level::LoadJson("levelData.json");
+	pLevel_->Initialize();
 }
 #pragma endregion
 
@@ -30,8 +36,6 @@ void TestScene::Load()
 #pragma region 初期化
 void TestScene::Initialize()
 {
-	// ビュープロジェクション初期化
-	transferVP_.Initialize();
 }
 #pragma endregion
 
@@ -46,8 +50,7 @@ void TestScene::Finalize()
 #pragma region 更新
 void TestScene::Update()
 {
-	// ビュープロジェクション更新
-	transferVP_.UpdateMatrix();
+	pLevel_->Update();
 }
 #pragma endregion
 
@@ -55,5 +58,6 @@ void TestScene::Update()
 #pragma region 描画
 void TestScene::Draw()
 {
+	pLevel_->Draw();
 }
 #pragma endregion

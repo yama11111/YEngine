@@ -3,10 +3,21 @@
 
 using YGame::GameObject;
 
-void GameObject::Initialize(const Transform::Status& status)
+void GameObject::Initialize(const std::string name, const Transform::Status& status, GameObject* pParent)
 {
 	// トランスフォーム生成 + 初期化
 	transform_.reset(new Transform(status));
+	
+	// 親がいるなら
+	if (pParent)
+	{
+		// 代入 + 親子関係
+		pParent_ = pParent;
+		transform_->parent_ = &pParent_->transform_->m_;
+	}
+
+	// 行列更新
+	transform_->UpdateMatrix();
 }
 
 void GameObject::Update()
@@ -24,7 +35,7 @@ void GameObject::Update()
 void GameObject::Draw()
 {
 	// 描画
-	drawer_->Draw();
+	if (drawer_) { drawer_->Draw(); }
 }
 
 void GameObject::OnCollision()

@@ -1,11 +1,10 @@
 #pragma once
 #include "BaseDrawer.h"
-
 namespace YGame
 {
-    class PlayerDrawer final :
-        public BaseDrawer
-    {
+	class DefaultDrawer :
+		public BaseDrawer
+	{
 
 	public:
 
@@ -37,33 +36,22 @@ namespace YGame
 
 	public:
 
-		PlayerDrawer() = default;
+		DefaultDrawer() = default;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
-		PlayerDrawer(const DrawLocation location);
+		DefaultDrawer(const DrawLocation location);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		PlayerDrawer(Transform* pParent, const DrawLocation location);
+		DefaultDrawer(Transform * pParent, const DrawLocation location);
 
-		~PlayerDrawer() = default;
-	
-	public:
+		~DefaultDrawer() = default;
 
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		static void StaticInitialize();
-	
-	private:
-
-		// モデルポインタ
-		static Model* spModel_;
-    };
+	};
 }

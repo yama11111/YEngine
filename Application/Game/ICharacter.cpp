@@ -11,7 +11,7 @@ void ICharacter::Initialize(
 	BaseCollider* collider, BaseDrawer* drawer)
 {
 	// オブジェクト初期化
-	GameObject::Initialize(status);
+	GameObject::Initialize("", status);
 
 	// コライダー設定
 	GameObject::SetCollider(collider);
@@ -48,24 +48,4 @@ void ICharacter::Update()
 
 	// キャラステータス更新
 	status_.Update();
-}
-
-bool ICharacter::IsAlive() const
-{
-	return status_.IsAlive();
-}
-
-YGame::CharacterStatus ICharacter::Status() const
-{
-	return status_;
-}
-
-Vector3& ICharacter::PosRef()
-{
-	return transform_->pos_;
-}
-
-Vector3& ICharacter::SpeedRef()
-{
-	return speed_.VelocityRef();
 }

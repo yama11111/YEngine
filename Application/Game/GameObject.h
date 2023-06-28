@@ -12,8 +12,13 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
+		/// <param name="name"> : 名前</param>
 		/// <param name="status"> : 初期化ステータス</param>
-		void Initialize(const Transform::Status& status);
+		/// <param name="pParent"> : 親ポインタ</param>
+		void Initialize(
+			const std::string name, 
+			const Transform::Status& status,
+			GameObject* pParent = nullptr);
 
 		/// <summary>
 		/// 更新
@@ -38,7 +43,7 @@ namespace YGame
 		/// <returns>コライダーポインタ</returns>
 		BaseCollider* ColliderPtr() const { return collider_.get(); }
 	
-	protected:
+	public:
 		
 		/// <summary>
 		/// コライダー設定
@@ -69,5 +74,7 @@ namespace YGame
 		// 描画クラス
 		std::unique_ptr<BaseDrawer> drawer_;
 
+		// 親ポインタ
+		GameObject* pParent_ = nullptr;
 	};
 }

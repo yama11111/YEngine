@@ -3,9 +3,9 @@
 
 namespace YGame
 {
-    class PlayerDrawer final :
-        public BaseDrawer
-    {
+	class GridDrawer :
+		public BaseDrawer
+	{
 
 	public:
 
@@ -37,33 +37,22 @@ namespace YGame
 
 	public:
 
-		PlayerDrawer() = default;
+		GridDrawer() = default;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
-		PlayerDrawer(const DrawLocation location);
+		GridDrawer(const DrawLocation location);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		PlayerDrawer(Transform* pParent, const DrawLocation location);
+		GridDrawer(Transform* pParent, const DrawLocation location);
 
-		~PlayerDrawer() = default;
-	
-	public:
+		~GridDrawer() = default;
 
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		static void StaticInitialize();
-	
-	private:
-
-		// モデルポインタ
-		static Model* spModel_;
-    };
+	};
 }

@@ -687,38 +687,44 @@ void Model::Pipeline::StaticInitialize()
 		// ラスタライザの設定
 		pipelineDescs[i].RasterizerState.FillMode = D3D12_FILL_MODE_SOLID; // ポリゴン内塗りつぶし
 		pipelineDescs[i].RasterizerState.DepthClipEnable = true; // 深度クリッピングを有効に
-		pipelineDescs[i].RasterizerState.CullMode = D3D12_CULL_MODE_BACK; // 背面をカリング
+		pipelineDescs[i].RasterizerState.CullMode = D3D12_CULL_MODE_NONE; // 背面をカリングしない
 
-		// デプスステンシルステートの設定
+				// デプスステンシルステートの設定
 		pipelineDescs[i].DepthStencilState.DepthEnable = true; // 深度テスト
 		pipelineDescs[i].DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL; // 書き込み許可
 		pipelineDescs[i].DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS; // 小さければ合格
 		pipelineDescs[i].DSVFormat = DXGI_FORMAT_D32_FLOAT; // 深度フォーマット
 
-		// ブレンドステート
-		D3D12_RENDER_TARGET_BLEND_DESC& blendDesc = pipelineDescs[i].BlendState.RenderTarget[0];
-		blendDesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL; // RBGA全てのチャンネルを描画
+		for (size_t j = 0; j < 2; j++)
+		{
+			// ブレンドステート
+			D3D12_RENDER_TARGET_BLEND_DESC& blendDesc = pipelineDescs[i].BlendState.RenderTarget[j];
+			blendDesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL; // RBGA全てのチャンネルを描画
 
-		blendDesc.BlendEnable = true;                // ブレンドを有効にする
-		blendDesc.BlendOpAlpha = D3D12_BLEND_OP_ADD; // 加算
-		blendDesc.SrcBlendAlpha = D3D12_BLEND_ONE;   // ソースの値を100%使う
-		blendDesc.DestBlendAlpha = D3D12_BLEND_ZERO; // デストの値を  0%使う
+			blendDesc.BlendEnable = true;                // ブレンドを有効にする
+			blendDesc.BlendOpAlpha = D3D12_BLEND_OP_ADD; // 加算
+			blendDesc.SrcBlendAlpha = D3D12_BLEND_ONE;   // ソースの値を100%使う
+			blendDesc.DestBlendAlpha = D3D12_BLEND_ZERO; // デストの値を  0%使う
 
-		// 半透明合成
-		blendDesc.BlendOp = D3D12_BLEND_OP_ADD;			 // 加算
-		blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;      // ソースのアルファ値
-		blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA; // 1.0f - ソースのアルファ値
+			// 半透明合成
+			blendDesc.BlendOp = D3D12_BLEND_OP_ADD;			 // 加算
+			blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;      // ソースのアルファ値
+			blendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA; // 1.0f - ソースのアルファ値
+		}
 
 		// 図形の形状設定
 		pipelineDescs[i].PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
 		// 頂点レイアウトの設定
 		pipelineDescs[i].InputLayout.pInputElementDescs = inputLayout.data(); // 頂点レイアウトの先頭アドレス
-		pipelineDescs[i].InputLayout.NumElements = (UINT)inputLayout.size(); // 頂点レイアウト数
+		pipelineDescs[i].InputLayout.NumElements = static_cast<UINT>(inputLayout.size()); // 頂点レイアウト数
 
 		// その他の設定
-		pipelineDescs[i].NumRenderTargets = 1; // 描画対象は1つ
-		pipelineDescs[i].RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // 0~255指定のRGBA
+		pipelineDescs[i].NumRenderTargets = static_cast<UINT>(2); // 描画対象は2つ
+		for (size_t j = 0; j < 2; j++)
+		{
+			pipelineDescs[i].RTVFormats[j] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // 0~255指定のRGBA
+		}
 		pipelineDescs[i].SampleDesc.Count = 1; // 1ピクセルにつき1回サンプリング
 	}
 

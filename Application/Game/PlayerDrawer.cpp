@@ -9,7 +9,7 @@ void PlayerDrawer::Initialize(Transform* pParent, const DrawLocation location)
 	BaseDrawer::Initialize(pParent, location);
 
 	// ƒ‚ƒfƒ‹Ý’è
-	pModel_ = Model::CreateCube("player.png");
+	pModel_ = Model::LoadObj("player", true);
 }
 
 void PlayerDrawer::Update()
@@ -21,7 +21,7 @@ void PlayerDrawer::Update()
 void PlayerDrawer::Draw()
 {
 	// •`‰æ
-	pModel_->SetDrawCommand(obj_.get(), location_);
+	pModel_->SetDrawCommand(obj_.get(), location_, Model::ShaderType::ePhong);
 }
 
 void PlayerDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
@@ -37,4 +37,9 @@ PlayerDrawer::PlayerDrawer(const DrawLocation location)
 PlayerDrawer::PlayerDrawer(Transform* pParent, const DrawLocation location)
 {
 	Initialize(pParent, location);
+}
+
+void PlayerDrawer::StaticInitialize()
+{
+
 }

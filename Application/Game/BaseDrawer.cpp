@@ -13,6 +13,19 @@ void BaseDrawer::Initialize(Transform* pParent, const DrawLocation location)
 	// 親設定
 	SetParent(pParent);
 
+	// 色
+	color_.reset(CBColor::Create());
+	obj_->SetColor(color_.get());
+	
+	// マテリアル
+	material_.reset(CBMaterial::Create());
+	material_->SetAmbient({ 0.2f,0.2f,0.2f });
+	obj_->SetMaterial(material_.get());
+	
+	// テクスチャ設定
+	texConfig_.reset(CBTexConfig::Create());
+	obj_->SetTexConfig(texConfig_.get());
+
 	// ビュープロジェクション設定
 	obj_->SetViewProjection(spVP_);
 

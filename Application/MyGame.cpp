@@ -4,6 +4,8 @@
 #include "YGameTransitionFactory.h"
 #include "MapChipManager.h"
 
+#include "Keys.h"
+
 #pragma region 名前空間宣言
 using YBase::MyGame;
 using namespace YDX;
@@ -25,7 +27,13 @@ bool MyGame::Initialize()
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
 
 	// シーンエグゼクティブ初期化
-	sceneExe_->Initialize(YGameSceneFactory::Play_, YGameTransitionFactory::Blackout_);
+	sceneExe_->Initialize(YGameSceneFactory::Test_, YGameTransitionFactory::Blackout_);
+
+	pPostEffect_ = PostEffect::Create();
+
+	postEffectObj_.reset(PostEffect::Object::Create());
+
+	pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eColorInversion);
 
 	return true;
 }
@@ -40,6 +48,34 @@ void MyGame::Update()
 {
 	// 基底クラス更新処理
 	YFramework::Update();
+	
+	if (Keys::GetInstance()->IsTrigger(DIK_SPACE))
+	{
+		if (isDef_)
+		{
+			isDef_ = false;
+			isUVShift_ = false;
+			isChack_ = true;
+
+			pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eColorInversion);
+		}
+		else if (isUVShift_)
+		{
+			isDef_ = true;
+			isUVShift_ = false;
+			isChack_ = false;
+
+			pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eDefault);
+		}
+		else if (isChack_)
+		{
+			isDef_ = false;
+			isUVShift_ = true;
+			isChack_ = false;
+
+			pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eUVShiftBlur);
+		}
+	}
 
 	// ------------------- 終了処理 ------------------- //
 	// ------------------------------------------------ //
@@ -50,14 +86,13 @@ void MyGame::Draw()
 	// デスクリプターヒープセット
 	descHeap_.SetDrawCommand();
 
-	//pPostEffect_->StartRender();
+	pPostEffect_->StartRender();
+	
+	// ゲームシーン描画
+	DrawGameScene();
+	
+	pPostEffect_->EndRender();
 
-	
-	//// ゲームシーン描画
-	//DrawGameScene();
-	
-	
-	//pPostEffect_->EndRender();
 
 	// 描画準備
 	dx_.PreDraw(ClearColor);
@@ -66,7 +101,7 @@ void MyGame::Draw()
 	screenDesc_.SetDrawCommand();
 
 	// ゲームシーン描画
-	DrawGameScene();
+	//DrawGameScene();
 	
 	// ポストエフェクト描画
 	PostEffect::Pipeline::StaticDraw();

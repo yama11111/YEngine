@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Def.h"
-#include "Vector3.h"
+
+using YMath::Vector2;
+using YMath::Vector3;
+using YMath::Vector4;
 
 void YMath::Srand() { srand(static_cast<unsigned int>(time(NULL))); }
 
@@ -91,5 +94,13 @@ YMath::Vector4 YMath::GetColor(const int R, const int G, const int B, const int 
 float YMath::ConvertFromDegreeToRadian(const float degree)
 {
 	return degree * (PI / 180.0f);
+}
+
+Vector3 YMath::ConvertFromDegreeToRadian(const Vector3& degree)
+{
+	return Vector3(
+		ConvertFromDegreeToRadian(degree.x_), 
+		ConvertFromDegreeToRadian(degree.y_),
+		ConvertFromDegreeToRadian(degree.z_));
 }
 

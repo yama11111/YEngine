@@ -3,7 +3,6 @@
 #include "CharacterStatus.h"
 #include "Speed.h"
 #include "MapChipCollider.h"
-#include "CollisionInfo.h"
 
 namespace YGame
 {
@@ -11,7 +10,7 @@ namespace YGame
 		public GameObject,
 		public MapChipCollider
 	{
-
+	
 	public:
 
 		/// <summary>
@@ -36,6 +35,24 @@ namespace YGame
 		/// </summary>
 		virtual void Update() override;
 
+	public:
+
+		// 衝突時情報構造体
+		struct CollisionInfo
+		{
+			// 属性
+			uint32_t attribute_;
+			
+			// 位置
+			YMath::Vector3 pos_;
+
+			// 半径
+			float radius_;
+
+			// ステータス
+			CharacterStatus& status_;
+		};
+		
 		/// <summary>
 		/// 衝突判定
 		/// </summary>
@@ -48,25 +65,25 @@ namespace YGame
 		/// 生存フラグ
 		/// </summary>
 		/// <returns></returns>
-		bool IsAlive() const;
+		inline bool IsAlive() const { return status_.IsAlive(); }
 
 		/// <summary>
 		/// キャラステータス取得
 		/// </summary>
 		/// <returns>キャラステータス</returns>
-		CharacterStatus Status() const;
+		inline CharacterStatus Status() const { return status_; }
 
 		/// <summary>
 		/// 位置取得 (参照)
 		/// </summary>
 		/// <returns></returns>
-		YMath::Vector3& PosRef() override;
+		inline YMath::Vector3& PosRef() override { return transform_->pos_; }
 		
 		/// <summary>
 		/// スピード取得 (参照)
 		/// </summary>
 		/// <returns></returns>
-		YMath::Vector3& SpeedRef() override;
+		inline YMath::Vector3& SpeedRef() override { return speed_.VelocityRef(); }
 
 	public:
 

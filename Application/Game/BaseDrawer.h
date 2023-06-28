@@ -79,6 +79,15 @@ namespace YGame
 		// 3D用オブジェクト
 		std::unique_ptr<Model::Object> obj_;
 
+		// 色
+		std::unique_ptr<CBColor> color_;
+
+		// マテリアル
+		std::unique_ptr<CBMaterial> material_;
+
+		// テクスチャ設定
+		std::unique_ptr<CBTexConfig> texConfig_;
+
 		// モデルポインタ
 		Model* pModel_ = nullptr;
 
