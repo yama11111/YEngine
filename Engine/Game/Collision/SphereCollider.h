@@ -22,7 +22,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		void Initialize(
 			const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const float radius, 
 			const bool isSlip = false);
 
@@ -37,7 +37,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		void Initialize(
 			Transform* pParent, const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const float radius, 
 			const bool isSlip = false);
 
@@ -60,7 +60,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		SphereCollider(
 			const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const float radius,
 			const bool isSlip = false);
 		
@@ -75,7 +75,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		SphereCollider(
 			Transform* pParent, const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const float radius,
 			const bool isSlip = false);
 		

@@ -6,7 +6,7 @@ using YMath::Vector3;
 
 void BaseCollider::Initialize(
 	const Vector3& offset, 
-	const uint32_t attribute, const uint32_t mask, 
+	const AttributeType attribute, const AttributeType mask, 
 	const bool isSlip)
 {
 	// 親ポインタ null で初期化
@@ -15,7 +15,7 @@ void BaseCollider::Initialize(
 
 void BaseCollider::Initialize(
 	Transform* pParent, const Vector3& offset, 
-	const uint32_t attribute, const uint32_t mask, 
+	const AttributeType attribute, const AttributeType mask, 
 	const bool isSlip)
 {
 	// 親トランスフォームポインタ設定
@@ -42,7 +42,7 @@ void BaseCollider::SetParent(Transform* pParent)
 
 BaseCollider::BaseCollider(
 	const Vector3& offset, 
-	const uint32_t attribute, const uint32_t mask, 
+	const AttributeType attribute, const AttributeType mask, 
 	const bool isSlip) : 
 	pParent_(nullptr), offset_(offset),
 	attribute_(attribute), mask_(mask),
@@ -51,9 +51,13 @@ BaseCollider::BaseCollider(
 
 BaseCollider::BaseCollider(
 	Transform* pParent, const Vector3& offset, 
-	const uint32_t attribute, const uint32_t mask, 
+	const AttributeType attribute, const AttributeType mask, 
 	const bool isSlip) :
 	pParent_(pParent), offset_(offset),
 	attribute_(attribute), mask_(mask),
 	isSlip_(isSlip)
 {}
+
+void BaseCollider::DrawDebugTextContent()
+{
+}

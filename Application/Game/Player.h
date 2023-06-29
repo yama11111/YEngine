@@ -33,6 +33,12 @@ namespace YGame
 		void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		CollisionInfo GetCollisionInfo() override;
+
+		/// <summary>
 		/// ペットポインタ設定
 		/// </summary>
 		/// <param name="pPet"> : ペットポインタ</param>
@@ -72,11 +78,17 @@ namespace YGame
 		static ScrollCamera* spScrollCamera_;
 
 	private:
-
+		
 		/// <summary>
 		/// ジャンプ
 		/// </summary>
-		void Jump();
+		/// <param name="isJumpCount"> : カウントするか</param>
+		void Jump(const bool isJumpCount = true);
+		
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		void DrawDebugTextContent() override;
 
 	};
 }

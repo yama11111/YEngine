@@ -16,6 +16,7 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
+		/// <param name="name"> : 名前</param>
 		/// <param name="status"> : ステータス</param>
 		/// <param name="acceleration"> : 加速度</param>
 		/// <param name="maxSpeed"> : 最大速度</param>
@@ -25,6 +26,7 @@ namespace YGame
 		/// <param name="collider"> : コライダー</param>
 		/// <param name="drawer"> : 描画クラス</param>
 		void Initialize(
+			const std::string& name,
 			const Transform::Status& status,
 			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
 			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
@@ -41,16 +43,16 @@ namespace YGame
 		struct CollisionInfo
 		{
 			// 属性
-			uint32_t attribute_;
-			
+			AttributeType attribute_ = AttributeType::eNone;
+
 			// 位置
 			YMath::Vector3 pos_;
 
 			// 半径
-			float radius_;
+			float radius_ = 0.0f;
 
-			// ステータス
-			CharacterStatus& status_;
+			// キャラステータスポインタ
+			CharacterStatus* pStatus_ = nullptr;
 		};
 		
 		/// <summary>
@@ -58,6 +60,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
 		virtual void OnCollision(const CollisionInfo& info) = 0;
+
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		virtual CollisionInfo GetCollisionInfo() = 0;
 	
 	public:
 
@@ -65,7 +73,7 @@ namespace YGame
 		/// 生存フラグ
 		/// </summary>
 		/// <returns></returns>
-		inline bool IsAlive() const { return status_.IsAlive(); }
+		inline bool IsAlive() const { return true; }
 
 		/// <summary>
 		/// キャラステータス取得
@@ -101,5 +109,12 @@ namespace YGame
 
 		// キャラクターステータス
 		CharacterStatus status_;
+
+	protected:
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 	};
 }

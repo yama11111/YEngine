@@ -713,7 +713,7 @@
     <ClInclude Include="Application\Game\CharacterStatus.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\CollisionConfig.h">
+    <ClInclude Include="Application\Game\AttributeType.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\IAttack.h">

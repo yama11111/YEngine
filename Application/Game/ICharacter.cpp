@@ -1,17 +1,19 @@
 #include "ICharacter.h"
 #include "MapChipManager.h"
+#include <imgui.h>
 
 using YGame::ICharacter;
 using YMath::Vector3;
 
 void ICharacter::Initialize(
+	const std::string& name,
 	const Transform::Status& status,
 	const Vector3& acceleration, const Vector3& maxSpeed,
 	const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
 	BaseCollider* collider, BaseDrawer* drawer)
 {
 	// オブジェクト初期化
-	GameObject::Initialize("", status);
+	GameObject::Initialize(name, status);
 
 	// コライダー設定
 	GameObject::SetCollider(collider);
@@ -48,4 +50,11 @@ void ICharacter::Update()
 
 	// キャラステータス更新
 	status_.Update();
+}
+
+void ICharacter::DrawDebugTextContent()
+{
+	status_.DrawDebugTextContent();
+
+	GameObject::DrawDebugTextContent();
 }

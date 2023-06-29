@@ -17,6 +17,11 @@ namespace YGame
 		/// 更新
 		/// </summary>
 		void Update();
+		
+		/// <summary>
+		/// デバッグ描画
+		/// </summary>
+		void DrawDebugText();
 
 		/// <summary>
 		/// 描画

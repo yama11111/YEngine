@@ -1,9 +1,11 @@
 #pragma once
 #include "Timer.h"
+#include "DebugTextAttacher.h"
 
 namespace YGame
 {
-	class CharacterStatus final
+	class CharacterStatus final : 
+		public DebugTextAttacher
 	{
 
 	public:
@@ -27,6 +29,11 @@ namespace YGame
 		/// <param name="attack"> : 攻撃力</param>
 		/// <param name="isInvincible"> : 無敵にするか</param>
 		void Damage(const uint32_t attack, const bool isInvincible);
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		void DrawDebugTextContent() override;
 
 	public:
 

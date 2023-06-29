@@ -7,6 +7,10 @@
 #include "Player.h"
 #include "Slime.h"
 
+#include "PlayerDrawer.h"
+#include "SlimeDrawer.h"
+#include "BlockDrawer.h"
+
 #pragma region 名前空間宣言
 
 using YScene::PlayScene;
@@ -28,7 +32,19 @@ void PlayScene::Load()
 	pMapChipManager_ = MapChipManager::GetInstance();
 
 	// 描画クラス
-	BaseDrawer::StaticInitialize(&transferVP_);
+	{
+		// 基底クラス
+		BaseDrawer::StaticInitialize(&transferVP_);
+
+		// プレイヤー
+		PlayerDrawer::StaticInitialize();
+
+		// ブロック
+		BlockDrawer::StaticInitialize();
+
+		// スライム
+		SlimeDrawer::StaticInitialize();
+	}
 
 	// プレイヤー
 	Player::StaticInitialize(&scrollCamera_);
@@ -107,6 +123,9 @@ void PlayScene::Update()
 	// ビュープロジェクション更新
 	transferVP_.UpdateMatrix();
 
+	// デバッグ描画
+	characterMan_->DrawDebugText();
+	
 	// リセット
 	if (sKeys_->IsTrigger(DIK_R))
 	{

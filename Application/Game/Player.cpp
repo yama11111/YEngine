@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
 #include "SphereCollider.h"
-#include "CollisionConfig.h"
 #include "MapChipCollisionBitConfig.h"
 #include "Keys.h"
 #include "Pad.h"
@@ -15,29 +14,30 @@ using YInput::Pad;
 
 YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
 
-static const float Radius = 1.0f;
-static const Vector3 Acceleration = { 0.1f,1.0f,0.0f };
-static const Vector3 MaxSpeed = { 0.3f,1.0f,0.0f };
-static const uint16_t MaxJumpCount = 2;
-static const uint32_t HP = 3;
-static const uint32_t Attack = 20;
-static const uint32_t InvincibleTime = 10;
+static const float kRadius = 1.0f;
+static const Vector3 kAcceleration = { 0.1f,1.0f,0.0f };
+static const Vector3 kMaxSpeed = { 0.3f,1.0f,0.0f };
+static const uint16_t kMaxJumpCount = 2;
+static const uint32_t kHP = 3;
+static const uint32_t kAttack = 20;
+static const uint32_t kInvincibleTime = 10;
 
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
 	// ゲームキャラクター初期化
 	ICharacter::Initialize(
+		"Player",
 		status,
-		Acceleration, MaxSpeed,
-		HP, Attack, InvincibleTime,
-		new SphereCollider({}, Attribute::kPlayer, Attribute::kAll, Radius),
+		kAcceleration, kMaxSpeed,
+		kHP, kAttack, kInvincibleTime,
+		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eAll, kRadius),
 		new PlayerDrawer(DrawLocation::eCenter));
 
 	// ジャンプカウンター初期化
 	jumpCounter_ = 0;
 
 	// 最大ジャンプ回数初期化
-	maxJumpCount_ = MaxJumpCount;
+	maxJumpCount_ = kMaxJumpCount;
 
 	// 開始時は武装する
 	isArmed_ = true;
@@ -76,32 +76,56 @@ void Player::Update()
 void Player::OnCollision(const CollisionInfo& info)
 {
 	// 敵
-	if (info.attribute_  == Attribute::kEnemy)
+	if (info.attribute_  == AttributeType::eEnemy)
 	{
-		// 自分 が 敵 より上にいる ダメージを与える
-		if (transform_->pos_.y_ - Radius >= 
-			info.pos_.y_ + info.radius_) 
+		// 自分 が 敵 より上にいる なら
+		if (transform_->pos_.y_ - kRadius >= info.pos_.y_ + (info.radius_ / 2.0f))
 		{
-			return; 
+			// ダメージを与える
+			info.pStatus_->Damage(status_.Attack(), true);
+
+			// ジャンプ
+			Jump(false);
 		}
+		// それ以外は (自分 が 敵 より下)
 		else
 		{
-			// 自分が下なら ダメージ受ける
-			status_.Damage(info.status_.Attack(), true);
+			// ダメージを受ける
+			status_.Damage(info.pStatus_->Attack(), true);
 		}
 	}
 }
 
-void Player::Jump()
+YGame::ICharacter::CollisionInfo Player::GetCollisionInfo()
 {
-	// ジャンプ回数 が 最大回数超えてたら 弾く
-	if (jumpCounter_ >= maxJumpCount_) { return; }
+	CollisionInfo result;
+
+	result.attribute_ = collider_->Attribute();
+	result.pos_ = transform_->pos_;
+	result.radius_ = kRadius;
+	result.pStatus_ = &status_;
+
+	return result;
+}
+
+void Player::Jump(const bool isJumpCount)
+{
+	// ジャンプカウントする
+	if (isJumpCount)
+	{
+		// ジャンプ回数 が 最大回数超えてたら 弾く
+		if (jumpCounter_ >= maxJumpCount_) { return; }
+
+		jumpCounter_++;
+	}
 
 	// y軸 に進む
 	moveDirection_.y_ = 1.0f;
+}
 
-	// ジャンプカウント
-	jumpCounter_++;
+void Player::DrawDebugTextContent()
+{
+	ICharacter::DrawDebugTextContent();
 }
 
 void Player::SetPetPointer(IPet* pPet)

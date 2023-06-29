@@ -12,10 +12,6 @@ namespace YBase
 
 		std::unique_ptr<YGame::PostEffect::Object> postEffectObj_;
 
-		bool isDef_ = false;
-		bool isUVShift_ = false;
-		bool isChack_ = true;
-
 	public:
 
 		/// <summary>

@@ -25,6 +25,12 @@ namespace YGame
 		/// </summary>
 		void Draw() override;
 
+		/// <summary>
+		/// Õ“Ëî•ñæ“¾
+		/// </summary>
+		/// <returns>Õ“Ëî•ñ</returns>
+		inline CollisionInfo GetCollisionInfo() override;
+
 	public:
 
 		Horse() = default;

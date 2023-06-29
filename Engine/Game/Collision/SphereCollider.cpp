@@ -5,7 +5,7 @@ using YMath::Vector3;
 
 void SphereCollider::Initialize(
 	const Vector3& offset,
-	const uint32_t attribute, const uint32_t mask,
+	const AttributeType attribute, const AttributeType mask,
 	const float radius,
 	const bool isSlip)
 {
@@ -15,7 +15,7 @@ void SphereCollider::Initialize(
 
 void SphereCollider::Initialize(
 	Transform* pParent, const Vector3& offset, 
-	const uint32_t attribute, const uint32_t mask, 
+	const AttributeType attribute, const AttributeType mask, 
 	const float radius, 
 	const bool isSlip)
 {
@@ -50,20 +50,22 @@ void SphereCollider::Update()
 
 SphereCollider::SphereCollider(
 	const Vector3& offset,
-	const uint32_t attribute, const uint32_t mask,
+	const AttributeType attribute, const AttributeType mask,
 	const float radius,
 	const bool isSlip) :
 	BaseCollider(offset, attribute, mask, isSlip)
 {
+	shapeType_ = ShapeType::eSphere;
 	Sphere::SetSphereRadius(radius);
 }
 
 SphereCollider::SphereCollider(
 	Transform* pParent, const Vector3& offset, 
-	const uint32_t attribute, const uint32_t mask, 
+	const AttributeType attribute, const AttributeType mask, 
 	const float radius, 
 	const bool isSlip) : 
 	BaseCollider(pParent, offset, attribute, mask, isSlip)
 {
+	shapeType_ = ShapeType::eSphere;
 	Sphere::SetSphereRadius(radius);
 }

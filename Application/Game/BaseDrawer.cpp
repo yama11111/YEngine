@@ -70,3 +70,8 @@ BaseDrawer::BaseDrawer(Transform* pParent, const DrawLocation location)
 {
 	Initialize(pParent, location);
 }
+
+void BaseDrawer::DrawDebugTextContent()
+{
+
+}

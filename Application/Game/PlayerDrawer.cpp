@@ -3,13 +3,15 @@
 using YGame::PlayerDrawer;
 using YGame::Model;
 
+Model* PlayerDrawer::spModel_ = nullptr;
+
 void PlayerDrawer::Initialize(Transform* pParent, const DrawLocation location)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, location);
 
-	// モデル設定
-	pModel_ = Model::LoadObj("player", true);
+	// モデル挿入
+	pModel_ = spModel_;
 }
 
 void PlayerDrawer::Update()
@@ -41,5 +43,6 @@ PlayerDrawer::PlayerDrawer(Transform* pParent, const DrawLocation location)
 
 void PlayerDrawer::StaticInitialize()
 {
-
+	// モデル設定
+	spModel_ = Model::CreateCube("player.png");
 }

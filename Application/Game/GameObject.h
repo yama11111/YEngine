@@ -4,7 +4,8 @@
 
 namespace YGame
 {
-	class GameObject
+	class GameObject : 
+		public DebugTextAttacher
 	{
 
 	public:
@@ -76,5 +77,12 @@ namespace YGame
 
 		// 親ポインタ
 		GameObject* pParent_ = nullptr;
+
+	protected:
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 	};
 }

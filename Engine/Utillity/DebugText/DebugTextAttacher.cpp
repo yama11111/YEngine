@@ -12,8 +12,16 @@ void DebugTextAttacher::DrawDebugText(const bool isWindow)
 	}
 	else
 	{
-		// ツリーノード作成
-		isTree = ImGui::TreeNode(name_.c_str());
+		if (name_.empty())
+		{
+			// ツリーノード作成
+			isTree = ImGui::TreeNode("noname");
+		}
+		else
+		{
+			// ツリーノード作成
+			isTree = ImGui::TreeNode(name_.c_str());
+		}
 	}
 
 	if (isTree)

@@ -10,7 +10,7 @@ public:
 	/// デバッグ描画
 	/// </summary>
 	/// <param name="isWindow"> : ウィンドウにするか</param>
-	void DrawDebugText(const bool isWindow = true);
+	void DrawDebugText(const bool isWindow);
 
 	/// <summary>
 	/// 名前変更

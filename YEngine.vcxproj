@@ -272,7 +272,7 @@
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h" />
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h" />
     <ClInclude Include="Engine\Game\Collision\BaseCollider.h" />
-    <ClInclude Include="Application\Game\CollisionConfig.h" />
+    <ClInclude Include="Application\Game\AttributeType.h" />
     <ClInclude Include="Engine\Game\Collision\CollisionPrimitive.h" />
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />

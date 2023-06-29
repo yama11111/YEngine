@@ -1,9 +1,12 @@
 #include "CharacterStatus.h"
+#include <imgui.h>
 
 using YGame::CharacterStatus;
 
 void CharacterStatus::Initialize(const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime)
 {
+	isAlive_ = true;
+
 	// ëÃóÕê›íË
 	SetHP(hp);
 	
@@ -12,6 +15,8 @@ void CharacterStatus::Initialize(const uint32_t hp, const uint32_t attack, const
 
 	// ñ≥ìGéûä‘ê›íË
 	SetInvincibleTime(invincibleTime);
+
+	isInvincible_ = false;
 }
 
 void CharacterStatus::Update()
@@ -66,10 +71,43 @@ void CharacterStatus::Damage(const uint32_t attack, const bool isInvincible)
 	}
 }
 
+void CharacterStatus::DrawDebugTextContent()
+{
+	ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+	if (ImGui::TreeNode("status"))
+	{
+		if (isAlive_)
+		{
+			ImGui::Text("isAlive : true");
+		}
+		else
+		{
+			ImGui::Text("isAlive : false");
+		}
+
+		ImGui::Text("HP : %5d", hp_);
+
+		ImGui::Text("Attack : %5d", attack_);
+		
+		if (isInvincible_)
+		{
+			ImGui::Text("isInvincible : true");
+			
+			ImGui::Text("invincibleTimer : %5f", invincibleTimer_.End() - invincibleTimer_.Current());
+		}
+		else
+		{
+			ImGui::Text("isInvincible : false");
+		}
+
+		ImGui::TreePop();
+	}
+}
+
 void CharacterStatus::SetHP(const uint32_t hp)
 {
 	// 0à»â∫Ç»ÇÁ
-	if (hp_ <= 0)
+	if (hp <= 0)
 	{
 		// 0Ç…Ç∑ÇÈ
 		hp_ = 0;
@@ -88,7 +126,7 @@ void CharacterStatus::SetHP(const uint32_t hp)
 void CharacterStatus::SetAttack(const uint32_t attack)
 {
 	// 0à»â∫Ç»ÇÁ
-	if (attack_ <= 0)
+	if (attack <= 0)
 	{
 		// 0Ç…Ç∑ÇÈ
 		attack_ = 0;

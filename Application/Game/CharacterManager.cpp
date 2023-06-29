@@ -1,6 +1,7 @@
 #include "CharacterManager.h"
 #include "SphereCollider.h"
 #include <cassert>
+#include <imgui.h>
 
 using YGame::CharacterManager;
 
@@ -11,35 +12,48 @@ void CharacterManager::Initialize()
 
 void CharacterManager::Update()
 {
-	// オブジェクトnullなら削除
-	characters_.remove_if([](std::unique_ptr<ICharacter>& character) { return character->IsAlive(); });
-
-	// 全キャラクター
+	// キャラクターが死んだら削除
+	characters_.remove_if([](std::unique_ptr<ICharacter>& character) { return character->IsAlive() == false; });
+	
 	for (std::unique_ptr<ICharacter>& character : characters_)
 	{
-		// 判定前更新
 		character->Update();
 	}
 
-	// アタリ判定全チェック
+	// 全キャラアタリ判定チェック
 	CheckAllCollision();
+}
+
+void CharacterManager::DrawDebugText()
+{
+	static const std::string windowName = "Game";
+
+	ImGui::SetWindowPos(windowName.c_str(), ImVec2(20.0f, 20.0f), ImGuiCond_Once);
+	ImGui::SetWindowSize(windowName.c_str(), ImVec2(240.0f, 680.0f), ImGuiCond_Once);
+
+	ImGui::Begin(windowName.c_str());
+
+	for (std::unique_ptr<ICharacter>& character : characters_)
+	{
+		character->DrawDebugText(false);
+	}
+	
+	ImGui::End();
 }
 
 void CharacterManager::Draw()
 {
-	// 全キャラクター
 	for (std::unique_ptr<ICharacter>& character : characters_)
 	{
-		// 描画
 		character->Draw();
 	}
 }
 
 void CharacterManager::Clear()
 {
-	// オブジェクト全削除
 	if (characters_.empty() == false)
 	{
+		// 全削除
 		characters_.clear();
 	}
 }
@@ -49,10 +63,8 @@ void CharacterManager::PushBack(ICharacter* character)
 	// nullチェック
 	assert(character);
 
-	// 新規キャラクター
+	// 新規キャラクター受け取り用
 	std::unique_ptr<ICharacter> newCharacter;
-	
-	// キャラクターリセット
 	newCharacter.reset(character);
 
 	// 挿入
@@ -67,7 +79,6 @@ void CharacterManager::CheckAllCollision()
 	// Aの終わりまで
 	for (; itrA != characters_.end(); ++itrA)
 	{
-		// ポインタを取得
 		ICharacter* pCharaA = itrA->get();
 
 		// Bの初め(A + 1)から
@@ -77,7 +88,6 @@ void CharacterManager::CheckAllCollision()
 		// Bの終わりまで
 		for (; itrB != characters_.end(); ++itrB)
 		{
-			// ポインタを取得
 			ICharacter* pCharaB = itrB->get();
 
 			// 判定チェック
@@ -92,8 +102,8 @@ void CharacterManager::CheckCollisionCharacterPair(ICharacter* pCharacterA, ICha
 	if (CheckCollision(pCharacterA->ColliderPtr(), pCharacterB->ColliderPtr()))
 	{
 		// お互いに衝突時判定
-		//pCharacterA->OnCollision({});
-		//pCharacterB->OnCollision({});
+		pCharacterA->OnCollision(pCharacterB->GetCollisionInfo());
+		pCharacterB->OnCollision(pCharacterA->GetCollisionInfo());
 	}
 }
 
@@ -112,8 +122,8 @@ bool CharacterManager::CheckCollision(BaseCollider* pColliderA, BaseCollider* pC
 	}
 
 	// 属性とマスク一致しないなら弾く
-	if ((pColliderA->Attribute() & pColliderB->Mask()) == 0 ||
-		(pColliderB->Attribute() & pColliderA->Mask()) == 0)
+	if ((static_cast<uint32_t>(pColliderA->Attribute()) & static_cast<uint32_t>(pColliderB->Mask())) == 0 ||
+		(static_cast<uint32_t>(pColliderB->Attribute()) & static_cast<uint32_t>(pColliderA->Mask())) == 0)
 	{
 		return false;
 	}

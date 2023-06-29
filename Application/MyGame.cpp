@@ -27,13 +27,13 @@ bool MyGame::Initialize()
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
 
 	// シーンエグゼクティブ初期化
-	sceneExe_->Initialize(YGameSceneFactory::Test_, YGameTransitionFactory::Blackout_);
+	sceneExe_->Initialize(YGameSceneFactory::Play_, YGameTransitionFactory::Blackout_);
 
 	pPostEffect_ = PostEffect::Create();
 
 	postEffectObj_.reset(PostEffect::Object::Create());
 
-	pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eColorInversion);
+	pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eDefault);
 
 	return true;
 }
@@ -48,34 +48,6 @@ void MyGame::Update()
 {
 	// 基底クラス更新処理
 	YFramework::Update();
-	
-	if (Keys::GetInstance()->IsTrigger(DIK_SPACE))
-	{
-		if (isDef_)
-		{
-			isDef_ = false;
-			isUVShift_ = false;
-			isChack_ = true;
-
-			pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eColorInversion);
-		}
-		else if (isUVShift_)
-		{
-			isDef_ = true;
-			isUVShift_ = false;
-			isChack_ = false;
-
-			pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eDefault);
-		}
-		else if (isChack_)
-		{
-			isDef_ = false;
-			isUVShift_ = true;
-			isChack_ = false;
-
-			pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eUVShiftBlur);
-		}
-	}
 
 	// ------------------- 終了処理 ------------------- //
 	// ------------------------------------------------ //

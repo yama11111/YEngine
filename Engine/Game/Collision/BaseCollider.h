@@ -1,11 +1,14 @@
 #pragma once
+#include "AttributeType.h"
 #include "Transform.h"
+#include "DebugTextAttacher.h"
 #include <cstdint>
 
 namespace YGame
 {
 	// コライダー基底クラス
-	class BaseCollider
+	class BaseCollider : 
+		public DebugTextAttacher
 	{
 
 	public:
@@ -31,7 +34,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		void Initialize(
 			const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const bool isSlip = false);
 
 		/// <summary>
@@ -44,13 +47,20 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		void Initialize(
 			Transform* pParent, const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const bool isSlip = false);
 
 		/// <summary>
 		/// 更新
 		/// </summary>
 		virtual void Update() = 0;
+
+	public:
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 
 	public:
 
@@ -64,13 +74,13 @@ namespace YGame
 		/// 属性取得
 		/// </summary>
 		/// <returns>属性</returns>
-		inline uint32_t Attribute() const { return attribute_; }
+		inline AttributeType Attribute() const { return attribute_; }
 
 		/// <summary>
 		/// マスク取得
 		/// </summary>
 		/// <returns>マスク</returns>
-		inline uint32_t Mask() const { return mask_; }
+		inline AttributeType Mask() const { return mask_; }
 
 		/// <summary>
 		/// すり抜けフラグ取得
@@ -96,13 +106,13 @@ namespace YGame
 		/// 属性設定
 		/// </summary>
 		/// <param name="attribute"> : 属性</param>
-		inline void SetAttribute(const uint32_t attribute) { attribute_ = attribute; }
+		inline void SetAttribute(const AttributeType attribute) { attribute_ = attribute; }
 
 		/// <summary>
 		/// マスク設定
 		/// </summary>
 		/// <param name="mask"> : マスク</param>
-		inline void SetMask(const uint32_t mask) { mask_ = mask; }
+		inline void SetMask(const AttributeType mask) { mask_ = mask; }
 
 		/// <summary>
 		/// すり抜けフラグ設定
@@ -123,7 +133,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		BaseCollider(
 			const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const bool isSlip = false);
 
 		/// <summary>
@@ -136,7 +146,7 @@ namespace YGame
 		/// <param name="isSlip"> : すり抜けフラグ</param>
 		BaseCollider(
 			Transform* pParent, const YMath::Vector3& offset,
-			const uint32_t attribute, const uint32_t mask,
+			const AttributeType attribute, const AttributeType mask,
 			const bool isSlip = false);
 
 		virtual ~BaseCollider() = default;
@@ -153,10 +163,10 @@ namespace YGame
 		ShapeType shapeType_ = ShapeType::eUnkown;
 		
 		// 属性 (自分)
-		uint32_t attribute_ = 0xffffffff;
+		AttributeType attribute_ = AttributeType::eAll;
 		
 		// マスク (相手)
-		uint32_t mask_ = 0xffffffff;
+		AttributeType mask_ = AttributeType::eAll;
 
 		// すり抜けフラグ
 		bool isSlip_ = false;

@@ -1,9 +1,11 @@
 #pragma once
 #include "Model.h"
+#include "DebugTextAttacher.h"
 
 namespace YGame
 {
-	class BaseDrawer
+	class BaseDrawer : 
+		public DebugTextAttacher
 	{
 
 	public:
@@ -43,6 +45,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
 		inline void SetDrawLocation(const DrawLocation location) { location_ = location; }
+
+	public:
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 
 	public:
 

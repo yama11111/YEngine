@@ -54,7 +54,16 @@ namespace YGame
 
 		~BlockDrawer() = default;
 
+	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
+
 	private:
 
+		// モデルポインタ
+		static Model* spModel_;
     };
 }
