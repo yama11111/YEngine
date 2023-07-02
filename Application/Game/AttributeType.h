@@ -14,11 +14,14 @@ namespace YGame
 
 		// プレイヤー
 		ePlayer	 = 0b1,
+		
+		// ペット
+		ePet	 = 0b1 << 1,
 
 		// エネミー
-		eEnemy	 = 0b1 << 1,
+		eEnemy	 = 0b1 << 2,
 
 		// アイテム
-		eItem	 = 0b1 << 2,
+		eItem	 = 0b1 << 3,
 	};
 }

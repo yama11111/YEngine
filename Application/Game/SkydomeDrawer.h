@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-	class SkydomeDrawer :
+	class SkydomeDrawer:
 		public BaseDrawer
 	{
 

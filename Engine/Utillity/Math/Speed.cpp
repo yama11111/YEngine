@@ -27,8 +27,10 @@ void Speed::Update(const Vector3& direction)
 
 	// Friction
 	
-	// Gravity
-	velocity_.y_ -= 0.1f;
+	if (isGravity_)
+	{
+		velocity_.y_ -= 0.1f;
+	}
 
 	velocity_ = YMath::Clamp(velocity_, -max_, max_);
 }

@@ -53,6 +53,9 @@ namespace YGame
 
 			// キャラステータスポインタ
 			CharacterStatus* pStatus_ = nullptr;
+
+			// ポインタ
+			ICharacter* pSelf_ = nullptr;
 		};
 		
 		/// <summary>
@@ -73,7 +76,7 @@ namespace YGame
 		/// 生存フラグ
 		/// </summary>
 		/// <returns></returns>
-		inline bool IsAlive() const { return true; }
+		inline bool IsAlive() const { return status_.IsAlive(); }
 
 		/// <summary>
 		/// キャラステータス取得

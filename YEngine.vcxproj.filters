@@ -441,10 +441,19 @@
     <ClCompile Include="Application\Game\DefaultDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\GridDrawer.cpp">
+    <ClCompile Include="Application\Game\SkydomeDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\SkydomeDrawer.cpp">
+    <ClCompile Include="Application\Game\SlashAttack.cpp">
+      <Filter>Application\Game\Chara\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SlashAttackDrawer.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SnortAttack.cpp">
+      <Filter>Application\Game\Chara\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SnortAttackDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -755,11 +764,23 @@
     <ClInclude Include="Application\Game\DefaultDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\GridDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\SkydomeDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SlashAttack.h">
+      <Filter>Application\Game\Chara\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SlashAttackDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SnortAttack.h">
+      <Filter>Application\Game\Chara\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SnortAttackDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CharacterConfig.h">
+      <Filter>Application\Game\Chara</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

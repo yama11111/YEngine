@@ -14,7 +14,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		virtual void Initialize(Transform* pParent, const DrawLocation location) override;
+		void Initialize(Transform* pParent, const DrawLocation location) override;
 
 		/// <summary>
 		/// 更新

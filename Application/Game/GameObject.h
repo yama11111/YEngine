@@ -47,15 +47,21 @@ namespace YGame
 	public:
 		
 		/// <summary>
+		/// 親子関係設定
+		/// </summary>
+		/// <param name="pParent"> : 親ポインタ</param>
+		void SetParent(GameObject* pParent);
+
+		/// <summary>
 		/// コライダー設定
 		/// </summary>
-		/// <param name="collider"> : コライダークラス (動的)</param>
+		/// <param name="collider"> : コライダーインスタンス (動的)</param>
 		void SetCollider(BaseCollider* collider);
 
 		/// <summary>
 		/// 描画クラス設定
 		/// </summary>
-		/// <param name="drawer"> : 描画クラス (動的)</param>
+		/// <param name="drawer"> : 描画インスタンス (動的)</param>
 		void SetDrawer(BaseDrawer* drawer);
 
 	public:

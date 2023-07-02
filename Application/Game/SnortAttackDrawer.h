@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-    class BlockDrawer final :
+	class SnortAttackDrawer final:
 		public BaseDrawer
 	{
 
@@ -37,22 +37,22 @@ namespace YGame
 
 	public:
 
-		BlockDrawer() = default;
+		SnortAttackDrawer() = default;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
-		BlockDrawer(const DrawLocation location);
+		SnortAttackDrawer(const DrawLocation location);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		BlockDrawer(Transform* pParent, const DrawLocation location);
+		SnortAttackDrawer(Transform* pParent, const DrawLocation location);
 
-		~BlockDrawer() = default;
+		~SnortAttackDrawer() = default;
 
 	public:
 
@@ -65,5 +65,5 @@ namespace YGame
 
 		// モデルポインタ
 		static Model* spModel_;
-    };
+	};
 }

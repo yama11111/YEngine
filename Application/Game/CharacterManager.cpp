@@ -14,10 +14,27 @@ void CharacterManager::Update()
 {
 	// キャラクターが死んだら削除
 	characters_.remove_if([](std::unique_ptr<ICharacter>& character) { return character->IsAlive() == false; });
-	
+
 	for (std::unique_ptr<ICharacter>& character : characters_)
 	{
-		character->Update();
+		uint16_t priority = 0;
+		if (character->ColliderPtr()->Attribute() == AttributeType::ePet)
+		{
+			priority = 1;
+		}
+
+		updateQueue_.push({ character.get(), priority });
+	}
+
+	while (true)
+	{		
+		// 空になったら終了
+		if (updateQueue_.empty()) { break; }
+
+		// 上から順に更新
+		updateQueue_.top().pChara_->Update();
+
+		updateQueue_.pop();
 	}
 
 	// 全キャラアタリ判定チェック
@@ -69,6 +86,12 @@ void CharacterManager::PushBack(ICharacter* character)
 
 	// 挿入
 	characters_.push_back(std::move(newCharacter));
+}
+
+CharacterManager* CharacterManager::GetInstance()
+{
+	static CharacterManager instance;
+	return &instance;
 }
 
 void CharacterManager::CheckAllCollision()

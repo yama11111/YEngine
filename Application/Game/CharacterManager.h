@@ -1,5 +1,6 @@
 #pragma once
 #include "ICharacter.h"
+#include <queue>
 
 namespace YGame
 {
@@ -41,6 +42,25 @@ namespace YGame
 		/// <param name="character"> : キャラクター (動的)</param>
 		void PushBack(ICharacter* character);
 
+	public:
+
+		/// <summary>
+		/// シングルトン
+		/// </summary>
+		/// <returns></returns>
+		static CharacterManager* GetInstance();
+
+	private:
+
+		CharacterManager() = default;
+
+		~CharacterManager() = default;
+
+		CharacterManager(const CharacterManager&) = delete;
+
+		const CharacterManager& operator=(const CharacterManager&) = delete;
+
+
 	private:
 
 		/// <summary>
@@ -67,5 +87,27 @@ namespace YGame
 		// オブジェクトリスト
 		std::list<std::unique_ptr<ICharacter>> characters_;
 
+	public:
+
+		struct CharaUpdateStatus
+		{
+			ICharacter* pChara_ = nullptr;
+
+			uint16_t priority_ = 0;
+		};
+	
+	private:
+
+		// キャラクター更新処理キュー (優先順位付き : 順)
+		std::priority_queue<CharaUpdateStatus> updateQueue_;
 	};
+	
+	inline bool operator< (const CharacterManager::CharaUpdateStatus& status1, const CharacterManager::CharaUpdateStatus& status2)
+	{
+		return status1.priority_ < status2.priority_;
+	}
+	inline bool operator> (const CharacterManager::CharaUpdateStatus& status1, const CharacterManager::CharaUpdateStatus& status2)
+	{
+		return status1.priority_ > status2.priority_;
+	}
 }

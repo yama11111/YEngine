@@ -11,13 +11,7 @@ void GameObject::Initialize(const std::string name, const Transform::Status& sta
 	// トランスフォーム生成 + 初期化
 	transform_.reset(new Transform(status));
 	
-	// 親がいるなら
-	if (pParent)
-	{
-		// 代入 + 親子関係
-		pParent_ = pParent;
-		transform_->parent_ = &pParent_->transform_->m_;
-	}
+	SetParent(pParent);
 
 	// 行列更新
 	transform_->UpdateMatrix();
@@ -43,6 +37,21 @@ void GameObject::Draw()
 
 void GameObject::OnCollision()
 {
+}
+
+void GameObject::SetParent(GameObject* pParent)
+{
+	pParent_ = pParent;
+
+	if (pParent_)
+	{
+		// 親行列に挿入
+		transform_->parent_ = &pParent_->transform_->m_;
+	}
+	else
+	{
+		transform_->parent_ = nullptr;
+	}
 }
 
 void GameObject::SetCollider(BaseCollider* collider)

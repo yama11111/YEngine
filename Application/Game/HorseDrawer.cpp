@@ -3,13 +3,15 @@
 using YGame::HorseDrawer;
 using YGame::Model;
 
+Model* HorseDrawer::spModel_ = nullptr;
+
 void HorseDrawer::Initialize(Transform* pParent, const DrawLocation location)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, location);
 
-	// モデル設定
-	pModel_ = Model::CreateCube("face.png");
+	// モデル挿入
+	pModel_ = spModel_;
 }
 
 void HorseDrawer::Update()
@@ -37,4 +39,10 @@ HorseDrawer::HorseDrawer(const DrawLocation location)
 HorseDrawer::HorseDrawer(Transform* pParent, const DrawLocation location)
 {
 	Initialize(pParent, location);
+}
+
+void HorseDrawer::StaticInitialize()
+{
+	// モデル設定
+	spModel_ = Model::CreateCube("face.png");
 }

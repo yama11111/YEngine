@@ -64,7 +64,7 @@ namespace YGame
 		std::list<std::unique_ptr<GameObject>> objs_;
 
 		// キャラクターマネージャー
-		std::unique_ptr<YGame::CharacterManager> characterMan_;
+		//std::unique_ptr<YGame::CharacterManager> characterMan_;
 
 		// マップチップマネージャー
 		YGame::MapChipManager* pMapChipManager_ = nullptr;

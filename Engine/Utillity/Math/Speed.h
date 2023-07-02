@@ -43,6 +43,14 @@ namespace YMath
 		// Œü‚«Žæ“¾
 		Vector3 Direction() const { return velocity_.Normalized(); }
 	
+	public:
+
+		inline void SetAcceleration(const Vector3& acceleration) { acceleration_ = acceleration; }
+		
+		inline void SetMax(const Vector3& max) { max_ = max; }
+
+		inline void SetIsGravity(const bool isGravity) { isGravity_ = isGravity; }
+	
 	private:
 		
 		// ‰Á‘¬“x

@@ -1,7 +1,6 @@
 #pragma once
 #include "ICharacter.h"
 #include "IPet.h"
-#include "ScrollCamera.h"
 
 namespace YGame
 {
@@ -39,10 +38,15 @@ namespace YGame
 		CollisionInfo GetCollisionInfo() override;
 
 		/// <summary>
-		/// ペットポインタ設定
+		/// ペットに乗る
 		/// </summary>
 		/// <param name="pPet"> : ペットポインタ</param>
-		void SetPetPointer(IPet* pPet);
+		void RideOnPet(IPet* pPet);
+		
+		/// <summary>
+		/// ペットから降りる
+		/// </summary>
+		void GetOffPet();
 
 	public:
 
@@ -84,6 +88,11 @@ namespace YGame
 		/// </summary>
 		/// <param name="isJumpCount"> : カウントするか</param>
 		void Jump(const bool isJumpCount = true);
+
+		/// <summary>
+		/// 攻撃
+		/// </summary>
+		void Attack();
 		
 		/// <summary>
 		/// デバッグテキスト本文

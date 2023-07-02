@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-	class GridDrawer :
+	class SlashAttackDrawer final:
 		public BaseDrawer
 	{
 
@@ -14,7 +14,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		virtual void Initialize(Transform* pParent, const DrawLocation location) override;
+		void Initialize(Transform* pParent, const DrawLocation location) override;
 
 		/// <summary>
 		/// 更新
@@ -37,22 +37,33 @@ namespace YGame
 
 	public:
 
-		GridDrawer() = default;
+		SlashAttackDrawer() = default;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
-		GridDrawer(const DrawLocation location);
+		SlashAttackDrawer(const DrawLocation location);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		GridDrawer(Transform* pParent, const DrawLocation location);
+		SlashAttackDrawer(Transform * pParent, const DrawLocation location);
 
-		~GridDrawer() = default;
+		~SlashAttackDrawer() = default;
 
+	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
+
+	private:
+
+		// モデルポインタ
+		static Model* spModel_;
 	};
 }

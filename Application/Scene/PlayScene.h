@@ -20,7 +20,7 @@ namespace YScene
 #pragma region ゲームオブジェクト
 
 		// キャラクターマネージャー
-		std::unique_ptr<YGame::CharacterManager> characterMan_;
+		YGame::CharacterManager* pCharacterMan_ = nullptr;
 
 		// マップチップマネージャー
 		YGame::MapChipManager* pMapChipManager_ = nullptr;

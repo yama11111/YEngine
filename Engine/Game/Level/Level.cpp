@@ -7,7 +7,6 @@
 #include <sstream>
 
 #include "PlayerDrawer.h"
-#include "GridDrawer.h"
 #include "SkydomeDrawer.h"
 #include "DefaultDrawer.h"
 
@@ -149,7 +148,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		}
 		else if (name == "Grid")
 		{
-			newObj->SetDrawer(new GridDrawer(DrawLocation::eCenter));
+			//newObj->SetDrawer(new GridDrawer(DrawLocation::eCenter));
 		}
 		else if (name == "Skydome")
 		{
@@ -243,8 +242,8 @@ void Level::Initialize()
 	//pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 	// ゲームキャラクターマネージャー生成 + 初期化
-	characterMan_.reset(new CharacterManager());
-	characterMan_->Initialize();
+	//characterMan_.reset(new CharacterManager());
+	//characterMan_->Initialize();
 }
 
 void Level::Update()
@@ -257,7 +256,7 @@ void Level::Update()
 	}
 
 	// ゲームキャラクター更新
-	characterMan_->Update();
+	//characterMan_->Update();
 
 	// 全カメラ
 	for (std::unique_ptr<Camera>& camera : cameras_)
@@ -279,5 +278,5 @@ void Level::Draw()
 	}
 
 	// ゲームキャラクター描画
-	characterMan_->Draw();
+	//characterMan_->Draw();
 }

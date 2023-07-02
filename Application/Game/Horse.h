@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-	class Horse :
+	class Horse final:
 		public IPet
 	{
 
@@ -26,10 +26,23 @@ namespace YGame
 		void Draw() override;
 
 		/// <summary>
+		/// UŒ‚
+		/// </summary>
+		void Attack() override;
+
+	public:
+
+		/// <summary>
 		/// Õ“Ëî•ñæ“¾
 		/// </summary>
 		/// <returns>Õ“Ëî•ñ</returns>
-		inline CollisionInfo GetCollisionInfo() override;
+		CollisionInfo GetCollisionInfo() override;
+
+		/// <summary>
+		/// æ‚éˆÊ’u‚Ì‚‚³æ“¾
+		/// </summary>
+		/// <returns>æ‚éˆÊ’u‚Ì‚‚³</returns>
+		float RidingPosHeight() override;
 
 	public:
 

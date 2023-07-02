@@ -5,10 +5,14 @@
 #include <imgui.h>
 
 #include "Player.h"
+#include "Horse.h"
 #include "Slime.h"
 
 #include "PlayerDrawer.h"
+#include "HorseDrawer.h"
 #include "SlimeDrawer.h"
+#include "SlashAttackDrawer.h"
+#include "SnortAttackDrawer.h"
 #include "BlockDrawer.h"
 
 #pragma region 名前空間宣言
@@ -29,6 +33,7 @@ using namespace YGame;
 void PlayScene::Load()
 {
 	// シングルトン
+	pCharacterMan_ = CharacterManager::GetInstance();
 	pMapChipManager_ = MapChipManager::GetInstance();
 
 	// 描画クラス
@@ -38,16 +43,28 @@ void PlayScene::Load()
 
 		// プレイヤー
 		PlayerDrawer::StaticInitialize();
-
-		// ブロック
-		BlockDrawer::StaticInitialize();
+		
+		// ウマ
+		HorseDrawer::StaticInitialize();
 
 		// スライム
 		SlimeDrawer::StaticInitialize();
+		
+		// 斬撃攻撃
+		SlashAttackDrawer::StaticInitialize();
+		
+		// 鼻息攻撃
+		SnortAttackDrawer::StaticInitialize();
+
+		// ブロック
+		BlockDrawer::StaticInitialize();
 	}
 
 	// プレイヤー
 	Player::StaticInitialize(&scrollCamera_);
+	
+	// ペット
+	IPet::StaticInitialize(&scrollCamera_);
 }
 #pragma endregion
 
@@ -58,9 +75,8 @@ void PlayScene::Initialize()
 	// マップチップ初期化
 	pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
-	// ゲームキャラクターマネージャー生成 + 初期化
-	characterMan_.reset(new CharacterManager());
-	characterMan_->Initialize();
+	// ゲームキャラクターマネージャー初期化
+	pCharacterMan_->Initialize();
 
 	// カメラ初期化
 	scrollCamera_.Initialize(Vector3(-20.0f, +10.0f, -20.0f), nullptr, Vector3());
@@ -74,12 +90,22 @@ void PlayScene::Initialize()
 		{
 			// プレイヤー生成
 			Player* newPlayer = new Player();
+			
+			// ペット(ウマ)生成
+			Horse* newHorse = new Horse();
+
+			// ペット初期化
+			newHorse->Initialize({ {}, {}, {1.0f,1.0f,1.0f} });
 
 			// プレイヤー初期化
-			newPlayer->Initialize({ {}, {}, {1.0f,1.0f,1.0f} });
+			newPlayer->Initialize(
+				{ {-100.0f,-100.0f,-100.0f}, {}, {1.0f,1.0f,1.0f} },
+				newHorse
+			);
 
 			// 挿入
-			characterMan_->PushBack(newPlayer);
+			pCharacterMan_->PushBack(newHorse);
+			pCharacterMan_->PushBack(newPlayer);
 		}
 
 		// スライム
@@ -91,7 +117,7 @@ void PlayScene::Initialize()
 			newSlime->Initialize({ {10.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
 			// 挿入
-			characterMan_->PushBack(newSlime);
+			pCharacterMan_->PushBack(newSlime);
 		}
 	}
 }
@@ -112,7 +138,7 @@ void PlayScene::Update()
 	pMapChipManager_->Update();
 	
 	// ゲームキャラクター更新
-	characterMan_->Update();
+	pCharacterMan_->Update();
 
 	// カメラ更新
 	scrollCamera_.Update();
@@ -124,10 +150,10 @@ void PlayScene::Update()
 	transferVP_.UpdateMatrix();
 
 	// デバッグ描画
-	characterMan_->DrawDebugText();
+	pCharacterMan_->DrawDebugText();
 	
 	// リセット
-	if (sKeys_->IsTrigger(DIK_R))
+	if (sKeys_->IsTrigger(DIK_R) || sPad_->IsTrigger(PadButton::XIP_MENU))
 	{
 		SceneManager::GetInstance()->Change("PLAY");
 	}
@@ -142,6 +168,6 @@ void PlayScene::Draw()
 	pMapChipManager_->Draw();
 
 	// ゲームキャラクター描画
-	characterMan_->Draw();
+	pCharacterMan_->Draw();
 }
 #pragma endregion
