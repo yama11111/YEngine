@@ -50,5 +50,9 @@ namespace YGame
 		// チップリスト
 		std::list<std::unique_ptr<ChipData>> chips_;
 
+	public:
+
+		bool isClear_ = false;
+
 	};
 }

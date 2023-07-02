@@ -73,7 +73,7 @@ void MyGame::Draw()
 	screenDesc_.SetDrawCommand();
 
 	// ゲームシーン描画
-	//DrawGameScene();
+	DrawGameScene();
 	
 	// ポストエフェクト描画
 	PostEffect::Pipeline::StaticDraw();

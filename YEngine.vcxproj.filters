@@ -456,6 +456,15 @@
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\GoalDrawer.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CloudDrawer.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\Actor\HitActor.cpp">
+      <Filter>Application\Draw\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -781,6 +790,15 @@
     </ClInclude>
     <ClInclude Include="Application\Game\CharacterConfig.h">
       <Filter>Application\Game\Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CloudDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GoalDrawer.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Actor\HitActor.h">
+      <Filter>Application\Draw\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

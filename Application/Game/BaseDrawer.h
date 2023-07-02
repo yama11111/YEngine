@@ -20,12 +20,17 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update();
 
 		/// <summary>
 		/// 描画
 		/// </summary>
-		virtual void Draw() = 0;
+		virtual void Draw();
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 
 		/// <summary>
 		/// アニメーション再生
@@ -34,6 +39,8 @@ namespace YGame
 		/// <param name="frame"> : 再生フレーム</param>
 		virtual void PlayAnimation(const uint16_t index, const uint16_t frame) = 0;
 
+	public:
+		
 		/// <summary>
 		/// 親トランスフォーム設定
 		/// </summary>
@@ -46,12 +53,11 @@ namespace YGame
 		/// <param name="location"> : 描画位置</param>
 		inline void SetDrawLocation(const DrawLocation location) { location_ = location; }
 
-	public:
-
 		/// <summary>
-		/// デバッグテキスト本文
+		/// 描画するか更新するか
 		/// </summary>
-		virtual void DrawDebugTextContent() override;
+		/// <param name="isVisibleUpdate"> : 描画するか更新するか</param>
+		inline void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
 
 	public:
 
@@ -101,11 +107,27 @@ namespace YGame
 		Model* pModel_ = nullptr;
 
 		// 描画位置
-		DrawLocation location_;
+		DrawLocation location_ = DrawLocation::eCenter;
+
+		// シェーダー
+		Model::ShaderType shader_ = Model::ShaderType::eDefault;
+
+		// 描画フラグ
+		bool isVisible_ = true;
+		
+		// 描画するか更新フラグ
+		bool isVisibleUpdate_ = true;
 
 	protected:
 
 		// ビュープロジェクションポインタ
 		static ViewProjection* spVP_;
+
+	protected:
+
+		/// <summary>
+		/// 描画するか更新
+		/// </summary>
+		void VisibleUpdate();
 	};
 }

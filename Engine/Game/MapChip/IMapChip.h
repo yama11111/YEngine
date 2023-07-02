@@ -94,7 +94,7 @@ namespace YGame
 	protected:	
 		
 		// チップごとのアタリ判定
-		virtual bool CollisionChip(const int x, const int y);
+		virtual bool CollisionChip(const int x, const int y) = 0;
 	
 	private:
 		

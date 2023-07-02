@@ -4,6 +4,7 @@
 
 #include "CharacterConfig.h"
 
+#include "Def.h"
 #include <cassert>
 
 using YGame::Slime;
@@ -19,6 +20,8 @@ void Slime::Initialize(const Transform::Status& status)
 		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime,
 		new SphereCollider({}, AttributeType::eEnemy, AttributeType::eAll, SlimeConfig::kRadius),
 		new SlimeDrawer(DrawLocation::eCenter));
+
+	transform_->rota_ = Vector3(0.0f, -PI, 0.0f);
 }
 
 void Slime::Update()

@@ -8,8 +8,7 @@
 #include "CharacterManager.h"
 #include "SlashAttack.h"
 
-#include "Keys.h"
-#include "Pad.h"
+#include "SceneExecutive.h"
 
 #include <cassert>
 #include <imgui.h>
@@ -69,6 +68,8 @@ void Player::RideOnPet(IPet* pPet)
 
 		collider_->SetIsSlip(true);
 
+		drawer_->SetIsVisibleUpdate(false);
+
 		pPet_->Rideen();
 	}
 }
@@ -87,6 +88,8 @@ void Player::GetOffPet()
 	speed_.SetIsGravity(true);
 
 	collider_->SetIsSlip(false);
+
+	drawer_->SetIsVisibleUpdate(true);
 	
 	// ”ò‚Ñ~‚è‚é
 	Jump(false);
@@ -144,10 +147,12 @@ void Player::OnCollision(const CollisionInfo& info)
 	if (info.attribute_  == AttributeType::eEnemy)
 	{
 		// Ž©•ª ‚ª “G ‚æ‚èã‚É‚¢‚é ‚È‚ç
-		if (transform_->pos_.y_ - PlayerConfig::kRadius >= info.pos_.y_ + (info.radius_ / 2.0f))
+		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos_.y_ + (info.radius_ / 2.0f))
 		{
 			// ƒ_ƒ[ƒW‚ð—^‚¦‚é
 			info.pStatus_->Damage(status_.Attack(), true);
+
+			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
 			// ƒWƒƒƒ“ƒv
 			Jump(false);
@@ -161,7 +166,12 @@ void Player::OnCollision(const CollisionInfo& info)
 			if (status_.IsAlive() == false)
 			{
 				spScrollCamera_->SetFollowPoint(nullptr);
+				YScene::SceneExecutive::GetInstance()->Change(
+					"PLAY", "BLACKOUT", 10, 5
+				);
 			}
+
+			spScrollCamera_->Shaking(4.0f, 2.0f, 100.0f);
 		}
 
 		return;
@@ -236,6 +246,15 @@ void Player::Attack()
 	);
 	
 	CharacterManager::GetInstance()->PushBack(newAttack);
+}
+
+void Player::OffScreenProcess()
+{
+	if (YScene::TransitionManager::GetInstance()->IsAct()) { return; }
+
+	YScene::SceneExecutive::GetInstance()->Change(
+		"PLAY", "BLACKOUT", 10, 5
+	);
 }
 
 void Player::DrawDebugTextContent()

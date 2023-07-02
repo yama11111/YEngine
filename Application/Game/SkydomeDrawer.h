@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-	class SkydomeDrawer:
+	class SkydomeDrawer final :
 		public BaseDrawer
 	{
 
@@ -54,5 +54,16 @@ namespace YGame
 
 		~SkydomeDrawer() = default;
 
+	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
+
+	private:
+
+		// モデルポインタ
+		static Model* spModel_;
 	};
 }

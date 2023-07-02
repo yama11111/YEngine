@@ -84,6 +84,13 @@ namespace YGame
 
 		// 静的スクロールカメラポインタ
 		static ScrollCamera* spScrollCamera_;
+	
+	protected:
+
+		/// <summary>
+		/// 画面外処理
+		/// </summary>
+		void OffScreenProcess() override;
 
 	};
 }

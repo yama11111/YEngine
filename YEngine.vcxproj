@@ -109,8 +109,11 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Game\BlockDrawer.cpp" />
+    <ClCompile Include="Application\Game\CloudDrawer.cpp" />
     <ClCompile Include="Application\Game\DefaultDrawer.cpp" />
+    <ClCompile Include="Application\Game\GoalDrawer.cpp" />
     <ClCompile Include="Application\Game\HorseDrawer.cpp" />
     <ClCompile Include="Application\Game\BaseDrawer.cpp" />
     <ClCompile Include="Application\Game\IItem.cpp" />
@@ -212,9 +215,12 @@
     <ClCompile Include="Engine\Utillity\Math\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Game\BlockDrawer.h" />
     <ClInclude Include="Application\Game\CharacterConfig.h" />
+    <ClInclude Include="Application\Game\CloudDrawer.h" />
     <ClInclude Include="Application\Game\DefaultDrawer.h" />
+    <ClInclude Include="Application\Game\GoalDrawer.h" />
     <ClInclude Include="Application\Game\HorseDrawer.h" />
     <ClInclude Include="Application\Game\BaseDrawer.h" />
     <ClInclude Include="Application\Game\IItem.h" />

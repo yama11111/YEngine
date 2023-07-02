@@ -93,6 +93,11 @@ namespace YGame
 		/// 攻撃
 		/// </summary>
 		void Attack();
+
+		/// <summary>
+		/// 画面外処理
+		/// </summary>
+		void OffScreenProcess() override;
 		
 		/// <summary>
 		/// デバッグテキスト本文

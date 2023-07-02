@@ -18,6 +18,9 @@ void SlashAttack::Initialize(const Transform::Status& status, const uint32_t ali
 		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, status.scale_.x_),
 		new SlashAttackDrawer(DrawLocation::eCenter));
 
+	// 跳ね返らない
+	MapChipCollider::SetIsBounce(false);
+
 	// 生存時間初期化 + スタート
 	aliveTimer_.Initialize(aliveTimer);
 	aliveTimer_.SetActive(true);

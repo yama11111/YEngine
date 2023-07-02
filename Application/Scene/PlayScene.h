@@ -4,6 +4,8 @@
 #include "CharacterManager.h"
 #include "ScrollCamera.h"
 
+#include "Level.h"
+
 namespace YScene
 {
 	// ゲームシーン
@@ -18,6 +20,9 @@ namespace YScene
 #pragma endregion
 
 #pragma region ゲームオブジェクト
+
+		// レベル
+		YGame::Level* pLevel_;
 
 		// キャラクターマネージャー
 		YGame::CharacterManager* pCharacterMan_ = nullptr;

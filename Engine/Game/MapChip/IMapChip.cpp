@@ -144,6 +144,34 @@ void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 	// ぶつかっていないならスキップ
 	if (isCollX == false && isCollY == false) { return; }
 
+	// アタリ判定ビット
+	uint8_t colBit = collider.CollisionBit();
+
+	// 跳ね返らないなら
+	if (collider.IsBounce() == false) 
+	{
+		// X軸判定なら
+		if (isCollX)
+		{
+			// ビット更新
+			if (speedRef.x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
+			if (speedRef.x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
+		}
+
+		// Y軸判定ならs
+		if (isCollY)
+		{
+			// ビット更新
+			if (speedRef.y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
+			if (speedRef.y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
+		}
+
+		// アタリ判定ビット 現在F を記録
+		collider.SetCollisionBit(colBit);
+
+		return;
+	}
+
 	// 近づく移動量
 	YMath::Vector3 approach = speedRef / 100.0f;
 
@@ -161,9 +189,6 @@ void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 		if (isCollX) { posRef.x_ += approach.x_; }
 		if (isCollY) { posRef.y_ += approach.y_; }
 	}
-
-	// アタリ判定ビット
-	uint8_t colBit = collider.CollisionBit();
 
 	// X軸判定なら
 	if (isCollX)
@@ -231,15 +256,6 @@ bool IMapChip::CollisionMap(const float left, const float right, const float top
 	if (B && R) { isCollBR = CollisionChip(rightNum, bottomNum); } // 右下
 
 	return (isCollTL || isCollTR || isCollBL || isCollBR);
-}
-
-bool IMapChip::CollisionChip(const int x, const int y)
-{
-	// 0なら弾く
-	if (pMapData_->chipNums_[y][x] == 0) { return false; }
-
-	// アタリ
-	return true;
 }
 
 YMath::Vector2 IMapChip::Size()

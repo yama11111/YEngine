@@ -31,6 +31,53 @@ void BaseDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 	// 描画位置
 	location_ = location;
+
+	// 描画フラグ
+	isVisible_ = true;
+
+	// 描画するか更新フラグ
+	isVisibleUpdate_ = true;
+}
+
+void BaseDrawer::Update()
+{
+	VisibleUpdate();
+
+	// オブジェクト更新
+	obj_->UpdateMatrix();
+}
+
+void BaseDrawer::VisibleUpdate()
+{
+	if (isVisibleUpdate_ == false)
+	{
+		color_->SetTexColorRateAlpha(1.0f);
+
+		return;
+	}
+
+	// 視点との距離
+	float distance = YMath::Vector3(spVP_->eye_ - pParent_->pos_).Length();
+
+	// 描画範囲
+	static const float kRange = 750.0f;
+
+	float distaceRate = 1.0f - distance / kRange;
+	if (distaceRate >= 0.8f) { distaceRate = 1.0f; }
+
+	// 視点との距離の比率でアルファ値変化(遠いほど薄く)
+	color_->SetTexColorRateAlpha(distaceRate);
+
+	// 一定値以下は描画切る
+	isVisible_ = (color_->GetTexColorRate().a_ >= 0.25f);
+}
+
+void BaseDrawer::Draw()
+{
+	if (isVisible_ == false) { return; }
+
+	// 描画
+	pModel_->SetDrawCommand(obj_.get(), location_, shader_);
 }
 
 void BaseDrawer::SetParent(Transform* pParent)

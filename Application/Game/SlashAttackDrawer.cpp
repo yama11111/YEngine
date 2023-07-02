@@ -16,14 +16,12 @@ void SlashAttackDrawer::Initialize(Transform* pParent, const DrawLocation locati
 
 void SlashAttackDrawer::Update()
 {
-	// オブジェクト更新
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void SlashAttackDrawer::Draw()
 {
-	// 描画
-	pModel_->SetDrawCommand(obj_.get(), location_);
+	BaseDrawer::Draw();
 }
 
 void SlashAttackDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)

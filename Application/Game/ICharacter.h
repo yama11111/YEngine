@@ -119,5 +119,10 @@ namespace YGame
 		/// デバッグテキスト本文
 		/// </summary>
 		virtual void DrawDebugTextContent() override;
+
+		/// <summary>
+		/// 画面外処理
+		/// </summary>
+		virtual void OffScreenProcess();
 	};
 }

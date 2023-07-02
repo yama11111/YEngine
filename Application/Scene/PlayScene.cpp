@@ -8,12 +8,16 @@
 #include "Horse.h"
 #include "Slime.h"
 
+#include "DefaultDrawer.h"
 #include "PlayerDrawer.h"
 #include "HorseDrawer.h"
 #include "SlimeDrawer.h"
 #include "SlashAttackDrawer.h"
 #include "SnortAttackDrawer.h"
 #include "BlockDrawer.h"
+#include "GoalDrawer.h"
+#include "CloudDrawer.h"
+#include "SkydomeDrawer.h"
 
 #pragma region 名前空間宣言
 
@@ -41,6 +45,9 @@ void PlayScene::Load()
 		// 基底クラス
 		BaseDrawer::StaticInitialize(&transferVP_);
 
+		// デフォルト
+		DefaultDrawer::StaticInitialize();
+
 		// プレイヤー
 		PlayerDrawer::StaticInitialize();
 		
@@ -58,6 +65,15 @@ void PlayScene::Load()
 
 		// ブロック
 		BlockDrawer::StaticInitialize();
+
+		// ゴール
+		GoalDrawer::StaticInitialize();
+
+		// 天球
+		SkydomeDrawer::StaticInitialize();
+
+		// 雲
+		CloudDrawer::StaticInitialize();
 	}
 
 	// プレイヤー
@@ -72,6 +88,8 @@ void PlayScene::Load()
 #pragma region 初期化
 void PlayScene::Initialize()
 {
+	pLevel_ = Level::LoadJson("levelData.json");
+
 	// マップチップ初期化
 	pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
@@ -119,6 +137,42 @@ void PlayScene::Initialize()
 			// 挿入
 			pCharacterMan_->PushBack(newSlime);
 		}
+
+		// スライム
+		{
+			// スライム生成
+			Slime* newSlime = new Slime();
+
+			// スライム初期化
+			newSlime->Initialize({ {40.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newSlime);
+		}
+
+		// スライム
+		{
+			// スライム生成
+			Slime* newSlime = new Slime();
+
+			// スライム初期化
+			newSlime->Initialize({ {80.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newSlime);
+		}
+
+		// スライム
+		{
+			// スライム生成
+			Slime* newSlime = new Slime();
+
+			// スライム初期化
+			newSlime->Initialize({ {120.0f,20.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newSlime);
+		}
 	}
 }
 #pragma endregion
@@ -134,6 +188,8 @@ void PlayScene::Finalize()
 #pragma region 更新
 void PlayScene::Update()
 {
+	pLevel_->Update();
+
 	// マップチップ更新
 	pMapChipManager_->Update();
 	
@@ -164,6 +220,8 @@ void PlayScene::Update()
 #pragma region 描画
 void PlayScene::Draw()
 {
+	pLevel_->Draw();
+
 	// マップチップ描画
 	pMapChipManager_->Draw();
 

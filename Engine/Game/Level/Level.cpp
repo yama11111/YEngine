@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include "PlayerDrawer.h"
+#include "CloudDrawer.h"
 #include "SkydomeDrawer.h"
 #include "DefaultDrawer.h"
 
@@ -31,13 +32,11 @@ using YGame::DrawLocationNum;
 #pragma region Static
 
 list<unique_ptr<Level>> Level::sLevelDatas_;
-YGame::ViewProjection Level::transferVP_;
 
 #pragma endregion
 
 void Level::LoadAsset()
 {
-	BaseDrawer::StaticInitialize(&transferVP_);
 }
 
 Level* Level::LoadJson(const std::string& fileName)
@@ -116,6 +115,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		if (object.contains("name"))
 		{
 			name = object["name"];
+			name = YFile::ReplaceExtension(name, "");
 		}
 
 		// トランスフォームのパラメータ読み込み
@@ -142,21 +142,17 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 
 		// 初期化
 		newObj->Initialize(name, status, pParent);
-		if (name == "Player")
+		if (name == "Cloud.")
 		{
-			newObj->SetDrawer(new PlayerDrawer(DrawLocation::eCenter));
+			newObj->SetDrawer(new CloudDrawer(DrawLocation::eCenter));
 		}
-		else if (name == "Grid")
-		{
-			//newObj->SetDrawer(new GridDrawer(DrawLocation::eCenter));
-		}
-		else if (name == "Skydome")
+		else if (name == "Skydome.")
 		{
 			newObj->SetDrawer(new SkydomeDrawer(DrawLocation::eCenter));
 		}
 		else
 		{
-			newObj->SetDrawer(new DefaultDrawer(DrawLocation::eCenter));
+			//newObj->SetDrawer(new DefaultDrawer(DrawLocation::eCenter));
 		}
 
 		// 子を読み込む
@@ -173,49 +169,49 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		// リストに挿入
 		objs_.push_back(std::move(newObj));
 	}
-	// CAMERA
-	else if (type.compare("CAMERA") == 0)
-	{
-		// オブジェクト
-		std::unique_ptr<Camera> newCamera;
+	//// CAMERA
+	//else if (type.compare("CAMERA") == 0)
+	//{
+	//	// オブジェクト
+	//	std::unique_ptr<Camera> newCamera;
 
-		// 名前
-		std::string name;
+	//	// 名前
+	//	std::string name;
 
-		// オブジェクト生成
-		newCamera= std::make_unique<Camera>();
+	//	// オブジェクト生成
+	//	newCamera= std::make_unique<Camera>();
 
-		// ファイル名
-		if (object.contains("file_name"))
-		{
-			name = object["file_name"];
-		}
+	//	// ファイル名
+	//	if (object.contains("file_name"))
+	//	{
+	//		name = object["file_name"];
+	//	}
 
-		// トランスフォームのパラメータ読み込み
-		nlohmann::json& transform = object["transform"];
+	//	// トランスフォームのパラメータ読み込み
+	//	nlohmann::json& transform = object["transform"];
 
-		// 初期化用
-		YGame::Transform::Status status{};
+	//	// 初期化用
+	//	YGame::Transform::Status status{};
 
-		// 位置
-		status.pos_.x_ = +static_cast<float>(transform["translation"][1]);
-		status.pos_.y_ = +static_cast<float>(transform["translation"][2]);
-		status.pos_.z_ = -static_cast<float>(transform["translation"][0]);
+	//	// 位置
+	//	status.pos_.x_ = +static_cast<float>(transform["translation"][1]);
+	//	status.pos_.y_ = +static_cast<float>(transform["translation"][2]);
+	//	status.pos_.z_ = -static_cast<float>(transform["translation"][0]);
 
-		// 回転
-		status.rota_.x_ = -static_cast<float>(transform["rotation"][2]);
-		status.rota_.y_ = +static_cast<float>(transform["rotation"][0]);
-		status.rota_.z_ = -static_cast<float>(transform["rotation"][1]);
-		status.rota_ = YMath::ConvertFromDegreeToRadian(status.rota_);
-		
-		// 初期化
-		newCamera->Initialize(status.pos_, status.rota_);
-		//newCamera->Initialize({0,0,-10}, {});
+	//	// 回転
+	//	status.rota_.x_ = -static_cast<float>(transform["rotation"][2]);
+	//	status.rota_.y_ = +static_cast<float>(transform["rotation"][0]);
+	//	status.rota_.z_ = -static_cast<float>(transform["rotation"][1]);
+	//	status.rota_ = YMath::ConvertFromDegreeToRadian(status.rota_);
+	//	
+	//	// 初期化
+	//	newCamera->Initialize(status.pos_, status.rota_);
+	//	//newCamera->Initialize({0,0,-10}, {});
 
-		// リストに挿入
-		cameras_.push_back(std::move(newCamera));
+	//	// リストに挿入
+	//	cameras_.push_back(std::move(newCamera));
 
-	}
+	//}
 	// それ以外なら弾く
 	else
 	{
@@ -236,14 +232,6 @@ void Level::ClearAllData()
 
 void Level::Initialize()
 {
-	// シングルトン
-	pMapChipManager_ = MapChipManager::GetInstance();
-	// マップチップ初期化
-	//pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
-
-	// ゲームキャラクターマネージャー生成 + 初期化
-	//characterMan_.reset(new CharacterManager());
-	//characterMan_->Initialize();
 }
 
 void Level::Update()
@@ -254,18 +242,6 @@ void Level::Update()
 		// 行列更新
 		obj->Update();
 	}
-
-	// ゲームキャラクター更新
-	//characterMan_->Update();
-
-	// 全カメラ
-	for (std::unique_ptr<Camera>& camera : cameras_)
-	{
-		// 行列更新
-		camera->Update();
-	}
-
-	transferVP_ = cameras_[0]->GetViewProjection();
 }
 
 void Level::Draw()
@@ -276,7 +252,4 @@ void Level::Draw()
 		// 描画
 		obj->Draw();
 	}
-
-	// ゲームキャラクター描画
-	//characterMan_->Draw();
 }

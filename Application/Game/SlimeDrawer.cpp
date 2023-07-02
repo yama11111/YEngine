@@ -12,18 +12,18 @@ void SlimeDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 	// モデル設定
 	pModel_ = spModel_;
+
+	shader_ = Model::ShaderType::eToon;
 }
 
 void SlimeDrawer::Update()
 {
-	// オブジェクト更新
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void SlimeDrawer::Draw()
 {
-	// 描画
-	pModel_->SetDrawCommand(obj_.get(), location_, Model::ShaderType::ePhong);
+	BaseDrawer::Draw();
 }
 
 void SlimeDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
@@ -43,5 +43,5 @@ SlimeDrawer::SlimeDrawer(Transform* pParent, const DrawLocation location)
 
 void SlimeDrawer::StaticInitialize()
 {
-	spModel_ = Model::CreateCube("enemy.png");
+	spModel_ = Model::LoadObj("slime", true);
 }

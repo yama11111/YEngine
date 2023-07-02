@@ -63,18 +63,6 @@ namespace YGame
 		// 全オブジェクト
 		std::list<std::unique_ptr<GameObject>> objs_;
 
-		// キャラクターマネージャー
-		//std::unique_ptr<YGame::CharacterManager> characterMan_;
-
-		// マップチップマネージャー
-		YGame::MapChipManager* pMapChipManager_ = nullptr;
-
-		// カメラ
-		std::vector<std::unique_ptr<Camera>> cameras_;
-
-		// 転送用ビュープロジェクション
-		static ViewProjection transferVP_;
-
 		// ファイルパス
 		std::string fileName_;
 

@@ -12,7 +12,7 @@ namespace YGame
 		static const uint16_t kMaxJumpCount = 2;
 		static const uint32_t kHP = 3;
 		static const uint32_t kAttack = 20;
-		static const uint32_t kInvincibleTime = 10;
+		static const uint32_t kInvincibleTime = 20;
 	}
 
 	namespace PetConfig

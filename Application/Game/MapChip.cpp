@@ -1,5 +1,6 @@
 #include "MapChip.h"
 #include "BlockDrawer.h"
+#include "GoalDrawer.h"
 #include <cassert>
 
 using YGame::MapChip;
@@ -36,13 +37,23 @@ void MapChip::Reset()
 			// ‰Šú‰»
 			chip->transform_.Initialize({ pos,{},chipScale_ });
 
-			// •`‰æƒNƒ‰ƒX
-			chip->drawer_.reset(new BlockDrawer(&chip->transform_, DrawLocation::eCenter));
+			if (nums[y][x] == 1)
+			{
+				// •`‰æƒNƒ‰ƒX
+				chip->drawer_.reset(new BlockDrawer(&chip->transform_, DrawLocation::eCenter));
+			}
+			if (nums[y][x] == 2)
+			{
+				// •`‰æƒNƒ‰ƒX
+				chip->drawer_.reset(new GoalDrawer(&chip->transform_, DrawLocation::eCenter));
+			}
 
 			// 1”ÔŒã‚ë‚É‘}“ü
 			chips_.push_back(std::move(chip));
 		}
 	}
+
+	isClear_ = false;
 }
 
 void MapChip::Update()
@@ -73,6 +84,8 @@ void MapChip::Draw()
 bool MapChip::CollisionChip(const int x, const int y)
 {
 	if (pMapData_->chipNums_[y][x] == 1) { return true; }
+	
+	if (pMapData_->chipNums_[y][x] == 2) { isClear_ = true; }
 
 	return false;
 }

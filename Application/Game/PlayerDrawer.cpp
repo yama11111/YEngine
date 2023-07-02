@@ -12,18 +12,18 @@ void PlayerDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 	// モデル挿入
 	pModel_ = spModel_;
+
+	shader_ = Model::ShaderType::eToon;
 }
 
 void PlayerDrawer::Update()
 {
-	// オブジェクト更新
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void PlayerDrawer::Draw()
 {
-	// 描画
-	pModel_->SetDrawCommand(obj_.get(), location_, Model::ShaderType::ePhong);
+	BaseDrawer::Draw();
 }
 
 void PlayerDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)

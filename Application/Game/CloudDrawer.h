@@ -2,7 +2,7 @@
 #include "BaseDrawer.h"
 namespace YGame
 {
-	class DefaultDrawer :
+	class CloudDrawer final:
 		public BaseDrawer
 	{
 
@@ -36,22 +36,22 @@ namespace YGame
 
 	public:
 
-		DefaultDrawer() = default;
+		CloudDrawer() = default;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="location"> : 描画位置</param>
-		DefaultDrawer(const DrawLocation location);
+		CloudDrawer(const DrawLocation location);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="location"> : 描画位置</param>
-		DefaultDrawer(Transform * pParent, const DrawLocation location);
+		CloudDrawer(Transform * pParent, const DrawLocation location);
 
-		~DefaultDrawer() = default;
+		~CloudDrawer() = default;
 
 	public:
 

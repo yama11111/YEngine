@@ -2,6 +2,7 @@
 
 using YGame::BlockDrawer;
 using YGame::Model;
+using YMath::Vector3;
 
 Model* BlockDrawer::spModel_ = nullptr;
 
@@ -9,21 +10,24 @@ void BlockDrawer::Initialize(Transform* pParent, const DrawLocation location)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, location);
+	obj_->scale_ = Vector3(1.0f, 1.0f, 15.0f);
+
+	material_->SetAmbient(Vector3(0.8f, 0.8f, 0.8f));
 
 	// モデル設定
 	pModel_ = spModel_;
+
+	shader_ = Model::ShaderType::eDefault;
 }
 
 void BlockDrawer::Update()
 {
-	// オブジェクト更新
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void BlockDrawer::Draw()
 {
-	// 描画
-	pModel_->SetDrawCommand(obj_.get(), location_);
+	BaseDrawer::Draw();
 }
 
 void BlockDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
@@ -43,5 +47,5 @@ BlockDrawer::BlockDrawer(Transform* pParent, const DrawLocation location)
 
 void BlockDrawer::StaticInitialize()
 {
-	spModel_ = Model::CreateCube("block.png");
+	spModel_ = Model::LoadObj("soil", true);
 }

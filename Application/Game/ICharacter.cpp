@@ -50,6 +50,12 @@ void ICharacter::Update()
 
 	// キャラステータス更新
 	status_.Update();
+
+	// 
+	if (transform_->pos_.y_ <= -150.0f)
+	{
+		OffScreenProcess();
+	}
 }
 
 void ICharacter::DrawDebugTextContent()
@@ -57,4 +63,9 @@ void ICharacter::DrawDebugTextContent()
 	status_.DrawDebugTextContent();
 
 	GameObject::DrawDebugTextContent();
+}
+
+void ICharacter::OffScreenProcess()
+{
+	status_.Damage(1000, false);
 }

@@ -1,5 +1,6 @@
 #include "MapChipManager.h"
 #include <cassert>
+#include "SceneExecutive.h"
 
 using YGame::MapChipManager;
 
@@ -49,6 +50,13 @@ void MapChipManager::Update()
 {
 	// XV
 	map_.Update();
+
+	if(map_.isClear_)
+	{
+		YScene::SceneExecutive::GetInstance()->Change(
+			"PLAY", "INFECTION", 2, 5
+		);
+	}
 }
 
 void MapChipManager::Draw()

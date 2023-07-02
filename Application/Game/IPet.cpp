@@ -2,8 +2,7 @@
 #include "MapChipCollisionBitConfig.h"
 #include "CharacterConfig.h"
 
-#include "Keys.h"
-#include "Pad.h"
+#include "SceneExecutive.h"
 
 #include <cassert>
 
@@ -40,6 +39,8 @@ void IPet::OnCollision(const CollisionInfo& info)
 			// ダメージを与える
 			info.pStatus_->Damage(status_.Attack(), true);
 
+			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
+			
 			// ジャンプ
 			Jump(false);
 		}
@@ -47,6 +48,8 @@ void IPet::OnCollision(const CollisionInfo& info)
 		else
 		{
 			isHit_ = true;
+
+			spScrollCamera_->Shaking(4.0f, 2.0f, 100.0f);
 		}
 
 		return;
@@ -78,6 +81,17 @@ void IPet::StaticInitialize(ScrollCamera* pScrollCamera)
 	assert(pScrollCamera);
 
 	spScrollCamera_ = pScrollCamera;
+}
+
+void IPet::OffScreenProcess()
+{
+	if (isRidden_ == false) { return; }
+
+	if (YScene::TransitionManager::GetInstance()->IsAct()) { return; }
+
+	YScene::SceneExecutive::GetInstance()->Change(
+		"PLAY", "BLACKOUT", 10, 5
+	);
 }
 
 void IPet::Jump(const bool isJumpCount)
