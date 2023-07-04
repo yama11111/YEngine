@@ -24,7 +24,7 @@ void SkydomeDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 void SkydomeDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void SkydomeDrawer::Draw()
@@ -32,7 +32,7 @@ void SkydomeDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void SkydomeDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void SkydomeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 
 }

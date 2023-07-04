@@ -29,22 +29,15 @@ void BaseDrawer::Initialize(Transform* pParent, const DrawLocation location)
 	// ビュープロジェクション設定
 	obj_->SetViewProjection(spVP_);
 
-	// 描画位置
 	location_ = location;
 
-	// 描画フラグ
 	isVisible_ = true;
 
-	// 描画するか更新フラグ
 	isVisibleUpdate_ = true;
-}
 
-void BaseDrawer::Update()
-{
-	VisibleUpdate();
+	animationBitFlag_ = 0;
 
-	// オブジェクト更新
-	obj_->UpdateMatrix();
+	animeStatus_ = {};
 }
 
 void BaseDrawer::VisibleUpdate()

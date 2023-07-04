@@ -20,7 +20,7 @@ void CloudDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 void CloudDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void CloudDrawer::Draw()
@@ -28,7 +28,7 @@ void CloudDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void CloudDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void CloudDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 
 }

@@ -16,7 +16,7 @@ void SlashAttackDrawer::Initialize(Transform* pParent, const DrawLocation locati
 
 void SlashAttackDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void SlashAttackDrawer::Draw()
@@ -24,7 +24,7 @@ void SlashAttackDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void SlashAttackDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void SlashAttackDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 }
 

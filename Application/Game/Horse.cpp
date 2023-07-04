@@ -1,8 +1,10 @@
 #include "Horse.h"
 #include "HorseDrawer.h"
 #include "SphereCollider.h"
+#include "MapChipCollisionBitConfig.h"
 
 #include "CharacterConfig.h"
+#include "AnimationConfig.h"
 
 #include "CharacterManager.h"
 #include "SnortAttack.h"
@@ -27,11 +29,28 @@ void Horse::Initialize(const Transform::Status& status)
 	jumpCounter_ = 0;
 
 	maxJumpCount_ = PetConfig::kMaxJumpCount;
+
+	// 立ちアニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(HorseDrawer::AnimationType::eIdle),
+		HorseAnimationConfig::kIdleFrame
+	);
 }
 
 void Horse::Update()
 {
 	IPet::Update();
+
+	// 着地した瞬間
+	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
+		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
+	{
+		// 着地アニメーション
+		drawer_->PlayAnimation(
+			static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding),
+			HorseAnimationConfig::kLandingFrame
+		);
+	}
 }
 
 void Horse::Draw()
@@ -57,6 +76,30 @@ float Horse::RidingPosHeight()
 	return PetConfig::kRiddenHeight;
 }
 
+void Horse::Hit()
+{
+	IPet::Hit();
+
+	// 被弾アニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(HorseDrawer::AnimationType::eHit),
+		HorseAnimationConfig::Hit::kFrame
+	);
+}
+
+void Horse::Jump(const bool isJumpCount)
+{
+	IPet::Jump(isJumpCount);
+
+	if (isJumpCount && jumpCounter_ >= maxJumpCount_) { return; }
+
+	// ジャンプアニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(HorseDrawer::AnimationType::eJump),
+		HorseAnimationConfig::kJumpFrame
+	);
+}
+
 void Horse::Attack()
 {
 	// 攻撃新規生成
@@ -69,4 +112,10 @@ void Horse::Attack()
 	);
 
 	CharacterManager::GetInstance()->PushBack(newAttack);
+
+	// 攻撃アニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(HorseDrawer::AnimationType::eAttack),
+		HorseAnimationConfig::kAttackFrame
+	);
 }

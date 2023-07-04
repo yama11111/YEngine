@@ -26,6 +26,12 @@ namespace YGame
 		void Draw() override;
 
 		/// <summary>
+		/// ジャンプ
+		/// </summary>
+		/// <param name="isJumpCount"> : カウントするか</param>
+		void Jump(const bool isJumpCount = true) override;
+
+		/// <summary>
 		/// 攻撃
 		/// </summary>
 		void Attack() override;
@@ -50,7 +56,11 @@ namespace YGame
 
 		~Horse() = default;
 
-	public:
+	protected:
 
+		/// <summary>
+		/// 衝突時処理
+		/// </summary>
+		void Hit() override;
 	};
 }

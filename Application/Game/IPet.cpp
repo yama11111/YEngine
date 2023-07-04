@@ -14,7 +14,6 @@ YGame::ScrollCamera* IPet::spScrollCamera_ = nullptr;
 
 void IPet::Update()
 {
-
 	// Ž©“®‚Å‘O‚Éi‚Þ
 	moveDirection_.x_ = +1.0f;
 
@@ -30,6 +29,8 @@ void IPet::Update()
 
 void IPet::OnCollision(const CollisionInfo& info)
 {
+	if (isRidden_ == false) { return; }
+
 	// “G
 	if (info.attribute_ == AttributeType::eEnemy)
 	{
@@ -47,9 +48,7 @@ void IPet::OnCollision(const CollisionInfo& info)
 		// Ž©•ª ‚ª “G ‚æ‚è‰º ‚È‚ç
 		else
 		{
-			isHit_ = true;
-
-			spScrollCamera_->Shaking(4.0f, 2.0f, 100.0f);
+			Hit();
 		}
 
 		return;
@@ -81,6 +80,13 @@ void IPet::StaticInitialize(ScrollCamera* pScrollCamera)
 	assert(pScrollCamera);
 
 	spScrollCamera_ = pScrollCamera;
+}
+
+void IPet::Hit()
+{
+	isHit_ = true;
+
+	spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
 }
 
 void IPet::OffScreenProcess()

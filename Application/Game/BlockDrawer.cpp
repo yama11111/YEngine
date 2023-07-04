@@ -22,7 +22,7 @@ void BlockDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 void BlockDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void BlockDrawer::Draw()
@@ -30,7 +30,7 @@ void BlockDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void BlockDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void BlockDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 
 }

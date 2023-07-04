@@ -4,6 +4,7 @@
 #include "MapChipCollisionBitConfig.h"
 
 #include "CharacterConfig.h"
+#include "AnimationConfig.h"
 
 #include "CharacterManager.h"
 #include "SlashAttack.h"
@@ -47,6 +48,12 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	{
 		spScrollCamera_->SetFollowPoint(&transform_->pos_);
 	}
+
+	// 立ちアニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle), 
+		PlayerAnimationConfig::kIdleFrame
+	);
 }
 
 void Player::RideOnPet(IPet* pPet)
@@ -68,6 +75,7 @@ void Player::RideOnPet(IPet* pPet)
 
 		collider_->SetIsSlip(true);
 
+		drawer_->SetParent(pPet_->DrawerPtr()->TransformPtr());
 		drawer_->SetIsVisibleUpdate(false);
 
 		pPet_->Rideen();
@@ -89,6 +97,7 @@ void Player::GetOffPet()
 
 	collider_->SetIsSlip(false);
 
+	drawer_->SetParent(transform_.get());
 	drawer_->SetIsVisibleUpdate(true);
 	
 	// 飛び降りる
@@ -130,6 +139,16 @@ void Player::Update()
 	{
 		// ジャンプ回数初期化
 		jumpCounter_ = 0;
+
+		// 瞬間
+		if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
+		{
+			// 着地アニメーション
+			drawer_->PlayAnimation(
+				static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding), 
+				PlayerAnimationConfig::kLandingFrame
+			);
+		}
 	}
 
 	// V キー or X ボタン
@@ -165,13 +184,23 @@ void Player::OnCollision(const CollisionInfo& info)
 
 			if (status_.IsAlive() == false)
 			{
-				spScrollCamera_->SetFollowPoint(nullptr);
-				YScene::SceneExecutive::GetInstance()->Change(
-					"PLAY", "BLACKOUT", 10, 5
+				// 攻撃アニメーション
+				drawer_->PlayAnimation(
+					static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead),
+					PlayerAnimationConfig::kDeadFrame
 				);
+
+				spScrollCamera_->SetFollowPoint(nullptr);
+				YScene::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
 			}
 
-			spScrollCamera_->Shaking(4.0f, 2.0f, 100.0f);
+			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
+
+			// 被弾アニメーション
+			drawer_->PlayAnimation(
+				static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit), 
+				PlayerAnimationConfig::Hit::kFrame
+			);
 		}
 
 		return;
@@ -223,6 +252,12 @@ void Player::Jump(const bool isJumpCount)
 	speed_.VelocityRef().y_ = 0.0f;
 
 	moveDirection_.y_ = 1.0f;
+
+	// ジャンプアニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump), 
+		PlayerAnimationConfig::kJumpFrame
+	);
 }
 
 void Player::Attack()
@@ -242,19 +277,22 @@ void Player::Attack()
 	newAttack->Initialize(
 		{ transform_->pos_, {}, {1.0f,1.0f,1.0f} },
 		SlashAttackConfig::kAliveTime,
-		SlashAttackConfig::kPower
-	);
+		SlashAttackConfig::kPower);
 	
 	CharacterManager::GetInstance()->PushBack(newAttack);
+
+	// 攻撃アニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack), 
+		PlayerAnimationConfig::kAttackFrame
+	);
 }
 
 void Player::OffScreenProcess()
 {
 	if (YScene::TransitionManager::GetInstance()->IsAct()) { return; }
 
-	YScene::SceneExecutive::GetInstance()->Change(
-		"PLAY", "BLACKOUT", 10, 5
-	);
+	YScene::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
 }
 
 void Player::DrawDebugTextContent()

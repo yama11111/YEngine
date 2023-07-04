@@ -21,7 +21,7 @@ void GoalDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 void GoalDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void GoalDrawer::Draw()
@@ -29,7 +29,7 @@ void GoalDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void GoalDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void GoalDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 
 }

@@ -33,5 +33,10 @@ namespace YGame
 
     protected:
 
+		/// <summary>
+		/// ”í’e
+		/// </summary>
+		virtual void Hit();
+
     };
 }

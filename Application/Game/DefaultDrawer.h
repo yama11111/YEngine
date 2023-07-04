@@ -32,7 +32,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		void PlayAnimation(const uint16_t index, const uint16_t frame) override;
+		void PlayAnimation(const uint16_t index, const uint32_t frame) override;
 
 	public:
 

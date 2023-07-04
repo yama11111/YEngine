@@ -20,7 +20,7 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update();
+		virtual void Update() = 0;
 
 		/// <summary>
 		/// 描画
@@ -37,8 +37,16 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		virtual void PlayAnimation(const uint16_t index, const uint16_t frame) = 0;
+		virtual void PlayAnimation(const uint16_t index, const uint32_t frame) = 0;
 
+	public:
+
+		/// <summary>
+		/// トランスフォームポインタ取得
+		/// </summary>
+		/// <returns>トランスフォームポインタ</returns>
+		inline Transform* TransformPtr() const { return obj_.get(); }
+	
 	public:
 		
 		/// <summary>
@@ -117,6 +125,12 @@ namespace YGame
 		
 		// 描画するか更新フラグ
 		bool isVisibleUpdate_ = true;
+
+		// アニメーションビットフラグ
+		uint16_t animationBitFlag_ = 0;
+
+		// アニメーション変動値
+		Transform::Status animeStatus_;
 
 	protected:
 

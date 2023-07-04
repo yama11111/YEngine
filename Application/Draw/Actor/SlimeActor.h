@@ -7,7 +7,47 @@ namespace YGame
 {
 	class SlimeActor
 	{
+	
+	public:
+		
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		void Initialize();
+
+		/// <summary>
+		/// ブヨブヨアニメーション
+		/// </summary>
+		/// <param name="wobbleScaleValues"> : 拡縮値ベクター配列</param>
+		/// <param name="frame">"> : フレーム</param>
+		/// <param name="exponent">"> : 指数</param>
+		void Wobble(const std::vector<YMath::Vector3>& wobbleScaleValues, const uint32_t frame, const float exponent);
+		
+		/// <summary>
+		/// 更新
+		/// </summary>
+		void Update();
+	
+	public:
+	
+		/// <summary>
+		/// 動作中か
+		/// </summary>
+		/// <returns>動作フラグ</returns>
+		inline bool IsAct() const { return isAct_; }
+
+		/// <summary>
+		/// 現在の拡縮値取得
+		/// </summary>
+		/// <returns>現在の拡縮値</returns>
+		inline YMath::Vector3 WobbleScaleValue() const { return value_; }
+	
+	public:
+		
+		virtual ~SlimeActor() = default;
+	
 	private:
+		
 		// 動き
 		enum class  Action
 		{
@@ -15,52 +55,45 @@ namespace YGame
 			Elasticity,	 // 伸び縮み
 			Normal,		 // 通常
 		};
-		// 揺れステータス
-		struct JiggleState
-		{
-			YMath::Vector3 value_;
-			unsigned int frame_;
-			float exponent_ = 2.0f;
-		};
+	
 	private:
+		
 		// 動いているかフラグ
 		bool isAct_ = false;
+		
 		// 現在の動き
 		Action action_ = Action::None;
+		
 		// イージング
 		YMath::Ease<YMath::Vector3> ease_;
+		
 		// 終了値
-		std::vector<JiggleState> jiggles_;
+		std::vector<YMath::Vector3> wobbleScaleValues_;
+
+		// 指数
+		float exponent_ = 0.0f;
+		
 		// 現在のインデックス
 		size_t currentIdx_ = 0;
+		
 		// タイマー
 		YMath::Timer timer_;
+		
 		// 実値
 		YMath::Vector3 value_;
-	public:
-		// 初期化
-		void Initialize();
-		/// <summary>
-		/// 動かす
-		/// </summary>
-		/// <param name="jiggles"> : 揺れステータス</param>
-		/// <param name="---------------------------"></param>
-		/// <param name="(Vector3) jiggles.value_"> : 揺れる量</param>
-		/// <param name="(uint) jiggles.frame_"> : フレーム</param>
-		/// <param name="(float) jiggles.exponent_"> : 指数</param>
-		void Activate(const std::vector<JiggleState>& jiggles);
-		// 更新
-		void Update();
-	public:
-		// 実値取得
-		YMath::Vector3 JiggleValue();
+	
 	private:
-		// 動き切り替え
+		
+		/// <summary>
+		/// 動き切り替え
+		/// </summary>
 		void ChangeAction();
-		// 実値更新
+		
+		/// <summary>
+		/// 実値更新
+		/// </summary>
 		void UpdateValue();
-	public:
-		virtual ~SlimeActor() = default;
+	
 	};
 }
 

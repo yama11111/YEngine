@@ -18,7 +18,7 @@ void DefaultDrawer::Initialize(Transform* pParent, const DrawLocation location)
 
 void DefaultDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void DefaultDrawer::Draw()
@@ -26,7 +26,7 @@ void DefaultDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void DefaultDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void DefaultDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 
 }

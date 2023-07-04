@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
+    <ClInclude Include="Application\Game\AnimationConfig.h" />
     <ClInclude Include="Application\Game\BlockDrawer.h" />
     <ClInclude Include="Application\Game\CharacterConfig.h" />
     <ClInclude Include="Application\Game\CloudDrawer.h" />

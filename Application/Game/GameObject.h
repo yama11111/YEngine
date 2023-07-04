@@ -39,10 +39,22 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// トランスフォームポインタ取得
+		/// </summary>
+		/// <returns>トランスフォームポインタ</returns>
+		inline Transform* TransformPtr() const { return transform_.get(); }
+
+		/// <summary>
 		/// コライダーポインタ取得
 		/// </summary>
 		/// <returns>コライダーポインタ</returns>
-		BaseCollider* ColliderPtr() const { return collider_.get(); }
+		inline BaseCollider* ColliderPtr() const { return collider_.get(); }
+		
+		/// <summary>
+		/// 描画クラスポインタ
+		/// </summary>
+		/// <returns>描画クラスポインタ</returns>
+		inline BaseDrawer* DrawerPtr() const { return drawer_.get(); }
 	
 	public:
 		

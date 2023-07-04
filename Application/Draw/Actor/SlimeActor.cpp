@@ -9,7 +9,7 @@ void SlimeActor::Initialize()
 	action_ = Action::None;
 
 	ease_.Initialize({}, {}, 0.0f);
-	jiggles_.clear();
+	wobbleScaleValues_.clear();
 	currentIdx_ = 0;
 
 	timer_.Initialize(0);
@@ -17,20 +17,22 @@ void SlimeActor::Initialize()
 	value_ = {};
 }
 
-void SlimeActor::Activate(const std::vector<JiggleState>& jiggles)
+void SlimeActor::Wobble(const std::vector<YMath::Vector3>& wobbleScaleValues, const uint32_t frame, const float exponent)
 {
-	assert(jiggles.size() > 1);
+	assert(wobbleScaleValues.size() >= 1);
 
 	Initialize();
 
 	isAct_ = true;
 	action_ = Action::Elasticity;
 
-	jiggles_ = jiggles;
-	ease_.Initialize(jiggles_[0].value_, jiggles_[1].value_, jiggles_[1].exponent_);
+	wobbleScaleValues_ = wobbleScaleValues;
+	exponent_ = exponent;
+
+	ease_.Initialize(wobbleScaleValues_[0], wobbleScaleValues_[1], exponent_);
 	currentIdx_ = 1;
 
-	timer_.Initialize(jiggles_[1].frame_);
+	timer_.Initialize(frame);
 	timer_.SetActive(true);
 }
 
@@ -43,8 +45,8 @@ void SlimeActor::Update()
 	
 	if (timer_.IsEnd())
 	{
-		timer_.Reset(true);
 		ChangeAction();
+		timer_.Reset(true);
 	}
 }
 
@@ -61,22 +63,15 @@ void SlimeActor::ChangeAction()
 	currentIdx_++;
 
 	// I’[‚È‚ç
-	if (currentIdx_ == (jiggles_.size() - 1))
+	if (currentIdx_ >= (wobbleScaleValues_.size() - 1))
 	{
 		action_ = Action::Normal;
 	}
 
-	ease_.Initialize(jiggles_[elderIdx].value_, jiggles_[currentIdx_].value_, jiggles_[currentIdx_].exponent_);
-	timer_.Initialize(jiggles_[currentIdx_].frame_);
-	timer_.SetActive(true);
+	ease_.Initialize(wobbleScaleValues_[elderIdx], wobbleScaleValues_[currentIdx_], exponent_);
 }
 
 void SlimeActor::UpdateValue()
 {
 	value_ = ease_.In(timer_.Ratio());
-}
-
-YMath::Vector3 SlimeActor::JiggleValue()
-{
-	return value_;
 }

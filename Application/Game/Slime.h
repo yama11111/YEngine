@@ -37,7 +37,9 @@ namespace YGame
 
 		~Slime() = default;
 
-	public:
+	protected:
+
+		void Hit() override;
 
 	};
 }

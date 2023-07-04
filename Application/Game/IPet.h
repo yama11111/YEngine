@@ -30,7 +30,7 @@ namespace YGame
 		/// ジャンプ
 		/// </summary>
 		/// <param name="isJumpCount"> : カウントするか</param>
-		void Jump(const bool isJumpCount = true);
+		virtual void Jump(const bool isJumpCount = true);
 
 		/// <summary>
 		/// 乗る位置の高さ取得
@@ -86,6 +86,11 @@ namespace YGame
 		static ScrollCamera* spScrollCamera_;
 	
 	protected:
+
+		/// <summary>
+		/// 衝突時処理
+		/// </summary>
+		virtual void Hit();
 
 		/// <summary>
 		/// 画面外処理

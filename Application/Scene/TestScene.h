@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseScene.h"
-#include "Level.h"
+#include "BaseDrawer.h"
 
 namespace YScene
 {
@@ -10,7 +10,11 @@ namespace YScene
 
 	private:
 
-		YGame::Level* pLevel_ = nullptr;
+		YGame::Transform transform_;
+
+		std::list<std::unique_ptr<YGame::BaseDrawer>> drawers_;
+
+		YGame::ViewProjection vp_;
 
 	public:
 

@@ -16,7 +16,7 @@ void SnortAttackDrawer::Initialize(Transform* pParent, const DrawLocation locati
 
 void SnortAttackDrawer::Update()
 {
-	BaseDrawer::Update();
+	obj_->UpdateMatrix();
 }
 
 void SnortAttackDrawer::Draw()
@@ -24,7 +24,7 @@ void SnortAttackDrawer::Draw()
 	BaseDrawer::Draw();
 }
 
-void SnortAttackDrawer::PlayAnimation(const uint16_t index, const uint16_t frame)
+void SnortAttackDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 {
 }
 

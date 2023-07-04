@@ -151,6 +151,24 @@
     <Filter Include="Application\Game\Level">
       <UniqueIdentifier>{4eba86e2-5c39-46a2-9a0d-cd7530b4250a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Drawer\Attack">
+      <UniqueIdentifier>{b49d6a50-8727-431f-a3b9-6698d04dfa31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Enemy">
+      <UniqueIdentifier>{8e90ba7c-37e8-4632-97cf-63f8f6fb55b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Item">
+      <UniqueIdentifier>{bba35c86-37ec-4694-975c-404372d73c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Pet">
+      <UniqueIdentifier>{c1bb83d5-5a96-46d7-8353-fb27465b0a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Player">
+      <UniqueIdentifier>{923fd883-3c08-481e-bfea-9e06cd257020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\etc">
+      <UniqueIdentifier>{7f9f146c-3789-4ed2-8432-98245287f8b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -411,18 +429,6 @@
     <ClCompile Include="Application\Game\BaseDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\PlayerDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\SlimeDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\HorseDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\BlockDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Draw\HUD\LetterBoxDrawer.cpp">
       <Filter>Application\Draw\HUD</Filter>
     </ClCompile>
@@ -441,29 +447,41 @@
     <ClCompile Include="Application\Game\DefaultDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\SkydomeDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\SlashAttack.cpp">
       <Filter>Application\Game\Chara\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\SlashAttackDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\SnortAttack.cpp">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\SnortAttackDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\GoalDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\CloudDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp">
       <Filter>Application\Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\PlayerDrawer.cpp">
+      <Filter>Application\Game\Drawer\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SkydomeDrawer.cpp">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CloudDrawer.cpp">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\BlockDrawer.cpp">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\GoalDrawer.cpp">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\HorseDrawer.cpp">
+      <Filter>Application\Game\Drawer\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SlashAttackDrawer.cpp">
+      <Filter>Application\Game\Drawer\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SnortAttackDrawer.cpp">
+      <Filter>Application\Game\Drawer\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SlimeDrawer.cpp">
+      <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -740,18 +758,6 @@
     <ClInclude Include="Application\Game\BaseDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\PlayerDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\SlimeDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\HorseDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\BlockDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Draw\HUD\LetterBoxDrawer.h">
       <Filter>Application\Draw\HUD</Filter>
     </ClInclude>
@@ -773,32 +779,47 @@
     <ClInclude Include="Application\Game\DefaultDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\SkydomeDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\SlashAttack.h">
       <Filter>Application\Game\Chara\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\SlashAttackDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\SnortAttack.h">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\SnortAttackDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\CharacterConfig.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\CloudDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\GoalDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Draw\Actor\HitActor.h">
       <Filter>Application\Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\PlayerDrawer.h">
+      <Filter>Application\Game\Drawer\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SkydomeDrawer.h">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CloudDrawer.h">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\BlockDrawer.h">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\GoalDrawer.h">
+      <Filter>Application\Game\Drawer\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\HorseDrawer.h">
+      <Filter>Application\Game\Drawer\Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SlashAttackDrawer.h">
+      <Filter>Application\Game\Drawer\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SnortAttackDrawer.h">
+      <Filter>Application\Game\Drawer\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SlimeDrawer.h">
+      <Filter>Application\Game\Drawer\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\AnimationConfig.h">
+      <Filter>Application\Game\Chara</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
