@@ -7,16 +7,25 @@
 using YGame::SnortAttack;
 using YMath::Vector3;
 
-void SnortAttack::Initialize(const Transform::Status& status, const uint32_t aliveTimer, const uint32_t attackPower)
+
+void SnortAttack::Initialize(
+	const uint32_t aliveTimer, 
+	const Vector3& emitPos, 
+	const Vector3& acceleration, 
+	const Vector3& maxSpeed, 
+	const float radius, 
+	const uint32_t attackPower)
 {
 	// ゲームキャラクター初期化
 	ICharacter::Initialize(
 		"SnortAttack",
-		status,
-		Vector3(), Vector3(),
+		Transform::Status::Default(),
+		acceleration, maxSpeed,
 		1, attackPower, 0,
-		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, status.scale_.x_),
+		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, radius),
 		new SnortAttackDrawer(DrawLocation::eCenter));
+
+	transform_->scale_ = Vector3(radius, radius, radius);
 
 	// 跳ね返らない
 	MapChipCollider::SetIsBounce(false);
@@ -24,10 +33,17 @@ void SnortAttack::Initialize(const Transform::Status& status, const uint32_t ali
 	// 生存時間初期化 + スタート
 	aliveTimer_.Initialize(aliveTimer);
 	aliveTimer_.SetActive(true);
+
+	transform_->pos_ = emitPos;
+
+	// オブジェクト更新
+	GameObject::Update();
 }
 
 void SnortAttack::Update()
 {
+	moveDirection_ = Vector3(+1.0f, 0.0f, 0.0f);
+
 	// キャラクター更新
 	ICharacter::Update();
 

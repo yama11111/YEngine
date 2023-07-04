@@ -12,10 +12,19 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="aliveTimer"> : 生存時間</param>
+		/// <param name="emitPos"> : 発生位置</param>
+		/// <param name="acceleration"> : 加速度</param>
+		/// <param name="maxspeed"> : 最高速度</param>
+		/// <param name="radius"> : 半径</param>
 		/// <param name="attackPower"> : 攻撃力</param>
-		void Initialize(const Transform::Status& status, const uint32_t aliveTimer, const uint32_t attackPower);
+		void Initialize(
+			const uint32_t aliveTimer,
+			const YMath::Vector3& emitPos,
+			const YMath::Vector3& acceleration,
+			const YMath::Vector3& maxSpeed,
+			const float radius,
+			const uint32_t attackPower);
 
 		/// <summary>
 		/// 更新
@@ -51,6 +60,5 @@ namespace YGame
 
 		// 生存タイマー
 		YMath::Timer aliveTimer_;
-
 	};
 }

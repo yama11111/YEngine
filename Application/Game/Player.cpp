@@ -275,8 +275,10 @@ void Player::Attack()
 	SlashAttack* newAttack = new SlashAttack();
 
 	newAttack->Initialize(
-		{ transform_->pos_, {}, {1.0f,1.0f,1.0f} },
 		SlashAttackConfig::kAliveTime,
+		&transform_->pos_,
+		SlashAttackConfig::kOffset, 
+		SlashAttackConfig::kRadius, 
 		SlashAttackConfig::kPower);
 	
 	CharacterManager::GetInstance()->PushBack(newAttack);

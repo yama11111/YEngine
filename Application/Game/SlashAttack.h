@@ -12,10 +12,17 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="aliveTimer"> : 生存時間</param>
+		/// <param name="pAttackerPos"> : 攻撃者の位置ポインタ</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="radius"> : 半径</param>
 		/// <param name="attackPower"> : 攻撃力</param>
-		void Initialize(const Transform::Status& status, const uint32_t aliveTimer, const uint32_t attackPower);
+		void Initialize(
+			const uint32_t aliveTimer, 
+			YMath::Vector3* pAttackerPos,
+			const YMath::Vector3& offset,
+			const float radius,
+			const uint32_t attackPower);
 
 		/// <summary>
 		/// 更新
@@ -42,15 +49,26 @@ namespace YGame
 	
 	private:
 
+		// 親ポインタ
+		YMath::Vector3* pAttackerPos_ = nullptr;
+		
+		// オフセット
+		YMath::Vector3 offset_;
+
+		// 生存タイマー
+		YMath::Timer aliveTimer_;
+	
+	private:
+
+		/// <summary>
+		/// 位置更新
+		/// </summary>
+		void UpdatePos();
+
 		/// <summary>
 		/// デバッグテキスト本文
 		/// </summary>
 		void DrawDebugTextContent() override;
-	
-	private:
-
-		// 生存タイマー
-		YMath::Timer aliveTimer_;
 
 	};
 }

@@ -7,16 +7,23 @@
 using YGame::SlashAttack;
 using YMath::Vector3;
 
-void SlashAttack::Initialize(const Transform::Status& status, const uint32_t aliveTimer, const uint32_t attackPower)
+void SlashAttack::Initialize(
+	const uint32_t aliveTimer, 
+	Vector3* pAttackerPos, 
+	const Vector3& offset, 
+	const float radius, 
+	const uint32_t attackPower)
 {
 	// ゲームキャラクター初期化
 	ICharacter::Initialize(
 		"SlashAttack",
-		status,
+		Transform::Status::Default(),
 		Vector3(), Vector3(),
 		1, attackPower, 0,
-		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, status.scale_.x_),
+		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, radius),
 		new SlashAttackDrawer(DrawLocation::eCenter));
+
+	transform_->scale_ = Vector3(radius, radius, radius);
 
 	// 跳ね返らない
 	MapChipCollider::SetIsBounce(false);
@@ -24,10 +31,21 @@ void SlashAttack::Initialize(const Transform::Status& status, const uint32_t ali
 	// 生存時間初期化 + スタート
 	aliveTimer_.Initialize(aliveTimer);
 	aliveTimer_.SetActive(true);
+
+	pAttackerPos_ = pAttackerPos;
+
+	offset_ = offset;
+
+	UpdatePos();
+	
+	// オブジェクト更新
+	GameObject::Update();
 }
 
 void SlashAttack::Update()
 {
+	UpdatePos();
+
 	// キャラクター更新
 	ICharacter::Update();
 
@@ -61,6 +79,11 @@ YGame::ICharacter::CollisionInfo SlashAttack::GetCollisionInfo()
 	result.pSelf_ = this;
 
 	return result;
+}
+
+void SlashAttack::UpdatePos()
+{
+	transform_->pos_ = *pAttackerPos_ + offset_;
 }
 
 void SlashAttack::DrawDebugTextContent()

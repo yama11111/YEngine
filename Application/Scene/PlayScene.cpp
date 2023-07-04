@@ -97,7 +97,7 @@ void PlayScene::Initialize()
 	pCharacterMan_->Initialize();
 
 	// カメラ初期化
-	scrollCamera_.Initialize(Vector3(-20.0f, +10.0f, -20.0f), nullptr, Vector3());
+	scrollCamera_.Initialize(Vector3(-15.0f, +10.0f, -30.0f), nullptr, Vector3());
 
 	// ビュープロジェクション初期化
 	transferVP_.Initialize();

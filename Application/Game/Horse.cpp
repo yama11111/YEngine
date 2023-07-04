@@ -106,8 +106,11 @@ void Horse::Attack()
 	SnortAttack* newAttack = new SnortAttack();
 
 	newAttack->Initialize(
-		{ transform_->pos_, {}, {1.0f,1.0f,1.0f} },
 		SnortAttackConfig::kAliveTime,
+		transform_->pos_,
+		SnortAttackConfig::kAcceleration,
+		SnortAttackConfig::kMaxSpeed,
+		SnortAttackConfig::kRadius,
 		SnortAttackConfig::kPower
 	);
 

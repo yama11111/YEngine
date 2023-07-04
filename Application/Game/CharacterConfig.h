@@ -46,12 +46,17 @@ namespace YGame
 	namespace SlashAttackConfig
 	{
 		static const uint32_t kAliveTime = 3;
+		static const YMath::Vector3 kOffset = { +3.0f,+1.0f,0.0f };
+		static const float kRadius = 5.0f;
 		static const uint32_t kPower = 20;
 	}
 
 	namespace SnortAttackConfig
 	{
-		static const uint32_t kAliveTime = 3;
+		static const uint32_t kAliveTime = 10;
+		static const YMath::Vector3 kAcceleration = { 0.3f,0.0f,0.0f };
+		static const YMath::Vector3 kMaxSpeed = { 0.6f,0.0f,0.0f };
+		static const float kRadius = 5.0f;
 		static const uint32_t kPower = 20;
 	}
 }
