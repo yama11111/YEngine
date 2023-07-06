@@ -93,7 +93,7 @@ void CharacterStatus::DrawDebugTextContent()
 		{
 			ImGui::Text("isInvincible : true");
 			
-			ImGui::Text("invincibleTimer : %5f", invincibleTimer_.End() - invincibleTimer_.Current());
+			ImGui::Text("invincibleTimer : %5f", invincibleTimer_.EndFrame() - invincibleTimer_.Current());
 		}
 		else
 		{
@@ -148,5 +148,5 @@ void CharacterStatus::SetInvincible(const bool isInvincible)
 void CharacterStatus::SetInvincibleTime(const uint32_t invincibleTime)
 {
 	// タイマー設定
-	invincibleTimer_.SetEnd(invincibleTime);
+	invincibleTimer_.SetEndFrame(invincibleTime);
 }

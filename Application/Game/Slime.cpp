@@ -1,6 +1,6 @@
 #include "Slime.h"
 #include "SlimeDrawer.h"
-#include "SphereCollider.h"
+#include "PrimitiveCollider.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include "CharacterConfig.h"
@@ -20,8 +20,10 @@ void Slime::Initialize(const Transform::Status& status)
 		status,
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed,
 		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime,
-		new SphereCollider({}, AttributeType::eEnemy, AttributeType::eAll, SlimeConfig::kRadius),
+		new GameCollider(transform_.get(), AttributeType::eEnemy, AttributeType::eAll),
 		new SlimeDrawer(DrawLocation::eCenter));
+
+	collider_->PushBack(new YMath::SphereCollider(Vector3(), SlimeConfig::kRadius));
 
 	transform_->rota_ = Vector3(0.0f, -PI, 0.0f);
 

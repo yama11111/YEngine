@@ -1,5 +1,5 @@
 #include "SlashAttack.h"
-#include "SphereCollider.h"
+#include "PrimitiveCollider.h"
 #include "SlashAttackDrawer.h"
 
 #include "CharacterConfig.h"
@@ -20,8 +20,10 @@ void SlashAttack::Initialize(
 		Transform::Status::Default(),
 		Vector3(), Vector3(),
 		1, attackPower, 0,
-		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, radius),
+		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
 		new SlashAttackDrawer(DrawLocation::eCenter));
+
+	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
 
 	transform_->scale_ = Vector3(radius, radius, radius);
 

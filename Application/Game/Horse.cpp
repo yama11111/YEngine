@@ -1,6 +1,6 @@
 #include "Horse.h"
 #include "HorseDrawer.h"
-#include "SphereCollider.h"
+#include "PrimitiveCollider.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include "CharacterConfig.h"
@@ -21,8 +21,10 @@ void Horse::Initialize(const Transform::Status& status)
 		status,
 		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
 		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
-		new SphereCollider({}, AttributeType::ePet, AttributeType::eAll, PetConfig::kRadius),
+		new GameCollider(transform_.get(), AttributeType::ePet, AttributeType::eAll),
 		new HorseDrawer(DrawLocation::eCenter));
+
+	collider_->PushBack(new YMath::SphereCollider(Vector3(), PetConfig::kRadius));
 
 	isHit_ = false;
 

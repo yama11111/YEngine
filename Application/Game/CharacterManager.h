@@ -74,13 +74,6 @@ namespace YGame
 		/// <param name="pCharacterA"> : キャラA</param>
 		/// <param name="pCharacterB"> : キャラB</param>
 		static void CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB);
-		
-		/// <summary>
-		/// アタリ判定チェック
-		/// </summary>
-		/// <param name="pColliderA"> : コライダーA</param>
-		/// <param name="pColliderB"> : コライダーB</param>
-		static bool CheckCollision(BaseCollider* pColliderA, BaseCollider* pColliderB);
 
 	private:
 

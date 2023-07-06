@@ -136,7 +136,7 @@
     <ClCompile Include="Application\Game\Slime.cpp" />
     <ClCompile Include="Application\Game\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
-    <ClCompile Include="Engine\Game\Collision\SphereCollider.cpp" />
+    <ClCompile Include="Application\Game\GameCollider.cpp" />
     <ClCompile Include="Engine\Game\Level\Level.cpp" />
     <ClCompile Include="Engine\Base\DX\ConstBuffer.cpp" />
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp" />
@@ -157,7 +157,7 @@
     <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp" />
     <ClCompile Include="Application\Draw\HUD\LetterBoxDrawer.cpp" />
     <ClCompile Include="Application\Draw\HUD\UIButtonDrawer.cpp" />
-    <ClCompile Include="Engine\Game\Particle\IParticle.cpp" />
+    <ClCompile Include="Engine\Game\Particle\BaseParticle.cpp" />
     <ClCompile Include="Engine\Game\Particle\ParticleManager.cpp" />
     <ClCompile Include="Engine\Game\Object\CBTexConfig.cpp" />
     <ClCompile Include="Engine\Game\Object\Light\CBDirectionalLight.cpp" />
@@ -171,8 +171,8 @@
     <ClCompile Include="Engine\Game\Camera\Camera.cpp" />
     <ClCompile Include="Engine\Game\Camera\ScrollCamera.cpp" />
     <ClCompile Include="Engine\Game\Camera\ViewProjection.cpp" />
-    <ClCompile Include="Engine\Game\Collision\BaseCollider.cpp" />
-    <ClCompile Include="Engine\Game\Collision\CollisionPrimitive.cpp" />
+    <ClCompile Include="Engine\Utillity\Math\BasePrimitiveCollider.cpp" />
+    <ClCompile Include="Engine\Utillity\Math\PrimitiveCollider.cpp" />
     <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp" />
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="Application\Game\MapChipManager.cpp" />
@@ -244,7 +244,7 @@
     <ClInclude Include="Application\Game\Slime.h" />
     <ClInclude Include="Application\Game\SnortAttack.h" />
     <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
-    <ClInclude Include="Engine\Game\Collision\SphereCollider.h" />
+    <ClInclude Include="Application\Game\GameCollider.h" />
     <ClInclude Include="Engine\Game\Level\Level.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h" />
     <ClInclude Include="Engine\Game\Object\ObjectConfig.h" />
@@ -270,7 +270,7 @@
     <ClInclude Include="Application\Draw\Actor\SlimeActor.h" />
     <ClInclude Include="Application\Draw\HUD\LetterBoxDrawer.h" />
     <ClInclude Include="Application\Draw\HUD\UIButtonDrawer.h" />
-    <ClInclude Include="Engine\Game\Particle\IParticle.h" />
+    <ClInclude Include="Engine\Game\Particle\BaseParticle.h" />
     <ClInclude Include="Engine\Game\Particle\ParticleManager.h" />
     <ClInclude Include="Engine\Game\Object\CBTexConfig.h" />
     <ClInclude Include="Engine\Game\Object\Light\CBDirectionalLight.h" />
@@ -285,9 +285,9 @@
     <ClInclude Include="Engine\Game\Camera\Camera.h" />
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h" />
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h" />
-    <ClInclude Include="Engine\Game\Collision\BaseCollider.h" />
     <ClInclude Include="Application\Game\AttributeType.h" />
-    <ClInclude Include="Engine\Game\Collision\CollisionPrimitive.h" />
+    <ClInclude Include="Engine\Utillity\Math\BasePrimitiveCollider.h" />
+    <ClInclude Include="Engine\Utillity\Math\PrimitiveCollider.h" />
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />
     <ClInclude Include="Application\Game\MapChipManager.h" />

@@ -3,11 +3,16 @@
 
 using YMath::Power;
 
-void Power::Initialize(const unsigned int max, const bool isApply)
+Power::Power(const uint32_t maxPower) : 
+	current_(0),
+	maxPower_(static_cast<float>(maxPower))
+{	
+}
+
+void Power::Initialize(const uint32_t maxPower)
 {
 	// 代入
-	max_ = static_cast<float>(max);
-	isApply_ = isApply;
+	SetMaxPower(maxPower);
 
 	// リセット
 	Reset();
@@ -16,31 +21,35 @@ void Power::Initialize(const unsigned int max, const bool isApply)
 void Power::Reset()
 {
 	// 初期化
-	count_ = 0;
+	current_ = 0;
 }
 
 void Power::Update(const bool isAct)
 {
-	// 加算値 (適用するなら時間スピード乗算)
+	// 加算値
 	float spd = 1.0f;
-	if (isApply_) { spd *= spWorldRuler_->GetTimeSpeed(); }
 
 	// 動作中なら
 	if (isAct)
 	{
 		// 加算 (最大値を超えないように)
-		count_ = fminf(count_ + spd, max_);
+		current_ = fminf(current_ + spd, maxPower_);
 	}
 	else
 	{
 		// 減算 (0.0fを超えないように)
-		count_ = fmaxf(count_ - spd, 0.0f);
+		current_ = fmaxf(current_ - spd, 0.0f);
 	}
 }
 
 float Power::Ratio()
 {
 	// 0で割らないように
-	if (max_ == 0) { return 0.0f; }
-	return count_ / max_;
+	if (maxPower_ == 0) { return 0.0f; }
+	return current_ / maxPower_;
+}
+
+void Power::SetMaxPower(const uint32_t maxPower)
+{
+	maxPower_ = static_cast<float>(maxPower);
 }

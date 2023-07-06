@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
-#include "SphereCollider.h"
+#include "PrimitiveCollider.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include "CharacterConfig.h"
@@ -23,25 +23,23 @@ YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
 
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
-	// ゲームキャラクター初期化
 	ICharacter::Initialize(
 		"Player",
 		status,
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
-		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eAll, PlayerConfig::kRadius),
+		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eAll),
 		new PlayerDrawer(DrawLocation::eCenter));
 
-	// ジャンプカウンター初期化
+	collider_->PushBack(new YMath::SphereCollider(Vector3(), PlayerConfig::kRadius));
+
 	jumpCounter_ = 0;
 
-	// 最大ジャンプ回数初期化
 	maxJumpCount_ = PlayerConfig::kMaxJumpCount;
 
 	// 開始時は武装する
 	isArmed_ = true;
 
-	// ペット
 	RideOnPet(pPet);
 
 	if (pPet_ == nullptr)

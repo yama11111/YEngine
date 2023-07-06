@@ -78,6 +78,13 @@ namespace YGame
 		
 		Transform();
 		
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="status"> : 設定用ステータス</param>
+		/// <param name="(Vector3) status.pos_"> : 位置</param>
+		/// <param name="(Vector3) status.rota_"> : 回転</param>
+		/// <param name="(Vector3) status.scale_"> : 大きさ</param>
 		Transform(const Status& status);
 		
 		virtual ~Transform() = default;

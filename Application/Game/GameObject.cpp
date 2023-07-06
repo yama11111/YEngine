@@ -19,9 +19,6 @@ void GameObject::Initialize(const std::string name, const Transform::Status& sta
 
 void GameObject::Update()
 {
-	// 基底コライダー更新
-	if (collider_) { collider_->Update(); }
-
 	// 核更新
 	transform_->UpdateMatrix();
 
@@ -54,7 +51,7 @@ void GameObject::SetParent(GameObject* pParent)
 	}
 }
 
-void GameObject::SetCollider(BaseCollider* collider)
+void GameObject::SetCollider(GameCollider* collider)
 {
 	// コライダークラス設定
 	collider_.reset(collider);

@@ -1,12 +1,19 @@
 #include "Timer.h"
+#include <cmath>
 
 using YMath::Timer;
 
-void Timer::Initialize(const uint32_t end, const bool isApply)
+Timer::Timer(const uint32_t endFrame, const bool isAct) :
+	current_(0),
+	endFrame_(static_cast<float>(endFrame)),
+	isAct_(isAct)
+{
+}
+
+void Timer::Initialize(const uint32_t endFrame, const bool isAct)
 {
 	// 代入
-	SetEnd(end);
-	isApply_ = isApply;
+	SetEndFrame(endFrame);
 
 	// リセット
 	Reset(false);
@@ -15,7 +22,7 @@ void Timer::Initialize(const uint32_t end, const bool isApply)
 void Timer::Reset(const bool isAct)
 {
 	// 初期化
-	count_ = 0;
+	current_ = 0;
 	isAct_ = isAct;
 }
 
@@ -26,16 +33,15 @@ void Timer::Update()
 
 	// 加算値 (適用するなら時間スピード乗算)
 	float spd = 1.0f;
-	if (isApply_) { spd *= spWorldRuler_->GetTimeSpeed(); }
 
 	// 加算
-	count_ += spd;
+	current_ += spd;
 	
 	// 時間になったら
-	if (count_ >= end_)
+	if (current_ >= endFrame_)
 	{
 		// 終了処理
-		count_ = end_;
+		current_ = endFrame_;
 		isAct_ = false;
 	}
 }
@@ -43,12 +49,12 @@ void Timer::Update()
 float Timer::Ratio()
 {
 	// 0で割らないように
-	if (end_ == 0) { return 0.0f; }
-	return count_ / end_;
+	if (endFrame_ == 0) { return 0.0f; }
+	return current_ / endFrame_;
 }
 
-void Timer::SetEnd(const uint32_t end)
+void Timer::SetEndFrame(const uint32_t endFrame)
 {
 	// キャストして代入
-	end_ = static_cast<float>(end);
+	endFrame_ = static_cast<float>(endFrame);
 }

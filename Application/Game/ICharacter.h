@@ -30,7 +30,7 @@ namespace YGame
 			const Transform::Status& status,
 			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
 			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
-			BaseCollider* collider, BaseDrawer* drawer);
+			GameCollider* collider, BaseDrawer* drawer);
 
 		/// <summary>
 		/// çXêV

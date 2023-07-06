@@ -10,7 +10,7 @@ void ICharacter::Initialize(
 	const Transform::Status& status,
 	const Vector3& acceleration, const Vector3& maxSpeed,
 	const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
-	BaseCollider* collider, BaseDrawer* drawer)
+	GameCollider* collider, BaseDrawer* drawer)
 {
 	// オブジェクト初期化
 	GameObject::Initialize(name, status);

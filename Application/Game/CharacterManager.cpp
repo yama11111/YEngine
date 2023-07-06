@@ -1,5 +1,4 @@
 #include "CharacterManager.h"
-#include "SphereCollider.h"
 #include <cassert>
 #include <imgui.h>
 
@@ -122,47 +121,11 @@ void CharacterManager::CheckAllCollision()
 void CharacterManager::CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB)
 {
 	// 球 と 球 の判定
-	if (CheckCollision(pCharacterA->ColliderPtr(), pCharacterB->ColliderPtr()))
+	if (pCharacterA->ColliderPtr()->CheckCollision(pCharacterB->ColliderPtr()))
 	{
 		// お互いに衝突時判定
 		pCharacterA->OnCollision(pCharacterB->GetCollisionInfo());
 		pCharacterB->OnCollision(pCharacterA->GetCollisionInfo());
 	}
-}
-
-bool CharacterManager::CheckCollision(BaseCollider* pColliderA, BaseCollider* pColliderB)
-{
-	// コライダーが無いなら弾く
-	if (pColliderA == nullptr || pColliderB == nullptr)
-	{
-		return false;
-	}
-
-	// どちらかすり抜けるなら弾く
-	if (pColliderA->IsSlip() || pColliderB->IsSlip()) 
-	{
-		return false; 
-	}
-
-	// 属性とマスク一致しないなら弾く
-	if ((static_cast<uint32_t>(pColliderA->Attribute()) & static_cast<uint32_t>(pColliderB->Mask())) == 0 ||
-		(static_cast<uint32_t>(pColliderB->Attribute()) & static_cast<uint32_t>(pColliderA->Mask())) == 0)
-	{
-		return false;
-	}
-
-	// どちらも球なら
-	if (pColliderA->Shape() == BaseCollider::ShapeType::eSphere && 
-		pColliderB->Shape() == BaseCollider::ShapeType::eSphere)
-	{
-		// キャスト
-		SphereCollider* pSphereA = static_cast<SphereCollider*>(pColliderA);
-		SphereCollider* pSphereB = static_cast<SphereCollider*>(pColliderB);
-
-		// 球 と 球 の判定
-		return YGame::CollisionSphereSphere(*pSphereA, *pSphereB);
-	}
-
-	return false;
 }
 

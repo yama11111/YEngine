@@ -1,5 +1,5 @@
 #include "SnortAttack.h"
-#include "SphereCollider.h"
+#include "PrimitiveCollider.h"
 #include "SnortAttackDrawer.h"
 
 #include "CharacterConfig.h"
@@ -22,8 +22,10 @@ void SnortAttack::Initialize(
 		Transform::Status::Default(),
 		acceleration, maxSpeed,
 		1, attackPower, 0,
-		new SphereCollider({}, AttributeType::ePlayer, AttributeType::eEnemy, radius),
+		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
 		new SnortAttackDrawer(DrawLocation::eCenter));
+
+	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
 
 	transform_->scale_ = Vector3(radius, radius, radius);
 

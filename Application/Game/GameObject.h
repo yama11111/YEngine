@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseDrawer.h"
-#include "BaseCollider.h"
+#include "GameCollider.h"
 
 namespace YGame
 {
@@ -48,7 +48,7 @@ namespace YGame
 		/// コライダーポインタ取得
 		/// </summary>
 		/// <returns>コライダーポインタ</returns>
-		inline BaseCollider* ColliderPtr() const { return collider_.get(); }
+		inline GameCollider* ColliderPtr() const { return collider_.get(); }
 		
 		/// <summary>
 		/// 描画クラスポインタ
@@ -68,7 +68,7 @@ namespace YGame
 		/// コライダー設定
 		/// </summary>
 		/// <param name="collider"> : コライダーインスタンス (動的)</param>
-		void SetCollider(BaseCollider* collider);
+		void SetCollider(GameCollider* collider);
 
 		/// <summary>
 		/// 描画クラス設定
@@ -88,7 +88,7 @@ namespace YGame
 		std::unique_ptr<Transform> transform_;
 		
 		// コライダークラス
-		std::unique_ptr<BaseCollider> collider_;
+		std::unique_ptr<GameCollider> collider_;
 
 		// 描画クラス
 		std::unique_ptr<BaseDrawer> drawer_;
