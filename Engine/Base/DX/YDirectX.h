@@ -6,8 +6,6 @@
 #include "Vector2.h"
 #include "Vector4.h"
 
-#pragma comment(lib, "dxgi.lib")
-
 namespace YDX 
 {
 	class YDirectX

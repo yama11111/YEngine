@@ -13,8 +13,8 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="location"> : 描画位置</param>
-		void Initialize(Transform* pParent, const DrawLocation location) override;
+		/// <param name="drawPriority"> : 描画優先度</param>
+		void Initialize(Transform* pParent, const uint32_t drawPriority) override;
 
 		/// <summary>
 		/// 更新
@@ -25,8 +25,6 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		void Draw() override;
-
-	public:
 
 		/// <summary>
 		/// アニメーション再生
@@ -42,15 +40,15 @@ namespace YGame
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="location"> : 描画位置</param>
-		SlashAttackDrawer(const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		SlashAttackDrawer(const uint32_t drawPriority);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="location"> : 描画位置</param>
-		SlashAttackDrawer(Transform * pParent, const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		SlashAttackDrawer(Transform * pParent, const uint32_t drawPriority);
 
 		~SlashAttackDrawer() = default;
 

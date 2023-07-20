@@ -120,7 +120,7 @@ void CharacterManager::CheckAllCollision()
 
 void CharacterManager::CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB)
 {
-	// ‹… ‚Æ ‹… ‚Ì”»’è
+	// ”»’è
 	if (pCharacterA->ColliderPtr()->CheckCollision(pCharacterB->ColliderPtr()))
 	{
 		// ‚¨Œİ‚¢‚ÉÕ“Ë”»’è

@@ -23,7 +23,7 @@ void SnortAttack::Initialize(
 		acceleration, maxSpeed,
 		1, attackPower, 0,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
-		new SnortAttackDrawer(DrawLocation::eCenter));
+		new SnortAttackDrawer(1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
 

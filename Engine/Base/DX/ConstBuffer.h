@@ -7,12 +7,13 @@ namespace YDX
 	// 定数バッファコモンクラス
 	class ConstBufferCommon
 	{
+	
 	protected:
 
 		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* spCmdList_;
 
-		// 静的デスクリプターヒープクラス
+		// 静的デスクリプターヒープポインタ
 		static DescriptorHeap* spDescHeap_;
 
 	public:
@@ -31,6 +32,7 @@ namespace YDX
 	template <typename T>
 	class ConstBuffer : private ConstBufferCommon
 	{
+
 	public:
 
 		// マッピング用

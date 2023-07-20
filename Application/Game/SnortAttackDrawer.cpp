@@ -5,18 +5,18 @@ using YGame::Model;
 
 Model* SnortAttackDrawer::spModel_ = nullptr;
 
-void SnortAttackDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void SnortAttackDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 }
 
 void SnortAttackDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void SnortAttackDrawer::Draw()
@@ -28,14 +28,14 @@ void SnortAttackDrawer::PlayAnimation(const uint16_t index, const uint32_t frame
 {
 }
 
-SnortAttackDrawer::SnortAttackDrawer(const DrawLocation location)
+SnortAttackDrawer::SnortAttackDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-SnortAttackDrawer::SnortAttackDrawer(Transform* pParent, const DrawLocation location)
+SnortAttackDrawer::SnortAttackDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void SnortAttackDrawer::StaticInitialize()

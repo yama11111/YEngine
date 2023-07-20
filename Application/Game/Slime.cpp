@@ -21,7 +21,7 @@ void Slime::Initialize(const Transform::Status& status)
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed,
 		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::eEnemy, AttributeType::eAll),
-		new SlimeDrawer(DrawLocation::eCenter));
+		new SlimeDrawer(1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), SlimeConfig::kRadius));
 

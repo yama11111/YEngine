@@ -1,6 +1,8 @@
 #include "GPUResource.h"
 #include "YAssert.h"
 
+#pragma comment(lib, "d3d12.lib")
+
 using YDX::GPUResource;
 
 ID3D12Device* GPUResource::spDevice_ = nullptr;

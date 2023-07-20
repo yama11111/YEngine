@@ -10,35 +10,6 @@ namespace YBase
 {
 	class YFramework
 	{
-
-	protected:
-		
-		// WindowsAPI
-		YWindowsApp window_;
-		
-		// DirectX12
-		YDX::YDirectX dx_;
-		
-		// inputマネージャー
-		YInput::InputManager* inputMan_ = nullptr;
-		
-		// スクリーン設定
-		YDX::ScreenDesc screenDesc_;
-		
-		// デスクリプターヒープ (SRV, UAV, CBV)
-		YDX::DescriptorHeap descHeap_;
-		
-		// ゲームルール
-		YGame::WorldRuler worldRuler_;
-		
-		// imguiマネージャー
-		ImGuiManager imguiMan_;
-		
-		// シーンエグゼクティブ
-		YScene::SceneExecutive* sceneExe_ = nullptr;
-		
-		// 終了フラグ
-		bool isEnd_ = false;
 	
 	public:
 		
@@ -62,6 +33,11 @@ namespace YBase
 		/// 描画
 		/// </summary>
 		virtual void Draw() = 0;
+
+		/// <summary>
+		/// 実行
+		/// </summary>
+		void Run();
 		
 		/// <summary>
 		/// 終了フラグ取得
@@ -76,17 +52,36 @@ namespace YBase
 		void SetEnd(const bool isEnd) { isEnd_ = isEnd; }
 	
 	public:
-
-		/// <summary>
-		/// 実行
-		/// </summary>
-		void Run();
-	
-	public:
 		
 		YFramework() = default;
 		
 		virtual ~YFramework() = default;
+
+	protected:
+		
+		// WindowsAPI
+		YWindowsApp window_;
+		
+		// DirectX12
+		YDX::YDirectX dx_;
+		
+		// inputマネージャー
+		YInput::InputManager* inputMan_ = nullptr;
+		
+		// スクリーン設定
+		YDX::ScreenDesc screenDesc_;
+		
+		// デスクリプターヒープ (SRV, UAV, CBV)
+		YDX::DescriptorHeap descHeap_;
+		
+		// imguiマネージャー
+		ImGuiManager imguiMan_;
+		
+		// シーンエグゼクティブ
+		YScene::SceneExecutive* sceneExe_ = nullptr;
+		
+		// 終了フラグ
+		bool isEnd_ = false;
 	
 	};
 }

@@ -7,15 +7,15 @@ using YMath::Vector3;
 
 Model* PlayerDrawer::spModel_ = nullptr;
 
-void PlayerDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void PlayerDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル挿入
-	pModel_ = spModel_;
+	// モデル設定
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eToon;
+	shaderKey_ = "ModelToon";
 
 	HitActor::Initialize();
 	SlimeActor::Initialize();
@@ -32,14 +32,14 @@ void PlayerDrawer::Update()
 	SlimeActor::Update();
 
 	animeStatus_.pos_ += HitActor::ShakePosValue();
-	
+
 	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
 
 	// オブジェクトに適応
-	obj_->UpdateMatrix(animeStatus_);
-	
-	color_->SetTexColorRateRGBA(HitActor::ColorValue());
-	
+	BaseDrawer::Update();
+
+	cbColor_->data_.texColorRate = HitActor::ColorValue();
+
 	VisibleUpdate();
 }
 
@@ -69,7 +69,7 @@ void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 
 		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
-		
+
 		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
 	}
 	// 着地
@@ -100,7 +100,7 @@ void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 		HitTimer_.SetActive(true);
 
 		HitActor::Hit(
-			PlayerAnimationConfig::Hit::kSwing, 
+			PlayerAnimationConfig::Hit::kSwing,
 			PlayerAnimationConfig::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
 	}
@@ -110,19 +110,19 @@ void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 		DeadTimer_.Initialize(frame);
 		DeadTimer_.SetActive(true);
 	}
-	
+
 	// ビットフラグ変更
 	animationBitFlag_ |= index;
 }
 
-PlayerDrawer::PlayerDrawer(const DrawLocation location)
+PlayerDrawer::PlayerDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-PlayerDrawer::PlayerDrawer(Transform* pParent, const DrawLocation location)
+PlayerDrawer::PlayerDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void PlayerDrawer::StaticInitialize()

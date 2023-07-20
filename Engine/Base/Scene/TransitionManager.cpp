@@ -23,6 +23,7 @@ void TransitionManager::Initialize(const std::string& transitionName)
 
 	// トランジション生成
 	transition_.reset(transitionFactory_->CreateTransition(transitionName));
+	
 	// トランジションnullチェック
 	assert(transition_);
 

@@ -17,8 +17,8 @@ void VertexCommon::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 	spCmdList_ = pCommandList;
 }
 
-template <typename T>
-void Vertices<T>::Initialize(const std::vector<T> v)
+template <typename VData>
+void Vertices<VData>::Initialize(const std::vector<VData>& v)
 {
 	// 頂点情報をコピー
 	v_ = v;
@@ -27,8 +27,8 @@ void Vertices<T>::Initialize(const std::vector<T> v)
 	Create();
 }
 
-template<typename T>
-void Vertices<T>::TransferMap(const std::vector<T> v)
+template<typename VData>
+void Vertices<VData>::TransferMap(const std::vector<VData>& v)
 {
 	// 頂点情報をクリア
 	v_.clear();
@@ -38,8 +38,8 @@ void Vertices<T>::TransferMap(const std::vector<T> v)
 	for (int i = 0; i < v_.size(); i++) { vertMap_[i] = v_[i]; }
 }
 
-template<typename T>
-void Vertices<T>::Create()
+template<typename VData>
+void Vertices<VData>::Create()
 {
 	// 頂点サイズ
 	UINT dataSize = static_cast <UINT> (sizeof(v_[0]) * v_.size());
@@ -84,18 +84,18 @@ void Vertices<T>::Create()
 	view_.StrideInBytes = sizeof(v_[0]);
 }
 
-template <typename T>
-void Vertices<T>::Draw()
+template <typename VData>
+void Vertices<VData>::Draw() const
 {
 	// 頂点バッファビューの設定コマンド
 	spCmdList_->IASetVertexBuffers(0, 1, &view_);
 	
 	// 描画コマンド
-	spCmdList_->DrawInstanced((UINT)v_.size(), 1, 0, 0); // 全ての頂点を使って描画
+	spCmdList_->DrawInstanced(static_cast<UINT>(v_.size()), 1, 0, 0); // 全ての頂点を使って描画
 }
 
-template <typename T>
-void VertexIndex<T>::Initialize(const std::vector<T> v, const std::vector<uint16_t> idx)
+template <typename VData>
+void VertexIndex<VData>::Initialize(const std::vector<VData>& v, const std::vector<uint16_t>& idx)
 {
 	// 頂点情報をコピー
 	this->v_ = v;
@@ -153,8 +153,8 @@ void VertexIndex<T>::Initialize(const std::vector<T> v, const std::vector<uint16
 	idxView_.SizeInBytes = dataSize;
 }
 
-template <typename T>
-void VertexIndex<T>::Draw()
+template <typename VData>
+void VertexIndex<VData>::Draw() const
 {
 	// 頂点バッファビューの設定コマンド
 	this->spCmdList_->IASetVertexBuffers(0, 1, &this->view_);
@@ -163,7 +163,7 @@ void VertexIndex<T>::Draw()
 	this->spCmdList_->IASetIndexBuffer(&idxView_);
 	
 	// 描画コマンド
-	this->spCmdList_->DrawIndexedInstanced((UINT)idx_.size(), 1, 0, 0, 0); // 全ての頂点を使って描画
+	this->spCmdList_->DrawIndexedInstanced(static_cast<UINT>(idx_.size()), 1, 0, 0, 0); // 全ての頂点を使って描画
 }
 
 template class YDX::Vertices<YGame::Sprite2D::VData>;

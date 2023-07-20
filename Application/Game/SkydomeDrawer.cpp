@@ -7,24 +7,24 @@ using YMath::Vector3;
 
 Model* SkydomeDrawer::spModel_ = nullptr;
 
-void SkydomeDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void SkydomeDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
 	isVisibleUpdate_ = false;
 
-	material_->SetAmbient(Vector3(0.8f, 0.8f, 0.8f));
+	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
 	// モデル挿入
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eDefault;
+	shaderKey_ = "ModelPhong";
 }
 
 void SkydomeDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void SkydomeDrawer::Draw()
@@ -37,14 +37,14 @@ void SkydomeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-SkydomeDrawer::SkydomeDrawer(const DrawLocation location)
+SkydomeDrawer::SkydomeDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-SkydomeDrawer::SkydomeDrawer(Transform* pParent, const DrawLocation location)
+SkydomeDrawer::SkydomeDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 

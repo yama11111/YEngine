@@ -1,12 +1,19 @@
 #include "Blackout.h"
 #include "Def.h"
+#include "PipelineManager.h"
+#include "MathVector.h"
 
 using YScene::Blackout;
-using YMath::Vector2;
+using YGame::PipelineManager;
 using YGame::Transform;
+using YGame::Object;
 using YGame::Sprite2D;
 using YGame::Texture;
+using YGame::ConstBufferSet;
+using YGame::CBSprite2DTransform;
 using YGame::CBColor;
+using YGame::CBTexConfig;
+using YMath::Vector2;
 
 YGame::Sprite2D* Blackout::spCurtenSpr_ = nullptr;
 YMath::Ease<float> Blackout::sBlendEas_;
@@ -26,8 +33,16 @@ void Blackout::StaticInitialize()
 void Blackout::Initialize()
 {
 	// èâä˙âª
-	color_.reset(CBColor::Create({ 0.0f,0.0f,0.0f,0.0f }, { 1.0f,1.0f,1.0f,1.0f }, false));
-	obj_.reset(Sprite2D::Object::Create(Transform::Status::Default(), color_.get(), nullptr, false));
+	transform_.reset(new Transform());
+	obj_.reset(new Object());
+	cbTransform_.reset(ConstBufferSet<CBSprite2DTransform::CBData>::Create(false));
+	obj_->InsertConstBuffer(cbTransform_->ConstBufferPtr());
+	cbColor_.reset(ConstBufferSet<CBColor::CBData>::Create(false));
+	obj_->InsertConstBuffer(cbColor_->ConstBufferPtr());
+	cbTexConfig_.reset(ConstBufferSet<CBTexConfig::CBData>::Create(false));
+	obj_->InsertConstBuffer(cbTexConfig_->ConstBufferPtr());
+
+	obj_->SetGraphic(spCurtenSpr_);
 
 	Reset();
 }
@@ -52,10 +67,11 @@ void Blackout::Reset()
 
 	// âÊñ íÜâõ
 	Vector2 p = WinSize / 2.0f;
-	obj_->pos_ = { p.x_, p.y_, 0.0f };
-	obj_->UpdateMatrix();
+	transform_->pos_ = { p.x_, p.y_, 0.0f };
+	transform_->UpdateMatrix();
+	cbTransform_->data_.matWorld = transform_->m_ * YMath::MatOrthoGraphic();
 	
-	color_->SetRGBA({ 0.0f,0.0f,0.0f,0.0f });
+	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,0.0f };
 }
 
 void Blackout::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
@@ -175,7 +191,7 @@ void Blackout::UpdateBlend()
 	}
 
 	// êFïœçX
-	color_->SetRGBA({ 0.0f,0.0f,0.0f,blendVal });
+	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,blendVal };
 }
 
 void Blackout::Update()
@@ -186,5 +202,5 @@ void Blackout::Update()
 
 void Blackout::Draw()
 {
-	spCurtenSpr_->SetDrawCommand(obj_.get(), YGame::DrawLocation::eFront);
+	PipelineManager::GetInstance()->EnqueueDrawSet("Sprite2DDefault", 2, obj_.get());
 }

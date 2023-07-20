@@ -1,6 +1,15 @@
 #pragma once
 #include "Model.h"
+#include "Object.h"
+#include "ConstBufferSet.h"
+#include "ViewProjection.h"
 #include "DebugTextAttacher.h"
+
+#include "CBModelTransform.h"
+#include "CBColor.h"
+#include "CBMaterial.h"
+#include "CBLightGroup.h"
+#include "CBTexConfig.h"
 
 namespace YGame
 {
@@ -14,13 +23,13 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="location"> : 描画位置</param>
-		virtual void Initialize(Transform* pParent, const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		virtual void Initialize(Transform* pParent, const uint32_t drawPriority);
 
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update();
 
 		/// <summary>
 		/// 描画
@@ -45,7 +54,7 @@ namespace YGame
 		/// トランスフォームポインタ取得
 		/// </summary>
 		/// <returns>トランスフォームポインタ</returns>
-		inline Transform* TransformPtr() const { return obj_.get(); }
+		Transform* TransformPtr() const { return transform_.get(); }
 	
 	public:
 		
@@ -58,14 +67,14 @@ namespace YGame
 		/// <summary>
 		/// 描画位置設定
 		/// </summary>
-		/// <param name="location"> : 描画位置</param>
-		inline void SetDrawLocation(const DrawLocation location) { location_ = location; }
+		/// <param name="drawPriority"> : 描画優先度</param>
+		void SetDrawPriority(const uint32_t drawPriority) { drawPriority_ = drawPriority; }
 
 		/// <summary>
 		/// 描画するか更新するか
 		/// </summary>
 		/// <param name="isVisibleUpdate"> : 描画するか更新するか</param>
-		inline void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
+		void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
 
 	public:
 
@@ -82,15 +91,15 @@ namespace YGame
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="location"> : 描画位置</param>
-		BaseDrawer(const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		BaseDrawer(const uint32_t drawPriority);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="location"> : 描画位置</param>
-		BaseDrawer(Transform* pParent, const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		BaseDrawer(Transform* pParent, const uint32_t drawPriority);
 
 		virtual ~BaseDrawer() = default;
 
@@ -99,26 +108,32 @@ namespace YGame
 		// 親トランスフォームポインタ
 		Transform* pParent_ = nullptr;
 
-		// 3D用オブジェクト
-		std::unique_ptr<Model::Object> obj_;
+		// トランスフォーム
+		std::unique_ptr<Transform> transform_;
+		
+		// オブジェクト
+		std::unique_ptr<Object> obj_;
 
-		// 色
-		std::unique_ptr<CBColor> color_;
+		// モデル用トランスフォーム定数バッファ
+		std::unique_ptr<ConstBufferSet<CBModelTransform::CBData>> cbTransform_;
+		
+		// 色定数バッファ
+		std::unique_ptr<ConstBufferSet<CBColor::CBData>> cbColor_;
 
-		// マテリアル
-		std::unique_ptr<CBMaterial> material_;
+		// マテリアル定数バッファ
+		std::unique_ptr<ConstBufferSet<CBMaterial::CBData>> cbMaterial_;
 
-		// テクスチャ設定
-		std::unique_ptr<CBTexConfig> texConfig_;
-
-		// モデルポインタ
-		Model* pModel_ = nullptr;
+		// テクスチャ設定定数バッファ
+		std::unique_ptr<ConstBufferSet<CBLightGroup::CBData>> cbLightGroup_;
+		
+		// テクスチャ設定定数バッファ
+		std::unique_ptr<ConstBufferSet<CBTexConfig::CBData>> cbTexConfig_;
 
 		// 描画位置
-		DrawLocation location_ = DrawLocation::eCenter;
+		uint32_t drawPriority_ = 0;
 
 		// シェーダー
-		Model::ShaderType shader_ = Model::ShaderType::eDefault;
+		std::string shaderKey_ = "ModelDefault";
 
 		// 描画フラグ
 		bool isVisible_ = true;

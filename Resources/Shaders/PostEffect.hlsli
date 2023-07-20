@@ -36,3 +36,10 @@ struct PSInput
 	// uv値
 	float2 uv_ : TEXCOORD;
 };
+
+// ピクセルシェーダーの出力構造体
+struct PSOutput
+{
+	// 描画
+	float4 target_ : SV_TARGET0;
+};

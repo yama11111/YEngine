@@ -78,15 +78,15 @@ void TestScene::Initialize()
 	vp_.Initialize();
 
 	std::unique_ptr<PlayerDrawer> player;
-	player->Initialize(&transform_, DrawLocation::eCenter);
+	player->Initialize(&transform_, 1);
 	drawers_.push_back(std::move(player));
 
 	std::unique_ptr<SlimeDrawer> slime;
-	slime->Initialize(&transform_, DrawLocation::eCenter);
+	slime->Initialize(&transform_, 1);
 	drawers_.push_back(std::move(slime));
 
 	std::unique_ptr<HorseDrawer> horse;
-	horse->Initialize(&transform_, DrawLocation::eCenter);
+	horse->Initialize(&transform_, 1);
 	drawers_.push_back(std::move(horse));
 }
 #pragma endregion

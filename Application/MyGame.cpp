@@ -4,7 +4,14 @@
 #include "YGameTransitionFactory.h"
 #include "MapChipManager.h"
 
-#include "Keys.h"
+#include "CBModelTransform.h"
+#include "CBSprite2DTransform.h"
+#include "CBSprite3DTransform.h"
+#include "CBPostEffectTransform.h"
+#include "CBColor.h"
+#include "CBMaterial.h"
+#include "CBLightGroup.h"
+#include "CBTexConfig.h"
 
 #pragma region 名前空間宣言
 using YBase::MyGame;
@@ -20,6 +27,10 @@ bool MyGame::Initialize()
 	// 基底クラス初期化処理
 	if (YFramework::Initialize() == false) { return false; }
 
+	// パイプライン初期化
+	pipelineMan_ = PipelineManager::GetInstance();
+	InitializePipelines();
+
 	// ステージ
 	MapChipManager::GetInstance()->Load("demo.csv");
 
@@ -28,12 +39,6 @@ bool MyGame::Initialize()
 
 	// シーンエグゼクティブ初期化
 	sceneExe_->Initialize(YGameSceneFactory::Play_, YGameTransitionFactory::Blackout_);
-
-	pPostEffect_ = PostEffect::Create();
-
-	postEffectObj_.reset(PostEffect::Object::Create());
-
-	pPostEffect_->SetDrawCommand(postEffectObj_.get(), PostEffect::ShaderType::eDefault);
 
 	return true;
 }
@@ -58,12 +63,15 @@ void MyGame::Draw()
 	// デスクリプターヒープセット
 	descHeap_.SetDrawCommand();
 
-	pPostEffect_->StartRender();
+	// シーン描画
+	sceneExe_->Draw();
+
+	//pPostEffect_->StartRender();
 	
 	// ゲームシーン描画
-	DrawGameScene();
+	//DrawGameScene();
 	
-	pPostEffect_->EndRender();
+	//pPostEffect_->EndRender();
 
 
 	// 描画準備
@@ -76,10 +84,10 @@ void MyGame::Draw()
 	DrawGameScene();
 	
 	// ポストエフェクト描画
-	PostEffect::Pipeline::StaticDraw();
+	//PostEffect::Pipeline::StaticDraw();
 
 	// ポストエフェクト描画セットクリア
-	PostEffect::Pipeline::StaticClearDrawSet();
+	//PostEffect::Pipeline::StaticClearDrawSet();
 
 #ifdef _DEBUG
 
@@ -92,35 +100,281 @@ void MyGame::Draw()
 	dx_.PostDraw();
 }
 
-void MyGame::DrawGameScene()
+void MyGame::InitializePipelines()
 {
-	// シーン描画
-	sceneExe_->Draw();
+	pipelineMan_->Clear();
 
-	// 描画場所の数だけ
-	for (size_t i = 0; i < DrawLocationNum; i++)
+	// ModelDefault
 	{
-		// 変換
-		DrawLocation location = static_cast<DrawLocation>(i);
+		ShaderSet shader;
 
+		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("ModelPS.hlsl", ShaderSet::ShaderType::ePixel);
 
-		// モデル描画
-		Model::Pipeline::StaticDraw(location);
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{ 
+					CBModelTransform::KeyName(),
+					CBColor::KeyName(),
+					CBMaterial::KeyName(),
+					CBLightGroup::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{ 
+					"Texture" ,
+				},
+				1, Model::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 2
+			);
 
-		// スプライト3D描画
-		Sprite3D::Pipeline::StaticDraw(location);
-
-		// スプライト2D描画
-		Sprite2D::Pipeline::StaticDraw(location);
-
-
-		// モデル描画セットクリア
-		Model::Pipeline::StaticClearDrawSet(location);
-
-		// スプライト3D描画セットクリア
-		Sprite3D::Pipeline::StaticClearDrawSet(location);
-
-		// スプライト2D描画セットクリア
-		Sprite2D::Pipeline::StaticClearDrawSet(location);
+		pipelineMan_->Insert("ModelDefault", newPipeline);
 	}
+
+	// ModelPhong
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PhongPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBModelTransform::KeyName(),
+					CBColor::KeyName(),
+					CBMaterial::KeyName(),
+					CBLightGroup::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture",
+				},
+				1, Model::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 2
+			);
+
+		pipelineMan_->Insert("ModelPhong", newPipeline);
+	}
+
+	// ModelToon
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("ToonPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBModelTransform::KeyName(),
+					CBColor::KeyName(),
+					CBMaterial::KeyName(),
+					CBLightGroup::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture",
+				},
+				1, Model::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 2
+			);
+
+		pipelineMan_->Insert("ModelToon", newPipeline);
+	}
+
+	
+	// Sprite2DDefault
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Sprite2DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite2DPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBSprite2DTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture",
+				},
+				1, Sprite2D::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+			);
+
+		pipelineMan_->Insert("Sprite2DDefault", newPipeline);
+	}
+
+	
+	// Sprite3DDefault
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
+		shader.LoadShader("Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBSprite3DTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture",
+				},
+				1, Sprite3D::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 2
+			);
+
+		pipelineMan_->Insert("Sprite3DDefault", newPipeline);
+	}
+
+
+	// PostEffectDefault
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PostEffectPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture0",
+					"Texture1",
+				},
+				2, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+			);
+
+		pipelineMan_->Insert("PostEffectDefault", newPipeline);
+	}
+
+	// PostEffectColorInversion
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("ColorInversionPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture0",
+					"Texture1",
+				},
+				2, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+			);
+
+		pipelineMan_->Insert("PostEffectColorInversion", newPipeline);
+	}
+
+	// PostEffectGaussianBlur
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("GaussianBlurPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture0",
+					"Texture1",
+				},
+				2, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+			);
+
+		pipelineMan_->Insert("PostEffectGaussianBlur", newPipeline);
+	}
+
+	// PostEffectUVShiftBlur
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("UVShiftBlurPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture0",
+					"Texture1",
+				},
+				2, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+			);
+
+		pipelineMan_->Insert("PostEffectUVShiftBlur", newPipeline);
+	}
+
+	// PostEffectBloom
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("BloomPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::KeyName(),
+					CBColor::KeyName(),
+					CBTexConfig::KeyName(),
+				},
+				{
+					"Texture0",
+					"Texture1",
+				},
+				2, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+			);
+
+		pipelineMan_->Insert("PostEffectBloom", newPipeline);
+	}
+}
+
+void MyGame::DrawGameScene()
+{	
+	pipelineMan_->Draw("ModelDefault");
+	pipelineMan_->Draw("ModelPhong");
+	pipelineMan_->Draw("ModelToon");
+	
+	pipelineMan_->Draw("Sprite2DDefault");
 }

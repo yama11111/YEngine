@@ -1,6 +1,6 @@
 #include "Sprite3D.hlsli"
 
-static const  uint vnum = 4;
+static const uint vnum = 4;
 
 static const float4 offset_array[vnum] =
 {

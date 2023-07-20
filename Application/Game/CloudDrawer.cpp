@@ -5,22 +5,24 @@ using YGame::Model;
 
 Model* CloudDrawer::spModel_ = nullptr;
 
-void CloudDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void CloudDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
-	color_->SetAlpha(0.4f);
+	cbColor_->data_.baseColor.a_ = 0.4f;
 
 	// モデル挿入
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eToon;
+	shaderKey_ = "ModelToon";
 }
 
 void CloudDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
+
+	VisibleUpdate();
 }
 
 void CloudDrawer::Draw()
@@ -33,14 +35,14 @@ void CloudDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-CloudDrawer::CloudDrawer(const DrawLocation location)
+CloudDrawer::CloudDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-CloudDrawer::CloudDrawer(Transform* pParent, const DrawLocation location)
+CloudDrawer::CloudDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 

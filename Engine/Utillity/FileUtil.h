@@ -3,7 +3,9 @@
 
 namespace YFile
 {
-	
+	// String → WString
+	std::wstring StringToWString(const std::string& src);
+
 	// ファイル名抽出
 	std::string FilePath(const std::string path);
 	

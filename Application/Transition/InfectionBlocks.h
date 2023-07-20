@@ -1,5 +1,10 @@
 #pragma once
 #include "BaseTransition.h"
+#include "Object.h"
+#include "ConstBufferSet.h"
+#include "CBSprite2DTransform.h"
+#include "CBColor.h"
+#include "CBTexConfig.h"
 #include "Sprite2D.h"
 #include <array>
 
@@ -24,11 +29,15 @@ namespace YScene
 		// ブロック
 		struct Block
 		{
-			std::unique_ptr<YGame::Sprite2D::Object> obj_; // オブジェクト
+			std::unique_ptr<YGame::Transform> transform_; // トランスフォーム
+			std::unique_ptr<YGame::Object> obj_; // オブジェクト
+			std::unique_ptr<YGame::ConstBufferSet<YGame::CBSprite2DTransform::CBData>> cbTransform_; // トランスフォーム定数バッファ
+			std::unique_ptr<YGame::ConstBufferSet<YGame::CBColor::CBData>> cbColor_; // 色定数バッファ
+			std::unique_ptr<YGame::ConstBufferSet<YGame::CBTexConfig::CBData>> cbTexConfig_; // テクスチャ設定定数バッファ
 			YMath::Timer actTim_; // 動作タイマー
-			std::unique_ptr<YGame::CBColor> color_; // 色
 			YMath::Timer colorStartTim_; // 色タイマー (始)
 			YMath::Timer colorEndTim_; // 色タイマー (終)
+
 			// タイマー動作
 			void SetTimerActive(const bool isAct)
 			{

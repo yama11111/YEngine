@@ -1,35 +1,46 @@
 #include "BaseDrawer.h"
+#include "PipelineManager.h"
 #include <cassert>
 
 using YGame::BaseDrawer;
 
 YGame::ViewProjection* BaseDrawer::spVP_ = nullptr;
 
-void BaseDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void BaseDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
-	// オブジェクト生成
-	obj_.reset(Model::Object::Create());
+	transform_.reset(new Transform());
 
 	// 親設定
 	SetParent(pParent);
-
-	// 色
-	color_.reset(CBColor::Create());
-	obj_->SetColor(color_.get());
 	
-	// マテリアル
-	material_.reset(CBMaterial::Create());
-	material_->SetAmbient({ 0.2f,0.2f,0.2f });
-	obj_->SetMaterial(material_.get());
+	// オブジェクト + 定数バッファ生成
+	// 生成後、オブジェクトに挿入
+	obj_.reset(new Object());
+
 	
-	// テクスチャ設定
-	texConfig_.reset(CBTexConfig::Create());
-	obj_->SetTexConfig(texConfig_.get());
+	cbTransform_.reset(ConstBufferSet<CBModelTransform::CBData>::Create());
+	obj_->InsertConstBuffer(cbTransform_->ConstBufferPtr());
 
-	// ビュープロジェクション設定
-	obj_->SetViewProjection(spVP_);
+	
+	cbColor_.reset(ConstBufferSet<CBColor::CBData>::Create());
+	obj_->InsertConstBuffer(cbColor_->ConstBufferPtr());
 
-	location_ = location;
+
+	cbMaterial_.reset(ConstBufferSet<CBMaterial::CBData>::Create());
+	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
+	obj_->InsertConstBuffer(cbMaterial_->ConstBufferPtr());
+
+
+	cbLightGroup_.reset(ConstBufferSet<CBLightGroup::CBData>::Create());
+	cbLightGroup_->data_.direLights[0].active = 1.0f;
+	obj_->InsertConstBuffer(cbLightGroup_->ConstBufferPtr());
+
+
+	cbTexConfig_.reset(ConstBufferSet<CBTexConfig::CBData>::Create());
+	obj_->InsertConstBuffer(cbTexConfig_->ConstBufferPtr());
+
+
+	drawPriority_ = drawPriority;
 
 	isVisible_ = true;
 
@@ -40,11 +51,20 @@ void BaseDrawer::Initialize(Transform* pParent, const DrawLocation location)
 	animeStatus_ = {};
 }
 
+void BaseDrawer::Update()
+{
+	transform_->UpdateMatrix(animeStatus_);
+
+	cbTransform_->data_.matWorld = transform_->m_;
+	cbTransform_->data_.matViewProj = spVP_->view_ * spVP_->pro_;
+	cbTransform_->data_.cameraPos = spVP_->eye_;
+}
+
 void BaseDrawer::VisibleUpdate()
 {
 	if (isVisibleUpdate_ == false)
 	{
-		color_->SetTexColorRateAlpha(1.0f);
+		cbColor_->data_.texColorRate.a_ = 1.0f;
 
 		return;
 	}
@@ -55,22 +75,22 @@ void BaseDrawer::VisibleUpdate()
 	// 描画範囲
 	static const float kRange = 750.0f;
 
-	float distaceRate = 1.0f - distance / kRange;
-	if (distaceRate >= 0.8f) { distaceRate = 1.0f; }
-
 	// 視点との距離の比率でアルファ値変化(遠いほど薄く)
-	color_->SetTexColorRateAlpha(distaceRate);
+	float distanceRate = 1.0f - distance / kRange;
+	if (distanceRate >= 0.8f) { distanceRate = 1.0f; }
+
+	cbColor_->data_.texColorRate.a_ = distanceRate;
 
 	// 一定値以下は描画切る
-	isVisible_ = (color_->GetTexColorRate().a_ >= 0.25f);
+	isVisible_ = (distanceRate >= 0.25f);
 }
 
 void BaseDrawer::Draw()
 {
 	if (isVisible_ == false) { return; }
 
-	// 描画
-	pModel_->SetDrawCommand(obj_.get(), location_, shader_);
+	// パイプラインに描画を積む
+	PipelineManager::GetInstance()->EnqueueDrawSet(shaderKey_, drawPriority_, obj_.get());
 }
 
 void BaseDrawer::SetParent(Transform* pParent)
@@ -82,13 +102,13 @@ void BaseDrawer::SetParent(Transform* pParent)
 	if (pParent_)
 	{
 		// 親子関係設定
-		obj_->parent_ = &pParent_->m_;
+		transform_->parent_ = &pParent_->m_;
 	}
 	// 違うなら
 	else
 	{
 		// 親子関係初期化
-		obj_->parent_ = nullptr;
+		transform_->parent_ = nullptr;
 	}
 }
 
@@ -101,14 +121,14 @@ void BaseDrawer::StaticInitialize(ViewProjection* pVP)
 	spVP_ = pVP;
 }
 
-BaseDrawer::BaseDrawer(const DrawLocation location)
+BaseDrawer::BaseDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-BaseDrawer::BaseDrawer(Transform* pParent, const DrawLocation location)
+BaseDrawer::BaseDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void BaseDrawer::DrawDebugTextContent()

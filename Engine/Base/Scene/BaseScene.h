@@ -5,7 +5,7 @@
 #include "Model.h"
 #include "PostEffect.h"
 #include "Audio.h"
-#include "WorldRuler.h"
+#include "Camera.h"
 #include <memory>
 
 namespace YScene
@@ -60,18 +60,12 @@ namespace YScene
 		// パッド(シングルトン)
 		static YInput::Pad* sPad_;
 	
-	protected:
-		
-		// 静的ゲームルールポインタ
-		static YGame::WorldRuler* spWorldRuler_;
-	
 	public:
 		
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		/// <param name="pWorldRuler"> : ゲームルールポインタ</param>
-		static void StaticInitialize(YGame::WorldRuler* pWorldRuler);
+		static void StaticInitialize();
 	
 	};
 }

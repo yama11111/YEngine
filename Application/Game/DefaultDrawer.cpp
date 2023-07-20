@@ -5,20 +5,22 @@ using YGame::Model;
 
 Model* DefaultDrawer::spModel_ = nullptr;
 
-void DefaultDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void DefaultDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル挿入
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eToon;
+	shaderKey_ = "ModelToon";
 }
 
 void DefaultDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
+	
+	VisibleUpdate();
 }
 
 void DefaultDrawer::Draw()
@@ -31,14 +33,14 @@ void DefaultDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-DefaultDrawer::DefaultDrawer(const DrawLocation location)
+DefaultDrawer::DefaultDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-DefaultDrawer::DefaultDrawer(Transform* pParent, const DrawLocation location)
+DefaultDrawer::DefaultDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 

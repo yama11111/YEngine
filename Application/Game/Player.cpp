@@ -29,7 +29,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eAll),
-		new PlayerDrawer(DrawLocation::eCenter));
+		new PlayerDrawer(1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PlayerConfig::kRadius));
 

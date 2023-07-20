@@ -1,6 +1,5 @@
 #pragma once
 #include "Vector3.h"
-#include "WorldRuler.h"
 
 namespace YMath
 {

@@ -13,25 +13,6 @@ namespace YGame
 
 	public:
 
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="location"> : 描画位置</param>
-		void Initialize(Transform* pParent, const DrawLocation location) override;
-
-		/// <summary>
-		/// 更新
-		/// </summary>
-		void Update() override;
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void Draw() override;
-
-	public:
-
 		// アニメーション
 		enum class AnimationType : uint16_t
 		{
@@ -54,6 +35,23 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="pParent"> : 親ポインタ</param>
+		/// <param name="drawPriority"> : 描画優先度</param>
+		void Initialize(Transform* pParent, const uint32_t drawPriority) override;
+
+		/// <summary>
+		/// 更新
+		/// </summary>
+		void Update() override;
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw() override;
+
+		/// <summary>
 		/// アニメーション再生
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
@@ -67,15 +65,15 @@ namespace YGame
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="location"> : 描画位置</param>
-		SlimeDrawer(const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		SlimeDrawer(const uint32_t drawPriority);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="location"> : 描画位置</param>
-		SlimeDrawer(Transform* pParent, const DrawLocation location);
+		/// <param name="drawPriority"> : 描画優先度</param>
+		SlimeDrawer(Transform * pParent, const uint32_t drawPriority);
 
 		~SlimeDrawer() = default;
 

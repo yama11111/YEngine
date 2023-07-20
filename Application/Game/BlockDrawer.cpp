@@ -6,23 +6,25 @@ using YMath::Vector3;
 
 Model* BlockDrawer::spModel_ = nullptr;
 
-void BlockDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void BlockDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
-	obj_->scale_ = Vector3(1.0f, 1.0f, 15.0f);
+	BaseDrawer::Initialize(pParent, drawPriority);
+	transform_->scale_ = Vector3(1.0f, 1.0f, 15.0f);
 
-	material_->SetAmbient(Vector3(0.8f, 0.8f, 0.8f));
+	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
 	// モデル設定
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eDefault;
+	shaderKey_ = "ModelPhong";
 }
 
 void BlockDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
+
+	VisibleUpdate();
 }
 
 void BlockDrawer::Draw()
@@ -35,14 +37,14 @@ void BlockDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-BlockDrawer::BlockDrawer(const DrawLocation location)
+BlockDrawer::BlockDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-BlockDrawer::BlockDrawer(Transform* pParent, const DrawLocation location)
+BlockDrawer::BlockDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void BlockDrawer::StaticInitialize()

@@ -1,5 +1,24 @@
 #include "FileUtil.h"
+#include <iostream>
 
+
+// https://teratail.com/questions/9thjy2cqvqvbib
+std::wstring YFile::StringToWString(const std::string& src)
+{
+	const char* cs = src.c_str();
+	
+	std::wstring ws;
+	
+	ws.resize(strlen(cs) + 1);
+	
+	size_t st = 0;
+
+	mbstowcs_s(&st, &ws[0], ws.size(), cs, strlen(cs));
+
+	return ws;
+}
+
+// https://www.slis.tsukuba.ac.jp/~fujisawa.makoto.fu/cgi-bin/wiki/index.php?string%A4%CB%A4%E8%A4%EB%CA%B8%BB%FA%CE%F3%BD%E8%CD%FD
 std::string YFile::FilePath(const std::string path)
 {
 	size_t pos1;

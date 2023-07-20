@@ -20,12 +20,9 @@ using std::unique_ptr;
 using YGame::Level;
 using YGame::GameObject;
 using YGame::Model;
-using YDX::PipelineSet;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
-using YGame::DrawLocation;
-using YGame::DrawLocationNum;
 
 #pragma endregion
 
@@ -144,11 +141,11 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		newObj->Initialize(name, status, pParent);
 		if (name == "Cloud.")
 		{
-			newObj->SetDrawer(new CloudDrawer(DrawLocation::eCenter));
+			newObj->SetDrawer(new CloudDrawer(1));
 		}
 		else if (name == "Skydome.")
 		{
-			newObj->SetDrawer(new SkydomeDrawer(DrawLocation::eCenter));
+			newObj->SetDrawer(new SkydomeDrawer(0));
 		}
 		else
 		{

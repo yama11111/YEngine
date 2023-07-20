@@ -5,18 +5,18 @@ using YGame::Model;
 
 Model* SlashAttackDrawer::spModel_ = nullptr;
 
-void SlashAttackDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void SlashAttackDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 }
 
 void SlashAttackDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
 }
 
 void SlashAttackDrawer::Draw()
@@ -28,14 +28,14 @@ void SlashAttackDrawer::PlayAnimation(const uint16_t index, const uint32_t frame
 {
 }
 
-SlashAttackDrawer::SlashAttackDrawer(const DrawLocation location)
+SlashAttackDrawer::SlashAttackDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-SlashAttackDrawer::SlashAttackDrawer(Transform* pParent, const DrawLocation location)
+SlashAttackDrawer::SlashAttackDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void SlashAttackDrawer::StaticInitialize()

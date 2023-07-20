@@ -22,7 +22,7 @@ void Horse::Initialize(const Transform::Status& status)
 		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
 		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::ePet, AttributeType::eAll),
-		new HorseDrawer(DrawLocation::eCenter));
+		new HorseDrawer(1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PetConfig::kRadius));
 

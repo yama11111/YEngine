@@ -7,15 +7,15 @@ using YMath::Vector3;
 
 Model* SlimeDrawer::spModel_ = nullptr;
 
-void SlimeDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void SlimeDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eToon;
+	shaderKey_ = "ModelToon";
 
 	HitActor::Initialize();
 	SlimeActor::Initialize();
@@ -36,9 +36,9 @@ void SlimeDrawer::Update()
 	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
 
 	// オブジェクトに適応
-	obj_->UpdateMatrix(animeStatus_);
+	BaseDrawer::Update();
 
-	color_->SetTexColorRateRGBA(HitActor::ColorValue());
+	cbColor_->data_.texColorRate = HitActor::ColorValue();
 
 	VisibleUpdate();
 }
@@ -109,14 +109,14 @@ void SlimeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 	animationBitFlag_ |= index;
 }
 
-SlimeDrawer::SlimeDrawer(const DrawLocation location)
+SlimeDrawer::SlimeDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-SlimeDrawer::SlimeDrawer(Transform* pParent, const DrawLocation location)
+SlimeDrawer::SlimeDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void SlimeDrawer::StaticInitialize()

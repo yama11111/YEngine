@@ -2,8 +2,6 @@
 #include "GPUResource.h"
 #include <vector>
 
-#pragma comment(lib, "d3d12.lib")
-
 namespace YDX
 {
 	// 頂点コモンクラス
@@ -26,14 +24,14 @@ namespace YDX
 
 
 	// 頂点
-	template <typename T>
+	template <typename VData>
 	class Vertices : protected VertexCommon
 	{
 
 	protected:
 
 		// 頂点データ
-		std::vector<T> v_;
+		std::vector<VData> v_;
 
 		// 頂点バッファ
 		GPUResource buffer_{};
@@ -42,7 +40,7 @@ namespace YDX
 		D3D12_VERTEX_BUFFER_VIEW view_{};
 
 		// 仮想メモリ
-		T* vertMap_ = nullptr;
+		VData* vertMap_ = nullptr;
 
 	public:
 
@@ -50,18 +48,18 @@ namespace YDX
 		/// 初期化
 		/// </summary>
 		/// <param name="v"> : 頂点配列</param>
-		void Initialize(const std::vector<T> v);
+		void Initialize(const std::vector<VData>& v);
 
 		/// <summary>
 		/// マップに転送
 		/// </summary>
 		/// <param name="v"> : 頂点配列</param>
-		void TransferMap(const std::vector<T> v);
+		void TransferMap(const std::vector<VData>& v);
 
 		/// <summary>
 		/// 描画
 		/// </summary>
-		virtual void Draw();
+		virtual void Draw() const;
 
 	protected:
 
@@ -80,8 +78,8 @@ namespace YDX
 
 
 	// 頂点インデックス
-	template <typename T>
-	class VertexIndex : public Vertices<T>
+	template <typename VData>
+	class VertexIndex : public Vertices<VData>
 	{
 
 	private:
@@ -102,12 +100,12 @@ namespace YDX
 		/// </summary>
 		/// <param name="v"> : 頂点配列</param>
 		/// <param name="idx"> : インデックス配列</param>
-		void Initialize(const std::vector<T> v, const std::vector<uint16_t> idx);
+		void Initialize(const std::vector<VData>& v, const std::vector<uint16_t>& idx);
 
 		/// <summary>
 		/// 描画
 		/// </summary>
-		void Draw() override;
+		void Draw() const override;
 
 	public:
 

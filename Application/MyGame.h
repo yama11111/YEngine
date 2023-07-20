@@ -1,5 +1,6 @@
 #pragma once
 #include "YFramework.h"
+#include "PipelineManager.h"
 
 namespace YBase
 {
@@ -8,9 +9,7 @@ namespace YBase
 
 	private:
 
-		YGame::PostEffect* pPostEffect_ = nullptr;
-
-		std::unique_ptr<YGame::PostEffect::Object> postEffectObj_;
+		YGame::PipelineManager* pipelineMan_ = nullptr;
 
 	public:
 
@@ -35,7 +34,12 @@ namespace YBase
 		/// </summary>
 		void Draw() override;
 
-	public:
+	private:
+
+		/// <summary>
+		/// パイプライン初期化
+		/// </summary>
+		void InitializePipelines();
 
 		/// <summary>
 		/// ゲームシーン描画

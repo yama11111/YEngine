@@ -5,23 +5,25 @@ using YGame::Model;
 
 Model* GoalDrawer::spModel_ = nullptr;
 
-void GoalDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void GoalDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
-	obj_->scale_ = YMath::Vector3(1.0f, 1.0f, 15.0f);
+	BaseDrawer::Initialize(pParent, drawPriority);
+	transform_->scale_ = YMath::Vector3(1.0f, 1.0f, 15.0f);
 
-	color_->SetRGBA(YMath::Vector4(1.0f, 1.0f, 0.0f, 0.25f));
+	cbColor_->data_.baseColor = YMath::Vector4(1.0f, 1.0f, 0.0f, 0.25f);
 
 	// モデル挿入
-	pModel_ = spModel_;
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eToon;
+	shaderKey_ = "ModelToon";
 }
 
 void GoalDrawer::Update()
 {
-	obj_->UpdateMatrix();
+	BaseDrawer::Update();
+
+	VisibleUpdate();
 }
 
 void GoalDrawer::Draw()
@@ -34,14 +36,14 @@ void GoalDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-GoalDrawer::GoalDrawer(const DrawLocation location)
+GoalDrawer::GoalDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-GoalDrawer::GoalDrawer(Transform* pParent, const DrawLocation location)
+GoalDrawer::GoalDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 

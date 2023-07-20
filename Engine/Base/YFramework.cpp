@@ -3,6 +3,9 @@
 #include "Def.h"
 #include <cassert>
 
+#include "ConstBufferCommon.h"
+#include "PipelineManager.h"
+
 #pragma region 名前空間宣言
 
 using YBase::YFramework;
@@ -30,10 +33,6 @@ bool YFramework::Initialize()
 	// 乱数初期化
 	Srand();
 
-	// ゲームルール初期化
-	worldRuler_.Initailze();
-	WorldRuleAdopter::StaticInitialize(&worldRuler_);
-
 
 	// デバイスポインタ
 	ID3D12Device* pDev = dx_.DevicePtr();
@@ -51,6 +50,9 @@ bool YFramework::Initialize()
 	DescriptorHeap::StaticInitialize(pDev, pCmdList);
 	descHeap_.Initialize();
 
+	// 頂点
+	VertexCommon::StaticInitialize(pCmdList);
+
 	// 定数バッファ静的初期化
 	ConstBufferCommon::StaticInitialize(pCmdList, &descHeap_);
 
@@ -58,25 +60,11 @@ bool YFramework::Initialize()
 	Texture::Common::StaticInitialize(pDev, pCmdList, &descHeap_);
 	Texture::AllClear();
 
-	// パイプライン静的初期化
-	PipelineSet::StaticInitialize(pDev, pCmdList);
-
-	// 頂点
-	VertexCommon::StaticInitialize(pCmdList);
-
-	// オブジェクトデフォルト値静的初期化
-	Sprite2D::Object::Default::StaticInitialize();
-	Sprite3D::Object::Default::StaticInitialize();
-	Model::Object::Default::StaticInitialize();
-	PostEffect::Object::Default::StaticInitialize();
-
-	// パイプライン静的初期化
-	Sprite2D::Pipeline::StaticInitialize();
-	Sprite3D::Pipeline::StaticInitialize();
-	Model::Pipeline::StaticInitialize();
-	PostEffect::Pipeline::StaticInitialize();
-
+	// ポストエフェクト
 	PostEffect::StaticInitialize(pDev, pCmdList);
+
+	// パイプライン静的初期化
+	Pipeline::StaticInitialize(pDev, pCmdList);
 
 	// FBXLoader読み込み
 	Model::FbxLoader::StaticInitialize();
@@ -92,7 +80,7 @@ bool YFramework::Initialize()
 	TransitionManager::StaticInitialize();
 
 	// シーン初期化
-	BaseScene::StaticInitialize(&worldRuler_);
+	BaseScene::StaticInitialize();
 	SceneManager::GetInstance()->SetDescriptorHeapPointer(&descHeap_);
 	
 	// シーンエグゼクティブ
@@ -121,6 +109,9 @@ void YFramework::Finalize()
 	// シーン遷移終了処理
 	TransitionManager::GetInstance()->Finalize();
 
+	// パイプラインクリア
+	PipelineManager::GetInstance()->Clear();
+	
 	// リソース全クリア
 	PostEffect::AllClear();
 	Model::AllClear();
@@ -137,9 +128,6 @@ void YFramework::Update()
 	
 	// input更新
 	inputMan_->Update();
-
-	// ゲームルール更新処理
-	worldRuler_.Update();
 
 	// シーン更新処理
 	sceneExe_->Update();

@@ -7,16 +7,16 @@ using YMath::Vector3;
 
 Model* HorseDrawer::spModel_ = nullptr;
 
-void HorseDrawer::Initialize(Transform* pParent, const DrawLocation location)
+void HorseDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, location);
+	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル挿入
-	pModel_ = spModel_;
+	// モデル設定
+	obj_->SetGraphic(spModel_);
 
-	shader_ = Model::ShaderType::eToon;
-	
+	shaderKey_ = "ModelToon";
+
 	HitActor::Initialize();
 	SlimeActor::Initialize();
 }
@@ -36,9 +36,9 @@ void HorseDrawer::Update()
 	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
 
 	// オブジェクトに適応
-	obj_->UpdateMatrix(animeStatus_);
+	BaseDrawer::Update();
 
-	color_->SetTexColorRateRGBA(HitActor::ColorValue());
+	cbColor_->data_.texColorRate = HitActor::ColorValue();
 
 	VisibleUpdate();
 }
@@ -115,14 +115,14 @@ void HorseDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 	animationBitFlag_ |= index;
 }
 
-HorseDrawer::HorseDrawer(const DrawLocation location)
+HorseDrawer::HorseDrawer(const uint32_t drawPriority)
 {
-	Initialize(nullptr, location);
+	Initialize(nullptr, drawPriority);
 }
 
-HorseDrawer::HorseDrawer(Transform* pParent, const DrawLocation location)
+HorseDrawer::HorseDrawer(Transform* pParent, const uint32_t drawPriority)
 {
-	Initialize(pParent, location);
+	Initialize(pParent, drawPriority);
 }
 
 void HorseDrawer::StaticInitialize()

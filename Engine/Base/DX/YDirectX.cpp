@@ -3,6 +3,8 @@
 #include <wrl/client.h>
 #include <thread>
 
+#pragma comment(lib, "dxgi.lib")
+
 using YDX::YDirectX;
 using std::chrono::steady_clock;
 using std::chrono::microseconds;
