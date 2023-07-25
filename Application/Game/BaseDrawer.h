@@ -1,7 +1,7 @@
 #pragma once
 #include "Model.h"
 #include "Object.h"
-#include "ConstBufferSet.h"
+#include "ConstBuffer.h"
 #include "ViewProjection.h"
 #include "DebugTextAttacher.h"
 
@@ -115,19 +115,19 @@ namespace YGame
 		std::unique_ptr<Object> obj_;
 
 		// モデル用トランスフォーム定数バッファ
-		std::unique_ptr<ConstBufferSet<CBModelTransform::CBData>> cbTransform_;
+		std::unique_ptr<ConstBuffer<CBModelTransform::CBData>> cbTransform_;
 		
 		// 色定数バッファ
-		std::unique_ptr<ConstBufferSet<CBColor::CBData>> cbColor_;
+		std::unique_ptr<ConstBuffer<CBColor::CBData>> cbColor_;
 
 		// マテリアル定数バッファ
-		std::unique_ptr<ConstBufferSet<CBMaterial::CBData>> cbMaterial_;
+		std::unique_ptr<ConstBuffer<CBMaterial::CBData>> cbMaterial_;
 
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBufferSet<CBLightGroup::CBData>> cbLightGroup_;
+		std::unique_ptr<ConstBuffer<CBLightGroup::CBData>> cbLightGroup_;
 		
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBufferSet<CBTexConfig::CBData>> cbTexConfig_;
+		std::unique_ptr<ConstBuffer<CBTexConfig::CBData>> cbTexConfig_;
 
 		// 描画位置
 		uint32_t drawPriority_ = 0;

@@ -17,27 +17,22 @@ void BaseDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 	// 生成後、オブジェクトに挿入
 	obj_.reset(new Object());
 
-	
-	cbTransform_.reset(ConstBufferSet<CBModelTransform::CBData>::Create());
-	obj_->InsertConstBuffer(cbTransform_->ConstBufferPtr());
+	cbTransform_.reset(ConstBuffer<CBModelTransform::CBData>::Create());
+	obj_->InsertConstBuffer(CBModelTransform::KeyName(), cbTransform_.get());
 
-	
-	cbColor_.reset(ConstBufferSet<CBColor::CBData>::Create());
-	obj_->InsertConstBuffer(cbColor_->ConstBufferPtr());
+	cbColor_.reset(ConstBuffer<CBColor::CBData>::Create());
+	obj_->InsertConstBuffer(CBColor::KeyName(), cbColor_.get());
 
-
-	cbMaterial_.reset(ConstBufferSet<CBMaterial::CBData>::Create());
+	cbMaterial_.reset(ConstBuffer<CBMaterial::CBData>::Create());
 	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
-	obj_->InsertConstBuffer(cbMaterial_->ConstBufferPtr());
+	obj_->InsertConstBuffer(CBMaterial::KeyName(), cbMaterial_.get());
 
-
-	cbLightGroup_.reset(ConstBufferSet<CBLightGroup::CBData>::Create());
+	cbLightGroup_.reset(ConstBuffer<CBLightGroup::CBData>::Create());
 	cbLightGroup_->data_.direLights[0].active = 1.0f;
-	obj_->InsertConstBuffer(cbLightGroup_->ConstBufferPtr());
+	obj_->InsertConstBuffer(CBLightGroup::KeyName(), cbLightGroup_.get());
 
-
-	cbTexConfig_.reset(ConstBufferSet<CBTexConfig::CBData>::Create());
-	obj_->InsertConstBuffer(cbTexConfig_->ConstBufferPtr());
+	cbTexConfig_.reset(ConstBuffer<CBTexConfig::CBData>::Create());
+	obj_->InsertConstBuffer(CBTexConfig::KeyName(), cbTexConfig_.get());
 
 
 	drawPriority_ = drawPriority;

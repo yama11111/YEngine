@@ -1,11 +1,13 @@
 #pragma once
 #include "InputManager.h"
+#include "Transform.h"
+#include "Camera.h"
+#include "PipelineManager.h"
 #include "Sprite2D.h"
 #include "Sprite3D.h"
 #include "Model.h"
 #include "PostEffect.h"
 #include "Audio.h"
-#include "Camera.h"
 #include <memory>
 
 namespace YScene
@@ -52,13 +54,16 @@ namespace YScene
 	protected:
 		
 		// キー(シングルトン)
-		static YInput::Keys* sKeys_;
+		static YInput::Keys* spKeys_;
 		
 		// マウス(シングルトン)
-		static YInput::Mouse* sMouse_;
+		static YInput::Mouse* spMouse_;
 		
 		// パッド(シングルトン)
-		static YInput::Pad* sPad_;
+		static YInput::Pad* spPad_;
+		
+		// パイプラインマネージャー
+		static YGame::PipelineManager* spPipelineMan_;
 	
 	public:
 		

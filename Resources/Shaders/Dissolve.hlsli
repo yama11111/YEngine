@@ -1,5 +1,3 @@
-#include "Light.hlsli"
-
 // トランスフォーム
 cbuffer cbuff0 : register(b0)
 {
@@ -8,38 +6,25 @@ cbuffer cbuff0 : register(b0)
 	float3 cameraPos_; // カメラ座標
 }
 
-// 色
+// 時間
 cbuffer cbuff1 : register(b1)
+{
+	float time_; // 時間
+}
+
+// 色
+cbuffer cbuff2 : register(b2)
 {
 	float4 baseColor_; // 色(RGBA)
 	float4 texColorRate_; // 元の色の割合
 }
 
-// マテリアル
-cbuffer cbuff2 : register(b2)
-{
-	float3 mAmbient_  : packoffset(c0); // アンビエント係数
-	float3 mDiffuse_  : packoffset(c1); // ディフューズ係数
-	float3 mSpecular_ : packoffset(c2); // スペキュラー係数
-	float  mAlpha_ : packoffset(c2.w); // アルファ
-}
-
-// 光
-cbuffer cbuff3 : register(b3)
-{
-	float3 ambientColor_; // 環境光色
-	DireLight direLights_[DireLightNum]; // 平行光源
-	PointLight pointLights_[PointLightNum]; // 点光源
-	//SpotLight spotLights[SpotLightNum]; // スポットライト光源
-}
-
 // テクスチャ設定
-cbuffer cbuff4 : register(b4)
+cbuffer cbuff3 : register(b3)
 {
 	float2 texTiling_; // タイリング
 	float2 texOffset_; // オフセット
 }
-
 
 // 頂点シェーダーの入力構造体 
 struct VSInput
@@ -78,3 +63,4 @@ struct PSOutput
 	// 描画
 	float4 target_ : SV_TARGET;
 };
+

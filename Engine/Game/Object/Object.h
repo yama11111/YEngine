@@ -20,7 +20,7 @@ namespace YGame
 		/// 定数バッファポインタ取得
 		/// </summary>
 		/// <returns>定数バッファポインタ</returns>
-		BaseConstBuffer* ConstBufferPtr(const std::string& key);
+		YDX::BaseConstBuffer* ConstBufferPtr(const std::string& key);
 
 		/// <summary>
 		/// グラフィックポインタ
@@ -35,7 +35,7 @@ namespace YGame
 		/// (同じ種類の定数バッファが来たら入れ替える)
 		/// </summary>
 		/// <param name="pCBuff"> : 定数バッファポインタ</param>
-		void InsertConstBuffer(BaseConstBuffer* pCBuff);
+		void InsertConstBuffer(const std::string& key, YDX::BaseConstBuffer* pCBuff);
 
 		/// <summary>
 		/// グラフィック設定
@@ -46,7 +46,7 @@ namespace YGame
 	protected:
 
 		// 定数バッファ
-		std::unordered_map<std::string, BaseConstBuffer*> pCBuffs_;
+		std::unordered_map<std::string, YDX::BaseConstBuffer*> pCBuffs_;
 
 		// グラフィック
 		BaseGraphic* pGraphic_ = nullptr;

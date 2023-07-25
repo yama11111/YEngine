@@ -64,8 +64,7 @@ PSOutput main(PSInput input)
 
 
 	// ŒvZ‚µ‚½F‚Å•`‰æ
-	output.target0_ = float4(shaderColor, color.a * mAlpha_);
-	//output.target1_ = float4(shaderColor, color.a * mAlpha_);
+	output.target_ = float4(shaderColor, color.a * mAlpha_);
 
 	return output;
 }

@@ -128,7 +128,7 @@ PlayerDrawer::PlayerDrawer(Transform* pParent, const uint32_t drawPriority)
 void PlayerDrawer::StaticInitialize()
 {
 	// ƒ‚ƒfƒ‹İ’è
-	spModel_ = Model::CreateCube("player.png");
+	spModel_ = Model::CreateCube({ { "Texture", Texture::Load("player.png")} });
 }
 
 void PlayerDrawer::TimerUpdate()

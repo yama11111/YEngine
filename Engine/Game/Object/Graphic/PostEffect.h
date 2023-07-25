@@ -7,7 +7,7 @@
 #include "Vector3.h"
 #include "Vector2.h"
 #include <list>
-#include <array>
+#include <vector>
 
 namespace YGame
 {
@@ -28,10 +28,20 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		/// <param name="pDevice"> : デバイスポインタ</param>
+		/// <param name="pCmdList"> : コマンドリストポインタ</param>
+		static void StaticInitialize(
+			ID3D12Device* pDevice,
+			ID3D12GraphicsCommandList* pCmdList);
+
+		/// <summary>
 		/// 生成
 		/// </summary>
+		/// <param name="rtvNum"> : レンダーターゲット数</param>
 		/// <returns>ポストエフェクトポインタ</returns>
-		static PostEffect* Create();
+		static PostEffect* Create(const size_t rtvNum = 1);
 
 		/// <summary>
 		/// 全削除
@@ -50,7 +60,7 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		/// <param name="rpIndices"> : ルートパラメータ情報 + 番号</param>
-		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const override;
+		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 		/// <summary>
 		/// 書き込み開始
@@ -70,22 +80,29 @@ namespace YGame
 
 	private:
 
-		void CreateRTV();
+		// 描画段階
+		enum class Phase
+		{
+			None, // 何もしていない
 
-		void CreateDepthBuff(const YMath::Vector2 & size);
-
-		void CreateDSV();
-
+			Rendering, // 書き込み中
+			
+			End, // 終了
+		};
+	
 	private:
 
 		// 頂点データ
 		YDX::Vertices<VData> vt_;
 
-		// テクスチャの数
-		static const size_t kTextureNum_ = 2;
-
 		// テクスチャ
-		std::array<Texture*, kTextureNum_> pTexs_;
+		std::vector<Texture*> pTexs_{};
+
+		// 段階
+		Phase phase_ = Phase::None;
+
+		// スクリーン設定
+		YDX::ScreenDesc screenDesc_;
 
 
 		// RTV用ヒープ
@@ -102,27 +119,19 @@ namespace YGame
 		// 静的ポストエフェクト格納用vector配列
 		static std::vector<std::unique_ptr<PostEffect>> sPostEffects_;
 
-	private:
-
 		// 静的デバイスポインタ
 		static ID3D12Device* spDevice_;
 
 		// 静的コマンドリストポインタ
 		static ID3D12GraphicsCommandList* spCmdList_;
 
-		// 静的スクリーン設定ポインタ
-		static YDX::ScreenDesc sScreenDesc_;
+	private:
 
-	public:
+		void CreateRTV();
 
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		/// <param name="pDevice"> : デバイスポインタ</param>
-		/// <param name="pCmdList"> : コマンドリストポインタ</param>
-		static void StaticInitialize(
-			ID3D12Device * pDevice,
-			ID3D12GraphicsCommandList * pCmdList);
+		void CreateDepthBuff(const YMath::Vector2 & size);
+
+		void CreateDSV();
 
 	};
 }

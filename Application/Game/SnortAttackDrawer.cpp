@@ -40,5 +40,5 @@ SnortAttackDrawer::SnortAttackDrawer(Transform* pParent, const uint32_t drawPrio
 
 void SnortAttackDrawer::StaticInitialize()
 {
-	spModel_ = Model::CreateCube("white1x1.png");
+	spModel_ = Model::CreateCube({ { "Texture", Texture::Load("white1x1.png")} });
 }

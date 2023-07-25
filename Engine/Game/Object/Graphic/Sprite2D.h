@@ -6,7 +6,7 @@
 #include "Vector3.h"
 #include "Vector2.h"
 #include <list>
-#include <array>
+#include <vector>
 
 namespace YGame
 {
@@ -24,45 +24,21 @@ namespace YGame
 			YMath::Vector2 uv_;  // uv座標
 		};
 
-		// 設定用ステータス
-		struct Status
-		{
-			bool isDiv_ = true; // 画像サイズに合わせるか
-			YMath::Vector2 size_; // サイズ
-			YMath::Vector2 anchor_ = { 0.5f, 0.5f }; // アンカーポイント
-			bool isFlipX_ = false; // 左右反転
-			bool isFlipY_ = false; // 上下反転
-		};
-
-		// テクスチャ設定用ステータス
-		struct TexStatus
-		{
-			Texture* pTex_; // テクスチャポインタ
-			bool isDiv_ = true; // 画像サイズに合わせるか
-			YMath::Vector2 leftTop_ = { 0.0f,0.0f }; // テクスチャ左上
-			YMath::Vector2 size_ = { 0.0f,0.0f }; // テクスチャサイズ
-		};
-
 	public:
 
 		/// <summary>
 		/// 生成
 		/// </summary>
-		/// <param name="status"> : スプライト設定</param>
-		/// <param name="(bool) isDiv_"> : 画像サイズに合わせるか</param>
-		/// <param name="(Vector2) status.size_"> : 大きさ</param>
-		/// <param name="(Vector2) status.anchor_"> : アンカーポイント (初期値は中心)</param>
-		/// <param name="(bool) status.isFlipX_"> : X反転するか</param>
-		/// <param name="(bool) status.isFlipY_"> : Y反転するか</param>
-		/// <param name="--------------------------------"></param>
-		/// <param name="texStatus"> : テクスチャ設定</param>
-		/// <param name="(Texture*) texStatus.pTex_"> : テクスチャポインタ</param>
-		/// <param name="(bool) isDiv_"> : 画像サイズに合わせるか</param>
-		/// <param name="(Vector2) texStatus.leftTop_"> : テクスチャ左上</param>
-		/// <param name="(Vector2) texStatus.size_"> : テクスチャサイズ</param>
-		/// <param name="--------------------------------"></param>
+		/// <param name="pTexs"> : テクスチャポインタ配列</param>
+		/// <param name="anchor"> : アンカーポイント (初期値は中心)</param>
+		/// <param name="isFlipX"> : X反転するか</param>
+		/// <param name="isFlipY"> : Y反転するか</param>
 		/// <returns>スプライトポインタ</returns>
-		static Sprite2D* Create(const Status& status, const TexStatus& texStatus);
+		static Sprite2D* Create(
+			const std::unordered_map<std::string, Texture*>& pTexs,
+			YMath::Vector2 anchor = { 0.5f, 0.5f }, 
+			const bool isFlipX = false,
+			const bool isFlipY = false);
 
 		/// <summary>
 		/// 全削除
@@ -81,7 +57,7 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		/// <param name="rpIndices"> : ルートパラメータ情報 + 番号</param>
-		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const override;
+		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 	public:
 
@@ -109,13 +85,7 @@ namespace YGame
 
 
 		// テクスチャ
-		Texture* pTex_ = nullptr;
-
-		// テクスチャ左上
-		YMath::Vector2 texLeftTop_;
-
-		// テクスチャサイズ
-		YMath::Vector2 texSize_;
+		std::unordered_map<std::string, Texture*> pTexs_{};
 
 		// 表示するか
 		bool isVisible_ = true;

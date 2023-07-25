@@ -15,15 +15,9 @@ namespace YGame
 		/// <summary>
 		/// 生成(立方体)
 		/// </summary>
+		/// <param name="pTexs"> : テクスチャポインタ配列</param>
 		/// <returns>モデルポインタ</returns>
-		static Model* CreateCube();
-
-		/// <summary>
-		/// 生成(立方体)
-		/// </summary>
-		/// <param name="texFileName"> : 画像のファイル名</param>
-		/// <returns>モデルポインタ</returns>
-		static Model* CreateCube(const std::string& texFileName);
+		static Model* CreateCube(const std::unordered_map<std::string, Texture*>& pTexs);
 
 		/// <summary>
 		/// モデル(.obj)読み込み
@@ -58,7 +52,7 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		/// <param name="rpIndices"> : ルートパラメータ情報 + 番号</param>
-		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const override;
+		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 	public:
 

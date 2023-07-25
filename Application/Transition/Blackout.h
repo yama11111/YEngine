@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseTransition.h"
 #include "Object.h"
-#include "ConstBufferSet.h"
+#include "ConstBuffer.h"
 #include "CBSprite2DTransform.h"
 #include "CBColor.h"
 #include "CBTexConfig.h"
@@ -32,13 +32,13 @@ namespace YScene
 		std::unique_ptr<YGame::Object> obj_;
 		
 		// トランスフォーム定数バッファ
-		std::unique_ptr<YGame::ConstBufferSet<YGame::CBSprite2DTransform::CBData>> cbTransform_;
+		std::unique_ptr<YGame::ConstBuffer<YGame::CBSprite2DTransform::CBData>> cbTransform_;
 		
 		// 色定数バッファ
-		std::unique_ptr<YGame::ConstBufferSet<YGame::CBColor::CBData>> cbColor_;
+		std::unique_ptr<YGame::ConstBuffer<YGame::CBColor::CBData>> cbColor_;
 		
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<YGame::ConstBufferSet<YGame::CBTexConfig::CBData>> cbTexConfig_;
+		std::unique_ptr<YGame::ConstBuffer<YGame::CBTexConfig::CBData>> cbTexConfig_;
 
 		// 段階
 		Step step_ = Step::Dark;

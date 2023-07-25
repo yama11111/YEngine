@@ -20,7 +20,7 @@ vector<unique_ptr<Model>> Model::sModels_{};
 FbxManager* Model::FbxLoader::sFbxMan_ = nullptr;
 FbxImporter* Model::FbxLoader::sFbxImp_ = nullptr;
 
-Model* Model::CreateCube()
+Model* Model::CreateCube(const std::unordered_map<std::string, Texture*>& pTexs)
 {
 	// モデル生成
 	unique_ptr<Model> newModel = std::make_unique<Model>();
@@ -30,33 +30,7 @@ Model* Model::CreateCube()
 	std::unique_ptr<Mesh> newMesh;
 
 	// メッシュロード
-	newMesh.reset(Mesh::CreateCube());
-
-	// 追加
-	newModel->meshes_.push_back(std::move(newMesh));
-
-
-	// ポインタを獲得
-	Model* newModelPtr = newModel.get();
-
-	// モデルを保存
-	sModels_.push_back(std::move(newModel));
-
-	// モデルポインタを返す
-	return newModelPtr;
-}
-
-Model* Model::CreateCube(const std::string& texFileName)
-{
-	// モデル生成
-	unique_ptr<Model> newModel = std::make_unique<Model>();
-
-
-	// メッシュ生成
-	std::unique_ptr<Mesh> newMesh;
-
-	// メッシュロード
-	newMesh.reset(Mesh::CreateCube(texFileName));
+	newMesh.reset(Mesh::CreateCube(pTexs));
 
 	// 追加
 	newModel->meshes_.push_back(std::move(newMesh));
@@ -197,16 +171,14 @@ void Model::AllClear()
 	sModels_.clear();
 }
 
-void Model::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const
+void Model::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices)
 {
-	// 描画しないなら弾く
 	if (isVisible_ == false) { return; }
 	
-	// メッシュ毎に違うバッファ
+	// メッシュ毎に違うバッファで描画
 	for (size_t i = 0; i < meshes_.size(); i++)
 	{
-		// 描画
-		meshes_[i]->Draw(static_cast<UINT>(rpIndices["Texture"]));
+		meshes_[i]->SetDrawCommand(rpIndices);
 	}
 }
 

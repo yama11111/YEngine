@@ -40,7 +40,7 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		/// <param name="rpIndices"> : ルートパラメータ情報 + 番号</param>
-		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const override;
+		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 		/// <summary>
 		/// 表示するか設定

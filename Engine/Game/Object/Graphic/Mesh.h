@@ -37,22 +37,16 @@ namespace YGame
 		Node node_;
 
 		// テクスチャ
-		Texture* pTex_ = nullptr;
+		std::unordered_map<std::string, Texture*> pTexs_{};
 
 	public:
-
+		
 		/// <summary>
 		/// 生成(立方体)
 		/// </summary>
+		/// <param name="pTexs"> : テクスチャポインタ配列</param>
 		/// <returns>動的インスタンス (new されたもの)</returns>
-		static Mesh* CreateCube();
-
-		/// <summary>
-		/// 生成(立方体)
-		/// </summary>
-		/// <param name="texFileName"> : 画像のファイル名</param>
-		/// <returns>動的インスタンス (new されたもの)</returns>
-		static Mesh* CreateCube(const std::string& texFileName);
+		static Mesh* CreateCube(const std::unordered_map<std::string, Texture*> pTexs);
 
 		/// <summary>
 		/// メッシュ(.obj)読み込み
@@ -77,8 +71,8 @@ namespace YGame
 		/// <summary>
 		/// 描画
 		/// </summary>
-		/// <param name="texRPIndex"> : テクスチャ用ルートパラメータ番号</param>
-		void Draw(const UINT texRPIndex);
+		/// <param name="rpIndices"> : ルートパラメータ情報 + 番号</param>
+		void SetDrawCommand(const std::unordered_map<std::string, uint32_t>& rpIndices);
 
 	private:
 

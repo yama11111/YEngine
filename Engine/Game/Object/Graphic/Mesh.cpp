@@ -15,7 +15,7 @@ using YMath::Matrix4;
 
 #pragma endregion
 
-Mesh* Mesh::CreateCube()
+Mesh* Mesh::CreateCube(const std::unordered_map<std::string, Texture*> pTexs)
 {
 	// インスタンス生成 (動的)
 	Mesh* instance = new Mesh();
@@ -92,20 +92,9 @@ Mesh* Mesh::CreateCube()
 
 	// 頂点インデックス初期化(代入)
 	instance->vtIdx_.Initialize(v, i);
-	// マテリアル初期化
-	instance->pTex_ = Texture::Load("white1x1.png", false);
-
-	// インスタンスを返す
-	return instance;
-}
-
-Mesh* Mesh::CreateCube(const std::string& texFileName)
-{
-	// 生成
-	Mesh* instance = CreateCube();
 
 	// マテリアル初期化
-	instance->pTex_ = Texture::Load(texFileName, true);
+	instance->pTexs_ = pTexs;
 
 	// インスタンスを返す
 	return instance;
@@ -119,13 +108,13 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 
 	// 頂点
 	std::vector<VData> v;
-	
+
 	// インデックス
 	std::vector<uint16_t> i;
-	
+
 	// 頂点法線スムーシング用データ
 	std::unordered_map<unsigned short, std::vector<unsigned short>> sd;
-	
+
 	// テクスチャ
 	Texture* pTex = nullptr;
 
@@ -141,10 +130,10 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 
 	// 頂点座標
 	std::vector<Vector3> positions;
-	
+
 	// 法線
 	std::vector<Vector3> normals;
-	
+
 	// UV座標
 	std::vector<Vector2> uvs;
 
@@ -277,12 +266,12 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 
 	// 頂点インデックス初期化(代入)
 	instance->vtIdx_.Initialize(v, i);
-	
+
 	// スムースデータ代入
 	instance->smoothData_ = sd;
-	
+
 	// テクスチャ代入
-	instance->pTex_ = pTex;
+	instance->pTexs_.insert({ "Texture", pTex });
 
 
 	// インスタンスを返す
@@ -337,7 +326,7 @@ Mesh* Mesh::LoadFbx(const std::string& folderPath, FbxNode* fbxNode, const bool 
 	instance->smoothData_ = sd;
 	
 	// テクスチャ代入
-	instance->pTex_ = pTex;
+	instance->pTexs_.insert({ "Texture", pTex });
 
 
 	// インスタンスを返す
@@ -483,10 +472,16 @@ Texture* Mesh::LoadMaterial(const std::string& directoryPath, const std::string&
 	return pTex;
 }
 
-void Mesh::Draw(const UINT texRPIndex)
+void Mesh::SetDrawCommand(const std::unordered_map<std::string, uint32_t>& rpIndices)
 {
 	// テクスチャ
-	pTex_->SetDrawCommand(texRPIndex);
+	for (auto itr = rpIndices.begin(); itr != rpIndices.end(); ++itr)
+	{
+		// 同一キーがない場合警告
+		assert(pTexs_.contains(itr->first));
+
+		pTexs_[itr->first]->SetDrawCommand(itr->second);
+	}
 
 	// 頂点バッファを送る + 描画コマンド
 	vtIdx_.Draw();

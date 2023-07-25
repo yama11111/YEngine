@@ -3,7 +3,7 @@
 #include "Def.h"
 #include <cassert>
 
-#include "ConstBufferCommon.h"
+#include "BaseConstBuffer.h"
 #include "PipelineManager.h"
 
 #pragma region –¼‘O‹óŠÔéŒ¾

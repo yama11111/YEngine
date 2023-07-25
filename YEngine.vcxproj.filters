@@ -423,17 +423,11 @@
     <ClCompile Include="Engine\Utillity\Math\BasePrimitiveCollider.cpp">
       <Filter>Engine\Game\Util\Math\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\CB\BaseConstBuffer.cpp">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp">
       <Filter>Engine\Base</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DX\GPUResource.cpp">
       <Filter>Engine\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Object\CB\ConstBufferCommon.cpp">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DX\Vertices.cpp">
       <Filter>Engine\Base</Filter>
@@ -476,6 +470,18 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Texture.cpp">
       <Filter>Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\TaskScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Base\DX\BaseConstBuffer.cpp">
+      <Filter>Engine\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Smoke.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -740,17 +746,11 @@
     <ClInclude Include="Engine\Utillity\Math\BasePrimitiveCollider.h">
       <Filter>Engine\Game\Util\Math\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\BaseConstBuffer.h">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\DX\DescriptorHeap.h">
       <Filter>Engine\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\GPUResource.h">
       <Filter>Engine\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\ConstBufferCommon.h">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBModelTransform.h">
       <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
@@ -763,9 +763,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBPostEffectTransform.h">
       <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\ConstBufferSet.h">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBColor.h">
       <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
@@ -839,6 +836,24 @@
     <ClInclude Include="Engine\Game\Texture.h">
       <Filter>Engine\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Scene\TaskScene.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Object\CB\ConstBuffer.h">
+      <Filter>Engine\Game\Object\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\DX\BaseConstBuffer.h">
+      <Filter>Engine\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Object\CB\CBTime.h">
+      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Smoke.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite3D.hlsli">
@@ -854,6 +869,9 @@
       <Filter>Application\Shader\PostEffect</Filter>
     </None>
     <None Include="Resources\Shaders\Light.hlsli">
+      <Filter>Application\Shader\Model</Filter>
+    </None>
+    <None Include="Resources\Shaders\Dissolve.hlsli">
       <Filter>Application\Shader\Model</Filter>
     </None>
   </ItemGroup>
@@ -902,6 +920,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
       <Filter>Application\Shader\PostEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\TextureBlendPS.hlsl">
+      <Filter>Application\Shader\Sprite2D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\DissolvePS.hlsl">
+      <Filter>Application\Shader\Model</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\DissolveVS.hlsl">
+      <Filter>Application\Shader\Model</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

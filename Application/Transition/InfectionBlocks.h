@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseTransition.h"
 #include "Object.h"
-#include "ConstBufferSet.h"
+#include "ConstBuffer.h"
 #include "CBSprite2DTransform.h"
 #include "CBColor.h"
 #include "CBTexConfig.h"
@@ -31,9 +31,9 @@ namespace YScene
 		{
 			std::unique_ptr<YGame::Transform> transform_; // トランスフォーム
 			std::unique_ptr<YGame::Object> obj_; // オブジェクト
-			std::unique_ptr<YGame::ConstBufferSet<YGame::CBSprite2DTransform::CBData>> cbTransform_; // トランスフォーム定数バッファ
-			std::unique_ptr<YGame::ConstBufferSet<YGame::CBColor::CBData>> cbColor_; // 色定数バッファ
-			std::unique_ptr<YGame::ConstBufferSet<YGame::CBTexConfig::CBData>> cbTexConfig_; // テクスチャ設定定数バッファ
+			std::unique_ptr<YGame::ConstBuffer<YGame::CBSprite2DTransform::CBData>> cbTransform_; // トランスフォーム定数バッファ
+			std::unique_ptr<YGame::ConstBuffer<YGame::CBColor::CBData>> cbColor_; // 色定数バッファ
+			std::unique_ptr<YGame::ConstBuffer<YGame::CBTexConfig::CBData>> cbTexConfig_; // テクスチャ設定定数バッファ
 			YMath::Timer actTim_; // 動作タイマー
 			YMath::Timer colorStartTim_; // 色タイマー (始)
 			YMath::Timer colorEndTim_; // 色タイマー (終)

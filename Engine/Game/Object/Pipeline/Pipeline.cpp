@@ -2,6 +2,7 @@
 #include "YAssert.h"
 
 using YGame::Pipeline;
+using YDX::BaseConstBuffer;
 using YDX::Result;
 
 ID3D12Device* Pipeline::spDevice_ = nullptr;

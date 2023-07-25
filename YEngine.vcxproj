@@ -62,6 +62,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\CB;$(ProjectDir)Engine\Game\Object\Graphic;$(ProjectDir)Engine\Game\Object\Pipeline;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -90,6 +91,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,8 +139,8 @@
     <ClCompile Include="Application\Game\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\GameCollider.cpp" />
-    <ClCompile Include="Engine\Game\Object\CB\ConstBufferCommon.cpp" />
-    <ClCompile Include="Engine\Game\Object\CB\BaseConstBuffer.cpp" />
+    <ClCompile Include="Application\Scene\TaskScene.cpp" />
+    <ClCompile Include="Engine\Base\DX\BaseConstBuffer.cpp" />
     <ClCompile Include="Engine\Game\Level\Level.cpp" />
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp" />
     <ClCompile Include="Engine\Base\DX\GPUResource.cpp" />
@@ -208,6 +210,8 @@
     <ClCompile Include="Engine\Game\Object\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Engine\Game\Object\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\Game\Object\Pipeline\ShaderSet.cpp" />
+    <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Smoke.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
@@ -240,6 +244,9 @@
     <ClInclude Include="Application\Game\SnortAttack.h" />
     <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\GameCollider.h" />
+    <ClInclude Include="Application\Scene\TaskScene.h" />
+    <ClInclude Include="Engine\Game\Object\CB\CBTime.h" />
+    <ClInclude Include="Engine\Game\Object\CB\ConstBuffer.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBColor.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBDirectionalLight.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBLightGroup.h" />
@@ -250,8 +257,7 @@
     <ClInclude Include="Engine\Game\Object\CB\CBSprite2DTransform.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBSprite3DTransform.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBTexConfig.h" />
-    <ClInclude Include="Engine\Game\Object\CB\ConstBufferCommon.h" />
-    <ClInclude Include="Engine\Game\Object\CB\BaseConstBuffer.h" />
+    <ClInclude Include="Engine\Base\DX\BaseConstBuffer.h" />
     <ClInclude Include="Engine\Game\Object\Graphic\BaseGraphic.h" />
     <ClInclude Include="Engine\Game\Level\Level.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h" />
@@ -323,15 +329,17 @@
     <ClInclude Include="Engine\Utillity\Math\Vector3.h" />
     <ClInclude Include="Engine\Utillity\Math\Vector4.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBModelTransform.h" />
-    <ClInclude Include="Engine\Game\Object\CB\ConstBufferSet.h" />
     <ClInclude Include="Engine\Game\Object\Graphic\Model.h" />
     <ClInclude Include="Engine\Game\Object\Pipeline\PipelineSetting.h" />
     <ClInclude Include="Engine\Game\Object\Object.h" />
     <ClInclude Include="Engine\Game\Object\Pipeline\Pipeline.h" />
     <ClInclude Include="Engine\Game\Object\Pipeline\PipelineManager.h" />
     <ClInclude Include="Engine\Game\Object\Pipeline\ShaderSet.h" />
+    <ClInclude Include="Floor.h" />
+    <ClInclude Include="Smoke.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shaders\Dissolve.hlsli" />
     <None Include="Resources\Shaders\Light.hlsli" />
     <None Include="Resources\Shaders\PostEffect.hlsli" />
     <None Include="Resources\Shaders\Sprite3D.hlsli" />
@@ -346,6 +354,14 @@
     <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\DissolvePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\DissolveVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -362,6 +378,10 @@
     <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\TextureBlendPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\UVShiftBlurPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

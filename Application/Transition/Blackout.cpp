@@ -9,7 +9,7 @@ using YGame::Transform;
 using YGame::Object;
 using YGame::Sprite2D;
 using YGame::Texture;
-using YGame::ConstBufferSet;
+using YGame::ConstBuffer;
 using YGame::CBSprite2DTransform;
 using YGame::CBColor;
 using YGame::CBTexConfig;
@@ -24,7 +24,7 @@ void Blackout::StaticInitialize()
 	Texture* pTex = Texture::Load("white1x1.png", false);
 	
 	// スプライト生成
-	spCurtenSpr_ = Sprite2D::Create({ false, WinSize }, { pTex });
+	spCurtenSpr_ = Sprite2D::Create({ {"Texture0", pTex} });
 
 	// 透過イージング初期化
 	sBlendEas_.Initialize(0.0f, 1.0f, 3.0f);
@@ -35,12 +35,12 @@ void Blackout::Initialize()
 	// 初期化
 	transform_.reset(new Transform());
 	obj_.reset(new Object());
-	cbTransform_.reset(ConstBufferSet<CBSprite2DTransform::CBData>::Create(false));
-	obj_->InsertConstBuffer(cbTransform_->ConstBufferPtr());
-	cbColor_.reset(ConstBufferSet<CBColor::CBData>::Create(false));
-	obj_->InsertConstBuffer(cbColor_->ConstBufferPtr());
-	cbTexConfig_.reset(ConstBufferSet<CBTexConfig::CBData>::Create(false));
-	obj_->InsertConstBuffer(cbTexConfig_->ConstBufferPtr());
+	cbTransform_.reset(ConstBuffer<CBSprite2DTransform::CBData>::Create(false));
+	obj_->InsertConstBuffer(CBSprite2DTransform::KeyName(), cbTransform_.get());
+	cbColor_.reset(ConstBuffer<CBColor::CBData>::Create(false));
+	obj_->InsertConstBuffer(CBColor::KeyName(), cbColor_.get());
+	cbTexConfig_.reset(ConstBuffer<CBTexConfig::CBData>::Create(false));
+	obj_->InsertConstBuffer(CBTexConfig::KeyName(), cbTexConfig_.get());
 
 	obj_->SetGraphic(spCurtenSpr_);
 
@@ -68,6 +68,7 @@ void Blackout::Reset()
 	// 画面中央
 	Vector2 p = WinSize / 2.0f;
 	transform_->pos_ = { p.x_, p.y_, 0.0f };
+	transform_->scale_ = { WinSize.x_, WinSize.y_, 0.0f };
 	transform_->UpdateMatrix();
 	cbTransform_->data_.matWorld = transform_->m_ * YMath::MatOrthoGraphic();
 	

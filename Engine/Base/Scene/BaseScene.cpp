@@ -7,6 +7,7 @@ using YScene::BaseScene;
 using YInput::Keys;
 using YInput::Mouse;
 using YInput::Pad;
+using YGame::PipelineManager;
 using YGame::Texture;
 using YGame::Audio;
 
@@ -14,16 +15,20 @@ using YGame::Audio;
 
 #pragma region Static
 
-Keys* BaseScene::sKeys_ = nullptr;
-Mouse* BaseScene::sMouse_ = nullptr;
-Pad* BaseScene::sPad_ = nullptr;
+Keys* BaseScene::spKeys_ = nullptr;
+Mouse* BaseScene::spMouse_ = nullptr;
+Pad* BaseScene::spPad_ = nullptr;
+
+PipelineManager* BaseScene::spPipelineMan_ = nullptr;
 
 void BaseScene::StaticInitialize()
 {
 	// ƒVƒ“ƒOƒ‹ƒgƒ“‰Šú‰»
-	sKeys_ = Keys::GetInstance();
-	sMouse_ = Mouse::GetInstance();
-	sPad_ = Pad::GetInstance();
+	spKeys_ = Keys::GetInstance();
+	spMouse_ = Mouse::GetInstance();
+	spPad_ = Pad::GetInstance();
+
+	spPipelineMan_ = PipelineManager::GetInstance();
 }
 
 #pragma endregion 

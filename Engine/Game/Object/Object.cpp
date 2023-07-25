@@ -2,7 +2,7 @@
 #include <cassert>
 
 using YGame::Object;
-using YGame::BaseConstBuffer;
+using YDX::BaseConstBuffer;
 using YGame::BaseGraphic;
 
 void Object::Clear()
@@ -28,11 +28,11 @@ BaseGraphic* Object::GraphicPtr() const
 	return pGraphic_;
 }
 
-void Object::InsertConstBuffer(BaseConstBuffer* pCBuff)
+void Object::InsertConstBuffer(const std::string& key, BaseConstBuffer* pCBuff)
 {
 	assert(pCBuff);
 
-	pCBuffs_.insert({ pCBuff->KeyName(), pCBuff});
+	pCBuffs_.insert({ key, pCBuff});
 }
 
 void Object::SetGraphic(BaseGraphic* pGraphic)

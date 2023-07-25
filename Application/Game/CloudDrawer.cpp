@@ -49,5 +49,5 @@ CloudDrawer::CloudDrawer(Transform* pParent, const uint32_t drawPriority)
 void CloudDrawer::StaticInitialize()
 {
 	// ƒ‚ƒfƒ‹İ’è
-	spModel_ = Model::CreateCube("white1x1.png");
+	spModel_ = Model::CreateCube({ { "Texture", Texture::Load("white1x1.png")} });
 }

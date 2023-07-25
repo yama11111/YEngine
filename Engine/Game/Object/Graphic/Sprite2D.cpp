@@ -1,9 +1,7 @@
 #include "Sprite2D.h"
 #include <cassert>
 
-using std::array;
 using std::vector;
-using std::list;
 using std::unique_ptr;
 using YGame::Sprite2D;
 using YGame::PipelineSetting;
@@ -11,43 +9,46 @@ using YMath::Vector2;
 
 vector<unique_ptr<Sprite2D>> Sprite2D::sSprites_{};
 
-Sprite2D* Sprite2D::Create(const Status& status, const TexStatus& texStatus)
+Sprite2D* Sprite2D::Create(
+	const std::unordered_map<std::string, Texture*>& pTexs, 
+	Vector2 anchor, 
+	const bool isFlipX, 
+	const bool isFlipY)
 {
-	// スプライト生成
+	assert(pTexs.size() > 0);
+
 	unique_ptr<Sprite2D> newSprite = std::make_unique<Sprite2D>();
 
-
 	// テクスチャのサイズを取得
-	float rscSizeX = static_cast<float>(texStatus.pTex_->Buffer()->GetDesc().Width);
-	float rscSizeY = static_cast<float>(texStatus.pTex_->Buffer()->GetDesc().Height);
+	float rscSizeX = static_cast<float>(pTexs.begin()->second->Buffer()->GetDesc().Width);
+	float rscSizeY = static_cast<float>(pTexs.begin()->second->Buffer()->GetDesc().Height);
 
 	// ----- Status ----- //
 
 	// 反転設定
-	float flipX = status.isFlipX_ ? -1.0f : 1.0f;
-	float flipY = status.isFlipY_ ? -1.0f : 1.0f;
+	float flipX = isFlipX ? -1.0f : 1.0f;
+	float flipY = isFlipY ? -1.0f : 1.0f;
 
 	// サイズを設定 (画像に合わせるならそのまま)
-	Vector2 size = status.isDiv_ ? Vector2(rscSizeX, rscSizeY) : status.size_;
+	Vector2 size = Vector2(rscSizeX, rscSizeY);
 
 	// 左右上下のポイント設定 (0.0~1,0)
-	float left = (0.0f - status.anchor_.x_) * size.x_ * flipX;
-	float right = (1.0f - status.anchor_.x_) * size.x_ * flipX;
-	float top = (0.0f - status.anchor_.y_) * size.y_ * flipY;
-	float bottom = (1.0f - status.anchor_.y_) * size.y_ * flipY;
+	float left	 = (0.0f - anchor.x_) * size.x_ * flipX;
+	float right	 = (1.0f - anchor.x_) * size.x_ * flipX;
+	float top	 = (0.0f - anchor.y_) * size.y_ * flipY;
+	float bottom = (1.0f - anchor.y_) * size.y_ * flipY;
 
 	// ----- TexStatus ----- //
 
 	// テクスチャの左上と右下を設定 (画像に合わせるならそのまま)
-	Vector2 texLT = texStatus.isDiv_ ? Vector2(0.0f, 0.0f) : texStatus.leftTop_;
-	Vector2 texRB = texStatus.isDiv_ ? Vector2(rscSizeX, rscSizeY) : (texStatus.leftTop_ + texStatus.size_);
+	Vector2 texLT = Vector2(0.0f, 0.0f);
+	Vector2 texRB = Vector2(rscSizeX, rscSizeY);
 
 	// UV座標を計算
-	float texLeft = texLT.x_ / rscSizeX;
-	float texRight = texRB.x_ / rscSizeX;
-	float texTop = texLT.y_ / rscSizeY;
+	float texLeft	= texLT.x_ / rscSizeX;
+	float texRight	= texRB.x_ / rscSizeX;
+	float texTop	= texLT.y_ / rscSizeY;
 	float texBottom = texRB.y_ / rscSizeY;
-
 
 	// インスタンス生成 (動的)
 	newSprite->vt_.Initialize(
@@ -59,15 +60,12 @@ Sprite2D* Sprite2D::Create(const Status& status, const TexStatus& texStatus)
 		});
 
 	// いろいろ設定
-	newSprite->size_ = status.size_; // 大きさ
-	newSprite->anchor_ = status.anchor_; // アンカーポイント
-	newSprite->isFlipX_ = status.isFlipX_; // X反転
-	newSprite->isFlipY_ = status.isFlipY_; // Y反転
+	newSprite->size_	 = size; // 大きさ
+	newSprite->anchor_	 = anchor; // アンカーポイント
+	newSprite->isFlipX_	 = isFlipX; // X反転
+	newSprite->isFlipY_	 = isFlipY; // Y反転
 
-	newSprite->pTex_ = texStatus.pTex_; // テクスチャインデックス
-	newSprite->texLeftTop_ = texStatus.isDiv_ ? Vector2(0.0f, 0.0f) : texStatus.leftTop_; // テクスチャの左上
-	newSprite->texSize_ = texStatus.isDiv_ ? Vector2(rscSizeX, rscSizeY) : texStatus.size_; // テクスチャの大きさ
-
+	newSprite->pTexs_ = pTexs; // テクスチャインデックス
 
 	// ポインタを獲得
 	Sprite2D* newSpritePtr = newSprite.get();
@@ -81,7 +79,6 @@ Sprite2D* Sprite2D::Create(const Status& status, const TexStatus& texStatus)
 
 void Sprite2D::AllClear()
 {
-	// スプライト2D全消去
 	for (size_t i = 0; i < sSprites_.size(); i++)
 	{
 		sSprites_[i].reset(nullptr);
@@ -89,13 +86,18 @@ void Sprite2D::AllClear()
 	sSprites_.clear();
 }
 
-void Sprite2D::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const
+void Sprite2D::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices)
 {
-	// 描画しないなら弾く
 	if (isVisible_ == false) { return; }
 
 	// テクスチャ
-	pTex_->SetDrawCommand(rpIndices["Texture"]);
+	for (auto itr = rpIndices.begin(); itr != rpIndices.end(); ++itr)
+	{
+		// 同一キーがない場合警告
+		assert(pTexs_.contains(itr->first));
+
+		pTexs_[itr->first]->SetDrawCommand(itr->second);
+	}
 
 	// 頂点バッファを送る + 描画コマンド
 	vt_.Draw();

@@ -3,6 +3,7 @@
 #include "YAssert.h"
 #include "Def.h"
 #include <d3dx12.h>
+#include <array>
 
 using std::array;
 using std::vector;
@@ -17,11 +18,9 @@ using YMath::Matrix4;
 vector<unique_ptr<PostEffect>> PostEffect::sPostEffects_{};
 ID3D12Device* PostEffect::spDevice_ = nullptr;
 ID3D12GraphicsCommandList* PostEffect::spCmdList_ = nullptr;
-YDX::ScreenDesc PostEffect::sScreenDesc_{};
 
-PostEffect* PostEffect::Create()
+PostEffect* PostEffect::Create(const size_t rtvNum)
 {
-	// スプライト生成
 	unique_ptr<PostEffect> newPostEffect = std::make_unique<PostEffect>();
 
 	// 頂点バッファ生成
@@ -33,28 +32,31 @@ PostEffect* PostEffect::Create()
 			{ Vector3(+WinSize.x_,        0.0f, 0.0f), Vector2(1.0f, 0.0f) }, // 右上
 		});
 
-	for (size_t i = 0; i < newPostEffect->pTexs_.size(); i++)
+	// レンダーテクスチャ生成
+	for (size_t i = 0; i < rtvNum; i++)
 	{
-		// レンダーテクスチャ生成
-		newPostEffect->pTexs_[i] = Texture::CreateRender();
+		Texture* pTex = Texture::CreateRender();
+		
+		newPostEffect->pTexs_.emplace_back(pTex);
 	}
 
-	// RTV初期化
 	newPostEffect->CreateRTV();
 
-	// 深度バッファ生成
 	newPostEffect->CreateDepthBuff(WinSize);
 
-	// DSV初期化
 	newPostEffect->CreateDSV();
+
+	newPostEffect->phase_ = Phase::None;
+	
+	newPostEffect->screenDesc_.Initialize({ 0,0 }, WinSize, rtvNum);
 
 	// ポインタを獲得
 	PostEffect* newPostEffectPtr = newPostEffect.get();
 
-	// スプライトを保存
+	// ポストエフェクトを保存
 	sPostEffects_.push_back(std::move(newPostEffect));
 
-	// スプライトポインタを返す
+	// ポインタを返す
 	return newPostEffectPtr;
 }
 
@@ -145,6 +147,9 @@ void PostEffect::AllClear()
 
 void PostEffect::StartRender()
 {
+	// 順番通りじゃないなら警告
+	assert(phase_ == Phase::None);
+
 	for (size_t i = 0; i < pTexs_.size(); i++)
 	{
 		// リソースバリア設定
@@ -158,14 +163,16 @@ void PostEffect::StartRender()
 	}
 
 	// RTVのハンドルを取得
-	std::array<D3D12_CPU_DESCRIPTOR_HANDLE, kTextureNum_> rtvHandles{};
+	std::vector<D3D12_CPU_DESCRIPTOR_HANDLE> rtvHandles;
 
 	for (size_t i = 0; i < rtvHandles.size(); i++)
 	{
-		rtvHandles[i] =
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle =
 			CD3DX12_CPU_DESCRIPTOR_HANDLE(
 				rtvHeap_->GetCPUDescriptorHandleForHeapStart(), static_cast<INT>(i),
 				spDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV));
+
+		rtvHandles.emplace_back(rtvHandle);
 	}
 
 	// DSVのハンドルを取得
@@ -175,7 +182,7 @@ void PostEffect::StartRender()
 	spCmdList_->OMSetRenderTargets(2, rtvHandles.data(), true, &dsvHandle);
 
 	// スクリーン設定の描画コマンド
-	sScreenDesc_.SetDrawCommand();
+	screenDesc_.SetDrawCommand();
 
 	for (size_t i = 0; i < rtvHandles.size(); i++)
 	{
@@ -187,10 +194,16 @@ void PostEffect::StartRender()
 
 	// 深度バッファクリア
 	spCmdList_->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+
+	// 段階を進める
+	phase_ = Phase::Rendering;
 }
 
 void PostEffect::EndRender()
 {
+	// 順番通りじゃないなら警告
+	assert(phase_ == Phase::Rendering);
+
 	for (size_t i = 0; i < pTexs_.size(); i++)
 	{
 		// リソースバリア設定
@@ -202,11 +215,16 @@ void PostEffect::EndRender()
 		// リソースバリアを変更
 		spCmdList_->ResourceBarrier(1, &barrierDesc);
 	}
+
+	// 段階を進める
+	phase_ = Phase::End;
 }
 
-void PostEffect::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const
+void PostEffect::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices)
 {
-	// 描画しないなら弾く
+	// 順番通りじゃないなら警告
+	assert(phase_ == Phase::End);
+
 	if (isVisible_ == false) { return; }
 
 	// テクスチャ0
@@ -217,6 +235,9 @@ void PostEffect::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpInd
 
 	// 頂点バッファを送る + 描画コマンド
 	vt_.Draw();
+
+	// 段階を最初に戻す
+	phase_ = Phase::None;
 }
 
 void PostEffect::StaticInitialize(
@@ -230,9 +251,6 @@ void PostEffect::StaticInitialize(
 	// 代入
 	spDevice_ = pDevice;
 	spCmdList_ = pCmdList;
-
-	// スクリーン設定初期化
-	sScreenDesc_.Initialize({ 0,0 }, WinSize, kTextureNum_);
 }
 
 PipelineSetting PostEffect::GetPipelineSetting()

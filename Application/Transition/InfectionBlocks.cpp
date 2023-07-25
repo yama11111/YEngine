@@ -10,7 +10,7 @@ using YGame::PipelineManager;
 using YGame::Transform;
 using YGame::Object;
 using YGame::Sprite2D;
-using YGame::ConstBufferSet;
+using YGame::ConstBuffer;
 using YGame::CBSprite2DTransform;
 using YGame::CBColor;
 using YGame::CBTexConfig;
@@ -27,7 +27,7 @@ float InfectionBlocks::sSize_ = 0.0f;
 void InfectionBlocks::StaticInitialize(YGame::Texture* pBlockTex)
 {
 	// スプライト生成
-	spBlockSpr_ = Sprite2D::Create({}, { pBlockTex });
+	spBlockSpr_ = Sprite2D::Create({ { "Texture0", pBlockTex } });
 
 	// 左上
 	sLeftTop_ = {};
@@ -62,12 +62,12 @@ void InfectionBlocks::Initialize()
 
 			blocks_[y][x]->transform_.reset(new Transform());
 			blocks_[y][x]->obj_.reset(new Object());
-			blocks_[y][x]->cbTransform_.reset(ConstBufferSet<CBSprite2DTransform::CBData>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbTransform_->ConstBufferPtr());
-			blocks_[y][x]->cbColor_.reset(ConstBufferSet<CBColor::CBData>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbColor_->ConstBufferPtr());
-			blocks_[y][x]->cbTexConfig_.reset(ConstBufferSet<CBTexConfig::CBData>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbTexConfig_->ConstBufferPtr());
+			blocks_[y][x]->cbTransform_.reset(ConstBuffer<CBSprite2DTransform::CBData>::Create(false));
+			blocks_[y][x]->obj_->InsertConstBuffer(CBSprite2DTransform::KeyName(), blocks_[y][x]->cbTransform_.get());
+			blocks_[y][x]->cbColor_.reset(ConstBuffer<CBColor::CBData>::Create(false));
+			blocks_[y][x]->obj_->InsertConstBuffer(CBColor::KeyName(), blocks_[y][x]->cbColor_.get());
+			blocks_[y][x]->cbTexConfig_.reset(ConstBuffer<CBTexConfig::CBData>::Create(false));
+			blocks_[y][x]->obj_->InsertConstBuffer(CBTexConfig::KeyName(), blocks_[y][x]->cbTexConfig_.get());
 			
 			blocks_[y][x]->obj_->SetGraphic(spBlockSpr_);
 

@@ -54,7 +54,7 @@ void Sprite3D::AllClear()
 	sSprites_.clear();
 }
 
-void Sprite3D::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) const
+void Sprite3D::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices)
 {
 	// •`‰æ‚µ‚È‚¢‚È‚ç’e‚­
 	if (isVisible_ == false) { return; }

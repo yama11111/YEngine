@@ -209,7 +209,7 @@ void PlayScene::Update()
 	pCharacterMan_->DrawDebugText();
 	
 	// ƒŠƒZƒbƒg
-	if (sKeys_->IsTrigger(DIK_R) || sPad_->IsTrigger(PadButton::XIP_MENU))
+	if (spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_MENU))
 	{
 		SceneManager::GetInstance()->Change("PLAY");
 	}

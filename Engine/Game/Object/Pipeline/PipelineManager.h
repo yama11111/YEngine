@@ -1,5 +1,6 @@
 #pragma once
 #include "Pipeline.h"
+#include "PostEffect.h"
 
 namespace YGame
 {
@@ -29,18 +30,29 @@ namespace YGame
 		void Insert(const std::string& key, Pipeline* pipeline);
 
 		/// <summary>
+		/// パイプラインの描画順
+		/// </summary>
+		/// <param name="pipelineKeys">パイプラインキーvector配列</param>
+		void SetDrawOrder(const std::vector<std::string> pipelineKeys);
+
+		/// <summary>
 		/// 描画情報をキューに積む
 		/// </summary>
 		/// <param name="key"> : キー (パイプライン名)</param>
 		/// <param name="priority"> : 優先度</param>
 		/// <param name="pObj"> : オブジェクトポインタ</param>
 		void EnqueueDrawSet(const std::string& key, const uint32_t priority, Object* pObj);
-
+		
 		/// <summary>
-		/// 指定したパイプラインを描画
+		/// ポストエフェクトに書き込む
 		/// </summary>
-		/// <param name="key"> : キー</param>
-		void Draw(const std::string& key);
+		/// <param name="pPostEffect"> : ポストエフェクトポインタvector配列</param>
+		void RenderToPostEffect(std::vector<PostEffect*> pPostEffects);
+		
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw();
 
 	private:
 
@@ -48,6 +60,9 @@ namespace YGame
 		std::unordered_map<
 			std::string,
 			std::unique_ptr<Pipeline>> pipelines_;
+
+		// 描画順
+		std::vector<std::string> drawOrder_;
 
 	private:
 
