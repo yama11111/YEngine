@@ -39,7 +39,7 @@ bool MyGame::Initialize()
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
 
 	// シーンエグゼクティブ初期化
-	sceneExe_->Initialize(YGameSceneFactory::Task_, YGameTransitionFactory::Blackout_);
+	sceneExe_->Initialize(YGameSceneFactory::Play_, YGameTransitionFactory::Blackout_);
 
 	return true;
 }
@@ -102,11 +102,11 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{ 
-					CBModelTransform::KeyName(),
-					CBColor::KeyName(),
-					CBMaterial::KeyName(),
-					CBLightGroup::KeyName(),
-					CBTexConfig::KeyName(),
+					CBModelTransform::TypeName(),
+					CBColor::TypeName(),
+					CBMaterial::TypeName(),
+					CBLightGroup::TypeName(),
+					CBTexConfig::TypeName(),
 				},
 				{ 
 					"Texture" ,
@@ -129,11 +129,11 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBModelTransform::KeyName(),
-					CBColor::KeyName(),
-					CBMaterial::KeyName(),
-					CBLightGroup::KeyName(),
-					CBTexConfig::KeyName(),
+					CBModelTransform::TypeName(),
+					CBColor::TypeName(),
+					CBMaterial::TypeName(),
+					CBLightGroup::TypeName(),
+					CBTexConfig::TypeName(),
 				},
 				{
 					"Texture",
@@ -156,11 +156,11 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBModelTransform::KeyName(),
-					CBColor::KeyName(),
-					CBMaterial::KeyName(),
-					CBLightGroup::KeyName(),
-					CBTexConfig::KeyName(),
+					CBModelTransform::TypeName(),
+					CBColor::TypeName(),
+					CBMaterial::TypeName(),
+					CBLightGroup::TypeName(),
+					CBTexConfig::TypeName(),
 				},
 				{
 					"Texture",
@@ -170,58 +170,6 @@ void MyGame::InitializePipelines()
 			);
 
 		pipelineMan_->Insert("ModelToon", newPipeline);
-	}
-
-	// ModelDissolve
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("DissolveVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("DissolvePS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		PipelineSetting setting = Model::GetPipelineSetting();
-		setting.cullMode = D3D12_CULL_MODE_BACK;
-
-		Pipeline* newPipelineFront =
-			Pipeline::Create(
-				shader,
-				{
-					CBModelTransform::KeyName(),
-					CBTime::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture",
-					"Mask",
-				},
-				2, setting,
-				Pipeline::BlendState::Alpha, 2
-				);
-		
-		pipelineMan_->Insert("ModelDissolveFront", newPipelineFront);
-		
-		setting.cullMode = D3D12_CULL_MODE_FRONT;
-
-		Pipeline* newPipelineBack =
-			Pipeline::Create(
-				shader,
-				{
-					CBModelTransform::KeyName(),
-					CBTime::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture",
-					"Mask",
-				},
-				2, setting,
-				Pipeline::BlendState::Alpha, 2
-				);
-
-		pipelineMan_->Insert("ModelDissolveBack", newPipelineBack);
-
 	}
 
 	
@@ -236,9 +184,9 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBSprite2DTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
+					CBSprite2DTransform::TypeName(),
+					CBColor::TypeName(),
+					CBTexConfig::TypeName(),
 				},
 				{
 					"Texture0",
@@ -250,33 +198,6 @@ void MyGame::InitializePipelines()
 		pipelineMan_->Insert("Sprite2DDefault", newPipeline);
 	}
 
-
-	// Sprite2DTextureBlend
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("Sprite2DVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("TextureBlendPS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		Pipeline* newPipeline =
-			Pipeline::Create(
-				shader,
-				{
-					CBSprite2DTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture0",
-					"Texture1",
-					"Mask",
-				},
-				3, Sprite2D::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 1
-				);
-
-		pipelineMan_->Insert("Sprite2DTextureBlend", newPipeline);
-	}
 	
 	// Sprite3DDefault
 	{
@@ -290,9 +211,9 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBSprite3DTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
+					CBSprite3DTransform::TypeName(),
+					CBColor::TypeName(),
+					CBTexConfig::TypeName(),
 				},
 				{
 					"Texture",
@@ -316,9 +237,9 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBPostEffectTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
+					CBPostEffectTransform::TypeName(),
+					CBColor::TypeName(),
+					CBTexConfig::TypeName(),
 				},
 				{
 					"Texture0",
@@ -331,110 +252,6 @@ void MyGame::InitializePipelines()
 		pipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
 
-	// PostEffectColorInversion
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("ColorInversionPS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		Pipeline* newPipeline =
-			Pipeline::Create(
-				shader,
-				{
-					CBPostEffectTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture0",
-					"Texture1",
-				},
-				2, PostEffect::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 1
-			);
-
-		pipelineMan_->Insert("PostEffectColorInversion", newPipeline);
-	}
-
-	// PostEffectGaussianBlur
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("GaussianBlurPS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		Pipeline* newPipeline =
-			Pipeline::Create(
-				shader,
-				{
-					CBPostEffectTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture0",
-					"Texture1",
-				},
-				2, PostEffect::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 1
-			);
-
-		pipelineMan_->Insert("PostEffectGaussianBlur", newPipeline);
-	}
-
-	// PostEffectUVShiftBlur
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("UVShiftBlurPS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		Pipeline* newPipeline =
-			Pipeline::Create(
-				shader,
-				{
-					CBPostEffectTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture0",
-					"Texture1",
-				},
-				2, PostEffect::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 1
-			);
-
-		pipelineMan_->Insert("PostEffectUVShiftBlur", newPipeline);
-	}
-
-	// PostEffectBloom
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("BloomPS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		Pipeline* newPipeline =
-			Pipeline::Create(
-				shader,
-				{
-					CBPostEffectTransform::KeyName(),
-					CBColor::KeyName(),
-					CBTexConfig::KeyName(),
-				},
-				{
-					"Texture0",
-					"Texture1",
-				},
-				2, PostEffect::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 1
-			);
-
-		pipelineMan_->Insert("PostEffectBloom", newPipeline);
-	}
-
 
 	// 描画順を設定
 	pipelineMan_->SetDrawOrder(
@@ -443,19 +260,11 @@ void MyGame::InitializePipelines()
 			"ModelPhong", 
 			"ModelToon", 
 			
-			"ModelDissolveBack",
-			"ModelDissolveFront",
-			
 			"Sprite3DDefault", 
 			
 			"Sprite2DDefault", 
-			"Sprite2DTextureBlend", 
 			
 			"PostEffectDefault", 
-			"PostEffectColorInversion", 
-			"PostEffectGaussianBlur", 
-			"PostEffectUVShiftBlur", 
-			"PostEffectBloom", 
 		}
 	);
 }

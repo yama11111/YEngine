@@ -43,3 +43,9 @@ void BaseConstBuffer::CreateBuffer(const bool isMutable)
 	viewDesc_.SizeInBytes = static_cast<UINT>(resDesc.Width);
 	spDescHeap_->CreateCBV(viewDesc_, isMutable);
 }
+
+void BaseConstBuffer::SetDrawCommand(const uint32_t rootParamIndex)
+{
+	// 定数バッファビュー設定コマンド
+	spCmdList_->SetGraphicsRootConstantBufferView(static_cast<UINT>(rootParamIndex), viewDesc_.BufferLocation);
+}

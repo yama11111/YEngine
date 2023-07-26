@@ -62,12 +62,12 @@ void InfectionBlocks::Initialize()
 
 			blocks_[y][x]->transform_.reset(new Transform());
 			blocks_[y][x]->obj_.reset(new Object());
-			blocks_[y][x]->cbTransform_.reset(ConstBuffer<CBSprite2DTransform::CBData>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(CBSprite2DTransform::KeyName(), blocks_[y][x]->cbTransform_.get());
-			blocks_[y][x]->cbColor_.reset(ConstBuffer<CBColor::CBData>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(CBColor::KeyName(), blocks_[y][x]->cbColor_.get());
-			blocks_[y][x]->cbTexConfig_.reset(ConstBuffer<CBTexConfig::CBData>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(CBTexConfig::KeyName(), blocks_[y][x]->cbTexConfig_.get());
+			blocks_[y][x]->cbTransform_.reset(ConstBuffer<CBSprite2DTransform>::Create(false));
+			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbTransform_.get());
+			blocks_[y][x]->cbColor_.reset(ConstBuffer<CBColor>::Create(false));
+			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbColor_.get());
+			blocks_[y][x]->cbTexConfig_.reset(ConstBuffer<CBTexConfig>::Create(false));
+			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbTexConfig_.get());
 			
 			blocks_[y][x]->obj_->SetGraphic(spBlockSpr_);
 

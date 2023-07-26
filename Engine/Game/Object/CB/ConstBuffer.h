@@ -4,7 +4,7 @@
 namespace YGame
 {
 	// 定数バッファ
-	template <typename CBData>
+	template <typename CBType>
 	class ConstBuffer final : 
 		public YDX::BaseConstBuffer
 	{
@@ -12,7 +12,7 @@ namespace YGame
 	public:
 
 		// 定数バッファデータ
-		CBData data_{};
+		CBType::Data data_{};
 	
 	public:
 
@@ -25,9 +25,9 @@ namespace YGame
 		/// <summary>
 		/// 生成
 		/// </summary>
-		/// <param name="data">定数バッファデータ</param>
+		/// <param name="type">定数バッファタイプ</param>
 		/// <returns>動的インスタンス</returns>
-		static ConstBuffer* Create(const CBData& data, const bool isMutable = true);
+		static ConstBuffer* Create(const CBType& type, const bool isMutable = true);
 
 	public:
 
@@ -37,6 +37,12 @@ namespace YGame
 		/// <param name="rootParamIndex"> : ルートパラメータ番号</param>
 		void SetDrawCommand(const uint32_t rootParamIndex) override;
 
+		/// <summary>
+		/// 定数バッファタイプ名取得
+		/// </summary>
+		/// <returns>定数バッファタイプ名</returns>
+		std::string TypeName() override;
+
 	public:
 
 		virtual ~ConstBuffer() = default;
@@ -44,7 +50,7 @@ namespace YGame
 	private:
 
 		// マッピング用
-		CBData* map_ = nullptr;
+		CBType::Data* map_ = nullptr;
 
 	private:
 
@@ -66,8 +72,8 @@ namespace YGame
 
 	};
 
-	template<typename CBData>
-	inline ConstBuffer<CBData>* ConstBuffer<CBData>::Create(const bool isMutable)
+	template<typename CBType>
+	inline ConstBuffer<CBType>* ConstBuffer<CBType>::Create(const bool isMutable)
 	{
 		ConstBuffer* newConstBuffer = new ConstBuffer();
 
@@ -78,8 +84,8 @@ namespace YGame
 		return newConstBuffer;
 	}
 
-	template<typename CBData>
-	ConstBuffer<CBData>* ConstBuffer<CBData>::Create(const CBData& data, const bool isMutable)
+	template<typename CBType>
+	ConstBuffer<CBType>* ConstBuffer<CBType>::Create(const CBType& data, const bool isMutable)
 	{
 		ConstBuffer* newConstBuffer = new ConstBuffer();
 
@@ -90,24 +96,29 @@ namespace YGame
 		return newConstBuffer;
 	}
 
-	template<typename CBData>
-	void ConstBuffer<CBData>::SetDrawCommand(const uint32_t rootParamIndex) 
+	template<typename CBType>
+	void ConstBuffer<CBType>::SetDrawCommand(const uint32_t rootParamIndex) 
 	{
 		// 値を更新
 		*map_ = data_;
 
-		// 定数バッファビュー設定コマンド
-		spCmdList_->SetGraphicsRootConstantBufferView(static_cast<UINT>(rootParamIndex), viewDesc_.BufferLocation);
+		BaseConstBuffer::SetDrawCommand(rootParamIndex);
 	}
 
-	template<typename CBData>
-	size_t ConstBuffer<CBData>::SizeOfCBData()
+	template<typename CBType>
+	inline std::string ConstBuffer<CBType>::TypeName()
 	{
-		return sizeof(CBData);
+		return CBType::TypeName();
 	}
 
-	template<typename CBData>
-	void** ConstBuffer<CBData>::MapDataPtrPtr()
+	template<typename CBType>
+	size_t ConstBuffer<CBType>::SizeOfCBData()
+	{
+		return sizeof(CBType::Data);
+	}
+
+	template<typename CBType>
+	void** ConstBuffer<CBType>::MapDataPtrPtr()
 	{
 		return (void**)&map_;
 	}

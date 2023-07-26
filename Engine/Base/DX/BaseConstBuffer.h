@@ -2,6 +2,7 @@
 #include "DescriptorHeap.h"
 #include "GPUResource.h"
 #include <cstdint>
+#include <string>
 
 namespace YDX
 {
@@ -36,7 +37,13 @@ namespace YDX
 		/// 描画前コマンド
 		/// </summary>
 		/// <param name="rootParamIndex"> : ルートパラメータ番号</param>
-		virtual void SetDrawCommand(const uint32_t rootParamIndex) = 0;
+		virtual void SetDrawCommand(const uint32_t rootParamIndex);
+
+		/// <summary>
+		/// 定数バッファタイプ名取得
+		/// </summary>
+		/// <returns>定数バッファタイプ名</returns>
+		virtual std::string TypeName() = 0;
 
 	public:
 

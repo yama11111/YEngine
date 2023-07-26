@@ -7,7 +7,7 @@ using YGame::BaseGraphic;
 
 void Object::Clear()
 {
-	pCBuffs_.clear();
+	cbPtrMap_.clear();
 
 	pGraphic_ = nullptr;
 }
@@ -15,12 +15,12 @@ void Object::Clear()
 BaseConstBuffer* Object::ConstBufferPtr(const std::string& key)
 {
 	// –³‚¢‚È‚ç null
-	if (pCBuffs_.find(key) == pCBuffs_.end())
+	if (cbPtrMap_.find(key) == cbPtrMap_.end())
 	{
 		return nullptr;
 	}
 
-	return pCBuffs_[key];
+	return cbPtrMap_[key];
 }
 
 BaseGraphic* Object::GraphicPtr() const
@@ -28,11 +28,11 @@ BaseGraphic* Object::GraphicPtr() const
 	return pGraphic_;
 }
 
-void Object::InsertConstBuffer(const std::string& key, BaseConstBuffer* pCBuff)
+void Object::InsertConstBuffer(BaseConstBuffer* pCBuff)
 {
 	assert(pCBuff);
 
-	pCBuffs_.insert({ key, pCBuff});
+	cbPtrMap_.insert({ pCBuff->TypeName(), pCBuff});
 }
 
 void Object::SetGraphic(BaseGraphic* pGraphic)

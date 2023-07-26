@@ -112,12 +112,6 @@
     <Filter Include="Engine\Game\Object\ConstBuffer">
       <UniqueIdentifier>{70eb5f18-11ea-4e15-86c8-77dcc1c14d38}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Game\Object\ConstBuffer\Data">
-      <UniqueIdentifier>{f785bb41-839f-4233-85cf-9929c3570b82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\ConstBuffer\Data\Light">
-      <UniqueIdentifier>{5b70f341-d8f5-4135-afd2-639377aaf4e6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Game\Object\Graphic">
       <UniqueIdentifier>{0074f450-29b7-48a8-97ff-33cd0dfe05f0}</UniqueIdentifier>
     </Filter>
@@ -177,6 +171,12 @@
     </Filter>
     <Filter Include="Application\Scene\Transition">
       <UniqueIdentifier>{0c2cfd96-bab2-4c1d-9711-4e70706ef3fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Object\ConstBuffer\Type">
+      <UniqueIdentifier>{f785bb41-839f-4233-85cf-9929c3570b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Object\ConstBuffer\Type\Light">
+      <UniqueIdentifier>{5b70f341-d8f5-4135-afd2-639377aaf4e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -471,17 +471,11 @@
     <ClCompile Include="Engine\Game\Texture.cpp">
       <Filter>Engine\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Scene\TaskScene.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Base\DX\BaseConstBuffer.cpp">
       <Filter>Engine\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Floor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Smoke.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="DefaultConstBuffer.cpp">
+      <Filter>Engine\Game\Object\ConstBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -753,37 +747,37 @@
       <Filter>Engine\Base</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBModelTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBSprite2DTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBSprite3DTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBPostEffectTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBColor.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBMaterial.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBTexConfig.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBPointLight.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data\Light</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBDirectionalLight.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data\Light</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBSpotLight.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data\Light</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBLightGroup.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data\Light</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\Vertices.h">
       <Filter>Engine\Base</Filter>
@@ -836,23 +830,17 @@
     <ClInclude Include="Engine\Game\Texture.h">
       <Filter>Engine\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Scene\TaskScene.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\ConstBuffer.h">
       <Filter>Engine\Game\Object\ConstBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\BaseConstBuffer.h">
       <Filter>Engine\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Object\CB\CBTime.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Data</Filter>
+      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
     </ClInclude>
-    <ClInclude Include="Smoke.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Engine\Game\Object\CB\DefaultConstBuffer.h">
+      <Filter>Engine\Game\Object\ConstBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

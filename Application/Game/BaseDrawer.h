@@ -115,19 +115,19 @@ namespace YGame
 		std::unique_ptr<Object> obj_;
 
 		// モデル用トランスフォーム定数バッファ
-		std::unique_ptr<ConstBuffer<CBModelTransform::CBData>> cbTransform_;
+		std::unique_ptr<ConstBuffer<CBModelTransform>> cbTransform_;
 		
 		// 色定数バッファ
-		std::unique_ptr<ConstBuffer<CBColor::CBData>> cbColor_;
+		std::unique_ptr<ConstBuffer<CBColor>> cbColor_;
 
 		// マテリアル定数バッファ
-		std::unique_ptr<ConstBuffer<CBMaterial::CBData>> cbMaterial_;
+		std::unique_ptr<ConstBuffer<CBMaterial>> cbMaterial_;
 
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBuffer<CBLightGroup::CBData>> cbLightGroup_;
+		std::unique_ptr<ConstBuffer<CBLightGroup>> cbLightGroup_;
 		
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBuffer<CBTexConfig::CBData>> cbTexConfig_;
+		std::unique_ptr<ConstBuffer<CBTexConfig>> cbTexConfig_;
 
 		// 描画位置
 		uint32_t drawPriority_ = 0;

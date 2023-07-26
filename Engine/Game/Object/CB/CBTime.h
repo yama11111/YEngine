@@ -10,7 +10,7 @@ namespace YGame
 	public:
 
 		// 定数バッファデータ構造体
-		struct CBData
+		struct Data
 		{
 			// 時間
 			float time = 0.0f;
@@ -28,7 +28,7 @@ namespace YGame
 		/// キーの名前取得
 		/// </summary>
 		/// <returns>キーの名前</returns>
-		static const std::string KeyName()
+		static const std::string TypeName()
 		{
 			return "CBTime";
 		}

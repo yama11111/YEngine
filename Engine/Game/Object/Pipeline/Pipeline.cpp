@@ -1,5 +1,6 @@
 #include "Pipeline.h"
 #include "YAssert.h"
+#include "DefaultConstBuffer.h"
 
 using YGame::Pipeline;
 using YDX::BaseConstBuffer;
@@ -37,7 +38,11 @@ void Pipeline::Draw()
 		{
 			BaseConstBuffer* pCB = pObj->ConstBufferPtr(itr->first);
 			
-			assert(pCB);
+			// 無ければデフォルト値
+			if (pCB == nullptr)
+			{
+				pCB = DefaultConstBuffer::Ptr(itr->first);
+			}
 			
 			pCB->SetDrawCommand(static_cast<UINT>(itr->second));
 		}

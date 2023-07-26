@@ -139,7 +139,7 @@
     <ClCompile Include="Application\Game\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\GameCollider.cpp" />
-    <ClCompile Include="Application\Scene\TaskScene.cpp" />
+    <ClCompile Include="DefaultConstBuffer.cpp" />
     <ClCompile Include="Engine\Base\DX\BaseConstBuffer.cpp" />
     <ClCompile Include="Engine\Game\Level\Level.cpp" />
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp" />
@@ -210,8 +210,6 @@
     <ClCompile Include="Engine\Game\Object\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Engine\Game\Object\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\Game\Object\Pipeline\ShaderSet.cpp" />
-    <ClCompile Include="Floor.cpp" />
-    <ClCompile Include="Smoke.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
@@ -244,7 +242,6 @@
     <ClInclude Include="Application\Game\SnortAttack.h" />
     <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\GameCollider.h" />
-    <ClInclude Include="Application\Scene\TaskScene.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBTime.h" />
     <ClInclude Include="Engine\Game\Object\CB\ConstBuffer.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBColor.h" />
@@ -258,6 +255,7 @@
     <ClInclude Include="Engine\Game\Object\CB\CBSprite3DTransform.h" />
     <ClInclude Include="Engine\Game\Object\CB\CBTexConfig.h" />
     <ClInclude Include="Engine\Base\DX\BaseConstBuffer.h" />
+    <ClInclude Include="Engine\Game\Object\CB\DefaultConstBuffer.h" />
     <ClInclude Include="Engine\Game\Object\Graphic\BaseGraphic.h" />
     <ClInclude Include="Engine\Game\Level\Level.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h" />
@@ -335,8 +333,6 @@
     <ClInclude Include="Engine\Game\Object\Pipeline\Pipeline.h" />
     <ClInclude Include="Engine\Game\Object\Pipeline\PipelineManager.h" />
     <ClInclude Include="Engine\Game\Object\Pipeline\ShaderSet.h" />
-    <ClInclude Include="Floor.h" />
-    <ClInclude Include="Smoke.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Dissolve.hlsli" />

@@ -24,7 +24,7 @@ namespace YGame
 	public:
 
 		// 定数バッファデータ構造体
-		struct CBData
+		struct Data
 		{
 			// 環境光の色
 			YMath::Vector3 ambientColor;
@@ -32,13 +32,13 @@ namespace YGame
 			float pad;
 			
 			// 平行光源
-			std::array<CBDirectionalLight::CBData, DireLightNum_> direLights;
+			std::array<CBDirectionalLight::Data, DireLightNum_> direLights;
 			
 			// 点光源
-			std::array<CBPointLight::CBData, PointLightNum_> pointLights;
+			std::array<CBPointLight::Data, PointLightNum_> pointLights;
 			
 			// スポットライト光源
-			//std::array<CBSpotLight::CBData, SpotLightNum_> spotLights;
+			//std::array<CBSpotLight::Data, SpotLightNum_> spotLights;
 		};
 
 	public:
@@ -47,7 +47,7 @@ namespace YGame
 		/// キーの名前取得
 		/// </summary>
 		/// <returns>キーの名前</returns>
-		static const std::string KeyName()
+		static const std::string TypeName()
 		{
 			return "CBLightGroup";
 		}

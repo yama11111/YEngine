@@ -35,12 +35,12 @@ void Blackout::Initialize()
 	// èâä˙âª
 	transform_.reset(new Transform());
 	obj_.reset(new Object());
-	cbTransform_.reset(ConstBuffer<CBSprite2DTransform::CBData>::Create(false));
-	obj_->InsertConstBuffer(CBSprite2DTransform::KeyName(), cbTransform_.get());
-	cbColor_.reset(ConstBuffer<CBColor::CBData>::Create(false));
-	obj_->InsertConstBuffer(CBColor::KeyName(), cbColor_.get());
-	cbTexConfig_.reset(ConstBuffer<CBTexConfig::CBData>::Create(false));
-	obj_->InsertConstBuffer(CBTexConfig::KeyName(), cbTexConfig_.get());
+	cbTransform_.reset(ConstBuffer<CBSprite2DTransform>::Create(false));
+	obj_->InsertConstBuffer(cbTransform_.get());
+	cbColor_.reset(ConstBuffer<CBColor>::Create(false));
+	obj_->InsertConstBuffer(cbColor_.get());
+	cbTexConfig_.reset(ConstBuffer<CBTexConfig>::Create(false));
+	obj_->InsertConstBuffer(cbTexConfig_.get());
 
 	obj_->SetGraphic(spCurtenSpr_);
 

@@ -31,9 +31,9 @@ namespace YScene
 		{
 			std::unique_ptr<YGame::Transform> transform_; // トランスフォーム
 			std::unique_ptr<YGame::Object> obj_; // オブジェクト
-			std::unique_ptr<YGame::ConstBuffer<YGame::CBSprite2DTransform::CBData>> cbTransform_; // トランスフォーム定数バッファ
-			std::unique_ptr<YGame::ConstBuffer<YGame::CBColor::CBData>> cbColor_; // 色定数バッファ
-			std::unique_ptr<YGame::ConstBuffer<YGame::CBTexConfig::CBData>> cbTexConfig_; // テクスチャ設定定数バッファ
+			std::unique_ptr<YGame::ConstBuffer<YGame::CBSprite2DTransform>> cbTransform_; // トランスフォーム定数バッファ
+			std::unique_ptr<YGame::ConstBuffer<YGame::CBColor>> cbColor_; // 色定数バッファ
+			std::unique_ptr<YGame::ConstBuffer<YGame::CBTexConfig>> cbTexConfig_; // テクスチャ設定定数バッファ
 			YMath::Timer actTim_; // 動作タイマー
 			YMath::Timer colorStartTim_; // 色タイマー (始)
 			YMath::Timer colorEndTim_; // 色タイマー (終)

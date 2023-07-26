@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "BaseConstBuffer.h"
+#include "DefaultConstBuffer.h"
 #include "PipelineManager.h"
 
 #pragma region 名前空間宣言
@@ -55,6 +56,7 @@ bool YFramework::Initialize()
 
 	// 定数バッファ静的初期化
 	ConstBufferCommon::StaticInitialize(pCmdList, &descHeap_);
+	DefaultConstBuffer::StaticInitialize();
 
 	// テクスチャ静的初期化
 	Texture::Common::StaticInitialize(pDev, pCmdList, &descHeap_);
