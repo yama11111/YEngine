@@ -4,13 +4,13 @@
 #include "Blackout.h"
 #include "InfectionBlocks.h"
 
-using YScene::YGameTransitionFactory;
-using YScene::BaseTransition;
+using YGame::YGameTransitionFactory;
+using YGame::BaseTransition;
 
 const std::string YGameTransitionFactory::Blackout_			 = "BLACKOUT";
 const std::string YGameTransitionFactory::InfectionBlocks_	 = "INFECTION";
 
-BaseTransition* YScene::YGameTransitionFactory::CreateTransition(const std::string& transitionName)
+BaseTransition* YGame::YGameTransitionFactory::CreateTransition(const std::string& transitionName)
 {
 	// Ÿ‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğ¶¬
 	BaseTransition* newTransition = nullptr;

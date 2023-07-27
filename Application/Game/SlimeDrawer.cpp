@@ -7,13 +7,13 @@ using YMath::Vector3;
 
 Model* SlimeDrawer::spModel_ = nullptr;
 
-void SlimeDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
+void SlimeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	obj_->SetGraphic(spModel_);
+	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
 
@@ -109,12 +109,12 @@ void SlimeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 	animationBitFlag_ |= index;
 }
 
-SlimeDrawer::SlimeDrawer(const uint32_t drawPriority)
+SlimeDrawer::SlimeDrawer(const uint16_t drawPriority)
 {
 	Initialize(nullptr, drawPriority);
 }
 
-SlimeDrawer::SlimeDrawer(Transform* pParent, const uint32_t drawPriority)
+SlimeDrawer::SlimeDrawer(Transform* pParent, const uint16_t drawPriority)
 {
 	Initialize(pParent, drawPriority);
 }

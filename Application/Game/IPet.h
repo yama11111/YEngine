@@ -1,11 +1,11 @@
 #pragma once
-#include "ICharacter.h"
+#include "BaseCharacter.h"
 #include "ScrollCamera.h"
 
 namespace YGame
 {
 	class IPet :
-		public ICharacter
+		public BaseCharacter
 	{
 
 	public:

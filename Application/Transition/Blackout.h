@@ -1,13 +1,13 @@
 #pragma once
 #include "BaseTransition.h"
-#include "Object.h"
-#include "ConstBuffer.h"
+#include "DrawObjectForSprite2D.h"
+#include "ConstBufferObject.h"
 #include "CBSprite2DTransform.h"
 #include "CBColor.h"
 #include "CBTexConfig.h"
 #include "Sprite2D.h"
 
-namespace YScene
+namespace YGame
 {
 	// 暗転
 	class Blackout : public BaseTransition
@@ -25,20 +25,11 @@ namespace YScene
 	
 	private:
 		
-		// トランスフォーム
-		std::unique_ptr<YGame::Transform> transform_;
-		
 		// オブジェクト
-		std::unique_ptr<YGame::Object> obj_;
-		
-		// トランスフォーム定数バッファ
-		std::unique_ptr<YGame::ConstBuffer<YGame::CBSprite2DTransform>> cbTransform_;
+		std::unique_ptr<YGame::DrawObjectForSprite2D> obj_;
 		
 		// 色定数バッファ
-		std::unique_ptr<YGame::ConstBuffer<YGame::CBColor>> cbColor_;
-		
-		// テクスチャ設定定数バッファ
-		std::unique_ptr<YGame::ConstBuffer<YGame::CBTexConfig>> cbTexConfig_;
+		std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_;
 
 		// 段階
 		Step step_ = Step::Dark;

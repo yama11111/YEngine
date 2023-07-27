@@ -1,5 +1,5 @@
 #pragma once
-#include "ICharacter.h"
+#include "BaseCharacter.h"
 #include <queue>
 
 namespace YGame
@@ -40,7 +40,7 @@ namespace YGame
 		/// 挿入
 		/// </summary>
 		/// <param name="character"> : キャラクター (動的)</param>
-		void PushBack(ICharacter* character);
+		void PushBack(BaseCharacter* character);
 
 	public:
 
@@ -73,18 +73,18 @@ namespace YGame
 		/// </summary>
 		/// <param name="pCharacterA"> : キャラA</param>
 		/// <param name="pCharacterB"> : キャラB</param>
-		static void CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB);
+		static void CheckCollisionCharacterPair(BaseCharacter* pCharacterA, BaseCharacter* pCharacterB);
 
 	private:
 
 		// オブジェクトリスト
-		std::list<std::unique_ptr<ICharacter>> characters_;
+		std::list<std::unique_ptr<BaseCharacter>> characters_;
 
 	public:
 
 		struct CharaUpdateStatus
 		{
-			ICharacter* pChara_ = nullptr;
+			BaseCharacter* pChara_ = nullptr;
 
 			uint16_t priority_ = 0;
 		};

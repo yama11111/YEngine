@@ -5,15 +5,7 @@
 #include "Def.h"
 #include <cassert>
 
-using YScene::InfectionBlocks;
-using YGame::PipelineManager;
-using YGame::Transform;
-using YGame::Object;
-using YGame::Sprite2D;
-using YGame::ConstBuffer;
-using YGame::CBSprite2DTransform;
-using YGame::CBColor;
-using YGame::CBTexConfig;
+using YGame::InfectionBlocks;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Clamp;
@@ -24,7 +16,7 @@ YMath::Vector2 InfectionBlocks::sNum_;
 YMath::Vector2 InfectionBlocks::sAnchor_;
 float InfectionBlocks::sSize_ = 0.0f;
 
-void InfectionBlocks::StaticInitialize(YGame::Texture* pBlockTex)
+void InfectionBlocks::StaticInitialize(Texture* pBlockTex)
 {
 	// スプライト生成
 	spBlockSpr_ = Sprite2D::Create({ { "Texture0", pBlockTex } });
@@ -60,23 +52,16 @@ void InfectionBlocks::Initialize()
 			// ブロック生成 + 初期化
 			blocks_[y][x].reset(new Block());
 
-			blocks_[y][x]->transform_.reset(new Transform());
-			blocks_[y][x]->obj_.reset(new Object());
-			blocks_[y][x]->cbTransform_.reset(ConstBuffer<CBSprite2DTransform>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbTransform_.get());
-			blocks_[y][x]->cbColor_.reset(ConstBuffer<CBColor>::Create(false));
+			blocks_[y][x]->obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spBlockSpr_, false));
+			blocks_[y][x]->cbColor_.reset(ConstBufferObject<CBColor>::Create(false));
 			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbColor_.get());
-			blocks_[y][x]->cbTexConfig_.reset(ConstBuffer<CBTexConfig>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbTexConfig_.get());
 			
-			blocks_[y][x]->obj_->SetGraphic(spBlockSpr_);
-
 			// 2ブロック間の距離
 			Vector2 dist = { sSize_ * x, sSize_ * y };
 			// 位置
 			Vector2 p = sLeftTop_ + dist;
 			// 代入
-			blocks_[y][x]->transform_->pos_ = { p.x_, p.y_, 0.0f };
+			blocks_[y][x]->obj_->transform_.pos_ = { p.x_, p.y_, 0.0f };
 		}
 	}
 
@@ -112,8 +97,8 @@ void InfectionBlocks::Reset()
 	{
 		for (size_t x = 0; x < blocks_[y].size(); x++)
 		{
-			blocks_[y][x]->transform_->rota_ = {};
-			blocks_[y][x]->transform_->scale_ = {};
+			blocks_[y][x]->obj_->transform_.rota_ = {};
+			blocks_[y][x]->obj_->transform_.scale_ = {};
 			blocks_[y][x]->actTim_.Reset(false);
 			blocks_[y][x]->colorStartTim_.Reset(false);
 			blocks_[y][x]->colorEndTim_.Reset(false);
@@ -347,12 +332,10 @@ void InfectionBlocks::UpdateBlock()
 			if (stepIndex_ == 1) { r = rotaEas_[1].In(blocks_[y][x]->actTim_.Ratio()); }
 
 			// オブジェクトに代入 + 更新
-			blocks_[y][x]->transform_->scale_ = { s, s, 0.0f };
-			blocks_[y][x]->transform_->rota_.z_ = r;
+			blocks_[y][x]->obj_->transform_.scale_ = { s, s, 0.0f };
+			blocks_[y][x]->obj_->transform_.rota_.z_ = r;
 
-			blocks_[y][x]->transform_->UpdateMatrix();
-
-			blocks_[y][x]->cbTransform_->data_.matWorld = blocks_[y][x]->transform_->m_ * YMath::MatOrthoGraphic();
+			blocks_[y][x]->obj_->Update();
 
 			// 色 (青)
 			float blue = 0.0f;
@@ -382,7 +365,7 @@ void InfectionBlocks::Draw()
 	{
 		for (size_t x = 0; x < blocks_[y].size(); x++)
 		{
-			PipelineManager::GetInstance()->EnqueueDrawSet("Sprite2DDefault", 2, blocks_[y][x]->obj_.get());
+			blocks_[y][x]->obj_->Draw("Sprite2DDefault", 2);
 		}
 	}
 }

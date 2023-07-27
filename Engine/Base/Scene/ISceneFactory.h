@@ -2,7 +2,7 @@
 #include "BaseScene.h"
 #include <string>
 
-namespace YScene
+namespace YGame
 { 
 	// 抽象シーンファクトリー
 	class ISceneFactory

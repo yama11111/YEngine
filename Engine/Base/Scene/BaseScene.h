@@ -10,7 +10,7 @@
 #include "Audio.h"
 #include <memory>
 
-namespace YScene
+namespace YGame
 {
 	// 基底シーンクラス
 	class BaseScene
@@ -63,7 +63,7 @@ namespace YScene
 		static YInput::Pad* spPad_;
 		
 		// パイプラインマネージャー
-		static YGame::PipelineManager* spPipelineMan_;
+		static PipelineManager* spPipelineMan_;
 	
 	public:
 		

@@ -6,7 +6,7 @@ using YGame::IEnemy;
 void IEnemy::Update()
 {
 	// キャラクター更新
-	ICharacter::Update();
+	BaseCharacter::Update();
 }
 
 void IEnemy::Draw()

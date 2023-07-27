@@ -78,7 +78,7 @@ namespace YBase
 		ImGuiManager imguiMan_;
 		
 		// シーンエグゼクティブ
-		YScene::SceneExecutive* sceneExe_ = nullptr;
+		YGame::SceneExecutive* sceneExe_ = nullptr;
 		
 		// 終了フラグ
 		bool isEnd_ = false;

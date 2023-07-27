@@ -1,7 +1,7 @@
 #pragma once
 #include "ITransitionFactory.h"
 
-namespace YScene
+namespace YGame
 {
 	class TransitionManager
 	{

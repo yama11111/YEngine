@@ -1,7 +1,7 @@
 #pragma once
 #include "ISceneFactory.h"
 
-namespace YScene
+namespace YGame
 {
 	class YGameSceneFactory : public ISceneFactory
 	{

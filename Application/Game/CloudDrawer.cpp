@@ -5,7 +5,7 @@ using YGame::Model;
 
 Model* CloudDrawer::spModel_ = nullptr;
 
-void CloudDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
+void CloudDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
@@ -13,7 +13,7 @@ void CloudDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 	cbColor_->data_.baseColor.a_ = 0.4f;
 
 	// モデル挿入
-	obj_->SetGraphic(spModel_);
+	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
 }
@@ -35,12 +35,12 @@ void CloudDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-CloudDrawer::CloudDrawer(const uint32_t drawPriority)
+CloudDrawer::CloudDrawer(const uint16_t drawPriority)
 {
 	Initialize(nullptr, drawPriority);
 }
 
-CloudDrawer::CloudDrawer(Transform* pParent, const uint32_t drawPriority)
+CloudDrawer::CloudDrawer(Transform* pParent, const uint16_t drawPriority)
 {
 	Initialize(pParent, drawPriority);
 }
@@ -49,5 +49,5 @@ CloudDrawer::CloudDrawer(Transform* pParent, const uint32_t drawPriority)
 void CloudDrawer::StaticInitialize()
 {
 	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture", Texture::Load("white1x1.png")} });
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }

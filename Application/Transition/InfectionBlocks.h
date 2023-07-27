@@ -1,14 +1,14 @@
 #pragma once
 #include "BaseTransition.h"
-#include "Object.h"
-#include "ConstBuffer.h"
+#include "DrawObjectForSprite2D.h"
+#include "ConstBufferObject.h"
 #include "CBSprite2DTransform.h"
 #include "CBColor.h"
 #include "CBTexConfig.h"
 #include "Sprite2D.h"
 #include <array>
 
-namespace YScene
+namespace YGame
 {
 	// 画面を埋め尽くすブロック
 	class InfectionBlocks : public BaseTransition
@@ -29,11 +29,8 @@ namespace YScene
 		// ブロック
 		struct Block
 		{
-			std::unique_ptr<YGame::Transform> transform_; // トランスフォーム
-			std::unique_ptr<YGame::Object> obj_; // オブジェクト
-			std::unique_ptr<YGame::ConstBuffer<YGame::CBSprite2DTransform>> cbTransform_; // トランスフォーム定数バッファ
-			std::unique_ptr<YGame::ConstBuffer<YGame::CBColor>> cbColor_; // 色定数バッファ
-			std::unique_ptr<YGame::ConstBuffer<YGame::CBTexConfig>> cbTexConfig_; // テクスチャ設定定数バッファ
+			std::unique_ptr<YGame::DrawObjectForSprite2D> obj_; // オブジェクト
+			std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_; // 色定数バッファ
 			YMath::Timer actTim_; // 動作タイマー
 			YMath::Timer colorStartTim_; // 色タイマー (始)
 			YMath::Timer colorEndTim_; // 色タイマー (終)

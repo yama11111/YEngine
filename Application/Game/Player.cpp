@@ -23,7 +23,7 @@ YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
 
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
-	ICharacter::Initialize(
+	BaseCharacter::Initialize(
 		"Player",
 		status,
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
@@ -130,7 +130,7 @@ void Player::Update()
 		Jump();
 	}
 
-	ICharacter::Update();
+	BaseCharacter::Update();
 
 	// ’…’n‚µ‚Ä‚¢‚é‚È‚ç
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
@@ -189,7 +189,7 @@ void Player::OnCollision(const CollisionInfo& info)
 				);
 
 				spScrollCamera_->SetFollowPoint(nullptr);
-				YScene::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
+				YGame::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
 			}
 
 			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
@@ -214,7 +214,7 @@ void Player::OnCollision(const CollisionInfo& info)
 	}
 }
 
-YGame::ICharacter::CollisionInfo Player::GetCollisionInfo()
+YGame::BaseCharacter::CollisionInfo Player::GetCollisionInfo()
 {
 	CollisionInfo result;
 
@@ -290,14 +290,14 @@ void Player::Attack()
 
 void Player::OffScreenProcess()
 {
-	if (YScene::TransitionManager::GetInstance()->IsAct()) { return; }
+	if (YGame::TransitionManager::GetInstance()->IsAct()) { return; }
 
-	YScene::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
+	YGame::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
 }
 
 void Player::DrawDebugTextContent()
 {
-	ICharacter::DrawDebugTextContent();
+	BaseCharacter::DrawDebugTextContent();
 }
 
 void Player::StaticInitialize(ScrollCamera* pScrollCamera)

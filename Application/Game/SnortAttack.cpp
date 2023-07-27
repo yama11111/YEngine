@@ -17,7 +17,7 @@ void SnortAttack::Initialize(
 	const uint32_t attackPower)
 {
 	// ゲームキャラクター初期化
-	ICharacter::Initialize(
+	BaseCharacter::Initialize(
 		"SnortAttack",
 		Transform::Status::Default(),
 		acceleration, maxSpeed,
@@ -47,7 +47,7 @@ void SnortAttack::Update()
 	moveDirection_ = Vector3(+1.0f, 0.0f, 0.0f);
 
 	// キャラクター更新
-	ICharacter::Update();
+	BaseCharacter::Update();
 
 	aliveTimer_.Update();
 
@@ -68,7 +68,7 @@ void SnortAttack::OnCollision(const CollisionInfo& info)
 	}
 }
 
-YGame::ICharacter::CollisionInfo SnortAttack::GetCollisionInfo()
+YGame::BaseCharacter::CollisionInfo SnortAttack::GetCollisionInfo()
 {
 	CollisionInfo result;
 
@@ -83,5 +83,5 @@ YGame::ICharacter::CollisionInfo SnortAttack::GetCollisionInfo()
 
 void SnortAttack::DrawDebugTextContent()
 {
-	ICharacter::DrawDebugTextContent();
+	BaseCharacter::DrawDebugTextContent();
 }

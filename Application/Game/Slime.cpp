@@ -15,7 +15,7 @@ using YMath::Vector3;
 void Slime::Initialize(const Transform::Status& status)
 {
 	// ゲームキャラクター初期化
-	ICharacter::Initialize(
+	BaseCharacter::Initialize(
 		"Slime",
 		status,
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed,
@@ -55,7 +55,7 @@ void Slime::Draw()
 	IEnemy::Draw();
 }
 
-YGame::ICharacter::CollisionInfo Slime::GetCollisionInfo()
+YGame::BaseCharacter::CollisionInfo Slime::GetCollisionInfo()
 {
 	CollisionInfo result;
 

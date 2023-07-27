@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "TransitionManager.h"
 
-namespace YScene
+namespace YGame
 {
 	class SceneExecutive
 	{

@@ -4,8 +4,8 @@
 #include "Blackout.h"
 #include "InfectionBlocks.h"
 
-using YScene::TransitionManager;
-using YScene::ITransitionFactory;
+using YGame::TransitionManager;
+using YGame::ITransitionFactory;
 using YGame::Texture;
 
 std::unique_ptr<ITransitionFactory> TransitionManager::transitionFactory_;

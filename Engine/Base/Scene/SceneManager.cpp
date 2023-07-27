@@ -1,8 +1,8 @@
 #include "SceneManager.h"
 #include <cassert>
 
-using YScene::SceneManager;
-using YScene::ISceneFactory;
+using YGame::SceneManager;
+using YGame::ISceneFactory;
 
 std::unique_ptr<ISceneFactory> SceneManager::sceneFactory_;
 

@@ -5,13 +5,13 @@ using YGame::Model;
 
 Model* DefaultDrawer::spModel_ = nullptr;
 
-void DefaultDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
+void DefaultDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル挿入
-	obj_->SetGraphic(spModel_);
+	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
 }
@@ -33,12 +33,12 @@ void DefaultDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 
 }
 
-DefaultDrawer::DefaultDrawer(const uint32_t drawPriority)
+DefaultDrawer::DefaultDrawer(const uint16_t drawPriority)
 {
 	Initialize(nullptr, drawPriority);
 }
 
-DefaultDrawer::DefaultDrawer(Transform* pParent, const uint32_t drawPriority)
+DefaultDrawer::DefaultDrawer(Transform* pParent, const uint16_t drawPriority)
 {
 	Initialize(pParent, drawPriority);
 }
@@ -47,5 +47,5 @@ DefaultDrawer::DefaultDrawer(Transform* pParent, const uint32_t drawPriority)
 void DefaultDrawer::StaticInitialize()
 {
 	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture", Texture::Load("white1x1.png")} });
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }

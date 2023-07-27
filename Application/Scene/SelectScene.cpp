@@ -6,7 +6,7 @@
 
 #pragma region –¼‘O‹óŠÔéŒ¾
 
-using YScene::SelectScene;
+using YGame::SelectScene;
 using namespace YGame;
 
 #pragma endregion 

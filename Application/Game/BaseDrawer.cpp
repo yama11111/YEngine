@@ -1,37 +1,31 @@
 #include "BaseDrawer.h"
-#include "PipelineManager.h"
 #include <cassert>
 
 using YGame::BaseDrawer;
 
 YGame::ViewProjection* BaseDrawer::spVP_ = nullptr;
 
-void BaseDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
-{
-	transform_.reset(new Transform());
+void BaseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+{	
+	// オブジェクト + 定数バッファ生成
+	// 生成後、オブジェクトに挿入
+	obj_.reset(DrawObjectForModel::Create(Transform::Status::Default(), spVP_, nullptr));
 
 	// 親設定
 	SetParent(pParent);
-	
-	// オブジェクト + 定数バッファ生成
-	// 生成後、オブジェクトに挿入
-	obj_.reset(new Object());
 
-	cbTransform_.reset(ConstBuffer<CBModelTransform>::Create());
-	obj_->InsertConstBuffer(cbTransform_.get());
-
-	cbColor_.reset(ConstBuffer<CBColor>::Create());
+	cbColor_.reset(ConstBufferObject<CBColor>::Create());
 	obj_->InsertConstBuffer(cbColor_.get());
 
-	cbMaterial_.reset(ConstBuffer<CBMaterial>::Create());
+	cbMaterial_.reset(ConstBufferObject<CBMaterial>::Create());
 	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
 	obj_->InsertConstBuffer(cbMaterial_.get());
 
-	cbLightGroup_.reset(ConstBuffer<CBLightGroup>::Create());
+	cbLightGroup_.reset(ConstBufferObject<CBLightGroup>::Create());
 	cbLightGroup_->data_.direLights[0].active = 1.0f;
 	obj_->InsertConstBuffer(cbLightGroup_.get());
 
-	cbTexConfig_.reset(ConstBuffer<CBTexConfig>::Create());
+	cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create());
 	obj_->InsertConstBuffer(cbTexConfig_.get());
 
 
@@ -48,11 +42,7 @@ void BaseDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
 
 void BaseDrawer::Update()
 {
-	transform_->UpdateMatrix(animeStatus_);
-
-	cbTransform_->data_.matWorld = transform_->m_;
-	cbTransform_->data_.matViewProj = spVP_->view_ * spVP_->pro_;
-	cbTransform_->data_.cameraPos = spVP_->eye_;
+	obj_->Update(animeStatus_);
 }
 
 void BaseDrawer::VisibleUpdate()
@@ -84,27 +74,14 @@ void BaseDrawer::Draw()
 {
 	if (isVisible_ == false) { return; }
 
-	// パイプラインに描画を積む
-	PipelineManager::GetInstance()->EnqueueDrawSet(shaderKey_, drawPriority_, obj_.get());
+	obj_->Draw(shaderKey_, drawPriority_);
 }
 
 void BaseDrawer::SetParent(Transform* pParent)
 {
-	// 親トランスフォームポインタ設定
 	pParent_ = pParent;
 
-	// null じゃないなら
-	if (pParent_)
-	{
-		// 親子関係設定
-		transform_->parent_ = &pParent_->m_;
-	}
-	// 違うなら
-	else
-	{
-		// 親子関係初期化
-		transform_->parent_ = nullptr;
-	}
+	obj_->SetParent(pParent);
 }
 
 void BaseDrawer::StaticInitialize(ViewProjection* pVP)
@@ -116,12 +93,12 @@ void BaseDrawer::StaticInitialize(ViewProjection* pVP)
 	spVP_ = pVP;
 }
 
-BaseDrawer::BaseDrawer(const uint32_t drawPriority)
+BaseDrawer::BaseDrawer(const uint16_t drawPriority)
 {
 	Initialize(nullptr, drawPriority);
 }
 
-BaseDrawer::BaseDrawer(Transform* pParent, const uint32_t drawPriority)
+BaseDrawer::BaseDrawer(Transform* pParent, const uint16_t drawPriority)
 {
 	Initialize(pParent, drawPriority);
 }

@@ -13,7 +13,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(Transform* pParent, const uint32_t drawPriority) override;
+		void Initialize(Transform* pParent, const uint16_t drawPriority) override;
 
 		/// <summary>
 		/// 更新
@@ -40,14 +40,14 @@ namespace YGame
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		DefaultDrawer(const uint32_t drawPriority);
+		DefaultDrawer(const uint16_t drawPriority);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		DefaultDrawer(Transform* pParent, const uint32_t drawPriority);
+		DefaultDrawer(Transform* pParent, const uint16_t drawPriority);
 
 		~DefaultDrawer() = default;
 

@@ -3,7 +3,7 @@
 
 #pragma region –¼‘O‹óŠÔéŒ¾
 
-using YScene::BaseScene;
+using YGame::BaseScene;
 using YInput::Keys;
 using YInput::Mouse;
 using YInput::Pad;

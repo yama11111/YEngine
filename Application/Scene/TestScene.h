@@ -2,7 +2,7 @@
 #include "BaseScene.h"
 #include "BaseDrawer.h"
 
-namespace YScene
+namespace YGame
 {
 	// テストシーン
 	class TestScene : public BaseScene

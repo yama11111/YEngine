@@ -7,13 +7,13 @@ using YMath::Vector3;
 
 Model* HorseDrawer::spModel_ = nullptr;
 
-void HorseDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
+void HorseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	obj_->SetGraphic(spModel_);
+	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
 
@@ -115,12 +115,12 @@ void HorseDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 	animationBitFlag_ |= index;
 }
 
-HorseDrawer::HorseDrawer(const uint32_t drawPriority)
+HorseDrawer::HorseDrawer(const uint16_t drawPriority)
 {
 	Initialize(nullptr, drawPriority);
 }
 
-HorseDrawer::HorseDrawer(Transform* pParent, const uint32_t drawPriority)
+HorseDrawer::HorseDrawer(Transform* pParent, const uint16_t drawPriority)
 {
 	Initialize(pParent, drawPriority);
 }

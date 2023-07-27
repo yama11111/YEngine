@@ -6,7 +6,7 @@
 
 #pragma region –¼‘O‹óŠÔéŒ¾
 
-using YScene::TitleScene;
+using YGame::TitleScene;
 using namespace YInput;
 using namespace YGame;
 using namespace YMath;

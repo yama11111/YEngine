@@ -12,9 +12,9 @@ void CharacterManager::Initialize()
 void CharacterManager::Update()
 {
 	// キャラクターが死んだら削除
-	characters_.remove_if([](std::unique_ptr<ICharacter>& character) { return character->IsAlive() == false; });
+	characters_.remove_if([](std::unique_ptr<BaseCharacter>& character) { return character->IsAlive() == false; });
 
-	for (std::unique_ptr<ICharacter>& character : characters_)
+	for (std::unique_ptr<BaseCharacter>& character : characters_)
 	{
 		uint16_t priority = 0;
 		if (character->ColliderPtr()->Attribute() == AttributeType::ePet)
@@ -49,7 +49,7 @@ void CharacterManager::DrawDebugText()
 
 	ImGui::Begin(windowName.c_str());
 
-	for (std::unique_ptr<ICharacter>& character : characters_)
+	for (std::unique_ptr<BaseCharacter>& character : characters_)
 	{
 		character->DrawDebugText(false);
 	}
@@ -59,7 +59,7 @@ void CharacterManager::DrawDebugText()
 
 void CharacterManager::Draw()
 {
-	for (std::unique_ptr<ICharacter>& character : characters_)
+	for (std::unique_ptr<BaseCharacter>& character : characters_)
 	{
 		character->Draw();
 	}
@@ -74,13 +74,13 @@ void CharacterManager::Clear()
 	}
 }
 
-void CharacterManager::PushBack(ICharacter* character)
+void CharacterManager::PushBack(BaseCharacter* character)
 {
 	// nullチェック
 	assert(character);
 
 	// 新規キャラクター受け取り用
-	std::unique_ptr<ICharacter> newCharacter;
+	std::unique_ptr<BaseCharacter> newCharacter;
 	newCharacter.reset(character);
 
 	// 挿入
@@ -96,21 +96,21 @@ CharacterManager* CharacterManager::GetInstance()
 void CharacterManager::CheckAllCollision()
 {
 	// Aの始めから
-	std::list<std::unique_ptr<ICharacter>>::iterator itrA = characters_.begin();
+	std::list<std::unique_ptr<BaseCharacter>>::iterator itrA = characters_.begin();
 
 	// Aの終わりまで
 	for (; itrA != characters_.end(); ++itrA)
 	{
-		ICharacter* pCharaA = itrA->get();
+		BaseCharacter* pCharaA = itrA->get();
 
 		// Bの初め(A + 1)から
-		std::list<std::unique_ptr<ICharacter>>::iterator itrB = itrA;
+		std::list<std::unique_ptr<BaseCharacter>>::iterator itrB = itrA;
 		itrB++;
 
 		// Bの終わりまで
 		for (; itrB != characters_.end(); ++itrB)
 		{
-			ICharacter* pCharaB = itrB->get();
+			BaseCharacter* pCharaB = itrB->get();
 
 			// 判定チェック
 			CheckCollisionCharacterPair(pCharaA, pCharaB);
@@ -118,7 +118,7 @@ void CharacterManager::CheckAllCollision()
 	}
 }
 
-void CharacterManager::CheckCollisionCharacterPair(ICharacter* pCharacterA, ICharacter* pCharacterB)
+void CharacterManager::CheckCollisionCharacterPair(BaseCharacter* pCharacterA, BaseCharacter* pCharacterB)
 {
 	// 判定
 	if (pCharacterA->ColliderPtr()->CheckCollision(pCharacterB->ColliderPtr()))

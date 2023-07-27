@@ -1,10 +1,10 @@
 #pragma once
-#include "ICharacter.h"
+#include "BaseCharacter.h"
 
 namespace YGame
 {
 	class IAttack :
-		public ICharacter
+		public BaseCharacter
 	{
 
 	public:

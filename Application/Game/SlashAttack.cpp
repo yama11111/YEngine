@@ -15,7 +15,7 @@ void SlashAttack::Initialize(
 	const uint32_t attackPower)
 {
 	// ゲームキャラクター初期化
-	ICharacter::Initialize(
+	BaseCharacter::Initialize(
 		"SlashAttack",
 		Transform::Status::Default(),
 		Vector3(), Vector3(),
@@ -49,7 +49,7 @@ void SlashAttack::Update()
 	UpdatePos();
 
 	// キャラクター更新
-	ICharacter::Update();
+	BaseCharacter::Update();
 
 	aliveTimer_.Update();
 	
@@ -70,7 +70,7 @@ void SlashAttack::OnCollision(const CollisionInfo& info)
 	}
 }
 
-YGame::ICharacter::CollisionInfo SlashAttack::GetCollisionInfo()
+YGame::BaseCharacter::CollisionInfo SlashAttack::GetCollisionInfo()
 {
 	CollisionInfo result;
 
@@ -90,5 +90,5 @@ void SlashAttack::UpdatePos()
 
 void SlashAttack::DrawDebugTextContent()
 {
-	ICharacter::DrawDebugTextContent();
+	BaseCharacter::DrawDebugTextContent();
 }

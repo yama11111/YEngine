@@ -17,7 +17,7 @@ void IPet::Update()
 	// Ž©“®‚Å‘O‚Éi‚Þ
 	moveDirection_.x_ = +1.0f;
 
-	ICharacter::Update();
+	BaseCharacter::Update();
 
 	// ’…’n‚µ‚Ä‚¢‚é‚È‚ç
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
@@ -93,9 +93,9 @@ void IPet::OffScreenProcess()
 {
 	if (isRidden_ == false) { return; }
 
-	if (YScene::TransitionManager::GetInstance()->IsAct()) { return; }
+	if (YGame::TransitionManager::GetInstance()->IsAct()) { return; }
 
-	YScene::SceneExecutive::GetInstance()->Change(
+	YGame::SceneExecutive::GetInstance()->Change(
 		"PLAY", "BLACKOUT", 10, 5
 	);
 }

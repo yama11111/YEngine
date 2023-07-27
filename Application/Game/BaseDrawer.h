@@ -1,7 +1,7 @@
 #pragma once
 #include "Model.h"
-#include "Object.h"
-#include "ConstBuffer.h"
+#include "DrawObjectForModel.h"
+#include "ConstBufferObject.h"
 #include "ViewProjection.h"
 #include "DebugTextAttacher.h"
 
@@ -24,7 +24,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		virtual void Initialize(Transform* pParent, const uint32_t drawPriority);
+		virtual void Initialize(Transform* pParent, const uint16_t drawPriority);
 
 		/// <summary>
 		/// 更新
@@ -54,7 +54,7 @@ namespace YGame
 		/// トランスフォームポインタ取得
 		/// </summary>
 		/// <returns>トランスフォームポインタ</returns>
-		Transform* TransformPtr() const { return transform_.get(); }
+		Transform* TransformPtr() const { return &obj_->transform_; }
 	
 	public:
 		
@@ -68,7 +68,7 @@ namespace YGame
 		/// 描画位置設定
 		/// </summary>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		void SetDrawPriority(const uint32_t drawPriority) { drawPriority_ = drawPriority; }
+		void SetDrawPriority(const uint16_t drawPriority) { drawPriority_ = drawPriority; }
 
 		/// <summary>
 		/// 描画するか更新するか
@@ -92,14 +92,14 @@ namespace YGame
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		BaseDrawer(const uint32_t drawPriority);
+		BaseDrawer(const uint16_t drawPriority);
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		BaseDrawer(Transform* pParent, const uint32_t drawPriority);
+		BaseDrawer(Transform* pParent, const uint16_t drawPriority);
 
 		virtual ~BaseDrawer() = default;
 
@@ -107,30 +107,24 @@ namespace YGame
 
 		// 親トランスフォームポインタ
 		Transform* pParent_ = nullptr;
-
-		// トランスフォーム
-		std::unique_ptr<Transform> transform_;
 		
 		// オブジェクト
-		std::unique_ptr<Object> obj_;
-
-		// モデル用トランスフォーム定数バッファ
-		std::unique_ptr<ConstBuffer<CBModelTransform>> cbTransform_;
+		std::unique_ptr<DrawObjectForModel> obj_;
 		
 		// 色定数バッファ
-		std::unique_ptr<ConstBuffer<CBColor>> cbColor_;
+		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
 		// マテリアル定数バッファ
-		std::unique_ptr<ConstBuffer<CBMaterial>> cbMaterial_;
+		std::unique_ptr<ConstBufferObject<CBMaterial>> cbMaterial_;
 
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBuffer<CBLightGroup>> cbLightGroup_;
+		std::unique_ptr<ConstBufferObject<CBLightGroup>> cbLightGroup_;
 		
 		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBuffer<CBTexConfig>> cbTexConfig_;
+		std::unique_ptr<ConstBufferObject<CBTexConfig>> cbTexConfig_;
 
 		// 描画位置
-		uint32_t drawPriority_ = 0;
+		uint16_t drawPriority_ = 0;
 
 		// シェーダー
 		std::string shaderKey_ = "ModelDefault";

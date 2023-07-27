@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 
-namespace YScene
+namespace YGame
 {
 	// タイトルシーン
 	class TitleScene : public BaseScene

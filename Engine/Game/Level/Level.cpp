@@ -147,10 +147,6 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		{
 			newObj->SetDrawer(new SkydomeDrawer(0));
 		}
-		else
-		{
-			//newObj->SetDrawer(new DefaultDrawer(DrawLocation::eCenter));
-		}
 
 		// q‚ğ“Ç‚İ‚Ş
 		if (object.contains("children"))

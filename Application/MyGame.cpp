@@ -19,7 +19,7 @@ using YBase::MyGame;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
-using namespace YScene;
+using namespace YGame;
 using namespace YGame;
 #pragma endregion 
 
@@ -102,14 +102,14 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{ 
-					CBModelTransform::TypeName(),
-					CBColor::TypeName(),
-					CBMaterial::TypeName(),
-					CBLightGroup::TypeName(),
-					CBTexConfig::TypeName(),
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+					CBMaterial::Tag(),
+					CBLightGroup::Tag(),
+					CBTexConfig::Tag(),
 				},
 				{ 
-					"Texture" ,
+					"Texture0" ,
 				},
 				1, Model::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
@@ -129,14 +129,14 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBModelTransform::TypeName(),
-					CBColor::TypeName(),
-					CBMaterial::TypeName(),
-					CBLightGroup::TypeName(),
-					CBTexConfig::TypeName(),
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+					CBMaterial::Tag(),
+					CBLightGroup::Tag(),
+					CBTexConfig::Tag(),
 				},
 				{
-					"Texture",
+					"Texture0",
 				},
 				1, Model::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
@@ -156,14 +156,14 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBModelTransform::TypeName(),
-					CBColor::TypeName(),
-					CBMaterial::TypeName(),
-					CBLightGroup::TypeName(),
-					CBTexConfig::TypeName(),
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+					CBMaterial::Tag(),
+					CBLightGroup::Tag(),
+					CBTexConfig::Tag(),
 				},
 				{
-					"Texture",
+					"Texture0",
 				},
 				1, Model::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
@@ -184,9 +184,9 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBSprite2DTransform::TypeName(),
-					CBColor::TypeName(),
-					CBTexConfig::TypeName(),
+					CBSprite2DTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
 				},
 				{
 					"Texture0",
@@ -211,12 +211,12 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBSprite3DTransform::TypeName(),
-					CBColor::TypeName(),
-					CBTexConfig::TypeName(),
+					CBSprite3DTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
 				},
 				{
-					"Texture",
+					"Texture0",
 				},
 				1, Sprite3D::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
@@ -237,15 +237,14 @@ void MyGame::InitializePipelines()
 			Pipeline::Create(
 				shader,
 				{
-					CBPostEffectTransform::TypeName(),
-					CBColor::TypeName(),
-					CBTexConfig::TypeName(),
+					CBPostEffectTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
 				},
 				{
 					"Texture0",
-					"Texture1",
 				},
-				2, PostEffect::GetPipelineSetting(),
+				1, PostEffect::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 1
 			);
 

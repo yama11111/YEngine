@@ -5,8 +5,8 @@
 
 #include "TestScene.h"
 
-using YScene::YGameSceneFactory;
-using YScene::BaseScene;
+using YGame::YGameSceneFactory;
+using YGame::BaseScene;
 
 const std::string YGameSceneFactory::Title_		 = "TITLE";
 const std::string YGameSceneFactory::Select_	 = "SELECT";

@@ -1,8 +1,8 @@
 #include "SceneExecutive.h"
 
-using YScene::SceneExecutive;
-using YScene::SceneManager;
-using YScene::TransitionManager;
+using YGame::SceneExecutive;
+using YGame::SceneManager;
+using YGame::TransitionManager;
 
 void SceneExecutive::Initialize(const std::string& sceneName, const std::string& transitionName)
 {

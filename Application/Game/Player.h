@@ -1,12 +1,12 @@
 #pragma once
-#include "ICharacter.h"
+#include "BaseCharacter.h"
 #include "IPet.h"
 
 namespace YGame
 {
 	// ƒvƒŒƒCƒ„[
 	class Player final :
-		public ICharacter
+		public BaseCharacter
 	{
 
 	public:

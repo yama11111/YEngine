@@ -7,13 +7,13 @@ using YMath::Vector3;
 
 Model* PlayerDrawer::spModel_ = nullptr;
 
-void PlayerDrawer::Initialize(Transform* pParent, const uint32_t drawPriority)
+void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	obj_->SetGraphic(spModel_);
+	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
 
@@ -115,12 +115,12 @@ void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 	animationBitFlag_ |= index;
 }
 
-PlayerDrawer::PlayerDrawer(const uint32_t drawPriority)
+PlayerDrawer::PlayerDrawer(const uint16_t drawPriority)
 {
 	Initialize(nullptr, drawPriority);
 }
 
-PlayerDrawer::PlayerDrawer(Transform* pParent, const uint32_t drawPriority)
+PlayerDrawer::PlayerDrawer(Transform* pParent, const uint16_t drawPriority)
 {
 	Initialize(pParent, drawPriority);
 }
@@ -128,7 +128,7 @@ PlayerDrawer::PlayerDrawer(Transform* pParent, const uint32_t drawPriority)
 void PlayerDrawer::StaticInitialize()
 {
 	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture", Texture::Load("player.png")} });
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("player.png")} });
 }
 
 void PlayerDrawer::TimerUpdate()

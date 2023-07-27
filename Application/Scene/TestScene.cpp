@@ -17,7 +17,7 @@
 
 #pragma region –¼‘O‹óŠÔéŒ¾
 
-using YScene::TestScene;
+using YGame::TestScene;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;

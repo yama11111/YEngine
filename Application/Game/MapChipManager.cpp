@@ -53,7 +53,7 @@ void MapChipManager::Update()
 
 	if(map_.isClear_)
 	{
-		YScene::SceneExecutive::GetInstance()->Change(
+		YGame::SceneExecutive::GetInstance()->Change(
 			"PLAY", "INFECTION", 2, 5
 		);
 	}

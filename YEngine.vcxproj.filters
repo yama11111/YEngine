@@ -15,15 +15,6 @@
     <Filter Include="Engine\Base">
       <UniqueIdentifier>{6fc17274-b719-44d8-b216-183b62662b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Base\Scene">
-      <UniqueIdentifier>{02e53534-aff6-40d9-afb7-e0c7fbe2b6dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Base\Scene\Scene">
-      <UniqueIdentifier>{169d0d67-856e-4805-b382-f887e2a019cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Base\Scene\Transition">
-      <UniqueIdentifier>{766ced8c-91a2-411f-8162-71e882cddebd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application">
       <UniqueIdentifier>{92c9eee6-dd9e-4330-85f9-5f7abf191983}</UniqueIdentifier>
     </Filter>
@@ -44,9 +35,6 @@
     </Filter>
     <Filter Include="Engine\Game\MapChip">
       <UniqueIdentifier>{18d033b2-cb29-495e-ae8b-c1bf43090687}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Draw\Particle">
-      <UniqueIdentifier>{40db7bcb-4568-4930-beee-97a6f00882a5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\Game">
       <UniqueIdentifier>{e3fc16ed-1190-4275-bc3b-57861fa94768}</UniqueIdentifier>
@@ -106,53 +94,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Engine\Game\Object">
-      <UniqueIdentifier>{87b9ffce-63f7-4c14-ad80-feb6332db691}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\ConstBuffer">
-      <UniqueIdentifier>{70eb5f18-11ea-4e15-86c8-77dcc1c14d38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\Graphic">
-      <UniqueIdentifier>{0074f450-29b7-48a8-97ff-33cd0dfe05f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\Graphic\Model">
-      <UniqueIdentifier>{62dcba43-1516-4f00-875e-d46a28db608d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\Pipeline">
-      <UniqueIdentifier>{840972ca-9264-4eb7-9c03-8f314d2051e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\Graphic\PostEffect">
-      <UniqueIdentifier>{a93b0f12-7612-4d83-9e09-154534ca2abc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\Graphic\Sprite2D">
-      <UniqueIdentifier>{187a3b47-fec3-4ff1-aaa4-79c35a610f77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Object\Graphic\Sprite3D">
-      <UniqueIdentifier>{53070ad6-c576-41d1-a731-c7e3bdbf0070}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Game\Particle">
       <UniqueIdentifier>{bb4dabc7-ee27-47c5-b886-28303885caef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util">
-      <UniqueIdentifier>{e000b535-5e4e-4e45-8e58-9647219b4024}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util\Math">
-      <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util\Math\Lerp">
-      <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util\Math\Vector">
-      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util\Math\Collision">
-      <UniqueIdentifier>{be91f4be-4896-4919-a528-96115d64d350}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util\Input">
-      <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\Util\DebugText">
-      <UniqueIdentifier>{d17d5504-a51c-4494-83e9-8e8fbb6621aa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\Shader">
       <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
@@ -172,11 +115,89 @@
     <Filter Include="Application\Scene\Transition">
       <UniqueIdentifier>{0c2cfd96-bab2-4c1d-9711-4e70706ef3fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Game\Object\ConstBuffer\Type">
-      <UniqueIdentifier>{f785bb41-839f-4233-85cf-9929c3570b82}</UniqueIdentifier>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{02e53534-aff6-40d9-afb7-e0c7fbe2b6dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Game\Object\ConstBuffer\Type\Light">
+    <Filter Include="Engine\Scene\Scene">
+      <UniqueIdentifier>{169d0d67-856e-4805-b382-f887e2a019cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\Transition">
+      <UniqueIdentifier>{766ced8c-91a2-411f-8162-71e882cddebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util">
+      <UniqueIdentifier>{e000b535-5e4e-4e45-8e58-9647219b4024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util\Math">
+      <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util\Math\Lerp">
+      <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util\Math\Vector">
+      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util\Math\Collision">
+      <UniqueIdentifier>{be91f4be-4896-4919-a528-96115d64d350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util\Input">
+      <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util\DebugText">
+      <UniqueIdentifier>{d17d5504-a51c-4494-83e9-8e8fbb6621aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Scene\Scene">
+      <UniqueIdentifier>{252570ef-0463-4793-9b11-448e8aa25ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw">
+      <UniqueIdentifier>{87b9ffce-63f7-4c14-ad80-feb6332db691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\ConstBuffer">
+      <UniqueIdentifier>{70eb5f18-11ea-4e15-86c8-77dcc1c14d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Graphic">
+      <UniqueIdentifier>{0074f450-29b7-48a8-97ff-33cd0dfe05f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Graphic\Model">
+      <UniqueIdentifier>{62dcba43-1516-4f00-875e-d46a28db608d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Graphic\PostEffect">
+      <UniqueIdentifier>{a93b0f12-7612-4d83-9e09-154534ca2abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Graphic\Sprite2D">
+      <UniqueIdentifier>{187a3b47-fec3-4ff1-aaa4-79c35a610f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Graphic\Sprite3D">
+      <UniqueIdentifier>{53070ad6-c576-41d1-a731-c7e3bdbf0070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Object">
+      <UniqueIdentifier>{5957a58a-40c1-4cf7-9448-d8fe2b213429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Pipeline">
+      <UniqueIdentifier>{840972ca-9264-4eb7-9c03-8f314d2051e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Object\Model">
+      <UniqueIdentifier>{30ba7727-9219-4fbe-be6e-521aca902708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Object\Sprite3D">
+      <UniqueIdentifier>{52db5d9b-e341-4454-9898-05e83d493e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Object\PostEffect">
+      <UniqueIdentifier>{7cfb64d9-05c6-4f3e-b0f2-e55463c7ae1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\Object\Sprite2D">
+      <UniqueIdentifier>{cb463d6e-8220-4043-a495-9724e9cc0672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\ConstBuffer\Data">
+      <UniqueIdentifier>{e0c9ac8a-efba-4453-8f60-843fcd6305eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Draw\ConstBuffer\Data\Light">
       <UniqueIdentifier>{5b70f341-d8f5-4135-afd2-639377aaf4e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Particle">
+      <UniqueIdentifier>{40db7bcb-4568-4930-beee-97a6f00882a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\ConstBuffer">
+      <UniqueIdentifier>{e8f0b04f-78e0-43cf-b3b9-607dd15ec93f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,55 +226,52 @@
       <Filter>Application\Draw\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Input\InputManager.cpp">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Input\Keys.cpp">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Input\Mouse.cpp">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Input\Pad.cpp">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\FileUtil.cpp">
-      <Filter>Engine\Game\Util</Filter>
+      <Filter>Engine\Util</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\MathVector.cpp">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Matrix4.cpp">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Vector2.cpp">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Vector3.cpp">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Vector4.cpp">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\MathUtil.cpp">
-      <Filter>Engine\Game\Util\Math</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Shake.cpp">
-      <Filter>Engine\Game\Util\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Base\YFramework.cpp">
-      <Filter>Engine\Base</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Lerp.cpp">
-      <Filter>Engine\Game\Util\Math\Lerp</Filter>
+      <Filter>Engine\Util\Math\Lerp</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Power.cpp">
-      <Filter>Engine\Game\Util\Math\Lerp</Filter>
+      <Filter>Engine\Util\Math\Lerp</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Timer.cpp">
-      <Filter>Engine\Game\Util\Math\Lerp</Filter>
+      <Filter>Engine\Util\Math\Lerp</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Speed.cpp">
-      <Filter>Engine\Game\Util\Math</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Camera\ViewProjection.cpp">
       <Filter>Engine\Game\Camera</Filter>
@@ -261,35 +279,20 @@
     <ClCompile Include="Engine\Game\Camera\ScrollCamera.cpp">
       <Filter>Engine\Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Scene\PlayScene.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\SelectScene.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\TestScene.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\TitleScene.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\YGameSceneFactory.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Base\Scene\BaseScene.cpp">
-      <Filter>Engine\Base\Scene\Scene</Filter>
+      <Filter>Engine\Scene\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Scene\SceneManager.cpp">
-      <Filter>Engine\Base\Scene\Scene</Filter>
+      <Filter>Engine\Scene\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Scene\TransitionManager.cpp">
-      <Filter>Engine\Base\Scene\Transition</Filter>
+      <Filter>Engine\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Scene\BaseTransition.cpp">
-      <Filter>Engine\Base\Scene\Transition</Filter>
+      <Filter>Engine\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\Scene\SceneExecutive.cpp">
-      <Filter>Engine\Base\Scene</Filter>
+      <Filter>Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Application\Transition\Blackout.cpp">
       <Filter>Application\Scene\Transition</Filter>
@@ -301,7 +304,7 @@
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\DebugText\ImGuiManager.cpp">
-      <Filter>Engine\Game\Util\DebugText</Filter>
+      <Filter>Engine\Util\DebugText</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Level\Level.cpp">
       <Filter>Application\Game\Level</Filter>
@@ -316,7 +319,7 @@
       <Filter>Engine\Game\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\Physics.cpp">
-      <Filter>Engine\Game\Util\Math</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\MapChipManager.cpp">
       <Filter>Application\Game\MapChip</Filter>
@@ -340,12 +343,12 @@
       <Filter>Application\Game\Chara\Pet</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\DebugText\DebugTextAttacher.cpp">
-      <Filter>Engine\Game\Util\DebugText</Filter>
+      <Filter>Engine\Util\DebugText</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\GameObject.cpp">
       <Filter>Application\Game\Chara</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\ICharacter.cpp">
+    <ClCompile Include="Application\Game\BaseCharacter.cpp">
       <Filter>Application\Game\Chara</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\CharacterManager.cpp">
@@ -412,16 +415,16 @@
       <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\CollisionDetection.cpp">
-      <Filter>Engine\Game\Util\Math\Collision</Filter>
+      <Filter>Engine\Util\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\PrimitiveCollider.cpp">
-      <Filter>Engine\Game\Util\Math\Collision</Filter>
+      <Filter>Engine\Util\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\GameCollider.cpp">
       <Filter>Application\Game\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utillity\Math\BasePrimitiveCollider.cpp">
-      <Filter>Engine\Game\Util\Math\Collision</Filter>
+      <Filter>Engine\Util\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp">
       <Filter>Engine\Base</Filter>
@@ -432,50 +435,86 @@
     <ClCompile Include="Engine\Base\DX\Vertices.cpp">
       <Filter>Engine\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Graphic\Mesh.cpp">
-      <Filter>Engine\Game\Object\Graphic\Model</Filter>
+    <ClCompile Include="Engine\Draw\Graphic\Mesh.cpp">
+      <Filter>Engine\Draw\Graphic\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Object.cpp">
-      <Filter>Engine\Game\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Graphic\Model.cpp">
-      <Filter>Engine\Game\Object\Graphic\Model</Filter>
+    <ClCompile Include="Engine\Draw\Graphic\Model.cpp">
+      <Filter>Engine\Draw\Graphic\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\main.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Graphic\PostEffect.cpp">
-      <Filter>Engine\Game\Object\Graphic\PostEffect</Filter>
+    <ClCompile Include="Engine\Draw\Graphic\PostEffect.cpp">
+      <Filter>Engine\Draw\Graphic\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Graphic\Sprite2D.cpp">
-      <Filter>Engine\Game\Object\Graphic\Sprite2D</Filter>
+    <ClCompile Include="Engine\Draw\Graphic\Sprite2D.cpp">
+      <Filter>Engine\Draw\Graphic\Sprite2D</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Transform.cpp">
-      <Filter>Engine\Game\Object</Filter>
+    <ClCompile Include="Engine\Draw\Graphic\Sprite3D.cpp">
+      <Filter>Engine\Draw\Graphic\Sprite3D</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Graphic\Sprite3D.cpp">
-      <Filter>Engine\Game\Object\Graphic\Sprite3D</Filter>
+    <ClCompile Include="Engine\Draw\Pipeline\Pipeline.cpp">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Pipeline\Pipeline.cpp">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
+    <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Pipeline\PipelineManager.cpp">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Object\Pipeline\ShaderSet.cpp">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
+    <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Audio.cpp">
       <Filter>Engine\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Texture.cpp">
-      <Filter>Engine\Game</Filter>
+    <ClCompile Include="Engine\Draw\CB\DefaultConstBuffer.cpp">
+      <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DX\BaseConstBuffer.cpp">
-      <Filter>Engine\Base</Filter>
+      <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultConstBuffer.cpp">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
+    <ClCompile Include="Engine\Base\YFramework.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\PlayScene.cpp">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\SelectScene.cpp">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\TestScene.cpp">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\TitleScene.cpp">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\YGameSceneFactory.cpp">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\CB\ConstBufferPtrSet.cpp">
+      <Filter>Engine\Draw\ConstBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Graphic\Texture.cpp">
+      <Filter>Engine\Draw\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp">
+      <Filter>Engine\Draw\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Transform.cpp">
+      <Filter>Engine\Draw\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForModel.cpp">
+      <Filter>Engine\Draw\Object\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForSprite2D.cpp">
+      <Filter>Engine\Draw\Object\Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForSprite3D.cpp">
+      <Filter>Engine\Draw\Object\Sprite3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForPostEffect.cpp">
+      <Filter>Engine\Draw\Object\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp">
+      <Filter>Engine\Draw\Graphic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -504,55 +543,52 @@
       <Filter>Application\Draw\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Input\InputManager.h">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Input\Keys.h">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Input\Mouse.h">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Input\Pad.h">
-      <Filter>Engine\Game\Util\Input</Filter>
+      <Filter>Engine\Util\Input</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\FileUtil.h">
-      <Filter>Engine\Game\Util</Filter>
+      <Filter>Engine\Util</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\MathVector.h">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Matrix4.h">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Vector2.h">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Vector3.h">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Vector4.h">
-      <Filter>Engine\Game\Util\Math\Vector</Filter>
+      <Filter>Engine\Util\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\MathUtil.h">
-      <Filter>Engine\Game\Util\Math</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Shake.h">
-      <Filter>Engine\Game\Util\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\YFramework.h">
-      <Filter>Engine\Base</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Lerp.h">
-      <Filter>Engine\Game\Util\Math\Lerp</Filter>
+      <Filter>Engine\Util\Math\Lerp</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Power.h">
-      <Filter>Engine\Game\Util\Math\Lerp</Filter>
+      <Filter>Engine\Util\Math\Lerp</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Timer.h">
-      <Filter>Engine\Game\Util\Math\Lerp</Filter>
+      <Filter>Engine\Util\Math\Lerp</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Speed.h">
-      <Filter>Engine\Game\Util\Math</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h">
       <Filter>Engine\Game\Camera</Filter>
@@ -560,41 +596,26 @@
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h">
       <Filter>Engine\Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Scene\PlayScene.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\SelectScene.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\TestScene.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\TitleScene.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\YGameSceneFactory.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\Scene\BaseScene.h">
-      <Filter>Engine\Base\Scene\Scene</Filter>
+      <Filter>Engine\Scene\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Scene\ISceneFactory.h">
-      <Filter>Engine\Base\Scene\Scene</Filter>
+      <Filter>Engine\Scene\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Scene\SceneManager.h">
-      <Filter>Engine\Base\Scene\Scene</Filter>
+      <Filter>Engine\Scene\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Scene\TransitionManager.h">
-      <Filter>Engine\Base\Scene\Transition</Filter>
+      <Filter>Engine\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Scene\ITransitionFactory.h">
-      <Filter>Engine\Base\Scene\Transition</Filter>
+      <Filter>Engine\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Scene\BaseTransition.h">
-      <Filter>Engine\Base\Scene\Transition</Filter>
+      <Filter>Engine\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\Scene\SceneExecutive.h">
-      <Filter>Engine\Base\Scene</Filter>
+      <Filter>Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Application\Transition\Blackout.h">
       <Filter>Application\Scene\Transition</Filter>
@@ -606,7 +627,7 @@
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\DebugText\ImGuiManager.h">
-      <Filter>Engine\Game\Util\DebugText</Filter>
+      <Filter>Engine\Util\DebugText</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Level\Level.h">
       <Filter>Application\Game\Level</Filter>
@@ -621,7 +642,7 @@
       <Filter>Engine\Game\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\Physics.h">
-      <Filter>Engine\Game\Util\Math</Filter>
+      <Filter>Engine\Util\Math</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\MapChipManager.h">
       <Filter>Application\Game\MapChip</Filter>
@@ -645,12 +666,12 @@
       <Filter>Application\Game\Chara\Pet</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\DebugText\DebugTextAttacher.h">
-      <Filter>Engine\Game\Util\DebugText</Filter>
+      <Filter>Engine\Util\DebugText</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\GameObject.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\ICharacter.h">
+    <ClInclude Include="Application\Game\BaseCharacter.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\CharacterManager.h">
@@ -726,10 +747,10 @@
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\CollisionDetection.h">
-      <Filter>Engine\Game\Util\Math\Collision</Filter>
+      <Filter>Engine\Util\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\PrimitiveCollider.h">
-      <Filter>Engine\Game\Util\Math\Collision</Filter>
+      <Filter>Engine\Util\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\AttributeType.h">
       <Filter>Application\Game\Collision</Filter>
@@ -738,7 +759,7 @@
       <Filter>Application\Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\BasePrimitiveCollider.h">
-      <Filter>Engine\Game\Util\Math\Collision</Filter>
+      <Filter>Engine\Util\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\DescriptorHeap.h">
       <Filter>Engine\Base</Filter>
@@ -746,101 +767,137 @@
     <ClInclude Include="Engine\Base\DX\GPUResource.h">
       <Filter>Engine\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBModelTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBSprite2DTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBSprite3DTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBPostEffectTransform.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBColor.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBMaterial.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBTexConfig.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBPointLight.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBDirectionalLight.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBSpotLight.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBLightGroup.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type\Light</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Base\DX\Vertices.h">
       <Filter>Engine\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\Mesh.h">
-      <Filter>Engine\Game\Object\Graphic\Model</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\Mesh.h">
+      <Filter>Engine\Draw\Graphic\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Object.h">
-      <Filter>Engine\Game\Object</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\BaseGraphic.h">
+      <Filter>Engine\Draw\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\BaseGraphic.h">
-      <Filter>Engine\Game\Object\Graphic</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\Node.h">
+      <Filter>Engine\Draw\Graphic\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\Node.h">
-      <Filter>Engine\Game\Object\Graphic\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\Model.h">
-      <Filter>Engine\Game\Object\Graphic\Model</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\Model.h">
+      <Filter>Engine\Draw\Graphic\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Def.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Transform.h">
-      <Filter>Engine\Game\Object</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\PostEffect.h">
+      <Filter>Engine\Draw\Graphic\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\PostEffect.h">
-      <Filter>Engine\Game\Object\Graphic\PostEffect</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\Sprite2D.h">
+      <Filter>Engine\Draw\Graphic\Sprite2D</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\Sprite2D.h">
-      <Filter>Engine\Game\Object\Graphic\Sprite2D</Filter>
+    <ClInclude Include="Engine\Draw\Graphic\Sprite3D.h">
+      <Filter>Engine\Draw\Graphic\Sprite3D</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Graphic\Sprite3D.h">
-      <Filter>Engine\Game\Object\Graphic\Sprite3D</Filter>
+    <ClInclude Include="Engine\Draw\Pipeline\Pipeline.h">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Pipeline\Pipeline.h">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
+    <ClInclude Include="Engine\Draw\Pipeline\PipelineManager.h">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Pipeline\PipelineManager.h">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
+    <ClInclude Include="Engine\Draw\Pipeline\PipelineSetting.h">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Pipeline\PipelineSetting.h">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Object\Pipeline\ShaderSet.h">
-      <Filter>Engine\Game\Object\Pipeline</Filter>
+    <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h">
+      <Filter>Engine\Draw\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Audio.h">
       <Filter>Engine\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Texture.h">
-      <Filter>Engine\Game</Filter>
+    <ClInclude Include="Engine\Draw\CB\ConstBufferObject.h">
+      <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\ConstBuffer.h">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
+    <ClInclude Include="Engine\Draw\CB\DefaultConstBuffer.h">
+      <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\BaseConstBuffer.h">
-      <Filter>Engine\Base</Filter>
+      <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\CBTime.h">
-      <Filter>Engine\Game\Object\ConstBuffer\Type</Filter>
+    <ClInclude Include="Engine\Base\YFramework.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Object\CB\DefaultConstBuffer.h">
-      <Filter>Engine\Game\Object\ConstBuffer</Filter>
+    <ClInclude Include="Application\Scene\PlayScene.h">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\SelectScene.h">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\TestScene.h">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\TitleScene.h">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\YGameSceneFactory.h">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\ConstBufferPtrSet.h">
+      <Filter>Engine\Draw\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBDirectionalLight.h">
+      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBSpotLight.h">
+      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBPointLight.h">
+      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBLightGroup.h">
+      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Graphic\Texture.h">
+      <Filter>Engine\Draw\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h">
+      <Filter>Engine\Draw\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Transform.h">
+      <Filter>Engine\Draw\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForModel.h">
+      <Filter>Engine\Draw\Object\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForSprite2D.h">
+      <Filter>Engine\Draw\Object\Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForSprite3D.h">
+      <Filter>Engine\Draw\Object\Sprite3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForPostEffect.h">
+      <Filter>Engine\Draw\Object\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBColor.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBMaterial.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBModelTransform.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBPostEffectTransform.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBSprite2DTransform.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBSprite3DTransform.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBTexConfig.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\CB\CBTime.h">
+      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h">
+      <Filter>Engine\Draw\Graphic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

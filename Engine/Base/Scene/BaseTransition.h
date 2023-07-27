@@ -8,7 +8,7 @@
 #include "Timer.h"
 #include <memory>
 
-namespace YScene
+namespace YGame
 {
 	// トランジション基底クラス
 	class BaseTransition

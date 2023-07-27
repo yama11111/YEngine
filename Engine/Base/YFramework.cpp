@@ -5,6 +5,7 @@
 
 #include "BaseConstBuffer.h"
 #include "DefaultConstBuffer.h"
+#include "DefaultGraphic.h"
 #include "PipelineManager.h"
 
 #pragma region –¼‘O‹óŠÔéŒ¾
@@ -13,7 +14,7 @@ using YBase::YFramework;
 using namespace YDX;
 using namespace YInput;
 using namespace YMath;
-using namespace YScene;
+using namespace YGame;
 using namespace YGame;
 
 #pragma endregion
@@ -70,6 +71,8 @@ bool YFramework::Initialize()
 
 	// FBXLoader“Ç‚İ‚İ
 	Model::FbxLoader::StaticInitialize();
+
+	DefaultGraphic::StaticInitialize();
 
 	// imgui‰Šú‰»
 	imguiMan_.Initialize({ window_.HandleWindow(), pDev, pCmdList, &descHeap_, dx_.BackBufferCount() });

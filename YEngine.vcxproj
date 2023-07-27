@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\CB;$(ProjectDir)Engine\Game\Object\Graphic;$(ProjectDir)Engine\Game\Object\Pipeline;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\CB;$(ProjectDir)Engine\Game\Object\Graphic;$(ProjectDir)Engine\Game\Object\Pipeline;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Utillity;$(ProjectDir)Engine\Utillity\Math;$(ProjectDir)Engine\Utillity\Input;$(ProjectDir)Engine\Utillity\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -130,7 +130,7 @@
     <ClCompile Include="Application\Game\Horse.cpp" />
     <ClCompile Include="Application\Game\IAttack.cpp" />
     <ClCompile Include="Application\Game\IEnemy.cpp" />
-    <ClCompile Include="Application\Game\ICharacter.cpp" />
+    <ClCompile Include="Application\Game\BaseCharacter.cpp" />
     <ClCompile Include="Application\Game\GameObject.cpp" />
     <ClCompile Include="Application\Game\IPet.cpp" />
     <ClCompile Include="Application\Game\MapChip.cpp" />
@@ -139,7 +139,9 @@
     <ClCompile Include="Application\Game\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\GameCollider.cpp" />
-    <ClCompile Include="DefaultConstBuffer.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
+    <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp" />
+    <ClCompile Include="Engine\Draw\CB\DefaultConstBuffer.cpp" />
     <ClCompile Include="Engine\Base\DX\BaseConstBuffer.cpp" />
     <ClCompile Include="Engine\Game\Level\Level.cpp" />
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp" />
@@ -158,11 +160,16 @@
     <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp" />
     <ClCompile Include="Application\Draw\HUD\LetterBoxDrawer.cpp" />
     <ClCompile Include="Application\Draw\HUD\UIButtonDrawer.cpp" />
-    <ClCompile Include="Engine\Game\Object\Graphic\PostEffect.cpp" />
-    <ClCompile Include="Engine\Game\Object\Graphic\Sprite2D.cpp" />
-    <ClCompile Include="Engine\Game\Object\Graphic\Sprite3D.cpp" />
+    <ClCompile Include="Engine\Draw\CB\ConstBufferPtrSet.cpp" />
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForPostEffect.cpp" />
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForSprite2D.cpp" />
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForSprite3D.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\PostEffect.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\Sprite2D.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\Sprite3D.cpp" />
     <ClCompile Include="Engine\Game\Particle\BaseParticle.cpp" />
     <ClCompile Include="Engine\Game\Particle\ParticleManager.cpp" />
+    <ClCompile Include="Engine\Draw\Object\DrawObjectForModel.cpp" />
     <ClCompile Include="Engine\Utillity\DebugText\DebugTextAttacher.cpp" />
     <ClCompile Include="Engine\Utillity\DebugText\ImGuiManager.cpp" />
     <ClCompile Include="Engine\Game\Audio.cpp" />
@@ -174,9 +181,9 @@
     <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp" />
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="Application\Game\MapChipManager.cpp" />
-    <ClCompile Include="Engine\Game\Object\Graphic\Mesh.cpp" />
-    <ClCompile Include="Engine\Game\Object\Transform.cpp" />
-    <ClCompile Include="Engine\Game\Texture.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\Mesh.cpp" />
+    <ClCompile Include="Engine\Draw\Transform.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\Texture.cpp" />
     <ClCompile Include="Engine\main.cpp" />
     <ClCompile Include="Application\MyGame.cpp" />
     <ClCompile Include="Application\Scene\PlayScene.cpp" />
@@ -205,11 +212,10 @@
     <ClCompile Include="Engine\Utillity\Math\Vector2.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Vector3.cpp" />
     <ClCompile Include="Engine\Utillity\Math\Vector4.cpp" />
-    <ClCompile Include="Engine\Game\Object\Graphic\Model.cpp" />
-    <ClCompile Include="Engine\Game\Object\Object.cpp" />
-    <ClCompile Include="Engine\Game\Object\Pipeline\Pipeline.cpp" />
-    <ClCompile Include="Engine\Game\Object\Pipeline\PipelineManager.cpp" />
-    <ClCompile Include="Engine\Game\Object\Pipeline\ShaderSet.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\Model.cpp" />
+    <ClCompile Include="Engine\Draw\Pipeline\Pipeline.cpp" />
+    <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp" />
+    <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
@@ -233,7 +239,7 @@
     <ClInclude Include="Application\Game\Horse.h" />
     <ClInclude Include="Application\Game\IAttack.h" />
     <ClInclude Include="Application\Game\IEnemy.h" />
-    <ClInclude Include="Application\Game\ICharacter.h" />
+    <ClInclude Include="Application\Game\BaseCharacter.h" />
     <ClInclude Include="Application\Game\GameObject.h" />
     <ClInclude Include="Application\Game\IPet.h" />
     <ClInclude Include="Application\Game\MapChip.h" />
@@ -242,21 +248,27 @@
     <ClInclude Include="Application\Game\SnortAttack.h" />
     <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\GameCollider.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBTime.h" />
-    <ClInclude Include="Engine\Game\Object\CB\ConstBuffer.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBColor.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBDirectionalLight.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBLightGroup.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBMaterial.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBPointLight.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBPostEffectTransform.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBSpotLight.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBSprite2DTransform.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBSprite3DTransform.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBTexConfig.h" />
+    <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
+    <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h" />
+    <ClInclude Include="Engine\Draw\CB\CBTime.h" />
+    <ClInclude Include="Engine\Draw\CB\ConstBufferObject.h" />
+    <ClInclude Include="Engine\Draw\CB\CBColor.h" />
+    <ClInclude Include="Engine\Draw\CB\CBDirectionalLight.h" />
+    <ClInclude Include="Engine\Draw\CB\CBLightGroup.h" />
+    <ClInclude Include="Engine\Draw\CB\CBMaterial.h" />
+    <ClInclude Include="Engine\Draw\CB\CBPointLight.h" />
+    <ClInclude Include="Engine\Draw\CB\CBPostEffectTransform.h" />
+    <ClInclude Include="Engine\Draw\CB\CBSpotLight.h" />
+    <ClInclude Include="Engine\Draw\CB\CBSprite2DTransform.h" />
+    <ClInclude Include="Engine\Draw\CB\CBSprite3DTransform.h" />
+    <ClInclude Include="Engine\Draw\CB\CBTexConfig.h" />
     <ClInclude Include="Engine\Base\DX\BaseConstBuffer.h" />
-    <ClInclude Include="Engine\Game\Object\CB\DefaultConstBuffer.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\BaseGraphic.h" />
+    <ClInclude Include="Engine\Draw\CB\ConstBufferPtrSet.h" />
+    <ClInclude Include="Engine\Draw\CB\DefaultConstBuffer.h" />
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForPostEffect.h" />
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForSprite2D.h" />
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForSprite3D.h" />
+    <ClInclude Include="Engine\Draw\Graphic\BaseGraphic.h" />
     <ClInclude Include="Engine\Game\Level\Level.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h" />
     <ClInclude Include="Engine\Base\DX\DescriptorHeap.h" />
@@ -278,12 +290,13 @@
     <ClInclude Include="Application\Draw\Actor\SlimeActor.h" />
     <ClInclude Include="Application\Draw\HUD\LetterBoxDrawer.h" />
     <ClInclude Include="Application\Draw\HUD\UIButtonDrawer.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\PostEffect.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\Sprite2D.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\Sprite3D.h" />
+    <ClInclude Include="Engine\Draw\Graphic\PostEffect.h" />
+    <ClInclude Include="Engine\Draw\Graphic\Sprite2D.h" />
+    <ClInclude Include="Engine\Draw\Graphic\Sprite3D.h" />
     <ClInclude Include="Engine\Game\Particle\BaseParticle.h" />
     <ClInclude Include="Engine\Game\Particle\ParticleManager.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\Node.h" />
+    <ClInclude Include="Engine\Draw\Graphic\Node.h" />
+    <ClInclude Include="Engine\Draw\Object\DrawObjectForModel.h" />
     <ClInclude Include="Engine\Utillity\DebugText\DebugTextAttacher.h" />
     <ClInclude Include="Engine\Utillity\DebugText\ImGuiManager.h" />
     <ClInclude Include="Engine\Game\Audio.h" />
@@ -296,9 +309,9 @@
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />
     <ClInclude Include="Application\Game\MapChipManager.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\Mesh.h" />
-    <ClInclude Include="Engine\Game\Object\Transform.h" />
-    <ClInclude Include="Engine\Game\Texture.h" />
+    <ClInclude Include="Engine\Draw\Graphic\Mesh.h" />
+    <ClInclude Include="Engine\Draw\Transform.h" />
+    <ClInclude Include="Engine\Draw\Graphic\Texture.h" />
     <ClInclude Include="Application\MyGame.h" />
     <ClInclude Include="Application\Scene\PlayScene.h" />
     <ClInclude Include="Application\Scene\SelectScene.h" />
@@ -326,13 +339,12 @@
     <ClInclude Include="Engine\Utillity\Math\Vector2.h" />
     <ClInclude Include="Engine\Utillity\Math\Vector3.h" />
     <ClInclude Include="Engine\Utillity\Math\Vector4.h" />
-    <ClInclude Include="Engine\Game\Object\CB\CBModelTransform.h" />
-    <ClInclude Include="Engine\Game\Object\Graphic\Model.h" />
-    <ClInclude Include="Engine\Game\Object\Pipeline\PipelineSetting.h" />
-    <ClInclude Include="Engine\Game\Object\Object.h" />
-    <ClInclude Include="Engine\Game\Object\Pipeline\Pipeline.h" />
-    <ClInclude Include="Engine\Game\Object\Pipeline\PipelineManager.h" />
-    <ClInclude Include="Engine\Game\Object\Pipeline\ShaderSet.h" />
+    <ClInclude Include="Engine\Draw\CB\CBModelTransform.h" />
+    <ClInclude Include="Engine\Draw\Graphic\Model.h" />
+    <ClInclude Include="Engine\Draw\Pipeline\PipelineSetting.h" />
+    <ClInclude Include="Engine\Draw\Pipeline\Pipeline.h" />
+    <ClInclude Include="Engine\Draw\Pipeline\PipelineManager.h" />
+    <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Dissolve.hlsli" />

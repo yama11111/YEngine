@@ -16,7 +16,7 @@ using YMath::Vector3;
 
 void Horse::Initialize(const Transform::Status& status)
 {
-	ICharacter::Initialize(
+	BaseCharacter::Initialize(
 		"Horse",
 		status,
 		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
@@ -57,10 +57,10 @@ void Horse::Update()
 
 void Horse::Draw()
 {
-	ICharacter::Draw();
+	BaseCharacter::Draw();
 }
 
-YGame::ICharacter::CollisionInfo Horse::GetCollisionInfo()
+YGame::BaseCharacter::CollisionInfo Horse::GetCollisionInfo()
 {
 	CollisionInfo result;
 

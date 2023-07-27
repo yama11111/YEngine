@@ -6,7 +6,7 @@
 
 #include "Level.h"
 
-namespace YScene
+namespace YGame
 {
 	// ゲームシーン
 	class PlayScene : public BaseScene
@@ -22,19 +22,19 @@ namespace YScene
 #pragma region ゲームオブジェクト
 
 		// レベル
-		YGame::Level* pLevel_;
+		Level* pLevel_;
 
 		// キャラクターマネージャー
-		YGame::CharacterManager* pCharacterMan_ = nullptr;
+		CharacterManager* pCharacterMan_ = nullptr;
 
 		// マップチップマネージャー
-		YGame::MapChipManager* pMapChipManager_ = nullptr;
+		MapChipManager* pMapChipManager_ = nullptr;
 
 		// スクロールカメラ
-		YGame::ScrollCamera scrollCamera_;
+		ScrollCamera scrollCamera_;
 
 		// 転送用ビュープロジェクション
-		YGame::ViewProjection transferVP_;
+		ViewProjection transferVP_;
 
 #pragma endregion
 

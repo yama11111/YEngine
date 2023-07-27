@@ -2,7 +2,7 @@
 #include "BaseTransition.h"
 #include <string>
 
-namespace YScene
+namespace YGame
 {
 	// 抽象シーン遷移ファクトリー
 	class ITransitionFactory

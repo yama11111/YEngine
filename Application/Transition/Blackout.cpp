@@ -3,16 +3,7 @@
 #include "PipelineManager.h"
 #include "MathVector.h"
 
-using YScene::Blackout;
-using YGame::PipelineManager;
-using YGame::Transform;
-using YGame::Object;
-using YGame::Sprite2D;
-using YGame::Texture;
-using YGame::ConstBuffer;
-using YGame::CBSprite2DTransform;
-using YGame::CBColor;
-using YGame::CBTexConfig;
+using YGame::Blackout;
 using YMath::Vector2;
 
 YGame::Sprite2D* Blackout::spCurtenSpr_ = nullptr;
@@ -33,16 +24,9 @@ void Blackout::StaticInitialize()
 void Blackout::Initialize()
 {
 	// èâä˙âª
-	transform_.reset(new Transform());
-	obj_.reset(new Object());
-	cbTransform_.reset(ConstBuffer<CBSprite2DTransform>::Create(false));
-	obj_->InsertConstBuffer(cbTransform_.get());
-	cbColor_.reset(ConstBuffer<CBColor>::Create(false));
+	obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spCurtenSpr_, false));
+	cbColor_.reset(ConstBufferObject<CBColor>::Create(false));
 	obj_->InsertConstBuffer(cbColor_.get());
-	cbTexConfig_.reset(ConstBuffer<CBTexConfig>::Create(false));
-	obj_->InsertConstBuffer(cbTexConfig_.get());
-
-	obj_->SetGraphic(spCurtenSpr_);
 
 	Reset();
 }
@@ -67,10 +51,9 @@ void Blackout::Reset()
 
 	// âÊñ íÜâõ
 	Vector2 p = WinSize / 2.0f;
-	transform_->pos_ = { p.x_, p.y_, 0.0f };
-	transform_->scale_ = { WinSize.x_, WinSize.y_, 0.0f };
-	transform_->UpdateMatrix();
-	cbTransform_->data_.matWorld = transform_->m_ * YMath::MatOrthoGraphic();
+	obj_->transform_.pos_ = { p.x_, p.y_, 0.0f };
+	obj_->transform_.scale_ = { WinSize.x_, WinSize.y_, 0.0f };
+	obj_->Update();
 	
 	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,0.0f };
 }
@@ -203,5 +186,5 @@ void Blackout::Update()
 
 void Blackout::Draw()
 {
-	PipelineManager::GetInstance()->EnqueueDrawSet("Sprite2DDefault", 2, obj_.get());
+	obj_->Draw("Sprite2DDefault", 2);
 }
