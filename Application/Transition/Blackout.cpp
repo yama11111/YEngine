@@ -23,10 +23,15 @@ void Blackout::StaticInitialize()
 
 void Blackout::Initialize()
 {
-	// èâä˙âª
-	obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spCurtenSpr_, false));
-	cbColor_.reset(ConstBufferObject<CBColor>::Create(false));
-	obj_->InsertConstBuffer(cbColor_.get());
+	if (obj_ == nullptr)
+	{
+		obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spCurtenSpr_, false));
+	}
+	if (cbColor_ == nullptr)
+	{
+		cbColor_.reset(ConstBufferObject<CBColor>::Create(false));
+		obj_->InsertConstBuffer(cbColor_.get());
+	}
 
 	Reset();
 }

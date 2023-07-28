@@ -28,12 +28,7 @@ bool MyGame::Initialize()
 	// 基底クラス初期化処理
 	if (YFramework::Initialize() == false) { return false; }
 
-	// パイプライン初期化
-	pipelineMan_ = PipelineManager::GetInstance();
 	InitializePipelines();
-
-	// ステージ
-	MapChipManager::GetInstance()->Load("demo.csv");
 
 	// シーンファクトリー設定
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
@@ -67,14 +62,17 @@ void MyGame::Draw()
 	// シーン描画
 	sceneExe_->Draw();
 
+	// パーティクル描画
+	pParticleMan_->Draw();
+
 	// 描画準備
 	dx_.PreDraw(ClearColor);
 
 	// スクリーン設定セット
 	screenDesc_.SetDrawCommand();
 
-	// ゲームシーン描画
-	pipelineMan_->Draw();
+	// パイプライン描画
+	pPipelineMan_->Draw();
 
 #ifdef _DEBUG
 
@@ -89,7 +87,7 @@ void MyGame::Draw()
 
 void MyGame::InitializePipelines()
 {
-	pipelineMan_->Clear();
+	pPipelineMan_->Clear();
 
 	// ModelDefault
 	{
@@ -115,7 +113,7 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 2
 			);
 
-		pipelineMan_->Insert("ModelDefault", newPipeline);
+		pPipelineMan_->Insert("ModelDefault", newPipeline);
 	}
 
 	// ModelPhong
@@ -142,7 +140,7 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 2
 			);
 
-		pipelineMan_->Insert("ModelPhong", newPipeline);
+		pPipelineMan_->Insert("ModelPhong", newPipeline);
 	}
 
 	// ModelToon
@@ -169,7 +167,7 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 2
 			);
 
-		pipelineMan_->Insert("ModelToon", newPipeline);
+		pPipelineMan_->Insert("ModelToon", newPipeline);
 	}
 
 	
@@ -195,7 +193,7 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 1
 			);
 
-		pipelineMan_->Insert("Sprite2DDefault", newPipeline);
+		pPipelineMan_->Insert("Sprite2DDefault", newPipeline);
 	}
 
 	
@@ -222,7 +220,7 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 2
 			);
 
-		pipelineMan_->Insert("Sprite3DDefault", newPipeline);
+		pPipelineMan_->Insert("Sprite3DDefault", newPipeline);
 	}
 
 
@@ -248,12 +246,12 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 1
 			);
 
-		pipelineMan_->Insert("PostEffectDefault", newPipeline);
+		pPipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
 
 
 	// 描画順を設定
-	pipelineMan_->SetDrawOrder(
+	pPipelineMan_->SetDrawOrder(
 		{
 			"ModelDefault", 
 			"ModelPhong", 
@@ -268,7 +266,3 @@ void MyGame::InitializePipelines()
 	);
 }
 
-void MyGame::DrawGameScene()
-{	
-	pipelineMan_->Draw();
-}

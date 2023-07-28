@@ -1,15 +1,10 @@
 #pragma once
 #include "YFramework.h"
-#include "PipelineManager.h"
 
 namespace YBase
 {
 	class MyGame : public YFramework
 	{
-
-	private:
-
-		YGame::PipelineManager* pipelineMan_ = nullptr;
 
 	public:
 
@@ -40,11 +35,6 @@ namespace YBase
 		/// パイプライン初期化
 		/// </summary>
 		void InitializePipelines();
-
-		/// <summary>
-		/// ゲームシーン描画
-		/// </summary>
-		void DrawGameScene();
 
 	};
 }

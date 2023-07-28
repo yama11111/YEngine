@@ -88,9 +88,14 @@ bool YFramework::Initialize()
 	BaseScene::StaticInitialize();
 	SceneManager::GetInstance()->SetDescriptorHeapPointer(&descHeap_);
 	
-	// シーンエグゼクティブ
 	sceneExe_ = SceneExecutive::GetInstance();
 
+	
+	pPipelineMan_ = PipelineManager::GetInstance();
+	pPipelineMan_->Clear();
+
+	pParticleMan_ = ParticleManager::GetInstance();
+	pParticleMan_->Clear();
 
 	isEnd_ = false;
 
@@ -114,7 +119,8 @@ void YFramework::Finalize()
 	// シーン遷移終了処理
 	TransitionManager::GetInstance()->Finalize();
 
-	// パイプラインクリア
+	ParticleManager::GetInstance()->Clear();
+
 	PipelineManager::GetInstance()->Clear();
 	
 	// リソース全クリア
@@ -137,8 +143,11 @@ void YFramework::Update()
 	// シーン更新処理
 	sceneExe_->Update();
 
+	// パーティクル更新
+	pParticleMan_->Update();
+
 	// デスクリプタカウント表示
-	//descHeap_.ShowCount();
+	descHeap_.ShowCount();
 
 	// imgui受付終了
 	imguiMan_.End();

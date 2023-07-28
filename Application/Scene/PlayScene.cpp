@@ -36,6 +36,9 @@ using namespace YGame;
 #pragma region 読み込み
 void PlayScene::Load()
 {
+	// ステージ
+	MapChipManager::GetInstance()->Load("demo.csv");
+
 	// シングルトン
 	pCharacterMan_ = CharacterManager::GetInstance();
 	pMapChipManager_ = MapChipManager::GetInstance();

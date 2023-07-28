@@ -36,12 +36,29 @@ void InfectionBlocks::StaticInitialize(Texture* pBlockTex)
 
 void InfectionBlocks::Initialize()
 {
-	// クリア + リサイズ
-	blocks_.clear();
-	blocks_.resize(static_cast<size_t>(sNum_.y_));
-	for (size_t y = 0; y < blocks_.size(); y++)
+	if (blocks_.empty())
 	{
-		blocks_[y].resize(static_cast<size_t>(sNum_.x_));
+		// クリア + リサイズ
+		blocks_.clear();
+		blocks_.resize(static_cast<size_t>(sNum_.y_));
+		for (size_t y = 0; y < blocks_.size(); y++)
+		{
+			blocks_[y].resize(static_cast<size_t>(sNum_.x_));
+		}
+
+		// 初期化
+		for (size_t y = 0; y < blocks_.size(); y++)
+		{
+			for (size_t x = 0; x < blocks_[y].size(); x++)
+			{
+				// ブロック生成 + 初期化
+				blocks_[y][x].reset(new Block());
+
+				blocks_[y][x]->obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spBlockSpr_, false));
+				blocks_[y][x]->cbColor_.reset(ConstBufferObject<CBColor>::Create(false));
+				blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbColor_.get());
+			}
+		}
 	}
 
 	// 初期化
@@ -49,13 +66,6 @@ void InfectionBlocks::Initialize()
 	{
 		for (size_t x = 0; x < blocks_[y].size(); x++)
 		{
-			// ブロック生成 + 初期化
-			blocks_[y][x].reset(new Block());
-
-			blocks_[y][x]->obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spBlockSpr_, false));
-			blocks_[y][x]->cbColor_.reset(ConstBufferObject<CBColor>::Create(false));
-			blocks_[y][x]->obj_->InsertConstBuffer(blocks_[y][x]->cbColor_.get());
-			
 			// 2ブロック間の距離
 			Vector2 dist = { sSize_ * x, sSize_ * y };
 			// 位置
@@ -64,6 +74,7 @@ void InfectionBlocks::Initialize()
 			blocks_[y][x]->obj_->transform_.pos_ = { p.x_, p.y_, 0.0f };
 		}
 	}
+
 
 	scaleEas_[0].Initialize(0.0f, sSize_, 4.0f);
 	scaleEas_[1].Initialize(sSize_, 0.0f, 4.0f);
