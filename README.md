@@ -6,12 +6,22 @@
 
 * 2D または 3D のゲームを作成できるエンジンです。
 
-* 必用ツール と 使用言語
+* 必用ツール
 
-  ** VisualStudio2022 
-  
-  ** C++
+  * VisualStudio2022 
+
+* 使用言語
+
+  * C++
 
 ----- 
 
-##
+## 外部ツール
+
+* DirectXTex
+
+* imgui
+
+* nlohmann json
+
+* FBX SDK
