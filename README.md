@@ -20,7 +20,7 @@
 
 * DirectXTex
 
-* imgui
+* ImGui
 
 * nlohmann json
 
