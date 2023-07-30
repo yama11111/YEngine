@@ -1,15 +1,15 @@
 #pragma once
 #include "BaseParticle.h"
-#include <list>
+#include <array>
 
 namespace YGame
 {
 	// パーティクルマネージャー
 	class ParticleManager
 	{
-	
+
 	public:
-		
+
 		/// <summary>
 		/// シングルトンインスタンスポインタ取得
 		/// </summary>
@@ -24,10 +24,11 @@ namespace YGame
 		void Clear();
 
 		/// <summary>
-		/// 挿入
+		/// パーティクルを挿入する
 		/// </summary>
-		/// <param name="newParticle"> : パーティクル (動的インスタンス)</param>
-		void PushBack(BaseParticle* newParticle);
+		/// <param name="tag"> : パーティクルタグ</param>
+		/// <param name="particles"> : パーティクルポインタ配列</param>
+		void InsertParticles(const std::string& tag, const std::list<BaseParticle*>& particles);
 
 		/// <summary>
 		/// 更新
@@ -41,8 +42,10 @@ namespace YGame
 
 	private:
 
-		// パーティクルリスト
-		std::list<std::unique_ptr<BaseParticle>> particles_;
+		// パーティクルポインタマップ
+		std::unordered_map<
+			std::string, 
+			std::list<BaseParticle*>> particles_;
 
 	private:
 

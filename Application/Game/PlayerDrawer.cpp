@@ -1,11 +1,31 @@
 #include "PlayerDrawer.h"
 #include "AnimationConfig.h"
+#include "DustParticle.h"
+#include <cmath>
+#include "Def.h"
 
 using YGame::PlayerDrawer;
 using YGame::Model;
 using YMath::Vector3;
+using YMath::Timer;
+namespace Anime = YGame::PlayerAnimationConfig;
 
 Model* PlayerDrawer::spModel_ = nullptr;
+
+PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+{
+	PlayerDrawer* newDrawer = new PlayerDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void PlayerDrawer::StaticInitialize()
+{
+	// モデル設定
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("player.png")} });
+}
 
 void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
@@ -21,48 +41,44 @@ void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	SlimeActor::Initialize();
 }
 
-void PlayerDrawer::Update()
+void PlayerDrawer::InsertAnimationTimers()
 {
-	animeStatus_ = {};
-
-	AnimationUpdate();
-
-	HitActor::Update();
-
-	SlimeActor::Update();
-
-	animeStatus_.pos_ += HitActor::ShakePosValue();
-
-	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
-
-	// オブジェクトに適応
-	BaseDrawer::Update();
-
-	cbColor_->data_.texColorRate = HitActor::ColorValue();
-
-	VisibleUpdate();
+	// アニメーションの数だけタイマー作成
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eMove), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eJump), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eLanding), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eAttack), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eHit), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eDead), AnimationTimer() });
 }
 
-void PlayerDrawer::Draw()
-{
-	BaseDrawer::Draw();
-}
-
-void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
+void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
 	// 立ち
 	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle))
 	{
-		IdleTimer_.Initialize(frame);
-		IdleTimer_.SetActive(true);
+	}
+	// 移動
+	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove))
+	{
+		// 土煙を発生
+		// 自分の足元
+		float height = 0.5f;
+		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
 
+		// 正面と逆方向 かつ 上方向
+		float rad = pParent_->rota_.y_;
+		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
+		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
+
+		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// ジャンプ
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump))
+	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump))
 	{
-		JumpTimer_.Initialize(frame);
-		JumpTimer_.SetActive(true);
-
+		// ブヨブヨアニメ
+		// 伸びる
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 		wobbleScaleValues.push_back(Vector3(-0.25f, +0.5f, -0.25f));
@@ -71,13 +87,24 @@ void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
 
 		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
+
+		// 土煙を発生
+		// 自分の足元
+		float height = 0.5f;
+		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
+
+		// 正面と逆方向 かつ 下方向
+		float rad = pParent_->rota_.y_;
+		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
+		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
+
+		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// 着地
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding))
 	{
-		LandingTimer_.Initialize(frame);
-		LandingTimer_.SetActive(true);
-
+		// ブヨブヨアニメ
+		// 潰れる
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
@@ -86,116 +113,51 @@ void PlayerDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
 
 		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
+
+		// 土煙を発生
+		// 自分の足元
+		float height = 0.5f;
+		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
+
+		// 自分の周囲 かつ 上方向
+		for (size_t i = 0; i < Anime::Landing::kDirectionNum; i++)
+		{
+			// 角度 = 2π (360) / 向きの数 * index
+			float rad = (2.0f * PI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
+			Vector3 surrounding = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
+
+			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.1f, 0.0f);
+
+			DustParticle::Emit(Anime::Landing::kDustNum, pParent_->pos_, powerDirection, spVP_);
+		}
 	}
 	// 攻撃
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack))
+	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack))
 	{
-		AttackTimer_.Initialize(frame);
-		AttackTimer_.SetActive(true);
 	}
 	// 被弾
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit))
 	{
-		HitTimer_.Initialize(frame);
-		HitTimer_.SetActive(true);
-
 		HitActor::Hit(
-			PlayerAnimationConfig::Hit::kSwing,
-			PlayerAnimationConfig::Hit::kSwing / static_cast<float>(frame),
+			Anime::Hit::kSwing,
+			Anime::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
 	}
 	// 死亡
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead))
 	{
-		DeadTimer_.Initialize(frame);
-		DeadTimer_.SetActive(true);
 	}
-
-	// ビットフラグ変更
-	animationBitFlag_ |= index;
 }
 
-PlayerDrawer::PlayerDrawer(const uint16_t drawPriority)
+void PlayerDrawer::UpdateAnimtion()
 {
-	Initialize(nullptr, drawPriority);
-}
+	HitActor::Update();
 
-PlayerDrawer::PlayerDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
+	SlimeActor::Update();
 
-void PlayerDrawer::StaticInitialize()
-{
-	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("player.png")} });
-}
+	animeStatus_.pos_ += HitActor::ShakePosValue();
 
-void PlayerDrawer::TimerUpdate()
-{
-	IdleTimer_.Update();
+	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
 	
-	if (IdleTimer_.IsEnd())
-	{
-		IdleTimer_.Reset(true);
-		
-		//animationBitFlag_ &= ~static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle);
-	}
-
-
-	JumpTimer_.Update();
-
-	if (JumpTimer_.IsEnd())
-	{
-		JumpTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump);
-	}
-
-
-	LandingTimer_.Update();
-
-	if (LandingTimer_.IsEnd())
-	{
-		LandingTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding);
-	}
-
-
-	AttackTimer_.Update();
-
-	if (AttackTimer_.IsEnd())
-	{
-		AttackTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack);
-	}
-
-
-	HitTimer_.Update();
-
-	if (HitTimer_.IsEnd())
-	{
-		HitTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit);
-	}
-
-
-	DeadTimer_.Update();
-
-	if (DeadTimer_.IsEnd())
-	{
-		DeadTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead);
-	}
-}
-
-void PlayerDrawer::AnimationUpdate()
-{
-	TimerUpdate();
-
-
+	cbColor_->data_.texColorRate = HitActor::ColorValue();
 }

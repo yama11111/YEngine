@@ -15,7 +15,7 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update();
+		virtual void Update() = 0;
 
 		/// <summary>
 		/// 描画
@@ -57,19 +57,25 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="aliveFrame"> : 生存時間 (F)</param>
-		/// <param name="obj"> : オブジェクト (動的インスタンス)</param>
+		/// <param name="status"> : 初期化ステータス</param>
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(
 			const uint32_t aliveFrame,
-			BaseDrawObject* obj,
+			const Transform::Status& status,
 			const std::string& shaderTag,
 			const uint16_t drawPriority);
-
+		
 		/// <summary>
 		/// 生命更新
 		/// </summary>
 		/// <returns> : 生きているか</returns>
 		void UpdateLife();
+
+		/// <summary>
+		/// オブジェクト設定
+		/// </summary>
+		/// <param name="obj"> : オブジェクト (動的インスタンス)</param>
+		void SetObject(BaseDrawObject* obj);
 	};
 }

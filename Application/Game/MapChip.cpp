@@ -40,12 +40,12 @@ void MapChip::Reset()
 			if (nums[y][x] == 1)
 			{
 				// •`‰æƒNƒ‰ƒX
-				chip->drawer_.reset(new BlockDrawer(&chip->transform_, 1));
+				chip->drawer_.reset(BlockDrawer::Create(&chip->transform_, 1));
 			}
 			if (nums[y][x] == 2)
 			{
 				// •`‰æƒNƒ‰ƒX
-				chip->drawer_.reset(new GoalDrawer(&chip->transform_, 1));
+				chip->drawer_.reset(GoalDrawer::Create(&chip->transform_, 1));
 			}
 
 			// 1”ÔŒã‚ë‚É‘}“ü

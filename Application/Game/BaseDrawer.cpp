@@ -7,27 +7,26 @@ YGame::ViewProjection* BaseDrawer::spVP_ = nullptr;
 
 void BaseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {	
-	// オブジェクト + 定数バッファ生成
-	// 生成後、オブジェクトに挿入
-	obj_.reset(DrawObjectForModel::Create(Transform::Status::Default(), spVP_, nullptr));
+	if (obj_ == nullptr)
+	{
+		// オブジェクト + 定数バッファ生成
+		obj_.reset(DrawObjectForModel::Create({}, spVP_, nullptr));
+		
+		cbColor_.reset(ConstBufferObject<CBColor>::Create());
 
-	// 親設定
-	SetParent(pParent);
+		cbMaterial_.reset(ConstBufferObject<CBMaterial>::Create());
+	}
 
-	cbColor_.reset(ConstBufferObject<CBColor>::Create());
+	obj_->Initialize();
+
+	// オブジェクトに定数バッファを設定
 	obj_->InsertConstBuffer(cbColor_.get());
-
-	cbMaterial_.reset(ConstBufferObject<CBMaterial>::Create());
-	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
 	obj_->InsertConstBuffer(cbMaterial_.get());
-
-	cbLightGroup_.reset(ConstBufferObject<CBLightGroup>::Create());
-	cbLightGroup_->data_.direLights[0].active = 1.0f;
-	obj_->InsertConstBuffer(cbLightGroup_.get());
-
-	cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create());
-	obj_->InsertConstBuffer(cbTexConfig_.get());
-
+	
+	SetParent(pParent);
+	
+	// 環境光を暗めに
+	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
 
 	drawPriority_ = drawPriority;
 
@@ -37,22 +36,88 @@ void BaseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 
 	animationBitFlag_ = 0;
 
+	// タイマークリア後、再挿入 + 初期化
+	animationTimers_.clear();
+
+	InsertAnimationTimers();
+
+	for (auto itr = animationTimers_.begin(); itr != animationTimers_.end(); ++itr)
+	{
+		itr->second.timer.Initialize(0);
+	}
+
 	animeStatus_ = {};
+}
+
+void BaseDrawer::PlayAnimation(const uint16_t index, const uint32_t frame, const bool isRoop)
+{
+	assert(animationTimers_.contains(index));
+
+	PlaySubAnimation(index, frame);
+
+	animationTimers_[index].timer.Initialize(frame, true);
+	animationTimers_[index].isRoop = isRoop;
+
+	// フラグを立てる
+	animationBitFlag_ |= index;
+}
+
+void BaseDrawer::AbortAnimation(const uint16_t index)
+{
+	assert(animationTimers_.contains(index));
+	
+	animationTimers_[index].timer.Initialize(0);
+	
+	// フラグをおろす
+	animationBitFlag_ &= ~index;
 }
 
 void BaseDrawer::Update()
 {
+	animeStatus_ = {};
+
+	UpdateAnimationTimer();
+
+	UpdateAnimtion();
+
 	obj_->Update(animeStatus_);
+
+	VisibleUpdate();
+}
+
+void BaseDrawer::UpdateAnimationTimer()
+{
+	for (auto itr = animationTimers_.begin(); itr != animationTimers_.end(); ++itr)
+	{
+		// アニメーションしないなら飛ばす
+		if ((animationBitFlag_ & itr->first) == 0) { continue; }
+
+		YMath::Timer& timer = itr->second.timer;
+
+		timer.Update();
+
+		if (timer.IsEnd())
+		{
+			if (itr->second.isRoop)
+			{
+				// アニメーションをもう一度始める
+				PlaySubAnimation(itr->first, timer.EndFrame());
+				timer.Reset(true);
+			}
+			else
+			{
+				timer.Initialize(0);
+
+				// フラグをおろす
+				animationBitFlag_ &= ~itr->first;
+			}
+		}
+	}
 }
 
 void BaseDrawer::VisibleUpdate()
 {
-	if (isVisibleUpdate_ == false)
-	{
-		cbColor_->data_.texColorRate.a_ = 1.0f;
-
-		return;
-	}
+	if (isVisibleUpdate_ == false) { return; }
 
 	// 視点との距離
 	float distance = YMath::Vector3(spVP_->eye_ - pParent_->pos_).Length();
@@ -77,33 +142,20 @@ void BaseDrawer::Draw()
 	obj_->Draw(shaderKey_, drawPriority_);
 }
 
+void BaseDrawer::DrawDebugTextContent()
+{
+}
+
 void BaseDrawer::SetParent(Transform* pParent)
 {
 	pParent_ = pParent;
 
-	obj_->SetParent(pParent);
+	obj_->SetParent(&pParent->m_);
 }
 
 void BaseDrawer::StaticInitialize(ViewProjection* pVP)
 {
-	// nullチェック
 	assert(pVP);
 
-	// 代入
 	spVP_ = pVP;
-}
-
-BaseDrawer::BaseDrawer(const uint16_t drawPriority)
-{
-	Initialize(nullptr, drawPriority);
-}
-
-BaseDrawer::BaseDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
-
-void BaseDrawer::DrawDebugTextContent()
-{
-
 }

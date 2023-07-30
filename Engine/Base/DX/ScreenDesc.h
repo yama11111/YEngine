@@ -3,8 +3,6 @@
 #include "Vector2.h"
 #include <vector>
 
-#pragma comment(lib, "d3d12.lib")
-
 namespace YDX
 {
 	class ScreenDesc

@@ -4,6 +4,7 @@
 #include "ConstBufferObject.h"
 #include "ViewProjection.h"
 #include "DebugTextAttacher.h"
+#include "Timer.h"
 
 #include "CBModelTransform.h"
 #include "CBColor.h"
@@ -29,24 +30,31 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update();
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		virtual void Draw();
-
-		/// <summary>
-		/// デバッグテキスト本文
-		/// </summary>
-		virtual void DrawDebugTextContent() override;
+		void Update();
 
 		/// <summary>
 		/// アニメーション再生
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		virtual void PlayAnimation(const uint16_t index, const uint32_t frame) = 0;
+		/// <param name="isRoop"> : ループするか</param>
+		void PlayAnimation(const uint16_t index, const uint32_t frame, const bool isRoop = false);
+
+		/// <summary>
+		/// アニメーションをやめる
+		/// </summary>
+		/// <param name="index"> : アニメーション番号</param>
+		void AbortAnimation(const uint16_t index);
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw();
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 
 	public:
 
@@ -55,8 +63,6 @@ namespace YGame
 		/// </summary>
 		/// <returns>トランスフォームポインタ</returns>
 		Transform* TransformPtr() const { return &obj_->transform_; }
-	
-	public:
 		
 		/// <summary>
 		/// 親トランスフォーム設定
@@ -71,10 +77,16 @@ namespace YGame
 		void SetDrawPriority(const uint16_t drawPriority) { drawPriority_ = drawPriority; }
 
 		/// <summary>
-		/// 描画するか更新するか
+		/// 描画更新するか
 		/// </summary>
-		/// <param name="isVisibleUpdate"> : 描画するか更新するか</param>
+		/// <param name="isVisibleUpdate"> : 描画更新するか</param>
 		void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
+	
+	public:
+
+		BaseDrawer() = default;
+
+		virtual ~BaseDrawer() = default;
 
 	public:
 
@@ -83,26 +95,19 @@ namespace YGame
 		/// </summary>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void StaticInitialize(ViewProjection* pVP);
+
+	protected:
+
+		// アニメーション用タイマー
+		struct AnimationTimer
+		{
+			// タイマー
+			YMath::Timer timer;
+
+			// ループするか
+			bool isRoop = false;
+		};
 	
-	public:
-
-		BaseDrawer() = default;
-		
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		BaseDrawer(const uint16_t drawPriority);
-
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		BaseDrawer(Transform* pParent, const uint16_t drawPriority);
-
-		virtual ~BaseDrawer() = default;
-
 	protected:
 
 		// 親トランスフォームポインタ
@@ -117,12 +122,6 @@ namespace YGame
 		// マテリアル定数バッファ
 		std::unique_ptr<ConstBufferObject<CBMaterial>> cbMaterial_;
 
-		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBufferObject<CBLightGroup>> cbLightGroup_;
-		
-		// テクスチャ設定定数バッファ
-		std::unique_ptr<ConstBufferObject<CBTexConfig>> cbTexConfig_;
-
 		// 描画位置
 		uint16_t drawPriority_ = 0;
 
@@ -132,11 +131,14 @@ namespace YGame
 		// 描画フラグ
 		bool isVisible_ = true;
 		
-		// 描画するか更新フラグ
+		// 描画更新フラグ
 		bool isVisibleUpdate_ = true;
 
 		// アニメーションビットフラグ
 		uint16_t animationBitFlag_ = 0;
+
+		// アニメーションタイマーマップ
+		std::unordered_map<uint16_t, AnimationTimer> animationTimers_;
 
 		// アニメーション変動値
 		Transform::Status animeStatus_;
@@ -149,8 +151,31 @@ namespace YGame
 	protected:
 
 		/// <summary>
+		/// アニメーションタイマー挿入
+		/// </summary>
+		virtual void InsertAnimationTimers() = 0;
+
+		/// <summary>
+		/// サブアニメーション再生
+		/// </summary>
+		/// <param name="index"> : アニメーション番号</param>
+		/// <param name="frame"> : 再生フレーム</param>
+		virtual void PlaySubAnimation(const uint16_t index, const uint32_t frame) = 0;
+
+		/// <summary>
+		/// アニメーションタイマー更新
+		/// </summary>
+		void UpdateAnimationTimer();
+
+		/// <summary>
+		/// アニメーション更新
+		/// </summary>
+		virtual void UpdateAnimtion() = 0;
+
+		/// <summary>
 		/// 描画するか更新
 		/// </summary>
 		void VisibleUpdate();
+
 	};
 }

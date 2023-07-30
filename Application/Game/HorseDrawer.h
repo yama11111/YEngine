@@ -18,22 +18,40 @@ namespace YGame
 		{
 			// 立ち
 			eIdle	 = 0b1,
-
+			
+			// 移動
+			eMove	 = 0b1 << 1,
+			
 			// ジャンプ
-			eJump	 = 0b1 << 1,
-
+			eJump	 = 0b1 << 2,
+			
 			// 着地
-			eLanding = 0b1 << 2,
-
+			eLanding = 0b1 << 3,
+			
 			// 攻撃
-			eAttack	 = 0b1 << 3,
-
+			eAttack	 = 0b1 << 4,
+			
 			// 被弾
-			eHit	 = 0b1 << 4,
-
+			eHit	 = 0b1 << 5,
+			
 			// 死亡
-			eDead	 = 0b1 << 5,
+			eDead	 = 0b1 << 6,
 		};
+
+	public:
+
+		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="pParent"> : 親ポインタ</param>
+		/// <param name="drawPriority"> : 描画優先度</param>
+		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
+		static HorseDrawer* Create(Transform* pParent, const uint16_t drawPriority);
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
 
 	public:
 
@@ -44,69 +62,13 @@ namespace YGame
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(Transform* pParent, const uint16_t drawPriority) override;
 
-		/// <summary>
-		/// 更新
-		/// </summary>
-		void Update() override;
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void Draw() override;
-
-		/// <summary>
-		/// アニメーション再生
-		/// </summary>
-		/// <param name="index"> : アニメーション番号</param>
-		/// <param name="frame"> : 再生フレーム</param>
-		void PlayAnimation(const uint16_t index, const uint32_t frame) override;
-
 	public:
 
 		HorseDrawer() = default;
 
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		HorseDrawer(const uint16_t drawPriority);
-
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		HorseDrawer(Transform * pParent, const uint16_t drawPriority);
-
 		~HorseDrawer() = default;
 
-	public:
-
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		static void StaticInitialize();
-
 	private:
-
-		// 立ち
-		YMath::Timer IdleTimer_;
-
-		// ジャンプ
-		YMath::Timer JumpTimer_;
-
-		// 着地
-		YMath::Timer LandingTimer_;
-
-		// 攻撃
-		YMath::Timer AttackTimer_;
-
-		// 被弾
-		YMath::Timer HitTimer_;
-
-		// 死亡
-		YMath::Timer DeadTimer_;
-
 
 		// モデルポインタ
 		static Model* spModel_;
@@ -114,13 +76,20 @@ namespace YGame
 	private:
 
 		/// <summary>
-		/// タイマー更新
+		/// アニメーションタイマー挿入
 		/// </summary>
-		void TimerUpdate();
+		void InsertAnimationTimers() override;
 
 		/// <summary>
-		/// アニメーションアップデート
+		/// サブアニメーション再生
 		/// </summary>
-		void AnimationUpdate();
+		/// <param name="index"> : アニメーション番号</param>
+		/// <param name="frame"> : 再生フレーム</param>
+		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
+
+		/// <summary>
+		/// アニメーション更新
+		/// </summary>
+		void UpdateAnimtion() override;
 	};
 }

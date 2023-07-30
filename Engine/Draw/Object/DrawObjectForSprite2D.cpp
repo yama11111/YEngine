@@ -41,6 +41,8 @@ void DrawObjectForSprite2D::Initialize(const Transform::Status& status, const bo
 	// デフォルトで設定
 	InsertDefaultConstBuffer(CBColor::Tag());
 	InsertDefaultConstBuffer(CBTexConfig::Tag());
+
+	isVisible_ = true;
 }
 
 void DrawObjectForSprite2D::Update(const Transform::Status& status)

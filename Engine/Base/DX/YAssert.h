@@ -2,8 +2,6 @@
 #include <d3d12.h>
 #include <cassert>
 
-#pragma comment(lib, "d3d12.lib")
-
 namespace YDX
 {
 	// 成功チェック

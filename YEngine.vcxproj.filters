@@ -516,6 +516,12 @@
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp">
       <Filter>Engine\Draw\Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\DustParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\DebriParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -743,9 +749,6 @@
     <ClInclude Include="Application\Game\SlimeDrawer.h">
       <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\AnimationConfig.h">
-      <Filter>Application\Game\Chara</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Utillity\Math\CollisionDetection.h">
       <Filter>Engine\Util\Math\Collision</Filter>
     </ClInclude>
@@ -898,6 +901,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h">
       <Filter>Engine\Draw\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\DustParticle.h">
+      <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\AnimationConfig.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\DebriParticle.h">
+      <Filter>Application\Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

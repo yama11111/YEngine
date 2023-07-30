@@ -2,16 +2,33 @@
 
 using YGame::GoalDrawer;
 using YGame::Model;
+using YMath::Vector3;
+using YMath::Vector4;
 
 Model* GoalDrawer::spModel_ = nullptr;
+
+GoalDrawer* GoalDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+{
+	GoalDrawer* newDrawer = new GoalDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void GoalDrawer::StaticInitialize()
+{
+	// モデル設定
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
+}
 
 void GoalDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
-	obj_->transform_.scale_ = YMath::Vector3(1.0f, 1.0f, 15.0f);
+	obj_->transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
 
-	cbColor_->data_.baseColor = YMath::Vector4(1.0f, 1.0f, 0.0f, 0.25f);
+	cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 0.0f, 0.25f);
 
 	// モデル挿入
 	obj_->SetModel(spModel_);
@@ -19,36 +36,14 @@ void GoalDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	shaderKey_ = "ModelToon";
 }
 
-void GoalDrawer::Update()
+void GoalDrawer::InsertAnimationTimers()
 {
-	BaseDrawer::Update();
-
-	VisibleUpdate();
 }
 
-void GoalDrawer::Draw()
+void GoalDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
-	BaseDrawer::Draw();
 }
 
-void GoalDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
+void GoalDrawer::UpdateAnimtion()
 {
-
-}
-
-GoalDrawer::GoalDrawer(const uint16_t drawPriority)
-{
-	Initialize(nullptr, drawPriority);
-}
-
-GoalDrawer::GoalDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
-
-
-void GoalDrawer::StaticInitialize()
-{
-	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }

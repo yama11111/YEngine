@@ -6,22 +6,14 @@ using YGame::BaseDrawObject;
 
 void BaseDrawObject::Draw(const std::string& shaderTag, const uint16_t drawPriority)
 {
+	if (isVisible_ == false) { return; }
+
 	PipelineManager::GetInstance()->EnqueueDrawSet(shaderTag, { drawPriority, &cbPtrSet_, pGraphic_ });
 }
 
-void BaseDrawObject::SetParent(Transform* pParent)
+void BaseDrawObject::SetParent(YMath::Matrix4* pParent)
 {
-	pParent_ = pParent;
-
-	// トランスフォームの親子関係も合わせて変更
-	if (pParent_)
-	{
-		transform_.parent_ = &pParent->m_;
-	}
-	else
-	{
-		transform_.parent_ = nullptr;
-	}
+	transform_.parent_ = pParent;
 }
 
 void BaseDrawObject::InsertConstBuffer(BaseConstBuffer* pCBuff)

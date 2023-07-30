@@ -10,14 +10,19 @@ namespace YMath
 	// —”æ“¾
 	int GetRand(const int start, const int end);
 	float GetRand(const float start, const float end, const float place);
+	Vector3 GetRand(const Vector3& start, const Vector3& end, const float place);
 
 	// •„†
 	template<typename T>
 	T Sign(const T num);
+	
+	// ”ÍˆÍ“à‚©
+	template<typename T>
+	bool InRange(const T& num, const T& lower, const T& upper);
 
 	// ”ÍˆÍ§ŒÀ
 	template<typename T>
-	T Clamp(const T num, const T lower, const T upper);
+	T Clamp(const T& num, const T& lower, const T& upper);
 
 	// F•ÏŠ·((0`255)¨(0.0`1.0))
 	Vector4 GetColor(const int R, const int G, const int B, const int A);

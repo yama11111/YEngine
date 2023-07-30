@@ -36,46 +36,33 @@ using namespace YGame;
 #pragma region 読み込み
 void PlayScene::Load()
 {
-	// ステージ
-	MapChipManager::GetInstance()->Load("demo.csv");
-
-	// シングルトン
 	pCharacterMan_ = CharacterManager::GetInstance();
+	
 	pMapChipManager_ = MapChipManager::GetInstance();
+	pMapChipManager_->Load("demo.csv");
 
 	// 描画クラス
 	{
-		// 基底クラス
 		BaseDrawer::StaticInitialize(&transferVP_);
 
-		// デフォルト
 		DefaultDrawer::StaticInitialize();
 
-		// プレイヤー
 		PlayerDrawer::StaticInitialize();
 		
-		// ウマ
 		HorseDrawer::StaticInitialize();
 
-		// スライム
 		SlimeDrawer::StaticInitialize();
 		
-		// 斬撃攻撃
 		SlashAttackDrawer::StaticInitialize();
 		
-		// 鼻息攻撃
 		SnortAttackDrawer::StaticInitialize();
 
-		// ブロック
 		BlockDrawer::StaticInitialize();
 
-		// ゴール
 		GoalDrawer::StaticInitialize();
 
-		// 天球
 		SkydomeDrawer::StaticInitialize();
 
-		// 雲
 		CloudDrawer::StaticInitialize();
 	}
 
@@ -193,22 +180,14 @@ void PlayScene::Update()
 {
 	pLevel_->Update();
 
-	// マップチップ更新
 	pMapChipManager_->Update();
 	
-	// ゲームキャラクター更新
 	pCharacterMan_->Update();
 
-	// カメラ更新
 	scrollCamera_.Update();
-
-	// ビュープロジェクション代入
 	transferVP_ = scrollCamera_.GetViewProjection();
-
-	// ビュープロジェクション更新
 	transferVP_.UpdateMatrix();
 
-	// デバッグ描画
 	pCharacterMan_->DrawDebugText();
 	
 	// リセット
@@ -225,10 +204,8 @@ void PlayScene::Draw()
 {
 	pLevel_->Draw();
 
-	// マップチップ描画
 	pMapChipManager_->Draw();
 
-	// ゲームキャラクター描画
 	pCharacterMan_->Draw();
 }
 #pragma endregion

@@ -41,6 +41,8 @@ void DrawObjectForPostEffect::Initialize(const Transform::Status& status, const 
 	// デフォルトで設定
 	InsertDefaultConstBuffer(CBColor::Tag());
 	InsertDefaultConstBuffer(CBTexConfig::Tag());
+
+	isVisible_ = true;
 }
 
 void DrawObjectForPostEffect::Update(const Transform::Status& status)

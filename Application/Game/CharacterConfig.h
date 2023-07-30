@@ -4,6 +4,8 @@
 
 namespace YGame
 {
+	static const YMath::Vector3 kMaxWorldSize = { 2000.0f, 150.0f, 150.0f };
+
 	namespace PlayerConfig
 	{
 		static const float kRadius = 1.0f;

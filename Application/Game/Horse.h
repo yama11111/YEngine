@@ -36,6 +36,16 @@ namespace YGame
 		/// </summary>
 		void Attack() override;
 
+		/// <summary>
+		/// èÊÇÁÇÍÇÈ
+		/// </summary>
+		void Rideen() override;
+		
+		/// <summary>
+		/// ç~ÇËÇÁÇÍÇÈ
+		/// </summary>
+		void GotOff() override;
+
 	public:
 
 		/// <summary>

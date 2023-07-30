@@ -3,8 +3,23 @@
 using YGame::BlockDrawer;
 using YGame::Model;
 using YMath::Vector3;
+using YMath::Vector4;
 
 Model* BlockDrawer::spModel_ = nullptr;
+
+BlockDrawer* BlockDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+{
+	BlockDrawer* newDrawer = new BlockDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void BlockDrawer::StaticInitialize()
+{
+	spModel_ = Model::LoadObj("soil", true);
+}
 
 void BlockDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
@@ -20,34 +35,14 @@ void BlockDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	shaderKey_ = "ModelPhong";
 }
 
-void BlockDrawer::Update()
+void BlockDrawer::InsertAnimationTimers()
 {
-	BaseDrawer::Update();
-
-	VisibleUpdate();
 }
 
-void BlockDrawer::Draw()
+void BlockDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
-	BaseDrawer::Draw();
 }
 
-void BlockDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
+void BlockDrawer::UpdateAnimtion()
 {
-
-}
-
-BlockDrawer::BlockDrawer(const uint16_t drawPriority)
-{
-	Initialize(nullptr, drawPriority);
-}
-
-BlockDrawer::BlockDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
-
-void BlockDrawer::StaticInitialize()
-{
-	spModel_ = Model::LoadObj("soil", true);
 }

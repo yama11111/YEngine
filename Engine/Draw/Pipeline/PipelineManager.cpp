@@ -22,6 +22,7 @@ void PipelineManager::Clear()
 void PipelineManager::Insert(const std::string& key, Pipeline* pipeline)
 {
 	assert(pipeline);
+	assert(pipelines_.contains(key) == false);
 
 	std::unique_ptr<Pipeline> newPipeline;
 

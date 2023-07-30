@@ -141,11 +141,11 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		newObj->Initialize(name, status, pParent);
 		if (name == "Cloud.")
 		{
-			newObj->SetDrawer(new CloudDrawer(1));
+			newObj->SetDrawer(CloudDrawer::Create(nullptr, 1));
 		}
 		else if (name == "Skydome.")
 		{
-			newObj->SetDrawer(new SkydomeDrawer(0));
+			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, 0));
 		}
 
 		// q‚ğ“Ç‚İ‚Ş

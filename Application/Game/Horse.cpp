@@ -19,10 +19,11 @@ void Horse::Initialize(const Transform::Status& status)
 	BaseCharacter::Initialize(
 		"Horse",
 		status,
+		{ +1.0f, 0.0f, 0.0f }, // 右向き
 		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
 		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::ePet, AttributeType::eAll),
-		new HorseDrawer(1));
+		HorseDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PetConfig::kRadius));
 
@@ -37,6 +38,13 @@ void Horse::Initialize(const Transform::Status& status)
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eIdle),
 		HorseAnimationConfig::kIdleFrame
 	);
+
+	// 移動アニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(HorseDrawer::AnimationType::eMove), 
+		HorseAnimationConfig::Move::kFrame, 
+		true
+	);
 }
 
 void Horse::Update()
@@ -50,7 +58,7 @@ void Horse::Update()
 		// 着地アニメーション
 		drawer_->PlayAnimation(
 			static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding),
-			HorseAnimationConfig::kLandingFrame
+			HorseAnimationConfig::Landing::kFrame
 		);
 	}
 }
@@ -98,7 +106,7 @@ void Horse::Jump(const bool isJumpCount)
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eJump),
-		HorseAnimationConfig::kJumpFrame
+		HorseAnimationConfig::Jump::kFrame
 	);
 }
 
@@ -123,4 +131,14 @@ void Horse::Attack()
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eAttack),
 		HorseAnimationConfig::kAttackFrame
 	);
+}
+
+void Horse::Rideen()
+{
+	IPet::Rideen();
+}
+
+void Horse::GotOff()
+{
+	IPet::GotOff();
 }

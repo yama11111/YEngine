@@ -20,10 +20,11 @@ void SnortAttack::Initialize(
 	BaseCharacter::Initialize(
 		"SnortAttack",
 		Transform::Status::Default(),
+		{ +1.0f, 0.0f, 0.0f }, // ‰EŒü‚«
 		acceleration, maxSpeed,
 		1, attackPower, 0,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
-		new SnortAttackDrawer(1));
+		SnortAttackDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
 

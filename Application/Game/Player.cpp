@@ -26,10 +26,11 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	BaseCharacter::Initialize(
 		"Player",
 		status,
+		{ +1.0f, 0.0f, 0.0f}, // 右向き
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eAll),
-		new PlayerDrawer(1));
+		PlayerDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PlayerConfig::kRadius));
 
@@ -77,6 +78,9 @@ void Player::RideOnPet(IPet* pPet)
 		drawer_->SetIsVisibleUpdate(false);
 
 		pPet_->Rideen();
+
+		// 移動アニメーションをやめる
+		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
 	}
 }
 
@@ -103,6 +107,13 @@ void Player::GetOffPet()
 
 	// カメラを自分追従に
 	spScrollCamera_->SetFollowPoint(&transform_->pos_);
+
+	// 移動アニメーション
+	drawer_->PlayAnimation(
+		static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove), 
+		PlayerAnimationConfig::Move::kFrame, 
+		true
+	);
 }
 
 void Player::Update()
@@ -119,14 +130,14 @@ void Player::Update()
 	if (pPet_ == nullptr)
 	{
 		// 自動で前に進む
-		moveDirection_.x_ = +1.0f;
+		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
 	}
 	
 	// SPACE キー or A ボタン
 	if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
 		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
 	{
-		// ジャンプ
 		Jump();
 	}
 
@@ -144,16 +155,28 @@ void Player::Update()
 			// 着地アニメーション
 			drawer_->PlayAnimation(
 				static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding), 
-				PlayerAnimationConfig::kLandingFrame
+				PlayerAnimationConfig::Landing::kFrame
+			);
+
+			// 移動アニメーション
+			drawer_->PlayAnimation(
+				static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove),
+				PlayerAnimationConfig::Move::kFrame,
+				true
 			);
 		}
+	}
+	// 離陸した瞬間
+	else if(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom)
+	{
+		// 移動アニメーションをやめる
+		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
 	}
 
 	// V キー or X ボタン
 	if (Keys::GetInstance()->IsTrigger(DIK_V) ||
 		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
 	{
-		// 攻撃
 		Attack();
 	}
 }
@@ -254,7 +277,7 @@ void Player::Jump(const bool isJumpCount)
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump), 
-		PlayerAnimationConfig::kJumpFrame
+		PlayerAnimationConfig::Jump::kFrame
 	);
 }
 

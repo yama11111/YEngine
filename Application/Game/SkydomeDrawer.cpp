@@ -2,10 +2,25 @@
 
 using YGame::SkydomeDrawer;
 using YGame::Model;
-
 using YMath::Vector3;
+using YMath::Vector4;
 
 Model* SkydomeDrawer::spModel_ = nullptr;
+
+SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+{
+	SkydomeDrawer* newDrawer = new SkydomeDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void SkydomeDrawer::StaticInitialize()
+{
+	// ÉÇÉfÉãê›íË
+	spModel_ = Model::LoadObj("skydome", true);
+}
 
 void SkydomeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
@@ -22,34 +37,14 @@ void SkydomeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	shaderKey_ = "ModelPhong";
 }
 
-void SkydomeDrawer::Update()
+void SkydomeDrawer::InsertAnimationTimers()
 {
-	BaseDrawer::Update();
 }
 
-void SkydomeDrawer::Draw()
+void SkydomeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
-	BaseDrawer::Draw();
 }
 
-void SkydomeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
+void SkydomeDrawer::UpdateAnimtion()
 {
-
-}
-
-SkydomeDrawer::SkydomeDrawer(const uint16_t drawPriority)
-{
-	Initialize(nullptr, drawPriority);
-}
-
-SkydomeDrawer::SkydomeDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
-
-
-void SkydomeDrawer::StaticInitialize()
-{
-	// ÉÇÉfÉãê›íË
-	spModel_ = Model::LoadObj("skydome", true);
 }

@@ -32,6 +32,15 @@ float YMath::GetRand(const float start, const float end, const float place)
 	return static_cast<float>(GetRand(s, e)) / place;
 }
 
+Vector3 YMath::GetRand(const Vector3& start, const Vector3& end, const float place)
+{
+	return Vector3(
+		GetRand(start.x_, end.x_, place),
+		GetRand(start.y_, end.y_, place),
+		GetRand(start.z_, end.z_, place)
+	);
+}
+
 template<typename T>
 T YMath::Sign(const T num)
 {
@@ -48,22 +57,37 @@ float YMath::Sign(const float num)
 }
 
 template<typename T>
-T YMath::Clamp(const T num, const T lower, const T upper)
+bool YMath::InRange(const T& num, const T& lower, const T& upper)
+{
+	return (lower < num && num < upper);
+}
+
+template<>
+bool YMath::InRange(const Vector3& num, const Vector3& lower, const Vector3& upper)
+{
+	return bool(
+		InRange(num.x_, lower.x_, upper.x_) &&
+		InRange(num.y_, lower.y_, upper.y_) &&
+		InRange(num.z_, lower.z_, upper.z_));
+}
+
+template<typename T>
+T YMath::Clamp(const T& num, const T& lower, const T& upper)
 {
 	return std::min(std::max(num, lower), upper);
 }
 template<>
-float YMath::Clamp(const float num, const float lower, const float upper)
+float YMath::Clamp(const float& num, const float& lower, const float& upper)
 {
 	return std::fminf(std::fmaxf(num, lower), upper);
 }
 template<>
-double YMath::Clamp(const double num, const double lower, const double upper)
+double YMath::Clamp(const double& num, const double& lower, const double& upper)
 {
 	return std::fmin(std::fmax(num, lower), upper);
 }
 template<>
-YMath::Vector3 YMath::Clamp(const YMath::Vector3 num, const YMath::Vector3 lower, const YMath::Vector3 upper)
+YMath::Vector3 YMath::Clamp(const YMath::Vector3& num, const YMath::Vector3& lower, const YMath::Vector3& upper)
 {
 	Vector3 result;
 

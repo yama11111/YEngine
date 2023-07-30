@@ -25,8 +25,8 @@ namespace YMath
 		/// <summary>
 		/// 更新
 		/// </summary>
-		/// <param name="direction"> : 向き</param>
-		void Update(const Vector3& direction);
+		/// <param name="power"> : 力ベクトル</param>
+		void Update(const Vector3& power);
 	
 	public:
 		

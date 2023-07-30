@@ -14,6 +14,8 @@
 #include "CBTexConfig.h"
 #include "CBTime.h"
 
+#include "DustParticle.h"
+
 #pragma region 名前空間宣言
 using YBase::MyGame;
 using namespace YDX;
@@ -29,6 +31,8 @@ bool MyGame::Initialize()
 	if (YFramework::Initialize() == false) { return false; }
 
 	InitializePipelines();
+
+	InitializeParticles();
 
 	// シーンファクトリー設定
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
@@ -264,5 +268,10 @@ void MyGame::InitializePipelines()
 			"PostEffectDefault", 
 		}
 	);
+}
+
+void MyGame::InitializeParticles()
+{
+	DustParticle::StaticInitialize();
 }
 

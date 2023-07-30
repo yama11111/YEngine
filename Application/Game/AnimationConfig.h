@@ -8,12 +8,32 @@ namespace YGame
 	{
 		// 立ち
 		static const uint16_t kIdleFrame = 60;
+
+		// 移動
+		namespace Move
+		{
+			static const uint16_t kFrame = 8;
+
+			static const size_t kDustNum = 4;
+		}
 		
 		// ジャンプ
-		static const uint16_t kJumpFrame = 20;
+		namespace Jump
+		{
+			static const uint16_t kFrame = 20;
+			
+			static const size_t kDustNum = 8;
+		}
 
 		// 着地
-		static const uint16_t kLandingFrame = 20;
+		namespace Landing
+		{
+			static const uint16_t kFrame = 20;
+
+			static const size_t kDirectionNum = 8;
+			
+			static const size_t kDustNum = 2;
+		}
 		
 		// 攻撃
 		static const uint16_t kAttackFrame = 10;
@@ -23,6 +43,7 @@ namespace YGame
 		{
 			static const uint16_t kFrame = 4;
 
+			// ブレ
 			static const float kSwing = 0.2f;
 		}
 		
@@ -36,11 +57,31 @@ namespace YGame
 		// 立ち
 		static const uint16_t kIdleFrame = 60;
 
+		// 移動
+		namespace Move
+		{
+			static const uint16_t kFrame = 8;
+
+			static const size_t kDustNum = 4;
+		}
+
 		// ジャンプ
-		static const uint16_t kJumpFrame = 20;
+		namespace Jump
+		{
+			static const uint16_t kFrame = 20;
+
+			static const size_t kDustNum = 8;
+		}
 
 		// 着地
-		static const uint16_t kLandingFrame = 20;
+		namespace Landing
+		{
+			static const uint16_t kFrame = 20;
+
+			static const size_t kDirectionNum = 8;
+
+			static const size_t kDustNum = 2;
+		}
 
 		// 攻撃
 		static const uint16_t kAttackFrame = 10;
@@ -50,6 +91,7 @@ namespace YGame
 		{
 			static const uint16_t kFrame = 4;
 
+			// ブレ
 			static const float kSwing = 0.2f;
 		}
 
@@ -63,17 +105,22 @@ namespace YGame
 		// 立ち
 		static const uint16_t kIdleFrame = 60;
 
-		// ジャンプ
-		static const uint16_t kJumpFrame = 20;
-
 		// 着地
-		static const uint16_t kLandingFrame = 20;
+		namespace Landing
+		{
+			static const uint16_t kFrame = 20;
+
+			static const size_t kDirectionNum = 4;
+
+			static const size_t kDustNum = 2;
+		}
 
 		// 被弾
 		namespace Hit
 		{
 			static const uint16_t kFrame = 4;
 
+			// ブレ
 			static const float kSwing = 0.2f;
 		}
 

@@ -19,32 +19,31 @@ void ParticleManager::Clear()
 	}
 }
 
-void ParticleManager::PushBack(BaseParticle* newParticle)
+void ParticleManager::InsertParticles(const std::string& tag, const std::list<BaseParticle*>& particles)
 {
-	assert(newParticle);
+	assert(particles_.contains(tag) == false);
 
-	std::unique_ptr<BaseParticle> uniquePtcl;
-
-	uniquePtcl.reset(newParticle);
-
-	particles_.push_back(std::move(uniquePtcl));
+	particles_.insert({ tag, particles });
 }
 
 void ParticleManager::Update()
 {
-	// パーティクルが死んだら削除
-	particles_.remove_if([](std::unique_ptr<BaseParticle>& particle) { return particle->IsAlive() == false; });
-
-	for (std::unique_ptr<BaseParticle>& particle : particles_)
+	for (auto itr = particles_.begin(); itr != particles_.end(); ++itr)
 	{
-		particle->Update();
+		for (BaseParticle* pParticle : itr->second)
+		{
+			pParticle->Update();
+		}
 	}
 }
 
 void ParticleManager::Draw()
 {
-	for (std::unique_ptr<BaseParticle>& particle : particles_)
+	for (auto itr = particles_.begin(); itr != particles_.end(); ++itr)
 	{
-		particle->Draw();
+		for (BaseParticle* pParticle : itr->second)
+		{
+			pParticle->Draw();
+		}
 	}
 }

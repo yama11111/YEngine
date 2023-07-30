@@ -19,13 +19,16 @@ void Speed::Reset()
 	velocity_ = {};
 }
 
-void Speed::Update(const Vector3& direction)
+void Speed::Update(const Vector3& power)
 {
-	velocity_.x_ += acceleration_.x_ * direction.x_;
-	velocity_.y_ += acceleration_.y_ * direction.y_;
-	velocity_.z_ += acceleration_.z_ * direction.z_;
+	velocity_ += Vector3(
+		acceleration_.x_ * power.x_,
+		acceleration_.y_ * power.y_,
+		acceleration_.z_ * power.z_);
 
 	// Friction
+	if (velocity_.x_ > 0) { velocity_.x_ -= 0.05f; }
+	if (velocity_.x_ < 0) { velocity_.x_ += 0.05f; }
 	
 	if (isGravity_)
 	{

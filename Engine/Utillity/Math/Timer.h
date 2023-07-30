@@ -19,12 +19,13 @@ namespace YMath
 		/// リセット (中身だけ初期化)
 		/// </summary>
 		/// <param name="isAct"> : 初期化後すぐ動かすか</param>
-		void Reset(const bool isAct);
+		void Reset(const bool isAct = false);
 		
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update();
+		/// <param name="passRate"> : 時間の経過率</param>
+		void Update(const float passRate = 1.0f);
 	
 	public:
 		
@@ -41,7 +42,7 @@ namespace YMath
 		/// <summary>
 		/// 最終時間
 		/// </summary>
-		inline float EndFrame() const { return endFrame_; }
+		inline uint32_t EndFrame() const { return endFrame_; }
 
 		/// <summary>
 		/// 動いているか
@@ -51,7 +52,7 @@ namespace YMath
 		/// <summary>
 		/// 終了したか
 		/// </summary>
-		inline bool IsEnd() const { return endFrame_ != 0 && current_ == endFrame_; }
+		inline bool IsEnd() const { return endFrame_ != 0 && current_ == static_cast<float>(endFrame_); }
 
 	public:
 		
@@ -65,7 +66,7 @@ namespace YMath
 		/// 終了時刻設定
 		/// </summary>
 		/// <param name="end"> : 終了時刻 (F)</param>
-		void SetEndFrame(const uint32_t endFrame);
+		inline void SetEndFrame(const uint32_t endFrame) { endFrame_ = endFrame; }
 
 	public:
 
@@ -89,6 +90,6 @@ namespace YMath
 		float current_ = 0;
 
 		// タイマー終了時刻
-		float endFrame_ = 0;
+		uint32_t endFrame_ = 0;
 	};
 }

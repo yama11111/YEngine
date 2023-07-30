@@ -18,10 +18,11 @@ void SlashAttack::Initialize(
 	BaseCharacter::Initialize(
 		"SlashAttack",
 		Transform::Status::Default(),
+		{ +1.0f, 0.0f, 0.0f }, // ‰EŒü‚«
 		Vector3(), Vector3(),
 		1, attackPower, 0,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
-		new SlashAttackDrawer(1));
+		SlashAttackDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
 

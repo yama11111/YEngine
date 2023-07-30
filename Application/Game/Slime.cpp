@@ -18,14 +18,13 @@ void Slime::Initialize(const Transform::Status& status)
 	BaseCharacter::Initialize(
 		"Slime",
 		status,
+		{ -1.0f, 0.0f, 0.0f }, // 左向き
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed,
 		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::eEnemy, AttributeType::eAll),
-		new SlimeDrawer(1));
+		SlimeDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), SlimeConfig::kRadius));
-
-	transform_->rota_ = Vector3(0.0f, -PI, 0.0f);
 
 	// 立ちアニメーション
 	drawer_->PlayAnimation(
@@ -45,7 +44,7 @@ void Slime::Update()
 		// 着地アニメーション
 		drawer_->PlayAnimation(
 			static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding),
-			SlimeAnimationConfig::kLandingFrame
+			SlimeAnimationConfig::Landing::kFrame
 		);
 	}
 }

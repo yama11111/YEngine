@@ -1,11 +1,30 @@
 #include "SlimeDrawer.h"
 #include "AnimationConfig.h"
+#include "DustParticle.h"
+#include "Def.h"
+#include <cmath>
 
 using YGame::SlimeDrawer;
 using YGame::Model;
 using YMath::Vector3;
+using YMath::Timer;
+namespace Anime = YGame::SlimeAnimationConfig;
 
 Model* SlimeDrawer::spModel_ = nullptr;
+
+SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+{
+	SlimeDrawer* newDrawer = new SlimeDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void SlimeDrawer::StaticInitialize()
+{
+	spModel_ = Model::LoadObj("slime", true);
+}
 
 void SlimeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
@@ -21,63 +40,26 @@ void SlimeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	SlimeActor::Initialize();
 }
 
-void SlimeDrawer::Update()
+void SlimeDrawer::InsertAnimationTimers()
 {
-	animeStatus_ = {};
-
-	AnimationUpdate();
-
-	HitActor::Update();
-
-	SlimeActor::Update();
-
-	animeStatus_.pos_ += HitActor::ShakePosValue();
-
-	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
-
-	// オブジェクトに適応
-	BaseDrawer::Update();
-
-	cbColor_->data_.texColorRate = HitActor::ColorValue();
-
-	VisibleUpdate();
+	// アニメーションの数だけタイマー作成
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eLanding), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eHit), AnimationTimer() });
+	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eDead), AnimationTimer() });
 }
 
-void SlimeDrawer::Draw()
-{
-	BaseDrawer::Draw();
-}
-
-void SlimeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
+void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
 	// 立ち
 	if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eIdle))
 	{
-		IdleTimer_.Initialize(frame);
-		IdleTimer_.SetActive(true);
-
-	}
-	// ジャンプ
-	if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eJump))
-	{
-		JumpTimer_.Initialize(frame);
-		JumpTimer_.SetActive(true);
-
-		std::vector<Vector3> wobbleScaleValues;
-		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-		wobbleScaleValues.push_back(Vector3(-0.25f, +0.5f, -0.25f));
-		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-
-		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
-
-		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
 	}
 	// 着地
-	if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding))
 	{
-		LandingTimer_.Initialize(frame);
-		LandingTimer_.SetActive(true);
-
+		// ブヨブヨアニメ
+		// 潰れる
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
@@ -86,97 +68,47 @@ void SlimeDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
 		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
 
 		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
+
+		// 土煙を発生
+		// 自分の足元
+		float height = 0.5f;
+		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
+
+		// 自分の周囲 かつ 上方向
+		for (size_t i = 0; i < Anime::Landing::kDirectionNum; i++)
+		{
+			// 角度 = 2π (360) / 向きの数 * index
+			float rad = (2.0f * PI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
+			Vector3 surrounding = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
+
+			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);
+
+			DustParticle::Emit(Anime::Landing::kDustNum, pParent_->pos_, powerDirection, spVP_);
+		}
 	}
 	// 被弾
-	if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit))
 	{
-		HitTimer_.Initialize(frame);
-		HitTimer_.SetActive(true);
-
 		HitActor::Hit(
-			PlayerAnimationConfig::Hit::kSwing,
-			PlayerAnimationConfig::Hit::kSwing / static_cast<float>(frame),
+			Anime::Hit::kSwing,
+			Anime::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
 	}
 	// 死亡
-	if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead))
 	{
-		DeadTimer_.Initialize(frame);
-		DeadTimer_.SetActive(true);
-	}
-
-	// ビットフラグ変更
-	animationBitFlag_ |= index;
-}
-
-SlimeDrawer::SlimeDrawer(const uint16_t drawPriority)
-{
-	Initialize(nullptr, drawPriority);
-}
-
-SlimeDrawer::SlimeDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
-
-void SlimeDrawer::StaticInitialize()
-{
-	spModel_ = Model::LoadObj("slime", true);
-}
-
-void SlimeDrawer::TimerUpdate()
-{
-	IdleTimer_.Update();
-
-	if (IdleTimer_.IsEnd())
-	{
-		IdleTimer_.Reset(true);
-
-		//animationBitFlag_ &= ~static_cast<uint16_t>(SlimeDrawer::AnimationType::eIdle);
-	}
-
-
-	JumpTimer_.Update();
-
-	if (JumpTimer_.IsEnd())
-	{
-		JumpTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(SlimeDrawer::AnimationType::eJump);
-	}
-
-
-	LandingTimer_.Update();
-
-	if (LandingTimer_.IsEnd())
-	{
-		LandingTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding);
-	}
-
-	HitTimer_.Update();
-
-	if (HitTimer_.IsEnd())
-	{
-		HitTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit);
-	}
-
-
-	DeadTimer_.Update();
-
-	if (DeadTimer_.IsEnd())
-	{
-		DeadTimer_.Initialize(0);
-
-		animationBitFlag_ &= ~static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead);
 	}
 }
 
-void SlimeDrawer::AnimationUpdate()
+void SlimeDrawer::UpdateAnimtion()
 {
-	TimerUpdate();
+	HitActor::Update();
 
+	SlimeActor::Update();
+
+	animeStatus_.pos_ += HitActor::ShakePosValue();
+
+	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
+
+	cbColor_->data_.texColorRate = HitActor::ColorValue();
 }

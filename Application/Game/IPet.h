@@ -41,12 +41,12 @@ namespace YGame
 		/// <summary>
 		/// èÊÇÁÇÍÇÈ
 		/// </summary>
-		void Rideen();
+		virtual void Rideen();
 		
 		/// <summary>
 		/// ç~ÇËÇÁÇÍÇÈ
 		/// </summary>
-		void GotOff();
+		virtual void GotOff();
 		
 		/// <summary>
 		/// ìñÇΩÇ¡ÇΩÇ©éÊìæ

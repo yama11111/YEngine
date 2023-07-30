@@ -5,6 +5,21 @@ using YGame::Model;
 
 Model* CloudDrawer::spModel_ = nullptr;
 
+CloudDrawer* CloudDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+{
+	CloudDrawer* newDrawer = new CloudDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void CloudDrawer::StaticInitialize()
+{
+	// モデル設定
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
+}
+
 void CloudDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 {
 	// オブジェクト初期化
@@ -18,36 +33,14 @@ void CloudDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	shaderKey_ = "ModelToon";
 }
 
-void CloudDrawer::Update()
+void CloudDrawer::InsertAnimationTimers()
 {
-	BaseDrawer::Update();
-
-	VisibleUpdate();
 }
 
-void CloudDrawer::Draw()
+void CloudDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
-	BaseDrawer::Draw();
 }
 
-void CloudDrawer::PlayAnimation(const uint16_t index, const uint32_t frame)
+void CloudDrawer::UpdateAnimtion()
 {
-
-}
-
-CloudDrawer::CloudDrawer(const uint16_t drawPriority)
-{
-	Initialize(nullptr, drawPriority);
-}
-
-CloudDrawer::CloudDrawer(Transform* pParent, const uint16_t drawPriority)
-{
-	Initialize(pParent, drawPriority);
-}
-
-
-void CloudDrawer::StaticInitialize()
-{
-	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }

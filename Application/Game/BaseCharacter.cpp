@@ -1,4 +1,7 @@
 #include "BaseCharacter.h"
+#include "MathVector.h"
+#include "MathUtil.h"
+#include "CharacterConfig.h"
 #include "MapChipManager.h"
 #include <imgui.h>
 
@@ -8,51 +11,47 @@ using YMath::Vector3;
 void BaseCharacter::Initialize(
 	const std::string& name,
 	const Transform::Status& status,
+	const Vector3& direction,
 	const Vector3& acceleration, const Vector3& maxSpeed,
 	const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
 	GameCollider* collider, BaseDrawer* drawer)
 {
-	// オブジェクト初期化
 	GameObject::Initialize(name, status);
 
-	// コライダー設定
-	GameObject::SetCollider(collider);
-	
-	// 描画クラス設定
-	GameObject::SetDrawer(drawer);
+	direction_ = direction;
 
-	// マップチップコライダー初期化
-	MapChipCollider::Initialize(status.scale_);
-
-	// スピード初期化
 	speed_.Initialize(acceleration, maxSpeed);
 
-	// キャラステータス初期化
 	status_.Initialize(hp, attack, invincibleTime);
+
+	GameObject::SetCollider(collider);
+	
+	GameObject::SetDrawer(drawer);
+
+	// マップチップとのアタリ判定はスケールをそのまま使う
+	MapChipCollider::Initialize(status.scale_);
 }
 
 void BaseCharacter::Update()
 {
-	// スピード更新
 	speed_.Update(moveDirection_);
-
-	// 移動方向初期化
+	
 	moveDirection_ = Vector3();
 
 	// マップチップとのアタリ判定
 	MapChipManager::GetInstance()->CurrentMapPointer()->PerfectPixelCollision(*this);
 
-	// 位置にスピード加算
 	transform_->pos_ += speed_.Velocity();
 
-	// オブジェクト更新
+	// 向き調整
+	transform_->rota_ = YMath::AdjustAngle(direction_);
+
 	GameObject::Update();
 
-	// キャラステータス更新
 	status_.Update();
 
-	// 
-	if (transform_->pos_.y_ <= -150.0f)
+	// 画面外なら死ぬ
+	if (YMath::InRange(transform_->pos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
 	{
 		OffScreenProcess();
 	}

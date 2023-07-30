@@ -48,6 +48,8 @@ void DrawObjectForModel::Initialize(const Transform::Status& status, const bool 
 	InsertDefaultConstBuffer(CBLightGroup::Tag());
 	InsertDefaultConstBuffer(CBMaterial::Tag());
 	InsertDefaultConstBuffer(CBTexConfig::Tag());
+
+	isVisible_ = true;
 }
 	
 
@@ -65,8 +67,6 @@ void DrawObjectForModel::Update(const Transform::Status& status)
 
 void DrawObjectForModel::SetViewProjection(ViewProjection* pVP)
 {
-	assert(pVP);
-
 	pVP_ = pVP;
 }
 

@@ -5,11 +5,12 @@
 
 namespace YGame
 {
+	// 基底描画オブジェクト
 	class BaseDrawObject
 	{
 
 	public:
-
+		
 		// トランスフォーム
 		Transform transform_;
 	
@@ -43,9 +44,9 @@ namespace YGame
 		/// ペアレント設定
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		void SetParent(Transform* pParent);
+		void SetParent(YMath::Matrix4* pParent);
 		
-			/// <summary>
+		/// <summary>
 		/// 定数バッファポインタ挿入 
 		/// (同じ種類の定数バッファが来たら入れ替える)
 		/// </summary>
@@ -58,6 +59,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="cbTag"> : 定数バッファタグ</param>
 		void InsertDefaultConstBuffer(const std::string& cbTag);
+
+		/// <summary>
+		/// 描画するか設定
+		/// </summary>
+		/// <param name="isVisible">描画フラグ</param>
+		void SetVisible(const bool isVisible) { isVisible_ = isVisible; }
 	
 	public:
 		
@@ -67,14 +74,14 @@ namespace YGame
 
 	protected:
 
-		// 親
-		Transform* pParent_ = nullptr;
-
 		// 定数バッファマップ
 		ConstBufferPtrSet cbPtrSet_;
 
 		// グラフィック
 		BaseGraphic* pGraphic_ = nullptr;
+
+		// 描画するか
+		bool isVisible_ = true;
 	
 	protected:
 
@@ -83,6 +90,6 @@ namespace YGame
 		/// </summary>
 		/// <param name="pGraphic"> : グラフィックポインタ</param>
 		void SetGraphic(BaseGraphic* pGraphic);
-	
+
 	};
 }

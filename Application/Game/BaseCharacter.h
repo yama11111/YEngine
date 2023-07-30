@@ -18,6 +18,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="name"> : 名前</param>
 		/// <param name="status"> : ステータス</param>
+		/// <param name="direction"> : 向き</param>
 		/// <param name="acceleration"> : 加速度</param>
 		/// <param name="maxSpeed"> : 最大速度</param>
 		/// <param name="hp"> : HP</param>
@@ -28,6 +29,7 @@ namespace YGame
 		void Initialize(
 			const std::string& name,
 			const Transform::Status& status,
+			const YMath::Vector3& direction,
 			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
 			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
 			GameCollider* collider, BaseDrawer* drawer);
@@ -103,6 +105,9 @@ namespace YGame
 		virtual ~BaseCharacter() = default;
 
 	protected:
+
+		// 向き
+		YMath::Vector3 direction_;
 
 		// 移動方向
 		YMath::Vector3 moveDirection_;

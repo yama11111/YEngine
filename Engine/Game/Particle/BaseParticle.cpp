@@ -5,33 +5,19 @@ using YGame::BaseParticle;
 
 void BaseParticle::Initialize(
 	const uint32_t aliveFrame, 
-	BaseDrawObject* obj, 
+	const Transform::Status& status, 
 	const std::string& shaderTag, 
 	const uint16_t drawPriority)
 {
-	assert(obj);
-
 	isAlive_ = true;
 
 	aliveTimer_.Initialize(aliveFrame, true);
 
-	obj_.reset(obj);
+	obj_->Initialize(status);
 
 	shaderTag_ = shaderTag;
 
 	drawPriority_ = drawPriority;
-}
-
-void BaseParticle::Update()
-{
-	UpdateLife();
-
-	obj_->Update();
-}
-
-void BaseParticle::Draw()
-{
-	obj_->Draw(shaderTag_, drawPriority_);
 }
 
 void BaseParticle::UpdateLife()
@@ -44,5 +30,21 @@ void BaseParticle::UpdateLife()
 	if (aliveTimer_.IsEnd()) 
 	{
 		isAlive_ = false; 
+
+		obj_->SetVisible(false);
 	}
+}
+
+void BaseParticle::Draw()
+{
+	if (isAlive_ == false) { return; }
+
+	obj_->Draw(shaderTag_, drawPriority_);
+}
+
+void BaseParticle::SetObject(BaseDrawObject* obj)
+{
+	assert(obj);
+
+	obj_.reset(obj);
 }

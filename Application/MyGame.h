@@ -36,5 +36,10 @@ namespace YBase
 		/// </summary>
 		void InitializePipelines();
 
+		/// <summary>
+		/// パーティクル初期化
+		/// </summary>
+		void InitializeParticles();
+
 	};
 }

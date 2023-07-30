@@ -7,6 +7,7 @@
 #include <cassert>
 
 using YGame::IPet;
+using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
 
@@ -15,7 +16,8 @@ YGame::ScrollCamera* IPet::spScrollCamera_ = nullptr;
 void IPet::Update()
 {
 	// é©ìÆÇ≈ëOÇ…êiÇﬁ
-	moveDirection_.x_ = +1.0f;
+	moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+	direction_ = Vector3(+1.0f, 0.0f, 0.0f);
 
 	BaseCharacter::Update();
 

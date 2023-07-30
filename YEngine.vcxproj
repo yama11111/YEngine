@@ -114,6 +114,8 @@
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Game\BlockDrawer.cpp" />
     <ClCompile Include="Application\Game\CloudDrawer.cpp" />
+    <ClCompile Include="Application\Game\DebriParticle.cpp" />
+    <ClCompile Include="Application\Game\DustParticle.cpp" />
     <ClCompile Include="Application\Game\DefaultDrawer.cpp" />
     <ClCompile Include="Application\Game\GoalDrawer.cpp" />
     <ClCompile Include="Application\Game\HorseDrawer.cpp" />
@@ -223,6 +225,8 @@
     <ClInclude Include="Application\Game\BlockDrawer.h" />
     <ClInclude Include="Application\Game\CharacterConfig.h" />
     <ClInclude Include="Application\Game\CloudDrawer.h" />
+    <ClInclude Include="Application\Game\DebriParticle.h" />
+    <ClInclude Include="Application\Game\DustParticle.h" />
     <ClInclude Include="Application\Game\DefaultDrawer.h" />
     <ClInclude Include="Application\Game\GoalDrawer.h" />
     <ClInclude Include="Application\Game\HorseDrawer.h" />
