@@ -30,6 +30,7 @@ using namespace YGame;
 #pragma endregion 
 
 #pragma region StaticŠÖ˜A
+static bool isLoad = false;
 #pragma endregion 
 
 
@@ -39,7 +40,17 @@ void PlayScene::Load()
 	pCharacterMan_ = CharacterManager::GetInstance();
 	
 	pMapChipManager_ = MapChipManager::GetInstance();
-	pMapChipManager_->Load("demo.csv");
+	
+
+	if (isLoad == false)
+	{
+		pMapChipManager_->Load("demo.csv");
+		isLoad = true;
+	}
+	else
+	{
+		pMapChipManager_->Load(0, "demo.csv");
+	}
 
 	// •`‰æƒNƒ‰ƒX
 	{
