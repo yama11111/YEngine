@@ -18,12 +18,8 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update() override;
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void Draw() override;
+		/// <param name="isUpdate"> : 更新するか</param>
+		void Update(const bool isUpdate) override;
 
 		/// <summary>
 		/// ジャンプ

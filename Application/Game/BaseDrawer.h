@@ -69,6 +69,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親トランスフォームポインタ</param>
 		void SetParent(Transform* pParent);
+
+		/// <summary>
+		/// オフセット設定
+		/// </summary>
+		/// <param name="offset"> : オフセット</param>
+		void SetOffset(const YMath::Vector3& offset) { offset_ = offset; }
 		
 		/// <summary>
 		/// 描画位置設定
@@ -112,6 +118,9 @@ namespace YGame
 
 		// 親トランスフォームポインタ
 		Transform* pParent_ = nullptr;
+
+		// オフセット
+		YMath::Vector3 offset_;
 		
 		// オブジェクト
 		std::unique_ptr<DrawObjectForModel> obj_;

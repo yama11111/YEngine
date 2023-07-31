@@ -47,9 +47,9 @@ void Horse::Initialize(const Transform::Status& status)
 	);
 }
 
-void Horse::Update()
+void Horse::Update(const bool isUpdate)
 {
-	IPet::Update();
+	IPet::Update(isUpdate);
 
 	// íÖínÇµÇΩèuä‘
 	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
@@ -61,11 +61,6 @@ void Horse::Update()
 			HorseAnimationConfig::Landing::kFrame
 		);
 	}
-}
-
-void Horse::Draw()
-{
-	BaseCharacter::Draw();
 }
 
 YGame::BaseCharacter::CollisionInfo Horse::GetCollisionInfo()

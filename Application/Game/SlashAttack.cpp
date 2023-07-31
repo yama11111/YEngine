@@ -45,12 +45,12 @@ void SlashAttack::Initialize(
 	GameObject::Update();
 }
 
-void SlashAttack::Update()
+void SlashAttack::Update(const bool isUpdate)
 {
 	UpdatePos();
 
 	// キャラクター更新
-	BaseCharacter::Update();
+	BaseCharacter::Update(isUpdate);
 
 	aliveTimer_.Update();
 	

@@ -15,6 +15,7 @@
 #include "CBTime.h"
 
 #include "DustParticle.h"
+#include "DebriParticle.h"
 
 #pragma region ñºëOãÛä‘êÈåæ
 using YBase::MyGame;
@@ -273,5 +274,7 @@ void MyGame::InitializePipelines()
 void MyGame::InitializeParticles()
 {
 	DustParticle::StaticInitialize();
+
+	DebriParticle::StaticInitialize();
 }
 

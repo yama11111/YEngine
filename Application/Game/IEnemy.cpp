@@ -3,18 +3,6 @@
 
 using YGame::IEnemy;
 
-void IEnemy::Update()
-{
-	// キャラクター更新
-	BaseCharacter::Update();
-}
-
-void IEnemy::Draw()
-{
-	// 描画
-	drawer_->Draw();
-}
-
 void IEnemy::OnCollision(const CollisionInfo& info)
 {
 	// 自身の情報

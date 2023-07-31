@@ -60,8 +60,10 @@ void Camera::UpdateTarget()
 		vp_.target_ = vp_.eye_ + forward;
 	}
 }
-void Camera::Update()
+void Camera::Update(const Transform::Status& status)
 {
+	status_ = status;
+
 	if (isSmooth_)
 	{
 		moveTimer_.Update();
@@ -78,7 +80,7 @@ void Camera::Update()
 	transform_.rota_ = rota_;
 	
 	// アフィン変換
-	transform_.UpdateMatrix();
+	transform_.UpdateMatrix(status);
 	
 	// カメラシェイク更新
 	shake_.Update();
@@ -119,6 +121,8 @@ ViewProjection Camera::GetViewProjection()
 	// カメラシェイク加算
 	result.eye_ += shake_.Value();
 	result.target_ += shake_.Value();
+
+	result.eye_ += status_.pos_;
 	
 	// 行列更新
 	result.UpdateMatrix();

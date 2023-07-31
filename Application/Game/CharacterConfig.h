@@ -32,7 +32,7 @@ namespace YGame
 		static const uint32_t kAttack = 20;
 		static const uint32_t kInvincibleTime = 10;
 
-		static const float kRiddenHeight = 1.0;
+		static const float kRiddenHeight = 1.25f;
 	}
 
 	namespace SlimeConfig

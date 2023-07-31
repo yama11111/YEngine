@@ -29,7 +29,8 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update() override;
+		/// <param name="isUpdate"> : 更新するか</param>
+		void Update(const bool isUpdate) override;
 
 		/// <summary>
 		/// 衝突判定

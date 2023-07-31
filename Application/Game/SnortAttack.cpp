@@ -43,12 +43,12 @@ void SnortAttack::Initialize(
 	GameObject::Update();
 }
 
-void SnortAttack::Update()
+void SnortAttack::Update(const bool isUpdate)
 {
 	moveDirection_ = Vector3(+1.0f, 0.0f, 0.0f);
 
 	// キャラクター更新
-	BaseCharacter::Update();
+	BaseCharacter::Update(isUpdate);
 
 	aliveTimer_.Update();
 

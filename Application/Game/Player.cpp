@@ -32,6 +32,8 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eAll),
 		PlayerDrawer::Create(nullptr, 1));
 
+	transform_->Initialize();
+
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PlayerConfig::kRadius));
 
 	jumpCounter_ = 0;
@@ -75,6 +77,7 @@ void Player::RideOnPet(IPet* pPet)
 		collider_->SetIsSlip(true);
 
 		drawer_->SetParent(pPet_->DrawerPtr()->TransformPtr());
+		drawer_->SetOffset(Vector3(0.0f, pPet_->RidingPosHeight(), 0.0f));
 		drawer_->SetIsVisibleUpdate(false);
 
 		pPet_->Rideen();
@@ -100,6 +103,7 @@ void Player::GetOffPet()
 	collider_->SetIsSlip(false);
 
 	drawer_->SetParent(transform_.get());
+	drawer_->SetOffset(Vector3(0.0f, 0.0f, 0.0f));
 	drawer_->SetIsVisibleUpdate(true);
 	
 	// 飛び降りる
@@ -116,7 +120,7 @@ void Player::GetOffPet()
 	);
 }
 
-void Player::Update()
+void Player::Update(const bool isUpdate)
 {
 	// ペットが被弾したら降りる
 	if(pPet_)
@@ -126,22 +130,32 @@ void Player::Update()
 			GetOffPet();
 		}
 	}
-
-	if (pPet_ == nullptr)
-	{
-		// 自動で前に進む
-		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
-		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
-	}
 	
-	// SPACE キー or A ボタン
-	if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
-		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
+	if (isUpdate)
 	{
-		Jump();
+		if (pPet_ == nullptr)
+		{
+			// 自動で前に進む
+			moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+			direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+		}
+
+		// SPACE キー or A ボタン
+		if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
+			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
+		{
+			Jump();
+		}
+
+		// V キー or X ボタン
+		if (Keys::GetInstance()->IsTrigger(DIK_V) ||
+			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
+		{
+			Attack();
+		}
 	}
 
-	BaseCharacter::Update();
+	BaseCharacter::Update(isUpdate);
 
 	// 着地しているなら
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
@@ -172,13 +186,6 @@ void Player::Update()
 		// 移動アニメーションをやめる
 		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
 	}
-
-	// V キー or X ボタン
-	if (Keys::GetInstance()->IsTrigger(DIK_V) ||
-		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
-	{
-		Attack();
-	}
 }
 
 void Player::OnCollision(const CollisionInfo& info)
@@ -205,10 +212,10 @@ void Player::OnCollision(const CollisionInfo& info)
 
 			if (status_.IsAlive() == false)
 			{
-				// 攻撃アニメーション
+				// 死亡アニメーション
 				drawer_->PlayAnimation(
 					static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead),
-					PlayerAnimationConfig::kDeadFrame
+					PlayerAnimationConfig::Dead::kFrame
 				);
 
 				spScrollCamera_->SetFollowPoint(nullptr);

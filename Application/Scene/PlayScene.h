@@ -3,6 +3,7 @@
 #include "MapChipManager.h"
 #include "CharacterManager.h"
 #include "ScrollCamera.h"
+#include "UIManager.h"
 
 #include "Level.h"
 
@@ -22,7 +23,7 @@ namespace YGame
 #pragma region ゲームオブジェクト
 
 		// レベル
-		Level* pLevel_;
+		Level* pLevel_ = nullptr;
 
 		// キャラクターマネージャー
 		CharacterManager* pCharacterMan_ = nullptr;
@@ -35,6 +36,21 @@ namespace YGame
 
 		// 転送用ビュープロジェクション
 		ViewProjection transferVP_;
+
+		// UIマネージャー
+		UIManager uiMan_;
+		
+		// 開始フラグ
+		bool isStart_ = false;
+
+		// 開始演出用タイマー
+		YMath::Timer startTimer_;
+
+		// 開始演出用カメラオフセット
+		YMath::Ease<YMath::Vector3> cameraOffset_;
+		
+		// 停止フラグ
+		bool isStop_ = false;
 
 #pragma endregion
 

@@ -17,7 +17,8 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update();
+		/// <param name="isUpdate"> : 更新するか</param>
+		void Update(const bool isUpdate);
 		
 		/// <summary>
 		/// デバッグ描画

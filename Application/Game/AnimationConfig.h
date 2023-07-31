@@ -48,7 +48,12 @@ namespace YGame
 		}
 		
 		// Ž€–S
-		static const uint16_t kDeadFrame = 10;
+		namespace Dead
+		{
+			static const uint16_t kFrame = 10;
+
+			static const size_t kDebriNum = 16;
+		}
 	}
 
 	// ƒEƒ}
@@ -96,7 +101,12 @@ namespace YGame
 		}
 
 		// Ž€–S
-		static const uint16_t kDeadFrame = 10;
+		namespace Dead
+		{
+			static const uint16_t kFrame = 10;
+
+			static const size_t kDebriNum = 16;
+		}
 	}
 
 	// ƒXƒ‰ƒCƒ€
@@ -125,6 +135,11 @@ namespace YGame
 		}
 
 		// Ž€–S
-		static const uint16_t kDeadFrame = 10;
+		namespace Dead
+		{
+			static const uint16_t kFrame = 10;
+
+			static const size_t kDebriNum = 16;
+		}
 	}
 }

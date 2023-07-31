@@ -191,5 +191,5 @@ void Blackout::Update()
 
 void Blackout::Draw()
 {
-	obj_->Draw("Sprite2DDefault", 2);
+	obj_->Draw("Sprite2DDefault", 0);
 }

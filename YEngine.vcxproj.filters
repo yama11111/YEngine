@@ -199,6 +199,9 @@
     <Filter Include="Application\ConstBuffer">
       <UniqueIdentifier>{e8f0b04f-78e0-43cf-b3b9-607dd15ec93f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\UI">
+      <UniqueIdentifier>{59e55c2a-8077-40fe-842a-08e63816ecad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -363,15 +366,6 @@
     <ClCompile Include="Application\Game\BaseDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Draw\HUD\LetterBoxDrawer.cpp">
-      <Filter>Application\Draw\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Draw\HUD\UIButtonDrawer.cpp">
-      <Filter>Application\Draw\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Draw\HUD\UIChargeButtonDrawer.cpp">
-      <Filter>Application\Draw\HUD</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\IItem.cpp">
       <Filter>Application\Game\Chara\Item</Filter>
     </ClCompile>
@@ -521,6 +515,21 @@
     </ClCompile>
     <ClCompile Include="Application\Game\DebriParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UIManager.cpp">
+      <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UIButton.cpp">
+      <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UILetterBox.cpp">
+      <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UINumber.cpp">
+      <Filter>Application\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -691,15 +700,6 @@
     </ClInclude>
     <ClInclude Include="Application\Game\BaseDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Draw\HUD\LetterBoxDrawer.h">
-      <Filter>Application\Draw\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Draw\HUD\UIButtonDrawer.h">
-      <Filter>Application\Draw\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Draw\HUD\UIChargeButtonDrawer.h">
-      <Filter>Application\Draw\HUD</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h">
       <Filter>Engine\Game\MapChip</Filter>
@@ -910,6 +910,21 @@
     </ClInclude>
     <ClInclude Include="Application\Game\DebriParticle.h">
       <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionParticle.h">
+      <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UIManager.h">
+      <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UIButton.h">
+      <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UILetterBox.h">
+      <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UINumber.h">
+      <Filter>Application\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

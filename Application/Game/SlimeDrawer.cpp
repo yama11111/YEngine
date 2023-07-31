@@ -1,6 +1,7 @@
 #include "SlimeDrawer.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
+#include "DebriParticle.h"
 #include "Def.h"
 #include <cmath>
 
@@ -97,6 +98,7 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 	// Ž€–S
 	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead))
 	{
+		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
 	}
 }
 

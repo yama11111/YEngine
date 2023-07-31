@@ -29,6 +29,9 @@ namespace YGame
 		
 		// トランスフォーム
 		Transform transform_;
+
+		// 変動値保存用
+		Transform::Status status_;
 		
 		// ビュープロジェクション
 		ViewProjection vp_;
@@ -63,7 +66,8 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update();
+		/// <param name="status"> : 設定用ステータス</param>
+		void Update(const Transform::Status& status = {});
 	
 	public:
 		// 滑らかに移動

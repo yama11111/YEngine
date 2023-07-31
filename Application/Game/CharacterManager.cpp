@@ -9,7 +9,7 @@ void CharacterManager::Initialize()
 	Clear();
 }
 
-void CharacterManager::Update()
+void CharacterManager::Update(const bool isUpdate)
 {
 	// キャラクターが死んだら削除
 	characters_.remove_if([](std::unique_ptr<BaseCharacter>& character) { return character->IsAlive() == false; });
@@ -31,7 +31,7 @@ void CharacterManager::Update()
 		if (updateQueue_.empty()) { break; }
 
 		// 上から順に更新
-		updateQueue_.top().pChara_->Update();
+		updateQueue_.top().pChara_->Update(isUpdate);
 
 		updateQueue_.pop();
 	}
@@ -42,7 +42,7 @@ void CharacterManager::Update()
 
 void CharacterManager::DrawDebugText()
 {
-	static const std::string windowName = "Game";
+	static const std::string windowName = "Character";
 
 	ImGui::SetWindowPos(windowName.c_str(), ImVec2(20.0f, 20.0f), ImGuiCond_Once);
 	ImGui::SetWindowSize(windowName.c_str(), ImVec2(240.0f, 680.0f), ImGuiCond_Once);

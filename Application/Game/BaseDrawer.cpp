@@ -76,6 +76,8 @@ void BaseDrawer::Update()
 {
 	animeStatus_ = {};
 
+	animeStatus_.pos_ += offset_;
+
 	UpdateAnimationTimer();
 
 	UpdateAnimtion();

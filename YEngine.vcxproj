@@ -126,7 +126,6 @@
     <ClCompile Include="Application\Game\SlashAttack.cpp" />
     <ClCompile Include="Application\Game\SlashAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\SlimeDrawer.cpp" />
-    <ClCompile Include="Application\Draw\HUD\UIChargeButtonDrawer.cpp" />
     <ClCompile Include="Application\Game\CharacterStatus.cpp" />
     <ClCompile Include="Application\Game\CharacterManager.cpp" />
     <ClCompile Include="Application\Game\Horse.cpp" />
@@ -141,6 +140,10 @@
     <ClCompile Include="Application\Game\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\GameCollider.cpp" />
+    <ClCompile Include="Application\Game\UILetterBox.cpp" />
+    <ClCompile Include="Application\Game\UIManager.cpp" />
+    <ClCompile Include="Application\Game\UIButton.cpp" />
+    <ClCompile Include="Application\Game\UINumber.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
     <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp" />
     <ClCompile Include="Engine\Draw\CB\DefaultConstBuffer.cpp" />
@@ -160,8 +163,6 @@
     <ClCompile Include="Engine\Base\YFramework.cpp" />
     <ClCompile Include="Engine\Base\YWindowsApp.cpp" />
     <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp" />
-    <ClCompile Include="Application\Draw\HUD\LetterBoxDrawer.cpp" />
-    <ClCompile Include="Application\Draw\HUD\UIButtonDrawer.cpp" />
     <ClCompile Include="Engine\Draw\CB\ConstBufferPtrSet.cpp" />
     <ClCompile Include="Engine\Draw\Object\DrawObjectForPostEffect.cpp" />
     <ClCompile Include="Engine\Draw\Object\DrawObjectForSprite2D.cpp" />
@@ -218,6 +219,7 @@
     <ClCompile Include="Engine\Draw\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp" />
+    <ClCompile Include="ExplosionParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
@@ -237,7 +239,6 @@
     <ClInclude Include="Application\Game\SlashAttack.h" />
     <ClInclude Include="Application\Game\SlashAttackDrawer.h" />
     <ClInclude Include="Application\Game\SlimeDrawer.h" />
-    <ClInclude Include="Application\Draw\HUD\UIChargeButtonDrawer.h" />
     <ClInclude Include="Application\Game\CharacterStatus.h" />
     <ClInclude Include="Application\Game\CharacterManager.h" />
     <ClInclude Include="Application\Game\Horse.h" />
@@ -252,6 +253,10 @@
     <ClInclude Include="Application\Game\SnortAttack.h" />
     <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\GameCollider.h" />
+    <ClInclude Include="Application\Game\UILetterBox.h" />
+    <ClInclude Include="Application\Game\UIManager.h" />
+    <ClInclude Include="Application\Game\UIButton.h" />
+    <ClInclude Include="Application\Game\UINumber.h" />
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
     <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h" />
     <ClInclude Include="Engine\Draw\CB\CBTime.h" />
@@ -292,8 +297,6 @@
     <ClInclude Include="Engine\Base\YWindowsApp.h" />
     <ClInclude Include="Engine\Def.h" />
     <ClInclude Include="Application\Draw\Actor\SlimeActor.h" />
-    <ClInclude Include="Application\Draw\HUD\LetterBoxDrawer.h" />
-    <ClInclude Include="Application\Draw\HUD\UIButtonDrawer.h" />
     <ClInclude Include="Engine\Draw\Graphic\PostEffect.h" />
     <ClInclude Include="Engine\Draw\Graphic\Sprite2D.h" />
     <ClInclude Include="Engine\Draw\Graphic\Sprite3D.h" />
@@ -349,6 +352,7 @@
     <ClInclude Include="Engine\Draw\Pipeline\Pipeline.h" />
     <ClInclude Include="Engine\Draw\Pipeline\PipelineManager.h" />
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
+    <ClInclude Include="ExplosionParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Dissolve.hlsli" />

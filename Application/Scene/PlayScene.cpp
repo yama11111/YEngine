@@ -71,6 +71,9 @@ void PlayScene::Load()
 	
 	// ペット
 	IPet::StaticInitialize(&scrollCamera_);
+
+	// UI
+	UIManager::StaticIntialize();
 }
 #pragma endregion
 
@@ -164,6 +167,21 @@ void PlayScene::Initialize()
 			pCharacterMan_->PushBack(newSlime);
 		}
 	}
+
+	// UI
+	uiMan_.Initialize();
+
+	
+	// 開始演出タイマー
+	startTimer_.Initialize(120, true);
+
+	// マップの大きさでオフセット値変える
+	Vector3 offset = { pMapChipManager_->CurrentMapPointer()->Size().x_, pMapChipManager_->CurrentMapPointer()->Size().y_, 0.0f };
+	cameraOffset_.Initialize(offset, {}, 1.2f);
+
+	isStart_ = false;
+
+	isStop_ = false;
 }
 #pragma endregion
 
@@ -178,20 +196,44 @@ void PlayScene::Finalize()
 #pragma region 更新
 void PlayScene::Update()
 {
-	pLevel_->Update();
+	bool isReset = false;
 
-	pMapChipManager_->Update();
+	ImGui::Begin("Game");
+	ImGui::Checkbox("isStop", &isStop_);
+	isReset = ImGui::Button("Reset");
+	ImGui::End();
+
+	if (isStop_ == false)
+	{
+		startTimer_.Update();
+
+		// 開始演出終了時
+		if (startTimer_.IsEnd() && isStart_ == false)
+		{
+			uiMan_.StartAnimation();
+
+			isStart_ = true;
+		}
+
+		uiMan_.Update();
+
+		pLevel_->Update();
+
+		pMapChipManager_->Update();
+
+		// 開始演出中更新しない
+		pCharacterMan_->Update(isStart_);
+
+		scrollCamera_.Update({ cameraOffset_.Out(startTimer_.Ratio()) });
+		transferVP_ = scrollCamera_.GetViewProjection();
+	}
 	
-	pCharacterMan_->Update();
-
-	scrollCamera_.Update();
-	transferVP_ = scrollCamera_.GetViewProjection();
 	transferVP_.UpdateMatrix();
 
 	pCharacterMan_->DrawDebugText();
-	
+
 	// リセット
-	if (spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_MENU))
+	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_MENU))
 	{
 		SceneManager::GetInstance()->Change("PLAY");
 	}
@@ -207,5 +249,7 @@ void PlayScene::Draw()
 	pMapChipManager_->Draw();
 
 	pCharacterMan_->Draw();
+
+	uiMan_.Draw();
 }
 #pragma endregion

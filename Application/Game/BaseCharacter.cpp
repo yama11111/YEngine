@@ -32,7 +32,7 @@ void BaseCharacter::Initialize(
 	MapChipCollider::Initialize(status.scale_);
 }
 
-void BaseCharacter::Update()
+void BaseCharacter::Update(const bool isUpdate)
 {
 	speed_.Update(moveDirection_);
 	

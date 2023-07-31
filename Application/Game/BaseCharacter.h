@@ -37,7 +37,8 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update() override;
+		/// <param name="isUpdate"> : 更新するか</param>
+		virtual void Update(const bool isUpdate);
 
 	public:
 

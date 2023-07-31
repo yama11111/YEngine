@@ -24,7 +24,6 @@ namespace YGame
 		static void Emit(
 			const size_t num,
 			const YMath::Vector3& pos,
-			const YMath::Vector3& powerDirection,
 			ViewProjection* pVP);
 
 	};

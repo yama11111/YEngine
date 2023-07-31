@@ -376,7 +376,7 @@ void InfectionBlocks::Draw()
 	{
 		for (size_t x = 0; x < blocks_[y].size(); x++)
 		{
-			blocks_[y][x]->obj_->Draw("Sprite2DDefault", 2);
+			blocks_[y][x]->obj_->Draw("Sprite2DDefault", 0);
 		}
 	}
 }

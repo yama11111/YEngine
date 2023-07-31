@@ -1,6 +1,7 @@
 #include "PlayerDrawer.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
+#include "DebriParticle.h"
 #include <cmath>
 #include "Def.h"
 
@@ -146,6 +147,7 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 	// Ž€–S
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead))
 	{
+		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
 	}
 }
 

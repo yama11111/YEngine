@@ -13,13 +13,16 @@ using YInput::Pad;
 
 YGame::ScrollCamera* IPet::spScrollCamera_ = nullptr;
 
-void IPet::Update()
+void IPet::Update(const bool isUpdate)
 {
-	// 自動で前に進む
-	moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
-	direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+	if (isUpdate)
+	{
+		// 自動で前に進む
+		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+	}
 
-	BaseCharacter::Update();
+	BaseCharacter::Update(isUpdate);
 
 	// 着地しているなら
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)

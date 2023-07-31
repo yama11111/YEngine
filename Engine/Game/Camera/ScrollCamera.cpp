@@ -24,7 +24,7 @@ void ScrollCamera::Initialize(const Vector3 distance, Vector3* pFollowPoint, con
 	tolerance_ = tolerance;
 }
 
-void ScrollCamera::Update()
+void ScrollCamera::Update(const Transform::Status& status)
 {
 	// 追従位置
 	Vector3 followPoint;
@@ -40,7 +40,7 @@ void ScrollCamera::Update()
 	pos_ = followPoint + distance_;
 
 	// カメラ更新
-	Camera::Update();
+	Camera::Update(status);
 }
 
 void ScrollCamera::SetFollowPoint(Vector3* pFollowPoint)

@@ -10,16 +10,6 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// XV
-		/// </summary>
-		virtual void Update() override;
-
-		/// <summary>
-		/// •`‰æ
-		/// </summary>
-		virtual void Draw() override;
-
-		/// <summary>
 		/// Õ“Ë”»’è
 		/// </summary>
 		/// <param name="info"> : Õ“Ëî•ñ</param>

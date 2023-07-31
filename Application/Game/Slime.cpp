@@ -33,9 +33,9 @@ void Slime::Initialize(const Transform::Status& status)
 	);
 }
 
-void Slime::Update()
+void Slime::Update(const bool isUpdate)
 {
-	IEnemy::Update();
+	BaseCharacter::Update(isUpdate);
 	
 	// 着地した瞬間
 	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
@@ -47,11 +47,6 @@ void Slime::Update()
 			SlimeAnimationConfig::Landing::kFrame
 		);
 	}
-}
-
-void Slime::Draw()
-{
-	IEnemy::Draw();
 }
 
 YGame::BaseCharacter::CollisionInfo Slime::GetCollisionInfo()
@@ -76,4 +71,13 @@ void Slime::Hit()
 		static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit),
 		SlimeAnimationConfig::Hit::kFrame
 	);
+
+	if (status_.IsAlive() == false)
+	{
+		// 死亡アニメーション
+		drawer_->PlayAnimation(
+			static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead),
+			SlimeAnimationConfig::Dead::kFrame
+		);
+	}
 }

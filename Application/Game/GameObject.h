@@ -24,12 +24,12 @@ namespace YGame
 		/// <summary>
 		/// XV
 		/// </summary>
-		virtual void Update();
+		void Update();
 
 		/// <summary>
 		/// •`‰æ
 		/// </summary>
-		virtual void Draw();
+		void Draw();
 
 		/// <summary>
 		/// Õ“Ë”»’è

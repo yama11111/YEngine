@@ -18,8 +18,12 @@ namespace YGame
 		/// <param name="pFollowPoint"> : 追従点ポインタ</param>
 		/// <param name="tolerance"> : 追従しない範囲</param>
 		void Initialize(const YMath::Vector3 distance, YMath::Vector3* pFollowPoint, const YMath::Vector3 tolerance);
-		// 更新
-		void Update();
+		
+		/// <summary>
+		/// 更新
+		/// </summary>
+		/// <param name="status"> : 設定用ステータス</param>
+		void Update(const Transform::Status& status = {});
 	public:
 		// カメラシェイク
 		void Shaking(const float swing, const float dekey, const float place) override { Camera::Shaking(swing, dekey, place); }
