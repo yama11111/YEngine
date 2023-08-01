@@ -212,7 +212,7 @@ Vector3 YMath::AdjustAngle(const Vector3& velocity)
 	return result;
 }
 
-Matrix4 YMath::BillboardMatrix(const bool isXAxisBillboard, const bool isYAxisBillboard, 
+Matrix4 YMath::MatBillboard(const bool isXAxisBillboard, const bool isYAxisBillboard, 
 	const Vector3& eye, const Vector3& target, const Vector3& up)
 {
 	// どちらも false なら
@@ -244,4 +244,14 @@ Matrix4 YMath::BillboardMatrix(const bool isXAxisBillboard, const bool isYAxisBi
 
 	// ビルボード行列を返す
 	return matBillboard;
+}
+
+Vector3 YMath::ConvertToVector3(const Vector2& v)
+{
+	return Vector3(v.x_, v.y_, 0.0f);
+}
+
+Vector3 YMath::MultAtComponent(const Vector3& v1, const Vector3& v2)
+{
+	return Vector3(v1.x_ * v2.x_, v1.y_ * v2.y_, v1.z_ * v2.z_);
 }

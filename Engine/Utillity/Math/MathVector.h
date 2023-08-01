@@ -54,7 +54,15 @@ namespace YMath
 	// 角度調整
 	Vector3 AdjustAngle(const Vector3& velocity);
 
+
 	// ビルボード行列
-	Matrix4 BillboardMatrix(const bool isXAxisBillboard, const bool isYAxisBillboard, 
+	Matrix4 MatBillboard(const bool isXAxisBillboard, const bool isYAxisBillboard, 
 		const Vector3& eye, const Vector3& target, const Vector3& up);
+	
+	
+	// 3次元ベクトルに変換
+	Vector3 ConvertToVector3(const Vector2& v);
+
+	// ベクトルの成分同士で掛け算
+	Vector3 MultAtComponent(const Vector3& v1, const Vector3& v2);
 }

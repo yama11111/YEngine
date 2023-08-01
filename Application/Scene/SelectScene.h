@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+#include "DrawObjectForSprite2D.h"
 
 namespace YGame
 {
@@ -11,9 +12,30 @@ namespace YGame
 
 #pragma region リソース
 
+		Sprite2D* pLogoSpr_ = nullptr;
+
+		Sprite2D* pStartSpr_ = nullptr;
+		
+		Sprite2D* pNumberSpr_ = nullptr;
+		
+		Sprite2D* pStickSpr_ = nullptr;
+
+		Sprite2D* pButtonSpr_ = nullptr;
+		
+
 #pragma endregion
 
 #pragma region ゲームオブジェクト
+
+		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
+
+		std::unique_ptr<DrawObjectForSprite2D> startObj_;
+
+		std::unique_ptr<DrawObjectForSprite2D> numberObj_;
+		
+		std::unique_ptr<DrawObjectForSprite2D> stickObj_;
+		
+		std::unique_ptr<DrawObjectForSprite2D> buttonObj_;
 
 
 		// ビュープロジェクション

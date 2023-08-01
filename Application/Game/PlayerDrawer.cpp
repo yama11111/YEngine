@@ -25,7 +25,7 @@ PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const uint16_t drawPriori
 void PlayerDrawer::StaticInitialize()
 {
 	// ÉÇÉfÉãê›íË
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("player.png")} });
+	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("play/player.png")} });
 }
 
 void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
