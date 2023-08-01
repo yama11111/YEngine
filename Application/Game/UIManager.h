@@ -9,22 +9,38 @@ namespace YGame
 
 	public:
 
+		/// <summary>
+		/// 初期化
+		/// </summary>
 		void Initialize();
 
+		/// <summary>
+		/// 更新
+		/// </summary>
 		void Update();
 		
-		void StartAnimation();
+		/// <summary>
+		/// 開始アニメーション
+		/// </summary>
+		void PlayStartAnimation();
 
+		/// <summary>
+		/// 描画
+		/// </summary>
 		void Draw();
 	
 	public:
 
 		/// <summary>
-		/// 静的初期化
+		/// 読み込み
 		/// </summary>
-		static void StaticIntialize();
+		static void Load();
 
-	public:
+	private:
+		
+		// レターボックス
+		std::unique_ptr<UILetterBox> letterBox_;
+
 
 		// ジャンプボタン
 		std::unique_ptr<UIButton> buttonJump_;
@@ -39,13 +55,6 @@ namespace YGame
 		// 攻撃UI
 		std::unique_ptr<BaseDrawObject> attackUI_;
 		
-		
-		// レターボックス
-		std::unique_ptr<UILetterBox> letterBox_;
-
-
-		// 開始できるか
-		bool isStartable_ = false;
 	};
 }
 

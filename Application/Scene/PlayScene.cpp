@@ -84,7 +84,7 @@ void PlayScene::Load()
 	IPet::StaticInitialize(&scrollCamera_);
 
 	// UI
-	UIManager::StaticIntialize();
+	UIManager::Load();
 }
 #pragma endregion
 
@@ -221,7 +221,7 @@ void PlayScene::Update()
 		// 開始演出終了時
 		if (startTimer_.IsEnd() && isStart_ == false)
 		{
-			uiMan_.StartAnimation();
+			uiMan_.PlayStartAnimation();
 
 			isStart_ = true;
 		}

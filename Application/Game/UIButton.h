@@ -1,12 +1,20 @@
 #pragma once
 #include "BaseDrawObject.h"
-#include "SlimeActor.h"
 
 namespace YGame
 {
-	class UIButton :
-		public SlimeActor
+	class UIButton
 	{
+
+	public:
+
+		/// <summary>
+		/// 動的インスタンス生成
+		/// </summary>
+		/// <param name="obj"> : オブジェクト (動的インスタンス)</param>
+		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		/// <returns>動的インスタンス</returns>
+		static UIButton* Create(BaseDrawObject* obj, const bool isClearWhenTransition = true);
 
 	public:
 
@@ -14,28 +22,27 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="obj"> : オブジェクト (動的インスタンス)</param>
-		void Initialize(BaseDrawObject* obj);
+		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		virtual void Initialize(BaseDrawObject* obj, const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update();
-		
-		/// <summary>
-		/// 押す (瞬間)
-		/// </summary>
-		void PressTrigger();
+		/// <param name="isDown"> : 押しているか</param>
+		virtual void Update(const bool isDown) = 0;
 		
 		/// <summary>
 		/// 描画
 		/// </summary>
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="priority"> : 描画優先度</param>
-		void Draw(const std::string& shaderTag, const uint16_t priority);
-
+		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
+	
 	public:
 
-		// オブジェクト
-		std::unique_ptr<BaseDrawObject> obj_;
+		UIButton() = default;
+		
+		virtual ~UIButton() = default;
+
 	};
 }

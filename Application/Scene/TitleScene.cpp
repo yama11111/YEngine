@@ -40,13 +40,13 @@ void TitleScene::Initialize()
 	Vector3 win = ConvertToVector3(WinSize);
 
 	Vector3 logoPos = (win / 2.0f) - Vector3(0.0f, 32.0f, 0.0f);
-	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos }, pLogoSpr_));
+	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, pLogoSpr_));
 	
 	Vector3 startPos = (win / 2.0f) + Vector3(0.0f, 32.0f, 0.0f);
-	startObj_.reset(DrawObjectForSprite2D::Create({ startPos }, pStartSpr_));
+	startObj_.reset(DrawObjectForSprite2D::Create({ startPos, {}, {1.0f,1.0f,1.0f} }, pStartSpr_));
 
 	Vector3 buttonPos = (win / 2.0f) + Vector3(0.0f, 32.0f, 0.0f);
-	buttonObj_.reset(DrawObjectForSprite2D::Create({ buttonPos }, pButtonSpr_));
+	buttonObj_.reset(DrawObjectForSprite2D::Create({ buttonPos, {}, {1.0f,1.0f,1.0f} }, pButtonSpr_));
 
 }
 #pragma endregion

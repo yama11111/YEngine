@@ -255,3 +255,8 @@ Vector3 YMath::MultAtComponent(const Vector3& v1, const Vector3& v2)
 {
 	return Vector3(v1.x_ * v2.x_, v1.y_ * v2.y_, v1.z_ * v2.z_);
 }
+
+Vector3 YMath::DivAtComponent(const Vector3& v1, const Vector3& v2)
+{
+	return Vector3(v1.x_ / v2.x_, v1.y_ / v2.y_, v1.z_ / v2.z_);
+}

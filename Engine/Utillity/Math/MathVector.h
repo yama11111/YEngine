@@ -65,4 +65,6 @@ namespace YMath
 
 	// ベクトルの成分同士で掛け算
 	Vector3 MultAtComponent(const Vector3& v1, const Vector3& v2);
+	// ベクトルの成分同士で割り算
+	Vector3 DivAtComponent(const Vector3& v1, const Vector3& v2);
 }
