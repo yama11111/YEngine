@@ -243,19 +243,19 @@
     <ClCompile Include="Engine\File\FileUtil.cpp">
       <Filter>Engine\File</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\MathVector.cpp">
+    <ClCompile Include="Engine\Math\Vector\MathVector.cpp">
       <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Matrix4.cpp">
+    <ClCompile Include="Engine\Math\Vector\Matrix4.cpp">
       <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Vector2.cpp">
+    <ClCompile Include="Engine\Math\Vector\Vector2.cpp">
       <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Vector3.cpp">
+    <ClCompile Include="Engine\Math\Vector\Vector3.cpp">
       <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Vector4.cpp">
+    <ClCompile Include="Engine\Math\Vector\Vector4.cpp">
       <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\MathUtil.cpp">
@@ -264,7 +264,7 @@
     <ClCompile Include="Engine\Math\Shake.cpp">
       <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Lerp.cpp">
+    <ClCompile Include="Engine\Math\Lerp\Lerp.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Speed.cpp">
@@ -402,16 +402,16 @@
     <ClCompile Include="Application\Game\SlimeDrawer.cpp">
       <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\CollisionDetection.cpp">
+    <ClCompile Include="Engine\Math\Collision\CollisionDetection.cpp">
       <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\PrimitiveCollider.cpp">
+    <ClCompile Include="Engine\Math\Collision\PrimitiveCollider.cpp">
       <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\GameCollider.cpp">
       <Filter>Application\Game\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\BasePrimitiveCollider.cpp">
+    <ClCompile Include="Engine\Math\Collision\BasePrimitiveCollider.cpp">
       <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp">
@@ -531,13 +531,13 @@
     <ClCompile Include="Engine\Math\Timer.cpp">
       <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Ease.cpp">
+    <ClCompile Include="Engine\Math\Lerp\Ease.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\BezierEase.cpp">
+    <ClCompile Include="Engine\Math\Lerp\BezierEase.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\SplineEase.cpp">
+    <ClCompile Include="Engine\Math\Lerp\SplineEase.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
   </ItemGroup>
@@ -581,19 +581,19 @@
     <ClInclude Include="Engine\File\FileUtil.h">
       <Filter>Engine\File</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\MathVector.h">
+    <ClInclude Include="Engine\Math\Vector\MathVector.h">
       <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Matrix4.h">
+    <ClInclude Include="Engine\Math\Vector\Matrix4.h">
       <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Vector2.h">
+    <ClInclude Include="Engine\Math\Vector\Vector2.h">
       <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Vector3.h">
+    <ClInclude Include="Engine\Math\Vector\Vector3.h">
       <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Vector4.h">
+    <ClInclude Include="Engine\Math\Vector\Vector4.h">
       <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\MathUtil.h">
@@ -602,7 +602,7 @@
     <ClInclude Include="Engine\Math\Shake.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Lerp.h">
+    <ClInclude Include="Engine\Math\Lerp\Lerp.h">
       <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Speed.h">
@@ -752,10 +752,10 @@
     <ClInclude Include="Application\Game\SlimeDrawer.h">
       <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\CollisionDetection.h">
+    <ClInclude Include="Engine\Math\Collision\CollisionDetection.h">
       <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\PrimitiveCollider.h">
+    <ClInclude Include="Engine\Math\Collision\PrimitiveCollider.h">
       <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\AttributeType.h">
@@ -764,7 +764,7 @@
     <ClInclude Include="Application\Game\GameCollider.h">
       <Filter>Application\Game\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\BasePrimitiveCollider.h">
+    <ClInclude Include="Engine\Math\Collision\BasePrimitiveCollider.h">
       <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\DescriptorHeap.h">
@@ -935,13 +935,13 @@
     <ClInclude Include="Engine\Math\Timer.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Ease.h">
+    <ClInclude Include="Engine\Math\Lerp\Ease.h">
       <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\BezierEase.h">
+    <ClInclude Include="Engine\Math\Lerp\BezierEase.h">
       <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\SplineEase.h">
+    <ClInclude Include="Engine\Math\Lerp\SplineEase.h">
       <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
   </ItemGroup>

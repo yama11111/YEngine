@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -179,10 +179,10 @@
     <ClCompile Include="Engine\Game\Camera\Camera.cpp" />
     <ClCompile Include="Engine\Game\Camera\ScrollCamera.cpp" />
     <ClCompile Include="Engine\Game\Camera\ViewProjection.cpp" />
-    <ClCompile Include="Engine\Math\BasePrimitiveCollider.cpp" />
-    <ClCompile Include="Engine\Math\BezierEase.cpp" />
-    <ClCompile Include="Engine\Math\Ease.cpp" />
-    <ClCompile Include="Engine\Math\PrimitiveCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\BasePrimitiveCollider.cpp" />
+    <ClCompile Include="Engine\Math\Lerp\BezierEase.cpp" />
+    <ClCompile Include="Engine\Math\Lerp\Ease.cpp" />
+    <ClCompile Include="Engine\Math\Collision\PrimitiveCollider.cpp" />
     <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp" />
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="Application\Game\MapChipManager.cpp" />
@@ -204,20 +204,20 @@
     <ClCompile Include="Engine\Input\Keys.cpp" />
     <ClCompile Include="Engine\Input\Mouse.cpp" />
     <ClCompile Include="Engine\Input\Pad.cpp" />
-    <ClCompile Include="Engine\Math\MathVector.cpp" />
-    <ClCompile Include="Engine\Math\CollisionDetection.cpp" />
-    <ClCompile Include="Engine\Math\Lerp.cpp" />
-    <ClCompile Include="Engine\Math\Matrix4.cpp" />
+    <ClCompile Include="Engine\Math\Vector\MathVector.cpp" />
+    <ClCompile Include="Engine\Math\Collision\CollisionDetection.cpp" />
+    <ClCompile Include="Engine\Math\Lerp\Lerp.cpp" />
+    <ClCompile Include="Engine\Math\Vector\Matrix4.cpp" />
     <ClCompile Include="Engine\Math\MathUtil.cpp" />
     <ClCompile Include="Engine\Math\Physics.cpp" />
     <ClCompile Include="Engine\Math\Power.cpp" />
     <ClCompile Include="Engine\Math\Shake.cpp" />
     <ClCompile Include="Engine\Math\Speed.cpp" />
-    <ClCompile Include="Engine\Math\SplineEase.cpp" />
+    <ClCompile Include="Engine\Math\Lerp\SplineEase.cpp" />
     <ClCompile Include="Engine\Math\Timer.cpp" />
-    <ClCompile Include="Engine\Math\Vector2.cpp" />
-    <ClCompile Include="Engine\Math\Vector3.cpp" />
-    <ClCompile Include="Engine\Math\Vector4.cpp" />
+    <ClCompile Include="Engine\Math\Vector\Vector2.cpp" />
+    <ClCompile Include="Engine\Math\Vector\Vector3.cpp" />
+    <ClCompile Include="Engine\Math\Vector\Vector4.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\Model.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp" />
@@ -314,10 +314,10 @@
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h" />
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h" />
     <ClInclude Include="Application\Game\AttributeType.h" />
-    <ClInclude Include="Engine\Math\BasePrimitiveCollider.h" />
-    <ClInclude Include="Engine\Math\BezierEase.h" />
-    <ClInclude Include="Engine\Math\Ease.h" />
-    <ClInclude Include="Engine\Math\PrimitiveCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\BasePrimitiveCollider.h" />
+    <ClInclude Include="Engine\Math\Lerp\BezierEase.h" />
+    <ClInclude Include="Engine\Math\Lerp\Ease.h" />
+    <ClInclude Include="Engine\Math\Collision\PrimitiveCollider.h" />
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />
     <ClInclude Include="Application\Game\MapChipManager.h" />
@@ -338,20 +338,20 @@
     <ClInclude Include="Engine\Input\Keys.h" />
     <ClInclude Include="Engine\Input\Mouse.h" />
     <ClInclude Include="Engine\Input\Pad.h" />
-    <ClInclude Include="Engine\Math\MathVector.h" />
-    <ClInclude Include="Engine\Math\CollisionDetection.h" />
-    <ClInclude Include="Engine\Math\Lerp.h" />
-    <ClInclude Include="Engine\Math\Matrix4.h" />
+    <ClInclude Include="Engine\Math\Vector\MathVector.h" />
+    <ClInclude Include="Engine\Math\Collision\CollisionDetection.h" />
+    <ClInclude Include="Engine\Math\Lerp\Lerp.h" />
+    <ClInclude Include="Engine\Math\Vector\Matrix4.h" />
     <ClInclude Include="Engine\Math\MathUtil.h" />
     <ClInclude Include="Engine\Math\Physics.h" />
     <ClInclude Include="Engine\Math\Power.h" />
     <ClInclude Include="Engine\Math\Shake.h" />
     <ClInclude Include="Engine\Math\Speed.h" />
-    <ClInclude Include="Engine\Math\SplineEase.h" />
+    <ClInclude Include="Engine\Math\Lerp\SplineEase.h" />
     <ClInclude Include="Engine\Math\Timer.h" />
-    <ClInclude Include="Engine\Math\Vector2.h" />
-    <ClInclude Include="Engine\Math\Vector3.h" />
-    <ClInclude Include="Engine\Math\Vector4.h" />
+    <ClInclude Include="Engine\Math\Vector\Vector2.h" />
+    <ClInclude Include="Engine\Math\Vector\Vector3.h" />
+    <ClInclude Include="Engine\Math\Vector\Vector4.h" />
     <ClInclude Include="Engine\Draw\CB\CBModelTransform.h" />
     <ClInclude Include="Engine\Draw\Graphic\Model.h" />
     <ClInclude Include="Engine\Draw\Pipeline\PipelineSetting.h" />

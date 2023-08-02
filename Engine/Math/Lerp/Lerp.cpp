@@ -71,8 +71,26 @@ T YMath::Bezier(const std::vector<T>& points, const float ratio)
 	return Lerp<T>(result[0], result[1], ratio);
 }
 
+namespace
+{
+	void CalcSplineSectionAndRatio(const size_t pointNum, const float ratio, size_t& section, float& ratioOfSection)
+	{
+		// 全体での割合 (size : 1.0 = x : ratio)
+		float ratioOfTotal = ratio * static_cast<float>(pointNum);
+
+		// 全体の割合から、セクション と 割合 を計算
+
+		// 割合 : 全体の割合の 少数部
+		float integer = 0;
+		ratioOfSection = modff(ratioOfTotal, &integer);
+
+		// セクション : 全体の割合の 整数部
+		section = static_cast<size_t>(integer);
+	}
+}
+
 template<typename T>
-T YMath::Spline(const std::vector<T>& points, const size_t section, const float ratio)
+T YMath::Spline(const std::vector<T>& points, const float ratio)
 {
 	// 1つもないなら弾く
 	assert(points.empty() == false);
@@ -84,6 +102,10 @@ T YMath::Spline(const std::vector<T>& points, const size_t section, const float 
 
 	// 2つなら 普通の補間
 	if (pSize == 2) { return Lerp<T>(points[0], points[1], ratio); }
+
+	size_t section = 0;
+	float ratioOfSection = 0.0f;
+	CalcSplineSectionAndRatio(points.size(), ratio, section, ratioOfSection);
 
 	// セクションが 配列の最大数を超えているなら 最後を返す
 	// セクションが 負の値なら 最初を返す
@@ -108,9 +130,9 @@ T YMath::Spline(const std::vector<T>& points, const size_t section, const float 
 	T p3 = ps[section + 3];
 
 	T position =
-		0.5f * ((2 * p1) + (-p0 + p2) * ratio
-			+ ((2 * p0) - (5 * p1) + (4 * p2) - p3) * powf(ratio, 2.0f)
-			+ (-p0 + (3 * p1) - (3 * p2) + p3) * powf(ratio, 3.0f));
+		0.5f * ((2 * p1) + (-p0 + p2) * ratioOfSection
+			+ ((2 * p0) - (5 * p1) + (4 * p2) - p3) * powf(ratioOfSection, 2.0f)
+			+ (-p0 + (3 * p1) - (3 * p2) + p3) * powf(ratioOfSection, 3.0f));
 
 	return position;
 }
@@ -138,45 +160,15 @@ T YMath::BezierEaseOut(const std::vector<T>& points, const float ratio, const fl
 	return Bezier<T>(points, 1.0f - powf(1.0f - ratio, exponent));
 }
 
-namespace
-{
-	void CalcSplineSectionAndRatio(const size_t pointNum, const float ratio, size_t& section, float& ratioOfSection)
-	{
-		// 全体での割合 (size : 1.0 = x : ratio)
-		float ratioOfTotal = ratio * static_cast<float>(pointNum);
-
-		// 全体の割合から、セクション と 割合 を計算
-
-		// 割合 : 全体の割合の 少数部
-		float integer = 0;
-		ratioOfSection = modff(ratioOfTotal, &integer);
-
-		// セクション : 全体の割合の 整数部
-		section = static_cast<size_t>(integer);
-	}
-}
-
 template<typename T>
 T YMath::SplineEaseIn(const std::vector<T>& points, const float ratio, const float exponent)
 {
-	// イージング後の割合で セクション と その割合を計算
-	float easeRatio = powf(ratio, exponent);
-	size_t section = 0;
-	float ratioOfSection = 0.0f;
-	CalcSplineSectionAndRatio(points.size(), easeRatio, section, ratioOfSection);
-
-	return Spline<T>(points, section, ratioOfSection);
+	return Spline<T>(points, powf(ratio, exponent));
 }
 template<typename T>
 T YMath::SplineEaseOut(const std::vector<T>& points, const float ratio, const float exponent)
 {
-	// イージング後の割合で セクション と その割合を計算
-	float easeRatio = 1.0f - powf(1.0f - ratio, exponent);
-	size_t section = 0;
-	float ratioOfSection = 0.0f;
-	CalcSplineSectionAndRatio(points.size(), easeRatio, section, ratioOfSection);
-
-	return Spline<T>(points, section, ratioOfSection);
+	return Spline<T>(points, 1.0f - powf(1.0f - ratio, exponent));
 }
 
 template float YMath::Lerp<float>(const float& a, const float& b, const float t);
@@ -191,11 +183,11 @@ template Vector2 YMath::Bezier<Vector2>(const std::vector<Vector2>& points, cons
 template Vector3 YMath::Bezier<Vector3>(const std::vector<Vector3>& points, const float t);
 template Vector4 YMath::Bezier<Vector4>(const std::vector<Vector4>& points, const float t);
 
-template float YMath::Spline<float>(const std::vector<float>& points, const size_t section, const float ratio);
-template double YMath::Spline<double>(const std::vector<double>& points, const size_t section, const float ratio);
-template Vector2 YMath::Spline<Vector2>(const std::vector<Vector2>& points, const size_t section, const float ratio);
-template Vector3 YMath::Spline<Vector3>(const std::vector<Vector3>& points, const size_t section, const float ratio);
-template Vector4 YMath::Spline<Vector4>(const std::vector<Vector4>& points, const size_t section, const float ratio);
+template float YMath::Spline<float>(const std::vector<float>& points, const float ratio);
+template double YMath::Spline<double>(const std::vector<double>& points, const float ratio);
+template Vector2 YMath::Spline<Vector2>(const std::vector<Vector2>& points, const float ratio);
+template Vector3 YMath::Spline<Vector3>(const std::vector<Vector3>& points, const float ratio);
+template Vector4 YMath::Spline<Vector4>(const std::vector<Vector4>& points, const float ratio);
 
 template float YMath::EaseIn<float>(const float& start, const float& end, const float ratio, const float exponent);
 template double YMath::EaseIn<double>(const double& start, const double& end, const float ratio, const float exponent);

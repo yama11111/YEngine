@@ -39,11 +39,10 @@ namespace YMath
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="points"> : 基準点の配列 (2点以上必須)</param>
-	/// <param name="section"> : 配列の位置 (pointとpointの間)</param>
 	/// <param name="ratio"> : 割合 (基本 0.0 ~ 1.0)</param>
 	/// <returns>その割合の時の値</returns>
 	template<typename T>
-	T Spline(const std::vector<T>& points, const size_t section, const float ratio);
+	T Spline(const std::vector<T>& points, const float ratio);
 
 	/// <summary>
 	/// イーズイン(だんだん早く)
