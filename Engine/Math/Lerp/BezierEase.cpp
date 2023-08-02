@@ -26,6 +26,12 @@ T BezierEase<T>::In(const float ratio) { return BezierEaseIn<T>(points_, ratio, 
 template<typename T>
 T BezierEase<T>::Out(const float ratio) { return BezierEaseOut<T>(points_, ratio, exponent_); }
 
+template<typename T>
+T BezierEase<T>::InOut(const float ratio, const float controlPoint) { return BezierEaseInOut<T>(points_, ratio, exponent_, controlPoint); }
+
+template<typename T>
+T BezierEase<T>::OutIn(const float ratio, const float controlPoint) { return BezierEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
+
 template class BezierEase<float>;
 template class BezierEase<double>;
 template class BezierEase<Vector2>;

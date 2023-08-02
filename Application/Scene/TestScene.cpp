@@ -185,9 +185,9 @@ void TestScene::Update()
 		ratio = power_.Ratio();
 	}
 
-	if (lerpIdx == 0) { val = ease_.In(ratio); }
-	if (lerpIdx == 1) { val = bezier_.In(ratio); }
-	if (lerpIdx == 2) { val = spline_.In(ratio); }
+	if (lerpIdx == 0) { val = ease_.OutIn(ratio); }
+	if (lerpIdx == 1) { val = bezier_.OutIn(ratio); }
+	if (lerpIdx == 2) { val = spline_.OutIn(ratio); }
 
 	obj_->transform_.pos_ = val;
 

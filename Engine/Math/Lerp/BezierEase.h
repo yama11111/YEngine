@@ -20,18 +20,38 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// イーズイン(だんだん早く)
+		/// イーズイン
+		/// (だんだん早く)
 		/// </summary>
 		/// <param name="ratio"> : 割合 (基本 0.0 ~ 1.0)</param>
 		/// <returns>その割合の時の値</returns>
 		T In(const float ratio);
 		
 		/// <summary>
-		/// イーズアウト(だんだん遅く)
+		/// イーズアウト
+		/// (だんだん遅く)
 		/// </summary>
 		/// <param name="ratio"> : 割合 (基本 0.0 ~ 1.0)</param>
 		/// <returns>その割合の時の値</returns>
 		T Out(const float ratio);
+
+		/// <summary>
+		/// イーズインアウト
+		/// (だんだん早く → だんだん遅く)
+		/// </summary>
+		/// <param name="ratio"> : 割合 (基本 0.0 ~ 1.0)</param>
+		/// <param name="controlPoint"> : 制御点</param>
+		/// <returns>その割合の時の値</returns>
+		T InOut(const float ratio, const float controlPoint = 0.5f);
+
+		/// <summary>
+		/// イーズアウトイン
+		/// (だんだん遅く → だんだん早く)
+		/// </summary>
+		/// <param name="ratio"> : 割合 (基本 0.0 ~ 1.0)</param>
+		/// <param name="controlPoint"> : 制御点</param>
+		/// <returns>その割合の時の値</returns>
+		T OutIn(const float ratio, const float controlPoint = 0.5f);
 	
 	public:
 		
