@@ -2,6 +2,13 @@
 #include "BaseScene.h"
 #include "BaseDrawer.h"
 
+#include "Ease.h"
+#include "BezierEase.h"
+#include "SplineEase.h"
+
+#include "Timer.h"
+#include "Power.h"
+
 namespace YGame
 {
 	// テストシーン
@@ -10,11 +17,27 @@ namespace YGame
 
 	private:
 
-		YGame::Transform transform_;
+		Model*pGraph_ = nullptr;
 
-		std::list<std::unique_ptr<YGame::BaseDrawer>> drawers_;
+		std::unique_ptr<DrawObjectForModel> obj_;
+		std::unique_ptr<DrawObjectForModel> start_;
+		std::unique_ptr<DrawObjectForModel> end_;
+		
+		std::unique_ptr<ConstBufferObject<CBColor>> cbColorObj_;
+		std::unique_ptr<ConstBufferObject<CBColor>> cbColorStart_;
+		std::unique_ptr<ConstBufferObject<CBColor>> cbColorEnd_;
+
+		YMath::Ease<YMath::Vector3> ease_;
+		YMath::BezierEase<YMath::Vector3> bezier_;
+		YMath::SplineEase<YMath::Vector3> spline_;
+
+		YMath::Timer timer_;
+		YMath::Power power_;
 
 		YGame::ViewProjection vp_;
+
+		uint32_t lerpIdx = 0;
+		uint32_t ratioIdx = 0;
 
 	public:
 

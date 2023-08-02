@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseDrawObject.h"
-#include "Lerp.h"
+#include "Ease.h"
+#include "BezierEase.h"
 #include "Timer.h"
 #include "Power.h"
 

@@ -1,6 +1,7 @@
 #pragma once
-#include "Lerp.h"
+#include "Ease.h"
 #include "Timer.h"
+#include "Vector3.h"
 #include <vector>
 
 namespace YGame

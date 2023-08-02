@@ -2,7 +2,7 @@
 #include "DrawObjectForSprite2D.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
-#include "Lerp.h"
+#include "Ease.h"
 #include "Timer.h"
 #include <array>
 

@@ -1,5 +1,6 @@
 #include "Speed.h"
 #include "MathUtil.h"
+#include "MathVector.h"
 #include "Physics.h"
 
 using YMath::Vector3;
@@ -21,10 +22,7 @@ void Speed::Reset()
 
 void Speed::Update(const Vector3& power)
 {
-	velocity_ += Vector3(
-		acceleration_.x_ * power.x_,
-		acceleration_.y_ * power.y_,
-		acceleration_.z_ * power.z_);
+	velocity_ += YMath::MultAtComponent(acceleration_, power);
 
 	// Friction
 	if (velocity_.x_ > 0) { velocity_.x_ -= 0.05f; }

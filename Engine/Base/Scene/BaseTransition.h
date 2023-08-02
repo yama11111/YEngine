@@ -3,7 +3,7 @@
 #include "Sprite3D.h"
 #include "Model.h"
 #include "Audio.h"
-#include "Lerp.h"
+#include "Ease.h"
 #include "Power.h"
 #include "Timer.h"
 #include <memory>

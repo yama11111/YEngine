@@ -3,7 +3,8 @@
 #include "ViewProjection.h"
 #include "Shake.h"
 #include "Timer.h"
-#include "Lerp.h"
+#include "Ease.h"
+#include "BezierEase.h"
 
 namespace YGame
 {

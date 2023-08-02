@@ -124,27 +124,6 @@
     <Filter Include="Engine\Scene\Transition">
       <UniqueIdentifier>{766ced8c-91a2-411f-8162-71e882cddebd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Util">
-      <UniqueIdentifier>{e000b535-5e4e-4e45-8e58-9647219b4024}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Util\Math">
-      <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Util\Math\Lerp">
-      <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Util\Math\Vector">
-      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Util\Math\Collision">
-      <UniqueIdentifier>{be91f4be-4896-4919-a528-96115d64d350}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Util\Input">
-      <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Util\DebugText">
-      <UniqueIdentifier>{d17d5504-a51c-4494-83e9-8e8fbb6621aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Scene\Scene">
       <UniqueIdentifier>{252570ef-0463-4793-9b11-448e8aa25ded}</UniqueIdentifier>
     </Filter>
@@ -202,6 +181,27 @@
     <Filter Include="Application\Game\UI">
       <UniqueIdentifier>{59e55c2a-8077-40fe-842a-08e63816ecad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\DebugText">
+      <UniqueIdentifier>{d17d5504-a51c-4494-83e9-8e8fbb6621aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{0bbdaf41-ecc7-489c-9bbc-501104d2c980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math">
+      <UniqueIdentifier>{43e0847a-18d1-411d-9863-494272266e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math\Lerp">
+      <UniqueIdentifier>{f0d15b5d-48fe-4c37-a5f1-f26e36225ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math\Vector">
+      <UniqueIdentifier>{a53b9a2f-da72-4c75-a374-4ff74809d9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math\Collision">
+      <UniqueIdentifier>{be91f4be-4896-4919-a528-96115d64d350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File">
+      <UniqueIdentifier>{e000b535-5e4e-4e45-8e58-9647219b4024}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -228,53 +228,47 @@
     <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp">
       <Filter>Application\Draw\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Input\InputManager.cpp">
-      <Filter>Engine\Util\Input</Filter>
+    <ClCompile Include="Engine\Input\InputManager.cpp">
+      <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Input\Keys.cpp">
-      <Filter>Engine\Util\Input</Filter>
+    <ClCompile Include="Engine\Input\Keys.cpp">
+      <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Input\Mouse.cpp">
-      <Filter>Engine\Util\Input</Filter>
+    <ClCompile Include="Engine\Input\Mouse.cpp">
+      <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Input\Pad.cpp">
-      <Filter>Engine\Util\Input</Filter>
+    <ClCompile Include="Engine\Input\Pad.cpp">
+      <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\FileUtil.cpp">
-      <Filter>Engine\Util</Filter>
+    <ClCompile Include="Engine\File\FileUtil.cpp">
+      <Filter>Engine\File</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\MathVector.cpp">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClCompile Include="Engine\Math\MathVector.cpp">
+      <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Matrix4.cpp">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClCompile Include="Engine\Math\Matrix4.cpp">
+      <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Vector2.cpp">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClCompile Include="Engine\Math\Vector2.cpp">
+      <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Vector3.cpp">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClCompile Include="Engine\Math\Vector3.cpp">
+      <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Vector4.cpp">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClCompile Include="Engine\Math\Vector4.cpp">
+      <Filter>Engine\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\MathUtil.cpp">
-      <Filter>Engine\Util\Math</Filter>
+    <ClCompile Include="Engine\Math\MathUtil.cpp">
+      <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Shake.cpp">
-      <Filter>Engine\Util\Math</Filter>
+    <ClCompile Include="Engine\Math\Shake.cpp">
+      <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Lerp.cpp">
-      <Filter>Engine\Util\Math\Lerp</Filter>
+    <ClCompile Include="Engine\Math\Lerp.cpp">
+      <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Power.cpp">
-      <Filter>Engine\Util\Math\Lerp</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Timer.cpp">
-      <Filter>Engine\Util\Math\Lerp</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Speed.cpp">
-      <Filter>Engine\Util\Math</Filter>
+    <ClCompile Include="Engine\Math\Speed.cpp">
+      <Filter>Engine\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Camera\ViewProjection.cpp">
       <Filter>Engine\Game\Camera</Filter>
@@ -306,8 +300,8 @@
     <ClCompile Include="Application\Transition\YGameTransitionFactory.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\DebugText\ImGuiManager.cpp">
-      <Filter>Engine\Util\DebugText</Filter>
+    <ClCompile Include="Engine\DebugText\ImGuiManager.cpp">
+      <Filter>Engine\DebugText</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Level\Level.cpp">
       <Filter>Application\Game\Level</Filter>
@@ -321,8 +315,8 @@
     <ClCompile Include="Engine\Game\Particle\ParticleManager.cpp">
       <Filter>Engine\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\Physics.cpp">
-      <Filter>Engine\Util\Math</Filter>
+    <ClCompile Include="Engine\Math\Physics.cpp">
+      <Filter>Engine\Math</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\MapChipManager.cpp">
       <Filter>Application\Game\MapChip</Filter>
@@ -345,8 +339,8 @@
     <ClCompile Include="Application\Game\Horse.cpp">
       <Filter>Application\Game\Chara\Pet</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\DebugText\DebugTextAttacher.cpp">
-      <Filter>Engine\Util\DebugText</Filter>
+    <ClCompile Include="Engine\DebugText\DebugTextAttacher.cpp">
+      <Filter>Engine\DebugText</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\GameObject.cpp">
       <Filter>Application\Game\Chara</Filter>
@@ -408,17 +402,17 @@
     <ClCompile Include="Application\Game\SlimeDrawer.cpp">
       <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\CollisionDetection.cpp">
-      <Filter>Engine\Util\Math\Collision</Filter>
+    <ClCompile Include="Engine\Math\CollisionDetection.cpp">
+      <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\PrimitiveCollider.cpp">
-      <Filter>Engine\Util\Math\Collision</Filter>
+    <ClCompile Include="Engine\Math\PrimitiveCollider.cpp">
+      <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\GameCollider.cpp">
       <Filter>Application\Game\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utillity\Math\BasePrimitiveCollider.cpp">
-      <Filter>Engine\Util\Math\Collision</Filter>
+    <ClCompile Include="Engine\Math\BasePrimitiveCollider.cpp">
+      <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Base\DX\DescriptorHeap.cpp">
       <Filter>Engine\Base</Filter>
@@ -531,6 +525,21 @@
     <ClCompile Include="Application\Game\UINumber.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Math\Power.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Timer.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Ease.cpp">
+      <Filter>Engine\Math\Lerp</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\BezierEase.cpp">
+      <Filter>Engine\Math\Lerp</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\SplineEase.cpp">
+      <Filter>Engine\Math\Lerp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -557,53 +566,47 @@
     <ClInclude Include="Application\Draw\Actor\SlimeActor.h">
       <Filter>Application\Draw\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Input\InputManager.h">
-      <Filter>Engine\Util\Input</Filter>
+    <ClInclude Include="Engine\Input\InputManager.h">
+      <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Input\Keys.h">
-      <Filter>Engine\Util\Input</Filter>
+    <ClInclude Include="Engine\Input\Keys.h">
+      <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Input\Mouse.h">
-      <Filter>Engine\Util\Input</Filter>
+    <ClInclude Include="Engine\Input\Mouse.h">
+      <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Input\Pad.h">
-      <Filter>Engine\Util\Input</Filter>
+    <ClInclude Include="Engine\Input\Pad.h">
+      <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\FileUtil.h">
-      <Filter>Engine\Util</Filter>
+    <ClInclude Include="Engine\File\FileUtil.h">
+      <Filter>Engine\File</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\MathVector.h">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClInclude Include="Engine\Math\MathVector.h">
+      <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Matrix4.h">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClInclude Include="Engine\Math\Matrix4.h">
+      <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Vector2.h">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClInclude Include="Engine\Math\Vector2.h">
+      <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Vector3.h">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClInclude Include="Engine\Math\Vector3.h">
+      <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Vector4.h">
-      <Filter>Engine\Util\Math\Vector</Filter>
+    <ClInclude Include="Engine\Math\Vector4.h">
+      <Filter>Engine\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\MathUtil.h">
-      <Filter>Engine\Util\Math</Filter>
+    <ClInclude Include="Engine\Math\MathUtil.h">
+      <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Shake.h">
-      <Filter>Engine\Util\Math</Filter>
+    <ClInclude Include="Engine\Math\Shake.h">
+      <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Lerp.h">
-      <Filter>Engine\Util\Math\Lerp</Filter>
+    <ClInclude Include="Engine\Math\Lerp.h">
+      <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Power.h">
-      <Filter>Engine\Util\Math\Lerp</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Timer.h">
-      <Filter>Engine\Util\Math\Lerp</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Speed.h">
-      <Filter>Engine\Util\Math</Filter>
+    <ClInclude Include="Engine\Math\Speed.h">
+      <Filter>Engine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h">
       <Filter>Engine\Game\Camera</Filter>
@@ -641,8 +644,8 @@
     <ClInclude Include="Application\Transition\YGameTransitionFactory.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\DebugText\ImGuiManager.h">
-      <Filter>Engine\Util\DebugText</Filter>
+    <ClInclude Include="Engine\DebugText\ImGuiManager.h">
+      <Filter>Engine\DebugText</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Level\Level.h">
       <Filter>Application\Game\Level</Filter>
@@ -656,8 +659,8 @@
     <ClInclude Include="Engine\Game\Particle\ParticleManager.h">
       <Filter>Engine\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\Physics.h">
-      <Filter>Engine\Util\Math</Filter>
+    <ClInclude Include="Engine\Math\Physics.h">
+      <Filter>Engine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\MapChipManager.h">
       <Filter>Application\Game\MapChip</Filter>
@@ -680,8 +683,8 @@
     <ClInclude Include="Application\Game\Horse.h">
       <Filter>Application\Game\Chara\Pet</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\DebugText\DebugTextAttacher.h">
-      <Filter>Engine\Util\DebugText</Filter>
+    <ClInclude Include="Engine\DebugText\DebugTextAttacher.h">
+      <Filter>Engine\DebugText</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\GameObject.h">
       <Filter>Application\Game\Chara</Filter>
@@ -749,11 +752,11 @@
     <ClInclude Include="Application\Game\SlimeDrawer.h">
       <Filter>Application\Game\Drawer\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\CollisionDetection.h">
-      <Filter>Engine\Util\Math\Collision</Filter>
+    <ClInclude Include="Engine\Math\CollisionDetection.h">
+      <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\PrimitiveCollider.h">
-      <Filter>Engine\Util\Math\Collision</Filter>
+    <ClInclude Include="Engine\Math\PrimitiveCollider.h">
+      <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\AttributeType.h">
       <Filter>Application\Game\Collision</Filter>
@@ -761,8 +764,8 @@
     <ClInclude Include="Application\Game\GameCollider.h">
       <Filter>Application\Game\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utillity\Math\BasePrimitiveCollider.h">
-      <Filter>Engine\Util\Math\Collision</Filter>
+    <ClInclude Include="Engine\Math\BasePrimitiveCollider.h">
+      <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Base\DX\DescriptorHeap.h">
       <Filter>Engine\Base</Filter>
@@ -925,6 +928,21 @@
     </ClInclude>
     <ClInclude Include="Application\Game\UINumber.h">
       <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Power.h">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Timer.h">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Ease.h">
+      <Filter>Engine\Math\Lerp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\BezierEase.h">
+      <Filter>Engine\Math\Lerp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\SplineEase.h">
+      <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

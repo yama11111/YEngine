@@ -13,6 +13,10 @@ PSOutput main(PSInput input)
 	// F
 	float4 color = texColor * baseColor_;
 
+	output.target_ = color;
+
+	return output;
+
 
 	// Œõ‘ò“x
 	const float shininess = 4.0f;

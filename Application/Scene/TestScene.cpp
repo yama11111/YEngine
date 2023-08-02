@@ -66,6 +66,8 @@ void TestScene::Load()
 
 	// â_
 	CloudDrawer::StaticInitialize();
+
+	pGraph_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 #pragma endregion
 
@@ -73,21 +75,47 @@ void TestScene::Load()
 #pragma region èâä˙âª
 void TestScene::Initialize()
 {
-	transform_.Initialize();
-	
 	vp_.Initialize();
 
-	std::unique_ptr<PlayerDrawer> player;
-	player->Initialize(&transform_, 1);
-	drawers_.push_back(std::move(player));
+	Vector3 p0 = { - 16.0f, - 12.0f, 0.0f };
+	Vector3 p1 = { - 12.0f, +  6.0f, 0.0f };
+	Vector3 p2 = { + 12.0f, -  6.0f, 0.0f };
+	Vector3 p3 = { + 16.0f, + 12.0f, 0.0f };
 
-	std::unique_ptr<SlimeDrawer> slime;
-	slime->Initialize(&transform_, 1);
-	drawers_.push_back(std::move(slime));
+	ease_.Initialize(p0, p3, 3.0f);
+	bezier_.Initialize({ p0, p1, p2, p3 }, 3.0f);
+	spline_.Initialize({ p0, p1, p2, p3 }, 3.0f);
 
-	std::unique_ptr<HorseDrawer> horse;
-	horse->Initialize(&transform_, 1);
-	drawers_.push_back(std::move(horse));
+	timer_.Initialize(120, true);
+	power_.Initialize(120);
+
+	lerpIdx = 0;
+	ratioIdx = 0;
+
+
+	obj_.	reset(DrawObjectForModel::Create({}, &vp_, pGraph_));
+	start_.	reset(DrawObjectForModel::Create({}, &vp_, pGraph_));
+	end_.	reset(DrawObjectForModel::Create({}, &vp_, pGraph_));
+
+	cbColorObj_.	reset(ConstBufferObject<CBColor>::Create());
+	cbColorStart_.	reset(ConstBufferObject<CBColor>::Create());
+	cbColorEnd_.	reset(ConstBufferObject<CBColor>::Create());
+	
+	obj_->	InsertConstBuffer(cbColorObj_.get());
+	start_->InsertConstBuffer(cbColorStart_.get());
+	end_->	InsertConstBuffer(cbColorEnd_.get());
+
+	obj_->transform_.pos_	 = {};
+	start_->transform_.pos_	 = p0;
+	end_->transform_.pos_	 = p3;
+	
+	obj_->transform_.scale_		 = { 1.2f,1.2f,1.2f };
+	start_->transform_.scale_	 = { 1.0f,1.0f,1.0f };
+	end_->transform_.scale_		 = { 1.0f,1.0f,1.0f };
+
+	cbColorObj_->data_.baseColor	 = { 0.0f,1.0f,1.0f,1.0f };
+	cbColorStart_->data_.baseColor	 = { 1.0f,0.0f,1.0f,1.0f };
+	cbColorEnd_->data_.baseColor	 = { 1.0f,1.0f,0.0f,1.0f };
 }
 #pragma endregion
 
@@ -102,13 +130,70 @@ void TestScene::Finalize()
 #pragma region çXêV
 void TestScene::Update()
 {
-	for (std::unique_ptr<BaseDrawer>& drawer : drawers_)
 	{
-		uint16_t animeBit = 0;
+		ImGui::Begin("Lerp");
 
-		drawer->PlayAnimation(animeBit, 10);
-		drawer->Update();
+		if (ImGui::Button("Ease")) { lerpIdx = 0; }
+		if (ImGui::Button("Bezier")) { lerpIdx = 1; }
+		if (ImGui::Button("Spline")) { lerpIdx = 2; }
+
+		ImGui::Text("----- Lerp -----");
+
+		if (lerpIdx == 0) { ImGui::Text("Type : Ease"); }
+		if (lerpIdx == 1) { ImGui::Text("Type : Bezier"); }
+		if (lerpIdx == 2) { ImGui::Text("Type : Spline"); }
+
+		ImGui::Text("----------------------");
+
+		if (ImGui::Button("Timer"))
+		{
+			ratioIdx = 0;
+			timer_.Reset(true);
+		}
+
+		if (ImGui::Button("Power"))
+		{
+			ratioIdx = 1;
+		}
+
+		ImGui::Text("----- Ratio -----");
+
+		if (ratioIdx == 0) { ImGui::Text("Ratio : Timer"); }
+		if (ratioIdx == 1) { ImGui::Text("Ratio : Power"); }
+
+		ImGui::End();
 	}
+
+	timer_.Update();
+	if (timer_.IsEnd())
+	{
+		timer_.Reset(true);
+	}
+
+	power_.Update(spKeys_->IsDown(DIK_SPACE));
+
+
+	float ratio = 0.0f; 
+	Vector3 val = {};
+
+	if (ratioIdx == 0)
+	{
+		ratio = timer_.Ratio();
+	}
+	if (ratioIdx == 1)
+	{
+		ratio = power_.Ratio();
+	}
+
+	if (lerpIdx == 0) { val = ease_.In(ratio); }
+	if (lerpIdx == 1) { val = bezier_.In(ratio); }
+	if (lerpIdx == 2) { val = spline_.In(ratio); }
+
+	obj_->transform_.pos_ = val;
+
+	obj_->Update();
+	start_->Update();
+	end_->Update();
 }
 #pragma endregion
 
@@ -116,9 +201,8 @@ void TestScene::Update()
 #pragma region ï`âÊ
 void TestScene::Draw()
 {
-	for (std::unique_ptr<BaseDrawer>& drawer : drawers_)
-	{
-		drawer->Draw();
-	}
+	obj_->Draw("ModelDefault", 0);
+	start_->Draw("ModelDefault", 0);
+	end_->Draw("ModelDefault", 0);
 }
 #pragma endregion
