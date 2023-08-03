@@ -39,6 +39,11 @@ namespace YGame
 		uint32_t lerpIdx = 0;
 		uint32_t ratioIdx = 0;
 
+		float ratio_ = 0.0f;
+		float controlPoint_ = 0.5f;
+
+		bool isStop_ = false;
+
 	public:
 
 		/// <summary>

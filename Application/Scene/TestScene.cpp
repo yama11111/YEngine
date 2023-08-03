@@ -89,7 +89,7 @@ void TestScene::Initialize()
 	timer_.Initialize(120, true);
 	power_.Initialize(120);
 
-	lerpIdx = 0;
+	lerpIdx = 2;
 	ratioIdx = 0;
 
 
@@ -116,6 +116,11 @@ void TestScene::Initialize()
 	cbColorObj_->data_.baseColor	 = { 0.0f,1.0f,1.0f,1.0f };
 	cbColorStart_->data_.baseColor	 = { 1.0f,0.0f,1.0f,1.0f };
 	cbColorEnd_->data_.baseColor	 = { 1.0f,1.0f,0.0f,1.0f };
+
+	ratio_ = 0.0f;
+	controlPoint_ = 0.5f;
+	
+	isStop_ = false;
 }
 #pragma endregion
 
@@ -161,33 +166,50 @@ void TestScene::Update()
 		if (ratioIdx == 0) { ImGui::Text("Ratio : Timer"); }
 		if (ratioIdx == 1) { ImGui::Text("Ratio : Power"); }
 
+		ImGui::Text("----------------------");
+
+		if (ImGui::Button("Stop")) 
+		{
+			isStop_ = !isStop_;
+		}
+		ImGui::Text("Stop : %i", isStop_);
+
 		ImGui::End();
 	}
 
-	timer_.Update();
-	if (timer_.IsEnd())
+	if (isStop_ == false)
 	{
-		timer_.Reset(true);
+		timer_.Update();
+		if (timer_.IsEnd())
+		{
+			timer_.Reset(true);
+		}
+
+		power_.Update(spKeys_->IsDown(DIK_SPACE));
+
+		if (ratioIdx == 0)
+		{
+			ratio_ = timer_.Ratio();
+		}
+		if (ratioIdx == 1)
+		{
+			ratio_ = power_.Ratio();
+		}
 	}
 
-	power_.Update(spKeys_->IsDown(DIK_SPACE));
+	ImGui::Begin("Value");
 
+	ImGui::SliderFloat("Ratio", &ratio_, 0.0f, 1.0f);
 
-	float ratio = 0.0f; 
+	ImGui::SliderFloat("ControlPoint", &controlPoint_, 0.0f, 1.0f);
+
+	ImGui::End();
+
 	Vector3 val = {};
-
-	if (ratioIdx == 0)
-	{
-		ratio = timer_.Ratio();
-	}
-	if (ratioIdx == 1)
-	{
-		ratio = power_.Ratio();
-	}
-
-	if (lerpIdx == 0) { val = ease_.OutIn(ratio); }
-	if (lerpIdx == 1) { val = bezier_.OutIn(ratio); }
-	if (lerpIdx == 2) { val = spline_.OutIn(ratio); }
+	
+	if (lerpIdx == 0) { val = ease_.OutIn(ratio_, controlPoint_); }
+	if (lerpIdx == 1) { val = bezier_.OutIn(ratio_, controlPoint_); }
+	if (lerpIdx == 2) { val = spline_.OutIn(ratio_, controlPoint_); }
 
 	obj_->transform_.pos_ = val;
 

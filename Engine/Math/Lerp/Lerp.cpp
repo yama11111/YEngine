@@ -73,10 +73,10 @@ T YMath::Bezier(const std::vector<T>& points, const float ratio)
 
 namespace
 {
-	void CalcSplineSectionAndRatio(const size_t pointNum, const float ratio, size_t& section, float& ratioOfSection)
+	void CalcSplineSectionAndRatio(const size_t sectionNum, const float ratio, size_t& section, float& ratioOfSection)
 	{
 		// 全体での割合 (size : 1.0 = x : ratio)
-		float ratioOfTotal = ratio * static_cast<float>(pointNum);
+		float ratioOfTotal = ratio * static_cast<float>(sectionNum);
 
 		// 全体の割合から、セクション と 割合 を計算
 
@@ -105,7 +105,7 @@ T YMath::Spline(const std::vector<T>& points, const float ratio)
 
 	size_t section = 0;
 	float ratioOfSection = 0.0f;
-	CalcSplineSectionAndRatio(points.size(), ratio, section, ratioOfSection);
+	CalcSplineSectionAndRatio(pSize - 1, ratio, section, ratioOfSection);
 
 	// セクションが 配列の最大数を超えているなら 最後を返す
 	// セクションが 負の値なら 最初を返す
@@ -151,6 +151,12 @@ namespace
 
 	float EaseInOutRatio(const float ratio, const float exponent, const float controlPoint)
 	{
+		// グラフを分割しないなら 先に値を返す
+		// (0除算を無くす意味もある)
+		
+		if (1.0f <= controlPoint) { return EaseInRatio(ratio, exponent); }
+		if (controlPoint <= 0.0f) { return EaseOutRatio(ratio, exponent); }
+
 		// (1) 制御点 から グラフを分割
 		// (2) それぞれの グラフにおいての割合 を再計算
 		// (3) その割合 を 元のグラフでの値 に戻す
@@ -159,17 +165,23 @@ namespace
 		if (ratio <= controlPoint)
 		{
 			float rocalRatio = ratio / controlPoint; // (2)
-			return EaseInRatio(rocalRatio, exponent) * controlPoint; // (3)
+			return YMath::Lerp(0.0f, controlPoint, EaseInRatio(rocalRatio, exponent)); // (3)
 		}
 		else
 		{
-			float rocalRatio = (ratio - controlPoint) / controlPoint; // (2)
-			return EaseOutRatio(rocalRatio, exponent) * controlPoint + controlPoint; // (3)
+			float rocalRatio = (ratio - controlPoint) / (1.0f - controlPoint); // (2)
+			return YMath::Lerp(controlPoint, 1.0f, EaseOutRatio(rocalRatio, exponent)); // (3)
 		}
 	}
 	
 	float EaseOutInRatio(const float ratio, const float exponent, const float controlPoint)
 	{
+		// グラフを分割しないなら 先に値を返す
+		// (0除算を無くす意味もある)
+		
+		if (1.0f <= controlPoint) { return EaseOutRatio(ratio, exponent); }
+		if (controlPoint <= 0.0f) { return EaseInRatio(ratio, exponent); }
+
 		// (1) 制御点 から グラフを分割
 		// (2) それぞれの グラフにおいての割合 を再計算
 		// (3) その割合 を 元のグラフでの値 に戻す
@@ -178,12 +190,12 @@ namespace
 		if (ratio <= controlPoint)
 		{
 			float rocalRatio = ratio / controlPoint; // (2)
-			return EaseOutRatio(rocalRatio, exponent) * controlPoint; // (3)
+			return YMath::Lerp(0.0f, controlPoint, EaseOutRatio(rocalRatio, exponent)); // (3)
 		}
 		else
 		{
-			float rocalRatio = (ratio - controlPoint) / controlPoint; // (2)
-			return EaseInRatio(rocalRatio, exponent) * controlPoint + controlPoint; // (3)
+			float rocalRatio = (ratio - controlPoint) / (1.0f - controlPoint); // (2)
+			return YMath::Lerp(controlPoint, 1.0f, EaseInRatio(rocalRatio, exponent)); // (3)
 		}
 	}
 }
