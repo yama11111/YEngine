@@ -202,6 +202,9 @@
     <Filter Include="Engine\File">
       <UniqueIdentifier>{e000b535-5e4e-4e45-8e58-9647219b4024}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Math\Physics">
+      <UniqueIdentifier>{d3539f7d-9dfb-4a15-8ea8-6ebd914ff078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -314,9 +317,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\ParticleManager.cpp">
       <Filter>Engine\Game\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Math\Physics.cpp">
-      <Filter>Engine\Math</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\MapChipManager.cpp">
       <Filter>Application\Game\MapChip</Filter>
@@ -540,6 +540,12 @@
     <ClCompile Include="Engine\Math\Lerp\SplineEase.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Math\Physics.cpp">
+      <Filter>Engine\Math\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Velocity.cpp">
+      <Filter>Engine\Math\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -658,9 +664,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\ParticleManager.h">
       <Filter>Engine\Game\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Math\Physics.h">
-      <Filter>Engine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\MapChipManager.h">
       <Filter>Application\Game\MapChip</Filter>
@@ -943,6 +946,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Math\Lerp\SplineEase.h">
       <Filter>Engine\Math\Lerp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Physics.h">
+      <Filter>Engine\Math\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Velocity.h">
+      <Filter>Engine\Math\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

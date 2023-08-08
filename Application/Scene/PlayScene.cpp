@@ -188,7 +188,7 @@ void PlayScene::Initialize()
 
 	// マップの大きさでオフセット値変える
 	Vector3 offset = { pMapChipManager_->CurrentMapPointer()->Size().x_, pMapChipManager_->CurrentMapPointer()->Size().y_, 0.0f };
-	cameraOffset_.Initialize(offset, {}, 1.2f);
+	cameraOffset_.Initialize(offset, {}, 2.0f);
 
 	isStart_ = false;
 
@@ -235,7 +235,7 @@ void PlayScene::Update()
 		// 開始演出中更新しない
 		pCharacterMan_->Update(isStart_);
 
-		scrollCamera_.Update({ cameraOffset_.Out(startTimer_.Ratio()) });
+		scrollCamera_.Update({ cameraOffset_.InOut(startTimer_.Ratio(), 0.4f) });
 		transferVP_ = scrollCamera_.GetViewProjection();
 	}
 	

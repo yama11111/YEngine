@@ -52,7 +52,7 @@ namespace YMath
 	Vector3 WorldPos(const Vector2& screen, float z, const Matrix4& view, const Matrix4& projection);
 
 	// 角度調整
-	Vector3 AdjustAngle(const Vector3& velocity);
+	Vector3 AdjustAngle(const Vector3& v);
 
 
 	// ビルボード行列

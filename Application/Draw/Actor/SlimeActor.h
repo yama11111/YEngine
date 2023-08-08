@@ -1,6 +1,7 @@
 #pragma once
-#include "Ease.h"
+#include "SplineEase.h"
 #include "Timer.h"
+#include "Power.h"
 #include "Vector3.h"
 #include <vector>
 
@@ -10,24 +11,37 @@ namespace YGame
 	{
 	
 	public:
+
+		enum class EaseType
+		{
+			eIn,
+
+			eOut,
+		};
+	
+	public:
 		
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		void Initialize();
+		/// <param name="wobbleScaleValues"> : 拡縮値ベクター配列</param>
+		/// <param name="frame"> : フレーム</param>
+		/// <param name="exponent"> : 指数</param>
+		void Initialize(
+			const uint32_t frame, 
+			const std::vector<YMath::Vector3>& wobbleScaleValues, 
+			const float exponent);
 
 		/// <summary>
 		/// ブヨブヨアニメーション
 		/// </summary>
-		/// <param name="wobbleScaleValues"> : 拡縮値ベクター配列</param>
-		/// <param name="frame">"> : フレーム</param>
-		/// <param name="exponent">"> : 指数</param>
-		void Wobble(const std::vector<YMath::Vector3>& wobbleScaleValues, const uint32_t frame, const float exponent);
+		void Wobble();
 		
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update();
+		/// <param name="isSquash"> : つぶす</param>
+		void Update(const bool isSquash = false);
 	
 	public:
 	
@@ -41,7 +55,7 @@ namespace YGame
 		/// 現在の拡縮値取得
 		/// </summary>
 		/// <returns>現在の拡縮値</returns>
-		inline YMath::Vector3 WobbleScaleValue() const { return value_; }
+		YMath::Vector3 WobbleScaleValue(const EaseType easeType) const;
 	
 	public:
 		
@@ -49,52 +63,17 @@ namespace YGame
 	
 	private:
 		
-		// 動き
-		enum class  Action
-		{
-			None,		 // 無し
-			Elasticity,	 // 伸び縮み
-			Normal,		 // 通常
-		};
-	
-	private:
-		
-		// 動いているかフラグ
+		// 動作フラグ
 		bool isAct_ = false;
 		
-		// 現在の動き
-		Action action_ = Action::None;
-		
 		// イージング
-		YMath::Ease<YMath::Vector3> ease_;
-		
-		// 終了値
-		std::vector<YMath::Vector3> wobbleScaleValues_;
-
-		// 指数
-		float exponent_ = 0.0f;
-		
-		// 現在のインデックス
-		size_t currentIdx_ = 0;
+		YMath::SplineEase<YMath::Vector3> ease_;
 		
 		// タイマー
 		YMath::Timer timer_;
 		
-		// 実値
-		YMath::Vector3 value_;
-	
-	private:
-		
-		/// <summary>
-		/// 動き切り替え
-		/// </summary>
-		void ChangeAction();
-		
-		/// <summary>
-		/// 実値更新
-		/// </summary>
-		void UpdateValue();
-	
+		// パワー
+		YMath::Power power_;
 	};
 }
 

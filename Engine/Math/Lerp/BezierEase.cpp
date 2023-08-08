@@ -21,16 +21,16 @@ void BezierEase<T>::Initialize(const std::vector<T>& points, const float exponen
 }
 
 template<typename T>
-T BezierEase<T>::In(const float ratio) { return BezierEaseIn<T>(points_, ratio, exponent_); }
+T BezierEase<T>::In(const float ratio) const { return BezierEaseIn<T>(points_, ratio, exponent_); }
 
 template<typename T>
-T BezierEase<T>::Out(const float ratio) { return BezierEaseOut<T>(points_, ratio, exponent_); }
+T BezierEase<T>::Out(const float ratio) const { return BezierEaseOut<T>(points_, ratio, exponent_); }
 
 template<typename T>
-T BezierEase<T>::InOut(const float ratio, const float controlPoint) { return BezierEaseInOut<T>(points_, ratio, exponent_, controlPoint); }
+T BezierEase<T>::InOut(const float ratio, const float controlPoint) const { return BezierEaseInOut<T>(points_, ratio, exponent_, controlPoint); }
 
 template<typename T>
-T BezierEase<T>::OutIn(const float ratio, const float controlPoint) { return BezierEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
+T BezierEase<T>::OutIn(const float ratio, const float controlPoint) const { return BezierEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
 
 template class BezierEase<float>;
 template class BezierEase<double>;

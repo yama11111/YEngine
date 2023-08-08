@@ -12,8 +12,7 @@ using YMath::Vector4;
 namespace YGame
 {
 	class impl_UIButton final: 
-		public UIButton, 
-		private SlimeActor
+		public UIButton
 	{
 	
 	public:
@@ -41,8 +40,11 @@ namespace YGame
 		// 色定数バッファ
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
+		// スライムアニメーション
+		SlimeActor slimeActor_;
+
 		// 潰れる量
-		YMath::Vector3 squash_;
+		Transform::Status animeStatus_;
 
 	private:
 
@@ -58,22 +60,28 @@ namespace YGame
 		cbColor_.reset(ConstBufferObject<CBColor>::Create(isClearWhenTransition));
 		obj->InsertConstBuffer(cbColor_.get());
 
-		SlimeActor::Initialize();
+		static const uint32_t kFrame = 4;
+
+		static const float kExponent = 3.0f;
 
 		// アニメーションで潰れる量
-		squash_ = YMath::DivAtComponent(obj_->transform_.scale_, Vector3(+2.0f, -4.0f, +2.0f));
+		Vector3 squashVal = YMath::DivAtComponent(obj_->transform_.scale_, Vector3(+4.0f, -4.0f, +4.0f));
+
+		slimeActor_.Initialize(kFrame, { {}, squashVal }, kExponent);
+
+		animeStatus_ = {};
 	}
 	
 	void impl_UIButton::Update(const bool isDown)
 	{
 		assert(obj_);
 
-		//PressAnimation(isDown);
+		animeStatus_ = {};
 
-		SlimeActor::Update();
+		PressAnimation(isDown);
 
 		// ブヨブヨアニメーションを適応
-		obj_->Update({ {}, {}, SlimeActor::WobbleScaleValue() });
+		obj_->Update(animeStatus_);
 	}
 	
 	void impl_UIButton::Draw(const std::string& shaderTag, const uint16_t priority)
@@ -84,33 +92,27 @@ namespace YGame
 	void impl_UIButton::PressAnimation(const bool isDown)
 	{
 		// ブヨブヨアニメーション
-		// スケールの遷移を挿入していく
-		std::vector<Vector3> scaleVals;
 
-		Vector3 currentScale = obj_->transform_.scale_ + SlimeActor::WobbleScaleValue();
-		scaleVals.emplace_back(currentScale);
-		
-		if(isDown)
+		if (isDown)
 		{
-			// 潰れる
-			scaleVals.emplace_back(squash_);
+			// 潰れる (イーズイン)
+			animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
 			// 暗い色にする
-			cbColor_->data_.baseColor = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+			cbColor_->data_.baseColor = Vector4(0.25f, 0.25f, 0.25f, 1.0f);
 		}
 		else
 		{
-			// 元に戻る
-			scaleVals.emplace_back(Vector3());
+			// 戻る (イーズアウト)
+			animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
 			
-			cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+			// 元の色に戻る
+			cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);			
 		}
-
-		static const uint32_t frame = 4;
-
-		static const float exponent = 3.0f;
-
-		SlimeActor::Wobble(scaleVals, frame, exponent);
+		
+		animeStatus_.pos_ += Vector3(0.0f, -animeStatus_.scale_.y_, 0.0f) * 32.0f;
+		
+		slimeActor_.Update(isDown);
 	}
 }
 

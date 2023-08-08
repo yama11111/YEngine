@@ -223,6 +223,7 @@
     <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp" />
     <ClCompile Include="Application\Game\ExplosionParticle.cpp" />
+    <ClCompile Include="Engine\Math\Velocity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
@@ -359,6 +360,7 @@
     <ClInclude Include="Engine\Draw\Pipeline\PipelineManager.h" />
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
     <ClInclude Include="Application\Game\ExplosionParticle.h" />
+    <ClInclude Include="Engine\Math\Velocity.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Dissolve.hlsli" />

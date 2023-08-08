@@ -37,8 +37,8 @@ void HorseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 
 	shaderKey_ = "ModelToon";
 
-	HitActor::Initialize();
-	SlimeActor::Initialize();
+	hitActor_.Initialize();
+	slimeActor_.Initialize(0, { {} }, 0);
 }
 
 void HorseDrawer::InsertAnimationTimers()
@@ -84,9 +84,10 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		wobbleScaleValues.push_back(Vector3(-0.25f, +0.5f, -0.25f));
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 
-		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
+		uint32_t wobbleFrame = frame;
 
-		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
+		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		slimeActor_.Wobble();
 
 		// ìyâåÇî≠ê∂
 		// é©ï™ÇÃë´å≥
@@ -110,9 +111,10 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 
-		uint32_t wobbleFrame = frame / static_cast<uint32_t>(wobbleScaleValues.size());
+		uint32_t wobbleFrame = frame;
 
-		SlimeActor::Wobble(wobbleScaleValues, wobbleFrame, 3.0f);
+		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		slimeActor_.Wobble();
 
 		// ìyâåÇî≠ê∂
 		// é©ï™ÇÃë´å≥
@@ -138,7 +140,7 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 	// îÌíe
 	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eHit))
 	{
-		HitActor::Hit(
+		hitActor_.Hit(
 			Anime::Hit::kSwing,
 			Anime::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
@@ -151,13 +153,13 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 
 void HorseDrawer::UpdateAnimtion()
 {
-	HitActor::Update();
+	hitActor_.Update();
 
-	SlimeActor::Update();
+	slimeActor_.Update();
 
-	animeStatus_.pos_ += HitActor::ShakePosValue();
+	animeStatus_.pos_ += hitActor_.ShakePosValue();
 
-	animeStatus_.scale_ += SlimeActor::WobbleScaleValue();
+	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
-	cbColor_->data_.texColorRate = HitActor::ColorValue();
+	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 }

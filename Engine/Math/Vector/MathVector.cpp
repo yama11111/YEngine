@@ -202,13 +202,13 @@ Vector3 YMath::WorldPos(const Vector2& screen, float z, const Matrix4& view, con
 	return result;
 }
 
-Vector3 YMath::AdjustAngle(const Vector3& velocity)
+Vector3 YMath::AdjustAngle(const Vector3& v)
 {
 	Vector3 result{};
-	result.y_ = std::atan2(velocity.x_, velocity.z_);
-	Vector3 v = { velocity.x_, 0.0f, velocity.z_ };
-	float xz = v.Length();
-	result.x_ = std::atan2(-velocity.y_, xz);
+	result.y_ = std::atan2(v.x_, v.z_);
+	Vector3 vec = { v.x_, 0.0f, v.z_ };
+	float xz = vec.Length();
+	result.x_ = std::atan2(-v.y_, xz);
 	return result;
 }
 

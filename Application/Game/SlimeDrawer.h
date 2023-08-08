@@ -6,9 +6,7 @@
 namespace YGame
 {
 	class SlimeDrawer final :
-		public BaseDrawer,
-		public SlimeActor,
-		public HitActor
+		public BaseDrawer
 	{
 
 	public:
@@ -60,6 +58,12 @@ namespace YGame
 		~SlimeDrawer() = default;
 
 	private:
+
+		// スライム
+		SlimeActor slimeActor_;
+
+		// 被弾
+		HitActor hitActor_;
 
 		// モデルポインタ
 		static Model* spModel_;

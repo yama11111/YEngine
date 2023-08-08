@@ -32,7 +32,7 @@ namespace YMath
 		/// <summary>
 		/// î‰ó¶
 		/// </summary>
-		float Ratio();
+		float Ratio() const;
 
 		/// <summary>
 		/// åªç›éûçè

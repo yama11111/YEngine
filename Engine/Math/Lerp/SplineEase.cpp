@@ -21,16 +21,16 @@ void SplineEase<T>::Initialize(const std::vector<T>& points, const float exponen
 }
 
 template<typename T>
-T SplineEase<T>::In(const float ratio) { return SplineEaseIn<T>(points_, ratio, exponent_); }
+T SplineEase<T>::In(const float ratio) const { return SplineEaseIn<T>(points_, ratio, exponent_); }
 
 template<typename T>
-T SplineEase<T>::Out(const float ratio) { return SplineEaseOut<T>(points_, ratio, exponent_); }
+T SplineEase<T>::Out(const float ratio) const { return SplineEaseOut<T>(points_, ratio, exponent_); }
 
 template<typename T>
-T SplineEase<T>::InOut(const float ratio, const float controlPoint) { return SplineEaseInOut<T>(points_, ratio, exponent_, controlPoint); }
+T SplineEase<T>::InOut(const float ratio, const float controlPoint) const { return SplineEaseInOut<T>(points_, ratio, exponent_, controlPoint); }
 
 template<typename T>
-T SplineEase<T>::OutIn(const float ratio, const float controlPoint) { return SplineEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
+T SplineEase<T>::OutIn(const float ratio, const float controlPoint) const { return SplineEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
 
 template class SplineEase<float>;
 template class SplineEase<double>;

@@ -46,7 +46,7 @@ void Timer::Update(const float passRate)
 	}
 }
 
-float Timer::Ratio()
+float Timer::Ratio() const
 {
 	// 0‚ÅŠ„‚ç‚È‚¢‚æ‚¤‚É
 	if (endFrame_ == 0) { return 0.0f; }

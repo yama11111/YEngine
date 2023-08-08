@@ -42,7 +42,7 @@ void Power::Update(const bool isAct)
 	}
 }
 
-float Power::Ratio()
+float Power::Ratio() const
 {
 	// 0‚ÅŠ„‚ç‚È‚¢‚æ‚¤‚É
 	if (maxPower_ == 0) { return 0.0f; }
