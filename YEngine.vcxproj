@@ -143,6 +143,7 @@
     <ClCompile Include="Application\Game\UILetterBox.cpp" />
     <ClCompile Include="Application\Game\UIManager.cpp" />
     <ClCompile Include="Application\Game\UIButton.cpp" />
+    <ClCompile Include="Application\Game\UIDigit.cpp" />
     <ClCompile Include="Application\Game\UINumber.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
     <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp" />
@@ -260,7 +261,7 @@
     <ClInclude Include="Application\Game\UILetterBox.h" />
     <ClInclude Include="Application\Game\UIManager.h" />
     <ClInclude Include="Application\Game\UIButton.h" />
-    <ClInclude Include="Application\Game\UINumber.h" />
+    <ClInclude Include="Application\Game\UIDigit.h" />
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
     <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h" />
     <ClInclude Include="Engine\Draw\CB\CBTime.h" />
@@ -361,6 +362,7 @@
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
     <ClInclude Include="Application\Game\ExplosionParticle.h" />
     <ClInclude Include="Engine\Math\Velocity.h" />
+    <ClInclude Include="Application\Game\UINumber.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Dissolve.hlsli" />

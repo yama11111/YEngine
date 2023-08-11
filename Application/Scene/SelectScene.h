@@ -1,6 +1,9 @@
 #pragma once
 #include "BaseScene.h"
 #include "DrawObjectForSprite2D.h"
+#include "UIButton.h"
+#include "UIDigit.h"
+#include "UINumber.h"
 
 namespace YGame
 {
@@ -37,6 +40,12 @@ namespace YGame
 		
 		std::unique_ptr<DrawObjectForSprite2D> buttonObj_;
 
+
+		std::unique_ptr<UIButton> startButton_;
+		
+		Transform num;
+		std::unique_ptr<UIDigit> uiDigit_;
+		std::unique_ptr<UINumber> uiNumber_;
 
 		// ビュープロジェクション
 		YGame::ViewProjection transferVP_;

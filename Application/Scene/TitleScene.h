@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseScene.h"
 #include "DrawObjectForSprite2D.h"
+#include "UIButton.h"
+#include "UILetterBox.h"
 
 namespace YGame
 {
@@ -26,8 +28,13 @@ namespace YGame
 
 		std::unique_ptr<DrawObjectForSprite2D> startObj_;
 		
-		std::unique_ptr<DrawObjectForSprite2D> buttonObj_; 
 
+
+		// スタートボタン
+		std::unique_ptr<UIButton> startButton_;
+
+		// 黒帯
+		std::unique_ptr<UILetterBox> letterBox_;
 
 		// 転送用ビュープロジェクション
 		YGame::ViewProjection transferVP_;

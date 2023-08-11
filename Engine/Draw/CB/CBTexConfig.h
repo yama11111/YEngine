@@ -16,16 +16,8 @@ namespace YGame
 			// タイリング値
 			YMath::Vector2 tiling = { 1.0f,1.0f };
 
-			float pad1;
-
-			float pad2;
-
 			// オフセット値
 			YMath::Vector2 offset = { 0.0f,0.0f };
-			
-			float pad3;
-			
-			float pad4;
 		};
 
 	public:

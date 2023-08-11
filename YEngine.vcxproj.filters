@@ -522,7 +522,7 @@
     <ClCompile Include="Application\Game\UILetterBox.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UINumber.cpp">
+    <ClCompile Include="Application\Game\UIDigit.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Power.cpp">
@@ -545,6 +545,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Math\Velocity.cpp">
       <Filter>Engine\Math\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UINumber.cpp">
+      <Filter>Application\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -929,7 +932,7 @@
     <ClInclude Include="Application\Game\UILetterBox.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UINumber.h">
+    <ClInclude Include="Application\Game\UIDigit.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Power.h">
@@ -952,6 +955,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Math\Velocity.h">
       <Filter>Engine\Math\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UINumber.h">
+      <Filter>Application\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,11 @@
 #pragma once
+#include "Vector3.h"
 #include "Matrix4.h"
 #include "BaseConstBuffer.h"
 
 namespace YGame
 {
-	class UINumber
+	class UIDigit
 	{
 
 	public:
@@ -13,18 +14,14 @@ namespace YGame
 		/// 動的インスタンス生成
 		/// </summary>
 		/// <param name="num"> : 数</param>
-		/// <param name="maxDigits"> : 最大桁数</param>
-		/// <param name="interval"> : 間隔</param>
-		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
+		/// <param name="offset"> : オフセット値</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		/// <returns>動的インスタンス</returns>
-		static UINumber* Create(
+		static UIDigit* Create(
 			const uint32_t num, 
-			const size_t maxDigits, 
-			const float interval,
-			const bool shouldShowZero,
-			YMath::Matrix4* pParent,
+			YMath::Matrix4* pParent, 
+			const YMath::Vector3& offset ={},
 			const bool isClearWhenTransition = true);
 
 	public:
@@ -33,16 +30,13 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="num"> : 数</param>
-		/// <param name="maxDigits"> : 最大桁数</param>
-		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
+		/// <param name="offset"> : オフセット値</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		virtual void Initialize(
-			const uint32_t num,
-			const size_t maxDigits,
-			const float interval,
-			const bool shouldShowZero,
-			YMath::Matrix4* pParent,
+			const uint32_t num, 
+			YMath::Matrix4* pParent, 
+			const YMath::Vector3& offset = {},
 			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
@@ -69,24 +63,31 @@ namespace YGame
 		/// </summary>
 		/// <param name="num"> : 数字</param>
 		virtual void SetNumber(const uint32_t num) = 0;
-		
-		/// <summary>
-		/// 間隔設定
-		/// </summary>
-		/// <param name="interval"> : 間隔</param>
-		virtual void SetInterval(const float interval) = 0;
 
 		/// <summary>
-		/// ゼロ表示設定
+		/// オフセット設定
 		/// </summary>
-		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
-		virtual void SetShowZero(const bool shouldShowZero) = 0;
+		/// <param name="offset"> : オフセット値</param>
+		virtual void SetOffset(const YMath::Vector3& offset) = 0;
 
 	public:
 
-		UINumber() = default;
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
+		
+		/// <summary>
+		/// 数字の幅取得
+		/// </summary>
+		/// <returns>数字の幅</returns>
+		static const float StaticDigitWidth();
+	
+	public:
 
-		virtual ~UINumber() = default;
+		UIDigit() = default;
+
+		virtual ~UIDigit() = default;
 
 	};
 }

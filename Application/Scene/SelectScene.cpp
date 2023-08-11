@@ -27,7 +27,7 @@ void SelectScene::Load()
 	
 	pNumberSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_start.png")} });
 	
-	pStickSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_start.png")} });
+	pStickSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("winHalf.png")} });
 
 	pButtonSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png")} });
 
@@ -43,20 +43,27 @@ void SelectScene::Initialize()
 
 
 	Vector3 logoPos = (win / 2.0f) - Vector3(0.0f, 32.0f, 0.0f);
-	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos }, pLogoSpr_));
+	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, pLogoSpr_));
 
 	Vector3 startPos = (win / 2.0f) + Vector3(0.0f, 32.0f, 0.0f);
-	startObj_.reset(DrawObjectForSprite2D::Create({ startPos }, pStartSpr_));
+	startObj_.reset(DrawObjectForSprite2D::Create({ startPos, {}, {1.0f,1.0f,1.0f} }, pStartSpr_));
 		
 	Vector3 numberPos = (win / 2.0f) + Vector3(0.0f, 32.0f, 0.0f);
-	numberObj_.reset(DrawObjectForSprite2D::Create({ numberPos }, pNumberSpr_));
+	numberObj_.reset(DrawObjectForSprite2D::Create({ numberPos, {}, {1.0f,1.0f,1.0f} }, pNumberSpr_));
 
 	Vector3 stickPos = (win / 2.0f) + Vector3(0.0f, 32.0f, 0.0f);
-	stickObj_.reset(DrawObjectForSprite2D::Create({ stickPos }, pStickSpr_));
+	stickObj_.reset(DrawObjectForSprite2D::Create({ stickPos, {}, {1.0f,1.0f,1.0f} }, pStickSpr_));
 	
 	Vector3 buttonPos = (win / 2.0f) + Vector3(0.0f, 32.0f, 0.0f);
-	buttonObj_.reset(DrawObjectForSprite2D::Create({ buttonPos }, pButtonSpr_));
+	buttonObj_.reset(DrawObjectForSprite2D::Create({ buttonPos, {}, {1.0f,1.0f,1.0f} }, pButtonSpr_));
 	
+	num.Initialize();
+	num.pos_ = win / 2.0f;
+	//num.scale_ = ;
+
+	uiDigit_.reset(UIDigit::Create(8, &num.m_));
+	uiNumber_.reset(UINumber::Create(42037, 10, 64.0f, false, &num.m_));
+
 	transferVP_.Initialize();
 }
 #pragma endregion
@@ -77,6 +84,10 @@ void SelectScene::Update()
 	numberObj_->Update();
 	stickObj_->Update();
 	buttonObj_->Update();
+
+	num.UpdateMatrix();
+	uiDigit_->Update();
+	uiNumber_->Update();
 
 	// ビュープロジェクション更新
 	transferVP_.UpdateMatrix();
@@ -101,10 +112,13 @@ void SelectScene::Update()
 
 void SelectScene::Draw()
 {
-	logoObj_->Draw("Sprite2DDefault", 0);
-	startObj_->Draw("Sprite2DDefault", 0);
-	numberObj_->Draw("Sprite2DDefault", 0);
-	stickObj_->Draw("Sprite2DDefault", 0);
-	buttonObj_->Draw("Sprite2DDefault", 0);
+	//logoObj_->Draw("Sprite2DDefault", 2);
+	//startObj_->Draw("Sprite2DDefault", 2);
+	//numberObj_->Draw("Sprite2DDefault", 2);
+	//buttonObj_->Draw("Sprite2DDefault", 2);
+	stickObj_->Draw("Sprite2DDefault", 5);
+
+	//uiDigit_->Draw("Sprite2DDefault", 1);
+	uiNumber_->Draw("Sprite2DDefault", 2);
 }
 #pragma endregion

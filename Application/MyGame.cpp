@@ -17,6 +17,9 @@
 #include "DustParticle.h"
 #include "DebriParticle.h"
 
+#include "UILetterBox.h"
+#include "UIDigit.h"
+
 #pragma region 名前空間宣言
 using YBase::MyGame;
 using namespace YDX;
@@ -35,11 +38,15 @@ bool MyGame::Initialize()
 
 	InitializeParticles();
 
+	UILetterBox::StaticInitialize();
+	
+	UIDigit::StaticInitialize();
+
 	// シーンファクトリー設定
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
 
 	// シーンエグゼクティブ初期化
-	sceneExe_->Initialize(YGameSceneFactory::Play_, YGameTransitionFactory::Blackout_);
+	sceneExe_->Initialize(YGameSceneFactory::Select_, YGameTransitionFactory::Blackout_);
 
 	return true;
 }
