@@ -8,16 +8,7 @@
 #include "Horse.h"
 #include "Slime.h"
 
-#include "DefaultDrawer.h"
-#include "PlayerDrawer.h"
-#include "HorseDrawer.h"
-#include "SlimeDrawer.h"
-#include "SlashAttackDrawer.h"
-#include "SnortAttackDrawer.h"
-#include "BlockDrawer.h"
-#include "GoalDrawer.h"
-#include "CloudDrawer.h"
-#include "SkydomeDrawer.h"
+#include "StageManager.h"
 
 #pragma region 名前空間宣言
 
@@ -30,7 +21,6 @@ using namespace YGame;
 #pragma endregion 
 
 #pragma region Static関連
-static bool isLoad = false;
 #pragma endregion 
 
 
@@ -40,51 +30,15 @@ void PlayScene::Load()
 	pCharacterMan_ = CharacterManager::GetInstance();
 	
 	pMapChipManager_ = MapChipManager::GetInstance();
-	
-
-	if (isLoad == false)
-	{
-		pMapChipManager_->Load("demo.csv");
-		isLoad = true;
-	}
-	else
-	{
-		pMapChipManager_->Load(0, "demo.csv");
-	}
 
 	// 描画クラス
-	{
-		BaseDrawer::StaticInitialize(&transferVP_);
-
-		DefaultDrawer::StaticInitialize();
-
-		PlayerDrawer::StaticInitialize();
-		
-		HorseDrawer::StaticInitialize();
-
-		SlimeDrawer::StaticInitialize();
-		
-		SlashAttackDrawer::StaticInitialize();
-		
-		SnortAttackDrawer::StaticInitialize();
-
-		BlockDrawer::StaticInitialize();
-
-		GoalDrawer::StaticInitialize();
-
-		SkydomeDrawer::StaticInitialize();
-
-		CloudDrawer::StaticInitialize();
-	}
-
+	BaseDrawer::StaticInitialize(&transferVP_);
+	
 	// プレイヤー
 	Player::StaticInitialize(&scrollCamera_);
 	
 	// ペット
 	IPet::StaticInitialize(&scrollCamera_);
-
-	// UI
-	UIManager::Load();
 }
 #pragma endregion
 
@@ -92,10 +46,12 @@ void PlayScene::Load()
 #pragma region 初期化
 void PlayScene::Initialize()
 {
+	StageManager::GetInstance()->Reset();
+
 	pLevel_ = Level::LoadJson("levelData.json");
 
 	// マップチップ初期化
-	pMapChipManager_->Initialize(0, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
+	pMapChipManager_->Initialize(StageManager::GetInstance()->CurrentStageIndex() + 1, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 	// ゲームキャラクターマネージャー初期化
 	pCharacterMan_->Initialize();
@@ -193,6 +149,8 @@ void PlayScene::Initialize()
 	isStart_ = false;
 
 	isStop_ = false;
+
+	pause_.Initialize();
 }
 #pragma endregion
 
@@ -214,7 +172,10 @@ void PlayScene::Update()
 	isReset = ImGui::Button("Reset");
 	ImGui::End();
 
-	if (isStop_ == false)
+	pause_.Update();
+
+	if (isStop_ == false &&
+		pause_.IsPause() == false)
 	{
 		startTimer_.Update();
 
@@ -244,10 +205,13 @@ void PlayScene::Update()
 	pCharacterMan_->DrawDebugText();
 
 	// リセット
-	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_MENU))
+	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_DOWN))
 	{
 		SceneManager::GetInstance()->Change("PLAY");
 	}
+
+
+	StageManager::GetInstance()->Update();
 }
 #pragma endregion
 
@@ -262,5 +226,7 @@ void PlayScene::Draw()
 	pCharacterMan_->Draw();
 
 	uiMan_.Draw();
+
+	pause_.Draw();
 }
 #pragma endregion

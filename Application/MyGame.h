@@ -41,5 +41,15 @@ namespace YBase
 		/// </summary>
 		void InitializeParticles();
 
+		/// <summary>
+		/// マップデータ読み込み
+		/// </summary>
+		void LoadMapData();
+
+		/// <summary>
+		/// 描画クラス読み込み
+		/// </summary>
+		void LoadDrawer();
+
 	};
 }

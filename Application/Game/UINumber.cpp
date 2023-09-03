@@ -41,6 +41,9 @@ namespace YGame
 		// 間隔設定
 		void SetInterval(const float interval) override;
 
+		// 桁ごとのオフセット設定
+		void SetDigitOffset(const size_t digitIndex, const YMath::Vector3& offset) override;
+
 		// ゼロ表示設定
 		void SetShowZero(const bool shouldShowZero) override;
 
@@ -151,6 +154,13 @@ namespace YGame
 	void impl_UINumber::SetInterval(const float interval)
 	{
 		interval_ = interval;
+	}
+
+	void impl_UINumber::SetDigitOffset(const size_t digitIndex, const YMath::Vector3& offset)
+	{
+		assert(0 <= digitIndex && digitIndex < digits_.size());
+
+		digits_[digitIndex]->SetOffset(offset);
 	}
 
 	void impl_UINumber::SetShowZero(const bool shouldShowZero)

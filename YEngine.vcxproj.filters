@@ -60,9 +60,6 @@
     <Filter Include="Application\Game\Drawer">
       <UniqueIdentifier>{47b6c29d-72b8-443b-8ad7-8192767eade5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Draw\HUD">
-      <UniqueIdentifier>{16ef26ea-5fb0-4b76-9dd0-6cf9f6098c19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Chara\Item">
       <UniqueIdentifier>{e13fc05c-b636-435f-9f3c-30fd32b9d714}</UniqueIdentifier>
     </Filter>
@@ -204,6 +201,12 @@
     </Filter>
     <Filter Include="Engine\Math\Physics">
       <UniqueIdentifier>{d3539f7d-9dfb-4a15-8ea8-6ebd914ff078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Draw\HUD">
+      <UniqueIdentifier>{16ef26ea-5fb0-4b76-9dd0-6cf9f6098c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Debug">
+      <UniqueIdentifier>{0a04e373-d08c-4ed8-842d-aef6b82e02d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -547,6 +550,21 @@
       <Filter>Engine\Math\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\UINumber.cpp">
+      <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\StageManager.cpp">
+      <Filter>Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\ResultScene.cpp">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\AxisDrawer.cpp">
+      <Filter>Application\Game\Drawer\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CollisionDrawer.cpp">
+      <Filter>Application\Game\Drawer\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\PauseManager.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -957,6 +975,21 @@
       <Filter>Engine\Math\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\UINumber.h">
+      <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\StageManager.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\ResultScene.h">
+      <Filter>Application\Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\AxisDrawer.h">
+      <Filter>Application\Game\Drawer\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CollisionDrawer.h">
+      <Filter>Application\Game\Drawer\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\PauseManager.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>

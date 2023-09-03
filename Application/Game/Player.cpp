@@ -1,15 +1,18 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
-#include "PrimitiveCollider.h"
-#include "MapChipCollisionBitConfig.h"
-
 #include "CharacterConfig.h"
 #include "AnimationConfig.h"
-
 #include "CharacterManager.h"
 #include "SlashAttack.h"
 
-#include "SceneExecutive.h"
+#include "PrimitiveCollider.h"
+#include "MapChipCollisionBitConfig.h"
+#include "CollisionDrawer.h"
+
+#include "StageManager.h"
+
+#include "Keys.h"
+#include "Pad.h"
 
 #include <cassert>
 #include <imgui.h>
@@ -35,6 +38,8 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	transform_->Initialize();
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PlayerConfig::kRadius));
+
+	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PlayerConfig::kRadius, 1));
 
 	jumpCounter_ = 0;
 
@@ -67,7 +72,7 @@ void Player::RideOnPet(IPet* pPet)
 		SetParent(pPet_);
 
 		// 乗る位置分 上に移動
-		transform_->pos_ = Vector3(0.0f, pPet_->RidingPosHeight(), 0.0f);
+		transform_->pos_ = pPet_->RidingPosHeight();
 		transform_->UpdateMatrix();
 
 		speed_.SetIsGravity(false);
@@ -77,7 +82,7 @@ void Player::RideOnPet(IPet* pPet)
 		collider_->SetIsSlip(true);
 
 		drawer_->SetParent(pPet_->DrawerPtr()->TransformPtr());
-		drawer_->SetOffset(Vector3(0.0f, pPet_->RidingPosHeight(), 0.0f));
+		drawer_->SetOffset(pPet_->RidingPosHeight());
 		drawer_->SetIsVisibleUpdate(false);
 
 		pPet_->Rideen();
@@ -138,6 +143,10 @@ void Player::Update(const bool isUpdate)
 			// 自動で前に進む
 			moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
 			direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+		}
+		else
+		{
+			direction_ = Vector3(-1.0f, 0.0f, 0.0f);
 		}
 
 		// SPACE キー or A ボタン
@@ -219,7 +228,7 @@ void Player::OnCollision(const CollisionInfo& info)
 				);
 
 				spScrollCamera_->SetFollowPoint(nullptr);
-				YGame::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
+				StageManager::GetInstance()->GameOver();
 			}
 
 			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
@@ -320,9 +329,7 @@ void Player::Attack()
 
 void Player::OffScreenProcess()
 {
-	if (YGame::TransitionManager::GetInstance()->IsAct()) { return; }
-
-	YGame::SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
+	StageManager::GetInstance()->GameOver();
 }
 
 void Player::DrawDebugTextContent()

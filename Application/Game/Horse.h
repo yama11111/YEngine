@@ -54,7 +54,7 @@ namespace YGame
 		/// æ‚éˆÊ’u‚Ì‚‚³æ“¾
 		/// </summary>
 		/// <returns>æ‚éˆÊ’u‚Ì‚‚³</returns>
-		float RidingPosHeight() override;
+		YMath::Vector3 RidingPosHeight() override;
 
 	public:
 

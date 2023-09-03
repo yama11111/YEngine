@@ -1,5 +1,6 @@
 #include "UIDigit.h"
 #include "DrawObjectForSprite2D.h"
+#include "DrawObjectForSprite3D.h"
 #include "ConstBufferObject.h"
 #include "CBTexConfig.h"
 #include <cassert>
@@ -10,17 +11,16 @@ using YMath::Vector3;
 
 namespace
 {
-	YGame::Sprite2D* pNumberSpr = nullptr;
+	YGame::Sprite2D* pNumberSpr2D = nullptr;
+	YGame::Sprite3D* pNumberSpr3D = nullptr;
 }
 
 void UIDigit::StaticInitialize()
 {
-	pNumberSpr = Sprite2D::Create({ {"Texture0", Texture::Load("UI/numbers.png")} });
-}
+	Texture* pTex = Texture::Load("UI/numbers.png");
 
-const float UIDigit::StaticDigitWidth()
-{
-	return 64.0f;
+	pNumberSpr2D = Sprite2D::Create({ {"Texture0", pTex} });
+	pNumberSpr3D = Sprite3D::Create({ {"Texture0", pTex} });
 }
 
 namespace YGame
@@ -31,10 +31,27 @@ namespace YGame
 
 	public:
 
+		// スプライトの種類
+		enum class SpriteType
+		{
+			eNone, e2D, e3D,
+		};
+	
+	public:
+
 		// 初期化
 		void Initialize(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
+			const YMath::Vector3& offset = {},
+			const bool isClearWhenTransition = true) override;
+
+		// 初期化
+		void Initialize(
+			const uint32_t num,
+			YMath::Matrix4* pParent,
+			const bool isXAxisBillboard, const bool isYAxisBillboard,
+			ViewProjection* pVP,
 			const YMath::Vector3& offset = {},
 			const bool isClearWhenTransition = true) override;
 
@@ -49,9 +66,12 @@ namespace YGame
 
 		// 数設定
 		void SetNumber(const uint32_t num) override;
-
+		
 		// オフセット設定
 		void SetOffset(const YMath::Vector3& offset) override;
+
+		// スプライト種類設定
+		void SetSpriteType(const SpriteType& type) { type_ = type; }
 
 	public:
 
@@ -70,24 +90,57 @@ namespace YGame
 		// 定数バッファ
 		std::unique_ptr<ConstBufferObject<CBTexConfig>> cbTexConfig_;
 
+		// スプライトタイプ
+		SpriteType type_ = SpriteType::eNone;
 	};
 
 	void impl_UIDigit::Initialize(
 		const uint32_t num, 
-		YMath::Matrix4* pParent, const YMath::Vector3& offset, 
+		YMath::Matrix4* pParent, 
+		const YMath::Vector3& offset, 
 		const bool isClearWhenTransition)
 	{
+		assert(type_ == SpriteType::e2D);
 		assert(pParent);
 
 		Transform::Status status = Transform::Status::Default();
 
-		obj_.reset(DrawObjectForSprite2D::Create(status, pNumberSpr));
+		obj_.reset(DrawObjectForSprite2D::Create(status, pNumberSpr2D, isClearWhenTransition));
 
 		obj_->SetParent(pParent);
 
 		cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create(isClearWhenTransition));
 		obj_->InsertConstBuffer(cbTexConfig_.get());
 		
+		// 10分の1のサイズ分でスケール + タイリング
+		obj_->transform_.scale_ = { 0.1f,1.0f,0.0f };
+		cbTexConfig_->data_.tiling = Vector2(0.1f, 1.0f);
+
+		SetNumber(num);
+
+		SetOffset(offset);
+	}
+
+	void impl_UIDigit::Initialize(
+		const uint32_t num, 
+		YMath::Matrix4* pParent, 
+		const bool isXAxisBillboard, const bool isYAxisBillboard, 
+		ViewProjection* pVP, 
+		const YMath::Vector3& offset, 
+		const bool isClearWhenTransition)
+	{
+		assert(type_ == SpriteType::e3D);
+		assert(pParent);
+
+		Transform::Status status = Transform::Status::Default();
+
+		obj_.reset(DrawObjectForSprite3D::Create(status, isXAxisBillboard, isYAxisBillboard, pVP, pNumberSpr3D, isClearWhenTransition));
+
+		obj_->SetParent(pParent);
+
+		cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create(isClearWhenTransition));
+		obj_->InsertConstBuffer(cbTexConfig_.get());
+
 		// 10分の1のサイズ分でスケール + タイリング
 		obj_->transform_.scale_ = { 0.1f,1.0f,0.0f };
 		cbTexConfig_->data_.tiling = Vector2(0.1f, 1.0f);
@@ -128,12 +181,30 @@ namespace YGame
 
 UIDigit* UIDigit::Create(
 	const uint32_t num, 
-	YMath::Matrix4* pParent, const YMath::Vector3& offset, 
+	YMath::Matrix4* pParent, 
+	const YMath::Vector3& offset, 
 	const bool isClearWhenTransition)
 {
 	impl_UIDigit* newInstance = new impl_UIDigit();
 
+	newInstance->SetSpriteType(impl_UIDigit::SpriteType::e2D);
 	newInstance->Initialize(num, pParent, offset, isClearWhenTransition);
+
+	return newInstance;
+}
+
+UIDigit* UIDigit::Create(
+	const uint32_t num, 
+	YMath::Matrix4* pParent, 
+	const bool isXAxisBillboard, const bool isYAxisBillboard, 
+	ViewProjection* pVP, const 
+	YMath::Vector3& offset, 
+	const bool isClearWhenTransition)
+{
+	impl_UIDigit* newInstance = new impl_UIDigit();
+
+	newInstance->SetSpriteType(impl_UIDigit::SpriteType::e3D);
+	newInstance->Initialize(num, pParent, isXAxisBillboard, isYAxisBillboard, pVP, offset, isClearWhenTransition);
 
 	return newInstance;
 }

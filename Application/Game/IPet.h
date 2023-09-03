@@ -37,7 +37,7 @@ namespace YGame
 		/// æ‚éˆÊ’u‚Ì‚‚³æ“¾
 		/// </summary>
 		/// <returns>æ‚éˆÊ’u‚Ì‚‚³</returns>
-		virtual float RidingPosHeight() = 0;
+		virtual YMath::Vector3 RidingPosHeight() = 0;
 
 		/// <summary>
 		/// æ‚ç‚ê‚é

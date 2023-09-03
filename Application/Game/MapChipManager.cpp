@@ -1,6 +1,6 @@
 #include "MapChipManager.h"
 #include <cassert>
-#include "SceneExecutive.h"
+#include "StageManager.h"
 
 using YGame::MapChipManager;
 
@@ -53,9 +53,8 @@ void MapChipManager::Update()
 
 	if(map_.isClear_)
 	{
-		YGame::SceneExecutive::GetInstance()->Change(
-			"PLAY", "INFECTION", 2, 5
-		);
+		// ステージクリア
+		StageManager::GetInstance()->ClearStage();
 	}
 }
 

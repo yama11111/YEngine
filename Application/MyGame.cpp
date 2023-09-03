@@ -20,6 +20,24 @@
 #include "UILetterBox.h"
 #include "UIDigit.h"
 
+#include "StageManager.h"
+
+#include "DefaultDrawer.h"
+#include "PlayerDrawer.h"
+#include "HorseDrawer.h"
+#include "SlimeDrawer.h"
+#include "SlashAttackDrawer.h"
+#include "SnortAttackDrawer.h"
+#include "BlockDrawer.h"
+#include "GoalDrawer.h"
+#include "CloudDrawer.h"
+#include "SkydomeDrawer.h"
+#include "AxisDrawer.h"
+#include "CollisionDrawer.h"
+
+#include "UIManager.h"
+#include "PauseManager.h"
+
 #pragma region 名前空間宣言
 using YBase::MyGame;
 using namespace YDX;
@@ -38,15 +56,22 @@ bool MyGame::Initialize()
 
 	InitializeParticles();
 
+	LoadMapData();
+
+	LoadDrawer();
+
 	UILetterBox::StaticInitialize();
 	
 	UIDigit::StaticInitialize();
+
+	StageManager::GetInstance()->Initialize();
+	
 
 	// シーンファクトリー設定
 	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
 
 	// シーンエグゼクティブ初期化
-	sceneExe_->Initialize(YGameSceneFactory::Select_, YGameTransitionFactory::Blackout_);
+	sceneExe_->Initialize(YGameSceneFactory::Title_, YGameTransitionFactory::Blackout_);
 
 	return true;
 }
@@ -86,12 +111,12 @@ void MyGame::Draw()
 	// パイプライン描画
 	pPipelineMan_->Draw();
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 
 	// imgui描画
 	imguiMan_.Draw();
 
-#endif // DEBUG
+//#endif // DEBUG
 
 	// 描画後処理
 	dx_.PostDraw();
@@ -283,5 +308,52 @@ void MyGame::InitializeParticles()
 	DustParticle::StaticInitialize();
 
 	DebriParticle::StaticInitialize();
+}
+
+void MyGame::LoadMapData()
+{
+	MapChipManager::GetInstance()->Load("title.csv");
+	MapChipManager::GetInstance()->Load("stage1.csv");
+	MapChipManager::GetInstance()->Load("stage2.csv");
+	MapChipManager::GetInstance()->Load("stage3.csv");
+	MapChipManager::GetInstance()->Load("stage4.csv");
+	MapChipManager::GetInstance()->Load("stage5.csv");
+	MapChipManager::GetInstance()->Load("stage6.csv");
+	MapChipManager::GetInstance()->Load("stage7.csv");
+	MapChipManager::GetInstance()->Load("stage8.csv");
+	MapChipManager::GetInstance()->Load("stage9.csv");
+	MapChipManager::GetInstance()->Load("stage10.csv");
+}
+
+void MyGame::LoadDrawer()
+{
+	DefaultDrawer::StaticInitialize();
+
+	PlayerDrawer::StaticInitialize();
+
+	HorseDrawer::StaticInitialize();
+
+	SlimeDrawer::StaticInitialize();
+
+	SlashAttackDrawer::StaticInitialize();
+
+	SnortAttackDrawer::StaticInitialize();
+
+	BlockDrawer::StaticInitialize();
+
+	GoalDrawer::StaticInitialize();
+
+	SkydomeDrawer::StaticInitialize();
+
+	CloudDrawer::StaticInitialize();
+	
+	AxisDrawer::StaticInitialize();
+
+	CollisionDrawer::StaticInitialize();
+
+	PauseManager::StaticInitialize();
+
+	// UI
+	UIManager::Load();
 }
 

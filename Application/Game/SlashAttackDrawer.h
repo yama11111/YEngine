@@ -1,11 +1,22 @@
 #pragma once
 #include "BaseDrawer.h"
+#include "SlimeActor.h"
+#include "Ease.h"
 
 namespace YGame
 {
 	class SlashAttackDrawer final:
 		public BaseDrawer
 	{
+
+	public:
+
+		// アニメーション
+		enum class AnimationType : uint16_t
+		{
+			// 攻撃
+			eAttack = 0b1,
+		};
 
 	public:
 
@@ -38,6 +49,12 @@ namespace YGame
 		~SlashAttackDrawer() = default;
 
 	private:
+
+		// スライム
+		SlimeActor slimeActor_;
+
+		// 回転イージング
+		YMath::Ease<float> rotaEas_;
 
 		// モデルポインタ
 		static Model* spModel_;

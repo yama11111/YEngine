@@ -1,6 +1,5 @@
 #pragma once
-#include "Vector3.h"
-#include "Matrix4.h"
+#include "ViewProjection.h"
 #include "BaseConstBuffer.h"
 
 namespace YGame
@@ -24,6 +23,25 @@ namespace YGame
 			const YMath::Vector3& offset ={},
 			const bool isClearWhenTransition = true);
 
+		/// <summary>
+		/// 動的インスタンス生成
+		/// </summary>
+		/// <param name="num"> : 数</param>
+		/// <param name="pParent"> : 親行列ポインタ</param>
+		/// <param name="isXAxisBillboard"> : X軸ビルボードフラグ</param>
+		/// <param name="isYAxisBillboard"> : Y軸ビルボードフラグ</param>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		/// <param name="offset"> : オフセット値</param>
+		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		/// <returns>動的インスタンス</returns>
+		static UIDigit* Create(
+			const uint32_t num, 
+			YMath::Matrix4* pParent, 
+			const bool isXAxisBillboard, const bool isYAxisBillboard,
+			ViewProjection* pVP,
+			const YMath::Vector3& offset ={},
+			const bool isClearWhenTransition = true);
+
 	public:
 
 		/// <summary>
@@ -36,6 +54,24 @@ namespace YGame
 		virtual void Initialize(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
+			const YMath::Vector3& offset = {},
+			const bool isClearWhenTransition = true) = 0;
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="num"> : 数</param>
+		/// <param name="pParent"> : 親行列ポインタ</param>
+		/// <param name="isXAxisBillboard"> : X軸ビルボードフラグ</param>
+		/// <param name="isYAxisBillboard"> : Y軸ビルボードフラグ</param>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		/// <param name="offset"> : オフセット値</param>
+		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		virtual void Initialize(
+			const uint32_t num,
+			YMath::Matrix4* pParent,
+			const bool isXAxisBillboard, const bool isYAxisBillboard,
+			ViewProjection* pVP,
 			const YMath::Vector3& offset = {},
 			const bool isClearWhenTransition = true) = 0;
 
@@ -76,12 +112,6 @@ namespace YGame
 		/// 静的初期化
 		/// </summary>
 		static void StaticInitialize();
-		
-		/// <summary>
-		/// 数字の幅取得
-		/// </summary>
-		/// <returns>数字の幅</returns>
-		static const float StaticDigitWidth();
 	
 	public:
 

@@ -1,8 +1,9 @@
 #include "SnortAttack.h"
-#include "PrimitiveCollider.h"
 #include "SnortAttackDrawer.h"
-
 #include "CharacterConfig.h"
+
+#include "CollisionDrawer.h"
+#include "PrimitiveCollider.h"
 
 using YGame::SnortAttack;
 using YMath::Vector3;
@@ -24,9 +25,11 @@ void SnortAttack::Initialize(
 		acceleration, maxSpeed,
 		1, attackPower, 0,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
-		SnortAttackDrawer::Create(nullptr, 1));
+		SnortAttackDrawer::Create(nullptr, 3));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
+
+	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), radius, 1));
 
 	transform_->scale_ = Vector3(radius, radius, radius);
 
@@ -36,11 +39,14 @@ void SnortAttack::Initialize(
 	// 生存時間初期化 + スタート
 	aliveTimer_.Initialize(aliveTimer);
 	aliveTimer_.SetActive(true);
+	
+	drawer_->PlayAnimation(static_cast<uint16_t>(SnortAttackDrawer::AnimationType::eAttack), aliveTimer);
 
 	transform_->pos_ = emitPos;
 
 	// オブジェクト更新
 	GameObject::Update();
+
 }
 
 void SnortAttack::Update(const bool isUpdate)

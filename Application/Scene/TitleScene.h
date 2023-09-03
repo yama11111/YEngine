@@ -1,5 +1,12 @@
 #pragma once
 #include "BaseScene.h"
+
+#include "PlayerDrawer.h"
+#include "HorseDrawer.h"
+#include "MapchipManager.h"
+
+#include "Level.h"
+
 #include "DrawObjectForSprite2D.h"
 #include "UIButton.h"
 #include "UILetterBox.h"
@@ -26,8 +33,23 @@ namespace YGame
 
 		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
 
+		std::unique_ptr<ConstBufferObject<CBColor>> startColor_;
 		std::unique_ptr<DrawObjectForSprite2D> startObj_;
 		
+
+		// プレイヤー
+		Transform player_;
+		std::unique_ptr<PlayerDrawer> playerDra_;
+		
+		// ウマ
+		Transform horse_;
+		std::unique_ptr<HorseDrawer> horseDra_;
+
+		// レベル
+		Level* pLevel_ = nullptr;
+
+		// マップチップマネージャー
+		MapChipManager* pMapChipManager_ = nullptr;
 
 
 		// スタートボタン

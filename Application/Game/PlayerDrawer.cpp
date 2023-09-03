@@ -11,7 +11,7 @@ using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::PlayerAnimationConfig;
 
-Model* PlayerDrawer::spModel_ = nullptr;
+std::array<Model*, 3> PlayerDrawer::spModels_ = { nullptr, nullptr, nullptr };
 
 PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const uint16_t drawPriority)
 {
@@ -25,7 +25,9 @@ PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const uint16_t drawPriori
 void PlayerDrawer::StaticInitialize()
 {
 	// ƒ‚ƒfƒ‹Ý’è
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("play/player.png")} });
+	spModels_[1] = Model::LoadObj("player/body", true);
+	spModels_[0] = Model::LoadObj("player/leg_L", true);
+	spModels_[2] = Model::LoadObj("player/leg_R", true);
 }
 
 void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
@@ -34,12 +36,22 @@ void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// ƒ‚ƒfƒ‹Ý’è
-	obj_->SetModel(spModel_);
+	obj_->SetModel(spModels_[0]);
 
 	shaderKey_ = "ModelToon";
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
+}
+
+void PlayerDrawer::Draw()
+{
+	if (isVisible_ == false) { return; }
+
+	for (size_t i = 0; i < spModels_.size(); i++)
+	{
+		obj_->Draw(shaderKey_, drawPriority_, spModels_[i]);
+	}
 }
 
 void PlayerDrawer::InsertAnimationTimers()

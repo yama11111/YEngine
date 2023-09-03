@@ -2,6 +2,9 @@
 #include <cassert>
 #include <imgui.h>
 
+#include "AxisDrawer.h"
+#include "CollisionDrawer.h"
+
 using YGame::CharacterManager;
 
 void CharacterManager::Initialize()
@@ -55,6 +58,17 @@ void CharacterManager::DrawDebugText()
 	}
 	
 	ImGui::End();
+
+	ImGui::Begin("DebugDraw");
+	ImGui::Checkbox("Axis", &isDrawAxis_);
+	ImGui::Checkbox("Collision", &isDrawCollision_);
+	ImGui::End();
+
+	for (std::unique_ptr<BaseCharacter>& character : characters_)
+	{
+		character->SubDrawerPtr(AxisDrawer::Name())->SetIsVisible(isDrawAxis_);
+		character->SubDrawerPtr(CollisionDrawer::Name())->SetIsVisible(isDrawCollision_);
+	}
 }
 
 void CharacterManager::Draw()

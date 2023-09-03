@@ -37,6 +37,13 @@ namespace YGame
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Draw(const std::string& shaderTag, const uint16_t drawPriority);
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		/// <param name="shaderTag"> : シェーダータグ</param>
+		/// <param name="drawPriority"> : 描画優先度</param>
+		void Draw(const std::string& shaderTag, const uint16_t drawPriority, BaseGraphic* pGraphic);
 	
 	public:
 

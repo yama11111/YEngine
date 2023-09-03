@@ -2,6 +2,8 @@
 #include <cassert>
 #include <imgui.h>
 
+#include "AxisDrawer.h"
+
 using YGame::GameObject;
 
 void GameObject::Initialize(const std::string name, const Transform::Status& status, GameObject* pParent)
@@ -13,6 +15,8 @@ void GameObject::Initialize(const std::string name, const Transform::Status& sta
 	
 	SetParent(pParent);
 
+	InsertSubDrawer(AxisDrawer::Name(), AxisDrawer::Create(transform_.get(), 1));
+
 	// 行列更新
 	transform_->UpdateMatrix();
 }
@@ -22,14 +26,32 @@ void GameObject::Update()
 	// 核更新
 	transform_->UpdateMatrix();
 
-	// 描画クラス更新
-	if (drawer_) { drawer_->Update(); }
+	if (drawer_) 
+	{
+		drawer_->Update(); 
+	}	
+
+	if (subDrawer_.empty() == false) 
+	{
+		for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
+		{
+			itr->second->Update();
+		}
+	}
 }
 
 void GameObject::Draw()
 {
 	// 描画
 	if (drawer_) { drawer_->Draw(); }
+
+	if (subDrawer_.empty() == false)
+	{
+		for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
+		{
+			itr->second->Draw();
+		}
+	}
 }
 
 void GameObject::OnCollision()
@@ -66,7 +88,6 @@ void GameObject::SetCollider(GameCollider* collider)
 
 void GameObject::SetDrawer(BaseDrawer* drawer)
 {
-	// 描画クラス設定
 	drawer_.reset(drawer);
 	
 	// null じゃないなら
@@ -75,6 +96,21 @@ void GameObject::SetDrawer(BaseDrawer* drawer)
 		// 描画クラス親ポインタ設定
 		drawer_->SetParent(transform_.get());
 	}
+}
+
+void GameObject::InsertSubDrawer(const std::string& tag, BaseDrawer* drawer)
+{
+	assert(drawer);
+	assert(subDrawer_.contains(tag) == false);
+
+	std::unique_ptr<BaseDrawer> newDrawer;
+	newDrawer.reset(drawer);
+	
+	// 描画クラス親ポインタ設定
+	newDrawer->SetParent(transform_.get());
+
+	// マップに挿入
+	subDrawer_.insert({ tag, std::move(newDrawer)});
 }
 
 void GameObject::DrawDebugTextContent()

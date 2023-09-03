@@ -2,8 +2,9 @@
 #include "BaseScene.h"
 #include "DrawObjectForSprite2D.h"
 #include "UIButton.h"
-#include "UIDigit.h"
+#include "UILetterBox.h"
 #include "UINumber.h"
+#include "Level.h"
 
 namespace YGame
 {
@@ -16,10 +17,6 @@ namespace YGame
 #pragma region リソース
 
 		Sprite2D* pLogoSpr_ = nullptr;
-
-		Sprite2D* pStartSpr_ = nullptr;
-		
-		Sprite2D* pNumberSpr_ = nullptr;
 		
 		Sprite2D* pStickSpr_ = nullptr;
 
@@ -30,12 +27,12 @@ namespace YGame
 
 #pragma region ゲームオブジェクト
 
+
+		// レベル
+		Level* pLevel_ = nullptr;
+
 		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
 
-		std::unique_ptr<DrawObjectForSprite2D> startObj_;
-
-		std::unique_ptr<DrawObjectForSprite2D> numberObj_;
-		
 		std::unique_ptr<DrawObjectForSprite2D> stickObj_;
 		
 		std::unique_ptr<DrawObjectForSprite2D> buttonObj_;
@@ -43,9 +40,14 @@ namespace YGame
 
 		std::unique_ptr<UIButton> startButton_;
 		
-		Transform num;
-		std::unique_ptr<UIDigit> uiDigit_;
-		std::unique_ptr<UINumber> uiNumber_;
+		// 数
+		std::array<Transform, 10> nums_;
+		std::array<std::unique_ptr<UINumber>, 10> uiNumbers_;
+
+		uint32_t stageIndex_ = 0;
+
+		// 黒帯
+		std::unique_ptr<UILetterBox> letterBox_;
 
 		// ビュープロジェクション
 		YGame::ViewProjection transferVP_;

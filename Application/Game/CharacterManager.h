@@ -81,6 +81,12 @@ namespace YGame
 		// オブジェクトリスト
 		std::list<std::unique_ptr<BaseCharacter>> characters_;
 
+		// 軸描画フラグ
+		bool isDrawAxis_ = false;
+		
+		// アタリ判定描画フラグ
+		bool isDrawCollision_ = false;
+
 	public:
 
 		struct CharaUpdateStatus

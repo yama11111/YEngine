@@ -1,10 +1,11 @@
 #include "Slime.h"
 #include "SlimeDrawer.h"
-#include "PrimitiveCollider.h"
-#include "MapChipCollisionBitConfig.h"
-
 #include "CharacterConfig.h"
 #include "AnimationConfig.h"
+
+#include "CollisionDrawer.h"
+#include "PrimitiveCollider.h"
+#include "MapChipCollisionBitConfig.h"
 
 #include "Def.h"
 #include <cassert>
@@ -25,6 +26,8 @@ void Slime::Initialize(const Transform::Status& status)
 		SlimeDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), SlimeConfig::kRadius));
+
+	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
 
 	// 立ちアニメーション
 	drawer_->PlayAnimation(

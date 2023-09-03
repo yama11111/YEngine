@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "MapChipManager.h"
 #include "CharacterManager.h"
+#include "PauseManager.h"
 #include "ScrollCamera.h"
 #include "UIManager.h"
 
@@ -51,6 +52,8 @@ namespace YGame
 		
 		// ’â~ƒtƒ‰ƒO
 		bool isStop_ = false;
+
+		PauseManager pause_;
 
 #pragma endregion
 

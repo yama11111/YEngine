@@ -1,13 +1,13 @@
 #include "Horse.h"
 #include "HorseDrawer.h"
-#include "PrimitiveCollider.h"
-#include "MapChipCollisionBitConfig.h"
-
 #include "CharacterConfig.h"
 #include "AnimationConfig.h"
-
 #include "CharacterManager.h"
 #include "SnortAttack.h"
+
+#include "CollisionDrawer.h"
+#include "PrimitiveCollider.h"
+#include "MapChipCollisionBitConfig.h"
 
 #include <cassert>
 
@@ -26,6 +26,8 @@ void Horse::Initialize(const Transform::Status& status)
 		HorseDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), PetConfig::kRadius));
+
+	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PetConfig::kRadius, 1));
 
 	isHit_ = false;
 
@@ -76,7 +78,7 @@ YGame::BaseCharacter::CollisionInfo Horse::GetCollisionInfo()
 	return result;
 }
 
-float Horse::RidingPosHeight()
+YMath::Vector3 Horse::RidingPosHeight()
 {
 	return PetConfig::kRiddenHeight;
 }

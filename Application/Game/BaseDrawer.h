@@ -30,7 +30,7 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		void Update();
+		virtual void Update();
 
 		/// <summary>
 		/// アニメーション再生
@@ -49,7 +49,7 @@ namespace YGame
 		/// <summary>
 		/// 描画
 		/// </summary>
-		void Draw();
+		virtual void Draw();
 
 		/// <summary>
 		/// デバッグテキスト本文
@@ -68,7 +68,7 @@ namespace YGame
 		/// 親トランスフォーム設定
 		/// </summary>
 		/// <param name="pParent"> : 親トランスフォームポインタ</param>
-		void SetParent(Transform* pParent);
+		virtual void SetParent(Transform* pParent);
 
 		/// <summary>
 		/// オフセット設定
@@ -81,6 +81,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void SetDrawPriority(const uint16_t drawPriority) { drawPriority_ = drawPriority; }
+
+		/// <summary>
+		/// 描画するか
+		/// </summary>
+		/// <param name="isVisible"> : 描画するか</param>
+		void SetIsVisible(const bool isVisible) { isVisible_ = isVisible; }
 
 		/// <summary>
 		/// 描画更新するか

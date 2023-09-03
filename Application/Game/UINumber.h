@@ -1,5 +1,5 @@
 #pragma once
-#include "Matrix4.h"
+#include "ViewProjection.h"
 #include "BaseConstBuffer.h"
 
 namespace YGame
@@ -26,6 +26,24 @@ namespace YGame
 			const bool shouldShowZero,
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true);
+
+		///// <summary>
+		///// 動的インスタンス生成
+		///// </summary>
+		///// <param name="num"> : 数</param>
+		///// <param name="maxDigits"> : 最大桁数</param>
+		///// <param name="interval"> : 間隔</param>
+		///// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		///// <param name="pParent"> : 親行列ポインタ</param>
+		///// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		///// <returns>動的インスタンス</returns>
+		//static UINumber* Create(
+		//	const uint32_t num, 
+		//	const size_t maxDigits, 
+		//	const float interval,
+		//	const bool shouldShowZero,
+		//	YMath::Matrix4* pParent,
+		//	const bool isClearWhenTransition = true);
 
 	public:
 
@@ -75,6 +93,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="interval"> : 間隔</param>
 		virtual void SetInterval(const float interval) = 0;
+
+		/// <summary>
+		/// 桁ごとのオフセット設定
+		/// </summary>
+		/// <param name="digitIndex"> : 桁番号</param>
+		/// <param name="offset"> : オフセット値</param>
+		virtual void SetDigitOffset(const size_t digitIndex, const YMath::Vector3& offset) = 0;
 
 		/// <summary>
 		/// ゼロ表示設定

@@ -60,6 +60,8 @@ namespace YGame
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(Transform* pParent, const uint16_t drawPriority) override;
 
+		void Draw() override;
+
 	public:
 
 		PlayerDrawer() = default;
@@ -75,7 +77,7 @@ namespace YGame
 		HitActor hitActor_;
 
 		// モデルポインタ
-		static Model* spModel_;
+		static std::array<Model*, 3> spModels_;
 
 	private:
 

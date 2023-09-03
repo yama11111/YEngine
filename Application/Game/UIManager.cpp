@@ -71,11 +71,11 @@ void UIManager::PlayStartAnimation()
 
 void UIManager::Draw()
 {
-	letterBox_->Draw("Sprite2DDefault", 1);
+	letterBox_->Draw("Sprite2DDefault", 2);
 	
-	jumpUI_->Draw("Sprite2DDefault", 1);
+	jumpUI_->Draw("Sprite2DDefault", 2);
 
-	buttonJump_->Draw("Sprite2DDefault", 1);
+	buttonJump_->Draw("Sprite2DDefault", 2);
 }
 
 void UIManager::Load()

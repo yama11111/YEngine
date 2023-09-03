@@ -32,7 +32,7 @@ namespace YGame
 		static const uint32_t kAttack = 20;
 		static const uint32_t kInvincibleTime = 10;
 
-		static const float kRiddenHeight = 1.25f;
+		static const YMath::Vector3 kRiddenHeight = { 0.0f,1.25f,-0.5f };
 	}
 
 	namespace SlimeConfig
@@ -47,18 +47,18 @@ namespace YGame
 
 	namespace SlashAttackConfig
 	{
-		static const uint32_t kAliveTime = 3;
+		static const uint32_t kAliveTime = 5;
 		static const YMath::Vector3 kOffset = { +3.0f,+1.0f,0.0f };
-		static const float kRadius = 5.0f;
+		static const float kRadius = 3.0f;
 		static const uint32_t kPower = 20;
 	}
 
 	namespace SnortAttackConfig
 	{
-		static const uint32_t kAliveTime = 10;
+		static const uint32_t kAliveTime = 20;
 		static const YMath::Vector3 kAcceleration = { 0.3f,0.0f,0.0f };
 		static const YMath::Vector3 kMaxSpeed = { 0.6f,0.0f,0.0f };
-		static const float kRadius = 5.0f;
+		static const float kRadius = 2.0f;
 		static const uint32_t kPower = 20;
 	}
 }

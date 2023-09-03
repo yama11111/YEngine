@@ -1,8 +1,10 @@
 #include "SlashAttack.h"
-#include "PrimitiveCollider.h"
 #include "SlashAttackDrawer.h"
-
 #include "CharacterConfig.h"
+
+#include "CollisionDrawer.h"
+#include "PrimitiveCollider.h"
+
 
 using YGame::SlashAttack;
 using YMath::Vector3;
@@ -22,9 +24,11 @@ void SlashAttack::Initialize(
 		Vector3(), Vector3(),
 		1, attackPower, 0,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
-		SlashAttackDrawer::Create(nullptr, 1));
+		SlashAttackDrawer::Create(nullptr, 3));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
+
+	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), radius, 1));
 
 	transform_->scale_ = Vector3(radius, radius, radius);
 
@@ -34,6 +38,8 @@ void SlashAttack::Initialize(
 	// 生存時間初期化 + スタート
 	aliveTimer_.Initialize(aliveTimer);
 	aliveTimer_.SetActive(true);
+
+	drawer_->PlayAnimation(static_cast<uint16_t>(SlashAttackDrawer::AnimationType::eAttack), aliveTimer);
 
 	pAttackerPos_ = pAttackerPos;
 

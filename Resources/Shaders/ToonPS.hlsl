@@ -63,6 +63,14 @@ PSOutput main(PSInput input)
 	float3 shaderColor = (ambient + diffuse + specular) * direLightColor;
 
 
+	float3 rim = 1.0f - abs(dot(input.eyeDir_, normalize(input.normal_)));
+	//float3 emission = float3(0.1f, 0.1f, 0.1f) * pow(rim, 2.0f) * 2.0f;
+	//shaderColor += emission;
+
+	float t = step(0.6f, rim);
+
+	shaderColor = lerp(shaderColor, float3(0.0f, 0.0f, 0.0f), t);
+
 	// åvéZÇµÇΩêFÇ≈ï`âÊ
 	output.target_ = float4(shaderColor, color.a * mAlpha_);
 

@@ -55,6 +55,13 @@ namespace YGame
 		/// </summary>
 		/// <returns>描画クラスポインタ</returns>
 		inline BaseDrawer* DrawerPtr() const { return drawer_.get(); }
+
+		/// <summary>
+		/// 補助描画クラスポインタ
+		/// </summary>
+		/// <param name="tag"> : タグ</param>
+		/// <returns>描画クラスポインタ</returns>
+		inline BaseDrawer* SubDrawerPtr(const std::string& tag) { return subDrawer_[tag].get(); }
 	
 	public:
 		
@@ -76,6 +83,13 @@ namespace YGame
 		/// <param name="drawer"> : 描画インスタンス (動的)</param>
 		void SetDrawer(BaseDrawer* drawer);
 
+		/// <summary>
+		/// 補助描画クラス設定
+		/// </summary>
+		/// <param name="tag"> : タグ</param>
+		/// <param name="drawer"> : 描画インスタンス (動的)</param>
+		void InsertSubDrawer(const std::string& tag, BaseDrawer* drawer);
+
 	public:
 
 		GameObject() = default;
@@ -92,6 +106,9 @@ namespace YGame
 
 		// 描画クラス
 		std::unique_ptr<BaseDrawer> drawer_;
+		
+		// 補助描画クラス
+		std::unordered_map<std::string, std::unique_ptr<BaseDrawer>> subDrawer_;
 
 		// 親ポインタ
 		GameObject* pParent_ = nullptr;

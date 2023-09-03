@@ -112,8 +112,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
+    <ClCompile Include="Application\Game\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\BlockDrawer.cpp" />
     <ClCompile Include="Application\Game\CloudDrawer.cpp" />
+    <ClCompile Include="Application\Game\CollisionDrawer.cpp" />
     <ClCompile Include="Application\Game\DebriParticle.cpp" />
     <ClCompile Include="Application\Game\DustParticle.cpp" />
     <ClCompile Include="Application\Game\DefaultDrawer.cpp" />
@@ -121,6 +123,7 @@
     <ClCompile Include="Application\Game\HorseDrawer.cpp" />
     <ClCompile Include="Application\Game\BaseDrawer.cpp" />
     <ClCompile Include="Application\Game\IItem.cpp" />
+    <ClCompile Include="Application\Game\PauseManager.cpp" />
     <ClCompile Include="Application\Game\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Game\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\SlashAttack.cpp" />
@@ -140,11 +143,13 @@
     <ClCompile Include="Application\Game\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\GameCollider.cpp" />
+    <ClCompile Include="Application\Game\StageManager.cpp" />
     <ClCompile Include="Application\Game\UILetterBox.cpp" />
     <ClCompile Include="Application\Game\UIManager.cpp" />
     <ClCompile Include="Application\Game\UIButton.cpp" />
     <ClCompile Include="Application\Game\UIDigit.cpp" />
     <ClCompile Include="Application\Game\UINumber.cpp" />
+    <ClCompile Include="Application\Scene\ResultScene.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
     <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp" />
     <ClCompile Include="Engine\Draw\CB\DefaultConstBuffer.cpp" />
@@ -229,9 +234,11 @@
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Game\AnimationConfig.h" />
+    <ClInclude Include="Application\Game\AxisDrawer.h" />
     <ClInclude Include="Application\Game\BlockDrawer.h" />
     <ClInclude Include="Application\Game\CharacterConfig.h" />
     <ClInclude Include="Application\Game\CloudDrawer.h" />
+    <ClInclude Include="Application\Game\CollisionDrawer.h" />
     <ClInclude Include="Application\Game\DebriParticle.h" />
     <ClInclude Include="Application\Game\DustParticle.h" />
     <ClInclude Include="Application\Game\DefaultDrawer.h" />
@@ -239,6 +246,7 @@
     <ClInclude Include="Application\Game\HorseDrawer.h" />
     <ClInclude Include="Application\Game\BaseDrawer.h" />
     <ClInclude Include="Application\Game\IItem.h" />
+    <ClInclude Include="Application\Game\PauseManager.h" />
     <ClInclude Include="Application\Game\PlayerDrawer.h" />
     <ClInclude Include="Application\Game\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\SlashAttack.h" />
@@ -258,10 +266,12 @@
     <ClInclude Include="Application\Game\SnortAttack.h" />
     <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\GameCollider.h" />
+    <ClInclude Include="Application\Game\StageManager.h" />
     <ClInclude Include="Application\Game\UILetterBox.h" />
     <ClInclude Include="Application\Game\UIManager.h" />
     <ClInclude Include="Application\Game\UIButton.h" />
     <ClInclude Include="Application\Game\UIDigit.h" />
+    <ClInclude Include="Application\Scene\ResultScene.h" />
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
     <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h" />
     <ClInclude Include="Engine\Draw\CB\CBTime.h" />
