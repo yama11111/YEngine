@@ -151,7 +151,7 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 	}
 }
 
-void HorseDrawer::UpdateAnimtion()
+void HorseDrawer::UpdateAnimation()
 {
 	hitActor_.Update();
 

@@ -43,6 +43,6 @@ void BlockDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
 }
 
-void BlockDrawer::UpdateAnimtion()
+void BlockDrawer::UpdateAnimation()
 {
 }

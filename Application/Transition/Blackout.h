@@ -12,32 +12,7 @@ namespace YGame
 	// 暗転
 	class Blackout : public BaseTransition
 	{
-	
-	private:
-		
-		// 暗転段階
-		enum class Step
-		{
-			Dark,	 // 暗
-			Load,	 // ロード時間
-			Bright,	 // 明
-		};
-	
-	private:
-		
-		// オブジェクト
-		std::unique_ptr<YGame::DrawObjectForSprite2D> obj_;
-		
-		// 色定数バッファ
-		std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_;
 
-		// 段階
-		Step step_ = Step::Dark;
-		
-
-		// 透過度パワー
-		YMath::Power blendPow_;
-	
 	public:
 
 		/// <summary>
@@ -74,6 +49,42 @@ namespace YGame
 		/// <param name="leftTop"> : 1番左上のブロックの位置</param>
 		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) override;
 
+	public:
+
+		Blackout() = default;
+
+		~Blackout() = default;
+
+	public:
+
+		// 静的初期化
+		static void StaticInitialize();
+	
+	private:
+		
+		// 暗転段階
+		enum class Step
+		{
+			Dark,	 // 暗
+			Load,	 // ロード時間
+			Bright,	 // 明
+		};
+	
+	private:
+		
+		// オブジェクト
+		std::unique_ptr<YGame::DrawObjectForSprite2D> obj_;
+		
+		// 色定数バッファ
+		std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_;
+
+		// 段階
+		Step step_ = Step::Dark;
+		
+
+		// 透過度パワー
+		YMath::Power blendPow_;
+
 	private:
 		
 		// 切り替え処理更新
@@ -89,16 +100,5 @@ namespace YGame
 
 		// 透過度イージング
 		static YMath::Ease<float> sBlendEas_;
-	
-	public:
-		
-		// 静的初期化
-		static void StaticInitialize();
-	
-	public:
-		
-		Blackout() = default;
-		
-		~Blackout() = default;
 	};
 }

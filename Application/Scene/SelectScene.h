@@ -1,10 +1,7 @@
 #pragma once
 #include "BaseScene.h"
-#include "DrawObjectForSprite2D.h"
-#include "UIButton.h"
-#include "UILetterBox.h"
-#include "UINumber.h"
-#include "Level.h"
+#include "SelectDrawer.h"
+#include "Camera.h"
 
 namespace YGame
 {
@@ -14,45 +11,13 @@ namespace YGame
 
 	private:
 
-#pragma region リソース
-
-		Sprite2D* pLogoSpr_ = nullptr;
-		
-		Sprite2D* pStickSpr_ = nullptr;
-
-		Sprite2D* pButtonSpr_ = nullptr;
-		
-
-#pragma endregion
-
-#pragma region ゲームオブジェクト
-
-
-		// レベル
-		Level* pLevel_ = nullptr;
-
-		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
-
-		std::unique_ptr<DrawObjectForSprite2D> stickObj_;
-		
-		std::unique_ptr<DrawObjectForSprite2D> buttonObj_;
-
-
-		std::unique_ptr<UIButton> startButton_;
-		
-		// 数
-		std::array<Transform, 10> nums_;
-		std::array<std::unique_ptr<UINumber>, 10> uiNumbers_;
+		SelectDrawer selectDra_;
 
 		uint32_t stageIndex_ = 0;
 
-		// 黒帯
-		std::unique_ptr<UILetterBox> letterBox_;
-
 		// ビュープロジェクション
-		YGame::ViewProjection transferVP_;
-
-#pragma endregion
+		ViewProjection transferVP_;
+		Camera camera_;
 
 	public:
 

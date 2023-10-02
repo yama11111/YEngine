@@ -81,15 +81,11 @@ bool YFramework::Initialize()
 	Audio::Base::StaticInitialize();
 	Audio::AllClear();
 
-	// シーン遷移初期化
-	TransitionManager::StaticInitialize();
-
 	// シーン初期化
 	BaseScene::StaticInitialize();
-	SceneManager::GetInstance()->SetDescriptorHeapPointer(&descHeap_);
 	
-	sceneExe_ = SceneExecutive::GetInstance();
-
+	sceneMan_ = SceneManager::GetInstance();
+	sceneMan_->SetDescriptorHeapPointer(&descHeap_);
 	
 	pPipelineMan_ = PipelineManager::GetInstance();
 	pPipelineMan_->Clear();
@@ -115,9 +111,6 @@ void YFramework::Finalize()
 
 	// シーン終了処理
 	SceneManager::GetInstance()->Finalize();
-	
-	// シーン遷移終了処理
-	TransitionManager::GetInstance()->Finalize();
 
 	ParticleManager::GetInstance()->Clear();
 
@@ -141,7 +134,7 @@ void YFramework::Update()
 	inputMan_->Update();
 
 	// シーン更新処理
-	sceneExe_->Update();
+	sceneMan_->Update();
 
 	// パーティクル更新
 	pParticleMan_->Update();
@@ -158,7 +151,7 @@ void YFramework::Update()
 	if (window_.CheckMessage()) { isEnd_ = true; }
 
 	// シーンマネージャー終了フラグ
-	if (SceneManager::GetInstance()->IsEnd()) { isEnd_ = true; }
+	if (sceneMan_->IsEnd()) { isEnd_ = true; }
 
 	// ------------------------------------------------ //
 }
@@ -178,7 +171,7 @@ void YFramework::Run()
 		Draw();
 
 		// 終了
-		if (IsEnd()) { break; }
+		if (isEnd_) { break; }
 	}
 
 	// 終了処理

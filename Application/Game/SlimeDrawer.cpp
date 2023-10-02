@@ -103,7 +103,7 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 	}
 }
 
-void SlimeDrawer::UpdateAnimtion()
+void SlimeDrawer::UpdateAnimation()
 {
 	hitActor_.Update();
 

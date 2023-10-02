@@ -61,7 +61,7 @@ void SnortAttackDrawer::PlaySubAnimation(const uint16_t index, const uint32_t fr
 	}
 }
 
-void SnortAttackDrawer::UpdateAnimtion()
+void SnortAttackDrawer::UpdateAnimation()
 {
 	slimeActor_.Update();
 

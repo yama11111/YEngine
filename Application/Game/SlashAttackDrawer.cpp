@@ -62,7 +62,7 @@ void SlashAttackDrawer::PlaySubAnimation(const uint16_t index, const uint32_t fr
 	}
 }
 
-void SlashAttackDrawer::UpdateAnimtion()
+void SlashAttackDrawer::UpdateAnimation()
 {
 	slimeActor_.Update();
 

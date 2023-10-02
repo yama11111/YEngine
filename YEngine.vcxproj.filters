@@ -115,15 +115,6 @@
     <Filter Include="Engine\Scene">
       <UniqueIdentifier>{02e53534-aff6-40d9-afb7-e0c7fbe2b6dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\Scene">
-      <UniqueIdentifier>{169d0d67-856e-4805-b382-f887e2a019cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Scene\Transition">
-      <UniqueIdentifier>{766ced8c-91a2-411f-8162-71e882cddebd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Scene\Scene">
-      <UniqueIdentifier>{252570ef-0463-4793-9b11-448e8aa25ded}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Draw">
       <UniqueIdentifier>{87b9ffce-63f7-4c14-ad80-feb6332db691}</UniqueIdentifier>
     </Filter>
@@ -208,6 +199,9 @@
     <Filter Include="Application\Game\Drawer\Debug">
       <UniqueIdentifier>{0a04e373-d08c-4ed8-842d-aef6b82e02d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Drawer\Scene">
+      <UniqueIdentifier>{5b2a3675-1363-475a-94d4-c42fc74a0baf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -282,28 +276,10 @@
     <ClCompile Include="Engine\Game\Camera\ScrollCamera.cpp">
       <Filter>Engine\Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Base\Scene\BaseScene.cpp">
-      <Filter>Engine\Scene\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Base\Scene\SceneManager.cpp">
-      <Filter>Engine\Scene\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Base\Scene\TransitionManager.cpp">
-      <Filter>Engine\Scene\Transition</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Base\Scene\BaseTransition.cpp">
-      <Filter>Engine\Scene\Transition</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Base\Scene\SceneExecutive.cpp">
-      <Filter>Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Transition\Blackout.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Application\Transition\InfectionBlocks.cpp">
-      <Filter>Application\Scene\Transition</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Transition\YGameTransitionFactory.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Engine\DebugText\ImGuiManager.cpp">
@@ -465,21 +441,6 @@
     <ClCompile Include="Engine\Base\YFramework.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Scene\PlayScene.cpp">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\SelectScene.cpp">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\TestScene.cpp">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\TitleScene.cpp">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\YGameSceneFactory.cpp">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Draw\CB\ConstBufferPtrSet.cpp">
       <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClCompile>
@@ -555,9 +516,6 @@
     <ClCompile Include="Application\Game\StageManager.cpp">
       <Filter>Application\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Scene\ResultScene.cpp">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\AxisDrawer.cpp">
       <Filter>Application\Game\Drawer\Debug</Filter>
     </ClCompile>
@@ -566,6 +524,51 @@
     </ClCompile>
     <ClCompile Include="Application\Game\PauseManager.cpp">
       <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Base\Scene\BaseScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Base\Scene\SceneManager.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Base\Scene\BaseTransition.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\PlayScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\ResultScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\SelectScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\TestScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\TitleScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Scene\YGameSceneFactory.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Transition\WindBlocks.cpp">
+      <Filter>Application\Scene\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\TitleDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\SelectDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\StageDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\EarthDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\CardDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -641,34 +644,10 @@
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h">
       <Filter>Engine\Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\BaseScene.h">
-      <Filter>Engine\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\ISceneFactory.h">
-      <Filter>Engine\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\SceneManager.h">
-      <Filter>Engine\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\TransitionManager.h">
-      <Filter>Engine\Scene\Transition</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\ITransitionFactory.h">
-      <Filter>Engine\Scene\Transition</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\BaseTransition.h">
-      <Filter>Engine\Scene\Transition</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Base\Scene\SceneExecutive.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Transition\Blackout.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Application\Transition\InfectionBlocks.h">
-      <Filter>Application\Scene\Transition</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Transition\YGameTransitionFactory.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Engine\DebugText\ImGuiManager.h">
@@ -851,21 +830,6 @@
     <ClInclude Include="Engine\Base\YFramework.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Scene\PlayScene.h">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\SelectScene.h">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\TestScene.h">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\TitleScene.h">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Scene\YGameSceneFactory.h">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Draw\CB\ConstBufferPtrSet.h">
       <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClInclude>
@@ -980,9 +944,6 @@
     <ClInclude Include="Application\Game\StageManager.h">
       <Filter>Application\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Scene\ResultScene.h">
-      <Filter>Application\Scene\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\AxisDrawer.h">
       <Filter>Application\Game\Drawer\Debug</Filter>
     </ClInclude>
@@ -991,6 +952,54 @@
     </ClInclude>
     <ClInclude Include="Application\Game\PauseManager.h">
       <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\Scene\BaseScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\Scene\ISceneFactory.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\Scene\SceneManager.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base\Scene\BaseTransition.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\PlayScene.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\ResultScene.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\SelectScene.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\TestScene.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\TitleScene.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\YGameSceneFactory.h">
+      <Filter>Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Transition\WindBlocks.h">
+      <Filter>Application\Scene\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\TitleDrawer.h">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\SelectDrawer.h">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\StageDrawer.h">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\CardDrawer.h">
+      <Filter>Application\Game\Drawer\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\EarthDrawer.h">
+      <Filter>Application\Game\Drawer\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

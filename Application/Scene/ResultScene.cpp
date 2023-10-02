@@ -1,5 +1,5 @@
 #include "ResultScene.h"
-#include "SceneExecutive.h"
+#include "SceneManager.h"
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>

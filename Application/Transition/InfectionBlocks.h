@@ -1,11 +1,7 @@
 #pragma once
 #include "BaseTransition.h"
 #include "DrawObjectForSprite2D.h"
-#include "ConstBufferObject.h"
-#include "CBSprite2DTransform.h"
 #include "CBColor.h"
-#include "CBTexConfig.h"
-#include "Sprite2D.h"
 #include <array>
 
 namespace YGame
@@ -13,6 +9,55 @@ namespace YGame
 	// 画面を埋め尽くすブロック
 	class InfectionBlocks : public BaseTransition
 	{
+
+	public:
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		virtual void Initialize() override;
+
+		/// <summary>
+		/// リセット (中身だけ初期化)
+		/// </summary>
+		virtual void Reset() override;
+
+		/// <summary>
+		/// 終了処理
+		/// </summary>
+		virtual void Finalize() override;
+
+		/// <summary>
+		/// 更新
+		/// </summary>
+		virtual void Update() override;
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		virtual void Draw() override;
+
+	public:
+
+		/// <summary> 
+		/// 動作開始
+		/// </summary>
+		/// <param name="loadFrame"> : 読み込む時間</param>
+		/// <param name="leftTop"> : 1番左上のブロックの位置</param>
+		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) override;
+
+	public:
+
+		InfectionBlocks() = default;
+
+		~InfectionBlocks() = default;
+
+	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
 
 	private:
 
@@ -68,45 +113,8 @@ namespace YGame
 		// 終了位置 (要素番号)
 		YMath::Vector2 end_;
 
-	public:
-
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		virtual void Initialize() override;
-
-		/// <summary>
-		/// リセット (中身だけ初期化)
-		/// </summary>
-		virtual void Reset() override;
-
-		/// <summary>
-		/// 終了処理
-		/// </summary>
-		virtual void Finalize() override;
-
-		/// <summary>
-		/// 更新
-		/// </summary>
-		virtual void Update() override;
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		virtual void Draw() override;
-
-	public:
-
-		/// <summary> 
-		/// 動作開始
-		/// </summary>
-		/// <param name="loadFrame"> : 読み込む時間</param>
-		/// <param name="leftTop"> : 1番左上のブロックの位置</param>
-		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) override;
-
 	private:
 
-		
 		/// <summary>
 		/// シーン遷移更新
 		/// </summary>
@@ -140,20 +148,6 @@ namespace YGame
 
 		// 大きさ
 		static float sSize_;
-
-	public:
-
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		/// <param name="pBlockTex"> : ブロックの画像</param>
-		static void StaticInitialize(YGame::Texture* pBlockTex);
-
-	public:
-
-		InfectionBlocks() = default;
-
-		~InfectionBlocks() = default;
 	};
 
 }

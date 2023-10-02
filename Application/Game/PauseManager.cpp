@@ -1,6 +1,6 @@
 #include "PauseManager.h"
 
-#include "SceneExecutive.h"
+#include "SceneManager.h"
 
 #include "Keys.h"
 #include "Pad.h"
@@ -201,12 +201,12 @@ void PauseManager::Update()
 		}
 		else if (current_ == Selection::ReStart)
 		{
-			SceneExecutive::GetInstance()->Change("PLAY", "INFECTION", 2, 5);
+			SceneManager::GetInstance()->Transition("PLAY", "WIND");
 		}
 		// ‘JˆÚ‚È‚ç
 		else if (current_ == Selection::Change)
 		{
-			SceneExecutive::GetInstance()->Change("SELECT", "BLACKOUT", 10, 5);
+			SceneManager::GetInstance()->Transition("SELECT", "BLACKOUT");
 		}
 	}
 }

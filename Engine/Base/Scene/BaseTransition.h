@@ -14,26 +14,6 @@ namespace YGame
 	class BaseTransition
 	{
 	
-	protected:
-		
-		// 動作しているか
-		bool isAct_ = false;
-
-		// 幕切れ中か
-		bool isFalling_ = false;
-		
-		// 切り替わりの瞬間
-		bool isChangeMoment_ = false;
-		
-		// 幕開け中か
-		bool isRising_ = false;
-
-		// 終了しているか
-		bool isEnd_ = false;
-		
-		// ローディング用タイマー
-		YMath::Timer loadTim_;
-	
 	public:
 		
 		/// <summary>
@@ -66,8 +46,8 @@ namespace YGame
 		/// <summary> 
 		/// 動作開始
 		/// </summary>
+		/// <param name="changeFrame"> : 遷移時間</param>
 		/// <param name="loadFrame"> : 読み込む時間</param>
-		/// <param name="leftTop"> : 1番左上のブロックの位置</param>
 		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) = 0;
 
 	public:
@@ -104,10 +84,29 @@ namespace YGame
 	
 	public:
 
-		// コンストラクタ
 		BaseTransition() = default;
 		
-		// デストラクタ
 		virtual ~BaseTransition() = default;
+
+	protected:
+
+		// 動作しているか
+		bool isAct_ = false;
+
+		// 幕切れ中か
+		bool isFalling_ = false;
+
+		// 切り替わりの瞬間
+		bool isChangeMoment_ = false;
+
+		// 幕開け中か
+		bool isRising_ = false;
+
+		// 終了しているか
+		bool isEnd_ = false;
+
+		// ローディング用タイマー
+		YMath::Timer loadTim_;
+
 	};
 }

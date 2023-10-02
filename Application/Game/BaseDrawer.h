@@ -185,7 +185,7 @@ namespace YGame
 		/// <summary>
 		/// アニメーション更新
 		/// </summary>
-		virtual void UpdateAnimtion() = 0;
+		virtual void UpdateAnimation() = 0;
 
 		/// <summary>
 		/// 描画するか更新

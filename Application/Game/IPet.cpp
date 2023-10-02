@@ -2,7 +2,7 @@
 #include "MapChipCollisionBitConfig.h"
 #include "CharacterConfig.h"
 
-#include "SceneExecutive.h"
+#include "SceneManager.h"
 
 #include <cassert>
 
@@ -98,11 +98,9 @@ void IPet::OffScreenProcess()
 {
 	if (isRidden_ == false) { return; }
 
-	if (YGame::TransitionManager::GetInstance()->IsAct()) { return; }
+	if (SceneManager::GetInstance()->IsTransition()) { return; }
 
-	YGame::SceneExecutive::GetInstance()->Change(
-		"PLAY", "BLACKOUT", 10, 5
-	);
+	SceneManager::GetInstance()->Transition("PLAY", "WIND");
 }
 
 void IPet::Jump(const bool isJumpCount)

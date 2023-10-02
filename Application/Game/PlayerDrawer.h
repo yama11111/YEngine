@@ -96,6 +96,6 @@ namespace YGame
 		/// <summary>
 		/// アニメーション更新
 		/// </summary>
-		void UpdateAnimtion() override;
+		void UpdateAnimation() override;
     };
 }

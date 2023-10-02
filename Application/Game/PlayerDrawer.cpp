@@ -165,7 +165,7 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 	}
 }
 
-void PlayerDrawer::UpdateAnimtion()
+void PlayerDrawer::UpdateAnimation()
 {
 	hitActor_.Update();
 

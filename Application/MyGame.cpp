@@ -1,7 +1,6 @@
 #include "MyGame.h"
 #include "Def.h"
 #include "YGameSceneFactory.h"
-#include "YGameTransitionFactory.h"
 #include "MapChipManager.h"
 
 #include "CBModelTransform.h"
@@ -17,8 +16,9 @@
 #include "DustParticle.h"
 #include "DebriParticle.h"
 
-#include "UILetterBox.h"
-#include "UIDigit.h"
+#include "Blackout.h"
+#include "InfectionBlocks.h"
+#include "WindBlocks.h"
 
 #include "StageManager.h"
 
@@ -35,7 +35,16 @@
 #include "AxisDrawer.h"
 #include "CollisionDrawer.h"
 
+#include "TitleDrawer.h"
+#include "SelectDrawer.h"
+#include "EarthDrawer.h"
+#include "StageDrawer.h"
+#include "CardDrawer.h"
+
 #include "UIManager.h"
+#include "UILetterBox.h"
+#include "UIDigit.h"
+
 #include "PauseManager.h"
 
 #pragma region 名前空間宣言
@@ -56,22 +65,18 @@ bool MyGame::Initialize()
 
 	InitializeParticles();
 
+	InitializeTransition();
+
 	LoadMapData();
 
 	LoadDrawer();
-
-	UILetterBox::StaticInitialize();
-	
-	UIDigit::StaticInitialize();
-
-	StageManager::GetInstance()->Initialize();
 	
 
 	// シーンファクトリー設定
-	sceneExe_->SetFactory(new YGameSceneFactory(), new YGameTransitionFactory());
+	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
-	// シーンエグゼクティブ初期化
-	sceneExe_->Initialize(YGameSceneFactory::Title_, YGameTransitionFactory::Blackout_);
+	// シーンマネージャー初期化
+	sceneMan_->Initialize(YGameSceneFactory::Title_);
 
 	return true;
 }
@@ -97,7 +102,7 @@ void MyGame::Draw()
 	descHeap_.SetDrawCommand();
 
 	// シーン描画
-	sceneExe_->Draw();
+	sceneMan_->Draw();
 
 	// パーティクル描画
 	pParticleMan_->Draw();
@@ -111,12 +116,12 @@ void MyGame::Draw()
 	// パイプライン描画
 	pPipelineMan_->Draw();
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	// imgui描画
 	imguiMan_.Draw();
 
-//#endif // DEBUG
+#endif // DEBUG
 
 	// 描画後処理
 	dx_.PostDraw();
@@ -310,6 +315,18 @@ void MyGame::InitializeParticles()
 	DebriParticle::StaticInitialize();
 }
 
+void MyGame::InitializeTransition()
+{
+	Blackout::StaticInitialize();
+	sceneMan_->InsertTransition("BLACKOUT", new Blackout());
+	
+	InfectionBlocks::StaticInitialize();
+	sceneMan_->InsertTransition("INFECTION", new InfectionBlocks());
+
+	WindBlocks::StaticInitialize();
+	sceneMan_->InsertTransition("WIND", new WindBlocks());
+}
+
 void MyGame::LoadMapData()
 {
 	MapChipManager::GetInstance()->Load("title.csv");
@@ -323,10 +340,20 @@ void MyGame::LoadMapData()
 	MapChipManager::GetInstance()->Load("stage8.csv");
 	MapChipManager::GetInstance()->Load("stage9.csv");
 	MapChipManager::GetInstance()->Load("stage10.csv");
+
+	StageManager::GetInstance()->Initialize();
 }
 
 void MyGame::LoadDrawer()
-{
+{	
+	UILetterBox::StaticInitialize();
+
+	UIDigit::StaticInitialize();
+
+	UIManager::Load();
+
+	PauseManager::StaticInitialize();
+
 	DefaultDrawer::StaticInitialize();
 
 	PlayerDrawer::StaticInitialize();
@@ -350,10 +377,15 @@ void MyGame::LoadDrawer()
 	AxisDrawer::StaticInitialize();
 
 	CollisionDrawer::StaticInitialize();
+	
+	TitleDrawer::StaticInitialize();
 
-	PauseManager::StaticInitialize();
+	SelectDrawer::StaticInitialize();
+	
+	EarthDrawer::StaticInitialize();
 
-	// UI
-	UIManager::Load();
+	StageDrawer::StaticInitialize();
+
+	CardDrawer::StaticInitialize();
 }
 

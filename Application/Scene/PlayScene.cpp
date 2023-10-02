@@ -1,5 +1,5 @@
 #include "PlayScene.h"
-#include "SceneExecutive.h"
+#include "SceneManager.h"
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>
@@ -207,7 +207,7 @@ void PlayScene::Update()
 	// ƒŠƒZƒbƒg
 	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_DOWN))
 	{
-		SceneManager::GetInstance()->Change("PLAY");
+		SceneManager::GetInstance()->Transition("PLAY", "");
 	}
 
 

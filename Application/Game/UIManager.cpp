@@ -79,10 +79,7 @@ void UIManager::Draw()
 }
 
 void UIManager::Load()
-{
-	UILetterBox::StaticInitialize();
-	
-	
+{	
 	pButtonASpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png") } });
 	
 	//pButtonXSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_X.png") } });

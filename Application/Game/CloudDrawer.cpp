@@ -31,6 +31,10 @@ void CloudDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
+
+	posXTim_.Initialize(60000, true);
+
+	posXEas_.Initialize(0.0f, -100.0f, 1.0f);
 }
 
 void CloudDrawer::InsertAnimationTimers()
@@ -41,6 +45,10 @@ void CloudDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
 }
 
-void CloudDrawer::UpdateAnimtion()
+void CloudDrawer::UpdateAnimation()
 {
+	posXTim_.Update();
+	if (posXTim_.IsEnd()) { posXTim_.Reset(true); }
+	
+	animeStatus_.pos_.x_ = posXEas_.InOut(posXTim_.Ratio());
 }

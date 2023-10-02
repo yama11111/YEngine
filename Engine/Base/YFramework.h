@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneExecutive.h"
+#include "SceneManager.h"
 #include "YWindowsApp.h"
 #include "YDirectX.h"
 #include "ScreenDesc.h"
@@ -40,18 +40,6 @@ namespace YBase
 		/// 実行
 		/// </summary>
 		void Run();
-		
-		/// <summary>
-		/// 終了フラグ取得
-		/// </summary>
-		/// <returns>終了フラグ</returns>
-		bool IsEnd() { return isEnd_; }
-
-		/// <summary>
-		/// 終了フラグ設定
-		/// </summary>
-		/// <param name="isEnd"> : 終了フラグ</param>
-		void SetEnd(const bool isEnd) { isEnd_ = isEnd; }
 	
 	public:
 		
@@ -85,8 +73,8 @@ namespace YBase
 		// パーティクルマネージャー
 		YGame::ParticleManager* pParticleMan_ = nullptr;
 		
-		// シーンエグゼクティブ
-		YGame::SceneExecutive* sceneExe_ = nullptr;
+		// シーンマネージャー
+		YGame::SceneManager* sceneMan_ = nullptr;
 		
 		// 終了フラグ
 		bool isEnd_ = false;

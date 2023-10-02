@@ -16,10 +16,10 @@ YMath::Vector2 InfectionBlocks::sNum_;
 YMath::Vector2 InfectionBlocks::sAnchor_;
 float InfectionBlocks::sSize_ = 0.0f;
 
-void InfectionBlocks::StaticInitialize(Texture* pBlockTex)
+void InfectionBlocks::StaticInitialize()
 {
 	// スプライト生成
-	spBlockSpr_ = Sprite2D::Create({ { "Texture0", pBlockTex } });
+	spBlockSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png", false)}});
 
 	// 左上
 	sLeftTop_ = {};

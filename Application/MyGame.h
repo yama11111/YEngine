@@ -42,6 +42,11 @@ namespace YBase
 		void InitializeParticles();
 
 		/// <summary>
+		/// シーン遷移初期化
+		/// </summary>
+		void InitializeTransition();
+
+		/// <summary>
 		/// マップデータ読み込み
 		/// </summary>
 		void LoadMapData();

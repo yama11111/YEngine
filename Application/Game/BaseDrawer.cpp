@@ -80,7 +80,7 @@ void BaseDrawer::Update()
 
 	UpdateAnimationTimer();
 
-	UpdateAnimtion();
+	UpdateAnimation();
 
 	obj_->Update(animeStatus_);
 
@@ -150,9 +150,18 @@ void BaseDrawer::DrawDebugTextContent()
 
 void BaseDrawer::SetParent(Transform* pParent)
 {
-	pParent_ = pParent;
+	if (pParent)
+	{
+		pParent_ = pParent;
 
-	obj_->SetParent(&pParent->m_);
+		obj_->SetParent(&pParent->m_);
+	}
+	else
+	{
+		pParent_ = nullptr;
+
+		obj_->SetParent(nullptr);
+	}
 }
 
 void BaseDrawer::StaticInitialize(ViewProjection* pVP)

@@ -1,5 +1,5 @@
 #include "StageManager.h"
-#include "SceneExecutive.h"
+#include "SceneManager.h"
 
 using YGame::StageManager;
 
@@ -19,16 +19,16 @@ void StageManager::Reset()
 
 void StageManager::Update()
 {
-	if (TransitionManager::GetInstance()->IsAct() == false)
+	if (SceneManager::GetInstance()->IsTransition() == false)
 	{
 		if (isGameOver_)
 		{
-			SceneExecutive::GetInstance()->Change("PLAY", "BLACKOUT", 10, 5);
+			SceneManager::GetInstance()->Transition("PLAY", "BLACKOUT");
 		}
 
 		if (isStageClear_)
 		{
-			SceneExecutive::GetInstance()->Change("PLAY", "INFECTION", 2, 5);
+			SceneManager::GetInstance()->Transition("SELECT", "WIND");
 		}
 	}
 }

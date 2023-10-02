@@ -4,92 +4,141 @@
 using YGame::SceneManager;
 using YGame::ISceneFactory;
 
-std::unique_ptr<ISceneFactory> SceneManager::sceneFactory_;
-
 void SceneManager::Initialize(const std::string& sceneName)
 {
-	// nullチェック
 	assert(sceneFactory_);
 
-	// シーン生成
 	scene_.reset(sceneFactory_->CreateScene(sceneName));
-	// シーンnullチェック
 	assert(scene_);
 
-	// シーン名保存
-	sceneName_ = sceneName;
-
-	// 現在シーン読み込み
 	scene_->Load();
-	// 現在シーン初期化
 	scene_->Initialize();
 
-	// 終了フラグ初期化
+	for (auto itr = transitions_.begin(); itr != transitions_.end(); itr++)
+	{
+		itr->second->Initialize();
+	}
+
+	isTransition_ = false;
+	nextSceneName_ = "";
+	transitionName_ = "";
+
 	isEnd_ = false;
 }
 
 void SceneManager::Finalize()
 {
-	// 現在シーン終了処理
 	if (scene_) { scene_->Finalize(); }
 
-	// シーンファクトリー削除
 	sceneFactory_.reset();
+
+	for (auto itr = transitions_.begin(); itr != transitions_.end(); itr++)
+	{
+		itr->second->Initialize();
+	}
+}
+
+void SceneManager::Transition(const std::string& sceneName, const std::string& transitionName)
+{
+	if (isTransition_) { return; }
+
+	assert(sceneFactory_);
+	assert(pDescHeap_);
+
+	isTransition_ = true;
+	nextSceneName_ = sceneName;
+	transitionName_ = transitionName;
+
+	if (transitions_.contains(transitionName))
+	{
+		// 遷移開始
+		transitions_[transitionName]->Reset();
+		transitions_[transitionName]->Activate(120, 5);
+	}
+}
+
+void SceneManager::UpdateTransition()
+{
+	if (isTransition_)
+	{
+		// 遷移が無かったらすぐシーン切り替え
+		if (transitions_.contains(transitionName_) == false)
+		{
+			Change();
+			return;
+		}
+
+		transitions_[transitionName_]->Update();
+
+		// 途中なら弾く
+		if (transitions_[transitionName_]->IsFalling()) { return; }
+
+		if (transitions_[transitionName_]->IsChangeMoment())
+		{
+			Change();
+		}
+
+		if (transitions_[transitionName_]->IsEnd())
+		{
+			isTransition_ = false;
+			nextSceneName_ = "";
+			transitionName_ = "";
+		}
+	}
 }
 
 void SceneManager::Update()
 {
-	// 現在シーン更新
+	UpdateTransition();
+
 	scene_->Update();
 }
 
-void SceneManager::Draw()
+void SceneManager::Change()
 {
-	// 現在シーン描画
-	scene_->Draw();
-}
-
-void SceneManager::Change(const std::string& sceneName)
-{
-	// nullチェック
-	assert(sceneFactory_);
-	assert(pDescHeap_);
-
-	// 現在シーン終了処理
 	scene_->Finalize();
 	scene_.reset();
 
-	// デスクリプタヒープをクリア
 	pDescHeap_->ClearMutableCount();
 
-	// 次のシーンを挿入
-	scene_.reset(sceneFactory_->CreateScene(sceneName));
-	// シーンnullチェック
+	scene_.reset(sceneFactory_->CreateScene(nextSceneName_));
 	assert(scene_);
 
-	// シーン名保存
-	sceneName_ = sceneName;
-
-	// シーン初期化
 	scene_->Load();
 	scene_->Initialize();
 }
 
+void SceneManager::Draw()
+{
+	scene_->Draw();
+
+	if (transitions_.contains(transitionName_)) 
+	{
+		transitions_[transitionName_]->Draw(); 
+	}
+}
+
 void SceneManager::SetSceneFactory(ISceneFactory* sceneFactory)
 {
-	// nullチェック
 	assert(sceneFactory);
-	
-	// 専用シーンファクトリー設定
 	sceneFactory_.reset(sceneFactory);
+}
+
+void SceneManager::InsertTransition(const std::string& transitionName, BaseTransition* transition)
+{
+	assert(transition);
+	assert(transitions_.contains(transitionName) == false);
+
+	// スマートポインタに変更
+	std::unique_ptr<BaseTransition> newTransition;
+	newTransition.reset(transition);
+
+	transitions_.insert({ transitionName, std::move(newTransition) });
 }
 
 void SceneManager::SetDescriptorHeapPointer(YDX::DescriptorHeap* pDescHeap)
 {
-	// nullチェック
 	assert(pDescHeap);
-
-	// 代入
 	pDescHeap_ = pDescHeap;
 }
 

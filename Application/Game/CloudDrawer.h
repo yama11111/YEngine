@@ -1,5 +1,8 @@
 #pragma once
 #include "BaseDrawer.h"
+#include "Ease.h"
+#include "Timer.h"
+
 namespace YGame
 {
 	class CloudDrawer final:
@@ -58,7 +61,11 @@ namespace YGame
 		/// <summary>
 		/// アニメーション更新
 		/// </summary>
-		void UpdateAnimtion() override;
+		void UpdateAnimation() override;
 
+	private:
+
+		YMath::Timer posXTim_;
+		YMath::Ease<float> posXEas_;
 	};
 }
