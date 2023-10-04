@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Horse.h"
 #include "Slime.h"
+#include "DamageEmitter.h"
 
 #include "StageManager.h"
 
@@ -135,6 +136,8 @@ void PlayScene::Initialize()
 		}
 	}
 
+	DamageEmitter::Initialize(&transferVP_);
+
 	// UI
 	uiMan_.Initialize();
 
@@ -196,6 +199,8 @@ void PlayScene::Update()
 		// 開始演出中更新しない
 		pCharacterMan_->Update(isStart_);
 
+		DamageEmitter::Update();
+
 		scrollCamera_.Update({ cameraOffset_.InOut(startTimer_.Ratio(), 0.4f) });
 		transferVP_ = scrollCamera_.GetViewProjection();
 	}
@@ -224,6 +229,8 @@ void PlayScene::Draw()
 	pMapChipManager_->Draw();
 
 	pCharacterMan_->Draw();
+
+	DamageEmitter::Draw();
 
 	uiMan_.Draw();
 

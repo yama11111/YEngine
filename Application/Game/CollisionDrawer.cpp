@@ -7,7 +7,7 @@ using YMath::Vector4;
 
 Model* CollisionDrawer::spModel_ = nullptr;
 
-CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius, const uint16_t drawPriority)
+CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius, const size_t drawPriority)
 {
 	CollisionDrawer* newDrawer = new CollisionDrawer();
 
@@ -16,7 +16,7 @@ CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius,
 	return newDrawer;
 }
 
-void CollisionDrawer::StaticInitialize()
+void CollisionDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::LoadObj("sphere", true);
@@ -27,7 +27,7 @@ std::string CollisionDrawer::Name()
 	return "Collision";
 }
 
-void CollisionDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void CollisionDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

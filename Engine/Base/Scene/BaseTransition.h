@@ -24,7 +24,7 @@ namespace YGame
 		/// <summary>
 		/// リセット (中身だけ初期化)
 		/// </summary>
-		virtual void Reset() = 0;
+		virtual void Reset();
 
 		/// <summary>
 		/// 終了処理
@@ -90,6 +90,16 @@ namespace YGame
 
 	protected:
 
+		// 段階
+		enum class Step
+		{
+			Close,	 // 閉じる
+			Load,	 // ロード時間
+			Open,	 // 開く
+		};
+	
+	protected:
+
 		// 動作しているか
 		bool isAct_ = false;
 
@@ -107,6 +117,9 @@ namespace YGame
 
 		// ローディング用タイマー
 		YMath::Timer loadTim_;
+
+		// 段階
+		Step step_ = Step::Close;
 
 	};
 }

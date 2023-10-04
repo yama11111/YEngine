@@ -39,11 +39,11 @@ void PipelineManager::SetDrawOrder(const std::vector<std::string> pipelineKeys)
 	drawOrder_ = pipelineKeys;
 }
 
-void PipelineManager::EnqueueDrawSet(const std::string& key, const Pipeline::DrawSet& drawSet)
+void PipelineManager::EnqueueDrawSet(const std::string& key, const size_t priority, const Pipeline::DrawSet& drawSet)
 {
 	assert(pipelines_.contains(key));
 
-	pipelines_[key]->EnqueueDrawSet(drawSet);
+	pipelines_[key]->EnqueueDrawSet(priority, drawSet);
 }
 
 void PipelineManager::RenderToPostEffect(std::vector<PostEffect*> pPostEffects)

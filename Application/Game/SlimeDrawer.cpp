@@ -5,6 +5,8 @@
 #include "Def.h"
 #include <cmath>
 
+#include "DamageEmitter.h"
+
 using YGame::SlimeDrawer;
 using YGame::Model;
 using YMath::Vector3;
@@ -13,7 +15,7 @@ namespace Anime = YGame::SlimeAnimationConfig;
 
 Model* SlimeDrawer::spModel_ = nullptr;
 
-SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	SlimeDrawer* newDrawer = new SlimeDrawer();
 
@@ -22,12 +24,12 @@ SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const uint16_t drawPriority
 	return newDrawer;
 }
 
-void SlimeDrawer::StaticInitialize()
+void SlimeDrawer::LoadResource()
 {
 	spModel_ = Model::LoadObj("slime", true);
 }
 
-void SlimeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
@@ -39,6 +41,11 @@ void SlimeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
+}
+
+void SlimeDrawer::Draw()
+{
+	BaseDrawer::Draw();
 }
 
 void SlimeDrawer::InsertAnimationTimers()
@@ -95,6 +102,8 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 			Anime::Hit::kSwing,
 			Anime::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
+
+		DamageEmitter::Emit(pParent_->pos_, 100);
 	}
 	// 死亡
 	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead))
@@ -105,9 +114,9 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 
 void SlimeDrawer::UpdateAnimation()
 {
-	hitActor_.Update();
-
 	slimeActor_.Update();
+
+	hitActor_.Update();
 
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
 

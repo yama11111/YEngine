@@ -53,7 +53,7 @@ void SceneManager::Transition(const std::string& sceneName, const std::string& t
 	{
 		// ‘JˆÚŠJŽn
 		transitions_[transitionName]->Reset();
-		transitions_[transitionName]->Activate(120, 5);
+		transitions_[transitionName]->Activate(60, 5);
 	}
 }
 

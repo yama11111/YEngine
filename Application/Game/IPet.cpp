@@ -100,7 +100,7 @@ void IPet::OffScreenProcess()
 
 	if (SceneManager::GetInstance()->IsTransition()) { return; }
 
-	SceneManager::GetInstance()->Transition("PLAY", "WIND");
+	SceneManager::GetInstance()->Transition("PLAY", "WAVE");
 }
 
 void IPet::Jump(const bool isJumpCount)

@@ -7,7 +7,7 @@ using YMath::Vector3;
 
 YGame::Sprite2D* CardDrawer::spCardSpr_ = nullptr;
 
-void CardDrawer::StaticInitialize()
+void CardDrawer::LoadResource()
 {
 	spCardSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("select/card.png")} });
 }
@@ -36,7 +36,7 @@ void CardDrawer::Initialize(Transform* pParent, const int32_t number, const bool
 	// ”š
 	numberTra_.Initialize({ {}, {}, {0.5f,0.5f,0.0f} });
 	numberTra_.parent_ = &core_.m_;
-	numberUI_.reset(UINumber::Create(static_cast<uint32_t>(number_), 2, 64.0f, false, &numberTra_.m_));
+	numberUI_.reset(UINumber::Create2D(static_cast<uint32_t>(number_), 2, 64.0f, false, &numberTra_.m_));
 
 	// ƒŠƒZƒbƒg
 	Reset(isClear);

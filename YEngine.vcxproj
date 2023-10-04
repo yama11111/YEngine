@@ -117,6 +117,7 @@
     <ClCompile Include="Application\Game\CardDrawer.cpp" />
     <ClCompile Include="Application\Game\CloudDrawer.cpp" />
     <ClCompile Include="Application\Game\CollisionDrawer.cpp" />
+    <ClCompile Include="Application\Draw\Actor\DamageEmitter.cpp" />
     <ClCompile Include="Application\Game\DebriParticle.cpp" />
     <ClCompile Include="Application\Game\DustParticle.cpp" />
     <ClCompile Include="Application\Game\DefaultDrawer.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="Application\Game\IItem.cpp" />
     <ClCompile Include="Application\Game\PauseManager.cpp" />
     <ClCompile Include="Application\Game\PlayerDrawer.cpp" />
+    <ClCompile Include="Application\Game\ScoreManager.cpp" />
     <ClCompile Include="Application\Game\SelectDrawer.cpp" />
     <ClCompile Include="Application\Game\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\SlashAttack.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="Application\Game\UIButton.cpp" />
     <ClCompile Include="Application\Game\UIDigit.cpp" />
     <ClCompile Include="Application\Game\UINumber.cpp" />
+    <ClCompile Include="Application\Game\WaveTransition.cpp" />
     <ClCompile Include="Application\Scene\ResultScene.cpp" />
     <ClCompile Include="Application\Transition\WindBlocks.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
@@ -206,8 +209,7 @@
     <ClCompile Include="Application\Scene\TestScene.cpp" />
     <ClCompile Include="Application\Scene\TitleScene.cpp" />
     <ClCompile Include="Application\Scene\YGameSceneFactory.cpp" />
-    <ClCompile Include="Application\Transition\Blackout.cpp" />
-    <ClCompile Include="Application\Transition\InfectionBlocks.cpp" />
+    <ClCompile Include="Application\Transition\BlackoutTransition.cpp" />
     <ClCompile Include="Engine\File\FileUtil.cpp" />
     <ClCompile Include="Engine\Input\InputManager.cpp" />
     <ClCompile Include="Engine\Input\Keys.cpp" />
@@ -243,6 +245,8 @@
     <ClInclude Include="Application\Game\CharacterConfig.h" />
     <ClInclude Include="Application\Game\CloudDrawer.h" />
     <ClInclude Include="Application\Game\CollisionDrawer.h" />
+    <ClInclude Include="Application\Game\ColorConfig.h" />
+    <ClInclude Include="Application\Draw\Actor\DamageEmitter.h" />
     <ClInclude Include="Application\Game\DebriParticle.h" />
     <ClInclude Include="Application\Game\DustParticle.h" />
     <ClInclude Include="Application\Game\DefaultDrawer.h" />
@@ -253,6 +257,7 @@
     <ClInclude Include="Application\Game\IItem.h" />
     <ClInclude Include="Application\Game\PauseManager.h" />
     <ClInclude Include="Application\Game\PlayerDrawer.h" />
+    <ClInclude Include="Application\Game\ScoreManager.h" />
     <ClInclude Include="Application\Game\SelectDrawer.h" />
     <ClInclude Include="Application\Game\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\SlashAttack.h" />
@@ -279,6 +284,7 @@
     <ClInclude Include="Application\Game\UIManager.h" />
     <ClInclude Include="Application\Game\UIButton.h" />
     <ClInclude Include="Application\Game\UIDigit.h" />
+    <ClInclude Include="Application\Game\WaveTransition.h" />
     <ClInclude Include="Application\Scene\ResultScene.h" />
     <ClInclude Include="Application\Transition\WindBlocks.h" />
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
@@ -348,8 +354,7 @@
     <ClInclude Include="Application\Scene\TestScene.h" />
     <ClInclude Include="Application\Scene\TitleScene.h" />
     <ClInclude Include="Application\Scene\YGameSceneFactory.h" />
-    <ClInclude Include="Application\Transition\Blackout.h" />
-    <ClInclude Include="Application\Transition\InfectionBlocks.h" />
+    <ClInclude Include="Application\Transition\BlackoutTransition.h" />
     <ClInclude Include="Engine\File\FileUtil.h" />
     <ClInclude Include="Engine\Input\InputManager.h" />
     <ClInclude Include="Engine\Input\Keys.h" />
@@ -419,6 +424,10 @@
     <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\TextureBlendPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

@@ -13,7 +13,7 @@ namespace Anime = YGame::PlayerAnimationConfig;
 
 std::array<Model*, 3> PlayerDrawer::spModels_ = { nullptr, nullptr, nullptr };
 
-PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	PlayerDrawer* newDrawer = new PlayerDrawer();
 
@@ -22,7 +22,7 @@ PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const uint16_t drawPriori
 	return newDrawer;
 }
 
-void PlayerDrawer::StaticInitialize()
+void PlayerDrawer::LoadResource()
 {
 	// モデル設定
 	spModels_[1] = Model::LoadObj("player/body", true);
@@ -30,7 +30,7 @@ void PlayerDrawer::StaticInitialize()
 	spModels_[2] = Model::LoadObj("player/leg_R", true);
 }
 
-void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
@@ -40,8 +40,8 @@ void PlayerDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
 
 	shaderKey_ = "ModelToon";
 
-	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
+	hitActor_.Initialize();
 }
 
 void PlayerDrawer::Draw()
@@ -167,9 +167,9 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 
 void PlayerDrawer::UpdateAnimation()
 {
-	hitActor_.Update();
-
 	slimeActor_.Update();
+
+	hitActor_.Update();
 
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
 

@@ -39,12 +39,12 @@ namespace YGame
 		/// 描画情報をキューに積む
 		/// </summary>
 		/// <param name="key"> : キー (パイプライン名)</param>
+		/// <param name="priority"> : 優先度</param>
 		/// <param name="drawSet"> : 描画セット</param>
 		/// <param name="-----------------------------------------"></param>
-		/// <param name="(uint16_t) priority"> : 優先度</param>
 		/// <param name="(ConstBufferPtrSet*) pCBPtrSet"> : 定数バッファポインタセットポインタ</param>
 		/// <param name="(BaseGraphic*) pGraphic"> : グラフィックポインタ</param>
-		void EnqueueDrawSet(const std::string& key, const Pipeline::DrawSet& drawSet);
+		void EnqueueDrawSet(const std::string& key, const size_t priority, const Pipeline::DrawSet& drawSet);
 		
 		/// <summary>
 		/// ポストエフェクトに書き込む

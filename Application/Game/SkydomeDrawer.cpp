@@ -1,4 +1,5 @@
 #include "SkydomeDrawer.h"
+#include "ColorConfig.h"
 
 using YGame::SkydomeDrawer;
 using YGame::Model;
@@ -7,7 +8,7 @@ using YMath::Vector4;
 
 Model* SkydomeDrawer::spModel_ = nullptr;
 
-SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	SkydomeDrawer* newDrawer = new SkydomeDrawer();
 
@@ -16,25 +17,26 @@ SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const uint16_t drawPrio
 	return newDrawer;
 }
 
-void SkydomeDrawer::StaticInitialize()
+void SkydomeDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::LoadObj("skydome", true);
 }
 
-void SkydomeDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	isVisibleUpdate_ = false;
 
-	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
+	cbColor_->data_.baseColor = YGame::ColorConfig::skTurquoise[0];
+	//cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
 	// モデル挿入
 	obj_->SetModel(spModel_);
 
-	shaderKey_ = "ModelPhong";
+	shaderKey_ = "ModelSingleColor";
 }
 
 void SkydomeDrawer::InsertAnimationTimers()

@@ -8,7 +8,7 @@ using YMath::Vector4;
 
 Model* SnortAttackDrawer::spModel_ = nullptr;
 
-SnortAttackDrawer* SnortAttackDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+SnortAttackDrawer* SnortAttackDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	SnortAttackDrawer* newDrawer = new SnortAttackDrawer();
 
@@ -17,12 +17,12 @@ SnortAttackDrawer* SnortAttackDrawer::Create(Transform* pParent, const uint16_t 
 	return newDrawer;
 }
 
-void SnortAttackDrawer::StaticInitialize()
+void SnortAttackDrawer::LoadResource()
 {
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void SnortAttackDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void SnortAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

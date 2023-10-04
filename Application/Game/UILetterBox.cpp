@@ -134,7 +134,7 @@ void UILetterBox::Draw(const std::string& shaderTag, const uint16_t priority)
 	}
 }
 
-void UILetterBox::StaticInitialize()
+void UILetterBox::LoadResource()
 {
 	spSpr_ = Sprite2D::Create({ {"Texture0", Texture::Load("white1x1.png") } });
 }

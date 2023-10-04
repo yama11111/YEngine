@@ -8,7 +8,7 @@ using YMath::Vector4;
 
 Model* StageDrawer::spModel_ = nullptr;
 
-StageDrawer* StageDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+StageDrawer* StageDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	StageDrawer* newDrawer = new StageDrawer();
 
@@ -17,13 +17,13 @@ StageDrawer* StageDrawer::Create(Transform* pParent, const uint16_t drawPriority
 	return newDrawer;
 }
 
-void StageDrawer::StaticInitialize()
+void StageDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::LoadObj("tower/white/core", true);
 }
 
-void StageDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void StageDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

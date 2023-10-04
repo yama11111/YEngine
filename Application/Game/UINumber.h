@@ -1,4 +1,5 @@
 #pragma once
+#include "Transform.h"
 #include "ViewProjection.h"
 #include "BaseConstBuffer.h"
 
@@ -19,7 +20,7 @@ namespace YGame
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		/// <returns>動的インスタンス</returns>
-		static UINumber* Create(
+		static UINumber* Create2D(
 			const uint32_t num, 
 			const size_t maxDigits, 
 			const float interval,
@@ -27,23 +28,25 @@ namespace YGame
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true);
 
-		///// <summary>
-		///// 動的インスタンス生成
-		///// </summary>
-		///// <param name="num"> : 数</param>
-		///// <param name="maxDigits"> : 最大桁数</param>
-		///// <param name="interval"> : 間隔</param>
-		///// <param name="shouldShowZero"> : ゼロを表示するか</param>
-		///// <param name="pParent"> : 親行列ポインタ</param>
-		///// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
-		///// <returns>動的インスタンス</returns>
-		//static UINumber* Create(
-		//	const uint32_t num, 
-		//	const size_t maxDigits, 
-		//	const float interval,
-		//	const bool shouldShowZero,
-		//	YMath::Matrix4* pParent,
-		//	const bool isClearWhenTransition = true);
+		/// <summary>
+		/// 動的インスタンス生成
+		/// </summary>
+		/// <param name="num"> : 数</param>
+		/// <param name="maxDigits"> : 最大桁数</param>
+		/// <param name="interval"> : 間隔</param>
+		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		/// <param name="pParent"> : 親行列ポインタ</param>
+		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		/// <returns>動的インスタンス</returns>
+		static UINumber* Create3D(
+			const uint32_t num, 
+			const size_t maxDigits, 
+			const float interval,
+			const bool shouldShowZero,
+			YMath::Matrix4* pParent,
+			const bool isXAxisBillboard, const bool isYAxisBillboard,
+			ViewProjection* pVP,
+			const bool isClearWhenTransition = true);
 
 	public:
 
@@ -55,18 +58,36 @@ namespace YGame
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
-		virtual void Initialize(
+		virtual void Initialize2D(
 			const uint32_t num,
 			const size_t maxDigits,
 			const float interval,
 			const bool shouldShowZero,
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true) = 0;
+		
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="num"> : 数</param>
+		/// <param name="maxDigits"> : 最大桁数</param>
+		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		/// <param name="pParent"> : 親行列ポインタ</param>
+		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
+		virtual void Initialize3D(
+			const uint32_t num,
+			const size_t maxDigits,
+			const float interval,
+			const bool shouldShowZero,
+			YMath::Matrix4* pParent,
+			const bool isXAxisBillboard, const bool isYAxisBillboard,
+			ViewProjection* pVP,
+			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update(const Transform::Status& status = {}) = 0;
 
 		/// <summary>
 		/// 描画
@@ -74,6 +95,8 @@ namespace YGame
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="priority"> : 描画優先度</param>
 		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
+
+	public:
 
 		/// <summary>
 		/// 定数バッファポインタ挿入 
@@ -106,6 +129,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
 		virtual void SetShowZero(const bool shouldShowZero) = 0;
+
+		/// <summary>
+		/// アニメーション更新
+		/// </summary>
+		/// <param name="digitIndex"> : 桁番号</param>
+		/// <param name="status"> : アニメーションステータス</param>
+		virtual void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) = 0;
 
 	public:
 

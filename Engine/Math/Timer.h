@@ -60,7 +60,7 @@ namespace YMath
 		/// “®ìİ’è
 		/// </summary>
 		/// <param name="isAct"> : “®‚©‚·‚©</param>
-		inline void SetActive(const bool isAct) { isAct_ = isAct; }
+		void SetActive(const bool isAct);
 
 		/// <summary>
 		/// I—¹İ’è

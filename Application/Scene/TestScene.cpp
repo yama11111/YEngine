@@ -38,34 +38,34 @@ void TestScene::Load()
 	BaseDrawer::StaticInitialize(&vp_);
 
 	// デフォルト
-	DefaultDrawer::StaticInitialize();
+	DefaultDrawer::LoadResource();
 
 	// プレイヤー
-	PlayerDrawer::StaticInitialize();
+	PlayerDrawer::LoadResource();
 
 	// ウマ
-	HorseDrawer::StaticInitialize();
+	HorseDrawer::LoadResource();
 
 	// スライム
-	SlimeDrawer::StaticInitialize();
+	SlimeDrawer::LoadResource();
 
 	// 斬撃攻撃
-	SlashAttackDrawer::StaticInitialize();
+	SlashAttackDrawer::LoadResource();
 
 	// 鼻息攻撃
-	SnortAttackDrawer::StaticInitialize();
+	SnortAttackDrawer::LoadResource();
 
 	// ブロック
-	BlockDrawer::StaticInitialize();
+	BlockDrawer::LoadResource();
 
 	// ゴール
-	GoalDrawer::StaticInitialize();
+	GoalDrawer::LoadResource();
 
 	// 天球
-	SkydomeDrawer::StaticInitialize();
+	SkydomeDrawer::LoadResource();
 
 	// 雲
-	CloudDrawer::StaticInitialize();
+	CloudDrawer::LoadResource();
 
 	pGraph_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }

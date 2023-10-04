@@ -4,18 +4,18 @@
 
 using YGame::BaseDrawObject;
 
-void BaseDrawObject::Draw(const std::string& shaderTag, const uint16_t drawPriority)
+void BaseDrawObject::Draw(const std::string& shaderTag, const size_t drawPriority)
 {
 	if (isVisible_ == false) { return; }
 
-	PipelineManager::GetInstance()->EnqueueDrawSet(shaderTag, { drawPriority, &cbPtrSet_, pGraphic_ });
+	PipelineManager::GetInstance()->EnqueueDrawSet(shaderTag, drawPriority, { &cbPtrSet_, pGraphic_ });
 }
 
-void BaseDrawObject::Draw(const std::string& shaderTag, const uint16_t drawPriority, BaseGraphic* pGraphic)
+void BaseDrawObject::Draw(const std::string& shaderTag, const size_t drawPriority, BaseGraphic* pGraphic)
 {
 	if (isVisible_ == false) { return; }
 
-	PipelineManager::GetInstance()->EnqueueDrawSet(shaderTag, { drawPriority, &cbPtrSet_, pGraphic });
+	PipelineManager::GetInstance()->EnqueueDrawSet(shaderTag, drawPriority, { &cbPtrSet_, pGraphic });
 }
 
 void BaseDrawObject::SetParent(YMath::Matrix4* pParent)

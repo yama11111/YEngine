@@ -77,7 +77,7 @@ void SelectScene::Update()
 	// SPACE でゲーム開始
 	if (spKeys_->IsTrigger(DIK_SPACE) || spPad_->IsTrigger(PadButton::XIP_A))
 	{
-		SceneManager::GetInstance()->Transition("PLAY", "WIND");
+		SceneManager::GetInstance()->Transition("PLAY", "WAVE");
 
 		StageManager::GetInstance()->SetStageIndex(stageIndex_);
 	}
@@ -85,7 +85,7 @@ void SelectScene::Update()
 	// ESC でタイトルに戻る
 	if (spKeys_->IsTrigger(DIK_ESCAPE))
 	{
-		SceneManager::GetInstance()->Transition("TITLE", "WIND");
+		SceneManager::GetInstance()->Transition("TITLE", "WAVE_REV");
 	}
 }
 #pragma endregion

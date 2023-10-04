@@ -4,6 +4,7 @@
 #include "ShaderSet.h"
 #include "PipelineSetting.h"
 #include <queue>
+#include <array>
 
 namespace YGame
 {
@@ -36,9 +37,6 @@ namespace YGame
 		// 描画用構造体
 		struct DrawSet
 		{
-			// 優先度
-			uint16_t priority = 0;
-
 			// 定数バッファポインタセットポインタ
 			ConstBufferPtrSet* pCBPtrSet = nullptr;
 				
@@ -71,12 +69,12 @@ namespace YGame
 		/// <summary>
 		/// 描画情報をキューに積む
 		/// </summary>
+		/// <param name="priority"> : 優先度</param>
 		/// <param name="drawSet"> : 描画セット</param>
 		/// <param name="-----------------------------------------"></param>
-		/// <param name="(uint16_t) priority"> : 優先度</param>
 		/// <param name="(ConstBufferPtrSet*) pCBPtrSet"> : 定数バッファポインタセットポインタ</param>
 		/// <param name="(BaseGraphic*) pGraphic"> : グラフィックポインタ</param>
-		void EnqueueDrawSet(const DrawSet& drawSet);
+		void EnqueueDrawSet(const size_t priority, const DrawSet& drawSet);
 
 		/// <summary>
 		/// 描画
@@ -108,7 +106,7 @@ namespace YGame
 		std::unordered_map<std::string, uint32_t> graphicRPIndices_;
 
 		// 描画用構造体キュー
-		std::priority_queue<DrawSet> drawSets_;
+		std::array<std::queue<DrawSet>, 10> drawQueue_;
 
 		// 静的デバイスポインタ
 		static ID3D12Device* spDevice_;
@@ -140,8 +138,4 @@ namespace YGame
 		void SetPrimitiveTopology(const D3D_PRIMITIVE_TOPOLOGY& primitive);
 
 	};
-
-	// 優先順位付け用オーバーロード
-	bool operator<(const Pipeline::DrawSet& drawSet1, const Pipeline::DrawSet& drawSet2);
-	bool operator>(const Pipeline::DrawSet& drawSet1, const Pipeline::DrawSet& drawSet2);
 }

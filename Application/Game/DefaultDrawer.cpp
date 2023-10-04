@@ -5,7 +5,7 @@ using YGame::Model;
 
 Model* DefaultDrawer::spModel_ = nullptr;
 
-DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	DefaultDrawer* newDrawer = new DefaultDrawer();
 
@@ -14,13 +14,13 @@ DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const uint16_t drawPrio
 	return newDrawer;
 }
 
-void DefaultDrawer::StaticInitialize()
+void DefaultDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void DefaultDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void DefaultDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

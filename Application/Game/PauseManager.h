@@ -6,7 +6,7 @@
 
 namespace YGame
 {
-	class PauseManager
+	class PauseManager final
 	{
 
 	public:
@@ -47,7 +47,7 @@ namespace YGame
 	
 	public:
 
-		static void StaticInitialize();
+		static void LoadResource();
 
 	private:
 

@@ -276,10 +276,7 @@
     <ClCompile Include="Engine\Game\Camera\ScrollCamera.cpp">
       <Filter>Engine\Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Transition\Blackout.cpp">
-      <Filter>Application\Scene\Transition</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Transition\InfectionBlocks.cpp">
+    <ClCompile Include="Application\Transition\BlackoutTransition.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Engine\DebugText\ImGuiManager.cpp">
@@ -570,6 +567,15 @@
     <ClCompile Include="Application\Game\CardDrawer.cpp">
       <Filter>Application\Game\Drawer\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\ScoreManager.cpp">
+      <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\Actor\DamageEmitter.cpp">
+      <Filter>Application\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\WaveTransition.cpp">
+      <Filter>Application\Scene\Transition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -644,10 +650,7 @@
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h">
       <Filter>Engine\Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Transition\Blackout.h">
-      <Filter>Application\Scene\Transition</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Transition\InfectionBlocks.h">
+    <ClInclude Include="Application\Transition\BlackoutTransition.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Engine\DebugText\ImGuiManager.h">
@@ -1001,6 +1004,18 @@
     <ClInclude Include="Application\Game\EarthDrawer.h">
       <Filter>Application\Game\Drawer\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Game\ColorConfig.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\ScoreManager.h">
+      <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Actor\DamageEmitter.h">
+      <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\WaveTransition.h">
+      <Filter>Application\Scene\Transition</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite3D.hlsli">
@@ -1075,6 +1090,9 @@
       <Filter>Application\Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\DissolveVS.hlsl">
+      <Filter>Application\Shader\Model</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
       <Filter>Application\Shader\Model</Filter>
     </FxCompile>
   </ItemGroup>

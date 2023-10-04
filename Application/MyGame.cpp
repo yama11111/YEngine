@@ -16,9 +16,9 @@
 #include "DustParticle.h"
 #include "DebriParticle.h"
 
-#include "Blackout.h"
-#include "InfectionBlocks.h"
+#include "BlackoutTransition.h"
 #include "WindBlocks.h"
+#include "WaveTransition.h"
 
 #include "StageManager.h"
 
@@ -158,6 +158,33 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("ModelDefault", newPipeline);
 	}
 
+	// ModelSingleColor
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+					CBMaterial::Tag(),
+					CBLightGroup::Tag(),
+					CBTexConfig::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, Model::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 2
+				);
+
+		pPipelineMan_->Insert("ModelSingleColor", newPipeline);
+	}
+
 	// ModelPhong
 	{
 		ShaderSet shader;
@@ -211,7 +238,6 @@ void MyGame::InitializePipelines()
 
 		pPipelineMan_->Insert("ModelToon", newPipeline);
 	}
-
 	
 	// Sprite2DDefault
 	{
@@ -296,6 +322,7 @@ void MyGame::InitializePipelines()
 	pPipelineMan_->SetDrawOrder(
 		{
 			"ModelDefault", 
+			"ModelSingleColor", 
 			"ModelPhong", 
 			"ModelToon", 
 			
@@ -317,14 +344,15 @@ void MyGame::InitializeParticles()
 
 void MyGame::InitializeTransition()
 {
-	Blackout::StaticInitialize();
-	sceneMan_->InsertTransition("BLACKOUT", new Blackout());
-	
-	InfectionBlocks::StaticInitialize();
-	sceneMan_->InsertTransition("INFECTION", new InfectionBlocks());
+	BlackoutTransition::LoadResource();
+	sceneMan_->InsertTransition("BLACKOUT", new BlackoutTransition());
 
-	WindBlocks::StaticInitialize();
+	WindBlocks::LoadResource();
 	sceneMan_->InsertTransition("WIND", new WindBlocks());
+
+	WaveTransition::LoadResource();
+	sceneMan_->InsertTransition("WAVE", new WaveTransition(false));
+	sceneMan_->InsertTransition("WAVE_REV", new WaveTransition(true));
 }
 
 void MyGame::LoadMapData()
@@ -346,46 +374,46 @@ void MyGame::LoadMapData()
 
 void MyGame::LoadDrawer()
 {	
-	UILetterBox::StaticInitialize();
+	UILetterBox::LoadResource();
 
-	UIDigit::StaticInitialize();
+	UIDigit::LoadResource();
 
-	UIManager::Load();
+	UIManager::LoadResource();
 
-	PauseManager::StaticInitialize();
+	PauseManager::LoadResource();
 
-	DefaultDrawer::StaticInitialize();
+	DefaultDrawer::LoadResource();
 
-	PlayerDrawer::StaticInitialize();
+	PlayerDrawer::LoadResource();
 
-	HorseDrawer::StaticInitialize();
+	HorseDrawer::LoadResource();
 
-	SlimeDrawer::StaticInitialize();
+	SlimeDrawer::LoadResource();
 
-	SlashAttackDrawer::StaticInitialize();
+	SlashAttackDrawer::LoadResource();
 
-	SnortAttackDrawer::StaticInitialize();
+	SnortAttackDrawer::LoadResource();
 
-	BlockDrawer::StaticInitialize();
+	BlockDrawer::LoadResource();
 
-	GoalDrawer::StaticInitialize();
+	GoalDrawer::LoadResource();
 
-	SkydomeDrawer::StaticInitialize();
+	SkydomeDrawer::LoadResource();
 
-	CloudDrawer::StaticInitialize();
+	CloudDrawer::LoadResource();
 	
-	AxisDrawer::StaticInitialize();
+	AxisDrawer::LoadResource();
 
-	CollisionDrawer::StaticInitialize();
+	CollisionDrawer::LoadResource();
 	
-	TitleDrawer::StaticInitialize();
+	TitleDrawer::LoadResource();
 
-	SelectDrawer::StaticInitialize();
+	SelectDrawer::LoadResource();
 	
-	EarthDrawer::StaticInitialize();
+	EarthDrawer::LoadResource();
 
-	StageDrawer::StaticInitialize();
+	StageDrawer::LoadResource();
 
-	CardDrawer::StaticInitialize();
+	CardDrawer::LoadResource();
 }
 

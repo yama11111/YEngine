@@ -47,7 +47,7 @@ namespace YGame
 		/// <summary>
 		/// Ã“I‰Šú‰»
 		/// </summary>
-		static void StaticInitialize();
+		static void LoadResource();
 	
 	private:
 

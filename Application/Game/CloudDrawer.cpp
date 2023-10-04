@@ -5,7 +5,7 @@ using YGame::Model;
 
 Model* CloudDrawer::spModel_ = nullptr;
 
-CloudDrawer* CloudDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+CloudDrawer* CloudDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	CloudDrawer* newDrawer = new CloudDrawer();
 
@@ -14,13 +14,13 @@ CloudDrawer* CloudDrawer::Create(Transform* pParent, const uint16_t drawPriority
 	return newDrawer;
 }
 
-void CloudDrawer::StaticInitialize()
+void CloudDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void CloudDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void CloudDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

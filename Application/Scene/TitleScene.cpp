@@ -26,7 +26,7 @@ void TitleScene::Load()
 {
 	BaseDrawer::StaticInitialize(&transferVP_);
 
-	TitleDrawer::StaticInitialize();
+	TitleDrawer::LoadResource();
 }
 #pragma endregion
 
@@ -65,7 +65,7 @@ void TitleScene::Update()
 	if (spKeys_->IsTrigger(DIK_SPACE) || spPad_->IsTrigger(PadButton::XIP_A) && 
 		SceneManager::GetInstance()->IsTransition() == false)
 	{
-		SceneManager::GetInstance()->Transition("SELECT", "WIND");
+		SceneManager::GetInstance()->Transition("SELECT", "WAVE");
 
 		titleDra_.StartAnimation();
 	}

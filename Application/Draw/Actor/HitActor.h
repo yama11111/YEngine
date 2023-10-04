@@ -5,7 +5,7 @@
 
 namespace YGame
 {
-	class HitActor
+	class HitActor final
 	{
 
 	public:

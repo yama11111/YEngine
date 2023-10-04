@@ -13,7 +13,7 @@ YGame::Sprite2D* SelectDrawer::spLogoSpr_ = nullptr;
 YGame::Sprite2D* SelectDrawer::spStickSpr_ = nullptr;
 YGame::Sprite2D* SelectDrawer::spButtonSpr_ = nullptr;
 
-void SelectDrawer::StaticInitialize()
+void SelectDrawer::LoadResource()
 {
 	spLogoSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("select/stage_logo.png")} });
 
@@ -338,12 +338,12 @@ void SelectDrawer::Draw()
 	earthDra_->Draw();
 
 	// レターボックス描画
-	letterBox_->Draw("Sprite2DDefault", 40);
+	letterBox_->Draw("Sprite2DDefault", 2);
 
 	// カード描画 (後ろから)
 	for (int i = static_cast<int>(cardDras_.size()) - 1; i >= 0; i--)
 	{
-		cardDras_[i]->Draw(i * 2);
+		cardDras_[i]->Draw(1);
 	}
 
 	logoObj_->Draw("Sprite2DDefault", 1);

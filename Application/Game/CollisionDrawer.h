@@ -16,12 +16,12 @@ namespace YGame
 		/// <param name="radius"> : 半径</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static CollisionDrawer* Create(Transform* pParent, const float radius, const uint16_t drawPriority);
+		static CollisionDrawer* Create(Transform* pParent, const float radius, const size_t drawPriority);
 
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		static void StaticInitialize();
+		static void LoadResource();
 
 		/// <summary>
 		/// 名前取得
@@ -36,7 +36,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(Transform* pParent, const uint16_t drawPriority) override;
+		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
 		/// <summary>
 		/// 半径取得

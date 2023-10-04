@@ -12,7 +12,7 @@ namespace Anime = YGame::HorseAnimationConfig;
 
 Model* HorseDrawer::spModel_ = nullptr;
 
-HorseDrawer* HorseDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+HorseDrawer* HorseDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	HorseDrawer* newDrawer = new HorseDrawer();
 
@@ -21,13 +21,13 @@ HorseDrawer* HorseDrawer::Create(Transform* pParent, const uint16_t drawPriority
 	return newDrawer;
 }
 
-void HorseDrawer::StaticInitialize()
+void HorseDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::LoadObj("horse", true);
 }
 
-void HorseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

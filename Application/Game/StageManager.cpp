@@ -28,7 +28,7 @@ void StageManager::Update()
 
 		if (isStageClear_)
 		{
-			SceneManager::GetInstance()->Transition("SELECT", "WIND");
+			SceneManager::GetInstance()->Transition("SELECT", "WAVE");
 		}
 	}
 }

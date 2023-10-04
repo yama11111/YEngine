@@ -75,3 +75,20 @@ void Transform::UpdateMatrix(const Status& status)
 	m_ *= MatScale(s) * MatRotation(r) * MatTranslation(p);
 	if (parent_) { m_ *= *parent_; }
 }
+
+void Transform::UpdateMatrix(const Status& status, const Matrix4& mat)
+{
+	// 計算用
+	Vector3 p, r, s;
+
+	// 加算して代入
+	p = pos_ + status.pos_;
+	r = rota_ + status.rota_;
+	s = scale_ + status.scale_;
+
+	// アフィン変換
+	m_ = Matrix4::Identity();
+	m_ *= mat;
+	m_ *= MatScale(s) * MatRotation(r) * MatTranslation(p);
+	if (parent_) { m_ *= *parent_; }
+}

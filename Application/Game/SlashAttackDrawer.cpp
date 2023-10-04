@@ -9,7 +9,7 @@ using YMath::Vector4;
 
 Model* SlashAttackDrawer::spModel_ = nullptr;
 
-SlashAttackDrawer* SlashAttackDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+SlashAttackDrawer* SlashAttackDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	SlashAttackDrawer* newDrawer = new SlashAttackDrawer();
 
@@ -18,12 +18,12 @@ SlashAttackDrawer* SlashAttackDrawer::Create(Transform* pParent, const uint16_t 
 	return newDrawer;
 }
 
-void SlashAttackDrawer::StaticInitialize()
+void SlashAttackDrawer::LoadResource()
 {
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void SlashAttackDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void SlashAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

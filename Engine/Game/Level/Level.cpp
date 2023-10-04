@@ -145,7 +145,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		}
 		else if (name == "Skydome.")
 		{
-			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, 0));
+			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, 4));
 		}
 
 		// q‚ğ“Ç‚İ‚Ş

@@ -33,7 +33,7 @@ namespace
 	YGame::Sprite2D* pSelect = nullptr;
 }
 
-void PauseManager::StaticInitialize()
+void PauseManager::LoadResource()
 {
 	pPause = Sprite2D::Create({ {"Texture0", Texture::Load("pause/pause.png")} });
 	
@@ -201,12 +201,12 @@ void PauseManager::Update()
 		}
 		else if (current_ == Selection::ReStart)
 		{
-			SceneManager::GetInstance()->Transition("PLAY", "WIND");
+			SceneManager::GetInstance()->Transition("PLAY", "WAVE");
 		}
 		// ‘JˆÚ‚È‚ç
 		else if (current_ == Selection::Change)
 		{
-			SceneManager::GetInstance()->Transition("SELECT", "BLACKOUT");
+			SceneManager::GetInstance()->Transition("SELECT", "WAVE_REV");
 		}
 	}
 }

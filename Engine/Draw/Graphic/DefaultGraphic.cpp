@@ -18,7 +18,7 @@ static YGame::Sprite2D* spSprite2D = nullptr;
 static YGame::Sprite3D* spSprite3D = nullptr;
 static YGame::PostEffect* spPostEffect = nullptr;
 
-void DefaultGraphic::StaticInitialize()
+void DefaultGraphic::LoadResource()
 {
 	sDefGraphics.clear();
 

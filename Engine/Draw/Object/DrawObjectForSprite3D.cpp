@@ -60,7 +60,7 @@ void DrawObjectForSprite3D::Update(const Transform::Status& status)
 	transform_.UpdateMatrix(status);
 
 	cbTransform_->data_.matWorld = transform_.m_ * pVP_->view_ * pVP_->pro_;
-	cbTransform_->data_.matBill = YMath::MatBillboard(isXAxisBillboard_, isYAxisBillboard_, pVP_->eye_, pVP_->target_, pVP_->eye_);
+	cbTransform_->data_.matBill = YMath::MatBillboard(isXAxisBillboard_, isYAxisBillboard_, pVP_->eye_, pVP_->target_, pVP_->up_);
 }
 
 void DrawObjectForSprite3D::SetBillboardFrag(const bool isXAxisBillboard, const bool isYAxisBillboard)

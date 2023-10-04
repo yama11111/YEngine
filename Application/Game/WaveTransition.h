@@ -6,7 +6,7 @@
 
 namespace YGame
 {
-	class WindBlocks final : public BaseTransition
+	class WaveTransition final : public BaseTransition
 	{
 
 	public:
@@ -47,9 +47,11 @@ namespace YGame
 
 	public:
 
-		WindBlocks() = default;
+		WaveTransition() = delete;
+		
+		WaveTransition(const bool isReverce) : isReverce_(isReverce){}
 
-		~WindBlocks() = default;
+		~WaveTransition() = default;
 
 	public:
 
@@ -60,24 +62,24 @@ namespace YGame
 
 	private:
 
-		// ブロック
-		struct Block
+		// 波
+		struct Wave
 		{
-			std::unique_ptr<YGame::DrawObjectForSprite2D> obj_; // オブジェクト
-			std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_; // 色定数バッファ
+			std::unique_ptr<DrawObjectForSprite2D> obj_; // オブジェクト
+			std::unique_ptr<ConstBufferObject<CBColor>> cbColor_; // 色定数バッファ
 			YMath::Timer actTim_; // 動作タイマー
-			bool isActColorPow_ = false;
-			YMath::Power colorPow_; // 色タイマー
 		};
 
 	private:
 
-		// ブロック配列
-		std::vector<std::unique_ptr<Block>> blocks_;
+		// 反転フラグ
+		bool isReverce_ = false;
+
+		// 波
+		std::array<std::unique_ptr<Wave>, 3> waves_;
 
 		// イージング
-		std::array<YMath::Ease<float>, 2> posXEas_;
-		YMath::Ease<YMath::Vector4> colorEas_;
+		std::array<YMath::Ease<float>, 2> scaleXEas_;
 
 	private:
 
@@ -85,12 +87,6 @@ namespace YGame
 		/// シーン遷移更新
 		/// </summary>
 		void UpdateChange();
-
-		/// <summary>
-		/// 伝播
-		/// </summary>
-		/// <param name="index"></param>
-		void PropagateBlock(const size_t index, const bool isActColorPow);
 
 		/// <summary>
 		/// ブロック更新

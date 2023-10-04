@@ -34,7 +34,7 @@ namespace YGame
 		/// <summary>
 		/// ì«Ç›çûÇ›
 		/// </summary>
-		static void Load();
+		static void LoadResource();
 
 	private:
 		

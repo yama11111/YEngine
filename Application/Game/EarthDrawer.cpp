@@ -8,7 +8,7 @@ using YMath::Vector4;
 
 Model* EarthDrawer::spModel_ = nullptr;
 
-EarthDrawer* EarthDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+EarthDrawer* EarthDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	EarthDrawer* newDrawer = new EarthDrawer();
 
@@ -17,13 +17,13 @@ EarthDrawer* EarthDrawer::Create(Transform* pParent, const uint16_t drawPriority
 	return newDrawer;
 }
 
-void EarthDrawer::StaticInitialize()
+void EarthDrawer::LoadResource()
 {
 	// モデル設定
 	spModel_ = Model::LoadObj("earth", true);
 }
 
-void EarthDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void EarthDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

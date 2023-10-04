@@ -7,7 +7,7 @@ using YMath::Vector4;
 
 Model* BlockDrawer::spModel_ = nullptr;
 
-BlockDrawer* BlockDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+BlockDrawer* BlockDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	BlockDrawer* newDrawer = new BlockDrawer();
 
@@ -16,12 +16,12 @@ BlockDrawer* BlockDrawer::Create(Transform* pParent, const uint16_t drawPriority
 	return newDrawer;
 }
 
-void BlockDrawer::StaticInitialize()
+void BlockDrawer::LoadResource()
 {
 	spModel_ = Model::LoadObj("soil", true);
 }
 
-void BlockDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);

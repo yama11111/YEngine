@@ -72,7 +72,7 @@ bool YFramework::Initialize()
 	// FBXLoader“Ç‚İ‚İ
 	Model::FbxLoader::StaticInitialize();
 
-	DefaultGraphic::StaticInitialize();
+	DefaultGraphic::LoadResource();
 
 	// imgui‰Šú‰»
 	imguiMan_.Initialize({ window_.HandleWindow(), pDev, pCmdList, &descHeap_, dx_.BackBufferCount() });

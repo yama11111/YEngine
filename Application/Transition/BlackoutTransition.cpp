@@ -1,15 +1,15 @@
-#include "Blackout.h"
+#include "BlackoutTransition.h"
 #include "Def.h"
 #include "PipelineManager.h"
 #include "MathVector.h"
 
-using YGame::Blackout;
+using YGame::BlackoutTransition;
 using YMath::Vector2;
 
-YGame::Sprite2D* Blackout::spCurtenSpr_ = nullptr;
-YMath::Ease<float> Blackout::sBlendEas_;
+YGame::Sprite2D* BlackoutTransition::spCurtenSpr_ = nullptr;
+YMath::Ease<float> BlackoutTransition::sBlendEas_;
 
-void Blackout::StaticInitialize()
+void BlackoutTransition::LoadResource()
 {
 	// テクスチャ読み込み
 	Texture* pTex = Texture::Load("white1x1.png", false);
@@ -21,7 +21,7 @@ void Blackout::StaticInitialize()
 	sBlendEas_.Initialize(0.0f, 1.0f, 3.0f);
 }
 
-void Blackout::Initialize()
+void BlackoutTransition::Initialize()
 {
 	if (obj_ == nullptr)
 	{
@@ -36,21 +36,13 @@ void Blackout::Initialize()
 	Reset();
 }
 
-void Blackout::Finalize()
+void BlackoutTransition::Finalize()
 {
 }
 
-void Blackout::Reset()
+void BlackoutTransition::Reset()
 {
-	// リセット
-	step_ = Step::Dark;
-	
-	isAct_ = false;
-	isFalling_ = false;
-	isChangeMoment_ = false;
-	isRising_ = false;
-	isEnd_ = false;
-	loadTim_.Reset(false);
+	BaseTransition::Reset();
 
 	blendPow_.Reset();
 
@@ -63,7 +55,7 @@ void Blackout::Reset()
 	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,0.0f };
 }
 
-void Blackout::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
+void BlackoutTransition::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
 {
 	// リセット
 	Reset();
@@ -77,7 +69,7 @@ void Blackout::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
 	loadTim_.Initialize(loadFrame);
 }
 
-void Blackout::UpdateChange()
+void BlackoutTransition::UpdateChange()
 {
 	// 動作中じゃないなら弾く
 	if (isAct_ == false) { return; }
@@ -89,7 +81,7 @@ void Blackout::UpdateChange()
 	bool act = false;
 
 	// 暗転中 なら
-	if (step_ == Step::Dark)
+	if (step_ == Step::Close)
 	{
 		// ブレンドする
 		act = true;
@@ -125,7 +117,7 @@ void Blackout::UpdateChange()
 		if (loadTim_.IsEnd())
 		{
 			// 段階 → 明転
-			step_ = Step::Bright;
+			step_ = Step::Open;
 
 
 			// 瞬間フラグをfalseに
@@ -136,7 +128,7 @@ void Blackout::UpdateChange()
 		}
 	}
 	// 明転中 なら
-	else if (step_ == Step::Bright)
+	else if (step_ == Step::Open)
 	{
 		// ブレンドしない
 		act = false;
@@ -158,7 +150,7 @@ void Blackout::UpdateChange()
 	blendPow_.Update(act);
 }
 
-void Blackout::UpdateBlend()
+void BlackoutTransition::UpdateBlend()
 {
 	// 動作中じゃないなら弾く
 	if (isAct_ == false) { return; }
@@ -167,13 +159,13 @@ void Blackout::UpdateBlend()
 	float blendVal = 0.0f;
 	
 	// 暗転 or 読み込み中 なら
-	if (step_ == Step::Dark || step_ == Step::Load)
+	if (step_ == Step::Close || step_ == Step::Load)
 	{
 		// イーズイン
 		blendVal = sBlendEas_.In(blendPow_.Ratio());
 	}
 	// 明転中 なら
-	else if (step_ == Step::Bright)
+	else if (step_ == Step::Open)
 	{
 		// イーズアウト
 		blendVal = sBlendEas_.Out(blendPow_.Ratio());
@@ -183,13 +175,13 @@ void Blackout::UpdateBlend()
 	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,blendVal };
 }
 
-void Blackout::Update()
+void BlackoutTransition::Update()
 {
 	UpdateChange();
 	UpdateBlend();
 }
 
-void Blackout::Draw()
+void BlackoutTransition::Draw()
 {
 	obj_->Draw("Sprite2DDefault", 0);
 }

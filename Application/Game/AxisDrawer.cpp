@@ -7,7 +7,7 @@ using YMath::Vector4;
 
 Model* AxisDrawer::spModel_ = nullptr;
 
-AxisDrawer* AxisDrawer::Create(Transform* pParent, const uint16_t drawPriority)
+AxisDrawer* AxisDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
 	AxisDrawer* newDrawer = new AxisDrawer();
 
@@ -17,7 +17,7 @@ AxisDrawer* AxisDrawer::Create(Transform* pParent, const uint16_t drawPriority)
 	return newDrawer;
 }
 
-void AxisDrawer::StaticInitialize()
+void AxisDrawer::LoadResource()
 {
 	// ÉÇÉfÉãê›íË
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png") } });
@@ -28,7 +28,7 @@ std::string AxisDrawer::Name()
 	return "Axis";
 }
 
-void AxisDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void AxisDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	for (size_t i = 0; i < objs_.size(); i++)
 	{

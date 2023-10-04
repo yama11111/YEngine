@@ -5,7 +5,7 @@ using YGame::BaseDrawer;
 
 YGame::ViewProjection* BaseDrawer::spVP_ = nullptr;
 
-void BaseDrawer::Initialize(Transform* pParent, const uint16_t drawPriority)
+void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {	
 	if (obj_ == nullptr)
 	{

@@ -11,7 +11,7 @@ namespace YGame
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		static void StaticInitialize();
+		static void LoadResource();
 
 		/// <summary>
 		/// デフォルト値のグラフィックのポインタ取得

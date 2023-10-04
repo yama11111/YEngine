@@ -1,4 +1,5 @@
 #pragma once
+#include "Transform.h"
 #include "ViewProjection.h"
 #include "BaseConstBuffer.h"
 
@@ -17,7 +18,7 @@ namespace YGame
 		/// <param name="offset"> : オフセット値</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		/// <returns>動的インスタンス</returns>
-		static UIDigit* Create(
+		static UIDigit* Create2D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
 			const YMath::Vector3& offset ={},
@@ -34,7 +35,7 @@ namespace YGame
 		/// <param name="offset"> : オフセット値</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		/// <returns>動的インスタンス</returns>
-		static UIDigit* Create(
+		static UIDigit* Create3D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
 			const bool isXAxisBillboard, const bool isYAxisBillboard,
@@ -51,7 +52,7 @@ namespace YGame
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="offset"> : オフセット値</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
-		virtual void Initialize(
+		virtual void Initialize2D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
 			const YMath::Vector3& offset = {},
@@ -67,7 +68,7 @@ namespace YGame
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		/// <param name="offset"> : オフセット値</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
-		virtual void Initialize(
+		virtual void Initialize3D(
 			const uint32_t num,
 			YMath::Matrix4* pParent,
 			const bool isXAxisBillboard, const bool isYAxisBillboard,
@@ -78,7 +79,7 @@ namespace YGame
 		/// <summary>
 		/// 更新
 		/// </summary>
-		virtual void Update() = 0;
+		virtual void Update(const Transform::Status& status = {}) = 0;
 
 		/// <summary>
 		/// 描画
@@ -86,6 +87,8 @@ namespace YGame
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="priority"> : 描画優先度</param>
 		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
+
+	public:
 
 		/// <summary>
 		/// 定数バッファポインタ挿入 
@@ -111,7 +114,7 @@ namespace YGame
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		static void StaticInitialize();
+		static void LoadResource();
 	
 	public:
 

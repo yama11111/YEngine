@@ -74,6 +74,17 @@ namespace YGame
 		/// <param name="(Vector3) status.scale_"> : 大きさ</param>
 		void UpdateMatrix(const Status& status);
 	
+		/// <summary>
+		/// アフィン変換 (位置、回転、大きさ を加算したオブジェクトで行列計算)
+		/// </summary>
+		/// <param name="status"> : 設定用ステータス</param>
+		/// <param name="(Vector3) status.pos_"> : 位置</param>
+		/// <param name="(Vector3) status.rota_"> : 回転</param>
+		/// <param name="(Vector3) status.scale_"> : 大きさ</param>
+		/// <param name="">----------------</param>
+		/// <param name="mat"> : 行列</param>
+		void UpdateMatrix(const Status& status, const YMath::Matrix4& mat);
+
 	public:
 		
 		Transform();

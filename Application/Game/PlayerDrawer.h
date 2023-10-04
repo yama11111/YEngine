@@ -44,13 +44,13 @@ namespace YGame
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static PlayerDrawer* Create(Transform* pParent, const uint16_t drawPriority);
+		static PlayerDrawer* Create(Transform* pParent, const size_t drawPriority);
 
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		static void StaticInitialize();
-	
+		static void LoadResource();
+
 	public:
 
 		/// <summary>
@@ -58,8 +58,11 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(Transform* pParent, const uint16_t drawPriority) override;
+		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
+		/// <summary>
+		/// 描画
+		/// </summary>
 		void Draw() override;
 
 	public:

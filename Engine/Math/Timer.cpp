@@ -52,3 +52,9 @@ float Timer::Ratio() const
 	if (endFrame_ == 0) { return 0.0f; }
 	return current_ / static_cast<float>(endFrame_);
 }
+
+void Timer::SetActive(const bool isAct)
+{
+	if (IsEnd()) { return; }
+	isAct_ = isAct;
+}

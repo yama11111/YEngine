@@ -18,7 +18,7 @@ namespace
 	const float kBlockHeight_ = WinSize.y_ / static_cast<float>(kBlockNum_);
 }
 
-void WindBlocks::StaticInitialize()
+void WindBlocks::LoadResource()
 {
 	// スプライト生成
 	spBlockSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png", false)} });

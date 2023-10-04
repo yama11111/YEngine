@@ -8,9 +8,10 @@ using YDX::Result;
 ID3D12Device* Pipeline::spDevice_ = nullptr;
 ID3D12GraphicsCommandList* Pipeline::spCmdList_ = nullptr;
 
-void Pipeline::EnqueueDrawSet(const DrawSet& drawSet)
+void Pipeline::EnqueueDrawSet(const size_t priority, const DrawSet& drawSet)
 {
-	drawSets_.push(drawSet);
+	assert(priority < drawQueue_.size());
+	drawQueue_[priority].push(drawSet);
 }
 
 void Pipeline::Draw()
@@ -22,27 +23,35 @@ void Pipeline::Draw()
 
 	spCmdList_->IASetPrimitiveTopology(primitive_);
 
-	// 上から順に描画
-	while (true)
+	for (size_t i = 0; i < drawQueue_.size(); i++)
 	{
-		if (drawSets_.empty()) { break; }
-
-		// 定数バッファ
-		ConstBufferPtrSet* pCBPtrSet = drawSets_.top().pCBPtrSet;
+		// 逆順走査
+		size_t irev = (drawQueue_.size() - 1) - i;
 		
-		for (auto itr = cbRPIndices_.begin(); itr != cbRPIndices_.end(); ++itr)
-		{	
-			pCBPtrSet->SetDrawCommand(itr->first, itr->second);
+		if (drawQueue_[irev].empty()) { continue; }
+		
+		// 上から順に描画
+		while (true)
+		{
+			if (drawQueue_[irev].empty()) { break; }
+
+			// 定数バッファ
+			ConstBufferPtrSet* pCBPtrSet = drawQueue_[irev].front().pCBPtrSet;
+
+			for (auto itr = cbRPIndices_.begin(); itr != cbRPIndices_.end(); ++itr)
+			{
+				pCBPtrSet->SetDrawCommand(itr->first, itr->second);
+			}
+
+			// グラフィック
+			BaseGraphic* pGraphic = drawQueue_[irev].front().pGraphic;
+
+			assert(pGraphic);
+
+			pGraphic->SetDrawCommand(graphicRPIndices_);
+
+			drawQueue_[irev].pop();
 		}
-
-		// グラフィック
-		BaseGraphic* pGraphic = drawSets_.top().pGraphic;
-
-		assert (pGraphic);
-		
-		pGraphic->SetDrawCommand(graphicRPIndices_);
-
-		drawSets_.pop();
 	}
 }
 
@@ -273,14 +282,4 @@ void Pipeline::SetPrimitiveTopology(const D3D_PRIMITIVE_TOPOLOGY& primitive)
 	assert(primitive != D3D_PRIMITIVE_TOPOLOGY_UNDEFINED);
 
 	primitive_ = primitive;
-}
-
-bool YGame::operator<(const Pipeline::DrawSet& drawSet1, const Pipeline::DrawSet& drawSet2)
-{
-	return drawSet1.priority < drawSet2.priority;
-}
-
-bool YGame::operator>(const Pipeline::DrawSet& drawSet1, const Pipeline::DrawSet& drawSet2)
-{
-	return drawSet1.priority > drawSet2.priority;
 }

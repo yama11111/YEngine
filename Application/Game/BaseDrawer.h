@@ -25,7 +25,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		virtual void Initialize(Transform* pParent, const uint16_t drawPriority);
+		virtual void Initialize(Transform* pParent, const size_t drawPriority);
 
 		/// <summary>
 		/// 更新
@@ -80,7 +80,7 @@ namespace YGame
 		/// 描画位置設定
 		/// </summary>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		void SetDrawPriority(const uint16_t drawPriority) { drawPriority_ = drawPriority; }
+		void SetDrawPriority(const size_t drawPriority) { drawPriority_ = drawPriority; }
 
 		/// <summary>
 		/// 描画するか
@@ -138,7 +138,7 @@ namespace YGame
 		std::unique_ptr<ConstBufferObject<CBMaterial>> cbMaterial_;
 
 		// 描画位置
-		uint16_t drawPriority_ = 0;
+		size_t drawPriority_ = 0;
 
 		// シェーダー
 		std::string shaderKey_ = "ModelDefault";

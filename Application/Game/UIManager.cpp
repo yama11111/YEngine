@@ -78,7 +78,7 @@ void UIManager::Draw()
 	buttonJump_->Draw("Sprite2DDefault", 2);
 }
 
-void UIManager::Load()
+void UIManager::LoadResource()
 {	
 	pButtonASpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png") } });
 	

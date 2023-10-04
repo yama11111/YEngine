@@ -17,7 +17,7 @@ YGame::Sprite2D* TitleDrawer::spStartSpr_ = nullptr;
 YGame::Sprite2D* TitleDrawer::spButtonSpr_ = nullptr;
 YGame::MapChipManager* TitleDrawer::spMapChipManager_ = nullptr;
 
-void TitleDrawer::StaticInitialize()
+void TitleDrawer::LoadResource()
 {
 	spLogoSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_logo.png")} });
 	spLineSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_line.png")} });

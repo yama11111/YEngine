@@ -10,7 +10,7 @@
 namespace YGame
 {
 	// 暗転
-	class Blackout : public BaseTransition
+	class BlackoutTransition : public BaseTransition
 	{
 
 	public:
@@ -51,24 +51,14 @@ namespace YGame
 
 	public:
 
-		Blackout() = default;
+		BlackoutTransition() = default;
 
-		~Blackout() = default;
+		~BlackoutTransition() = default;
 
 	public:
 
 		// 静的初期化
-		static void StaticInitialize();
-	
-	private:
-		
-		// 暗転段階
-		enum class Step
-		{
-			Dark,	 // 暗
-			Load,	 // ロード時間
-			Bright,	 // 明
-		};
+		static void LoadResource();
 	
 	private:
 		
@@ -77,9 +67,6 @@ namespace YGame
 		
 		// 色定数バッファ
 		std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_;
-
-		// 段階
-		Step step_ = Step::Dark;
 		
 
 		// 透過度パワー

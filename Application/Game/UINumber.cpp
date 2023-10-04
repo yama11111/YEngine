@@ -14,11 +14,19 @@ namespace YGame
 	class impl_UINumber final :
 		public UINumber
 	{
+	
+	public:
+
+		// スプライトの種類
+		enum class SpriteType
+		{
+			eNone, e2D, e3D,
+		};
 
 	public:
 
 		// 初期化
-		void Initialize(
+		void Initialize2D(
 			const uint32_t num,
 			const size_t maxDigits,
 			const float interval,
@@ -26,8 +34,19 @@ namespace YGame
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true) override;
 
+		// 初期化
+		void Initialize3D(
+			const uint32_t num,
+			const size_t maxDigits,
+			const float interval,
+			const bool shouldShowZero,
+			YMath::Matrix4* pParent,
+			const bool isXAxisBillboard, const bool isYAxisBillboard,
+			ViewProjection* pVP,
+			const bool isClearWhenTransition = true) override;
+
 		// 更新
-		void Update() override;
+		void Update(const Transform::Status& status = {}) override;
 
 		// 描画
 		void Draw(const std::string& shaderTag, const uint16_t priority) override;
@@ -47,6 +66,12 @@ namespace YGame
 		// ゼロ表示設定
 		void SetShowZero(const bool shouldShowZero) override;
 
+		// スプライト種類設定
+		void SetSpriteType(const SpriteType& type) { type_ = type; }
+
+		// アニメーション更新
+		void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) override;
+
 	public:
 
 		impl_UINumber() = default;
@@ -55,11 +80,19 @@ namespace YGame
 
 	private:
 
+		struct Digit
+		{
+			std::unique_ptr<UIDigit> ui;
+			Transform::Status animeStatus;
+		};
+	
+	private:
+
 		// トランスフォーム (各数字の親)
 		Transform transform_;
 
 		// 数字
-		std::vector<std::unique_ptr<UIDigit>> digits_;
+		std::vector<Digit> digits_;
 
 		// 数
 		uint32_t num_ = 0;
@@ -73,6 +106,12 @@ namespace YGame
 		// ゼロ表示するか
 		bool shouldShowZero_ = false;
 	
+		// スプライトタイプ
+		SpriteType type_ = SpriteType::eNone;
+
+		// 遷移時クリアフラグ
+		bool isClearWhenTransition_ = false;
+
 	private:
 
 		// 各数字毎に数字設定
@@ -86,7 +125,7 @@ namespace YGame
 
 	};
 
-	void impl_UINumber::Initialize(
+	void impl_UINumber::Initialize2D(
 		const uint32_t num,
 		const size_t maxDigits,
 		const float interval,
@@ -100,9 +139,24 @@ namespace YGame
 
 		transform_.parent_ = pParent;
 
-		for (size_t i = 0; i < maxDigits; i++)
+		if (type_ != SpriteType::e2D || 
+			digits_.empty() ||
+			isClearWhenTransition_ != isClearWhenTransition)
 		{
-			digits_.emplace_back(UIDigit::Create(0, &transform_.m_, {}, isClearWhenTransition));
+			for (size_t i = 0; i < maxDigits; i++)
+			{
+				digits_.emplace_back();
+				digits_[i].ui.reset(UIDigit::Create2D(0, &transform_.m_, {}, isClearWhenTransition));
+				digits_[i].animeStatus = {};
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < digits_.size(); i++)
+			{
+				digits_[i].ui->Initialize2D(0, &transform_.m_, {}, isClearWhenTransition);;
+				digits_[i].animeStatus = {};
+			}
 		}
 
 		SetInterval(interval);
@@ -110,15 +164,69 @@ namespace YGame
 		SetNumber(num);
 
 		SetShowZero(shouldShowZero);
+
+		SetSpriteType(SpriteType::e2D);
+
+		isClearWhenTransition_ = isClearWhenTransition;
 	}
 
-	void impl_UINumber::Update()
+	void impl_UINumber::Initialize3D(
+		const uint32_t num, 
+		const size_t maxDigits, 
+		const float interval, 
+		const bool shouldShowZero, 
+		YMath::Matrix4* pParent, 
+		const bool isXAxisBillboard, const bool isYAxisBillboard, 
+		ViewProjection* pVP, 
+		const bool isClearWhenTransition)
 	{
-		transform_.UpdateMatrix();
+		assert(pParent);
+
+		transform_.Initialize();
+
+		transform_.parent_ = pParent;
+
+		if (type_ != SpriteType::e3D ||
+			digits_.empty() ||
+			isClearWhenTransition_ != isClearWhenTransition)
+		{
+			for (size_t i = 0; i < maxDigits; i++)
+			{
+				digits_.emplace_back();
+				digits_[i].ui.reset(UIDigit::Create3D(
+					0, &transform_.m_, isXAxisBillboard, isYAxisBillboard, pVP, {}, isClearWhenTransition));
+				digits_[i].animeStatus = {};
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < digits_.size(); i++)
+			{
+				digits_[i].ui->Initialize3D(
+					0, &transform_.m_, isXAxisBillboard, isYAxisBillboard, pVP, {}, isClearWhenTransition);
+				digits_[i].animeStatus = {};
+			}
+		}
+
+		SetInterval(interval);
+
+		SetNumber(num);
+
+		SetShowZero(shouldShowZero);
+
+		SetSpriteType(SpriteType::e3D);
+
+		isClearWhenTransition_ = isClearWhenTransition;
+	}
+
+	void impl_UINumber::Update(const Transform::Status& status)
+	{
+		transform_.UpdateMatrix(status);
 
 		for (size_t i = 0; i < digits_.size(); i++)
 		{
-			digits_[i]->Update();
+			digits_[i].ui->Update(digits_[i].animeStatus);
+			digits_[i].animeStatus = {};
 		}
 	}
 
@@ -128,7 +236,7 @@ namespace YGame
 
 		for (size_t i = 0; i < dSize; i++)
 		{
-			digits_[i]->Draw(shaderTag, priority);
+			digits_[i].ui->Draw(shaderTag, priority);
 		}
 	}
 
@@ -136,7 +244,7 @@ namespace YGame
 	{
 		for (size_t i = 0; i < digits_.size(); i++)
 		{
-			digits_[i]->InsertConstBuffer(pCB);
+			digits_[i].ui->InsertConstBuffer(pCB);
 		}
 	}
 
@@ -154,13 +262,15 @@ namespace YGame
 	void impl_UINumber::SetInterval(const float interval)
 	{
 		interval_ = interval;
+
+		AdjustOffset();
 	}
 
 	void impl_UINumber::SetDigitOffset(const size_t digitIndex, const YMath::Vector3& offset)
 	{
 		assert(0 <= digitIndex && digitIndex < digits_.size());
 
-		digits_[digitIndex]->SetOffset(offset);
+		digits_[digitIndex].ui->SetOffset(offset);
 	}
 
 	void impl_UINumber::SetShowZero(const bool shouldShowZero)
@@ -168,6 +278,13 @@ namespace YGame
 		shouldShowZero_ = shouldShowZero;
 
 		AdjustOffset();
+	}
+
+	void impl_UINumber::SetAnimationStatus(const size_t digitIndex, const Transform::Status& status)
+	{
+		assert(0 <= digitIndex && digitIndex < digits_.size());
+
+		digits_[digitIndex].animeStatus = status;
 	}
 
 	void impl_UINumber::SetDigitNumber()
@@ -178,7 +295,7 @@ namespace YGame
 		{
 			for (size_t i = 0; i < digits_.size(); i++)
 			{
-				digits_[i]->SetNumber(0);
+				digits_[i].ui->SetNumber(0);
 			}
 
 			return;
@@ -190,7 +307,7 @@ namespace YGame
 		{
 			for (size_t i = 0; i < digits_.size(); i++)
 			{
-				digits_[i]->SetNumber(9);
+				digits_[i].ui->SetNumber(9);
 			}
 
 			return;
@@ -203,7 +320,7 @@ namespace YGame
 			uint32_t digitNum = resultNum % 10;
 			resultNum /= 10;
 
-			digits_[i]->SetNumber(digitNum);
+			digits_[i].ui->SetNumber(digitNum);
 		}
 	}
 
@@ -238,12 +355,12 @@ namespace YGame
 		{
 			Vector3 offset = { halfRangeSize - (interval_ * static_cast<float>(i)), 0.0f, 0.0f };
 
-			digits_[i]->SetOffset(offset);
+			digits_[i].ui->SetOffset(offset);
 		}
 	}
 }
 
-UINumber* UINumber::Create(
+UINumber* UINumber::Create2D(
 	const uint32_t num,
 	const size_t maxDigits,
 	const float interval,
@@ -253,7 +370,25 @@ UINumber* UINumber::Create(
 {
 	impl_UINumber* newInstance = new impl_UINumber();
 
-	newInstance->Initialize(num, maxDigits, interval, shouldShowZero, pParent, isClearWhenTransition);
+	newInstance->Initialize2D(num, maxDigits, interval, shouldShowZero, pParent, isClearWhenTransition);
+
+	return newInstance;
+}
+
+UINumber* UINumber::Create3D(
+	const uint32_t num, 
+	const size_t maxDigits, 
+	const float interval, 
+	const bool shouldShowZero, 
+	YMath::Matrix4* pParent, 
+	const bool isXAxisBillboard, const bool isYAxisBillboard, 
+	ViewProjection* pVP, 
+	const bool isClearWhenTransition)
+{
+	impl_UINumber* newInstance = new impl_UINumber();
+
+	newInstance->Initialize3D(num, maxDigits, interval, shouldShowZero, pParent, 
+		isXAxisBillboard, isYAxisBillboard, pVP, isClearWhenTransition);
 
 	return newInstance;
 }

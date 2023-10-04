@@ -7,7 +7,7 @@
 
 namespace YGame
 {
-	class SlimeActor
+	class SlimeActor final
 	{
 	
 	public:
