@@ -13,12 +13,12 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="pSprite2D"> : ƒXƒvƒ‰ƒCƒg2Dƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>ƒIƒuƒWƒFƒNƒgƒ|ƒCƒ“ƒ^ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</returns>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="pSprite2D"> : ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ2Dãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</returns>
 		static DrawObjectForSprite2D* Create(
 			const Transform::Status& status,
 			Sprite2D* pSprite2D, 
@@ -27,26 +27,26 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		void Initialize(
 			const Transform::Status& status = Transform::Status::Default(),
 			const bool isClearWhenTransition = true) override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		void Update(const Transform::Status& status = {}) override;
 
 	public:
 
 		/// <summary>
-		/// ƒXƒvƒ‰ƒCƒg2D‚ğİ’è
+		/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ2Dã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pSprite2D"> : ƒXƒvƒ‰ƒCƒg2Dƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pSprite2D"> : ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ2Dãƒã‚¤ãƒ³ã‚¿</param>
 		void SetSprite2D(Sprite2D* pSprite2D);
 
 	public:
@@ -55,12 +55,12 @@ namespace YGame
 
 	private:
 
-		// ƒ‚ƒfƒ‹—pƒgƒ‰ƒ“ƒXƒtƒH[ƒ€’è”ƒoƒbƒtƒ@
+		// ãƒ¢ãƒ‡ãƒ«ç”¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBSprite2DTransform>> cbTransform_;
 
 	private:
 
-		// éŒ¾A‘ã“ü‚ğ‹Ö~
+		// å®£è¨€ã€ä»£å…¥ã‚’ç¦æ­¢
 		DrawObjectForSprite2D() = default;
 
 		DrawObjectForSprite2D(const DrawObjectForSprite2D&) = delete;

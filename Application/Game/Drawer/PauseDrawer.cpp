@@ -13,9 +13,9 @@ YGame::Sprite2D* PauseDrawer::spCurten_ = nullptr;
 
 namespace
 {
-	const size_t kResumeIndex	 = static_cast<size_t>(PauseDrawer::Selection::Resume); // ñﬂÇÈ
-	const size_t kReStartIndex	 = static_cast<size_t>(PauseDrawer::Selection::ReStart); // ÉäÉXÉ^Å[Ég
-	const size_t kChangeIndex	 = static_cast<size_t>(PauseDrawer::Selection::Change); // ëJà⁄
+	const size_t kResumeIndex	 = static_cast<size_t>(PauseDrawer::Selection::Resume); // Êàª„Çã
+	const size_t kReStartIndex	 = static_cast<size_t>(PauseDrawer::Selection::ReStart); // „É™„Çπ„Çø„Éº„Éà
+	const size_t kChangeIndex	 = static_cast<size_t>(PauseDrawer::Selection::Change); // ÈÅ∑Áßª
 
 	const YMath::Vector4 kOnColor	 = { 1.0f,1.0f,1.0f,1.0f };
 	const YMath::Vector4 kOffColor	 = { 0.3f,0.3f,0.3f,1.0f };

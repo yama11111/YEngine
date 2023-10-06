@@ -3,16 +3,16 @@
 
 namespace YFile
 {
-	// String ¨ WString
+	// String â†’ WString
 	std::wstring StringToWString(const std::string& src);
 
-	// ƒtƒ@ƒCƒ‹–¼’Šo
+	// ãƒ•ã‚¡ã‚¤ãƒ«åæŠ½å‡º
 	std::string FilePath(const std::string path);
 	
-	// Šg’£q•ÏŠ·
+	// æ‹¡å¼µå­å¤‰æ›
 	std::string ReplaceExtension(const std::string fileName, const std::string extention);
 	
-	// Šg’£qæ“¾
+	// æ‹¡å¼µå­å–å¾—
 	std::string FileExtension(const std::string path);
 
 }

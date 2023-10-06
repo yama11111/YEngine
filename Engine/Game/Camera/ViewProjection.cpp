@@ -13,15 +13,15 @@ ViewProjection::ViewProjection() :
 
 ViewProjection::Status ViewProjection::Status::Default()
 {
-	// 戻り値用
+	// 謌ｻ繧雁､逕ｨ
 	Status result;
 
-	// デフォルト値を代入
+	// 繝�繝輔か繝ｫ繝亥､繧剃ｻ｣蜈･
 	result.eye_ = { 0.0f, 0.0f, -100.0f };
 	result.target_ = { 0.0f, 0.0f, 0.0f };
 	result.up_ = { 0.0f, 1.0f, 0.0f };
 
-	// 返す
+	// 霑斐☆
 	return result;
 }
 

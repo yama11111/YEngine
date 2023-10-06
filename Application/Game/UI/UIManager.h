@@ -10,49 +10,49 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 		
 		/// <summary>
-		/// ŠJnƒAƒjƒ[ƒVƒ‡ƒ“
+		/// é–‹å§‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		/// </summary>
 		void PlayStartAnimation();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 	
 	public:
 
 		/// <summary>
-		/// “Ç‚İ‚İ
+		/// èª­ã¿è¾¼ã¿
 		/// </summary>
 		static void LoadResource();
 
 	private:
 		
-		// ƒŒƒ^[ƒ{ƒbƒNƒX
+		// ãƒ¬ã‚¿ãƒ¼ãƒœãƒƒã‚¯ã‚¹
 		std::unique_ptr<UILetterBox> letterBox_;
 
 
-		// ƒWƒƒƒ“ƒvƒ{ƒ^ƒ“
+		// ã‚¸ãƒ£ãƒ³ãƒ—ãƒœã‚¿ãƒ³
 		std::unique_ptr<UIButton> buttonJump_;
 		
-		// ƒWƒƒƒ“ƒvUI
+		// ã‚¸ãƒ£ãƒ³ãƒ—UI
 		std::unique_ptr<BaseDrawObject> jumpUI_;
 		
 
-		// UŒ‚ƒ{ƒ^ƒ“
+		// æ”»æ’ƒãƒœã‚¿ãƒ³
 		std::unique_ptr<UIButton> buttonAttack_;
 
-		// UŒ‚UI
+		// æ”»æ’ƒUI
 		std::unique_ptr<BaseDrawObject> attackUI_;
 		
 	};

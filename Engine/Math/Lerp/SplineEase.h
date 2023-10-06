@@ -3,7 +3,7 @@
 
 namespace YMath
 {
-	// ƒXƒvƒ‰ƒCƒ“‹ÈüƒC[ƒWƒ“ƒOƒNƒ‰ƒX
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã‚¯ãƒ©ã‚¹
 	template<typename T>
 	class SplineEase
 	{
@@ -11,82 +11,82 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-		/// <param name="exponent"> : w”(ŠÉ‹})</param>
+		/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+		/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
 		void Initialize(const std::vector<T>& points, const float exponent);
 
 	public:
 
 		/// <summary>
-		/// ƒC[ƒYƒCƒ“
-		/// (‚¾‚ñ‚¾‚ñ‘‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³
+		/// (ã ã‚“ã ã‚“æ—©ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T In(const float ratio) const;
 
 		/// <summary>
-		/// ƒC[ƒYƒAƒEƒg
-		/// (‚¾‚ñ‚¾‚ñ’x‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ
+		/// (ã ã‚“ã ã‚“é…ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T Out(const float ratio) const;
 
 		/// <summary>
-		/// ƒC[ƒYƒCƒ“ƒAƒEƒg
-		/// (‚¾‚ñ‚¾‚ñ‘‚­ ¨ ‚¾‚ñ‚¾‚ñ’x‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ã‚¢ã‚¦ãƒˆ
+		/// (ã ã‚“ã ã‚“æ—©ã â†’ ã ã‚“ã ã‚“é…ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <param name="controlPoint"> : §Œä“_</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T InOut(const float ratio, const float controlPoint = 0.5f) const;
 
 		/// <summary>
-		/// ƒC[ƒYƒAƒEƒgƒCƒ“
-		/// (‚¾‚ñ‚¾‚ñ’x‚­ ¨ ‚¾‚ñ‚¾‚ñ‘‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆã‚¤ãƒ³
+		/// (ã ã‚“ã ã‚“é…ã â†’ ã ã‚“ã ã‚“æ—©ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <param name="controlPoint"> : §Œä“_</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T OutIn(const float ratio, const float controlPoint = 0.5f) const;
 
 	public:
 
 		/// <summary>
-		/// Šî€“_İ’è
+		/// åŸºæº–ç‚¹è¨­å®š
 		/// </summary>
-		/// <param name="points"> : Šî€“_‚Ì”z—ñ</param>
+		/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ—</param>
 		void SetPoints(const std::vector<T>& points) { points_ = points; };
 
 		/// <summary>
-		/// ŠÉ‹}İ’è
+		/// ç·©æ€¥è¨­å®š
 		/// </summary>
-		/// <param name="exponent"> : ŠÉ‹}</param>
+		/// <param name="exponent"> : ç·©æ€¥</param>
 		void SetExponent(const float exponent) { exponent_ = exponent; }
 
 	public:
 
 		/// <summary>
-		/// Šî€“_æ“¾
+		/// åŸºæº–ç‚¹å–å¾—
 		/// </summary>
-		/// <returns>Šî€“_‚Ì”z—ñ</returns>
+		/// <returns>åŸºæº–ç‚¹ã®é…åˆ—</returns>
 		std::vector<T> Points() const { return points_; };
 
 		/// <summary>
-		/// ŠÉ‹}æ“¾
+		/// ç·©æ€¥å–å¾—
 		/// </summary>
-		/// <returns>ŠÉ‹}</returns>
+		/// <returns>ç·©æ€¥</returns>
 		float Exponent() const { return exponent_; }
 
 	private:
 
-		// ’l
+		// å€¤
 		std::vector<T> points_{};
 
-		// ŠÉ‹}(w”)
+		// ç·©æ€¥(æŒ‡æ•°)
 		float exponent_ = 0.0f;
 
 	};

@@ -11,83 +11,83 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="name"> : –¼‘O</param>
-		/// <param name="status"> : ‰Šú‰»ƒXƒe[ƒ^ƒX</param>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
+		/// <param name="name"> : åå‰</param>
+		/// <param name="status"> : åˆæœŸåŒ–ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
 		void Initialize(
 			const std::string name, 
 			const Transform::Status& status,
 			GameObject* pParent = nullptr);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
 		virtual void OnCollision();
 
 	public:
 
 		/// <summary>
-		/// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline Transform* TransformPtr() const { return transform_.get(); }
 
 		/// <summary>
-		/// ƒRƒ‰ƒCƒ_[ƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒRƒ‰ƒCƒ_[ƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline GameCollider* ColliderPtr() const { return collider_.get(); }
 		
 		/// <summary>
-		/// •`‰æƒNƒ‰ƒXƒ|ƒCƒ“ƒ^
+		/// æç”»ã‚¯ãƒ©ã‚¹ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
-		/// <returns>•`‰æƒNƒ‰ƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>æç”»ã‚¯ãƒ©ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline BaseDrawer* DrawerPtr() const { return drawer_.get(); }
 
 		/// <summary>
-		/// •â••`‰æƒNƒ‰ƒXƒ|ƒCƒ“ƒ^
+		/// è£œåŠ©æç”»ã‚¯ãƒ©ã‚¹ãƒã‚¤ãƒ³ã‚¿
 		/// </summary>
-		/// <param name="tag"> : ƒ^ƒO</param>
-		/// <returns>•`‰æƒNƒ‰ƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="tag"> : ã‚¿ã‚°</param>
+		/// <returns>æç”»ã‚¯ãƒ©ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		inline BaseDrawer* SubDrawerPtr(const std::string& tag) { return subDrawer_[tag].get(); }
 	
 	public:
 		
 		/// <summary>
-		/// eqŠÖŒWİ’è
+		/// è¦ªå­é–¢ä¿‚è¨­å®š
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
 		void SetParent(GameObject* pParent);
 
 		/// <summary>
-		/// ƒRƒ‰ƒCƒ_[İ’è
+		/// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼è¨­å®š
 		/// </summary>
-		/// <param name="collider"> : ƒRƒ‰ƒCƒ_[ƒCƒ“ƒXƒ^ƒ“ƒX (“®“I)</param>
+		/// <param name="collider"> : ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ (å‹•çš„)</param>
 		void SetCollider(GameCollider* collider);
 
 		/// <summary>
-		/// •`‰æƒNƒ‰ƒXİ’è
+		/// æç”»ã‚¯ãƒ©ã‚¹è¨­å®š
 		/// </summary>
-		/// <param name="drawer"> : •`‰æƒCƒ“ƒXƒ^ƒ“ƒX (“®“I)</param>
+		/// <param name="drawer"> : æç”»ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ (å‹•çš„)</param>
 		void SetDrawer(BaseDrawer* drawer);
 
 		/// <summary>
-		/// •â••`‰æƒNƒ‰ƒXİ’è
+		/// è£œåŠ©æç”»ã‚¯ãƒ©ã‚¹è¨­å®š
 		/// </summary>
-		/// <param name="tag"> : ƒ^ƒO</param>
-		/// <param name="drawer"> : •`‰æƒCƒ“ƒXƒ^ƒ“ƒX (“®“I)</param>
+		/// <param name="tag"> : ã‚¿ã‚°</param>
+		/// <param name="drawer"> : æç”»ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ (å‹•çš„)</param>
 		void InsertSubDrawer(const std::string& tag, BaseDrawer* drawer);
 
 	public:
@@ -98,25 +98,25 @@ namespace YGame
 	
 	protected:
 
-		// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+		// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 		std::unique_ptr<Transform> transform_;
 		
-		// ƒRƒ‰ƒCƒ_[ƒNƒ‰ƒX
+		// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚¯ãƒ©ã‚¹
 		std::unique_ptr<GameCollider> collider_;
 
-		// •`‰æƒNƒ‰ƒX
+		// æç”»ã‚¯ãƒ©ã‚¹
 		std::unique_ptr<BaseDrawer> drawer_;
 		
-		// •â••`‰æƒNƒ‰ƒX
+		// è£œåŠ©æç”»ã‚¯ãƒ©ã‚¹
 		std::unordered_map<std::string, std::unique_ptr<BaseDrawer>> subDrawer_;
 
-		// eƒ|ƒCƒ“ƒ^
+		// è¦ªãƒã‚¤ãƒ³ã‚¿
 		GameObject* pParent_ = nullptr;
 
 	protected:
 
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		virtual void DrawDebugTextContent() override;
 	};

@@ -17,17 +17,17 @@ void IPet::Update(const bool isUpdate)
 {
 	if (isUpdate)
 	{
-		// Ž©“®‚Å‘O‚Éi‚Þ
+		// è‡ªå‹•ã§å‰ã«é€²ã‚€
 		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
 		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
 	}
 
 	BaseCharacter::Update(isUpdate);
 
-	// ’…’n‚µ‚Ä‚¢‚é‚È‚ç
+	// ç€åœ°ã—ã¦ã„ã‚‹ãªã‚‰
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
 	{
-		// ƒWƒƒƒ“ƒv‰ñ”‰Šú‰»
+		// ã‚¸ãƒ£ãƒ³ãƒ—å›žæ•°åˆæœŸåŒ–
 		jumpCounter_ = 0;
 	}
 }
@@ -36,21 +36,21 @@ void IPet::OnCollision(const CollisionInfo& info)
 {
 	if (isRidden_ == false) { return; }
 
-	// “G
+	// æ•µ
 	if (info.attribute_ == AttributeType::eEnemy)
 	{
-		// Ž©•ª ‚ª “G ‚æ‚èã‚É‚¢‚é ‚È‚ç
+		// è‡ªåˆ† ãŒ æ•µ ã‚ˆã‚Šä¸Šã«ã„ã‚‹ ãªã‚‰
 		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pos_.y_ + (info.radius_ / 2.0f))
 		{
-			// ƒ_ƒ[ƒW‚ð—^‚¦‚é
+			// ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸Žãˆã‚‹
 			info.pStatus_->Damage(status_.Attack(), true);
 
 			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
 			
-			// ƒWƒƒƒ“ƒv
+			// ã‚¸ãƒ£ãƒ³ãƒ—
 			Jump(false);
 		}
-		// Ž©•ª ‚ª “G ‚æ‚è‰º ‚È‚ç
+		// è‡ªåˆ† ãŒ æ•µ ã‚ˆã‚Šä¸‹ ãªã‚‰
 		else
 		{
 			Hit();
@@ -105,10 +105,10 @@ void IPet::OffScreenProcess()
 
 void IPet::Jump(const bool isJumpCount)
 {
-	// ƒWƒƒƒ“ƒvƒJƒEƒ“ƒg‚·‚é‚È‚ç
+	// ã‚¸ãƒ£ãƒ³ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ãªã‚‰
 	if (isJumpCount)
 	{
-		// ƒWƒƒƒ“ƒv‰ñ” ‚ª Å‘å‰ñ”’´‚¦‚Ä‚½‚ç ’e‚­
+		// ã‚¸ãƒ£ãƒ³ãƒ—å›žæ•° ãŒ æœ€å¤§å›žæ•°è¶…ãˆã¦ãŸã‚‰ å¼¾ã
 		if (jumpCounter_ >= maxJumpCount_) { return; }
 
 		jumpCounter_++;

@@ -9,15 +9,15 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void StaticInitialize();
 
 		/// <summary>
-		/// ƒfƒtƒHƒ‹ƒg’l‚Ì’è”ƒoƒbƒtƒ@‚Ìƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <param name="tag"> : ƒ^ƒO</param>
-		/// <returns>ƒfƒtƒHƒ‹ƒg’l‚Ì’è”ƒoƒbƒtƒ@‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="tag"> : ã‚¿ã‚°</param>
+		/// <returns>ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		static BaseConstBuffer* Ptr(const std::string& tag);
 	};
 }

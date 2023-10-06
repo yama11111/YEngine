@@ -4,33 +4,33 @@
 
 namespace YGame
 {
-	// •½sŒõŒ¹’è”ƒoƒbƒtƒ@
+	// å¹³è¡Œå…‰æºå®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBDirectionalLight
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// Œü‚«
+			// å‘ã
 			YMath::Vector3 lightVec = { 1.0f,-1.0f,1.0f };
 			
 			float pad;
 			
-			// F
+			// è‰²
 			YMath::Vector3 lightColor = { 1.0f,1.0f,1.0f };
 			
-			// “®ìƒtƒ‰ƒO
+			// å‹•ä½œãƒ•ãƒ©ã‚°
 			float active = 0.0f;
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBDirectionalLight";

@@ -8,25 +8,25 @@ namespace YGame
 
 	public:
 		
-		// ƒ^ƒCƒgƒ‹
+		// ã‚¿ã‚¤ãƒˆãƒ«
 		static const std::string Title_;
 		
-		// ƒXƒe[ƒWƒZƒŒƒNƒg
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆ
 		static const std::string Select_;
 		
-		// ƒvƒŒƒC
+		// ãƒ—ãƒ¬ã‚¤
 		static const std::string Play_;
 
-		// ƒeƒXƒg
+		// ãƒ†ã‚¹ãƒˆ
 		static const std::string Test_;
 
 	public:
 		
 		/// <summary> 
-		/// ƒV[ƒ“¶¬
+		/// ã‚·ãƒ¼ãƒ³ç”Ÿæˆ
 		/// </summary>
-		/// <param name="sceneName"> : ƒV[ƒ“–¼</param>
-		/// <returns>ƒV[ƒ“</returns>
+		/// <param name="sceneName"> : ã‚·ãƒ¼ãƒ³å</param>
+		/// <returns>ã‚·ãƒ¼ãƒ³</returns>
 		BaseScene* CreateScene(const std::string& sceneName) override;
 	
 	};

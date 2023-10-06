@@ -3,59 +3,59 @@
 
 namespace YMath
 {
-	// —h‚ê
+	// æºã‚Œ
 	class Shake
 	{
 	
 	private:
 		
-		// —h‚ê‚Ä‚¢‚é‚©
+		// æºã‚Œã¦ã„ã‚‹ã‹
 		bool isAct_ = false;
 
-		// —h‚ê‚é—Ê (—”)
+		// æºã‚Œã‚‹é‡ (ä¹±æ•°)
 		float swing_ = 0.0f;
 		
-		// Œ¸Š—Ê
+		// æ¸›è¡°é‡
 		float dekey_ = 0.0f;
 
-		// ˆÊ
+		// ä½
 		float place_ = 0.0f;
 
-		// —h‚ê‚Ä‚¢‚é—Ê
+		// æºã‚Œã¦ã„ã‚‹é‡
 		Vector3 value_{};
 	
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 		
 		/// <summary>
-		/// “®ìŠJn
+		/// å‹•ä½œé–‹å§‹
 		/// </summary>
-		/// <param name="swing"> : —h‚ê‚é—Ê</param>
-		/// <param name="dekey"> : Œ¸Š—Ê</param>
-		/// <param name="place"> : ¬”“_ˆÈ‰º‚ÌˆÊ</param>
+		/// <param name="swing"> : æºã‚Œã‚‹é‡</param>
+		/// <param name="dekey"> : æ¸›è¡°é‡</param>
+		/// <param name="place"> : å°æ•°ç‚¹ä»¥ä¸‹ã®ä½</param>
 		void Activate(const float swing, const float dekey, const float place);
 	
 	public:
 
 		/// <summary>
-		/// —h‚ê—Êæ“¾
+		/// æºã‚Œé‡å–å¾—
 		/// </summary>
-		/// <returns> : —h‚ê—Ê</returns>
+		/// <returns> : æºã‚Œé‡</returns>
 		Vector3 Value() const { return value_; }
 
 		/// <summary>
-		/// “®ì’†‚©æ“¾
+		/// å‹•ä½œä¸­ã‹å–å¾—
 		/// </summary>
-		/// <returns> : “®ì’†‚©</returns>
+		/// <returns> : å‹•ä½œä¸­ã‹</returns>
 		bool IsAct() const { return isAct_; }
 	
 	};

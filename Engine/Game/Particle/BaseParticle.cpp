@@ -26,7 +26,7 @@ void BaseParticle::UpdateLife()
 
 	aliveTimer_.Update();
 	
-	// 生存タイマー終了時死亡
+	// 逕溷ｭ倥ち繧､繝槭�ｼ邨ゆｺ�譎よｭｻ莠｡
 	if (aliveTimer_.IsEnd()) 
 	{
 		isAlive_ = false; 

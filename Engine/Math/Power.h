@@ -9,53 +9,53 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="maxPower"> : Å‘åƒpƒ[</param>
+		/// <param name="maxPower"> : æœ€å¤§ãƒ‘ãƒ¯ãƒ¼</param>
 		void Initialize(const uint32_t maxPower);
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg (’†g‚¾‚¯‰Šú‰»)
+		/// ãƒªã‚»ãƒƒãƒˆ (ä¸­èº«ã ã‘åˆæœŸåŒ–)
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isAct"> : “®ì‚·‚é‚© (“®ì’†‰ÁZ)</param>
+		/// <param name="isAct"> : å‹•ä½œã™ã‚‹ã‹ (å‹•ä½œä¸­åŠ ç®—)</param>
 		void Update(const bool isAct);
 
 	public:
 
 		/// <summary>
-		/// ”ä—¦
+		/// æ¯”ç‡
 		/// </summary>
 		float Ratio() const;
 
 		/// <summary>
-		/// Œ»İƒpƒ[
+		/// ç¾åœ¨ãƒ‘ãƒ¯ãƒ¼
 		/// </summary>
 		inline float Current() const { return current_; }
 
 		/// <summary>
-		/// Å‘åƒpƒ[
+		/// æœ€å¤§ãƒ‘ãƒ¯ãƒ¼
 		/// </summary>
 		inline float Max() const { return maxPower_; }
 
 		/// <summary>
-		/// Å‘å‚©
+		/// æœ€å¤§ã‹
 		/// </summary>
 		inline bool IsMax() const { return current_ == maxPower_; }
 
 		/// <summary>
-		/// ƒ[ƒ‚©
+		/// ã‚¼ãƒ­ã‹
 		/// </summary>
 		inline bool IsZero() const { return current_ == 0; }
 
 	public:
 
 		/// <summary>
-		/// ÅI’lİ’è
+		/// æœ€çµ‚å€¤è¨­å®š
 		/// </summary>
 		/// <param name="max"></param>
 		void SetMaxPower(const uint32_t max);
@@ -65,19 +65,19 @@ namespace YMath
 		Power() = default;
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="maxPower"> : Å‘åƒpƒ[</param>
+		/// <param name="maxPower"> : æœ€å¤§ãƒ‘ãƒ¯ãƒ¼</param>
 		Power(const uint32_t maxPower);
 		
 		~Power() = default;
 	
 	private:
 		
-		// Œ»İƒpƒ[
+		// ç¾åœ¨ãƒ‘ãƒ¯ãƒ¼
 		float current_ = 0;
 		
-		// Å‘åƒpƒ[
+		// æœ€å¤§æ™‚ãƒ‘ãƒ¯ãƒ¼
 		float maxPower_ = 0;
 	};
 }

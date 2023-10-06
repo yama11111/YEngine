@@ -11,47 +11,47 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ˆÊ’uæ“¾ (QÆ)
+		/// ä½ç½®å–å¾— (å‚ç…§)
 		/// </summary>
-		/// <returns>ˆÊ’u(QÆ)</returns>
+		/// <returns>ä½ç½®(å‚ç…§)</returns>
 		virtual YMath::Vector3& PosRef() = 0;
 		
 		/// <summary>
-		/// ‘å‚«‚³æ“¾
+		/// å¤§ãã•å–å¾—
 		/// </summary>
-		/// <returns>‘å‚«‚³</returns>
+		/// <returns>å¤§ãã•</returns>
 		inline YMath::Vector3 Scale() const { return scale_; }
 		
 		/// <summary>
-		/// ƒXƒs[ƒhæ“¾ (QÆ)
+		/// ã‚¹ãƒ”ãƒ¼ãƒ‰å–å¾— (å‚ç…§)
 		/// </summary>
-		/// <returns>ƒXƒs[ƒh(QÆ)</returns>
+		/// <returns>ã‚¹ãƒ”ãƒ¼ãƒ‰(å‚ç…§)</returns>
 		virtual YMath::Vector3& SpeedRef() = 0;
 
 		/// <summary>
-		/// ƒAƒ^ƒŠ”»’èƒrƒbƒgæ“¾
+		/// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆå–å¾—
 		/// </summary>
-		/// <returns>ƒAƒ^ƒŠ”»’èƒrƒbƒg</returns>
+		/// <returns>ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ</returns>
 		inline uint8_t CollisionBit() const { return collisionBit_; }
 
 		/// <summary>
-		/// ’µ‚Ë•Ô‚èƒtƒ‰ƒOæ“¾
+		/// è·³ã­è¿”ã‚Šãƒ•ãƒ©ã‚°å–å¾—
 		/// </summary>
-		/// <returns>’µ‚Ë•Ô‚èƒtƒ‰ƒO</returns>
+		/// <returns>è·³ã­è¿”ã‚Šãƒ•ãƒ©ã‚°</returns>
 		inline bool IsBounce() const { return isBounce_; }
 		
 	public:
 
 		/// <summary>
-		/// ƒAƒ^ƒŠ”»’èƒrƒbƒgİ’è
+		/// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆè¨­å®š
 		/// </summary>
-		/// <param name="collisionBit"> : ƒAƒ^ƒŠ”»’èƒrƒbƒg</param>
+		/// <param name="collisionBit"> : ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ</param>
 		inline void SetCollisionBit(const uint8_t collisionBit) { collisionBit_ = collisionBit; }
 
 		/// <summary>
-		/// ’µ‚Ë•Ô‚é‚©İ’è
+		/// è·³ã­è¿”ã‚‹ã‹è¨­å®š
 		/// </summary>
-		/// <param name="isBounce"> : ’µ‚Ë•Ô‚é‚©</param>
+		/// <param name="isBounce"> : è·³ã­è¿”ã‚‹ã‹</param>
 		inline void SetIsBounce(const bool isBounce) { isBounce_ = isBounce; }
 	
 	public:
@@ -63,21 +63,21 @@ namespace YGame
 	protected:
 
 		/// <summary>
-		/// ƒ}ƒbƒvÕ“Ëİ’è‰Šú‰»
+		/// ãƒãƒƒãƒ—è¡çªè¨­å®šåˆæœŸåŒ–
 		/// </summary>
-		/// <param name="scale"> : ‘å‚«‚³</param>
-		/// <param name="isBounce"> : ’µ‚Ë•Ô‚èƒtƒ‰ƒO</param>
+		/// <param name="scale"> : å¤§ãã•</param>
+		/// <param name="isBounce"> : è·³ã­è¿”ã‚Šãƒ•ãƒ©ã‚°</param>
 		void Initialize(const  YMath::Vector3& scale, const bool isBounce = true);
 	
 	private:
 		
-		// ‘å‚«‚³
+		// å¤§ãã•
 		YMath::Vector3 scale_;
 
-		// ’µ‚Ë•Ô‚é‚©
+		// è·³ã­è¿”ã‚‹ã‹
 		bool isBounce_ = true;
 
-		// ƒAƒ^ƒŠ”»’èƒrƒbƒg
+		// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ
 		uint8_t collisionBit_;
 	};
 }

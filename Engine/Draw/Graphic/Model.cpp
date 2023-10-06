@@ -22,148 +22,148 @@ FbxImporter* Model::FbxLoader::sFbxImp_ = nullptr;
 
 Model* Model::CreateCube(const std::unordered_map<std::string, Texture*>& pTexs)
 {
-	// ƒ‚ƒfƒ‹¶¬
+	// ãƒ¢ãƒ‡ãƒ«ç”Ÿæˆ
 	unique_ptr<Model> newModel = std::make_unique<Model>();
 
 
-	// ƒƒbƒVƒ…¶¬
+	// ãƒ¡ãƒƒã‚·ãƒ¥ç”Ÿæˆ
 	std::unique_ptr<Mesh> newMesh;
 
-	// ƒƒbƒVƒ…ƒ[ƒh
+	// ãƒ¡ãƒƒã‚·ãƒ¥ãƒ­ãƒ¼ãƒ‰
 	newMesh.reset(Mesh::CreateCube(pTexs));
 
-	// ’Ç‰Á
+	// è¿½åŠ 
 	newModel->meshes_.push_back(std::move(newMesh));
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Model* newModelPtr = newModel.get();
 
-	// ƒ‚ƒfƒ‹‚ğ•Û‘¶
+	// ãƒ¢ãƒ‡ãƒ«ã‚’ä¿å­˜
 	sModels_.push_back(std::move(newModel));
 
-	// ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newModelPtr;
 }
 
 Model* Model::LoadObj(const std::string& modelFileName, const bool isSmoothing)
 {
-	// “Ç‚İ‚ñ‚¾‚±‚Æ‚ª‚ ‚é‚©ƒ`ƒFƒbƒN
+	// èª­ã¿è¾¼ã‚“ã ã“ã¨ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 	for (size_t i = 0; i < sModels_.size(); i++)
 	{
-		// ƒtƒ@ƒCƒ‹ƒpƒX ‚ª“¯‚¶‚È‚ç
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ ãŒåŒã˜ãªã‚‰
 		if (modelFileName == sModels_[i]->fileName_)
 		{
-			// ‚»‚ÌƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+			// ãã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 			return sModels_[i].get();
 		}
 	}
 
-	// ƒ‚ƒfƒ‹¶¬
+	// ãƒ¢ãƒ‡ãƒ«ç”Ÿæˆ
 	unique_ptr<Model> newModel = std::make_unique<Model>();
 
 
-	// ƒƒbƒVƒ…¶¬
+	// ãƒ¡ãƒƒã‚·ãƒ¥ç”Ÿæˆ
 	std::unique_ptr<Mesh> newMesh;
 
-	// ƒfƒBƒŒƒNƒgƒŠƒpƒX (ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹–¼‚Æ“¯‚¶ƒtƒHƒ‹ƒ_‚©‚ç)
+	// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ (ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«åã¨åŒã˜ãƒ•ã‚©ãƒ«ãƒ€ã‹ã‚‰)
 	std::string directoryPath = "Resources/Models/" + modelFileName + "/";
 
-	// FBXƒtƒ@ƒCƒ‹–¼
+	// FBXãƒ•ã‚¡ã‚¤ãƒ«å
 	std::string objFileName = modelFileName + ".obj";
 	objFileName = YFile::FilePath(objFileName);
 
 
-	// ƒƒbƒVƒ…ƒ[ƒh
+	// ãƒ¡ãƒƒã‚·ãƒ¥ãƒ­ãƒ¼ãƒ‰
 	newMesh.reset(Mesh::LoadObj(directoryPath, objFileName, isSmoothing));
 
-	// ’Ç‰Á
+	// è¿½åŠ 
 	newModel->meshes_.push_back(std::move(newMesh));
 
-	// ƒtƒ@ƒCƒ‹–¼‘ã“ü
+	// ãƒ•ã‚¡ã‚¤ãƒ«åä»£å…¥
 	newModel->fileName_ = modelFileName;
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Model* newModelPtr = newModel.get();
 
-	// ƒ‚ƒfƒ‹‚ğ•Û‘¶
+	// ãƒ¢ãƒ‡ãƒ«ã‚’ä¿å­˜
 	sModels_.push_back(std::move(newModel));
 
-	// ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newModelPtr;
 }
 
 Model* Model::LoadFbx(const std::string& modelFileName, const bool isSmoothing)
 {
-	// “Ç‚İ‚ñ‚¾‚±‚Æ‚ª‚ ‚é‚©ƒ`ƒFƒbƒN
+	// èª­ã¿è¾¼ã‚“ã ã“ã¨ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 	for (size_t i = 0; i < sModels_.size(); i++)
 	{
-		// ƒtƒ@ƒCƒ‹ƒpƒX ‚ª“¯‚¶‚È‚ç
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ ãŒåŒã˜ãªã‚‰
 		if (modelFileName == sModels_[i]->fileName_)
 		{
-			// ‚»‚ÌƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+			// ãã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 			return sModels_[i].get();
 		}
 	}
 
-	// ƒ‚ƒfƒ‹¶¬
+	// ãƒ¢ãƒ‡ãƒ«ç”Ÿæˆ
 	unique_ptr<Model> newModel = std::make_unique<Model>();
 
 
-	// ƒƒbƒVƒ…¶¬
+	// ãƒ¡ãƒƒã‚·ãƒ¥ç”Ÿæˆ
 	std::unique_ptr<Mesh> newMesh;
 
-	// ƒfƒBƒŒƒNƒgƒŠƒpƒX (ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹–¼‚Æ“¯‚¶ƒtƒHƒ‹ƒ_‚©‚ç)
+	// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ (ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«åã¨åŒã˜ãƒ•ã‚©ãƒ«ãƒ€ã‹ã‚‰)
 	std::string directoryPath = "Resources/Models/" + modelFileName + "/";
 
-	// FBXƒtƒ@ƒCƒ‹–¼
+	// FBXãƒ•ã‚¡ã‚¤ãƒ«å
 	std::string fbxFileName = modelFileName + ".fbx";
 
-	//ƒtƒ‹ƒpƒX
+	//ãƒ•ãƒ«ãƒ‘ã‚¹
 	std::string fullPath = directoryPath + fbxFileName;
 
-	// ƒtƒ@ƒCƒ‹–¼‘ã“ü
+	// ãƒ•ã‚¡ã‚¤ãƒ«åä»£å…¥
 	newModel->fileName_ = modelFileName;
 
-	// ƒtƒ@ƒCƒ‹–¼‚ğw’è‚µ‚ÄFBXƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	// ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŒ‡å®šã—ã¦FBXãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	assert(FbxLoader::sFbxImp_->Initialize(fullPath.c_str(), -1, FbxLoader::sFbxMan_->GetIOSettings()));
 
 
-	// ƒV[ƒ“¶¬
+	// ã‚·ãƒ¼ãƒ³ç”Ÿæˆ
 	FbxScene* fbxScene = FbxScene::Create(FbxLoader::sFbxMan_, "fbxScene");
 
-	// ƒtƒ@ƒCƒ‹‚©‚çƒ[ƒh‚µ‚½FBXî•ñ‚ğƒCƒ“ƒ|[ƒg
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ­ãƒ¼ãƒ‰ã—ãŸFBXæƒ…å ±ã‚’ã‚¤ãƒ³ãƒãƒ¼ãƒˆ
 	FbxLoader::sFbxImp_->Import(fbxScene);
 
 
-	// FBXƒm[ƒh‚Ì”
+	// FBXãƒãƒ¼ãƒ‰ã®æ•°
 	int nodeCount = fbxScene->GetNodeCount();
 
-	// •K—v•ª‚Ìƒƒ‚ƒŠŠm•Û (ƒAƒhƒŒƒX‚Ì‚¸‚ê‚ğ—\–h)
+	// å¿…è¦åˆ†ã®ãƒ¡ãƒ¢ãƒªç¢ºä¿ (ã‚¢ãƒ‰ãƒ¬ã‚¹ã®ãšã‚Œã‚’äºˆé˜²)
 	newModel->nodes_.reserve(nodeCount);
 
-	// ƒ‹[ƒgƒm[ƒh‚©‚ç‡‚É‰ğÍ‚µ‚Äƒ‚ƒfƒ‹‚É—¬‚µ‚Ş
+	// ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰ã‹ã‚‰é †ã«è§£æã—ã¦ãƒ¢ãƒ‡ãƒ«ã«æµã—è¾¼ã‚€
 	FbxLoader::ParseNodeRecursive(newModel.get(), fbxScene->GetRootNode(), isSmoothing);
 
 
-	// FBXƒV[ƒ“ŠJ•ú
+	// FBXã‚·ãƒ¼ãƒ³é–‹æ”¾
 	fbxScene->Destroy();
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Model* newModelPtr = newModel.get();
 
-	// ƒ‚ƒfƒ‹‚ğ•Û‘¶
+	// ãƒ¢ãƒ‡ãƒ«ã‚’ä¿å­˜
 	sModels_.push_back(std::move(newModel));
 
-	// ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newModelPtr;
 }
 
 void Model::AllClear()
 {
-	// ƒ‚ƒfƒ‹‘SÁ‹
+	// ãƒ¢ãƒ‡ãƒ«å…¨æ¶ˆå»
 	for (size_t i = 0; i < sModels_.size(); i++)
 	{
 		sModels_[i].reset(nullptr);
@@ -175,7 +175,7 @@ void Model::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices)
 {
 	if (isVisible_ == false) { return; }
 	
-	// ƒƒbƒVƒ…–ˆ‚Éˆá‚¤ƒoƒbƒtƒ@‚Å•`‰æ
+	// ãƒ¡ãƒƒã‚·ãƒ¥æ¯ã«é•ã†ãƒãƒƒãƒ•ã‚¡ã§æç”»
 	for (size_t i = 0; i < meshes_.size(); i++)
 	{
 		meshes_[i]->SetDrawCommand(rpIndices);
@@ -186,26 +186,26 @@ PipelineSetting Model::GetPipelineSetting()
 {
 	PipelineSetting result;
 
-	// ’¸“_ƒŒƒCƒAƒEƒg
+	// é ‚ç‚¹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout =
 	{
-		// ’¸“_À•W	 (x, y, z)
+		// é ‚ç‚¹åº§æ¨™	 (x, y, z)
 		{
 			"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
-		// –@ü		 (x, y, z)
+		// æ³•ç·š		 (x, y, z)
 		{
 			"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
-		// UVÀ•W	 (x, y)
+		// UVåº§æ¨™	 (x, y)
 		{
 			"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
-		//// Ú‹ó“_	 (x, y, z)
+		//// æ¥ç©ºç‚¹	 (x, y, z)
 		//{
 		//	"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		//},
-		//// ’¸“_F	 (x, y, z, w)
+		//// é ‚ç‚¹è‰²	 (x, y, z, w)
 		//{
 		//	"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		//}
@@ -213,30 +213,30 @@ PipelineSetting Model::GetPipelineSetting()
 
 	result.inputLayout = inputLayout;
 	
-	// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[‚Ìİ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã®è¨­å®š
 	D3D12_STATIC_SAMPLER_DESC samplerDesc{};
-	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ‰¡Ü‚è•Ô‚µ   (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // cÜ‚è•Ô‚µ   (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ‰œsÜ‚è•Ô‚µ (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ƒ{[ƒ_[‚Ì‚Í•
-	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // ‘S‚ÄƒŠƒjƒA•âŠÔ
-	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ƒ~ƒjƒ}ƒbƒvÅ‘å’l
-	samplerDesc.MinLOD = 0.0f;              // ƒ~ƒjƒ}ƒbƒvÅ¬’l
+	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // æ¨ªæŠ˜ã‚Šè¿”ã—   (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ç¸¦æŠ˜ã‚Šè¿”ã—   (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // å¥¥è¡ŒæŠ˜ã‚Šè¿”ã— (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ãƒœãƒ¼ãƒ€ãƒ¼ã®æ™‚ã¯é»’
+	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // å…¨ã¦ãƒªãƒ‹ã‚¢è£œé–“
+	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ãƒŸãƒ‹ãƒãƒƒãƒ—æœ€å¤§å€¤
+	samplerDesc.MinLOD = 0.0f;              // ãƒŸãƒ‹ãƒãƒƒãƒ—æœ€å°å€¤
 	samplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
-	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚©‚ç‚Ì‚İg—p‰Â”\
+	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‹ã‚‰ã®ã¿ä½¿ç”¨å¯èƒ½
 
-	// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[”z—ñ‚É‘}“ü
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼é…åˆ—ã«æŒ¿å…¥
 	result.samplerDescs.emplace_back(samplerDesc);
 	
-	result.fillMode = D3D12_FILL_MODE_SOLID; // ƒ|ƒŠƒSƒ““à“h‚è‚Â‚Ô‚µ
+	result.fillMode = D3D12_FILL_MODE_SOLID; // ãƒãƒªã‚´ãƒ³å†…å¡—ã‚Šã¤ã¶ã—
 
-	result.cullMode = D3D12_CULL_MODE_BACK; // ”w–Ê‚ğƒJƒŠƒ“ƒO
+	result.cullMode = D3D12_CULL_MODE_BACK; // èƒŒé¢ã‚’ã‚«ãƒªãƒ³ã‚°
 	
-	result.depthEnable = true; // [“xƒeƒXƒg‚ğs‚¤
+	result.depthEnable = true; // æ·±åº¦ãƒ†ã‚¹ãƒˆã‚’è¡Œã†
 
-	result.primitiveType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE; // OŠpŒ`
+	result.primitiveType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE; // ä¸‰è§’å½¢
 
-	result.primitive = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST; // OŠpŒ`ƒŠƒXƒg
+	result.primitive = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST; // ä¸‰è§’å½¢ãƒªã‚¹ãƒˆ
 
 	return result;
 }
@@ -246,97 +246,97 @@ PipelineSetting Model::GetPipelineSetting()
 
 void Model::FbxLoader::StaticInitialize()
 {
-	// Ä‰Šú‰»ƒ`ƒFƒbƒN
+	// å†åˆæœŸåŒ–ãƒã‚§ãƒƒã‚¯
 	assert(sFbxMan_ == nullptr);
 
-	// FBXƒ}ƒl[ƒWƒƒ[‚Ì¶¬
+	// FBXãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç”Ÿæˆ
 	sFbxMan_ = FbxManager::Create();
 
-	// FBXƒ}ƒl[ƒWƒƒ[‚Ì“üo—Íİ’è
+	// FBXãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®å…¥å‡ºåŠ›è¨­å®š
 	FbxIOSettings* ios = FbxIOSettings::Create(sFbxMan_, IOSROOT);
 	sFbxMan_->SetIOSettings(ios);
 
-	// FBXƒCƒ“ƒ|[ƒ^[‚Ì¶¬
+	// FBXã‚¤ãƒ³ãƒãƒ¼ã‚¿ãƒ¼ã®ç”Ÿæˆ
 	sFbxImp_ = FbxImporter::Create(sFbxMan_, "");
 }
 
 void Model::FbxLoader::StaticFinalize()
 {
-	// ŠeíFBXƒCƒ“ƒXƒ^ƒ“ƒX”jŠü
+	// å„ç¨®FBXã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç ´æ£„
 	sFbxImp_->Destroy();
 	sFbxMan_->Destroy();
 }
 
 void Model::FbxLoader::ParseNodeRecursive(Model* pModel, FbxNode* fbxNode, const bool isSmoothing, Node* parent)
 {
-	// ƒm[ƒh¶¬
+	// ãƒãƒ¼ãƒ‰ç”Ÿæˆ
 	std::unique_ptr<Node> newNode = std::make_unique<Node>();
 
 
-	// ƒm[ƒh–¼
+	// ãƒãƒ¼ãƒ‰å
 	newNode->name_ = fbxNode->GetName();
 
 
-	// FBXƒm[ƒh‚Ìƒ[ƒJƒ‹î•ñ
+	// FBXãƒãƒ¼ãƒ‰ã®ãƒ­ãƒ¼ã‚«ãƒ«æƒ…å ±
 	FbxDouble3 fbxPos = fbxNode->LclTranslation.Get();
 	FbxDouble3 fbxRot = fbxNode->LclRotation.Get();
 	FbxDouble3 fbxScale = fbxNode->LclScaling.Get();
 
-	// •ÏŠ·
+	// å¤‰æ›
 	Vector3 pos = { static_cast<float>(fbxPos[0]), static_cast<float>(fbxPos[1]), static_cast<float>(fbxPos[2]) };
 	Vector3 rot = { static_cast<float>(fbxRot[0]), static_cast<float>(fbxRot[1]), static_cast<float>(fbxRot[2]) };
 	Vector3 scale = { static_cast<float>(fbxScale[0]), static_cast<float>(fbxScale[1]), static_cast<float>(fbxScale[2]) };
 
-	// ‰ñ“]Šp‚ğ Degree -> Radian‚É
+	// å›è»¢è§’ã‚’ Degree -> Radianã«
 	rot.x_ = YMath::ConvertFromDegreeToRadian(rot.x_);
 	rot.y_ = YMath::ConvertFromDegreeToRadian(rot.y_);
 	rot.z_ = YMath::ConvertFromDegreeToRadian(rot.z_);
 
-	// ƒ[ƒJƒ‹ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‰Šú‰»
+	// ãƒ­ãƒ¼ã‚«ãƒ«ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ åˆæœŸåŒ–
 	newNode->local_.Initialize({ pos, rot, scale });
 
-	// ƒOƒ[ƒoƒ‹•ÏŒ`s—ñ‚ÌŒvZ
+	// ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰å½¢è¡Œåˆ—ã®è¨ˆç®—
 	newNode->globalMat_ = newNode->local_.m_;
 
-	// e‚ª‚ ‚é‚È‚ç
+	// è¦ªãŒã‚ã‚‹ãªã‚‰
 	if (parent)
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		newNode->parent_ = parent;
 
-		// es—ñ‚ğæZ
+		// è¦ªè¡Œåˆ—ã‚’ä¹—ç®—
 		newNode->globalMat_ *= parent->globalMat_;
 	}
 
-	// ƒ|ƒCƒ“ƒ^æ“¾
+	// ãƒã‚¤ãƒ³ã‚¿å–å¾—
 	Node* pNewNode = newNode.get();
 
-	// ƒm[ƒh”z—ñ‚É’Ç‰Á
+	// ãƒãƒ¼ãƒ‰é…åˆ—ã«è¿½åŠ 
 	pModel->nodes_.push_back(std::move(newNode));
 
 
-	// FBXƒm[ƒh‚ÌƒƒbƒVƒ…î•ñ‚ğ‰ğÍ
+	// FBXãƒãƒ¼ãƒ‰ã®ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±ã‚’è§£æ
 	FbxNodeAttribute* fbxNodeAttribute = fbxNode->GetNodeAttribute();
 
-	// ƒƒbƒVƒ…î•ñ‚ª‚ ‚é‚È‚ç
+	// ãƒ¡ãƒƒã‚·ãƒ¥æƒ…å ±ãŒã‚ã‚‹ãªã‚‰
 	if (fbxNodeAttribute)
 	{
-		// ƒƒbƒVƒ…‚È‚ç
+		// ãƒ¡ãƒƒã‚·ãƒ¥ãªã‚‰
 		if (fbxNodeAttribute->GetAttributeType() == FbxNodeAttribute::EType::eMesh)
 		{
-			// ƒƒbƒVƒ…¶¬
+			// ãƒ¡ãƒƒã‚·ãƒ¥ç”Ÿæˆ
 			std::unique_ptr<Mesh> newMesh;
 
-			// ƒƒbƒVƒ…ƒ[ƒh
+			// ãƒ¡ãƒƒã‚·ãƒ¥ãƒ­ãƒ¼ãƒ‰
 			newMesh.reset(Mesh::LoadFbx("Resources/Models/" + pModel->fileName_ + "/", fbxNode, isSmoothing));
 
-			// ’Ç‰Á
+			// è¿½åŠ 
 			pModel->meshes_.push_back(std::move(newMesh));
 		}
 	}
 
 
-	// qƒm[ƒh‚É‘Î‚µ‚ÄÄ‹AŒÄ‚Ño‚µ
+	// å­ãƒãƒ¼ãƒ‰ã«å¯¾ã—ã¦å†å¸°å‘¼ã³å‡ºã—
 	for (int i = 0; i < fbxNode->GetChildCount(); i++)
 	{
 		ParseNodeRecursive(pModel, fbxNode->GetChild(i), isSmoothing, pNewNode);

@@ -7,17 +7,17 @@ using YMath::Vector3;
 
 void ScrollCamera::Initialize(const Vector3 distance, Vector3* pFollowPoint, const Vector3 tolerance)
 {
-	// ’Ç]ˆÊ’u
+	// è¿½å¾“ä½ç½®
 	Vector3 followPoint;
 
-	// ’Ç]“_‚ª‚ ‚é‚È‚ç
+	// è¿½å¾“ç‚¹ãŒã‚ã‚‹ãªã‚‰
 	if (pFollowPoint)
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		followPoint = *pFollowPoint;
 	}
 
-	// ‰Šú‰» + ‘ã“ü
+	// åˆæœŸåŒ– + ä»£å…¥
 	Camera::Initialize(followPoint + distance, pFollowPoint, true);
 
 	distance_ = distance;
@@ -26,25 +26,25 @@ void ScrollCamera::Initialize(const Vector3 distance, Vector3* pFollowPoint, con
 
 void ScrollCamera::Update(const Transform::Status& status)
 {
-	// ’Ç]ˆÊ’u
+	// è¿½å¾“ä½ç½®
 	Vector3 followPoint;
 
-	// ’Ç]“_‚ª‚ ‚é‚È‚ç
+	// è¿½å¾“ç‚¹ãŒã‚ã‚‹ãªã‚‰
 	if (pFollowPoint_)
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		followPoint = *pFollowPoint_;
 	}
 
-	// ‹“_‚ğ ’Ç]“_ + ‹——£ ‚ÌˆÊ’u‚É
+	// è¦–ç‚¹ã‚’ è¿½å¾“ç‚¹ + è·é›¢ ã®ä½ç½®ã«
 	pos_ = followPoint + distance_;
 
-	// ƒJƒƒ‰XV
+	// ã‚«ãƒ¡ãƒ©æ›´æ–°
 	Camera::Update(status);
 }
 
 void ScrollCamera::SetFollowPoint(Vector3* pFollowPoint)
 {
-	// ’Ç]“_
+	// è¿½å¾“ç‚¹
 	Camera::SetFollowPoint(pFollowPoint);
 }

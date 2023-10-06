@@ -20,10 +20,10 @@ namespace YGame
 
 	public:
 		
-		// ¶¬
+		// ç”Ÿæˆ
 		static impl_DustParticle* Create();
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		void Initialize(
 			const uint32_t aliveFrame,
 			const YMath::Vector3& pos,
@@ -35,26 +35,26 @@ namespace YGame
 			const float exponent,
 			ViewProjection* pVP);
 
-		// XV
+		// æ›´æ–°
 		void Update() override;
 	
 	private:
 
 		DrawObjectForModel* pObj_ = nullptr;
 
-		// F’è”ƒoƒbƒtƒ@
+		// è‰²å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
-		// ƒXƒs[ƒh
+		// ã‚¹ãƒ”ãƒ¼ãƒ‰
 		YMath::Speed speed_;
 
-		// ƒXƒP[ƒ‹ƒC[ƒWƒ“ƒO
+		// ã‚¹ã‚±ãƒ¼ãƒ«ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<float> scaleEas_;
 		
-		// is—ÍƒC[ƒWƒ“ƒO
+		// é€²è¡ŒåŠ›ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<YMath::Vector3> movePowerEas_;
 
-		// ƒAƒ‹ƒtƒ@’lƒC[ƒWƒ“ƒO
+		// ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<float> alphaEas_;
 
 	};
@@ -65,7 +65,7 @@ namespace YGame
 
 		DrawObjectForModel* newObj = DrawObjectForModel::Create({}, nullptr, nullptr, false);
 
-		// ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^‚ğ•Û
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã‚’ä¿æŒ
 		newParticle->pObj_ = newObj;
 		newParticle->SetObject(newObj);
 
@@ -102,18 +102,18 @@ namespace YGame
 	{
 		if (isAlive_ == false) { return; }
 
-		// ƒ^ƒCƒ}[‚ÌŠ„‡
+		// ã‚¿ã‚¤ãƒãƒ¼ã®å‰²åˆ
 		float ratio = aliveTimer_.Ratio();
 
-		// ‚¾‚ñ‚¾‚ñ’x‚­
+		// ã ã‚“ã ã‚“é…ã
 		speed_.Update(movePowerEas_.Out(ratio));
 		obj_->transform_.pos_ += speed_.Velocity();
 		
-		// ‚¾‚ñ‚¾‚ñ‘å‚«‚­
+		// ã ã‚“ã ã‚“å¤§ãã
 		float scaleVal = scaleEas_.Out(ratio);
 		obj_->transform_.scale_ = Vector3(scaleVal, scaleVal, scaleVal);
 
-		// ‚¾‚ñ‚¾‚ñ”–‚­
+		// ã ã‚“ã ã‚“è–„ã
 		cbColor_->data_.baseColor.a_ = alphaEas_.In(ratio);
 
 
@@ -123,7 +123,7 @@ namespace YGame
 	}
 }
 
-// ƒp[ƒeƒBƒNƒ‹Ã“I‚É—pˆÓ
+// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«é™çš„ã«ç”¨æ„
 static const size_t skParticleNum = 100;
 static std::array<std::unique_ptr<YGame::impl_DustParticle>, skParticleNum> sParticles;
 static const std::string skTag = "DustParticle";
@@ -133,7 +133,7 @@ void DustParticle::StaticInitialize()
 {
 	if (sIsInit == false)
 	{
-		// ¶¬
+		// ç”Ÿæˆ
 		for (size_t i = 0; i < sParticles.size(); i++)
 		{
 			sParticles[i].reset(impl_DustParticle::Create());
@@ -142,7 +142,7 @@ void DustParticle::StaticInitialize()
 		sIsInit = true;
 	}
 
-	// ƒp[ƒeƒBƒNƒ‹ƒ}ƒl[ƒWƒƒ[‚É‘}“ü
+	// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«æŒ¿å…¥
 	std::list<BaseParticle*> particlePtrs;
 
 	for (size_t i = 0; i < sParticles.size(); i++)
@@ -155,7 +155,7 @@ void DustParticle::StaticInitialize()
 
 static YGame::impl_DustParticle* DeadParticlePtr()
 {
-	// €‚ñ‚Å‚¢‚éƒp[ƒeƒBƒNƒ‹‚ğ•Ô‚·
+	// æ­»ã‚“ã§ã„ã‚‹ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚’è¿”ã™
 	for (size_t i = 0; i < sParticles.size(); i++)
 	{
 		if (sParticles[i]->IsAlive() == false)
@@ -173,7 +173,7 @@ void DustParticle::Emit(
 	const Vector3& powerDirection,
 	ViewProjection* pVP)
 {
-	// ŒÅ—Lİ’è
+	// å›ºæœ‰è¨­å®š
 	static const uint32_t kAliveFrame = 15;
 
 	static const float kScaleVal = 0.25f;
@@ -189,11 +189,11 @@ void DustParticle::Emit(
 	
 	for (size_t i = 0; i < num; i++)
 	{
-		// €‚ñ‚Å‚¢‚éƒp[ƒeƒBƒNƒ‹‚ğ‰Šú‰» (–³‚¢‚È‚ç’e‚­)
+		// æ­»ã‚“ã§ã„ã‚‹ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚’åˆæœŸåŒ– (ç„¡ã„ãªã‚‰å¼¾ã)
 		impl_DustParticle* pParticle = DeadParticlePtr();
 		if (pParticle == nullptr) { return; }
 
-		// ƒ‰ƒ“ƒ_ƒ€‚È‰Á‘¬“x‚ÅŒÂX‚Ì“®‚«‚ğ•Ï‰»
+		// ãƒ©ãƒ³ãƒ€ãƒ ãªåŠ é€Ÿåº¦ã§å€‹ã€…ã®å‹•ãã‚’å¤‰åŒ–
 		Vector3 accel = YMath::GetRand(kMinAccelVal, kMaxAccelVal, 100.0f);
 
 		Vector3 maxSpeed = { kMaxSpeedVal, kMaxSpeedVal , kMaxSpeedVal };

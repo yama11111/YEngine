@@ -7,7 +7,7 @@ using YMath::Vector3;
 using YMath::Vector4;
 using YMath::Matrix4;
 
-#pragma region DirectXMathŒn
+#pragma region DirectXMathç³»
 
 static Matrix4 ConvertMatrix(const DirectX::XMMATRIX mat)
 {
@@ -41,9 +41,9 @@ static DirectX::XMVECTOR ConvertXMVector(const Vector3& vec)
 
 #pragma endregion
 
-#pragma region •ÏŠ·Œn
+#pragma region å¤‰æ›ç³»
 
-// ------------ ƒAƒtƒBƒ“•ÏŠ· ------------ //
+// ------------ ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ› ------------ //
 
 Matrix4 YMath::MatScale(const Vector3& s)
 {
@@ -103,15 +103,15 @@ Matrix4 YMath::MatTranslation(const Vector3& t)
 	return matMove;
 }
 
-// ----- ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“•ÏŠ· ----- //
+// ----- ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³å¤‰æ› ----- //
 
 Matrix4 YMath::MatOrthoGraphic()
 {
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixOrthographicOffCenterLH(
-			0.0f, WinSize.x_, // ¶’[, ‰E’[
-			WinSize.y_, 0.0f, // ‰º’[, ã’[
-			0.0f, 1.0f        // ‘O’[, ‰œ’[
+			0.0f, WinSize.x_, // å·¦ç«¯, å³ç«¯
+			WinSize.y_, 0.0f, // ä¸‹ç«¯, ä¸Šç«¯
+			0.0f, 1.0f        // å‰ç«¯, å¥¥ç«¯
 		);
 	return ConvertMatrix(mat);
 }
@@ -119,9 +119,9 @@ Matrix4 YMath::MatPerspective()
 {
 	DirectX::XMMATRIX mat =
 		DirectX::XMMatrixPerspectiveFovLH(
-			DirectX::XMConvertToRadians(45.0f), // ã‰º‰æŠp45“x
-			(float)WinSize.x_ / WinSize.y_,		// ƒAƒXƒyƒNƒg”ä (‰æ–Ê‰¡•/‰æ–Êc•)
-			0.1f, 1000.0f						// ‘O’[, ‰œ’[
+			DirectX::XMConvertToRadians(45.0f), // ä¸Šä¸‹ç”»è§’45åº¦
+			(float)WinSize.x_ / WinSize.y_,		// ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯” (ç”»é¢æ¨ªå¹…/ç”»é¢ç¸¦å¹…)
+			0.1f, 1000.0f						// å‰ç«¯, å¥¥ç«¯
 		);
 	return ConvertMatrix(mat);
 }
@@ -215,26 +215,26 @@ Vector3 YMath::AdjustAngle(const Vector3& v)
 Matrix4 YMath::MatBillboard(const bool isXAxisBillboard, const bool isYAxisBillboard, 
 	const Vector3& eye, const Vector3& target, const Vector3& up)
 {
-	// ‚Ç‚¿‚ç‚à false ‚È‚ç
+	// ã©ã¡ã‚‰ã‚‚ false ãªã‚‰
 	if (isXAxisBillboard == false && isYAxisBillboard == false)
 	{
-		// ’PˆÊs—ñ‚ğ•Ô‚·
+		// å˜ä½è¡Œåˆ—ã‚’è¿”ã™
 		return Matrix4::Identity();
 	}
 
-	// ƒrƒ‹ƒ{[ƒhs—ñ‚ÌŒvZ
+	// ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰è¡Œåˆ—ã®è¨ˆç®—
 	Vector3 axisZ = (target - eye).Normalized();
 	Vector3 axisX = (up.Cross(axisZ)).Normalized();
 	Vector3 axisY = axisZ.Cross(axisX);
 
-	// Y²ü‚èƒrƒ‹ƒ{[ƒh‚È‚ç
+	// Yè»¸å‘¨ã‚Šãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãªã‚‰
 	if (isYAxisBillboard)
 	{
 		axisY = { 0,1,0 };
 		axisZ = axisX.Cross(axisY);
 	}
 
-	// ƒrƒ‹ƒ{[ƒhs—ñ
+	// ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰è¡Œåˆ—
 	Matrix4 matBillboard(
 		axisX.x_, axisX.y_, axisX.z_, 0.0f,
 		axisY.x_, axisY.y_, axisY.z_, 0.0f,
@@ -242,7 +242,7 @@ Matrix4 YMath::MatBillboard(const bool isXAxisBillboard, const bool isYAxisBillb
 		0.0f, 0.0f, 0.0f, 1.0f
 	);
 
-	// ƒrƒ‹ƒ{[ƒhs—ñ‚ğ•Ô‚·
+	// ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰è¡Œåˆ—ã‚’è¿”ã™
 	return matBillboard;
 }
 

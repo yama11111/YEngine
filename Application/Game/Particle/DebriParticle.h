@@ -10,17 +10,17 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void StaticInitialize();
 
 		/// <summary>
-		/// ”­¶
+		/// ç™ºç”Ÿ
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="pos"> : ˆÊ’u</param>
-		/// <param name="powerDirection"> : —Í‚Ì‚©‚©‚éŒü‚«</param>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="pos"> : ä½ç½®</param>
+		/// <param name="powerDirection"> : åŠ›ã®ã‹ã‹ã‚‹å‘ã</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
 		static void Emit(
 			const size_t num,
 			const YMath::Vector3& pos,

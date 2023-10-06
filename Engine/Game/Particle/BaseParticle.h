@@ -7,26 +7,26 @@
 
 namespace YGame
 {
-	// ƒp[ƒeƒBƒNƒ‹Šî’êƒNƒ‰ƒX
+	// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«åŸºåº•ã‚¯ãƒ©ã‚¹
 	class BaseParticle
 	{
 	
 	public:
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update() = 0;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 		/// <summary>
-		/// ¶‘¶ƒtƒ‰ƒOæ“¾
+		/// ç”Ÿå­˜ãƒ•ãƒ©ã‚°å–å¾—
 		/// </summary>
-		/// <returns>¶‘¶ƒtƒ‰ƒO</returns>
+		/// <returns>ç”Ÿå­˜ãƒ•ãƒ©ã‚°</returns>
 		bool IsAlive() const { return isAlive_; }
 
 	public:
@@ -37,30 +37,30 @@ namespace YGame
 	
 	protected:
 		
-		// ¶‘¶ƒtƒ‰ƒO
+		// ç”Ÿå­˜ãƒ•ãƒ©ã‚°
 		bool isAlive_ = false;
 		
-		// ¶‘¶ƒ^ƒCƒ}[
+		// ç”Ÿå­˜ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer aliveTimer_;
 
-		// ƒIƒuƒWƒFƒNƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::unique_ptr<BaseDrawObject> obj_;
 
-		// ƒVƒF[ƒ_[ƒ^ƒO
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°
 		std::string shaderTag_;
 		
-		// •`‰æ—Dæ“x
+		// æç”»å„ªå…ˆåº¦
 		uint16_t drawPriority_ = 0;
 	
 	protected:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="aliveFrame"> : ¶‘¶ŠÔ (F)</param>
-		/// <param name="status"> : ‰Šú‰»ƒXƒe[ƒ^ƒX</param>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="aliveFrame"> : ç”Ÿå­˜æ™‚é–“ (F)</param>
+		/// <param name="status"> : åˆæœŸåŒ–ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		void Initialize(
 			const uint32_t aliveFrame,
 			const Transform::Status& status,
@@ -68,15 +68,15 @@ namespace YGame
 			const uint16_t drawPriority);
 		
 		/// <summary>
-		/// ¶–½XV
+		/// ç”Ÿå‘½æ›´æ–°
 		/// </summary>
-		/// <returns> : ¶‚«‚Ä‚¢‚é‚©</returns>
+		/// <returns> : ç”Ÿãã¦ã„ã‚‹ã‹</returns>
 		void UpdateLife();
 
 		/// <summary>
-		/// ƒIƒuƒWƒFƒNƒgİ’è
+		/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¨­å®š
 		/// </summary>
-		/// <param name="obj"> : ƒIƒuƒWƒFƒNƒg (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</param>
+		/// <param name="obj"> : ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</param>
 		void SetObject(BaseDrawObject* obj);
 	};
 }

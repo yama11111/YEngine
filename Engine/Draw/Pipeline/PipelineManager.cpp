@@ -30,7 +30,7 @@ void PipelineManager::Insert(const std::string& key, Pipeline* pipeline)
 
 	pipelines_.insert({ key, std::move(newPipeline) });
 
-	// 標準では挿入順に描画されるように
+	// 讓呎ｺ悶〒縺ｯ謖ｿ蜈･鬆�縺ｫ謠冗判縺輔ｌ繧九ｈ縺�縺ｫ
 	drawOrder_.push_back(key);
 }
 
@@ -65,7 +65,7 @@ void PipelineManager::Draw()
 {
 	for (size_t i = 0; i < drawOrder_.size(); i++)
 	{
-		// パイプラインが無かったら次
+		// 繝代う繝励Λ繧､繝ｳ縺檎┌縺九▲縺溘ｉ谺｡
 		if (pipelines_.contains(drawOrder_[i]) == false) { continue; }
 
 		pipelines_[drawOrder_[i]]->Draw();

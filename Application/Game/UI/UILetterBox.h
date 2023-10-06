@@ -14,84 +14,84 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="winSize"> : ƒEƒBƒ“ƒhƒEƒTƒCƒY</param>
-		/// <param name="topHeight"> : ã‚Ì‚‚³</param>
-		/// <param name="bottomHeight"> : ‰º‚Ì‚‚³</param>
+		/// <param name="winSize"> : ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º</param>
+		/// <param name="topHeight"> : ä¸Šã®é«˜ã•</param>
+		/// <param name="bottomHeight"> : ä¸‹ã®é«˜ã•</param>
 		void Initialize(const YMath::Vector2& winSize, const float topHeight, const float bottomHeight);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// ‚¨‚ë‚·
+		/// ãŠã‚ã™
 		/// </summary>
 		/// <param name="frame"></param>
 		/// <param name="exponent"></param>
 		void Drop(const uint32_t frame, const float exponent);
 
 		/// <summary>
-		/// ‚µ‚Ü‚¤
+		/// ã—ã¾ã†
 		/// </summary>
 		/// <param name="frame"></param>
 		/// <param name="exponent"></param>
 		void Close(const uint32_t frame, const float exponent);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="priority"> : •`‰æ—Dæ“x</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="priority"> : æç”»å„ªå…ˆåº¦</param>
 		void Draw(const std::string& shaderTag, const uint16_t priority);
 	
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 	
 	private:
 
-		// ó‘Ô
+		// çŠ¶æ…‹
 		enum class State
 		{
-			None, // ‰½‚à‚µ‚Ä‚¢‚È‚¢
+			None, // ä½•ã‚‚ã—ã¦ã„ãªã„
 
-			Drop, // ‚¨‚ë‚µ‚Ä‚¢‚é
+			Drop, // ãŠã‚ã—ã¦ã„ã‚‹
 
-			Close,  // ‚µ‚Ü‚Á‚Ä‚¢‚é
+			Close,  // ã—ã¾ã£ã¦ã„ã‚‹
 		};
 	
 	private:
 
-		// ƒXƒvƒ‰ƒCƒgƒIƒuƒWƒFƒNƒg
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::array<std::unique_ptr<DrawObjectForSprite2D>, 2> objs_;
 
-		// F
+		// è‰²
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
-		// ‚‚³ƒC[ƒWƒ“ƒO—pƒ^ƒCƒ}[
+		// é«˜ã•ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ç”¨ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer heightEasTimer_;
 
-		// ‚‚³ƒC[ƒWƒ“ƒO
+		// é«˜ã•ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		std::array<YMath::Ease<YMath::Vector3>, 2> heightEas_;
 
-		// Œ»İ‚Ìó‘Ô
+		// ç¾åœ¨ã®çŠ¶æ…‹
 		State state = State::None;
 
 	private:
 
-		// Ã“IƒXƒvƒ‰ƒCƒg
+		// é™çš„ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 		static Sprite2D* spSpr_;
 
 	private:
 
 		/// <summary>
-		/// ˆÊ’uXV
+		/// ä½ç½®æ›´æ–°
 		/// </summary>
 		void UpdatePos();
 	};

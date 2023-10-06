@@ -8,30 +8,30 @@
 
 namespace YGame
 {
-	// ƒXƒvƒ‰ƒCƒg2D
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ2D
 	class Sprite2D :
 		public BaseGraphic
 	{
 
 	public:
 
-		// ’¸“_ƒf[ƒ^\‘¢‘Ì
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct VData
 		{
-			YMath::Vector3 pos_; // xyzÀ•W
-			YMath::Vector2 uv_;  // uvÀ•W
+			YMath::Vector3 pos_; // xyzåº§æ¨™
+			YMath::Vector2 uv_;  // uvåº§æ¨™
 		};
 
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="pTexs"> : ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^”z—ñ</param>
-		/// <param name="anchor"> : ƒAƒ“ƒJ[ƒ|ƒCƒ“ƒg (‰Šú’l‚Í’†S)</param>
-		/// <param name="isFlipX"> : X”½“]‚·‚é‚©</param>
-		/// <param name="isFlipY"> : Y”½“]‚·‚é‚©</param>
-		/// <returns>ƒXƒvƒ‰ƒCƒgƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="pTexs"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿é…åˆ—</param>
+		/// <param name="anchor"> : ã‚¢ãƒ³ã‚«ãƒ¼ãƒã‚¤ãƒ³ãƒˆ (åˆæœŸå€¤ã¯ä¸­å¿ƒ)</param>
+		/// <param name="isFlipX"> : Xåè»¢ã™ã‚‹ã‹</param>
+		/// <param name="isFlipY"> : Yåè»¢ã™ã‚‹ã‹</param>
+		/// <returns>ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒã‚¤ãƒ³ã‚¿</returns>
 		static Sprite2D* Create(
 			const std::unordered_map<std::string, Texture*>& pTexs,
 			YMath::Vector2 anchor = { 0.5f, 0.5f }, 
@@ -39,22 +39,22 @@ namespace YGame
 			const bool isFlipY = false);
 
 		/// <summary>
-		/// ‘Síœ
+		/// å…¨å‰Šé™¤
 		/// </summary>
 		static void AllClear();
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹—p‚ÌƒpƒCƒvƒ‰ƒCƒ“İ’èæ“¾
+		/// ãƒ¢ãƒ‡ãƒ«ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®šå–å¾—
 		/// </summary>
-		/// <returns>ƒpƒCƒvƒ‰ƒCƒ“İ’è</returns>
+		/// <returns>ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š</returns>
 		static PipelineSetting GetPipelineSetting();
 
 	public:
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="rpIndices"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^î•ñ + ”Ô†</param>
+		/// <param name="rpIndices"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ± + ç•ªå·</param>
 		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 	public:
@@ -65,32 +65,32 @@ namespace YGame
 
 	private:
 
-		// ’¸“_ƒf[ƒ^
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 		YDX::Vertices<VData> vt_;
 
 
-		// ƒTƒCƒY
+		// ã‚µã‚¤ã‚º
 		YMath::Vector2 size_;
 
-		// ƒAƒ“ƒJ[ƒ|ƒCƒ“ƒg
+		// ã‚¢ãƒ³ã‚«ãƒ¼ãƒã‚¤ãƒ³ãƒˆ
 		YMath::Vector2 anchor_;
 
-		// ¶‰E”½“]
+		// å·¦å³åè»¢
 		bool isFlipX_ = false;
 
-		// ã‰º”½“]
+		// ä¸Šä¸‹åè»¢
 		bool isFlipY_ = false;
 
 
-		// ƒeƒNƒXƒ`ƒƒ
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		std::unordered_map<std::string, Texture*> pTexs_{};
 
-		// •\¦‚·‚é‚©
+		// è¡¨ç¤ºã™ã‚‹ã‹
 		bool isVisible_ = true;
 
 	private:
 
-		// Ã“IƒXƒvƒ‰ƒCƒg2DŠi”[—pvector”z—ñ
+		// é™çš„ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ2Dæ ¼ç´ç”¨vectoré…åˆ—
 		static std::vector<std::unique_ptr<Sprite2D>> sSprites_;
 	};
 }

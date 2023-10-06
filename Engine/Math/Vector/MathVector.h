@@ -6,34 +6,34 @@
 
 namespace YMath
 {
-#pragma region •ÏŠ·Œn
+#pragma region å¤‰æ›ç³»
 	
-	// ------------ ƒAƒtƒBƒ“•ÏŠ· ------------ //
+	// ------------ ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ› ------------ //
 	
-	// Šgk•ÏŠ·
+	// æ‹¡ç¸®å¤‰æ›
 	Matrix4 MatScale(const Vector3& s);
 	
-	// X²‰ñ“]•ÏŠ·
+	// Xè»¸å›è»¢å¤‰æ›
 	Matrix4 MatRotationX(float angle);
-	// Y²‰ñ“]•ÏŠ·
+	// Yè»¸å›è»¢å¤‰æ›
 	Matrix4 MatRotationY(float angle);
-	// Z²‰ñ“]•ÏŠ·
+	// Zè»¸å›è»¢å¤‰æ›
 	Matrix4 MatRotationZ(float angle);
-	// ‰ñ“]•ÏŠ·(Z¨X¨Y)
+	// å›è»¢å¤‰æ›(Zâ†’Xâ†’Y)
 	Matrix4 MatRotation(const Vector3& r);
 
-	// À•W•ÏŠ·
+	// åº§æ¨™å¤‰æ›
 	Matrix4 MatTranslation(const Vector3& t);
 	
-	// ----- ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“•ÏŠ· ----- //
+	// ----- ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³å¤‰æ› ----- //
 	
-	// •½s“Š‰e•ÏŠ·s—ñ
+	// å¹³è¡ŒæŠ•å½±å¤‰æ›è¡Œåˆ—
 	Matrix4 MatOrthoGraphic();
-	// “§‹“Š‰e•ÏŠ·s—ñ
+	// é€è¦–æŠ•å½±å¤‰æ›è¡Œåˆ—
 	Matrix4 MatPerspective();
-	// ƒrƒ…[ƒ|[ƒgs—ñ
+	// ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆè¡Œåˆ—
 	Matrix4 MatViewPort();
-	// ƒrƒ…[s—ñ(¶èÀ•WŒn)
+	// ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—(å·¦æ‰‹åº§æ¨™ç³»)
 	Matrix4 MatLookAtLH(const Vector3& eye, const Vector3& target, const Vector3& up);
 	
 #pragma endregion
@@ -45,26 +45,26 @@ namespace YMath
 	Vector3 MultVec3Mat4(const Vector3& v, const Matrix4& m);
 	// Vector4 * Matrix4
 	Vector4 MultVec4Mat4(const Vector4& v, const Matrix4& m);
-	// ‹ts—ñ
+	// é€†è¡Œåˆ—
 	Matrix4 InverceMat4(const Matrix4& m);
 
-	// 2DÀ•W¨3DÀ•W
+	// 2Dåº§æ¨™â†’3Dåº§æ¨™
 	Vector3 WorldPos(const Vector2& screen, float z, const Matrix4& view, const Matrix4& projection);
 
-	// Šp“x’²®
+	// è§’åº¦èª¿æ•´
 	Vector3 AdjustAngle(const Vector3& v);
 
 
-	// ƒrƒ‹ƒ{[ƒhs—ñ
+	// ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰è¡Œåˆ—
 	Matrix4 MatBillboard(const bool isXAxisBillboard, const bool isYAxisBillboard, 
 		const Vector3& eye, const Vector3& target, const Vector3& up);
 	
 	
-	// 3ŸŒ³ƒxƒNƒgƒ‹‚É•ÏŠ·
+	// 3æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã«å¤‰æ›
 	Vector3 ConvertToVector3(const Vector2& v);
 
-	// ƒxƒNƒgƒ‹‚Ì¬•ª“¯m‚ÅŠ|‚¯Z
+	// ãƒ™ã‚¯ãƒˆãƒ«ã®æˆåˆ†åŒå£«ã§æ›ã‘ç®—
 	Vector3 MultAtComponent(const Vector3& v1, const Vector3& v2);
-	// ƒxƒNƒgƒ‹‚Ì¬•ª“¯m‚ÅŠ„‚èZ
+	// ãƒ™ã‚¯ãƒˆãƒ«ã®æˆåˆ†åŒå£«ã§å‰²ã‚Šç®—
 	Vector3 DivAtComponent(const Vector3& v1, const Vector3& v2);
 }

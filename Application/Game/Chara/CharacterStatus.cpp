@@ -7,13 +7,13 @@ void CharacterStatus::Initialize(const uint32_t hp, const uint32_t attack, const
 {
 	isAlive_ = true;
 
-	// ‘Ì—Íİ’è
+	// ä½“åŠ›è¨­å®š
 	SetHP(hp);
 	
-	// UŒ‚—Íİ’è
+	// æ”»æ’ƒåŠ›è¨­å®š
 	SetAttack(attack);
 
-	// –³“GŠÔİ’è
+	// ç„¡æ•µæ™‚é–“è¨­å®š
 	SetInvincibleTime(invincibleTime);
 
 	isInvincible_ = false;
@@ -21,52 +21,52 @@ void CharacterStatus::Initialize(const uint32_t hp, const uint32_t attack, const
 
 void CharacterStatus::Update()
 {
-	// –³“G‚¶‚á‚È‚¢‚È‚ç’e‚­
+	// ç„¡æ•µã˜ã‚ƒãªã„ãªã‚‰å¼¾ã
 	if (isInvincible_ == false) { return; }
 
-	// ƒ^ƒCƒ}[XV
+	// ã‚¿ã‚¤ãƒãƒ¼æ›´æ–°
 	invincibleTimer_.Update();
 
-	// ƒ^ƒCƒ}[I—¹‚µ‚½‚ç
+	// ã‚¿ã‚¤ãƒãƒ¼çµ‚äº†ã—ãŸã‚‰
 	if (invincibleTimer_.IsEnd())
 	{
-		// ƒ^ƒCƒ}[ƒŠƒZƒbƒg
+		// ã‚¿ã‚¤ãƒãƒ¼ãƒªã‚»ãƒƒãƒˆ
 		invincibleTimer_.Reset(false);
 
-		// –³“GŠÔI—¹
+		// ç„¡æ•µæ™‚é–“çµ‚äº†
 		isInvincible_ = false;
 	}
 }
 
 void CharacterStatus::Damage(const uint32_t attack, const bool isInvincible)
 {
-	// €‚ñ‚Å‚é‚È‚ç ’e‚­
+	// æ­»ã‚“ã§ã‚‹ãªã‚‰ å¼¾ã
 	if (isAlive_ == false) { return; }
 	
-	// –³“G‚È‚ç ’e‚­
+	// ç„¡æ•µãªã‚‰ å¼¾ã
 	if (isInvincible_) { return; }
 
-	// UŒ‚—Í ‚ª HP ’´‚¦‚Ä‚¢‚½‚ç
+	// æ”»æ’ƒåŠ› ãŒ HP è¶…ãˆã¦ã„ãŸã‚‰
 	if (hp_ <= attack)
 	{
-		// €‚Ê
+		// æ­»ã¬
 		hp_ = 0;
 		
 		isAlive_ = false;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
 		hp_ -= attack;
 	}
 
-	// –³“G‚É‚·‚é‚È‚ç
+	// ç„¡æ•µã«ã™ã‚‹ãªã‚‰
 	if (isInvincible)
 	{
-		// –³“Gƒ^ƒCƒ}[ƒŠƒZƒbƒg + ƒXƒ^[ƒg
+		// ç„¡æ•µã‚¿ã‚¤ãƒãƒ¼ãƒªã‚»ãƒƒãƒˆ + ã‚¹ã‚¿ãƒ¼ãƒˆ
 		invincibleTimer_.Reset(true);
 
-		// –³“G
+		// ç„¡æ•µ
 		isInvincible_ = true;
 	}
 }
@@ -106,47 +106,47 @@ void CharacterStatus::DrawDebugTextContent()
 
 void CharacterStatus::SetHP(const uint32_t hp)
 {
-	// 0ˆÈ‰º‚È‚ç
+	// 0ä»¥ä¸‹ãªã‚‰
 	if (hp <= 0)
 	{
-		// 0‚É‚·‚é
+		// 0ã«ã™ã‚‹
 		hp_ = 0;
 
-		// €‚Ê
+		// æ­»ã¬
 		isAlive_ = false;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		hp_ = hp;
 	}
 }
 
 void CharacterStatus::SetAttack(const uint32_t attack)
 {
-	// 0ˆÈ‰º‚È‚ç
+	// 0ä»¥ä¸‹ãªã‚‰
 	if (attack <= 0)
 	{
-		// 0‚É‚·‚é
+		// 0ã«ã™ã‚‹
 		attack_ = 0;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		attack_ = attack;
 	}
 }
 
 void CharacterStatus::SetInvincible(const bool isInvincible)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	isInvincible_ = isInvincible;
 }
 
 void CharacterStatus::SetInvincibleTime(const uint32_t invincibleTime)
 {
-	// ƒ^ƒCƒ}[İ’è
+	// ã‚¿ã‚¤ãƒãƒ¼è¨­å®š
 	invincibleTimer_.SetEndFrame(invincibleTime);
 }

@@ -9,50 +9,50 @@ namespace YBase
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>¬Œ÷‚µ‚½‚©</returns>
+		/// <returns>æˆåŠŸã—ãŸã‹</returns>
 		bool Initialize() override;
 		
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Finalize() override;
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update() override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw() override;
 
 	private:
 
 		/// <summary>
-		/// ƒpƒCƒvƒ‰ƒCƒ“‰Šú‰»
+		/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³åˆæœŸåŒ–
 		/// </summary>
 		void InitializePipelines();
 
 		/// <summary>
-		/// ƒp[ƒeƒBƒNƒ‹‰Šú‰»
+		/// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«åˆæœŸåŒ–
 		/// </summary>
 		void InitializeParticles();
 
 		/// <summary>
-		/// ƒV[ƒ“‘JˆÚ‰Šú‰»
+		/// ã‚·ãƒ¼ãƒ³é·ç§»åˆæœŸåŒ–
 		/// </summary>
 		void InitializeTransition();
 
 		/// <summary>
-		/// ƒ}ƒbƒvƒf[ƒ^“Ç‚İ‚İ
+		/// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 		/// </summary>
 		void LoadMapData();
 
 		/// <summary>
-		/// •`‰æƒNƒ‰ƒX“Ç‚İ‚İ
+		/// æç”»ã‚¯ãƒ©ã‚¹èª­ã¿è¾¼ã¿
 		/// </summary>
 		void LoadDrawer();
 

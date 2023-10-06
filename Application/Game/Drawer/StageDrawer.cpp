@@ -19,13 +19,13 @@ StageDrawer* StageDrawer::Create(Transform* pParent, const size_t drawPriority)
 
 void StageDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::LoadObj("tower/white/core", true);
 }
 
 void StageDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	isVisibleUpdate_ = false;
@@ -33,7 +33,7 @@ void StageDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbColor_->data_.baseColor = Vector4(0.1f, 0.4f, 0.1f, 1.0f);
 	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
-	// ƒ‚ƒfƒ‹‘}“ü
+	// ãƒ¢ãƒ‡ãƒ«æŒ¿å…¥
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelPhong";

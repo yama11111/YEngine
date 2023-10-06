@@ -4,7 +4,7 @@
 #include "Def.h"
 #include <DirectXTex.h>
 
-#pragma region –¼‘O‹óŠÔ
+#pragma region åå‰ç©ºé–“
 
 using std::unique_ptr;
 using YGame::Texture;
@@ -26,20 +26,20 @@ YDX::DescriptorHeap* Texture::Common::spDescHeap_ = nullptr;
 
 Texture* Texture::Create(const Vector4& color)
 {
-	// ƒeƒNƒXƒ`ƒƒ¶¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆ
 	unique_ptr<Texture> newTex = std::make_unique<Texture>();
 
-	// ‰¡•ûŒüƒsƒNƒZƒ‹”
+	// æ¨ªæ–¹å‘ãƒ”ã‚¯ã‚»ãƒ«æ•°
 	static const size_t textureWidth = 1;
-	// c•ûŒüƒsƒNƒZƒ‹”
+	// ç¸¦æ–¹å‘ãƒ”ã‚¯ã‚»ãƒ«æ•°
 	static const size_t textureHeight = 1;
-	// ”z—ñ‚Ì—v‘f”
+	// é…åˆ—ã®è¦ç´ æ•°
 	static const size_t imageDataCount = textureWidth * textureHeight;
 
-	// ‰æ‘œƒCƒ[ƒWƒf[ƒ^”z—ñ
-	Vector4* imageData = new Vector4[imageDataCount]; // ¦•K‚¸Œã‚ÅŠJ•ú‚·‚é
+	// ç”»åƒã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿é…åˆ—
+	Vector4* imageData = new Vector4[imageDataCount]; // â€»å¿…ãšå¾Œã§é–‹æ”¾ã™ã‚‹
 
-	// ‘SƒsƒNƒZƒ‹‚ÌF‚ğ‰Šú‰»
+	// å…¨ãƒ”ã‚¯ã‚»ãƒ«ã®è‰²ã‚’åˆæœŸåŒ–
 	for (size_t i = 0; i < imageDataCount; i++)
 	{
 		imageData[i].r_ = color.r_; // R
@@ -48,106 +48,106 @@ Texture* Texture::Create(const Vector4& color)
 		imageData[i].a_ = color.a_; // A
 	}
 
-	// ƒq[ƒvİ’è
+	// ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapProp{};
 	//heapProp.Type = D3D12_HEAP_TYPE_DEFAULT;
 	heapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
 	heapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
 	heapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
 	
-	// ƒŠƒ\[ƒXİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 	resDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	resDesc.Width = (UINT16)textureWidth;   // •
-	resDesc.Height = (UINT)textureHeight; // ‚‚³
+	resDesc.Width = (UINT16)textureWidth;   // å¹…
+	resDesc.Height = (UINT)textureHeight; // é«˜ã•
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
 	resDesc.SampleDesc.Count = 1;
 
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@¶¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	newTex->buff_.Create(&heapProp, &resDesc);
 
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@‚Éƒf[ƒ^“]‘—
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿è»¢é€
 	Result(newTex->buff_.Get()->WriteToSubresource(
 		0,
-		nullptr, // ‘S—Ìˆæ‚ÖƒRƒs[
-		imageData, // Œ³ƒf[ƒ^ƒAƒhƒŒƒX
-		sizeof(Vector4) * textureWidth, // 1ƒ‰ƒCƒ“ƒTƒCƒY
-		sizeof(Vector4) * imageDataCount // ‘SƒTƒCƒY
+		nullptr, // å…¨é ˜åŸŸã¸ã‚³ãƒ”ãƒ¼
+		imageData, // å…ƒãƒ‡ãƒ¼ã‚¿ã‚¢ãƒ‰ãƒ¬ã‚¹
+		sizeof(Vector4) * textureWidth, // 1ãƒ©ã‚¤ãƒ³ã‚µã‚¤ã‚º
+		sizeof(Vector4) * imageDataCount // å…¨ã‚µã‚¤ã‚º
 	));
 
-	// ƒf[ƒ^ŠJ•ú
+	// ãƒ‡ãƒ¼ã‚¿é–‹æ”¾
 	delete[] imageData;
 
-	// ƒVƒF[ƒ_ƒŠƒ\[ƒXƒrƒ…[İ’è
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼è¨­å®š
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 	srvDesc.Format = resDesc.Format;  // RGBA float
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2DƒeƒNƒXƒ`ƒƒ
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dãƒ†ã‚¯ã‚¹ãƒãƒ£
 	srvDesc.Texture2D.MipLevels = 1;
 
-	// SRV¶¬
+	// SRVç”Ÿæˆ
 	DescriptorHeap::Handle handle{};
 	handle = Common::spDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
 
-	// ƒnƒ“ƒhƒ‹‘ã“ü
+	// ãƒãƒ³ãƒ‰ãƒ«ä»£å…¥
 	newTex->srvCpuHandle_ = handle.cpu_;
 	newTex->srvGpuHandle_ = handle.gpu_;
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Texture* newTexPtr = newTex.get();
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ•Û‘¶
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¿å­˜
 	sTexs_.push_back(std::move(newTex));
 
-	// ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newTexPtr;
 }
 
 Texture* Texture::CreateRender()
 {
-	// ƒeƒNƒXƒ`ƒƒ¶¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆ
 	unique_ptr<Texture> newTex = std::make_unique<Texture>();
 
-	// ‰¡•ûŒüƒsƒNƒZƒ‹”
+	// æ¨ªæ–¹å‘ãƒ”ã‚¯ã‚»ãƒ«æ•°
 	static const size_t textureWidth = static_cast<size_t>(WinSize.x_);
-	// c•ûŒüƒsƒNƒZƒ‹”
+	// ç¸¦æ–¹å‘ãƒ”ã‚¯ã‚»ãƒ«æ•°
 	static const size_t textureHeight = static_cast<size_t>(WinSize.y_);
-	// ”z—ñ‚Ì—v‘f”
+	// é…åˆ—ã®è¦ç´ æ•°
 	static const size_t imageDataCount = textureWidth * textureHeight;
 
-	// ‰æ‘œƒCƒ[ƒWƒf[ƒ^”z—ñ
-	UINT* imageData = new UINT[imageDataCount]; // ¦•K‚¸Œã‚ÅŠJ•ú‚·‚é
+	// ç”»åƒã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿é…åˆ—
+	UINT* imageData = new UINT[imageDataCount]; // â€»å¿…ãšå¾Œã§é–‹æ”¾ã™ã‚‹
 
-	// ‘SƒsƒNƒZƒ‹‚ÌF‚ğ‰Šú‰»
+	// å…¨ãƒ”ã‚¯ã‚»ãƒ«ã®è‰²ã‚’åˆæœŸåŒ–
 	for (size_t i = 0; i < imageDataCount; i++)
 	{
 		imageData[i] = 0xffffffff;
 	}
 
-	// ƒq[ƒvİ’è
+	// ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapProp{};
 	heapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
 	heapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
 	heapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
 	
-	// ƒŠƒ\[ƒXİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 	resDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-	resDesc.Width = (UINT16)textureWidth;   // •
-	resDesc.Height = (UINT)textureHeight; // ‚‚³
+	resDesc.Width = (UINT16)textureWidth;   // å¹…
+	resDesc.Height = (UINT)textureHeight; // é«˜ã•
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
 	resDesc.SampleDesc.Count = 1;
 	resDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 	
-	// ƒŠƒ\[ƒXƒXƒe[ƒgİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 	D3D12_RESOURCE_STATES resState = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
 	
-	// ƒNƒŠƒAİ’è
+	// ã‚¯ãƒªã‚¢è¨­å®š
 	D3D12_CLEAR_VALUE clearValue{};
 	clearValue.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
 	//clearValue.Color[0] = ClearColor.r_;
@@ -159,96 +159,96 @@ Texture* Texture::CreateRender()
 	clearValue.Color[2] = 0.1f;
 	clearValue.Color[3] = 0.0f;
 
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@¶¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	newTex->buff_.Create(&heapProp, &resDesc, resState, &clearValue);
 
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@‚Éƒf[ƒ^“]‘—
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿è»¢é€
 	Result(newTex->buff_.Get()->WriteToSubresource(
 		0,
-		nullptr, // ‘S—Ìˆæ‚ÖƒRƒs[
-		imageData, // Œ³ƒf[ƒ^ƒAƒhƒŒƒX
-		sizeof(UINT) * (UINT)textureWidth, // 1ƒ‰ƒCƒ“ƒTƒCƒY
-		sizeof(UINT) * (UINT)imageDataCount // ‘SƒTƒCƒY
+		nullptr, // å…¨é ˜åŸŸã¸ã‚³ãƒ”ãƒ¼
+		imageData, // å…ƒãƒ‡ãƒ¼ã‚¿ã‚¢ãƒ‰ãƒ¬ã‚¹
+		sizeof(UINT) * (UINT)textureWidth, // 1ãƒ©ã‚¤ãƒ³ã‚µã‚¤ã‚º
+		sizeof(UINT) * (UINT)imageDataCount // å…¨ã‚µã‚¤ã‚º
 	));
 
-	// ƒf[ƒ^ŠJ•ú
+	// ãƒ‡ãƒ¼ã‚¿é–‹æ”¾
 	delete[] imageData;
 
-	// ƒVƒF[ƒ_ƒŠƒ\[ƒXƒrƒ…[İ’è
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼è¨­å®š
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 	srvDesc.Format = resDesc.Format;  // RGBA float
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2DƒeƒNƒXƒ`ƒƒ
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dãƒ†ã‚¯ã‚¹ãƒãƒ£
 	srvDesc.Texture2D.MipLevels = 1;
 
-	// SRV¶¬
+	// SRVç”Ÿæˆ
 	DescriptorHeap::Handle handle{};
 	handle = Common::spDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
 
-	// ƒnƒ“ƒhƒ‹‘ã“ü
+	// ãƒãƒ³ãƒ‰ãƒ«ä»£å…¥
 	newTex->srvCpuHandle_ = handle.cpu_;
 	newTex->srvGpuHandle_ = handle.gpu_;
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Texture* newTexPtr = newTex.get();
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ•Û‘¶
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¿å­˜
 	sTexs_.push_back(std::move(newTex));
 
-	// ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newTexPtr;
 }
 
 Texture* Texture::Load(const std::string& texFileName, const bool mipMap)
 {
-	// ƒfƒBƒŒƒNƒgƒŠƒpƒX‚ğİ’è
+	// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ã‚’è¨­å®š
 	const std::string& directoryPath = "Resources/Textures/";
 	
-	// ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	return Load(directoryPath, texFileName, mipMap);
 }
 
 Texture* Texture::Load(const std::string& directoryPath, const std::string texFileName, const bool mipMap)
 {
-	// “Ç‚İ‚ñ‚¾‚±‚Æ‚ª‚ ‚é‚©ƒ`ƒFƒbƒN
+	// èª­ã¿è¾¼ã‚“ã ã“ã¨ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 	for (size_t i = 0; i < sTexs_.size(); i++)
 	{
-		// ƒtƒ@ƒCƒ‹ƒpƒX ‚ª“¯‚¶‚È‚ç
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ ãŒåŒã˜ãªã‚‰
 		if( directoryPath + texFileName == sTexs_[i]->fileName_)
 		{
-			// ‚»‚ÌƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+			// ãã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 			return sTexs_[i].get();
 		}
 	}
 
-	// ƒeƒNƒXƒ`ƒƒ¶¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆ
 	unique_ptr<Texture> newTex = std::make_unique<Texture>();
 
 	DirectX::TexMetadata metadata{};
 	DirectX::ScratchImage scratchImg{};
 
-	// ƒtƒ@ƒCƒ‹–¼
+	// ãƒ•ã‚¡ã‚¤ãƒ«å
 	std::string filePath = directoryPath + texFileName;
 	std::wstring wFilePath = std::wstring(filePath.begin(), filePath.end());
 	const wchar_t* fileName = wFilePath.c_str();
 
-	// Šg’£qæ“¾
+	// æ‹¡å¼µå­å–å¾—
 	std::string ext = YFile::FileExtension(texFileName);
 
-	if (ext == "png" || ext == "jpg") // png || jpg ¨ WIC
+	if (ext == "png" || ext == "jpg") // png || jpg â†’ WIC
 	{
-		// WICƒeƒNƒXƒ`ƒƒ‚Ìƒ[ƒh
+		// WICãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ­ãƒ¼ãƒ‰
 		Result(LoadFromWICFile(fileName, DirectX::WIC_FLAGS_NONE, &metadata, scratchImg));
 	}
-	else if (ext == "tga") // tga ¨ TGA
+	else if (ext == "tga") // tga â†’ TGA
 	{
-		// TGAƒeƒNƒXƒ`ƒƒ‚Ìƒ[ƒh
+		// TGAãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ­ãƒ¼ãƒ‰
 		Result(LoadFromTGAFile(fileName, &metadata, scratchImg));
 	}
 
 	DirectX::ScratchImage mipChain{};
-	// ƒ~ƒbƒvƒ}ƒbƒv¶¬
+	// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ç”Ÿæˆ
 	if (mipMap && (metadata.width > 1 && metadata.height > 1))
 	{
 		if (Result(GenerateMipMaps(
@@ -262,77 +262,77 @@ Texture* Texture::Load(const std::string& directoryPath, const std::string texFi
 		}
 	}
 
-	//“Ç‚İ‚ñ‚¾ƒfƒBƒtƒ…[ƒYƒeƒNƒXƒ`ƒƒ‚ğ SRGB ‚Æ‚µ‚Äˆµ‚¤
+	//èª­ã¿è¾¼ã‚“ã ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ SRGB ã¨ã—ã¦æ‰±ã†
 	metadata.format = DirectX::MakeSRGB(metadata.format);
 
-	// ƒq[ƒvİ’è
+	// ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapProp{};
 	//texState.heapProp_.Type = D3D12_HEAP_TYPE_DEFAULT;
 	heapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
 	heapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
 	heapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
 	
-	// ƒŠƒ\[ƒXİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 	resDesc.Format = metadata.format;
-	resDesc.Width = metadata.width;   // •
-	resDesc.Height = (UINT)metadata.height; // ‚‚³
+	resDesc.Width = metadata.width;   // å¹…
+	resDesc.Height = (UINT)metadata.height; // é«˜ã•
 	resDesc.DepthOrArraySize = (UINT16)metadata.arraySize;
 	resDesc.MipLevels = (UINT16)metadata.mipLevels;
 	resDesc.SampleDesc.Count = 1;
 
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@¶¬
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	newTex->buff_.Create(&heapProp, &resDesc);
 
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@‚Éƒf[ƒ^“]‘—
-	//‘Sƒ~ƒbƒvƒ}ƒbƒv‚É‚Â‚¢‚Ä
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿è»¢é€
+	//å…¨ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã«ã¤ã„ã¦
 	for (size_t i = 0; i < metadata.mipLevels; i++)
 	{
-		// ƒ~ƒbƒvƒ}ƒbƒv‚ğw’è‚µ‚ÄƒCƒ[ƒWæ“¾
+		// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã‚’æŒ‡å®šã—ã¦ã‚¤ãƒ¡ãƒ¼ã‚¸å–å¾—
 		const DirectX::Image* img = scratchImg.GetImage(i, 0, 0);
-		// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@‚Éƒf[ƒ^“]‘—
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿è»¢é€
 		Result(newTex->buff_.Get()->WriteToSubresource(
 			(UINT)i,
-			nullptr, // ‘S—Ìˆæ‚ÖƒRƒs[
-			img->pixels, // Œ³ƒf[ƒ^ƒAƒhƒŒƒX
-			(UINT)img->rowPitch, // 1ƒ‰ƒCƒ“ƒTƒCƒY
-			(UINT)img->slicePitch // 1–‡ƒTƒCƒY
+			nullptr, // å…¨é ˜åŸŸã¸ã‚³ãƒ”ãƒ¼
+			img->pixels, // å…ƒãƒ‡ãƒ¼ã‚¿ã‚¢ãƒ‰ãƒ¬ã‚¹
+			(UINT)img->rowPitch, // 1ãƒ©ã‚¤ãƒ³ã‚µã‚¤ã‚º
+			(UINT)img->slicePitch // 1æšã‚µã‚¤ã‚º
 		));
 	}
 
-	// ƒVƒF[ƒ_ƒŠƒ\[ƒXƒrƒ…[İ’è
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼è¨­å®š
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 	srvDesc.Format = resDesc.Format;
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2DƒeƒNƒXƒ`ƒƒ
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dãƒ†ã‚¯ã‚¹ãƒãƒ£
 	srvDesc.Texture2D.MipLevels = resDesc.MipLevels;
 
-	// SRV¶¬
+	// SRVç”Ÿæˆ
 	DescriptorHeap::Handle handle{};
 	handle = Common::spDescHeap_->CreateSRV(newTex->buff_.Get(), srvDesc, false);
 
-	// ƒnƒ“ƒhƒ‹‘ã“ü
+	// ãƒãƒ³ãƒ‰ãƒ«ä»£å…¥
 	newTex->srvCpuHandle_ = handle.cpu_;
 	newTex->srvGpuHandle_ = handle.gpu_;
 
-	// ƒfƒBƒŒƒNƒgƒŠƒpƒX–¼ + ƒtƒ@ƒCƒ‹–¼‘ã“ü
+	// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹å + ãƒ•ã‚¡ã‚¤ãƒ«åä»£å…¥
 	newTex->fileName_ = directoryPath + texFileName;
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Texture* newTexPtr = newTex.get();
 
-	// ƒeƒNƒXƒ`ƒƒ‚ğ•Û‘¶
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¿å­˜
 	sTexs_.push_back(std::move(newTex));
 
-	// ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newTexPtr;
 }
 
 void Texture::AllClear()
 {
-	// ƒeƒNƒXƒ`ƒƒ‘SÁ‹
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£å…¨æ¶ˆå»
 	for (size_t i = 0; i < sTexs_.size(); i++)
 	{
 		sTexs_[i].reset(nullptr);
@@ -342,24 +342,24 @@ void Texture::AllClear()
 
 void Texture::SetDrawCommand(const UINT rootParamIndex)
 {	
-	// ƒVƒF[ƒ_[‚ÉƒeƒNƒXƒ`ƒƒ‚ğİ’è
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è¨­å®š
 	Common::spCmdList_->SetGraphicsRootDescriptorTable(rootParamIndex, srvGpuHandle_);
 }
 
 ID3D12Resource* Texture::Buffer()
 {
-	// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@‚ğ•Ô‚·
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ã‚’è¿”ã™
 	return buff_.Get();
 }
 
 void Texture::Common::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCmdList, YDX::DescriptorHeap* pDescHeap)
 {
-	// nullƒ`ƒFƒbƒN
+	// nullãƒã‚§ãƒƒã‚¯
 	assert(pDevice);
 	assert(pCmdList);
 	assert(pDescHeap);
 
-	// ‘ã“ü
+	// ä»£å…¥
 	spDevice_ = pDevice;
 	spCmdList_ = pCmdList;
 	spDescHeap_ = pDescHeap;

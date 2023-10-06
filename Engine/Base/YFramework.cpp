@@ -8,7 +8,7 @@
 #include "DefaultGraphic.h"
 #include "PipelineManager.h"
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YBase::YFramework;
 using namespace YDX;
@@ -21,67 +21,67 @@ using namespace YGame;
 
 bool YFramework::Initialize()
 {
-	// Windows ‰Šú‰»
+	// Windows åˆæœŸåŒ–
 	window_.Create(WindowTitle, WinSize.x_, WinSize.y_);
 
-	// DirectX ‰Šú‰»
+	// DirectX åˆæœŸåŒ–
 	YDirectX::SetFPS(FixFPS);
 	if (!dx_.Initialize(window_.HandleWindow(), WinSize)) { return false; }
 
-	// Input ‰Šú‰»
+	// Input åˆæœŸåŒ–
 	inputMan_ = InputManager::GetInstance();
 	inputMan_->Create(window_.HandleWindowInstance(), window_.PointerHandleWindow());
 
-	// —”‰Šú‰»
+	// ä¹±æ•°åˆæœŸåŒ–
 	Srand();
 
 
-	// ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^
+	// ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿
 	ID3D12Device* pDev = dx_.DevicePtr();
-	// ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+	// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 	ID3D12GraphicsCommandList* pCmdList = dx_.CommandListPtr();
 
-	// ƒXƒNƒŠ[ƒ“İ’è
+	// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³è¨­å®š
 	ScreenDesc::StaticInitialize(pCmdList);
 	screenDesc_.Initialize({ 0,0 }, WinSize);
 
-	// GPUResource Ã“I‰Šú‰»
+	// GPUResource é™çš„åˆæœŸåŒ–
 	GPUResource::StaticInitialize(pDev);
 
-	// ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv (SRV, UAV, CBV)
+	// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ— (SRV, UAV, CBV)
 	DescriptorHeap::StaticInitialize(pDev, pCmdList);
 	descHeap_.Initialize();
 
-	// ’¸“_
+	// é ‚ç‚¹
 	VertexCommon::StaticInitialize(pCmdList);
 
-	// ’è”ƒoƒbƒtƒ@Ã“I‰Šú‰»
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡é™çš„åˆæœŸåŒ–
 	ConstBufferCommon::StaticInitialize(pCmdList, &descHeap_);
 	DefaultConstBuffer::StaticInitialize();
 
-	// ƒeƒNƒXƒ`ƒƒÃ“I‰Šú‰»
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£é™çš„åˆæœŸåŒ–
 	Texture::Common::StaticInitialize(pDev, pCmdList, &descHeap_);
 	Texture::AllClear();
 
-	// ƒ|ƒXƒgƒGƒtƒFƒNƒg
+	// ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 	PostEffect::StaticInitialize(pDev, pCmdList);
 
-	// ƒpƒCƒvƒ‰ƒCƒ“Ã“I‰Šú‰»
+	// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³é™çš„åˆæœŸåŒ–
 	Pipeline::StaticInitialize(pDev, pCmdList);
 
-	// FBXLoader“Ç‚İ‚İ
+	// FBXLoaderèª­ã¿è¾¼ã¿
 	Model::FbxLoader::StaticInitialize();
 
 	DefaultGraphic::LoadResource();
 
-	// imgui‰Šú‰»
+	// imguiåˆæœŸåŒ–
 	imguiMan_.Initialize({ window_.HandleWindow(), pDev, pCmdList, &descHeap_, dx_.BackBufferCount() });
 
-	// ƒI[ƒfƒBƒI‰Šú‰»
+	// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªåˆæœŸåŒ–
 	Audio::Base::StaticInitialize();
 	Audio::AllClear();
 
-	// ƒV[ƒ“‰Šú‰»
+	// ã‚·ãƒ¼ãƒ³åˆæœŸåŒ–
 	BaseScene::StaticInitialize();
 	
 	sceneMan_ = SceneManager::GetInstance();
@@ -100,23 +100,23 @@ bool YFramework::Initialize()
 
 void YFramework::Finalize()
 {
-	// FBXLoaderŠJ•ú
+	// FBXLoaderé–‹æ”¾
 	Model::FbxLoader::StaticFinalize();
 
-	// imgui‚ğƒNƒŠ[ƒ“
+	// imguiã‚’ã‚¯ãƒªãƒ¼ãƒ³
 	imguiMan_.Finalize();
 
-	// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ğ“o˜^‰ğœ
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã‚’ç™»éŒ²è§£é™¤
 	window_.FinalProcess();
 
-	// ƒV[ƒ“I—¹ˆ—
+	// ã‚·ãƒ¼ãƒ³çµ‚äº†å‡¦ç†
 	SceneManager::GetInstance()->Finalize();
 
 	ParticleManager::GetInstance()->Clear();
 
 	PipelineManager::GetInstance()->Clear();
 	
-	// ƒŠƒ\[ƒX‘SƒNƒŠƒA
+	// ãƒªã‚½ãƒ¼ã‚¹å…¨ã‚¯ãƒªã‚¢
 	PostEffect::AllClear();
 	Model::AllClear();
 	Sprite2D::AllClear();
@@ -127,30 +127,30 @@ void YFramework::Finalize()
 
 void YFramework::Update()
 {
-	// imguió•tŠJn
+	// imguiå—ä»˜é–‹å§‹
 	imguiMan_.Begin();
 	
-	// inputXV
+	// inputæ›´æ–°
 	inputMan_->Update();
 
-	// ƒV[ƒ“XVˆ—
+	// ã‚·ãƒ¼ãƒ³æ›´æ–°å‡¦ç†
 	sceneMan_->Update();
 
-	// ƒp[ƒeƒBƒNƒ‹XV
+	// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«æ›´æ–°
 	pParticleMan_->Update();
 
-	// ƒfƒXƒNƒŠƒvƒ^ƒJƒEƒ“ƒg•\¦
+	// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã‚«ã‚¦ãƒ³ãƒˆè¡¨ç¤º
 	descHeap_.ShowCount();
 
-	// imguió•tI—¹
+	// imguiå—ä»˜çµ‚äº†
 	imguiMan_.End();
 
-	// ------------------- I—¹ˆ— ------------------- //
+	// ------------------- çµ‚äº†å‡¦ç† ------------------- //
 	
-	// ~ƒ{ƒ^ƒ“‚ÅI—¹ƒƒbƒZ[ƒW
+	// Ã—ãƒœã‚¿ãƒ³ã§çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 	if (window_.CheckMessage()) { isEnd_ = true; }
 
-	// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[I—¹ƒtƒ‰ƒO
+	// ã‚·ãƒ¼ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼çµ‚äº†ãƒ•ãƒ©ã‚°
 	if (sceneMan_->IsEnd()) { isEnd_ = true; }
 
 	// ------------------------------------------------ //
@@ -158,22 +158,22 @@ void YFramework::Update()
 
 void YFramework::Run()
 {
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	bool isSuccess = Initialize();
 
-	// ƒQ[ƒ€ƒ‹[ƒv
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 	while (isSuccess)
 	{
-		// XV
+		// æ›´æ–°
 		Update();
 
-		// •`‰æ
+		// æç”»
 		Draw();
 
-		// I—¹
+		// çµ‚äº†
 		if (isEnd_) { break; }
 	}
 
-	// I—¹ˆ—
+	// çµ‚äº†å‡¦ç†
 	Finalize();
 }

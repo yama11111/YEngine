@@ -10,7 +10,7 @@
 
 #include "StageManager.h"
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YGame::SelectScene;
 using namespace YInput;
@@ -19,11 +19,11 @@ using namespace YMath;
 
 #pragma endregion 
 
-#pragma region StaticŠÖ˜A
+#pragma region Staticé–¢é€£
 #pragma endregion 
 
 
-#pragma region “Ç‚İ‚İ
+#pragma region èª­ã¿è¾¼ã¿
 void SelectScene::Load()
 {
 	BaseDrawer::StaticInitialize(&transferVP_);
@@ -31,7 +31,7 @@ void SelectScene::Load()
 #pragma endregion
 
 
-#pragma region ‰Šú‰»
+#pragma region åˆæœŸåŒ–
 void SelectScene::Initialize()
 {
 	selectDra_.Initialize();
@@ -44,14 +44,14 @@ void SelectScene::Initialize()
 #pragma endregion
 
 
-#pragma region I—¹ˆ—
+#pragma region çµ‚äº†å‡¦ç†
 void SelectScene::Finalize()
 {
 }
 #pragma endregion
 
 
-#pragma region XV
+#pragma region æ›´æ–°
 void SelectScene::Update()
 {
 	if (spKeys_->IsTrigger(DIK_LEFT) || spKeys_->IsTrigger(DIK_A))
@@ -69,12 +69,12 @@ void SelectScene::Update()
 	selectDra_.SetStageIndex(static_cast<int32_t>(stageIndex_));
 	selectDra_.Update();
 
-	// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“XV
+	// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³æ›´æ–°
 	camera_.Update();
 	transferVP_ = camera_.GetViewProjection();
 	transferVP_.UpdateMatrix();
 
-	// SPACE ‚ÅƒQ[ƒ€ŠJn
+	// SPACE ã§ã‚²ãƒ¼ãƒ é–‹å§‹
 	if (spKeys_->IsTrigger(DIK_SPACE) || spPad_->IsTrigger(PadButton::XIP_A))
 	{
 		SceneManager::GetInstance()->Transition("PLAY", "WAVE");
@@ -82,7 +82,7 @@ void SelectScene::Update()
 		StageManager::GetInstance()->SetStageIndex(stageIndex_);
 	}
 
-	// ESC ‚Åƒ^ƒCƒgƒ‹‚É–ß‚é
+	// ESC ã§ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹
 	if (spKeys_->IsTrigger(DIK_ESCAPE))
 	{
 		SceneManager::GetInstance()->Transition("TITLE", "WAVE_REV");
@@ -91,7 +91,7 @@ void SelectScene::Update()
 #pragma endregion
 
 
-#pragma region •`‰æ
+#pragma region æç”»
 
 void SelectScene::Draw()
 {

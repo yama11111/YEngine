@@ -4,28 +4,28 @@
 
 namespace YGame
 {
-	// ƒeƒNƒXƒ`ƒƒİ’è—p’è”ƒoƒbƒtƒ@
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®šç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBTexConfig
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// ƒ^ƒCƒŠƒ“ƒO’l
+			// ã‚¿ã‚¤ãƒªãƒ³ã‚°å€¤
 			YMath::Vector2 tiling = { 1.0f,1.0f };
 
-			// ƒIƒtƒZƒbƒg’l
+			// ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤
 			YMath::Vector2 offset = { 0.0f,0.0f };
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBTexConfig";

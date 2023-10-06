@@ -24,13 +24,13 @@ void PauseManager::Initialize()
 
 void PauseManager::Reset()
 {
-	// ƒ|[ƒY’†‚©
+	// ãƒãƒ¼ã‚ºä¸­ã‹
 	isPause_ = false;
 
-	// ƒ|[ƒY’†‚¾‚Á‚½‚©
+	// ãƒãƒ¼ã‚ºä¸­ã ã£ãŸã‹
 	isElderPause_ = false;
 
-	// ‘I‘ğ
+	// é¸æŠ
 	current_ = PauseDrawer::Selection::Resume;
 	
 	pauseDra_.Reset();
@@ -39,10 +39,10 @@ void PauseManager::Reset()
 
 void PauseManager::Update()
 {
-	// ƒ|[ƒY•Û‘¶
+	// ãƒãƒ¼ã‚ºä¿å­˜
 	isElderPause_ = isPause_;
 
-	// TAB ¨ ƒ|[ƒYØ‚è‘Ö‚¦
+	// TAB â†’ ãƒãƒ¼ã‚ºåˆ‡ã‚Šæ›¿ãˆ
 	if (Keys::GetInstance()->IsTrigger(DIK_ESCAPE) ||
 		Pad::GetInstance()->IsTrigger(PadButton::XIP_MENU))
 	{
@@ -57,27 +57,27 @@ void PauseManager::Update()
 		}
 	}
 
-	// ƒ|[ƒY’†
+	// ãƒãƒ¼ã‚ºä¸­
 	if (isPause_)
 	{
-		// ‘I‘ğØ‚è‘Ö‚¦
+		// é¸æŠåˆ‡ã‚Šæ›¿ãˆ
 		ChangeSelect();
 
-		// Às (SPACE)
+		// å®Ÿè¡Œ (SPACE)
 		if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
 			Pad::GetInstance()->IsTrigger(PadButton::XIP_A))
 		{
-			// Resume‚È‚ç
+			// Resumeãªã‚‰
 			if (current_ == PauseDrawer::Selection::Resume)
 			{
-				// ƒŠƒZƒbƒg
+				// ãƒªã‚»ãƒƒãƒˆ
 				ResumeReset();
 			}
 			else if (current_ == PauseDrawer::Selection::ReStart)
 			{
 				SceneManager::GetInstance()->Transition("PLAY", "WAVE");
 			}
-			// ‘JˆÚ‚È‚ç
+			// é·ç§»ãªã‚‰
 			else if (current_ == PauseDrawer::Selection::Change)
 			{
 				SceneManager::GetInstance()->Transition("SELECT", "WAVE_REV");
@@ -95,7 +95,7 @@ void PauseManager::Draw()
 
 void PauseManager::ChangeSelect()
 {
-	// ‘I‘ğØ‚è‘Ö‚¦
+	// é¸æŠåˆ‡ã‚Šæ›¿ãˆ
 	if (Keys::GetInstance()->IsTrigger(DIK_W) || Keys::GetInstance()->IsTrigger(DIK_UP) ||
 		Pad::GetInstance()->IsTrigger(PadButton::XIP_UP))
 	{
@@ -135,9 +135,9 @@ void PauseManager::ChangeSelect()
 
 void PauseManager::ResumeReset()
 {	
-	// ƒ|[ƒY’†‚©
+	// ãƒãƒ¼ã‚ºä¸­ã‹
 	isPause_ = false;
-	// ‘I‘ğ
+	// é¸æŠ
 	current_ = PauseDrawer::Selection::Resume;
 
 	pauseDra_.ShutdownAnimation();

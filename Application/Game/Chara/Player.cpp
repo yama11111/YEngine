@@ -29,7 +29,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	BaseCharacter::Initialize(
 		"Player",
 		status,
-		{ +1.0f, 0.0f, 0.0f}, // âEå¸Ç´
+		{ +1.0f, 0.0f, 0.0f}, // Âè≥Âêë„Åç
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eAll),
@@ -45,7 +45,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 	maxJumpCount_ = PlayerConfig::kMaxJumpCount;
 
-	// äJénéûÇÕïêëïÇ∑ÇÈ
+	// ÈñãÂßãÊôÇ„ÅØÊ≠¶Ë£Ö„Åô„Çã
 	isArmed_ = true;
 
 	RideOnPet(pPet);
@@ -55,7 +55,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		spScrollCamera_->SetFollowPoint(&transform_->pos_);
 	}
 
-	// óßÇøÉAÉjÉÅÅ[ÉVÉáÉì
+	// Á´ã„Å°„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle), 
 		PlayerAnimationConfig::kIdleFrame
@@ -68,10 +68,10 @@ void Player::RideOnPet(IPet* pPet)
 
 	if (pPet_)
 	{
-		// êeéqä÷åW
+		// Ë¶™Â≠êÈñ¢‰øÇ
 		SetParent(pPet_);
 
-		// èÊÇÈà íuï™ è„Ç…à⁄ìÆ
+		// ‰πó„Çã‰ΩçÁΩÆÂàÜ ‰∏ä„Å´ÁßªÂãï
 		transform_->pos_ = pPet_->RidingPosHeight();
 		transform_->UpdateMatrix();
 
@@ -87,7 +87,7 @@ void Player::RideOnPet(IPet* pPet)
 
 		pPet_->Rideen();
 
-		// à⁄ìÆÉAÉjÉÅÅ[ÉVÉáÉìÇÇ‚ÇﬂÇÈ
+		// ÁßªÂãï„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥„Çí„ÇÑ„ÇÅ„Çã
 		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
 	}
 }
@@ -111,13 +111,13 @@ void Player::GetOffPet()
 	drawer_->SetOffset(Vector3(0.0f, 0.0f, 0.0f));
 	drawer_->SetIsVisibleUpdate(true);
 	
-	// îÚÇ—ç~ÇËÇÈ
+	// È£õ„Å≥Èôç„Çä„Çã
 	Jump(false);
 
-	// ÉJÉÅÉâÇé©ï™í«è]Ç…
+	// „Ç´„É°„É©„ÇíËá™ÂàÜËøΩÂæì„Å´
 	spScrollCamera_->SetFollowPoint(&transform_->pos_);
 
-	// à⁄ìÆÉAÉjÉÅÅ[ÉVÉáÉì
+	// ÁßªÂãï„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove), 
 		PlayerAnimationConfig::Move::kFrame, 
@@ -127,7 +127,7 @@ void Player::GetOffPet()
 
 void Player::Update(const bool isUpdate)
 {
-	// ÉyÉbÉgÇ™îÌíeÇµÇΩÇÁç~ÇËÇÈ
+	// „Éö„ÉÉ„Éà„ÅåË¢´Âºæ„Åó„Åü„ÇâÈôç„Çä„Çã
 	if(pPet_)
 	{
 		if (pPet_->IsHit())
@@ -140,7 +140,7 @@ void Player::Update(const bool isUpdate)
 	{
 		if (pPet_ == nullptr)
 		{
-			// é©ìÆÇ≈ëOÇ…êiÇﬁ
+			// Ëá™Âãï„ÅßÂâç„Å´ÈÄ≤„ÇÄ
 			moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
 			direction_ = Vector3(+1.0f, 0.0f, 0.0f);
 		}
@@ -149,14 +149,14 @@ void Player::Update(const bool isUpdate)
 			direction_ = Vector3(-1.0f, 0.0f, 0.0f);
 		}
 
-		// SPACE ÉLÅ[ or A É{É^Éì
+		// SPACE „Ç≠„Éº or A „Éú„Çø„É≥
 		if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
 			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
 		{
 			Jump();
 		}
 
-		// V ÉLÅ[ or X É{É^Éì
+		// V „Ç≠„Éº or X „Éú„Çø„É≥
 		if (Keys::GetInstance()->IsTrigger(DIK_V) ||
 			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
 		{
@@ -166,22 +166,22 @@ void Player::Update(const bool isUpdate)
 
 	BaseCharacter::Update(isUpdate);
 
-	// íÖínÇµÇƒÇ¢ÇÈÇ»ÇÁ
+	// ÁùÄÂú∞„Åó„Å¶„ÅÑ„Çã„Å™„Çâ
 	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
 	{
-		// ÉWÉÉÉìÉvâÒêîèâä˙âª
+		// „Ç∏„É£„É≥„ÉóÂõûÊï∞ÂàùÊúüÂåñ
 		jumpCounter_ = 0;
 
-		// èuä‘
+		// Áû¨Èñì
 		if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
 		{
-			// íÖínÉAÉjÉÅÅ[ÉVÉáÉì
+			// ÁùÄÂú∞„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 			drawer_->PlayAnimation(
 				static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding), 
 				PlayerAnimationConfig::Landing::kFrame
 			);
 
-			// à⁄ìÆÉAÉjÉÅÅ[ÉVÉáÉì
+			// ÁßªÂãï„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 			drawer_->PlayAnimation(
 				static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove),
 				PlayerAnimationConfig::Move::kFrame,
@@ -189,39 +189,39 @@ void Player::Update(const bool isUpdate)
 			);
 		}
 	}
-	// ó£ó§ÇµÇΩèuä‘
+	// Èõ¢Èô∏„Åó„ÅüÁû¨Èñì
 	else if(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom)
 	{
-		// à⁄ìÆÉAÉjÉÅÅ[ÉVÉáÉìÇÇ‚ÇﬂÇÈ
+		// ÁßªÂãï„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥„Çí„ÇÑ„ÇÅ„Çã
 		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
 	}
 }
 
 void Player::OnCollision(const CollisionInfo& info)
 {
-	// ìG
+	// Êïµ
 	if (info.attribute_  == AttributeType::eEnemy)
 	{
-		// é©ï™ Ç™ ìG ÇÊÇËè„Ç…Ç¢ÇÈ Ç»ÇÁ
+		// Ëá™ÂàÜ „Åå Êïµ „Çà„Çä‰∏ä„Å´„ÅÑ„Çã „Å™„Çâ
 		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos_.y_ + (info.radius_ / 2.0f))
 		{
-			// É_ÉÅÅ[ÉWÇó^Ç¶ÇÈ
+			// „ÉÄ„É°„Éº„Ç∏„Çí‰∏é„Åà„Çã
 			info.pStatus_->Damage(status_.Attack(), true);
 
 			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
-			// ÉWÉÉÉìÉv
+			// „Ç∏„É£„É≥„Éó
 			Jump(false);
 		}
-		// é©ï™ Ç™ ìG ÇÊÇËâ∫ Ç»ÇÁ
+		// Ëá™ÂàÜ „Åå Êïµ „Çà„Çä‰∏ã „Å™„Çâ
 		else
 		{
-			// É_ÉÅÅ[ÉWÇéÛÇØÇÈ
+			// „ÉÄ„É°„Éº„Ç∏„ÇíÂèó„Åë„Çã
 			status_.Damage(info.pStatus_->Attack(), true);
 
 			if (status_.IsAlive() == false)
 			{
-				// éÄñSÉAÉjÉÅÅ[ÉVÉáÉì
+				// Ê≠ª‰∫°„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 				drawer_->PlayAnimation(
 					static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead),
 					PlayerAnimationConfig::Dead::kFrame
@@ -233,7 +233,7 @@ void Player::OnCollision(const CollisionInfo& info)
 
 			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
 
-			// îÌíeÉAÉjÉÅÅ[ÉVÉáÉì
+			// Ë¢´Âºæ„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 			drawer_->PlayAnimation(
 				static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit), 
 				PlayerAnimationConfig::Hit::kFrame
@@ -243,10 +243,10 @@ void Player::OnCollision(const CollisionInfo& info)
 		return;
 	}
 
-	// ÉyÉbÉg
+	// „Éö„ÉÉ„Éà
 	if (info.attribute_ == AttributeType::ePet)
 	{
-		// èÊÇÈ
+		// ‰πó„Çã
 		RideOnPet(static_cast<IPet*>(info.pSelf_));
 
 		return;
@@ -268,19 +268,19 @@ YGame::BaseCharacter::CollisionInfo Player::GetCollisionInfo()
 
 void Player::Jump(const bool isJumpCount)
 {
-	// ÉyÉbÉgÇ¢ÇÈÇ»ÇÁ
+	// „Éö„ÉÉ„Éà„ÅÑ„Çã„Å™„Çâ
 	if (pPet_)
 	{
-		// ÉyÉbÉgÇ≈ÉWÉÉÉìÉv
+		// „Éö„ÉÉ„Éà„Åß„Ç∏„É£„É≥„Éó
 		pPet_->Jump();
 
 		return;
 	}
 
-	// ÉWÉÉÉìÉvÉJÉEÉìÉgÇ∑ÇÈÇ»ÇÁ
+	// „Ç∏„É£„É≥„Éó„Ç´„Ç¶„É≥„Éà„Åô„Çã„Å™„Çâ
 	if (isJumpCount)
 	{
-		// ÉWÉÉÉìÉvâÒêî Ç™ ç≈ëÂâÒêîí¥Ç¶ÇƒÇΩÇÁ íeÇ≠
+		// „Ç∏„É£„É≥„ÉóÂõûÊï∞ „Åå ÊúÄÂ§ßÂõûÊï∞Ë∂Ö„Åà„Å¶„Åü„Çâ Âºæ„Åè
 		if (jumpCounter_ >= maxJumpCount_) { return; }
 
 		jumpCounter_++;
@@ -290,7 +290,7 @@ void Player::Jump(const bool isJumpCount)
 
 	moveDirection_.y_ = 1.0f;
 
-	// ÉWÉÉÉìÉvÉAÉjÉÅÅ[ÉVÉáÉì
+	// „Ç∏„É£„É≥„Éó„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump), 
 		PlayerAnimationConfig::Jump::kFrame
@@ -299,16 +299,16 @@ void Player::Jump(const bool isJumpCount)
 
 void Player::Attack()
 {
-	// ÉyÉbÉgÇ¢ÇÈÇ»ÇÁ
+	// „Éö„ÉÉ„Éà„ÅÑ„Çã„Å™„Çâ
 	if (pPet_)
 	{
-		// ÉyÉbÉgÇ≈çUåÇ
+		// „Éö„ÉÉ„Éà„ÅßÊîªÊíÉ
 		pPet_->Attack();
 		
 		return;
 	}
 
-	// çUåÇêVãKê∂ê¨
+	// ÊîªÊíÉÊñ∞Ë¶èÁîüÊàê
 	SlashAttack* newAttack = new SlashAttack();
 
 	newAttack->Initialize(
@@ -320,7 +320,7 @@ void Player::Attack()
 	
 	CharacterManager::GetInstance()->PushBack(newAttack);
 
-	// çUåÇÉAÉjÉÅÅ[ÉVÉáÉì
+	// ÊîªÊíÉ„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack), 
 		PlayerAnimationConfig::kAttackFrame

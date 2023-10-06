@@ -20,17 +20,17 @@ void Mouse::MouseState::Initialize()
 
 void Mouse::Create(const HWND hwnd, IDirectInput8* directInput)
 {
-	// ¶¬
+	// ç”Ÿæˆ
 	mouse_ = std::make_unique<MouseState>();
 	elderMouse_ = std::make_unique<MouseState>();
 
-	// ƒ}ƒEƒXƒfƒoƒCƒX ¶¬
+	// ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ ç”Ÿæˆ
 	YDX::Result(directInput->CreateDevice(GUID_SysMouse, &device_, NULL));
 
-	// “ü—Íƒf[ƒ^Œ`®ƒZƒbƒg
+	// å…¥åŠ›ãƒ‡ãƒ¼ã‚¿å½¢å¼ã‚»ãƒƒãƒˆ
 	YDX::Result(device_->SetDataFormat(&c_dfDIMouse));
 
-	// ”r‘¼§ŒäƒŒƒxƒ‹ƒZƒbƒg
+	// æ’ä»–åˆ¶å¾¡ãƒ¬ãƒ™ãƒ«ã‚»ãƒƒãƒˆ
 	YDX::Result(device_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
 
@@ -45,17 +45,17 @@ void Mouse::Initialize()
 
 void Mouse::Update(const HWND hwnd)
 {
-	// 1ƒtƒŒ[ƒ€‘O‚Ìî•ñ‚ğ•Û‘¶
+	// 1ãƒ•ãƒ¬ãƒ¼ãƒ å‰ã®æƒ…å ±ã‚’ä¿å­˜
 	*elderMouse_ = *mouse_;
 
-	// ÅV‚Ìî•ñ‚ğæ“¾
+	// æœ€æ–°ã®æƒ…å ±ã‚’å–å¾—
 	device_->Acquire();
 	device_->Poll();
 
-	// “ü—Íó‘Ô‚ğæ“¾
+	// å…¥åŠ›çŠ¶æ…‹ã‚’å–å¾—
 	device_->GetDeviceState(sizeof(DIMOUSESTATE), &mouse_->state_);
 
-	// ˆÊ’u‚ğæ“¾
+	// ä½ç½®ã‚’å–å¾—
 	POINT pos;
 	GetCursorPos(&pos);
 	ScreenToClient(hwnd, &pos);

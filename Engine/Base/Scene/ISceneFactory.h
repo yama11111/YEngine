@@ -4,18 +4,18 @@
 
 namespace YGame
 { 
-	// ’ŠÛƒV[ƒ“ƒtƒ@ƒNƒgƒŠ[
+	// æŠ½è±¡ã‚·ãƒ¼ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
 	class ISceneFactory
 	{
 	
 	public:
 		
-		// ƒV[ƒ“¶¬
+		// ã‚·ãƒ¼ãƒ³ç”Ÿæˆ
 		virtual BaseScene* CreateScene(const std::string& sceneName) = 0;
 	
 	public:
 		
-		// ƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		virtual ~ISceneFactory() = default;
 	};
 }

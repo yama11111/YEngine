@@ -28,7 +28,7 @@ void BaseCharacter::Initialize(
 	
 	GameObject::SetDrawer(drawer);
 
-	// ƒ}ƒbƒvƒ`ƒbƒv‚Æ‚ÌƒAƒ^ƒŠ”»’è‚ÍƒXƒP[ƒ‹‚ð‚»‚Ì‚Ü‚ÜŽg‚¤
+	// ãƒžãƒƒãƒ—ãƒãƒƒãƒ—ã¨ã®ã‚¢ã‚¿ãƒªåˆ¤å®šã¯ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ãã®ã¾ã¾ä½¿ã†
 	MapChipCollider::Initialize(status.scale_);
 }
 
@@ -38,19 +38,19 @@ void BaseCharacter::Update(const bool isUpdate)
 	
 	moveDirection_ = Vector3();
 
-	// ƒ}ƒbƒvƒ`ƒbƒv‚Æ‚ÌƒAƒ^ƒŠ”»’è
+	// ãƒžãƒƒãƒ—ãƒãƒƒãƒ—ã¨ã®ã‚¢ã‚¿ãƒªåˆ¤å®š
 	MapChipManager::GetInstance()->CurrentMapPointer()->PerfectPixelCollision(*this);
 
 	transform_->pos_ += speed_.Velocity();
 
-	// Œü‚«’²®
+	// å‘ãèª¿æ•´
 	transform_->rota_ = YMath::AdjustAngle(direction_);
 
 	GameObject::Update();
 
 	status_.Update();
 
-	// ‰æ–ÊŠO‚È‚çŽ€‚Ê
+	// ç”»é¢å¤–ãªã‚‰æ­»ã¬
 	if (YMath::InRange(transform_->pos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
 	{
 		OffScreenProcess();

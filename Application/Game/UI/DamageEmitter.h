@@ -15,25 +15,25 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
 		static void Initialize(ViewProjection* pVP);
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <param name="damageVal"></param>
 		static void Emit(const YMath::Vector3& pos, const uint32_t damageVal);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		static void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		static void Draw();
 
@@ -45,86 +45,86 @@ namespace YGame
 		public:
 
 			/// <summary>
-			/// ‰Šú‰»
+			/// åˆæœŸåŒ–
 			/// </summary>
 			void Initialize(ViewProjection* pVP);
 
 			/// <summary>
-			/// ƒŠƒZƒbƒg (’†g‚¾‚¯‰Šú‰»)
+			/// ãƒªã‚»ãƒƒãƒˆ (ä¸­èº«ã ã‘åˆæœŸåŒ–)
 			/// </summary>
 			void Reset();
 
 			/// <summary>
-			/// XV
+			/// æ›´æ–°
 			/// </summary>
 			void Update();
 
 			/// <summary>
-			/// •`‰æ
+			/// æç”»
 			/// </summary>
 			void Draw();
 
 		public:
 
 			/// <summary>
-			/// ƒ_ƒ[ƒW¶¬
+			/// ãƒ€ãƒ¡ãƒ¼ã‚¸ç”Ÿæˆ
 			/// </summary>
-			/// <param name="pos"> : ˆÊ’u</param>
-			/// <param name="damageValue"> : ƒ_ƒ[ƒW—Ê</param>
+			/// <param name="pos"> : ä½ç½®</param>
+			/// <param name="damageValue"> : ãƒ€ãƒ¡ãƒ¼ã‚¸é‡</param>
 			void Pop(const YMath::Vector3& pos, const uint32_t damageValue);
 
 			/// <summary>
-			/// “®ì’†‚©
+			/// å‹•ä½œä¸­ã‹
 			/// </summary>
-			/// <returns>“®ìƒtƒ‰ƒO</returns>
+			/// <returns>å‹•ä½œãƒ•ãƒ©ã‚°</returns>
 			inline bool IsAct() const { return isAct_; }
 
 		private:
 
-			// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+			// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 			Transform trfm_;
 
-			// X²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO
+			// Xè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°
 			bool isXBillboard_ = false;
 
-			// Y²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO
+			// Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°
 			bool isYBillboard_ = false;
 
-			// ”š
+			// æ•°å­—
 			std::unique_ptr<UINumber> uiNum_;
 
-			// F
+			// è‰²
 			std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
 
-			// “®ìƒtƒ‰ƒO
+			// å‹•ä½œãƒ•ãƒ©ã‚°
 			bool isAct_ = false;
 
-			// ¶¬ƒ^ƒCƒ}[
+			// ç”Ÿæˆã‚¿ã‚¤ãƒãƒ¼
 			YMath::Timer popTim_;
 
-			// ã¸ƒC[ƒWƒ“ƒO
+			// ä¸Šæ˜‡ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 			YMath::Ease<float> upEas_;
 
-			// ƒXƒP[ƒ‹ƒC[ƒWƒ“ƒO
+			// ã‚¹ã‚±ãƒ¼ãƒ«ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 			YMath::Ease<float> popScaEas_;
 
-			// c‘¶ƒ^ƒCƒ}[
+			// æ®‹å­˜ã‚¿ã‚¤ãƒãƒ¼
 			YMath::Timer remainTim_;
 
-			// Á¸ƒ^ƒCƒ}[
+			// æ¶ˆå¤±ã‚¿ã‚¤ãƒãƒ¼
 			YMath::Timer vanishTim_;
 
-			// ƒAƒ‹ƒtƒ@’lƒC[ƒWƒ“ƒO
+			// ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 			YMath::Ease<float> vanishAlphaEas_;
 		};
 
 	private:
 
-		// ƒ_ƒ[ƒW”z—ñ
+		// ãƒ€ãƒ¡ãƒ¼ã‚¸é…åˆ—
 		static std::array<Damage, 10> damage_;
 
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿
 		static ViewProjection* spVP_;
 
 	};

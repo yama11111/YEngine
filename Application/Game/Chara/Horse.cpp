@@ -19,7 +19,7 @@ void Horse::Initialize(const Transform::Status& status)
 	BaseCharacter::Initialize(
 		"Horse",
 		status,
-		{ +1.0f, 0.0f, 0.0f }, // ‰EŒü‚«
+		{ +1.0f, 0.0f, 0.0f }, // å³å‘ã
 		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
 		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::ePet, AttributeType::eAll),
@@ -35,13 +35,13 @@ void Horse::Initialize(const Transform::Status& status)
 
 	maxJumpCount_ = PetConfig::kMaxJumpCount;
 
-	// —§‚¿ƒAƒjƒ[ƒVƒ‡ƒ“
+	// ç«‹ã¡ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eIdle),
 		HorseAnimationConfig::kIdleFrame
 	);
 
-	// ˆÚ“®ƒAƒjƒ[ƒVƒ‡ƒ“
+	// ç§»å‹•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eMove), 
 		HorseAnimationConfig::Move::kFrame, 
@@ -53,11 +53,11 @@ void Horse::Update(const bool isUpdate)
 {
 	IPet::Update(isUpdate);
 
-	// ’…’n‚µ‚½uŠÔ
+	// ç€åœ°ã—ãŸçž¬é–“
 	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
 		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
 	{
-		// ’…’nƒAƒjƒ[ƒVƒ‡ƒ“
+		// ç€åœ°ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		drawer_->PlayAnimation(
 			static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding),
 			HorseAnimationConfig::Landing::kFrame
@@ -87,7 +87,7 @@ void Horse::Hit()
 {
 	IPet::Hit();
 
-	// ”í’eƒAƒjƒ[ƒVƒ‡ƒ“
+	// è¢«å¼¾ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eHit),
 		HorseAnimationConfig::Hit::kFrame
@@ -100,7 +100,7 @@ void Horse::Jump(const bool isJumpCount)
 
 	if (isJumpCount && jumpCounter_ >= maxJumpCount_) { return; }
 
-	// ƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“
+	// ã‚¸ãƒ£ãƒ³ãƒ—ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eJump),
 		HorseAnimationConfig::Jump::kFrame
@@ -109,7 +109,7 @@ void Horse::Jump(const bool isJumpCount)
 
 void Horse::Attack()
 {
-	// UŒ‚V‹K¶¬
+	// æ”»æ’ƒæ–°è¦ç”Ÿæˆ
 	SnortAttack* newAttack = new SnortAttack();
 
 	newAttack->Initialize(
@@ -123,7 +123,7 @@ void Horse::Attack()
 
 	CharacterManager::GetInstance()->PushBack(newAttack);
 
-	// UŒ‚ƒAƒjƒ[ƒVƒ‡ƒ“
+	// æ”»æ’ƒã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(HorseDrawer::AnimationType::eAttack),
 		HorseAnimationConfig::kAttackFrame

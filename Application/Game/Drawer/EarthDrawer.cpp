@@ -19,13 +19,13 @@ EarthDrawer* EarthDrawer::Create(Transform* pParent, const size_t drawPriority)
 
 void EarthDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::LoadObj("earth", true);
 }
 
 void EarthDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	//obj_->transform_.scale_ = { 32.0f,32.0f,32.0f };
@@ -35,7 +35,7 @@ void EarthDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbColor_->data_.baseColor = Vector4(0.1f, 0.4f, 0.1f, 1.0f);
 	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
-	// ƒ‚ƒfƒ‹‘}“ü
+	// ãƒ¢ãƒ‡ãƒ«æŒ¿å…¥
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelPhong";

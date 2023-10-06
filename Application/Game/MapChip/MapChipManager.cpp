@@ -6,22 +6,22 @@ using YGame::MapChipManager;
 
 void MapChipManager::Load(const std::string& mapFileName)
 {
-	// ƒ}ƒbƒvƒf[ƒ^¶¬
+	// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ç”Ÿæˆ
 	std::unique_ptr<MapData> mapData = std::make_unique<MapData>();
 	
-	// ‘}“ü
+	// æŒ¿å…¥
 	mapDatas_.push_back(std::move(mapData));
 	
-	// “Ç‚İ‚İ
+	// èª­ã¿è¾¼ã¿
 	Load(static_cast<uint16_t>(mapDatas_.size() - 1), mapFileName);
 }
 
 void MapChipManager::Load(const uint16_t mapIndex, const std::string& mapFileName)
 {
-	// ƒf[ƒ^ƒTƒCƒY’´‰ß’e‚­
+	// ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºè¶…éæ™‚å¼¾ã
 	assert(0 <= mapIndex && mapIndex < mapDatas_.size());
 	
-	// “Ç‚İ‚İ
+	// èª­ã¿è¾¼ã¿
 	mapDatas_[mapIndex]->LoadCSV(mapFileName);
 }
 
@@ -30,37 +30,37 @@ void MapChipManager::Initialize(
 	const YMath::Vector3& leftTop, 
 	const YMath::Vector3& chipScale)
 {
-	// ƒ}ƒbƒvƒf[ƒ^‹ó‚È‚ç’e‚­
+	// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ç©ºãªã‚‰å¼¾ã
 	if (mapDatas_.empty()) { return; }
 
-	// Œ»İ‚Ì”Ô†
+	// ç¾åœ¨ã®ç•ªå·
 	currentIndex_ = mapIndex;
 	
-	// ƒ}ƒbƒvƒ`ƒbƒv‰Šú‰»
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—åˆæœŸåŒ–
 	map_.Initialize(mapDatas_[currentIndex_].get(), leftTop, chipScale);
 }
 
 void MapChipManager::Reset()
 {
-	// ƒ}ƒbƒvƒŠƒZƒbƒg
+	// ãƒãƒƒãƒ—ãƒªã‚»ãƒƒãƒˆ
 	map_.Reset();
 }
 
 void MapChipManager::Update()
 {
-	// XV
+	// æ›´æ–°
 	map_.Update();
 
 	if(map_.isClear_)
 	{
-		// ƒXƒe[ƒWƒNƒŠƒA
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢
 		StageManager::GetInstance()->ClearStage();
 	}
 }
 
 void MapChipManager::Draw()
 {
-	// •`‰æ
+	// æç”»
 	map_.Draw();
 }
 

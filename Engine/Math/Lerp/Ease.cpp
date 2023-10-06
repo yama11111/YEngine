@@ -11,7 +11,7 @@ using YMath::Vector4;
 template<typename T>
 void Ease<T>::Initialize(const T& start, const T& end, const float exponent)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	start_ = start;
 	end_ = end;
 	exponent_ = exponent;

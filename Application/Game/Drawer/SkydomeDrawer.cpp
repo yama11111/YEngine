@@ -19,13 +19,13 @@ SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const size_t drawPriori
 
 void SkydomeDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::LoadObj("skydome", true);
 }
 
 void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	isVisibleUpdate_ = false;
@@ -33,7 +33,7 @@ void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbColor_->data_.baseColor = YGame::ColorConfig::skTurquoise[0];
 	//cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
-	// ƒ‚ƒfƒ‹‘}“ü
+	// ãƒ¢ãƒ‡ãƒ«æŒ¿å…¥
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelSingleColor";

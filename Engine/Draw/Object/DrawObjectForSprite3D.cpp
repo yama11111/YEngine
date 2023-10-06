@@ -33,18 +33,18 @@ void DrawObjectForSprite3D::Initialize(const Transform::Status& status, const bo
 {
 	transform_.Initialize(status);
 
-	// ƒyƒAƒŒƒ“ƒg‰ğœ
+	// ãƒšã‚¢ãƒ¬ãƒ³ãƒˆè§£é™¤
 	SetParent(nullptr);
 
-	// ’è”ƒoƒbƒtƒ@‚ª¶¬‚³‚ê‚Ä‚È‚¢
-	// ¶¬ + ‘}“ü
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒç”Ÿæˆã•ã‚Œã¦ãªã„æ™‚
+	// ç”Ÿæˆ + æŒ¿å…¥
 	if (cbTransform_ == nullptr)
 	{
 		cbTransform_.reset(ConstBufferObject<CBSprite3DTransform>::Create(isClearWhenTransition));
 		InsertConstBuffer(cbTransform_.get());
 	}
 
-	// ƒfƒtƒHƒ‹ƒg‚Åİ’è
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è¨­å®š
 	InsertDefaultConstBuffer(CBColor::Tag());
 	InsertDefaultConstBuffer(CBTexConfig::Tag());
 
@@ -78,7 +78,7 @@ void DrawObjectForSprite3D::SetViewProjection(ViewProjection* pVP)
 
 void DrawObjectForSprite3D::SetSprite3D(Sprite3D* pSprite3D)
 {
-	// null ‚È‚çƒfƒtƒHƒ‹ƒg
+	// null ãªã‚‰ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 	if (pSprite3D == nullptr)
 	{
 		SetGraphic(DefaultGraphic::Ptr("Sprite3D"));

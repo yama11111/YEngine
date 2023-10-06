@@ -111,17 +111,17 @@ void DamageEmitter::Damage::Update()
 	remainTim_.Update();
 	vanishTim_.Update();
 
-	// 生成 → 残存
+	//          c  
 	if (popTim_.IsEnd())
 	{
 		remainTim_.SetActive(true);
 	}
-	// 残存 → 消失
+	//  c          
 	if (remainTim_.IsEnd())
 	{
 		vanishTim_.SetActive(true);
 	}
-	// 消失 → 終了
+	//          I  
 	if (vanishTim_.IsEnd())
 	{
 		Reset();
@@ -155,7 +155,7 @@ void DamageEmitter::Damage::Pop(const YMath::Vector3& pos, const uint32_t damage
 
 	trfm_.pos_ = pos;
 
-	// アニメーション開始
+	//  A j   [ V     J n
 	isAct_ = true;
 	uiNum_->SetNumber(damageValue);
 	popTim_.SetActive(true);

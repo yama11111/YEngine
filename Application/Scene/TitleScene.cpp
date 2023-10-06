@@ -8,7 +8,7 @@
 #include <cassert>
 #include <imgui.h>
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YGame::TitleScene;
 using namespace YInput;
@@ -17,11 +17,11 @@ using namespace YMath;
 
 #pragma endregion 
 
-#pragma region StaticŠÖ˜A
+#pragma region Staticé–¢é€£
 #pragma endregion 
 
 
-#pragma region “Ç‚İ‚İ
+#pragma region èª­ã¿è¾¼ã¿
 void TitleScene::Load()
 {
 	BaseDrawer::StaticInitialize(&transferVP_);
@@ -31,7 +31,7 @@ void TitleScene::Load()
 #pragma endregion
 
 
-#pragma region ‰Šú‰»
+#pragma region åˆæœŸåŒ–
 void TitleScene::Initialize()
 {
 	titleDra_.Initialize();
@@ -42,7 +42,7 @@ void TitleScene::Initialize()
 #pragma endregion
 
 
-#pragma region I—¹ˆ—
+#pragma region çµ‚äº†å‡¦ç†
 void TitleScene::Finalize()
 {
 
@@ -50,7 +50,7 @@ void TitleScene::Finalize()
 #pragma endregion
 
 
-#pragma region XV
+#pragma region æ›´æ–°
 void TitleScene::Update()
 {
 	if (spKeys_->IsTrigger(DIK_O) || spPad_->IsTrigger(PadButton::XIP_Y))
@@ -61,7 +61,7 @@ void TitleScene::Update()
 
 	transferVP_.UpdateMatrix();
 
-	// ƒQ[ƒ€ŠJn
+	// ã‚²ãƒ¼ãƒ é–‹å§‹
 	if (spKeys_->IsTrigger(DIK_SPACE) || spPad_->IsTrigger(PadButton::XIP_A) && 
 		SceneManager::GetInstance()->IsTransition() == false)
 	{
@@ -70,7 +70,7 @@ void TitleScene::Update()
 		titleDra_.StartAnimation();
 	}
 	
-	// ƒQ[ƒ€I—¹
+	// ã‚²ãƒ¼ãƒ çµ‚äº†
 	if (spKeys_->IsTrigger(DIK_ESCAPE) || spPad_->IsTrigger(PadButton::XIP_MENU))
 	{
 		SceneManager::GetInstance()->SetEnd(true);
@@ -79,7 +79,7 @@ void TitleScene::Update()
 #pragma endregion
 
 
-#pragma region •`‰æ
+#pragma region æç”»
 void TitleScene::Draw()
 {
 	titleDra_.Draw();

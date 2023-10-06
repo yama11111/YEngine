@@ -8,29 +8,29 @@
 class ImGuiManager
 {
 private:
-	// ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+	// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 	ID3D12GraphicsCommandList* pCmdList_ = nullptr;
-	// ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv
+	// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—
 	YDX::DescriptorHeap* pDescHeap_ = nullptr;
 public:
 	struct InitStatus 
 	{
-		HWND hwnd_; // ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-		ID3D12Device* pDevice_; // ƒfƒoƒCƒX
-		ID3D12GraphicsCommandList* pCmdList_; // ƒRƒ}ƒ“ƒhƒŠƒXƒg
-		YDX::DescriptorHeap* pDescHeap_; // ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv
-		size_t backBufferCount_; // ƒoƒbƒNƒoƒbƒtƒ@‚Ì”
+		HWND hwnd_; // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+		ID3D12Device* pDevice_; // ãƒ‡ãƒã‚¤ã‚¹
+		ID3D12GraphicsCommandList* pCmdList_; // ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
+		YDX::DescriptorHeap* pDescHeap_; // ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—
+		size_t backBufferCount_; // ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®æ•°
 	};
 public:
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	void Initialize(const InitStatus& state);
-	// I—¹ˆ—
+	// çµ‚äº†å‡¦ç†
 	void Finalize();
-	// ó•tŠJn
+	// å—ä»˜é–‹å§‹
 	void Begin();
-	// ó•tI—¹
+	// å—ä»˜çµ‚äº†
 	void End();
-	// •`‰æ
+	// æç”»
 	void Draw();
 };
 

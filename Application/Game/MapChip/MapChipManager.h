@@ -9,80 +9,80 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ƒ}ƒbƒvƒf[ƒ^“Ç‚İ‚İ (csv)
+		/// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ (csv)
 		/// </summary>
-		/// <param name="mapFileName"> : ƒ}ƒbƒvƒtƒ@ƒCƒ‹–¼</param>
+		/// <param name="mapFileName"> : ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«å</param>
 		void Load(const std::string& mapFileName);
 		
 		/// <summary>
-		/// ƒ}ƒbƒvƒf[ƒ^“Ç‚İ‚İ (csv)
+		/// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ (csv)
 		/// </summary>
-		/// <param name="mapIndex"> : ƒ}ƒbƒv”Ô†</param>
-		/// <param name="mapFileName"> : ƒ}ƒbƒvƒtƒ@ƒCƒ‹–¼</param>
+		/// <param name="mapIndex"> : ãƒãƒƒãƒ—ç•ªå·</param>
+		/// <param name="mapFileName"> : ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«å</param>
 		void Load(const uint16_t mapIndex, const std::string& mapFileName);
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="mapIndex"> : ƒ}ƒbƒv”Ô†</param>
-		/// <param name="leftTop"> : ¶ãÀ•W</param>
-		/// <param name="chipScale"> : ƒ`ƒbƒv1‚Â‚Ì‘å‚«‚³</param>
+		/// <param name="mapIndex"> : ãƒãƒƒãƒ—ç•ªå·</param>
+		/// <param name="leftTop"> : å·¦ä¸Šåº§æ¨™</param>
+		/// <param name="chipScale"> : ãƒãƒƒãƒ—1ã¤ã®å¤§ãã•</param>
 		void Initialize(
 			const uint16_t mapIndex,
 			const YMath::Vector3& leftTop,
 			const YMath::Vector3& chipScale);
 		
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 	
 	public:
 
 		/// <summary>
-		/// ƒ}ƒbƒvƒ`ƒbƒvƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒ}ƒbƒvƒ`ƒbƒvƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãƒã‚¤ãƒ³ã‚¿</returns>
 		MapChip* CurrentMapPointer() { return &map_; }
 	
 	public:
 		
 		/// <summary>
-		/// ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		static MapChipManager* GetInstance();
 
 	private:
 
-		// ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		MapChipManager() = default;
-		// ƒfƒtƒHƒ‹ƒgƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		~MapChipManager() = default;
-		// ‘ã“üƒRƒ“ƒXƒgƒ‰ƒNƒ^íœ
+		// ä»£å…¥ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å‰Šé™¤
 		MapChipManager(const MapChipManager&) = delete;
-		// ‘ã“üíœ
+		// ä»£å…¥å‰Šé™¤
 		const MapChipManager& operator=(const MapChipManager&) = delete;
 
 	private:
 		
-		// ƒ}ƒbƒvƒf[ƒ^
+		// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿
 		std::vector<std::unique_ptr<MapData>> mapDatas_;
 		
-		// Œ»İ‚Ìƒ}ƒbƒvƒf[ƒ^ƒCƒ“ƒfƒbƒNƒX
+		// ç¾åœ¨ã®ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 		uint16_t currentIndex_ = 0;
 		
-		// ƒ}ƒbƒv
+		// ãƒãƒƒãƒ—
 		MapChip map_;
 	};
 }

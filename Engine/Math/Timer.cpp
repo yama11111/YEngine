@@ -12,35 +12,35 @@ Timer::Timer(const uint32_t endFrame, const bool isAct) :
 
 void Timer::Initialize(const uint32_t endFrame, const bool isAct)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	SetEndFrame(endFrame);
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset(isAct);
 }
 
 void Timer::Reset(const bool isAct)
 {
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	current_ = 0;
 	isAct_ = isAct;
 }
 
 void Timer::Update(const float passRate)
 {
-	// “®ì’†‚Ì‚İ’Ê‚é
+	// å‹•ä½œä¸­ã®ã¿é€šã‚‹
 	if (isAct_ == false) { return; }
 
-	// ‰ÁZ’l
+	// åŠ ç®—å€¤
 	float spd = 1.0f * passRate;
 
-	// ‰ÁZ
+	// åŠ ç®—
 	current_ += spd;
 	
-	// ŠÔ‚É‚È‚Á‚½‚ç
+	// æ™‚é–“ã«ãªã£ãŸã‚‰
 	if (current_ >= static_cast<float>(endFrame_))
 	{
-		// I—¹ˆ—
+		// çµ‚äº†å‡¦ç†
 		current_ = static_cast<float>(endFrame_);
 		isAct_ = false;
 	}
@@ -48,7 +48,7 @@ void Timer::Update(const float passRate)
 
 float Timer::Ratio() const
 {
-	// 0‚ÅŠ„‚ç‚È‚¢‚æ‚¤‚É
+	// 0ã§å‰²ã‚‰ãªã„ã‚ˆã†ã«
 	if (endFrame_ == 0) { return 0.0f; }
 	return current_ / static_cast<float>(endFrame_);
 }

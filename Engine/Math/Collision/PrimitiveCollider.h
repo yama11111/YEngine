@@ -6,7 +6,7 @@
 
 namespace YMath
 {
-	// ƒŒƒC
+	// ãƒ¬ã‚¤
 	class RayCollider final:
 		public BasePrimitiveCollider
 	{
@@ -14,41 +14,41 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="start"> ; n“_</param>
-		/// <param name="direction"> : Œü‚«</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="start"> ; å§‹ç‚¹</param>
+		/// <param name="direction"> : å‘ã</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(const Vector3& start, const Vector3& direction, const bool isSlip = false);
 
 		/// <summary>
-		/// ‰Šú‰» (’Ç]ver)
+		/// åˆæœŸåŒ– (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="direction"> : Œü‚«</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="direction"> : å‘ã</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const Vector3& direction, const bool isSlip = false);
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="other"> : ‘Šè</param>
-		/// <returns>Õ“Ë‚µ‚½‚©</returns>
+		/// <param name="other"> : ç›¸æ‰‹</param>
+		/// <returns>è¡çªã—ãŸã‹</returns>
 		bool CheckCollision(const BasePrimitiveCollider& other) const override;
 
 	public:
 
 		/// <summary>
-		/// ‰ŠúˆÊ’u
+		/// åˆæœŸä½ç½®
 		/// </summary>
-		/// <returns>‰ŠúˆÊ’u</returns>
+		/// <returns>åˆæœŸä½ç½®</returns>
 		Vector3 Start() const;
 
 		/// <summary>
-		/// •ûŒü
+		/// æ–¹å‘
 		/// </summary>
-		/// <returns>•ûŒü</returns>
+		/// <returns>æ–¹å‘</returns>
 		inline Vector3 Direction() const { return direction_.Normalized(); }
 	
 	public:
@@ -56,46 +56,46 @@ namespace YMath
 		RayCollider() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="start"> ; n“_</param>
-		/// <param name="direction"> : Œü‚«</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="start"> ; å§‹ç‚¹</param>
+		/// <param name="direction"> : å‘ã</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		RayCollider(const Vector3& start, const Vector3& direction, const bool isSlip = false);
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ (’Ç]ver)
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="direction"> : Œü‚«</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="direction"> : å‘ã</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		RayCollider(Vector3* pFollowPoint, const Vector3& offset, const Vector3& direction, const bool isSlip = false);
 
 		virtual ~RayCollider() = default;
 
 	protected:
 
-		// ‰ŠúˆÊ’u
+		// åˆæœŸä½ç½®
 		Vector3 start_ = { 0,0,0 };
 
-		// •ûŒü
+		// æ–¹å‘
 		Vector3 direction_ = { 1,0,0 };
 
 	protected:
 
-		// ü ~ •½–Ê
+		// ç·š Ã— å¹³é¢
 		bool CheckConcreteCollision(const PlaneCollider& other) const override;
 
-		// ü ~ OŠpŒ`
+		// ç·š Ã— ä¸‰è§’å½¢
 		bool CheckConcreteCollision(const TriangleCollider& other) const override;
 
-		// ü ~ ‹…
+		// ç·š Ã— çƒ
 		bool CheckConcreteCollision(const SphereCollider& other) const override;
 
 	};
 
-	// •½–Ê
+	// å¹³é¢
 	class PlaneCollider final:
 		public BasePrimitiveCollider
 	{
@@ -103,32 +103,32 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="normal"> : –@ü</param>
-		/// <param name="distance"> : ‹——£</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="normal"> : æ³•ç·š</param>
+		/// <param name="distance"> : è·é›¢</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(const Vector3& normal, const float distance, const bool isSlip = false);
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="other"> : ‘Šè</param>
-		/// <returns>Õ“Ë‚µ‚½‚©</returns>
+		/// <param name="other"> : ç›¸æ‰‹</param>
+		/// <returns>è¡çªã—ãŸã‹</returns>
 		bool CheckCollision(const BasePrimitiveCollider& other) const override;
 
 	public:
 
 		/// <summary>
-		/// –@ü
+		/// æ³•ç·š
 		/// </summary>
-		/// <returns>–@ü</returns>
+		/// <returns>æ³•ç·š</returns>
 		inline Vector3 Normal() const { return normal_.Normalized(); }
 
 		/// <summary>
-		/// ‹——£
+		/// è·é›¢
 		/// </summary>
-		/// <returns>‹——£</returns>
+		/// <returns>è·é›¢</returns>
 		inline float Distance() const { return distance_; }
 	
 	public:
@@ -136,33 +136,33 @@ namespace YMath
 		PlaneCollider() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="normal"> : –@ü</param>
-		/// <param name="distance"> : ‹——£</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="normal"> : æ³•ç·š</param>
+		/// <param name="distance"> : è·é›¢</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		PlaneCollider(const Vector3& normal, const float distance, const bool isSlip = false);
 
 		virtual ~PlaneCollider() = default;
 
 	protected:
 
-		// –@üƒxƒNƒgƒ‹
+		// æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
 		Vector3 normal_ = { 0.0f,+1.0f,0.0f };
 
-		// Œ´“_‚©‚ç‚Ì‹——£
+		// åŸç‚¹ã‹ã‚‰ã®è·é›¢
 		float distance_ = 0.0f;
 
 	protected:
 
-		// ü ~ •½–Ê
+		// ç·š Ã— å¹³é¢
 		bool CheckConcreteCollision(const RayCollider& other) const override;
 
-		// •½–Ê ~ ‹…
+		// å¹³é¢ Ã— çƒ
 		bool CheckConcreteCollision(const SphereCollider& other) const override;
 	};
 
-	// OŠpŒ`
+	// ä¸‰è§’å½¢
 	class TriangleCollider final:
 		public BasePrimitiveCollider
 	{
@@ -170,47 +170,47 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="vertices"> : ’¸“_ˆÊ’u</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="vertices"> : é ‚ç‚¹ä½ç½®</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(const std::array<Vector3, 3>& vertices, const bool isSlip = false);
 
 		/// <summary>
-		/// ‰Šú‰» (’Ç]ver)
+		/// åˆæœŸåŒ– (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="vertices"> : ’¸“_ˆÊ’u</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="vertices"> : é ‚ç‚¹ä½ç½®</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const std::array<Vector3, 3>& vertices, const bool isSlip = false);
 
 		/// <summary>
-		/// OŠpŒ`–@ü‚ÌŒvZ (Œ»İ‚Ì3“_‚©‚ç)
+		/// ä¸‰è§’å½¢æ³•ç·šã®è¨ˆç®— (ç¾åœ¨ã®3ç‚¹ã‹ã‚‰)
 		/// </summary>
 		void CalcTriangleNormal();
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="other"> : ‘Šè</param>
-		/// <returns>Õ“Ë‚µ‚½‚©</returns>
+		/// <param name="other"> : ç›¸æ‰‹</param>
+		/// <returns>è¡çªã—ãŸã‹</returns>
 		bool CheckCollision(const BasePrimitiveCollider& other) const override;
 
 	public:
 
 		
 		/// <summary>
-		/// OŠpŒ`’¸“_ˆÊ’u
+		/// ä¸‰è§’å½¢é ‚ç‚¹ä½ç½®
 		/// </summary>
-		/// <param name="index">ƒCƒ“ƒfƒbƒNƒX</param>
-		/// <returns>OŠpŒ`’¸“_ˆÊ’u</returns>
+		/// <param name="index">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
+		/// <returns>ä¸‰è§’å½¢é ‚ç‚¹ä½ç½®</returns>
 		YMath::Vector3 VertexPos(const size_t index) const;
 		
 		/// <summary>
-		/// –@ü
+		/// æ³•ç·š
 		/// </summary>
-		/// <returns>–@ü</returns>
+		/// <returns>æ³•ç·š</returns>
 		inline YMath::Vector3 Normal() const { return normal_; }
 
 	public:
@@ -218,42 +218,42 @@ namespace YMath
 		TriangleCollider() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="vertices"> : ’¸“_ˆÊ’u</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="vertices"> : é ‚ç‚¹ä½ç½®</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		TriangleCollider(const std::array<Vector3, 3>& vertices, const bool isSlip = false);
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ (’Ç]ver)
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="vertices"> : ’¸“_ˆÊ’u</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="vertices"> : é ‚ç‚¹ä½ç½®</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		TriangleCollider(Vector3* pFollowPoint, const Vector3& offset, const std::array<Vector3, 3>& vertices, const bool isSlip = false);
 
 		virtual ~TriangleCollider() = default;
 
 	protected:
 
-		// ’¸“_À•W
+		// é ‚ç‚¹åº§æ¨™
 		std::array<Vector3, 3> vertices_;
 
-		// –@üƒxƒNƒgƒ‹
+		// æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
 		Vector3 normal_;
 
 	protected:
 
-		// ü ~ OŠpŒ`
+		// ç·š Ã— ä¸‰è§’å½¢
 		bool CheckConcreteCollision(const RayCollider& other) const override;
 
-		// OŠpŒ` ~ ‹…
+		// ä¸‰è§’å½¢ Ã— çƒ
 		bool CheckConcreteCollision(const SphereCollider& other) const override;
 
 	};
 
-	// ‹…
+	// çƒ
 	class SphereCollider final:
 		public BasePrimitiveCollider
 	{
@@ -261,41 +261,41 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="center"> : ’†S“_</param>
-		/// <param name="radius"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="center"> : ä¸­å¿ƒç‚¹</param>
+		/// <param name="radius"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(const Vector3& center, const float radius, const bool isSlip = false);
 
 		/// <summary>
-		/// ‰Šú‰» (’Ç]ver)
+		/// åˆæœŸåŒ– (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="radius"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="radius"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const float radius, const bool isSlip = false);
 		
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="other"> : ‘Šè</param>
-		/// <returns>Õ“Ë‚µ‚½‚©</returns>
+		/// <param name="other"> : ç›¸æ‰‹</param>
+		/// <returns>è¡çªã—ãŸã‹</returns>
 		bool CheckCollision(const BasePrimitiveCollider& other) const override;
 
 	public:
 
 		/// <summary>
-		/// ’†S“_
+		/// ä¸­å¿ƒç‚¹
 		/// </summary>
-		/// <returns>’†S“_</returns>
+		/// <returns>ä¸­å¿ƒç‚¹</returns>
 		YMath::Vector3 Center() const;
 		
 		/// <summary>
-		/// ”¼Œa
+		/// åŠå¾„
 		/// </summary>
-		/// <returns>”¼Œa</returns>
+		/// <returns>åŠå¾„</returns>
 		inline float Radius() const { return radius_; }
 
 	public:
@@ -303,20 +303,20 @@ namespace YMath
 		SphereCollider() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="center"> : ’†S“_</param>
-		/// <param name="radius"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="center"> : ä¸­å¿ƒç‚¹</param>
+		/// <param name="radius"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		SphereCollider(const Vector3& center, const float radius, const bool isSlip = false);
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ (’Ç]ver)
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="radius"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="radius"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		SphereCollider(Vector3* pFollowPoint, const Vector3& offset, const float radius, const bool isSlip = false);
 
 
@@ -324,29 +324,29 @@ namespace YMath
 
 	protected:
 
-		// ’†S“_
+		// ä¸­å¿ƒç‚¹
 		YMath::Vector3 center_ = { 0.0f,0.0f,0.0f };
 
-		// ”¼Œa
+		// åŠå¾„
 		float radius_ = 0.0f;
 
 	protected:
 
-		// ü ~ ‹…
+		// ç·š Ã— çƒ
 		bool CheckConcreteCollision(const RayCollider& other) const override;
 
-		// •½–Ê ~ ‹…
+		// å¹³é¢ Ã— çƒ
 		bool CheckConcreteCollision(const PlaneCollider& other) const override;
 
-		// OŠpŒ` ~ ‹…
+		// ä¸‰è§’å½¢ Ã— çƒ
 		bool CheckConcreteCollision(const TriangleCollider& other) const override;
 
-		// ‹… ~ ‹…
+		// çƒ Ã— çƒ
 		bool CheckConcreteCollision(const SphereCollider& other) const override;
 
 	};
 
-	// lŠpŒ` [2D]
+	// å››è§’å½¢ [2D]
 	class Box2DCollider final:
 		public BasePrimitiveCollider
 	{
@@ -354,41 +354,41 @@ namespace YMath
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="center"> : ’†S“_</param>
-		/// <param name="radSize"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="center"> : ä¸­å¿ƒç‚¹</param>
+		/// <param name="radSize"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(const Vector2& center, const Vector2& radSize, const bool isSlip = false);
 		
 		/// <summary>
-		/// ‰Šú‰» (’Ç]ver)
+		/// åˆæœŸåŒ– (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="radSize"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="radSize"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const Vector2& radSize, const bool isSlip = false);
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="other"> : ‘Šè</param>
-		/// <returns>Õ“Ë‚µ‚½‚©</returns>
+		/// <param name="other"> : ç›¸æ‰‹</param>
+		/// <returns>è¡çªã—ãŸã‹</returns>
 		bool CheckCollision(const BasePrimitiveCollider& other) const override;
 
 	public:
 		
 		/// <summary>
-		/// ’†SÀ•W
+		/// ä¸­å¿ƒåº§æ¨™
 		/// </summary>
 		/// <returns></returns>
 		YMath::Vector2 Center() const;
 		
 		/// <summary>
-		/// ”¼Œa
+		/// åŠå¾„
 		/// </summary>
-		/// <returns>”¼Œa</returns>
+		/// <returns>åŠå¾„</returns>
 		inline YMath::Vector2 RadSize() const { return radSize_; }
 
 	public:
@@ -396,60 +396,60 @@ namespace YMath
 		Box2DCollider() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="center"> : ’†S“_</param>
-		/// <param name="radSize"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="center"> : ä¸­å¿ƒç‚¹</param>
+		/// <param name="radSize"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		Box2DCollider(const Vector2& center, const Vector2& radSize, const bool isSlip = false);
 		
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ (’Ç]ver)
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="radSize"> : ”¼Œa</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="radSize"> : åŠå¾„</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		Box2DCollider(Vector3* pFollowPoint, const Vector3& offset, const Vector2& radSize, const bool isSlip = false);
 
 		virtual ~Box2DCollider() = default;
 
 	protected:
 
-		// ’†SÀ•W
+		// ä¸­å¿ƒåº§æ¨™
 		YMath::Vector2 center_ = { 0.0f,0.0f };
 
-		// ”¼Œa
+		// åŠå¾„
 		YMath::Vector2 radSize_ = { 0.0f,0.0f };
 
 	protected:
 
-		// lŠpŒ`[2D] ~ lŠpŒ`[2D]
+		// å››è§’å½¢[2D] Ã— å››è§’å½¢[2D]
 		bool CheckConcreteCollision(const Box2DCollider& other) const override;
 
 	};
 
 
-	// ü ~ •½–Ê
+	// ç·š Ã— å¹³é¢
 	static bool CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane);
 	static bool CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane, float& distance, YMath::Vector3& inter);
 
-	// ü ~ OŠpŒ`
+	// ç·š Ã— ä¸‰è§’å½¢
 	static bool CollisionRayTriangle(const RayCollider& ray, const TriangleCollider& triangle);
 
-	// ü ~ ‹…
+	// ç·š Ã— çƒ
 	static bool CollisionRaySphere(const RayCollider& ray, const SphereCollider& sphere);
 
-	// •½–Ê ~ ‹…
+	// å¹³é¢ Ã— çƒ
 	static bool CollisionPlaneSphere(const PlaneCollider& plane, const SphereCollider& sphere);
 
-	// OŠpŒ` ~ ‹…
+	// ä¸‰è§’å½¢ Ã— çƒ
 	static bool CollisionTriangleSphere(const TriangleCollider& triangle, const SphereCollider& sphere);
 
-	// ‹… ~ ‹…
+	// çƒ Ã— çƒ
 	static bool CollisionSphereSphere(const SphereCollider& sphere1, const SphereCollider& sphere2);
 
-	// lŠpŒ`[2D] ~ lŠpŒ`[2D]
+	// å››è§’å½¢[2D] Ã— å››è§’å½¢[2D]
 	static bool CollisionBoxBox2D(const Box2DCollider& box1, const Box2DCollider& box2);
 
 }

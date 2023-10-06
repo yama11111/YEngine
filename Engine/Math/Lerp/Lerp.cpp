@@ -37,37 +37,37 @@ Vector3 YMath::Slerp(const Vector3& v1, const Vector3& v2, float t)
 template<typename T>
 T YMath::Bezier(const std::vector<T>& points, const float ratio)
 {
-	// 1‚Â‚à‚È‚¢‚È‚ç’e‚­
+	// 1ã¤ã‚‚ãªã„ãªã‚‰å¼¾ã
 	assert(points.empty() == false);
 
-	// 1‚Â‚È‚ç 0”Ô‚ğ•Ô‚·
+	// 1ã¤ãªã‚‰ 0ç•ªã‚’è¿”ã™
 	if (points.size() == 1) { return points[0]; }
 	
-	// 2‚Â‚È‚ç •’Ê‚Ì•âŠÔ
+	// 2ã¤ãªã‚‰ æ™®é€šã®è£œé–“
 	if (points.size() == 2) { return Lerp<T>(points[0], points[1], ratio); }
 
-	// ŒvZ—p‚ÉéŒ¾
+	// è¨ˆç®—ç”¨ã«å®£è¨€
 	std::vector<T> p = points, result;
 	while (true)
 	{
-		// ŒvZ—pƒxƒNƒ^[ƒNƒŠƒA
+		// è¨ˆç®—ç”¨ãƒ™ã‚¯ã‚¿ãƒ¼ã‚¯ãƒªã‚¢
 		result.clear();
 		
-		// Œ»İ‚ÌŠî€“_‚Ì”‰ñ‚·
+		// ç¾åœ¨ã®åŸºæº–ç‚¹ã®æ•°å›ã™
 		for (size_t i = 0; i < p.size() - 1; i++)
 		{
-			// ŒvZ—pƒxƒNƒ^[‚É‘ã“ü
+			// è¨ˆç®—ç”¨ãƒ™ã‚¯ã‚¿ãƒ¼ã«ä»£å…¥
 			result.push_back(Lerp<T>(p[i], p[i + 1], ratio));
 		}
 		
-		// 2‚ÂˆÈ‰º‚É‚È‚Á‚½‚çI—¹
+		// 2ã¤ä»¥ä¸‹ã«ãªã£ãŸã‚‰çµ‚äº†
 		if (result.size() <= 2) { break; }
 		
-		// ‘ã“ü
+		// ä»£å…¥
 		p = result;
 	}
 
-	// ŒvZ—pƒxƒNƒ^[‚Å•âŠÔ
+	// è¨ˆç®—ç”¨ãƒ™ã‚¯ã‚¿ãƒ¼ã§è£œé–“
 	return Lerp<T>(result[0], result[1], ratio);
 }
 
@@ -75,16 +75,16 @@ namespace
 {
 	void CalcSplineSectionAndRatio(const size_t sectionNum, const float ratio, size_t& section, float& ratioOfSection)
 	{
-		// ‘S‘Ì‚Å‚ÌŠ„‡ (size : 1.0 = x : ratio)
+		// å…¨ä½“ã§ã®å‰²åˆ (size : 1.0 = x : ratio)
 		float ratioOfTotal = ratio * static_cast<float>(sectionNum);
 
-		// ‘S‘Ì‚ÌŠ„‡‚©‚çAƒZƒNƒVƒ‡ƒ“ ‚Æ Š„‡ ‚ğŒvZ
+		// å…¨ä½“ã®å‰²åˆã‹ã‚‰ã€ã‚»ã‚¯ã‚·ãƒ§ãƒ³ ã¨ å‰²åˆ ã‚’è¨ˆç®—
 
-		// Š„‡ : ‘S‘Ì‚ÌŠ„‡‚Ì ­”•”
+		// å‰²åˆ : å…¨ä½“ã®å‰²åˆã® å°‘æ•°éƒ¨
 		float integer = 0;
 		ratioOfSection = modff(ratioOfTotal, &integer);
 
-		// ƒZƒNƒVƒ‡ƒ“ : ‘S‘Ì‚ÌŠ„‡‚Ì ®”•”
+		// ã‚»ã‚¯ã‚·ãƒ§ãƒ³ : å…¨ä½“ã®å‰²åˆã® æ•´æ•°éƒ¨
 		section = static_cast<size_t>(integer);
 	}
 }
@@ -92,29 +92,29 @@ namespace
 template<typename T>
 T YMath::Spline(const std::vector<T>& points, const float ratio)
 {
-	// 1‚Â‚à‚È‚¢‚È‚ç’e‚­
+	// 1ã¤ã‚‚ãªã„ãªã‚‰å¼¾ã
 	assert(points.empty() == false);
 
 	size_t pSize = points.size();
 
-	// 1‚Â‚È‚ç 0”Ô‚ğ•Ô‚·
+	// 1ã¤ãªã‚‰ 0ç•ªã‚’è¿”ã™
 	if (pSize == 1) { return points[0]; }
 
-	// 2‚Â‚È‚ç •’Ê‚Ì•âŠÔ
+	// 2ã¤ãªã‚‰ æ™®é€šã®è£œé–“
 	if (pSize == 2) { return Lerp<T>(points[0], points[1], ratio); }
 
 	size_t section = 0;
 	float ratioOfSection = 0.0f;
 	CalcSplineSectionAndRatio(pSize - 1, ratio, section, ratioOfSection);
 
-	// ƒZƒNƒVƒ‡ƒ“‚ª ”z—ñ‚ÌÅ‘å”‚ğ’´‚¦‚Ä‚¢‚é‚È‚ç ÅŒã‚ğ•Ô‚·
-	// ƒZƒNƒVƒ‡ƒ“‚ª •‰‚Ì’l‚È‚ç Å‰‚ğ•Ô‚·
+	// ã‚»ã‚¯ã‚·ãƒ§ãƒ³ãŒ é…åˆ—ã®æœ€å¤§æ•°ã‚’è¶…ãˆã¦ã„ã‚‹ãªã‚‰ æœ€å¾Œã‚’è¿”ã™
+	// ã‚»ã‚¯ã‚·ãƒ§ãƒ³ãŒ è² ã®å€¤ãªã‚‰ æœ€åˆã‚’è¿”ã™
 	size_t max = pSize - 2;
 	if (section > max) { return points[pSize - 1]; }
 	if (section < 0) { return points[0]; }
 
-	// •K‚¸4“_ˆÈã‚Å‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‚Ì‚ÅA
-	// V‹K‚ÉéŒ¾‚µAÅ‰‚ÆÅŒã‚ğ•¡»
+	// å¿…ãš4ç‚¹ä»¥ä¸Šã§ãªã‘ã‚Œã°ãªã‚‰ãªã„ã®ã§ã€
+	// æ–°è¦ã«å®£è¨€ã—ã€æœ€åˆã¨æœ€å¾Œã‚’è¤‡è£½
 	std::vector<T> ps;
 	ps.emplace_back(points[0]);
 	for (size_t i = 0; i < pSize; i++)
@@ -123,7 +123,7 @@ T YMath::Spline(const std::vector<T>& points, const float ratio)
 	}
 	ps.emplace_back(points[pSize - 1]);
 
-	// ŒvZ
+	// è¨ˆç®—
 	T p0 = ps[section];
 	T p1 = ps[section + 1];
 	T p2 = ps[section + 2];
@@ -151,15 +151,15 @@ namespace
 
 	float EaseInOutRatio(const float ratio, const float exponent, const float controlPoint)
 	{
-		// ƒOƒ‰ƒt‚ğ•ªŠ„‚µ‚È‚¢‚È‚ç æ‚É’l‚ğ•Ô‚·
-		// (0œZ‚ğ–³‚­‚·ˆÓ–¡‚à‚ ‚é)
+		// ã‚°ãƒ©ãƒ•ã‚’åˆ†å‰²ã—ãªã„ãªã‚‰ å…ˆã«å€¤ã‚’è¿”ã™
+		// (0é™¤ç®—ã‚’ç„¡ãã™æ„å‘³ã‚‚ã‚ã‚‹)
 		
 		if (1.0f <= controlPoint) { return EaseInRatio(ratio, exponent); }
 		if (controlPoint <= 0.0f) { return EaseOutRatio(ratio, exponent); }
 
-		// (1) §Œä“_ ‚©‚ç ƒOƒ‰ƒt‚ğ•ªŠ„
-		// (2) ‚»‚ê‚¼‚ê‚Ì ƒOƒ‰ƒt‚É‚¨‚¢‚Ä‚ÌŠ„‡ ‚ğÄŒvZ
-		// (3) ‚»‚ÌŠ„‡ ‚ğ Œ³‚ÌƒOƒ‰ƒt‚Å‚Ì’l ‚É–ß‚·
+		// (1) åˆ¶å¾¡ç‚¹ ã‹ã‚‰ ã‚°ãƒ©ãƒ•ã‚’åˆ†å‰²
+		// (2) ãã‚Œãã‚Œã® ã‚°ãƒ©ãƒ•ã«ãŠã„ã¦ã®å‰²åˆ ã‚’å†è¨ˆç®—
+		// (3) ãã®å‰²åˆ ã‚’ å…ƒã®ã‚°ãƒ©ãƒ•ã§ã®å€¤ ã«æˆ»ã™
 		
 		// (1)
 		if (ratio <= controlPoint)
@@ -176,15 +176,15 @@ namespace
 	
 	float EaseOutInRatio(const float ratio, const float exponent, const float controlPoint)
 	{
-		// ƒOƒ‰ƒt‚ğ•ªŠ„‚µ‚È‚¢‚È‚ç æ‚É’l‚ğ•Ô‚·
-		// (0œZ‚ğ–³‚­‚·ˆÓ–¡‚à‚ ‚é)
+		// ã‚°ãƒ©ãƒ•ã‚’åˆ†å‰²ã—ãªã„ãªã‚‰ å…ˆã«å€¤ã‚’è¿”ã™
+		// (0é™¤ç®—ã‚’ç„¡ãã™æ„å‘³ã‚‚ã‚ã‚‹)
 		
 		if (1.0f <= controlPoint) { return EaseOutRatio(ratio, exponent); }
 		if (controlPoint <= 0.0f) { return EaseInRatio(ratio, exponent); }
 
-		// (1) §Œä“_ ‚©‚ç ƒOƒ‰ƒt‚ğ•ªŠ„
-		// (2) ‚»‚ê‚¼‚ê‚Ì ƒOƒ‰ƒt‚É‚¨‚¢‚Ä‚ÌŠ„‡ ‚ğÄŒvZ
-		// (3) ‚»‚ÌŠ„‡ ‚ğ Œ³‚ÌƒOƒ‰ƒt‚Å‚Ì’l ‚É–ß‚·
+		// (1) åˆ¶å¾¡ç‚¹ ã‹ã‚‰ ã‚°ãƒ©ãƒ•ã‚’åˆ†å‰²
+		// (2) ãã‚Œãã‚Œã® ã‚°ãƒ©ãƒ•ã«ãŠã„ã¦ã®å‰²åˆ ã‚’å†è¨ˆç®—
+		// (3) ãã®å‰²åˆ ã‚’ å…ƒã®ã‚°ãƒ©ãƒ•ã§ã®å€¤ ã«æˆ»ã™
 		
 		// (1)
 		if (ratio <= controlPoint)

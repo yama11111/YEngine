@@ -10,12 +10,12 @@ namespace YDX
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="pHeapProp"> : ƒoƒbƒtƒ@İ’èƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pResourceDesc"> : ƒŠƒ\[ƒXİ’èƒ|ƒCƒ“ƒ^</param>
-		/// <param name="resourceState"> : ƒŠƒ\[ƒXƒXƒe[ƒg</param>
-		/// <param name="pClearValue"> : ƒNƒŠƒA’lƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pHeapProp"> : ãƒãƒƒãƒ•ã‚¡è¨­å®šãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pResourceDesc"> : ãƒªã‚½ãƒ¼ã‚¹è¨­å®šãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="resourceState"> : ãƒªã‚½ãƒ¼ã‚¹ã‚¹ãƒ†ãƒ¼ãƒˆ</param>
+		/// <param name="pClearValue"> : ã‚¯ãƒªã‚¢å€¤ãƒã‚¤ãƒ³ã‚¿</param>
 		void Create(
 			const D3D12_HEAP_PROPERTIES* pHeapProp,
 			const D3D12_RESOURCE_DESC* pResourceDesc,
@@ -25,33 +25,33 @@ namespace YDX
 	public:
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3D12Resource* Get() { return buffer_.Get(); }
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^ƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^ƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿ãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3D12Resource** GetAddressOf() { return buffer_.GetAddressOf(); }
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pDevice"> : ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pDevice"> : ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ID3D12Device* pDevice);
 	
 	private:
 		
-		// ƒoƒbƒtƒ@
+		// ãƒãƒƒãƒ•ã‚¡
 		Microsoft::WRL::ComPtr<ID3D12Resource> buffer_ = nullptr;
 
 	private:
 		
-		// Ã“IƒfƒoƒCƒXƒ|ƒCƒ“ƒ^
+		// é™çš„ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿
 		static ID3D12Device* spDevice_;
 	
 	};

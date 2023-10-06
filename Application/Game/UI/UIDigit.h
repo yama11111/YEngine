@@ -11,13 +11,13 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// “®“IƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		/// å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg’l</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
 		static UIDigit* Create2D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
@@ -25,16 +25,16 @@ namespace YGame
 			const bool isClearWhenTransition = true);
 
 		/// <summary>
-		/// “®“IƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		/// å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isXAxisBillboard"> : X²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="isYAxisBillboard"> : Y²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg’l</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isXAxisBillboard"> : Xè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="isYAxisBillboard"> : Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
 		static UIDigit* Create3D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
@@ -46,12 +46,12 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg’l</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		virtual void Initialize2D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
@@ -59,15 +59,15 @@ namespace YGame
 			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isXAxisBillboard"> : X²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="isYAxisBillboard"> : Y²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg’l</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isXAxisBillboard"> : Xè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="isYAxisBillboard"> : Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		virtual void Initialize3D(
 			const uint32_t num,
 			YMath::Matrix4* pParent,
@@ -77,42 +77,42 @@ namespace YGame
 			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update(const Transform::Status& status = {}) = 0;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="priority"> : •`‰æ—Dæ“x</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="priority"> : æç”»å„ªå…ˆåº¦</param>
 		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
 
 	public:
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^‘}“ü 
-		/// (“¯‚¶í—Ş‚Ì’è”ƒoƒbƒtƒ@‚ª—ˆ‚½‚ç“ü‚ê‘Ö‚¦‚é)
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿æŒ¿å…¥ 
+		/// (åŒã˜ç¨®é¡ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒæ¥ãŸã‚‰å…¥ã‚Œæ›¿ãˆã‚‹)
 		/// </summary>
-		/// <param name="pCBuff"> : ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pCBuff"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿</param>
 		virtual void InsertConstBuffer(BaseConstBuffer* pCB) = 0;
 
 		/// <summary>
-		/// ”šİ’è
+		/// æ•°å­—è¨­å®š
 		/// </summary>
-		/// <param name="num"> : ”š</param>
+		/// <param name="num"> : æ•°å­—</param>
 		virtual void SetNumber(const uint32_t num) = 0;
 
 		/// <summary>
-		/// ƒIƒtƒZƒbƒgİ’è
+		/// ã‚ªãƒ•ã‚»ãƒƒãƒˆè¨­å®š
 		/// </summary>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg’l</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
 		virtual void SetOffset(const YMath::Vector3& offset) = 0;
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 	

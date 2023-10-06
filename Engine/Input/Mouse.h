@@ -9,66 +9,66 @@
 
 namespace YInput
 {
-	// ƒ}ƒEƒX“ü—Í
+	// ãƒã‚¦ã‚¹å…¥åŠ›
 	enum class MouseClick
 	{
-		// ¶ƒNƒŠƒbƒN
+		// å·¦ã‚¯ãƒªãƒƒã‚¯
 		DIM_LEFT,
-		// ‰EƒNƒŠƒbƒN
+		// å³ã‚¯ãƒªãƒƒã‚¯
 		DIM_RIGHT,
-		// ƒzƒC[ƒ‹ƒNƒŠƒbƒN
+		// ãƒ›ã‚¤ãƒ¼ãƒ«ã‚¯ãƒªãƒƒã‚¯
 		DIM_MIDDLE,
 	};
 
 	enum class When
 	{
-		// Œ»İ
+		// ç¾åœ¨
 		Current,
-		// ‘O
+		// å‰
 		Elder,
 	};
 
 	class Mouse
 	{
 	private:
-		// ƒ}ƒEƒXî•ñ\‘¢‘Ì
+		// ãƒã‚¦ã‚¹æƒ…å ±æ§‹é€ ä½“
 		struct MouseState
 		{
-			// î•ñ
+			// æƒ…å ±
 			DIMOUSESTATE state_{};
-			// ˆÊ’u
+			// ä½ç½®
 			YMath::Vector2 pos_;
-			// ƒXƒNƒ[ƒ‹—Ê
+			// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é‡
 			float scroll_;
-			// ‰Šú‰»
+			// åˆæœŸåŒ–
 			void Initialize();
 		};
 	public:
-		// ƒfƒoƒCƒX
+		// ãƒ‡ãƒã‚¤ã‚¹
 		Microsoft::WRL::ComPtr<IDirectInputDevice8> device_ = nullptr;
-		// ÅV
+		// æœ€æ–°
 		std::unique_ptr<MouseState> mouse_ = nullptr;
-		// 1F‘O
+		// 1Få‰
 		std::unique_ptr<MouseState> elderMouse_ = nullptr;
 	public:
-		// ¶¬ (Å‰‚É1‰ñŒÄ‚Ô)
+		// ç”Ÿæˆ (æœ€åˆã«1å›å‘¼ã¶)
 		void Create(const HWND hwnd, IDirectInput8* directInput);
-		// “ü—Íî•ñ ‰Šú‰»
+		// å…¥åŠ›æƒ…å ± åˆæœŸåŒ–
 		void Initialize();
-		// XVˆ—
+		// æ›´æ–°å‡¦ç†
 		void Update(const HWND hwnd);
 	public:
-		// ‰Ÿ‚µ‚Ä‚¢‚é
+		// æŠ¼ã—ã¦ã„ã‚‹
 		bool IsDown(const MouseClick& button);
-		// ‰Ÿ‚µ‚½uŠÔ
+		// æŠ¼ã—ãŸç¬é–“
 		bool IsTrigger(const MouseClick& button);
-		// ‰Ÿ‚µ‘±‚¯‚Ä‚¢‚é
+		// æŠ¼ã—ç¶šã‘ã¦ã„ã‚‹
 		bool IsLongPress(const MouseClick& button);
-		// —£‚µ‚½uŠÔ
+		// é›¢ã—ãŸç¬é–“
 		bool IsRelease(const MouseClick& button);
-		// ˆÊ’u
+		// ä½ç½®
 		YMath::Vector2 Pos(const When& when = When::Current);
-		// ƒzƒC[ƒ‹ƒXƒNƒ[ƒ‹—Ê (1F ‚Ì ˆÚ“®—Ê)
+		// ãƒ›ã‚¤ãƒ¼ãƒ«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é‡ (1F ã® ç§»å‹•é‡)
 		float ScrollValue(const When& when = When::Current);
 	public:
 		static Mouse* GetInstance();

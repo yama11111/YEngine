@@ -7,27 +7,27 @@ class DebugTextAttacher
 public:
 
 	/// <summary>
-	/// ƒfƒoƒbƒO•`‰æ
+	/// ãƒ‡ãƒãƒƒã‚°æç”»
 	/// </summary>
-	/// <param name="isWindow"> : ƒEƒBƒ“ƒhƒE‚É‚·‚é‚©</param>
+	/// <param name="isWindow"> : ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã«ã™ã‚‹ã‹</param>
 	void DrawDebugText(const bool isWindow);
 
 	/// <summary>
-	/// –¼‘O•ÏX
+	/// åå‰å¤‰æ›´
 	/// </summary>
-	/// <param name="name"> : –¼‘O</param>
+	/// <param name="name"> : åå‰</param>
 	void SetName(const std::string& name);
 
 protected:
 
 	/// <summary>
-	/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+	/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 	/// </summary>
 	virtual void DrawDebugTextContent() = 0;
 
 protected:
 
-	// ¯•Ê–¼
+	// è­˜åˆ¥å
 	std::string name_;
 
 };

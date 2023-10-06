@@ -10,7 +10,7 @@ using YMath::MultVec3Mat4;
 
 void Camera::Initialize(const Vector3 pos, const Vector3 rota)
 {
-	// ‰Šú‰» + ‘ã“ü
+	// åˆæœŸåŒ– + ä»£å…¥
 	shake_.Initialize();
 	pos_ = pos;
 	rota_ = rota;
@@ -20,13 +20,13 @@ void Camera::Initialize(const Vector3 pos, const Vector3 rota)
 	pFollowPoint_ = nullptr;
 	SetIsFollow(false);
 
-	// XV
+	// æ›´æ–°
 	Update();
 }
 
 void Camera::Initialize(const Vector3 pos, Vector3* pFollowPoint, bool isFollow)
 {
-	// ‰Šú‰» + ‘ã“ü
+	// åˆæœŸåŒ– + ä»£å…¥
 	shake_.Initialize();
 	pos_ = pos;
 	rota_ = {};
@@ -40,22 +40,22 @@ void Camera::Initialize(const Vector3 pos, Vector3* pFollowPoint, bool isFollow)
 	moveTimer_.Initialize(0);
 	moveEase_.Initialize({}, {}, 0.0f);
 
-	// XV
+	// æ›´æ–°
 	Update();
 }
 
 void Camera::UpdateTarget()
 {
-	// ’Ç]“_‚ª‚ ‚é && ’Ç]‚·‚é‚È‚ç
+	// è¿½å¾“ç‚¹ãŒã‚ã‚‹ && è¿½å¾“ã™ã‚‹ãªã‚‰
 	if (pFollowPoint_ && isFollow_)
 	{
-		// ’‹“_‚É’Ç]“_‘ã“ü
+		// æ³¨è¦–ç‚¹ã«è¿½å¾“ç‚¹ä»£å…¥
 		vp_.target_ = *pFollowPoint_;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ©•ª‚ÌŒü‚¢‚Ä‚¢‚é•ûŒü‚ğ’‹“_‚Æ‚·‚é
+		// è‡ªåˆ†ã®å‘ã„ã¦ã„ã‚‹æ–¹å‘ã‚’æ³¨è¦–ç‚¹ã¨ã™ã‚‹
 		Vector3 forward = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
 		vp_.target_ = vp_.eye_ + forward;
 	}
@@ -75,25 +75,25 @@ void Camera::Update(const Transform::Status& status)
 		}
 	}
 
-	// ˆÊ’u + ‰ñ“]XV
+	// ä½ç½® + å›è»¢æ›´æ–°
 	transform_.pos_ = pos_;
 	transform_.rota_ = rota_;
 	
-	// ƒAƒtƒBƒ“•ÏŠ·
+	// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›
 	transform_.UpdateMatrix(status);
 	
-	// ƒJƒƒ‰ƒVƒFƒCƒNXV
+	// ã‚«ãƒ¡ãƒ©ã‚·ã‚§ã‚¤ã‚¯æ›´æ–°
 	shake_.Update();
 
 
-	// ‹“_XV
+	// è¦–ç‚¹æ›´æ–°
 	vp_.eye_ = transform_.pos_;
-	// ’‹“_XV
+	// æ³¨è¦–ç‚¹æ›´æ–°
 	UpdateTarget();
-	// ã•ûŒüƒxƒNƒgƒ‹XV
+	// ä¸Šæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«æ›´æ–°
 	vp_.up_ = MultVec3Mat4(Vector3(0, 1, 0), transform_.m_);
 
-	// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñXV
+	// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—æ›´æ–°
 	vp_.UpdateMatrix();
 }
 
@@ -109,22 +109,22 @@ void Camera::SmoothMoving(const unsigned int frame, const Vector3& pos, const fl
 
 void Camera::Shaking(const float swing, const float dekey, const float place)
 {
-	// ƒJƒƒ‰ƒVƒFƒCƒN
+	// ã‚«ãƒ¡ãƒ©ã‚·ã‚§ã‚¤ã‚¯
 	shake_.Activate(swing, dekey, place);
 }
 
 ViewProjection Camera::GetViewProjection()
 {
-	// –ß‚è’l—p
+	// æˆ»ã‚Šå€¤ç”¨
 	ViewProjection result = vp_;
 	
-	// ƒJƒƒ‰ƒVƒFƒCƒN‰ÁZ
+	// ã‚«ãƒ¡ãƒ©ã‚·ã‚§ã‚¤ã‚¯åŠ ç®—
 	result.eye_ += shake_.Value();
 	result.target_ += shake_.Value();
 
 	result.eye_ += status_.pos_;
 	
-	// s—ñXV
+	// è¡Œåˆ—æ›´æ–°
 	result.UpdateMatrix();
 
 	return result;
@@ -132,7 +132,7 @@ ViewProjection Camera::GetViewProjection()
 
 Vector3 Camera::Direction()
 {
-	// Œü‚«‚ğŒvZ
+	// å‘ãã‚’è¨ˆç®—
 	Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
 	
 	return vel.Normalized();
@@ -140,25 +140,25 @@ Vector3 Camera::Direction()
 
 void Camera::SetFollowPoint(Vector3* pFollowPoint)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	pFollowPoint_ = pFollowPoint;
 	
-	// ’Ç]‚·‚é‚©
+	// è¿½å¾“ã™ã‚‹ã‹
 	isFollow_ = (pFollowPoint != nullptr);
 }
 
 void Camera::SetIsFollow(const bool isFollow)
 {
-	// ’Ç]“_‚ª‚ ‚é‚È‚ç
+	// è¿½å¾“ç‚¹ãŒã‚ã‚‹ãªã‚‰
 	if (pFollowPoint_) 
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		isFollow_ = isFollow; 
 	}
-	// –³‚¢‚È‚ç
+	// ç„¡ã„ãªã‚‰
 	else 
 	{
-		// ’Ç]‚µ‚È‚¢
+		// è¿½å¾“ã—ãªã„
 		isFollow_ = false; 
 	}
 }

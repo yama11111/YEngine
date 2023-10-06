@@ -18,11 +18,11 @@ void ConstBufferCommon::StaticInitialize(ID3D12GraphicsCommandList* pCmdList, YD
 
 void BaseConstBuffer::CreateBuffer(const size_t dataSize, void** map, const bool isClearWhenTransition)
 {
-	// ƒq[ƒvÝ’è
+	// ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES heapProp{};
 	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD;
 
-	// ƒŠƒ\[ƒXÝ’è
+	// ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resDesc.Height = 1;
@@ -32,13 +32,13 @@ void BaseConstBuffer::CreateBuffer(const size_t dataSize, void** map, const bool
 	resDesc.SampleDesc.Count = 1;
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-	// ’è”ƒoƒbƒtƒ@‚Ì¶¬
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ
 	buff_.Create(&heapProp, &resDesc);
 
-	// ’è”ƒoƒbƒtƒ@‚Ìƒ}ƒbƒsƒ“ƒO
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ãƒžãƒƒãƒ”ãƒ³ã‚°
 	YDX::Result(buff_.Get()->Map(0, nullptr, map));
 
-	// CBV¶¬
+	// CBVç”Ÿæˆ
 	viewDesc_.BufferLocation = buff_.Get()->GetGPUVirtualAddress();
 	viewDesc_.SizeInBytes = static_cast<UINT>(resDesc.Width);
 	spDescHeap_->CreateCBV(viewDesc_, isClearWhenTransition);
@@ -46,6 +46,6 @@ void BaseConstBuffer::CreateBuffer(const size_t dataSize, void** map, const bool
 
 void BaseConstBuffer::SetDrawCommand(const uint32_t rootParamIndex)
 {
-	// ’è”ƒoƒbƒtƒ@ƒrƒ…[Ý’èƒRƒ}ƒ“ƒh
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼è¨­å®šã‚³ãƒžãƒ³ãƒ‰
 	spCmdList_->SetGraphicsRootConstantBufferView(static_cast<UINT>(rootParamIndex), viewDesc_.BufferLocation);
 }

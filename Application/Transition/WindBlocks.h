@@ -12,37 +12,37 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		virtual void Initialize() override;
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg (’†g‚¾‚¯‰Šú‰»)
+		/// ãƒªã‚»ãƒƒãƒˆ (ä¸­èº«ã ã‘åˆæœŸåŒ–)
 		/// </summary>
 		virtual void Reset() override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Finalize() override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update() override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() override;
 
 	public:
 
 		/// <summary> 
-		/// “®ìŠJn
+		/// å‹•ä½œé–‹å§‹
 		/// </summary>
-		/// <param name="loadFrame"> : “Ç‚İ‚ŞŠÔ</param>
-		/// <param name="leftTop"> : 1”Ô¶ã‚ÌƒuƒƒbƒN‚ÌˆÊ’u</param>
+		/// <param name="loadFrame"> : èª­ã¿è¾¼ã‚€æ™‚é–“</param>
+		/// <param name="leftTop"> : 1ç•ªå·¦ä¸Šã®ãƒ–ãƒ­ãƒƒã‚¯ã®ä½ç½®</param>
 		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) override;
 
 	public:
@@ -54,52 +54,52 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 
 	private:
 
-		// ƒuƒƒbƒN
+		// ãƒ–ãƒ­ãƒƒã‚¯
 		struct Block
 		{
-			std::unique_ptr<YGame::DrawObjectForSprite2D> obj_; // ƒIƒuƒWƒFƒNƒg
-			std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_; // F’è”ƒoƒbƒtƒ@
-			YMath::Timer actTim_; // “®ìƒ^ƒCƒ}[
+			std::unique_ptr<YGame::DrawObjectForSprite2D> obj_; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+			std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_; // è‰²å®šæ•°ãƒãƒƒãƒ•ã‚¡
+			YMath::Timer actTim_; // å‹•ä½œã‚¿ã‚¤ãƒãƒ¼
 			bool isActColorPow_ = false;
-			YMath::Power colorPow_; // Fƒ^ƒCƒ}[
+			YMath::Power colorPow_; // è‰²ã‚¿ã‚¤ãƒãƒ¼
 		};
 
 	private:
 
-		// ƒuƒƒbƒN”z—ñ
+		// ãƒ–ãƒ­ãƒƒã‚¯é…åˆ—
 		std::vector<std::unique_ptr<Block>> blocks_;
 
-		// ƒC[ƒWƒ“ƒO
+		// ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		std::array<YMath::Ease<float>, 2> posXEas_;
 		YMath::Ease<YMath::Vector4> colorEas_;
 
 	private:
 
 		/// <summary>
-		/// ƒV[ƒ“‘JˆÚXV
+		/// ã‚·ãƒ¼ãƒ³é·ç§»æ›´æ–°
 		/// </summary>
 		void UpdateChange();
 
 		/// <summary>
-		/// “`”d
+		/// ä¼æ’­
 		/// </summary>
 		/// <param name="index"></param>
 		void PropagateBlock(const size_t index, const bool isActColorPow);
 
 		/// <summary>
-		/// ƒuƒƒbƒNXV
+		/// ãƒ–ãƒ­ãƒƒã‚¯æ›´æ–°
 		/// </summary>
 		void UpdateBlock();
 
 	private:
 
-		// ƒXƒvƒ‰ƒCƒg(2D)
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ(2D)
 		static YGame::Sprite2D* spBlockSpr_;
 	};
 }

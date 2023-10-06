@@ -4,7 +4,7 @@
 #include <cassert>
 #include <imgui.h>
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YGame::ResultScene;
 using namespace YDX;
@@ -14,39 +14,39 @@ using namespace YGame;
 
 #pragma endregion 
 
-#pragma region StaticŠÖ˜A
+#pragma region Staticé–¢é€£
 #pragma endregion 
 
 
-#pragma region “Ç‚İ‚İ
+#pragma region èª­ã¿è¾¼ã¿
 void ResultScene::Load()
 {
 }
 #pragma endregion
 
 
-#pragma region ‰Šú‰»
+#pragma region åˆæœŸåŒ–
 void ResultScene::Initialize()
 {
 }
 #pragma endregion
 
 
-#pragma region I—¹ˆ—
+#pragma region çµ‚äº†å‡¦ç†
 void ResultScene::Finalize()
 {
 }
 #pragma endregion
 
 
-#pragma region XV
+#pragma region æ›´æ–°
 void ResultScene::Update()
 {
 }
 #pragma endregion
 
 
-#pragma region •`‰æ
+#pragma region æç”»
 void ResultScene::Draw()
 {
 }

@@ -3,7 +3,7 @@
 
 namespace YGame
 {
-	// ’è”ƒoƒbƒtƒ@
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	template <typename CBType>
 	class ConstBufferObject final : 
 		public BaseConstBuffer
@@ -11,29 +11,29 @@ namespace YGame
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿
 		CBType::Data data_{};
 	
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		static ConstBufferObject* Create(const bool isClearWhenTransition = true);
 
 	public:
 
 		/// <summary>
-		/// •`‰æ‘OƒRƒ}ƒ“ƒh
+		/// æç”»å‰ã‚³ãƒãƒ³ãƒ‰
 		/// </summary>
-		/// <param name="rootParamIndex"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^”Ô†</param>
+		/// <param name="rootParamIndex"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç•ªå·</param>
 		void SetDrawCommand(const uint32_t rootParamIndex) override;
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		const std::string Tag() const override;
 
 	public:
@@ -42,12 +42,12 @@ namespace YGame
 	
 	private:
 
-		// ƒ}ƒbƒsƒ“ƒO—p
+		// ãƒãƒƒãƒ”ãƒ³ã‚°ç”¨
 		CBType::Data* map_ = nullptr;
 
 	private:
 
-		// éŒ¾A‘ã“ü‚ğ‹Ö~
+		// å®£è¨€ã€ä»£å…¥ã‚’ç¦æ­¢
 		ConstBufferObject() = default;
 
 		ConstBufferObject(const ConstBufferObject&) = delete;
@@ -69,7 +69,7 @@ namespace YGame
 	template<typename CBType>
 	void ConstBufferObject<CBType>::SetDrawCommand(const uint32_t rootParamIndex) 
 	{
-		// ’l‚ğXV
+		// å€¤ã‚’æ›´æ–°
 		*map_ = data_;
 
 		BaseConstBuffer::SetDrawCommand(rootParamIndex);

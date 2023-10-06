@@ -8,36 +8,36 @@
 
 namespace YGame
 {
-	// ƒJƒƒ‰ƒNƒ‰ƒX
+	// ã‚«ãƒ¡ãƒ©ã‚¯ãƒ©ã‚¹
 	class Camera
 	{
 	
 	public:
 		
-		// ˆÊ’u
+		// ä½ç½®
 		YMath::Vector3 pos_;
 		
-		// ‰ñ“]
+		// å›è»¢
 		YMath::Vector3 rota_;
 	
 	protected:
 		
-		// ’Ç]“_ƒ|ƒCƒ“ƒ^
+		// è¿½å¾“ç‚¹ãƒã‚¤ãƒ³ã‚¿
 		YMath::Vector3* pFollowPoint_ = nullptr;
 		
-		// ’Ç]ƒtƒ‰ƒO
+		// è¿½å¾“ãƒ•ãƒ©ã‚°
 		bool isFollow_ = false;
 		
-		// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+		// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 		Transform transform_;
 
-		// •Ï“®’l•Û‘¶—p
+		// å¤‰å‹•å€¤ä¿å­˜ç”¨
 		Transform::Status status_;
 		
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 		ViewProjection vp_;
 		
-		// ƒJƒƒ‰ƒVƒFƒCƒN
+		// ã‚«ãƒ¡ãƒ©ã‚·ã‚§ã‚¤ã‚¯
 		YMath::Shake shake_;
 
 
@@ -50,41 +50,41 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pos"> : ˆÊ’u</param>
-		/// <param name="rota"> : ‰ñ“]</param>
+		/// <param name="pos"> : ä½ç½®</param>
+		/// <param name="rota"> : å›è»¢</param>
 		void Initialize(const YMath::Vector3 pos, const YMath::Vector3 rota);
 		
 		/// <summary>
-		/// ‰Šú‰» (’Ç]ver)
+		/// åˆæœŸåŒ– (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="pos"> : ˆÊ’u</param>
-		/// <param name="pFollowPoint"> : ’Ç]“_ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isFollow"> : ’Ç]‚·‚é‚©</param>
+		/// <param name="pos"> : ä½ç½®</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isFollow"> : è¿½å¾“ã™ã‚‹ã‹</param>
 		void Initialize(const YMath::Vector3 pos, YMath::Vector3* pFollowPoint, bool isFollow);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : İ’è—pƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		void Update(const Transform::Status& status = {});
 	
 	public:
-		// ŠŠ‚ç‚©‚ÉˆÚ“®
+		// æ»‘ã‚‰ã‹ã«ç§»å‹•
 		void SmoothMoving(const unsigned int frame, const YMath::Vector3& pos, const float exponent);
-		// ƒJƒƒ‰ƒVƒFƒCƒN
+		// ã‚«ãƒ¡ãƒ©ã‚·ã‚§ã‚¤ã‚¯
 		virtual void Shaking(const float swing, const float dekey, const float place);
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 		virtual ViewProjection GetViewProjection();
-		// ƒJƒƒ‰Œü‚«
+		// ã‚«ãƒ¡ãƒ©å‘ã
 		virtual YMath::Vector3 Direction();
-		// ’Ç]“_İ’è
+		// è¿½å¾“ç‚¹è¨­å®š
 		virtual void SetFollowPoint(YMath::Vector3* pFollowPoint);
-		// ’Ç]İ’è
+		// è¿½å¾“è¨­å®š
 		virtual void SetIsFollow(const bool isFollow);
 	private:
-		// ’‹“_XV
+		// æ³¨è¦–ç‚¹æ›´æ–°
 		void UpdateTarget();
 	public:
 		Camera() = default;

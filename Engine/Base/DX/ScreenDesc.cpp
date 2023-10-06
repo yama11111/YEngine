@@ -14,32 +14,32 @@ void ScreenDesc::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 
 void ScreenDesc::Initialize(const Vector2& topLeft, const Vector2& bottomRight, const size_t descNum)
 {
-	// ÉTÉCÉYïœçX
+	// „Çµ„Ç§„Ç∫Â§âÊõ¥
 	viewport_.resize(descNum);
 	scissorRect_.resize(descNum);
 
 	for (size_t i = 0; i < descNum; i++)
 	{
-		// ÉrÉÖÅ[É|Å[Égê›íË
-		viewport_[i].Width = bottomRight.x_ - topLeft.x_; // â°ïù
-		viewport_[i].Height = bottomRight.y_ - topLeft.y_; // ècïù
-		viewport_[i].TopLeftX = topLeft.x_; // ç∂è„ X
-		viewport_[i].TopLeftY = topLeft.y_; // ç∂è„ Y
-		viewport_[i].MinDepth = 0; // èkè¨ê[ìx (0 Ç≈Ç¢Ç¢)
-		viewport_[i].MaxDepth = 1; // ägëÂê[ìx (1 Ç≈Ç¢Ç¢)
+		// „Éì„É•„Éº„Éù„Éº„ÉàË®≠ÂÆö
+		viewport_[i].Width = bottomRight.x_ - topLeft.x_; // Ê®™ÂπÖ
+		viewport_[i].Height = bottomRight.y_ - topLeft.y_; // Á∏¶ÂπÖ
+		viewport_[i].TopLeftX = topLeft.x_; // Â∑¶‰∏ä X
+		viewport_[i].TopLeftY = topLeft.y_; // Â∑¶‰∏ä Y
+		viewport_[i].MinDepth = 0; // Á∏ÆÂ∞èÊ∑±Â∫¶ (0 „Åß„ÅÑ„ÅÑ)
+		viewport_[i].MaxDepth = 1; // Êã°Â§ßÊ∑±Â∫¶ (1 „Åß„ÅÑ„ÅÑ)
 
-		// ÉVÉUÅ[ãÈå`ê›íË
-		scissorRect_[i].left = (LONG)topLeft.x_;     // êÿÇËî≤Ç´ç¿ïW ç∂
-		scissorRect_[i].top = (LONG)topLeft.y_;     // êÿÇËî≤Ç´ç¿ïW è„
-		scissorRect_[i].right = (LONG)bottomRight.x_; // êÿÇËî≤Ç´ç¿ïW âE
-		scissorRect_[i].bottom = (LONG)bottomRight.y_; // êÿÇËî≤Ç´ç¿ïW â∫
+		// „Ç∑„Ç∂„ÉºÁü©ÂΩ¢Ë®≠ÂÆö
+		scissorRect_[i].left = (LONG)topLeft.x_;     // Âàá„ÇäÊäú„ÅçÂ∫ßÊ®ô Â∑¶
+		scissorRect_[i].top = (LONG)topLeft.y_;     // Âàá„ÇäÊäú„ÅçÂ∫ßÊ®ô ‰∏ä
+		scissorRect_[i].right = (LONG)bottomRight.x_; // Âàá„ÇäÊäú„ÅçÂ∫ßÊ®ô Âè≥
+		scissorRect_[i].bottom = (LONG)bottomRight.y_; // Âàá„ÇäÊäú„ÅçÂ∫ßÊ®ô ‰∏ã
 	}
 }
 
 void ScreenDesc::SetDrawCommand()
 {
-	// ÉrÉÖÅ[É|Å[Égê›íËÉRÉ}ÉìÉh
+	// „Éì„É•„Éº„Éù„Éº„ÉàË®≠ÂÆö„Ç≥„Éû„É≥„Éâ
 	spCmdList_->RSSetViewports(static_cast<UINT>(viewport_.size()), viewport_.data());
-	// ÉVÉUÅ[ãÈå`ê›íËÉRÉ}ÉìÉh
+	// „Ç∑„Ç∂„ÉºÁü©ÂΩ¢Ë®≠ÂÆö„Ç≥„Éû„É≥„Éâ
 	spCmdList_->RSSetScissorRects(static_cast<UINT>(scissorRect_.size()), scissorRect_.data());
 }

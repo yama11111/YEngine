@@ -19,36 +19,36 @@ void DescriptorHeap::StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsComma
 void DescriptorHeap::Initialize()
 {
 
-	// ƒfƒXƒNƒŠƒvƒ^ƒq[ƒvİ’è
+	// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
 	heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-	heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE; // ƒVƒF[ƒ_[‚©‚çŒ©‚¦‚é‚æ‚¤‚É
+	heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE; // ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‹ã‚‰è¦‹ãˆã‚‹ã‚ˆã†ã«
 	heapDesc.NumDescriptors = MaxSRVCount_ + MaxUAVCount_ + MaxCBVCount_;
 
-	// İ’è‚ğ‚à‚Æ‚ÉƒfƒXƒNƒŠƒvƒ^ƒq[ƒv(SRV,UAV,CBV—p)‚ğ¶¬
+	// è¨­å®šã‚’ã‚‚ã¨ã«ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—(SRV,UAV,CBVç”¨)ã‚’ç”Ÿæˆ
 	Result(spDevice_->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&descriptorHeap_)));
 
 
-	// ƒCƒ“ƒNƒŠƒƒ“ƒgƒTƒCƒYæ“¾
+	// ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã‚µã‚¤ã‚ºå–å¾—
 	incSize_ = spDevice_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 
-	// ƒJƒEƒ“ƒg‰Šú‰»
+	// ã‚«ã‚¦ãƒ³ãƒˆåˆæœŸåŒ–
 	immutableCounter_.ResetCount();
 	mutableCounter_.ResetCount();
 
 
-	// CPU ‚Ìæ“ªƒnƒ“ƒhƒ‹‚ğæ“¾
+	// CPU ã®å…ˆé ­ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—
 	immutableCounter_.startHandle_.cpu_ = mutableCounter_.startHandle_.cpu_ = descriptorHeap_->GetCPUDescriptorHandleForHeapStart();
 
-	// GPU ‚Ìæ“ªƒnƒ“ƒhƒ‹‚ğæ“¾
+	// GPU ã®å…ˆé ­ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—
 	immutableCounter_.startHandle_.gpu_ = mutableCounter_.startHandle_.gpu_ = descriptorHeap_->GetGPUDescriptorHandleForHeapStart();
 
 
-	// ‘S•s•Ï‹–—eƒJƒEƒ“ƒg
+	// å…¨ä¸å¤‰è¨±å®¹ã‚«ã‚¦ãƒ³ãƒˆ
 	UINT AllImmutableCount = ImmutableSRVCount_ + ImmutableUAVCount_ + ImmutableCBVCount_;
 
-	// •s•Ï‹–—eƒJƒEƒ“ƒg•ª‚¾‚¯ƒnƒ“ƒhƒ‹‚ği‚ß‚é
+	// ä¸å¤‰è¨±å®¹ã‚«ã‚¦ãƒ³ãƒˆåˆ†ã ã‘ãƒãƒ³ãƒ‰ãƒ«ã‚’é€²ã‚ã‚‹
 	mutableCounter_.startHandle_.cpu_.ptr += static_cast<SIZE_T>(incSize_ * AllImmutableCount);
 	mutableCounter_.startHandle_.gpu_.ptr += static_cast<SIZE_T>(incSize_ * AllImmutableCount);
 
@@ -58,204 +58,204 @@ void DescriptorHeap::Initialize()
 DescriptorHeap::Handle DescriptorHeap::CreateSRV(
 	ID3D12Resource* buff, const D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc, const bool isMutable)
 {
-	// SRV’Ç‰Á
+	// SRVè¿½åŠ 
 	Handle handle = AddSRV(isMutable);
 
-	// ƒnƒ“ƒhƒ‹‚Ìw‚·ˆÊ’u‚ÉSRVì¬
+	// ãƒãƒ³ãƒ‰ãƒ«ã®æŒ‡ã™ä½ç½®ã«SRVä½œæˆ
 	spDevice_->CreateShaderResourceView(buff, &srvDesc, handle.cpu_);
 
-	// ƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return handle;
 }
 
 DescriptorHeap::Handle DescriptorHeap::CreateUAV(
 	ID3D12Resource* buff, const D3D12_UNORDERED_ACCESS_VIEW_DESC& uavDesc, const bool isMutable)
 {
-	// UAV’Ç‰Á
+	// UAVè¿½åŠ 
 	Handle handle = AddUAV(isMutable);
 
-	// ƒnƒ“ƒhƒ‹‚Ìw‚·ˆÊ’u‚ÉUAVì¬
+	// ãƒãƒ³ãƒ‰ãƒ«ã®æŒ‡ã™ä½ç½®ã«UAVä½œæˆ
 	spDevice_->CreateUnorderedAccessView(buff, nullptr, &uavDesc, handle.cpu_);
 
-	// ƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return handle;
 }
 
 DescriptorHeap::Handle DescriptorHeap::CreateCBV(
 	const D3D12_CONSTANT_BUFFER_VIEW_DESC& cbvDesc, const bool isMutable)
 {
-	// CBV’Ç‰Á
+	// CBVè¿½åŠ 
 	Handle handle = AddCBV(isMutable);
 
-	// ƒnƒ“ƒhƒ‹‚Ìw‚·ˆÊ’u‚ÉCBVì¬
+	// ãƒãƒ³ãƒ‰ãƒ«ã®æŒ‡ã™ä½ç½®ã«CBVä½œæˆ
 	spDevice_->CreateConstantBufferView(&cbvDesc, handle.cpu_);
 
-	// ƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return handle;
 }
 
 DescriptorHeap::Handle DescriptorHeap::AddSRV(const bool isMutable)
 {
-	// •s•ÏƒJƒEƒ“ƒg‚ª‹–—e’l‚ğ’´‚¦‚½‚ç’e‚­
+	// ä¸å¤‰ã‚«ã‚¦ãƒ³ãƒˆãŒè¨±å®¹å€¤ã‚’è¶…ãˆãŸã‚‰å¼¾ã
 	assert(immutableCounter_.srvCount_ < ImmutableSRVCount_);
-	// ƒJƒEƒ“ƒg‚ªÅ‘å’l‚ğ’´‚¦‚½‚ç’e‚­
+	// ã‚«ã‚¦ãƒ³ãƒˆãŒæœ€å¤§å€¤ã‚’è¶…ãˆãŸã‚‰å¼¾ã
 	assert(immutableCounter_.srvCount_ + mutableCounter_.srvCount_ < MaxSRVCount_);
 
 
-	// –ß‚è’l—p
+	// æˆ»ã‚Šå€¤ç”¨
 	Handle handle{};
 
-	// SRVƒJƒEƒ“ƒg
+	// SRVã‚«ã‚¦ãƒ³ãƒˆ
 	UINT srvCount = 0;
 
-	// Šù‚Ég‚Á‚Ä‚¢‚é•ª
+	// æ—¢ã«ä½¿ã£ã¦ã„ã‚‹åˆ†
 	UINT alreadyCount = 0;
 
 
-	// ‰Â•Ï‚È‚ç‰Â•Ï—p
+	// å¯å¤‰ãªã‚‰å¯å¤‰ç”¨
 	if (isMutable)
 	{
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		handle = mutableCounter_.startHandle_;
 		srvCount = mutableCounter_.srvCount_;
 
-		// ‹–—e’l•ª
+		// è¨±å®¹å€¤åˆ†
 		alreadyCount = ImmutableSRVCount_;
 
-		// ƒJƒEƒ“ƒg‚ği‚ß‚é
+		// ã‚«ã‚¦ãƒ³ãƒˆã‚’é€²ã‚ã‚‹
 		mutableCounter_.srvCount_++;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç•s•Ï—p
+	// ãã‚Œä»¥å¤–ãªã‚‰ä¸å¤‰ç”¨
 	else
 	{
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		handle = immutableCounter_.startHandle_;
 		srvCount = immutableCounter_.srvCount_;
 
 		// 0
 		alreadyCount = 0;
 
-		// ƒJƒEƒ“ƒg‚ği‚ß‚é
+		// ã‚«ã‚¦ãƒ³ãƒˆã‚’é€²ã‚ã‚‹
 		immutableCounter_.srvCount_++;
 	}
 
-	// SRV‚ª‚ ‚é•ª‚¾‚¯ƒnƒ“ƒhƒ‹‚ği‚ß‚é
+	// SRVãŒã‚ã‚‹åˆ†ã ã‘ãƒãƒ³ãƒ‰ãƒ«ã‚’é€²ã‚ã‚‹
 	handle.cpu_.ptr += static_cast<SIZE_T>(incSize_ * (srvCount + alreadyCount));
 	handle.gpu_.ptr += static_cast<SIZE_T>(incSize_ * (srvCount + alreadyCount));
 
-	// ƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return handle;
 }
 
 DescriptorHeap::Handle DescriptorHeap::AddUAV(const bool isMutable)
 {
-	// •s•ÏƒJƒEƒ“ƒg‚ª‹–—e’l‚ğ’´‚¦‚½‚ç’e‚­
+	// ä¸å¤‰ã‚«ã‚¦ãƒ³ãƒˆãŒè¨±å®¹å€¤ã‚’è¶…ãˆãŸã‚‰å¼¾ã
 	assert(immutableCounter_.uavCount_ < ImmutableUAVCount_);
-	// ƒJƒEƒ“ƒg‚ªÅ‘å’l‚ğ’´‚¦‚½‚ç’e‚­
+	// ã‚«ã‚¦ãƒ³ãƒˆãŒæœ€å¤§å€¤ã‚’è¶…ãˆãŸã‚‰å¼¾ã
 	assert(immutableCounter_.uavCount_ + mutableCounter_.uavCount_ < MaxUAVCount_);
 
 
-	// –ß‚è’l—p
+	// æˆ»ã‚Šå€¤ç”¨
 	Handle handle{};
 
-	// UAVƒJƒEƒ“ƒg
+	// UAVã‚«ã‚¦ãƒ³ãƒˆ
 	UINT uavCount = 0;
 
-	// Šù‚Ég‚Á‚Ä‚¢‚é•ª
+	// æ—¢ã«ä½¿ã£ã¦ã„ã‚‹åˆ†
 	UINT alreadyCount = 0;
 
 
-	// ‰Â•Ï‚È‚ç‰Â•Ï—p
+	// å¯å¤‰ãªã‚‰å¯å¤‰ç”¨
 	if (isMutable)
 	{
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		handle = mutableCounter_.startHandle_;
 		uavCount = mutableCounter_.uavCount_;
 
-		// Å‘åSRV + ‹–—e’l•ª
+		// æœ€å¤§SRV + è¨±å®¹å€¤åˆ†
 		alreadyCount = MaxSRVCount_ + ImmutableUAVCount_;
 
-		// ƒJƒEƒ“ƒg‚ği‚ß‚é
+		// ã‚«ã‚¦ãƒ³ãƒˆã‚’é€²ã‚ã‚‹
 		mutableCounter_.uavCount_++;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç•s•Ï—p
+	// ãã‚Œä»¥å¤–ãªã‚‰ä¸å¤‰ç”¨
 	else
 	{
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		handle = immutableCounter_.startHandle_;
 		uavCount = immutableCounter_.uavCount_;
 
-		// Å‘åSRV•ª
+		// æœ€å¤§SRVåˆ†
 		alreadyCount = MaxSRVCount_;
 
-		// ƒJƒEƒ“ƒg‚ği‚ß‚é
+		// ã‚«ã‚¦ãƒ³ãƒˆã‚’é€²ã‚ã‚‹
 		immutableCounter_.uavCount_++;
 	}
 
-	// UAV + Å‘åSRV‚ª‚ ‚é•ª‚¾‚¯ƒnƒ“ƒhƒ‹‚ği‚ß‚é
+	// UAV + æœ€å¤§SRVãŒã‚ã‚‹åˆ†ã ã‘ãƒãƒ³ãƒ‰ãƒ«ã‚’é€²ã‚ã‚‹
 	handle.cpu_.ptr += static_cast<SIZE_T>(incSize_ * (uavCount + alreadyCount));
 	handle.gpu_.ptr += static_cast<SIZE_T>(incSize_ * (uavCount + alreadyCount));
 
-	// ƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return handle;
 }
 
 DescriptorHeap::Handle DescriptorHeap::AddCBV(const bool isMutable)
 {
-	// •s•ÏƒJƒEƒ“ƒg‚ª‹–—e’l‚ğ’´‚¦‚½‚ç’e‚­
+	// ä¸å¤‰ã‚«ã‚¦ãƒ³ãƒˆãŒè¨±å®¹å€¤ã‚’è¶…ãˆãŸã‚‰å¼¾ã
 	assert(immutableCounter_.cbvCount_ < ImmutableCBVCount_);
-	// ƒJƒEƒ“ƒg‚ªÅ‘å’l‚ğ’´‚¦‚½‚ç’e‚­
+	// ã‚«ã‚¦ãƒ³ãƒˆãŒæœ€å¤§å€¤ã‚’è¶…ãˆãŸã‚‰å¼¾ã
 	assert(immutableCounter_.cbvCount_ + mutableCounter_.cbvCount_ < MaxCBVCount_);
 
 
-	// –ß‚è’l—p
+	// æˆ»ã‚Šå€¤ç”¨
 	Handle handle{};
 
-	// CBVƒJƒEƒ“ƒg
+	// CBVã‚«ã‚¦ãƒ³ãƒˆ
 	UINT cbvCount = 0;
 
-	// Šù‚Ég‚Á‚Ä‚¢‚é•ª
+	// æ—¢ã«ä½¿ã£ã¦ã„ã‚‹åˆ†
 	UINT alreadyCount = 0;
 
 
-	// ‰Â•Ï‚È‚ç‰Â•Ï—p
+	// å¯å¤‰ãªã‚‰å¯å¤‰ç”¨
 	if (isMutable)
 	{
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		handle = mutableCounter_.startHandle_;
 		cbvCount = mutableCounter_.cbvCount_;
 
-		// Å‘åSRV + Å‘åUAV + ‹–—e’l•ª
+		// æœ€å¤§SRV + æœ€å¤§UAV + è¨±å®¹å€¤åˆ†
 		alreadyCount = MaxSRVCount_ + MaxUAVCount_ + ImmutableCBVCount_;
 
-		// ƒJƒEƒ“ƒg‚ği‚ß‚é
+		// ã‚«ã‚¦ãƒ³ãƒˆã‚’é€²ã‚ã‚‹
 		mutableCounter_.cbvCount_++;
 	}
-	// ‚»‚êˆÈŠO‚È‚ç•s•Ï—p
+	// ãã‚Œä»¥å¤–ãªã‚‰ä¸å¤‰ç”¨
 	else
 	{
-		// ’l‘ã“ü
+		// å€¤ä»£å…¥
 		handle = immutableCounter_.startHandle_;
 		cbvCount = immutableCounter_.cbvCount_;
 
-		// Å‘åSRV + Å‘åUAV•ª
+		// æœ€å¤§SRV + æœ€å¤§UAVåˆ†
 		alreadyCount = MaxSRVCount_ + MaxUAVCount_;
 
-		// ƒJƒEƒ“ƒg‚ği‚ß‚é
+		// ã‚«ã‚¦ãƒ³ãƒˆã‚’é€²ã‚ã‚‹
 		immutableCounter_.cbvCount_++;
 	}
 
-	// CBV + Å‘åSRV + Å‘åUAV‚ª‚ ‚é•ª‚¾‚¯ƒnƒ“ƒhƒ‹‚ği‚ß‚é
+	// CBV + æœ€å¤§SRV + æœ€å¤§UAVãŒã‚ã‚‹åˆ†ã ã‘ãƒãƒ³ãƒ‰ãƒ«ã‚’é€²ã‚ã‚‹
 	handle.cpu_.ptr += static_cast<SIZE_T>(incSize_ * (cbvCount + alreadyCount));
 	handle.gpu_.ptr += static_cast<SIZE_T>(incSize_ * (cbvCount + alreadyCount));
 
-	// ƒnƒ“ƒhƒ‹‚ğ•Ô‚·
+	// ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
 	return handle;
 }
 
 void DescriptorHeap::SetDrawCommand()
 {
-	// SRVƒq[ƒv‚Ìİ’èƒRƒ}ƒ“ƒh
+	// SRVãƒ’ãƒ¼ãƒ—ã®è¨­å®šã‚³ãƒãƒ³ãƒ‰
 	ID3D12DescriptorHeap* ppHeaps[] = { descriptorHeap_.Get() };
 	spCmdList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 }

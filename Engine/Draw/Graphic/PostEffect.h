@@ -11,64 +11,64 @@
 
 namespace YGame
 {
-	// ƒ|ƒXƒgƒGƒtƒFƒNƒg
+	// ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 	class PostEffect :
 		public BaseGraphic
 	{
 
 	public:
 
-		// ’¸“_ƒf[ƒ^\‘¢‘Ì
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct VData
 		{
-			YMath::Vector3 pos_; // xyzÀ•W
-			YMath::Vector2 uv_;  // uvÀ•W
+			YMath::Vector3 pos_; // xyzåº§æ¨™
+			YMath::Vector2 uv_;  // uvåº§æ¨™
 		};
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pDevice"> : ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pCmdList"> : ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pDevice"> : ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pCmdList"> : ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(
 			ID3D12Device* pDevice,
 			ID3D12GraphicsCommandList* pCmdList);
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="rtvTags"> : ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒ^ƒO”z—ñ</param>
-		/// <returns>ƒ|ƒXƒgƒGƒtƒFƒNƒgƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="rtvTags"> : ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¿ã‚°é…åˆ—</param>
+		/// <returns>ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿</returns>
 		static PostEffect* Create(const std::vector<std::string>& rtvTags);
 
 		/// <summary>
-		/// ‘Síœ
+		/// å…¨å‰Šé™¤
 		/// </summary>
 		static void AllClear();
 		
 		/// <summary>
-		/// ƒ‚ƒfƒ‹—p‚ÌƒpƒCƒvƒ‰ƒCƒ“İ’èæ“¾
+		/// ãƒ¢ãƒ‡ãƒ«ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®šå–å¾—
 		/// </summary>
-		/// <returns>ƒpƒCƒvƒ‰ƒCƒ“İ’è</returns>
+		/// <returns>ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š</returns>
 		static PipelineSetting GetPipelineSetting();
 
 	public:
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="rpIndices"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^î•ñ + ”Ô†</param>
+		/// <param name="rpIndices"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ± + ç•ªå·</param>
 		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 		/// <summary>
-		/// ‘‚«‚İŠJn
+		/// æ›¸ãè¾¼ã¿é–‹å§‹
 		/// </summary>
 		void StartRender();
 
 		/// <summary>
-		/// ‘‚«‚İI—¹
+		/// æ›¸ãè¾¼ã¿çµ‚äº†
 		/// </summary>
 		void EndRender();
 
@@ -80,49 +80,49 @@ namespace YGame
 
 	private:
 
-		// •`‰æ’iŠK
+		// æç”»æ®µéš
 		enum class Phase
 		{
-			None, // ‰½‚à‚µ‚Ä‚¢‚È‚¢
+			None, // ä½•ã‚‚ã—ã¦ã„ãªã„
 
-			Rendering, // ‘‚«‚İ’†
+			Rendering, // æ›¸ãè¾¼ã¿ä¸­
 			
-			End, // I—¹
+			End, // çµ‚äº†
 		};
 	
 	private:
 
-		// ’¸“_ƒf[ƒ^
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 		YDX::Vertices<VData> vt_;
 
-		// ƒeƒNƒXƒ`ƒƒ
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		std::unordered_map<std::string, Texture*> pTexs_{};
 
-		// ’iŠK
+		// æ®µéš
 		Phase phase_ = Phase::None;
 
-		// ƒXƒNƒŠ[ƒ“İ’è
+		// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³è¨­å®š
 		YDX::ScreenDesc screenDesc_;
 
 
-		// RTV—pƒq[ƒv
+		// RTVç”¨ãƒ’ãƒ¼ãƒ—
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap_ = nullptr;
 
-		// DSV—pƒq[ƒv
+		// DSVç”¨ãƒ’ãƒ¼ãƒ—
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsvHeap_ = nullptr;
 
-		// [“xƒoƒbƒtƒ@
+		// æ·±åº¦ãƒãƒƒãƒ•ã‚¡
 		YDX::GPUResource depthBuff_;
 
 	private:
 
-		// Ã“Iƒ|ƒXƒgƒGƒtƒFƒNƒgŠi”[—pvector”z—ñ
+		// é™çš„ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆæ ¼ç´ç”¨vectoré…åˆ—
 		static std::vector<std::unique_ptr<PostEffect>> sPostEffects_;
 
-		// Ã“IƒfƒoƒCƒXƒ|ƒCƒ“ƒ^
+		// é™çš„ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿
 		static ID3D12Device* spDevice_;
 
-		// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 		static ID3D12GraphicsCommandList* spCmdList_;
 
 	private:

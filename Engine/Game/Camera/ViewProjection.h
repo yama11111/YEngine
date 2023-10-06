@@ -4,68 +4,68 @@
 
 namespace YGame
 {
-	// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+	// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 	struct ViewProjection
 	{
 	
 	public:
 		
-		// ‹“_
+		// è¦–ç‚¹
 		YMath::Vector3 eye_;
 		
-		// ’‹“_
+		// æ³¨è¦–ç‚¹
 		YMath::Vector3 target_;
 		
-		// ã•ûŒüƒxƒNƒgƒ‹
+		// ä¸Šæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 		YMath::Vector3 up_;
 		
-		// ƒrƒ…[s—ñ
+		// ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—
 		YMath::Matrix4 view_;
 		
-		// ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ
+		// ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—
 		YMath::Matrix4 pro_;
 	
 	public:
 		
-		// İ’è—pƒXƒe[ƒ^ƒX(‹“_A’‹“_Aã•ûŒüƒxƒNƒgƒ‹)
+		// è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹(è¦–ç‚¹ã€æ³¨è¦–ç‚¹ã€ä¸Šæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«)
 		struct Status
 		{
 
 		public:
 
-			// ‹“_
+			// è¦–ç‚¹
 			YMath::Vector3 eye_;
 			
-			// ’‹“_
+			// æ³¨è¦–ç‚¹
 			YMath::Vector3 target_;
 			
-			// ã•ûŒüƒxƒNƒgƒ‹
+			// ä¸Šæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 			YMath::Vector3 up_;
 
 		public:
 
-			// ƒfƒtƒHƒ‹ƒg’l
+			// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
 			static Status Default();
 		};
 
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ‰Šú‰»—pƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : åˆæœŸåŒ–ç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		/// <param name="------------------------------------"></param>
-		/// <param name="status.eye_"> : ‹“_</param>
-		/// <param name="status.target_"> : ’‹“_</param>
-		/// <param name="status.up_"> : ã•ûŒüƒxƒNƒgƒ‹</param>
+		/// <param name="status.eye_"> : è¦–ç‚¹</param>
+		/// <param name="status.target_"> : æ³¨è¦–ç‚¹</param>
+		/// <param name="status.up_"> : ä¸Šæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«</param>
 		void Initialize(const Status& status = Status::Default());
 		
-		// ƒrƒ…[•ÏŠ· + ƒvƒƒWƒFƒNƒVƒ‡ƒ“•ÏŠ·
+		// ãƒ“ãƒ¥ãƒ¼å¤‰æ› + ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³å¤‰æ›
 		void UpdateMatrix();
 	
 	public:
 		
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		ViewProjection();
 	
 	};

@@ -22,39 +22,39 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="wobbleScaleValues"> : Šgk’lƒxƒNƒ^[”z—ñ</param>
-		/// <param name="frame"> : ƒtƒŒ[ƒ€</param>
-		/// <param name="exponent"> : w”</param>
+		/// <param name="wobbleScaleValues"> : æ‹¡ç¸®å€¤ãƒ™ã‚¯ã‚¿ãƒ¼é…åˆ—</param>
+		/// <param name="frame"> : ãƒ•ãƒ¬ãƒ¼ãƒ </param>
+		/// <param name="exponent"> : æŒ‡æ•°</param>
 		void Initialize(
 			const uint32_t frame, 
 			const std::vector<YMath::Vector3>& wobbleScaleValues, 
 			const float exponent);
 
 		/// <summary>
-		/// ƒuƒˆƒuƒˆƒAƒjƒ[ƒVƒ‡ƒ“
+		/// ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		/// </summary>
 		void Wobble();
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isSquash"> : ‚Â‚Ô‚·</param>
+		/// <param name="isSquash"> : ã¤ã¶ã™</param>
 		void Update(const bool isSquash = false);
 	
 	public:
 	
 		/// <summary>
-		/// “®ì’†‚©
+		/// å‹•ä½œä¸­ã‹
 		/// </summary>
-		/// <returns>“®ìƒtƒ‰ƒO</returns>
+		/// <returns>å‹•ä½œãƒ•ãƒ©ã‚°</returns>
 		inline bool IsAct() const { return isAct_; }
 
 		/// <summary>
-		/// Œ»İ‚ÌŠgk’læ“¾
+		/// ç¾åœ¨ã®æ‹¡ç¸®å€¤å–å¾—
 		/// </summary>
-		/// <returns>Œ»İ‚ÌŠgk’l</returns>
+		/// <returns>ç¾åœ¨ã®æ‹¡ç¸®å€¤</returns>
 		YMath::Vector3 WobbleScaleValue(const EaseType easeType) const;
 	
 	public:
@@ -63,16 +63,16 @@ namespace YGame
 	
 	private:
 		
-		// “®ìƒtƒ‰ƒO
+		// å‹•ä½œãƒ•ãƒ©ã‚°
 		bool isAct_ = false;
 		
-		// ƒC[ƒWƒ“ƒO
+		// ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::SplineEase<YMath::Vector3> ease_;
 		
-		// ƒ^ƒCƒ}[
+		// ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer timer_;
 		
-		// ƒpƒ[
+		// ãƒ‘ãƒ¯ãƒ¼
 		YMath::Power power_;
 	};
 }

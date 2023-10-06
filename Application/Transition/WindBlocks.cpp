@@ -20,7 +20,7 @@ namespace
 
 void WindBlocks::LoadResource()
 {
-	// ƒXƒvƒ‰ƒCƒg¶¬
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”Ÿæˆ
 	spBlockSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png", false)} });
 }
 
@@ -28,14 +28,14 @@ void WindBlocks::Initialize()
 {
 	if (blocks_.empty())
 	{
-		// ƒNƒŠƒA + ƒŠƒTƒCƒY
+		// ã‚¯ãƒªã‚¢ + ãƒªã‚µã‚¤ã‚º
 		blocks_.clear();
 		blocks_.resize(kBlockNum_);
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		for (size_t i = 0; i < blocks_.size(); i++)
 		{
-			// ƒuƒƒbƒN¶¬ + ‰Šú‰»
+			// ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆ + åˆæœŸåŒ–
 			blocks_[i].reset(new Block());
 
 			blocks_[i]->obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spBlockSpr_, false));
@@ -44,7 +44,7 @@ void WindBlocks::Initialize()
 		}
 	}
 
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	for (size_t i = 0; i < blocks_.size(); i++)
 	{
 		Vector2 p = { 0.0f, WinSize.y_ - kBlockHeight_ * i };
@@ -65,7 +65,7 @@ void WindBlocks::Initialize()
 
 void WindBlocks::Reset()
 {
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	step_ = Step::Close;
 
 	isAct_ = false;
@@ -90,13 +90,13 @@ void WindBlocks::Finalize()
 
 void WindBlocks::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
 {
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 
-	// “Ç‚İ‚İƒ^ƒCƒ}[‰Šú‰»
+	// èª­ã¿è¾¼ã¿ã‚¿ã‚¤ãƒãƒ¼åˆæœŸåŒ–
 	loadTim_.Initialize(loadFrame);
 
-	// ƒ^ƒCƒ}[‰Šú‰» + ŠJn
+	// ã‚¿ã‚¤ãƒãƒ¼åˆæœŸåŒ– + é–‹å§‹
 	uint32_t frame = changeFrame / static_cast<uint32_t>(blocks_.size());
 	for (size_t i = 0; i < blocks_.size(); i++)
 	{
@@ -104,7 +104,7 @@ void WindBlocks::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
 		blocks_[i]->colorPow_.Initialize(frame);
 	}
 
-	// “®ìŠJn
+	// å‹•ä½œé–‹å§‹
 	isAct_ = true;
 	isFalling_ = true;
 
@@ -121,7 +121,7 @@ void WindBlocks::UpdateChange()
 	{
 		if (blocks_[blocks_.size() - 1]->actTim_.IsEnd())
 		{
-			// •Â‚¶‚é ¨ “Ç‚İ‚İ
+			// é–‰ã˜ã‚‹ â†’ èª­ã¿è¾¼ã¿
 			step_ = Step::Load;
 
 			isFalling_ = false;
@@ -137,12 +137,12 @@ void WindBlocks::UpdateChange()
 
 		if (loadTim_.IsEnd())
 		{
-			// “Ç‚İ‚İ ¨ ŠJ‚­
+			// èª­ã¿è¾¼ã¿ â†’ é–‹ã
 			step_ = Step::Open;
 			
 			isRising_ = true;
 
-			// ƒ^ƒCƒ}[ƒXƒ^[ƒg
+			// ã‚¿ã‚¤ãƒãƒ¼ã‚¹ã‚¿ãƒ¼ãƒˆ
 			for (size_t i = 0; i < blocks_.size(); i++)
 			{
 				blocks_[i]->actTim_.Reset(false);
@@ -154,7 +154,7 @@ void WindBlocks::UpdateChange()
 	{
 		if (blocks_[blocks_.size() - 1]->actTim_.IsEnd())
 		{
-			// I—¹
+			// çµ‚äº†
 			Reset();
 
 			isEnd_ = true;

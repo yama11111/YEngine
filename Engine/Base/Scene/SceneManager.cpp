@@ -51,7 +51,7 @@ void SceneManager::Transition(const std::string& sceneName, const std::string& t
 
 	if (transitions_.contains(transitionName))
 	{
-		// ‘JˆÚŠJn
+		//  J ÚŠJ n
 		transitions_[transitionName]->Reset();
 		transitions_[transitionName]->Activate(60, 5);
 	}
@@ -61,7 +61,7 @@ void SceneManager::UpdateTransition()
 {
 	if (isTransition_)
 	{
-		// ‘JˆÚ‚ª–³‚©‚Á‚½‚ç‚·‚®ƒV[ƒ“Ø‚è‘Ö‚¦
+		//  J Ú‚          ç‚·   V [   Ø‚ Ö‚ 
 		if (transitions_.contains(transitionName_) == false)
 		{
 			Change();
@@ -70,7 +70,7 @@ void SceneManager::UpdateTransition()
 
 		transitions_[transitionName_]->Update();
 
-		// “r’†‚È‚ç’e‚­
+		//  r   È‚ e  
 		if (transitions_[transitionName_]->IsFalling()) { return; }
 
 		if (transitions_[transitionName_]->IsChangeMoment())
@@ -129,7 +129,7 @@ void SceneManager::InsertTransition(const std::string& transitionName, BaseTrans
 	assert(transition);
 	assert(transitions_.contains(transitionName) == false);
 
-	// ƒXƒ}[ƒgƒ|ƒCƒ“ƒ^‚É•ÏX
+	//  X } [ g | C   ^ É•ÏX
 	std::unique_ptr<BaseTransition> newTransition;
 	newTransition.reset(transition);
 

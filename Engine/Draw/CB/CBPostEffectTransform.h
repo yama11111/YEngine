@@ -4,25 +4,25 @@
 
 namespace YGame
 {
-	// ƒ|ƒXƒgƒGƒtƒFƒNƒg—p’è”ƒoƒbƒtƒ@
+	// ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBPostEffectTransform
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// 3D•ÏŠ·s—ñ
+			// 3Då¤‰æ›è¡Œåˆ—
 			YMath::Matrix4 matWorld = YMath::Matrix4::Identity();
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBPostEffectTransform";

@@ -10,9 +10,9 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="info"> : Õ“Ëî•ñ</param>
+		/// <param name="info"> : è¡çªæ™‚æƒ…å ±</param>
 		virtual void OnCollision(const CollisionInfo& info) override;
 
 	public:

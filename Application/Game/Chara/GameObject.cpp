@@ -10,20 +10,20 @@ void GameObject::Initialize(const std::string name, const Transform::Status& sta
 {
 	SetName(name);
 
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€¶¬ + ‰Šú‰»
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ç”Ÿæˆ + åˆæœŸåŒ–
 	transform_.reset(new Transform(status));
 	
 	SetParent(pParent);
 
 	InsertSubDrawer(AxisDrawer::Name(), AxisDrawer::Create(transform_.get(), 1));
 
-	// s—ñXV
+	// è¡Œåˆ—æ›´æ–°
 	transform_->UpdateMatrix();
 }
 
 void GameObject::Update()
 {
-	// ŠjXV
+	// æ ¸æ›´æ–°
 	transform_->UpdateMatrix();
 
 	if (drawer_) 
@@ -42,7 +42,7 @@ void GameObject::Update()
 
 void GameObject::Draw()
 {
-	// •`‰æ
+	// æç”»
 	if (drawer_) { drawer_->Draw(); }
 
 	if (subDrawer_.empty() == false)
@@ -64,7 +64,7 @@ void GameObject::SetParent(GameObject* pParent)
 
 	if (pParent_)
 	{
-		// es—ñ‚É‘}“ü
+		// è¦ªè¡Œåˆ—ã«æŒ¿å…¥
 		transform_->parent_ = &pParent_->transform_->m_;
 	}
 	else
@@ -75,13 +75,13 @@ void GameObject::SetParent(GameObject* pParent)
 
 void GameObject::SetCollider(GameCollider* collider)
 {
-	// ƒRƒ‰ƒCƒ_[ƒNƒ‰ƒXİ’è
+	// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚¯ãƒ©ã‚¹è¨­å®š
 	collider_.reset(collider);
 
-	// null ‚¶‚á‚È‚¢‚È‚ç
+	// null ã˜ã‚ƒãªã„ãªã‚‰
 	if (collider_)
 	{
-		// ƒRƒ‰ƒCƒ_[ƒNƒ‰ƒXeƒ|ƒCƒ“ƒ^İ’è
+		// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚¯ãƒ©ã‚¹è¦ªãƒã‚¤ãƒ³ã‚¿è¨­å®š
 		collider_->SetParent(transform_.get());
 	}
 }
@@ -90,10 +90,10 @@ void GameObject::SetDrawer(BaseDrawer* drawer)
 {
 	drawer_.reset(drawer);
 	
-	// null ‚¶‚á‚È‚¢‚È‚ç
+	// null ã˜ã‚ƒãªã„ãªã‚‰
 	if (drawer_)
 	{
-		// •`‰æƒNƒ‰ƒXeƒ|ƒCƒ“ƒ^İ’è
+		// æç”»ã‚¯ãƒ©ã‚¹è¦ªãƒã‚¤ãƒ³ã‚¿è¨­å®š
 		drawer_->SetParent(transform_.get());
 	}
 }
@@ -106,10 +106,10 @@ void GameObject::InsertSubDrawer(const std::string& tag, BaseDrawer* drawer)
 	std::unique_ptr<BaseDrawer> newDrawer;
 	newDrawer.reset(drawer);
 	
-	// •`‰æƒNƒ‰ƒXeƒ|ƒCƒ“ƒ^İ’è
+	// æç”»ã‚¯ãƒ©ã‚¹è¦ªãƒã‚¤ãƒ³ã‚¿è¨­å®š
 	newDrawer->SetParent(transform_.get());
 
-	// ƒ}ƒbƒv‚É‘}“ü
+	// ãƒãƒƒãƒ—ã«æŒ¿å…¥
 	subDrawer_.insert({ tag, std::move(newDrawer)});
 }
 

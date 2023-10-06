@@ -34,22 +34,22 @@ bool GameCollider::CheckCollision(GameCollider* pOther)
 {
 	if (pOther == nullptr) { return false; }
 
-	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
+	// ã©ã¡ã‚‰ã‹ã™ã‚ŠæŠœã‘ã‚‹ãªã‚‰å¼¾ã
 	if (isSlip_ || pOther->IsSlip()) { return false; }
 
-	// ‘®«‚Æƒ}ƒXƒNˆê’v‚µ‚È‚¢‚È‚ç’e‚­
+	// å±æ€§ã¨ãƒã‚¹ã‚¯ä¸€è‡´ã—ãªã„ãªã‚‰å¼¾ã
 	if ((static_cast<uint32_t>(attribute_) & static_cast<uint32_t>(pOther->Mask())) == 0 ||
 		(static_cast<uint32_t>(pOther->Attribute()) & static_cast<uint32_t>(mask_)) == 0)
 	{
 		return false;
 	}
 
-	// Œİ‚¢‚É‘S•”ˆÊƒ`ƒFƒbƒN
+	// äº’ã„ã«å…¨éƒ¨ä½ãƒã‚§ãƒƒã‚¯
 	for (std::unique_ptr<BasePrimitiveCollider>& colliderA : colliders_)
 	{
 		for (const std::unique_ptr<BasePrimitiveCollider>& colliderB : pOther->Colliders())
 		{
-			// 1‚Â‚Å‚à“–‚½‚Á‚½‚çtrue
+			// 1ã¤ã§ã‚‚å½“ãŸã£ãŸã‚‰true
 			if (colliderA->CheckCollision(*colliderB))
 			{
 				return true;
@@ -68,7 +68,7 @@ void GameCollider::PushBack(BasePrimitiveCollider* collider)
 
 	if (pParent_)
 	{
-		// ’Ç]“_‘}“ü
+		// è¿½å¾“ç‚¹æŒ¿å…¥
 		newCollider->SetFollowPoint(&pParent_->pos_);
 	}
 

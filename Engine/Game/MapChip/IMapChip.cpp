@@ -14,64 +14,64 @@ using YGame::IMapChip;
 
 void MapData::LoadCSV(const std::string& mapFileName)
 {
-	// ƒNƒŠƒA
+	// ã‚¯ãƒªã‚¢
 	Clear();
 
-	// ƒtƒ@ƒCƒ‹
+	// ãƒ•ã‚¡ã‚¤ãƒ«
 	FILE* fp = nullptr;
 
-	// ƒpƒX
+	// ãƒ‘ã‚¹
 	static const std::string& directoryPath = "Resources/MapData/";
 	std::string filePath = directoryPath + mapFileName;
 	
-	// “Ç‚İ‚İ—pƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	// èª­ã¿è¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	errno_t err = fopen_s(&fp, filePath.c_str(), "r");
 	
-	// ƒtƒ@ƒCƒ‹‚ª–³‚¢‚È‚çƒGƒ‰[
+	// ãƒ•ã‚¡ã‚¤ãƒ«ãŒç„¡ã„ãªã‚‰ã‚¨ãƒ©ãƒ¼
 	assert(err == 0);
 
-	// •Û‘¶—p
+	// ä¿å­˜ç”¨
 	std::vector<uint16_t> column;
 	
-	// ƒtƒ@ƒCƒ‹I’[‚Ü‚Å“Ç‚İ‚İ
+	// ãƒ•ã‚¡ã‚¤ãƒ«çµ‚ç«¯ã¾ã§èª­ã¿è¾¼ã¿
 	while (true)
 	{
-		// •¶šæ“¾
+		// æ–‡å­—å–å¾—
 		int16_t c = fgetc(fp);
 
-		// —ñ
+		// åˆ—
 		if (c == ',') 
 		{
-			// ‚à‚¤ˆê‰ñ
+			// ã‚‚ã†ä¸€å›
 			continue; 
 		}
-		// s
+		// è¡Œ
 		if (c == '\n')
 		{
-			// –{‘Ì‚É‘}“ü
+			// æœ¬ä½“ã«æŒ¿å…¥
 			chipNums_.push_back(column);
 			
-			// •Û‘¶—pƒNƒŠƒA
+			// ä¿å­˜ç”¨ã‚¯ãƒªã‚¢
 			column.clear();
 			
-			// ‚à‚¤ˆê‰ñ
+			// ã‚‚ã†ä¸€å›
 			continue;
 		}
-		// I’[
+		// çµ‚ç«¯
 		if (c == EOF) 
 		{
-			// –{‘Ì‚É‘}“ü
+			// æœ¬ä½“ã«æŒ¿å…¥
 			chipNums_.push_back(column);
 			
-			// I—¹
+			// çµ‚äº†
 			break; 
 		}
 
-		// •Û‘¶—p‚É‘}“ü
+		// ä¿å­˜ç”¨ã«æŒ¿å…¥
 		column.push_back(static_cast<uint16_t>(c - 48));
 	}
 
-	// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 	fclose(fp);
 }
 
@@ -90,170 +90,170 @@ void MapData::Clear()
 
 void IMapChip::Initialize(MapData* pMapData, const YMath::Vector3& leftTop, const YMath::Vector3& chipScale)
 {
-	// nullƒ`ƒFƒbƒN
+	// nullãƒã‚§ãƒƒã‚¯
 	assert(pMapData);
-	// ‘ã“ü
+	// ä»£å…¥
 	pMapData_ = pMapData;
 
-	// ‘ã“ü
+	// ä»£å…¥
 	leftTop_ = leftTop;
 	chipScale_ = chipScale;
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 }
 
 void IMapChip::Initialize(MapData* pMapData)
 {
-	// nullƒ`ƒFƒbƒN
+	// nullãƒã‚§ãƒƒã‚¯
 	assert(pMapData);
-	// ‘ã“ü
+	// ä»£å…¥
 	pMapData_ = pMapData;
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 }
 
 void IMapChip::Initialize(const YMath::Vector3& leftTop, const YMath::Vector3& chipScale)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	leftTop_ = leftTop;
 	chipScale_ = chipScale;
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 }
 
 void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 {
-	// ƒ}ƒbƒvƒf[ƒ^‚ªnull‚È‚ç’e‚­
+	// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãŒnullãªã‚‰å¼¾ã
 	if (pMapData_ == nullptr) { return; }
 
-	// ‘ã“ü
+	// ä»£å…¥
 	Vector3& posRef = collider.PosRef();
 	Vector3 scale = collider.Scale();
 	Vector3& speedRef = collider.SpeedRef();
 
-	// ƒAƒ^ƒŠ”»’èƒrƒbƒg 1F ‘O ‚ğ‹L˜^
+	// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ 1F å‰ ã‚’è¨˜éŒ²
 	collider.SetCollisionBit(collider.CollisionBit() << 4);
 
-	// ‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚©
+	// ã¶ã¤ã‹ã£ã¦ã„ã‚‹ã‹
 	bool isCollX = CollisionTemporaryMap(posRef, scale, { speedRef.x_,0,0 }); // x
 	bool isCollY = CollisionTemporaryMap(posRef, scale, { 0,speedRef.y_,0 }); // y
 
-	// ‚Ô‚Â‚©‚Á‚Ä‚¢‚È‚¢‚È‚çƒXƒLƒbƒv
+	// ã¶ã¤ã‹ã£ã¦ã„ãªã„ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—
 	if (isCollX == false && isCollY == false) { return; }
 
-	// ƒAƒ^ƒŠ”»’èƒrƒbƒg
+	// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ
 	uint8_t colBit = collider.CollisionBit();
 
-	// ’µ‚Ë•Ô‚ç‚È‚¢‚È‚ç
+	// è·³ã­è¿”ã‚‰ãªã„ãªã‚‰
 	if (collider.IsBounce() == false) 
 	{
-		// X²”»’è‚È‚ç
+		// Xè»¸åˆ¤å®šãªã‚‰
 		if (isCollX)
 		{
-			// ƒrƒbƒgXV
+			// ãƒ“ãƒƒãƒˆæ›´æ–°
 			if (speedRef.x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
 			if (speedRef.x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
 		}
 
-		// Y²”»’è‚È‚çs
+		// Yè»¸åˆ¤å®šãªã‚‰s
 		if (isCollY)
 		{
-			// ƒrƒbƒgXV
+			// ãƒ“ãƒƒãƒˆæ›´æ–°
 			if (speedRef.y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
 			if (speedRef.y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
 		}
 
-		// ƒAƒ^ƒŠ”»’èƒrƒbƒg Œ»İF ‚ğ‹L˜^
+		// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ ç¾åœ¨F ã‚’è¨˜éŒ²
 		collider.SetCollisionBit(colBit);
 
 		return;
 	}
 
-	// ‹ß‚Ã‚­ˆÚ“®—Ê
+	// è¿‘ã¥ãç§»å‹•é‡
 	YMath::Vector3 approach = speedRef / 100.0f;
 
-	// ‰Ÿ‚µ–ß‚µˆ—
+	// æŠ¼ã—æˆ»ã—å‡¦ç†
 	while (true)
 	{
-		// ‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚© (‰¼ˆÚ“®)
+		// ã¶ã¤ã‹ã£ã¦ã„ã‚‹ã‹ (ä»®ç§»å‹•)
 		bool isCollTempX = CollisionTemporaryMap(posRef, scale, { approach.x_,0,0 }); // x
 		bool isCollTempY = CollisionTemporaryMap(posRef, scale, { 0,approach.y_,0 }); // y
 
-		// ‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚È‚çƒ‹[ƒv”²‚¯‚é
+		// ã¶ã¤ã‹ã£ã¦ã„ã‚‹ãªã‚‰ãƒ«ãƒ¼ãƒ—æŠœã‘ã‚‹
 		if (isCollTempX || isCollTempY) { break; }
 
-		// ­‚µ‚Ã‚Â‹ß‚Ã‚¯‚é
+		// å°‘ã—ã¥ã¤è¿‘ã¥ã‘ã‚‹
 		if (isCollX) { posRef.x_ += approach.x_; }
 		if (isCollY) { posRef.y_ += approach.y_; }
 	}
 
-	// X²”»’è‚È‚ç
+	// Xè»¸åˆ¤å®šãªã‚‰
 	if (isCollX)
 	{
-		// ƒrƒbƒgXV
+		// ãƒ“ãƒƒãƒˆæ›´æ–°
 		if (speedRef.x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
 		if (speedRef.x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
 
-		// ‘¬“xƒŠƒZƒbƒg
+		// é€Ÿåº¦ãƒªã‚»ãƒƒãƒˆ
 		speedRef.x_ = 0.0f;
 	}
 
-	// Y²”»’è‚È‚çs
+	// Yè»¸åˆ¤å®šãªã‚‰s
 	if (isCollY)
 	{
-		// ƒrƒbƒgXV
+		// ãƒ“ãƒƒãƒˆæ›´æ–°
 		if (speedRef.y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
 		if (speedRef.y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
 
-		// ‘¬“xƒŠƒZƒbƒg
+		// é€Ÿåº¦ãƒªã‚»ãƒƒãƒˆ
 		speedRef.y_ = 0.0f;
 	}
 	
-	// ƒAƒ^ƒŠ”»’èƒrƒbƒg Œ»İF ‚ğ‹L˜^
+	// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒ“ãƒƒãƒˆ ç¾åœ¨F ã‚’è¨˜éŒ²
 	collider.SetCollisionBit(colBit);
 }
 
 bool IMapChip::CollisionTemporaryMap(const Vector3& pos, const Vector3& scale, const Vector3& spd)
 {
-	// ‰¼ˆÚ“®À•W
+	// ä»®ç§»å‹•åº§æ¨™
 	Vector3 temporary = pos + spd - leftTop_;
 
-	float left   = +(temporary.x_ - scale.x_); // ¶
-	float right  = +(temporary.x_ + scale.x_); // ‰E
-	float top    = -(temporary.y_ + scale.y_); // ã
-	float bottom = -(temporary.y_ - scale.y_); // ‰º
+	float left   = +(temporary.x_ - scale.x_); // å·¦
+	float right  = +(temporary.x_ + scale.x_); // å³
+	float top    = -(temporary.y_ + scale.y_); // ä¸Š
+	float bottom = -(temporary.y_ - scale.y_); // ä¸‹
 
-	// ‰¼ˆÚ“®À•W‚ÅƒAƒ^ƒŠ”»’è
+	// ä»®ç§»å‹•åº§æ¨™ã§ã‚¢ã‚¿ãƒªåˆ¤å®š
 	return CollisionMap(left, right, top, bottom);
 }
 
 bool IMapChip::CollisionMap(const float left, const float right, const float top, const float bottom)
 {
-	// ƒ`ƒbƒvƒTƒCƒY
+	// ãƒãƒƒãƒ—ã‚µã‚¤ã‚º
 	Vector3 chipSize = chipScale_ * 2.0f;
 
-	// ã‰º¶‰E‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Å‚ÌˆÊ’u
-	int leftNum   = static_cast<int>(left   / chipSize.x_); // ¶
-	int rightNum  = static_cast<int>(right  / chipSize.x_); // ‰E
-	int topNum    = static_cast<int>(top    / chipSize.y_); // ã
-	int bottomNum = static_cast<int>(bottom / chipSize.y_); // ‰º
+	// ä¸Šä¸‹å·¦å³ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã§ã®ä½ç½®
+	int leftNum   = static_cast<int>(left   / chipSize.x_); // å·¦
+	int rightNum  = static_cast<int>(right  / chipSize.x_); // å³
+	int topNum    = static_cast<int>(top    / chipSize.y_); // ä¸Š
+	int bottomNum = static_cast<int>(bottom / chipSize.y_); // ä¸‹
 
-	// ã‰º¶‰E”ÍˆÍ“à‚É‚¢‚é‚©
-	bool L = (0 <= leftNum   && leftNum   < pMapData_->chipNums_[0].size()); // ¶
-	bool R = (0 <= rightNum  && rightNum  < pMapData_->chipNums_[0].size()); // ‰E
-	bool T = (0 <= topNum    && topNum    < pMapData_->chipNums_.size());    // ã
-	bool B = (0 <= bottomNum && bottomNum < pMapData_->chipNums_.size());    // ‰º
+	// ä¸Šä¸‹å·¦å³ç¯„å›²å†…ã«ã„ã‚‹ã‹
+	bool L = (0 <= leftNum   && leftNum   < pMapData_->chipNums_[0].size()); // å·¦
+	bool R = (0 <= rightNum  && rightNum  < pMapData_->chipNums_[0].size()); // å³
+	bool T = (0 <= topNum    && topNum    < pMapData_->chipNums_.size());    // ä¸Š
+	bool B = (0 <= bottomNum && bottomNum < pMapData_->chipNums_.size());    // ä¸‹
 
-	// “–‚½‚Á‚Ä‚¢‚é‚©
+	// å½“ãŸã£ã¦ã„ã‚‹ã‹
 	bool isCollTL = false, isCollTR = false, isCollBL = false, isCollBR = false;
 	
-	if (T && L) { isCollTL = CollisionChip(leftNum , topNum); }    // ¶ã
-	if (T && R) { isCollTR = CollisionChip(rightNum, topNum); }    // ‰Eã
-	if (B && L) { isCollBL = CollisionChip(leftNum , bottomNum); } // ¶‰º
-	if (B && R) { isCollBR = CollisionChip(rightNum, bottomNum); } // ‰E‰º
+	if (T && L) { isCollTL = CollisionChip(leftNum , topNum); }    // å·¦ä¸Š
+	if (T && R) { isCollTR = CollisionChip(rightNum, topNum); }    // å³ä¸Š
+	if (B && L) { isCollBL = CollisionChip(leftNum , bottomNum); } // å·¦ä¸‹
+	if (B && R) { isCollBR = CollisionChip(rightNum, bottomNum); } // å³ä¸‹
 
 	return (isCollTL || isCollTR || isCollBL || isCollBR);
 }

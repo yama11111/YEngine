@@ -9,44 +9,44 @@
 
 namespace YGame
 {
-	// ˆÃ“]
+	// æš—è»¢
 	class BlackoutTransition : public BaseTransition
 	{
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		virtual void Initialize() override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Finalize() override;
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg (’†g‚¾‚¯‰Šú‰»)
+		/// ãƒªã‚»ãƒƒãƒˆ (ä¸­èº«ã ã‘åˆæœŸåŒ–)
 		/// </summary>
 		virtual void Reset() override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update() override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() override;
 
 	public:
 
 		/// <summary> 
-		/// “®ìŠJn
+		/// å‹•ä½œé–‹å§‹
 		/// </summary>
-		/// <param name="loadFrame"> : “Ç‚İ‚ŞŠÔ</param>
-		/// <param name="leftTop"> : 1”Ô¶ã‚ÌƒuƒƒbƒN‚ÌˆÊ’u</param>
+		/// <param name="loadFrame"> : èª­ã¿è¾¼ã‚€æ™‚é–“</param>
+		/// <param name="leftTop"> : 1ç•ªå·¦ä¸Šã®ãƒ–ãƒ­ãƒƒã‚¯ã®ä½ç½®</param>
 		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) override;
 
 	public:
@@ -57,35 +57,35 @@ namespace YGame
 
 	public:
 
-		// Ã“I‰Šú‰»
+		// é™çš„åˆæœŸåŒ–
 		static void LoadResource();
 	
 	private:
 		
-		// ƒIƒuƒWƒFƒNƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::unique_ptr<YGame::DrawObjectForSprite2D> obj_;
 		
-		// F’è”ƒoƒbƒtƒ@
+		// è‰²å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<YGame::ConstBufferObject<YGame::CBColor>> cbColor_;
 		
 
-		// “§‰ß“xƒpƒ[
+		// é€éåº¦ãƒ‘ãƒ¯ãƒ¼
 		YMath::Power blendPow_;
 
 	private:
 		
-		// Ø‚è‘Ö‚¦ˆ—XV
+		// åˆ‡ã‚Šæ›¿ãˆå‡¦ç†æ›´æ–°
 		void UpdateChange();
 		
-		// “§‰ßˆ—XV
+		// é€éå‡¦ç†æ›´æ–°
 		void UpdateBlend();
 	
 	private:
 		
-		// ƒXƒvƒ‰ƒCƒg(2D)
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ(2D)
 		static YGame::Sprite2D* spCurtenSpr_;
 
-		// “§‰ß“xƒC[ƒWƒ“ƒO
+		// é€éåº¦ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		static YMath::Ease<float> sBlendEas_;
 	};
 }

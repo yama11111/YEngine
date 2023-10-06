@@ -12,10 +12,10 @@ using YMath::Vector4;
 template<typename T>
 void SplineEase<T>::Initialize(const std::vector<T>& points, const float exponent)
 {
-	// 1‚Â‚à‚È‚¢‚È‚ç’e‚­
+	// 1ã¤ã‚‚ãªã„ãªã‚‰å¼¾ã
 	assert(points.empty() == false);
 
-	// ‘ã“ü
+	// ä»£å…¥
 	points_ = points;
 	exponent_ = exponent;
 }

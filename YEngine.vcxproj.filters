@@ -225,9 +225,6 @@
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp">
       <Filter>Engine\Game\MapChip</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp">
-      <Filter>Application\Draw\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Input\InputManager.cpp">
       <Filter>Engine\Input</Filter>
     </ClCompile>
@@ -347,9 +344,6 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Chara\SnortAttack.cpp">
       <Filter>Application\Game\Chara\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Draw\Actor\HitActor.cpp">
-      <Filter>Application\Draw\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp">
       <Filter>Application\Game\Drawer\Player</Filter>
@@ -510,9 +504,6 @@
     <ClCompile Include="Application\Game\UI\UINumber.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\StageManager.cpp">
-      <Filter>Application\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp">
       <Filter>Application\Game\Drawer\Debug</Filter>
     </ClCompile>
@@ -582,6 +573,15 @@
     <ClCompile Include="Application\Game\Drawer\PauseDrawer.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Draw\Actor\HitActor.cpp">
+      <Filter>Application\Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\Actor\SlimeActor.cpp">
+      <Filter>Application\Draw\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\StageManager.cpp">
+      <Filter>Application\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -604,9 +604,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h">
       <Filter>Engine\Game\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Draw\Actor\SlimeActor.h">
-      <Filter>Application\Draw\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Input\InputManager.h">
       <Filter>Engine\Input</Filter>
@@ -733,9 +730,6 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h">
       <Filter>Application\Game\Chara</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Draw\Actor\HitActor.h">
-      <Filter>Application\Draw\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\PlayerDrawer.h">
       <Filter>Application\Game\Drawer\Player</Filter>
@@ -950,9 +944,6 @@
     <ClInclude Include="Application\Game\UI\UINumber.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\StageManager.h">
-      <Filter>Application\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Drawer\AxisDrawer.h">
       <Filter>Application\Game\Drawer\Debug</Filter>
     </ClInclude>
@@ -1010,9 +1001,6 @@
     <ClInclude Include="Application\Game\Drawer\EarthDrawer.h">
       <Filter>Application\Game\Drawer\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\ColorConfig.h">
-      <Filter>Application\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\UI\ScoreManager.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
@@ -1030,6 +1018,18 @@
     </ClInclude>
     <ClInclude Include="Application\Game\UI\PauseSelection.h">
       <Filter>Application\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Actor\HitActor.h">
+      <Filter>Application\Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\Actor\SlimeActor.h">
+      <Filter>Application\Draw\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\ColorConfig.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\StageManager.h">
+      <Filter>Application\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1051,6 +1051,7 @@
     <None Include="Resources\Shaders\Dissolve.hlsli">
       <Filter>Application\Shader\Model</Filter>
     </None>
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">

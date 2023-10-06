@@ -24,7 +24,7 @@ PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const size_t drawPriority
 
 void PlayerDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹İ’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModels_[1] = Model::LoadObj("player/body", true);
 	spModels_[0] = Model::LoadObj("player/leg_L", true);
 	spModels_[2] = Model::LoadObj("player/leg_R", true);
@@ -32,10 +32,10 @@ void PlayerDrawer::LoadResource()
 
 void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// ƒ‚ƒfƒ‹İ’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	obj_->SetModel(spModels_[0]);
 
 	shaderKey_ = "ModelToon";
@@ -56,7 +56,7 @@ void PlayerDrawer::Draw()
 
 void PlayerDrawer::InsertAnimationTimers()
 {
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì”‚¾‚¯ƒ^ƒCƒ}[ì¬
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ•°ã ã‘ã‚¿ã‚¤ãƒãƒ¼ä½œæˆ
 	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
 	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eMove), AnimationTimer() });
 	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eJump), AnimationTimer() });
@@ -68,30 +68,30 @@ void PlayerDrawer::InsertAnimationTimers()
 
 void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
-	// —§‚¿
+	// ç«‹ã¡
 	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle))
 	{
 	}
-	// ˆÚ“®
+	// ç§»å‹•
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove))
 	{
-		// “y‰Œ‚ğ”­¶
-		// ©•ª‚Ì‘«Œ³
+		// åœŸç…™ã‚’ç™ºç”Ÿ
+		// è‡ªåˆ†ã®è¶³å…ƒ
 		float height = 0.5f;
 		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
 
-		// ³–Ê‚Æ‹t•ûŒü ‚©‚Â ã•ûŒü
+		// æ­£é¢ã¨é€†æ–¹å‘ ã‹ã¤ ä¸Šæ–¹å‘
 		float rad = pParent_->rota_.y_;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
 
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
-	// ƒWƒƒƒ“ƒv
+	// ã‚¸ãƒ£ãƒ³ãƒ—
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump))
 	{
-		// ƒuƒˆƒuƒˆƒAƒjƒ
-		// L‚Ñ‚é
+		// ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡
+		// ä¼¸ã³ã‚‹
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 		wobbleScaleValues.push_back(Vector3(-0.25f, +0.5f, -0.25f));
@@ -102,23 +102,23 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
 		slimeActor_.Wobble();
 
-		// “y‰Œ‚ğ”­¶
-		// ©•ª‚Ì‘«Œ³
+		// åœŸç…™ã‚’ç™ºç”Ÿ
+		// è‡ªåˆ†ã®è¶³å…ƒ
 		float height = 0.5f;
 		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
 
-		// ³–Ê‚Æ‹t•ûŒü ‚©‚Â ‰º•ûŒü
+		// æ­£é¢ã¨é€†æ–¹å‘ ã‹ã¤ ä¸‹æ–¹å‘
 		float rad = pParent_->rota_.y_;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
 
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
-	// ’…’n
+	// ç€åœ°
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding))
 	{
-		// ƒuƒˆƒuƒˆƒAƒjƒ
-		// ’×‚ê‚é
+		// ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡
+		// æ½°ã‚Œã‚‹
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
@@ -129,15 +129,15 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
 		slimeActor_.Wobble();
 
-		// “y‰Œ‚ğ”­¶
-		// ©•ª‚Ì‘«Œ³
+		// åœŸç…™ã‚’ç™ºç”Ÿ
+		// è‡ªåˆ†ã®è¶³å…ƒ
 		float height = 0.5f;
 		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
 
-		// ©•ª‚ÌüˆÍ ‚©‚Â ã•ûŒü
+		// è‡ªåˆ†ã®å‘¨å›² ã‹ã¤ ä¸Šæ–¹å‘
 		for (size_t i = 0; i < Anime::Landing::kDirectionNum; i++)
 		{
-			// Šp“x = 2ƒÎ (360) / Œü‚«‚Ì” * index
+			// è§’åº¦ = 2Ï€ (360) / å‘ãã®æ•° * index
 			float rad = (2.0f * kPI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
 			Vector3 surrounding = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 
@@ -146,11 +146,11 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 			DustParticle::Emit(Anime::Landing::kDustNum, pParent_->pos_, powerDirection, spVP_);
 		}
 	}
-	// UŒ‚
+	// æ”»æ’ƒ
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack))
 	{
 	}
-	// ”í’e
+	// è¢«å¼¾
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit))
 	{
 		hitActor_.Hit(
@@ -158,7 +158,7 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 			Anime::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
 	}
-	// €–S
+	// æ­»äº¡
 	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead))
 	{
 		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);

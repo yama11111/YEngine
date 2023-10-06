@@ -12,7 +12,7 @@ ParticleManager* ParticleManager::GetInstance()
 
 void ParticleManager::Clear()
 {
-	// パーティクル全削除
+	// 繝代�ｼ繝�繧｣繧ｯ繝ｫ蜈ｨ蜑企勁
 	if (particles_.empty() == false)
 	{
 		particles_.clear();

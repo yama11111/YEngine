@@ -4,21 +4,21 @@
 class YWindowsApp
 {
 private:
-	// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒXİ’è
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹è¨­å®š
 	WNDCLASSEX wDesc_{};
-	// ƒEƒBƒ“ƒhƒEƒIƒuƒWƒFƒNƒg
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	HWND hwnd_;
-	// ƒƒbƒZ[ƒW
+	// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 	MSG msg_{};
 private:
-	// ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 public:
-	// ƒEƒBƒ“ƒhƒE¶¬
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç”Ÿæˆ
 	void Create(const wchar_t* titleName = L"DirectXGame", const float width = 1280.0f, const float height = 720);
-	// ƒƒbƒZ[ƒWŠm”F
+	// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç¢ºèª
 	bool CheckMessage();
-	// I—¹ˆ—
+	// çµ‚äº†å‡¦ç†
 	void FinalProcess();
 public:
 	// HWND getter

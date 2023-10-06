@@ -5,41 +5,41 @@
 
 namespace YGame
 {
-	// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^ƒZƒbƒgƒNƒ‰ƒX
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿ã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹
 	class ConstBufferPtrSet final
 	{
 
 	public:
 
 		/// <summary>
-		/// ƒNƒŠƒA
+		/// ã‚¯ãƒªã‚¢
 		/// </summary>
 		void Clear();
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^‘}“ü 
-		/// (“¯‚¶Ží—Þ‚Ì’è”ƒoƒbƒtƒ@‚ª—ˆ‚½‚ç“ü‚ê‘Ö‚¦‚é)
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿æŒ¿å…¥ 
+		/// (åŒã˜ç¨®é¡žã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒæ¥ãŸã‚‰å…¥ã‚Œæ›¿ãˆã‚‹)
 		/// </summary>
-		/// <param name="pCBuff"> : ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pCBuff"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿</param>
 		void Insert(BaseConstBuffer* pCB);
 		
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^‘}“ü (ƒfƒtƒHƒ‹ƒg)
-		/// (“¯‚¶Ží—Þ‚Ì’è”ƒoƒbƒtƒ@‚ª—ˆ‚½‚ç“ü‚ê‘Ö‚¦‚é)
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿æŒ¿å…¥ (ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
+		/// (åŒã˜ç¨®é¡žã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒæ¥ãŸã‚‰å…¥ã‚Œæ›¿ãˆã‚‹)
 		/// </summary>
-		/// <param name="cbTag"> : ’è”ƒoƒbƒtƒ@ƒ^ƒO</param>
+		/// <param name="cbTag"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚¿ã‚°</param>
 		void InsertDefault(const std::string& tag);
 
 		/// <summary>
-		/// •`‰æƒRƒ}ƒ“ƒh
+		/// æç”»ã‚³ãƒžãƒ³ãƒ‰
 		/// </summary>
-		/// <param name="tag"> : ƒ^ƒO</param>
-		/// <param name="rpIndex"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^”Ô†</param>
+		/// <param name="tag"> : ã‚¿ã‚°</param>
+		/// <param name="rpIndex"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç•ªå·</param>
 		void SetDrawCommand(const std::string& tag, const uint32_t rpIndex);
 
 	private:
 
-		// ƒ}ƒbƒv
+		// ãƒžãƒƒãƒ—
 		std::unordered_map<std::string, BaseConstBuffer*> cbPtrMap_;
 	};
 }

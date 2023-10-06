@@ -47,7 +47,7 @@
 
 #include "PauseDrawer.h"
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region    O  ÔéŒ¾
 using YBase::MyGame;
 using namespace YDX;
 using namespace YInput;
@@ -58,7 +58,7 @@ using namespace YGame;
 
 bool MyGame::Initialize()
 {
-	// Šî’êƒNƒ‰ƒX‰Šú‰»ˆ—
+	//    N   X          
 	if (YFramework::Initialize() == false) { return false; }
 
 	InitializePipelines();
@@ -72,10 +72,10 @@ bool MyGame::Initialize()
 	LoadDrawer();
 	
 
-	// ƒV[ƒ“ƒtƒ@ƒNƒgƒŠ[Ý’è
+	//  V [   t @ N g   [ Ý’ 
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
-	// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[‰Šú‰»
+	//  V [   } l [ W   [      
 	sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
@@ -83,47 +83,47 @@ bool MyGame::Initialize()
 
 void MyGame::Finalize()
 {
-	// Šî’êƒNƒ‰ƒXI—¹ˆ—
+	//    N   X I      
 	YFramework::Finalize();
 }
 
 void MyGame::Update()
 {
-	// Šî’êƒNƒ‰ƒXXVˆ—
+	//    N   X X V    
 	YFramework::Update();
 
-	// ------------------- I—¹ˆ— ------------------- //
+	// -------------------  I       ------------------- //
 	// ------------------------------------------------ //
 }
 
 void MyGame::Draw()
 {
-	// ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒvƒZƒbƒg
+	//  f X N   v ^ [ q [ v Z b g
 	descHeap_.SetDrawCommand();
 
-	// ƒV[ƒ“•`‰æ
+	//  V [   `  
 	sceneMan_->Draw();
 
-	// ƒp[ƒeƒBƒNƒ‹•`‰æ
+	//  p [ e B N   `  
 	pParticleMan_->Draw();
 
-	// •`‰æ€”õ
+	//  ` æ€  
 	dx_.PreDraw(ClearColor);
 
-	// ƒXƒNƒŠ[ƒ“Ý’èƒZƒbƒg
+	//  X N   [   Ý’ Z b g
 	screenDesc_.SetDrawCommand();
 
-	// ƒpƒCƒvƒ‰ƒCƒ“•`‰æ
+	//  p C v   C   `  
 	pPipelineMan_->Draw();
 
 #ifdef _DEBUG
 
-	// imgui•`‰æ
+	// imgui `  
 	imguiMan_.Draw();
 
 #endif // DEBUG
 
-	// •`‰æŒãˆ—
+	//  `  ãˆ  
 	dx_.PostDraw();
 }
 
@@ -318,7 +318,7 @@ void MyGame::InitializePipelines()
 	}
 
 
-	// •`‰æ‡‚ðÝ’è
+	//  ` æ‡  Ý’ 
 	pPipelineMan_->SetDrawOrder(
 		{
 			"ModelDefault", 

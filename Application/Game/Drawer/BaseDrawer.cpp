@@ -9,7 +9,7 @@ void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {	
 	if (obj_ == nullptr)
 	{
-		// ƒIƒuƒWƒFƒNƒg + ’è”ƒoƒbƒtƒ@¶¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ + å®šæ•°ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 		obj_.reset(DrawObjectForModel::Create({}, spVP_, nullptr));
 		
 		cbColor_.reset(ConstBufferObject<CBColor>::Create());
@@ -19,13 +19,13 @@ void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	obj_->Initialize();
 
-	// ƒIƒuƒWƒFƒNƒg‚É’è”ƒoƒbƒtƒ@‚ğİ’è
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚’è¨­å®š
 	obj_->InsertConstBuffer(cbColor_.get());
 	obj_->InsertConstBuffer(cbMaterial_.get());
 	
 	SetParent(pParent);
 	
-	// ŠÂ‹«Œõ‚ğˆÃ‚ß‚É
+	// ç’°å¢ƒå…‰ã‚’æš—ã‚ã«
 	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
 
 	drawPriority_ = drawPriority;
@@ -36,7 +36,7 @@ void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	animationBitFlag_ = 0;
 
-	// ƒ^ƒCƒ}[ƒNƒŠƒAŒãAÄ‘}“ü + ‰Šú‰»
+	// ã‚¿ã‚¤ãƒãƒ¼ã‚¯ãƒªã‚¢å¾Œã€å†æŒ¿å…¥ + åˆæœŸåŒ–
 	animationTimers_.clear();
 
 	InsertAnimationTimers();
@@ -58,7 +58,7 @@ void BaseDrawer::PlayAnimation(const uint16_t index, const uint32_t frame, const
 	animationTimers_[index].timer.Initialize(frame, true);
 	animationTimers_[index].isRoop = isRoop;
 
-	// ƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	// ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 	animationBitFlag_ |= index;
 }
 
@@ -68,7 +68,7 @@ void BaseDrawer::AbortAnimation(const uint16_t index)
 	
 	animationTimers_[index].timer.Initialize(0);
 	
-	// ƒtƒ‰ƒO‚ğ‚¨‚ë‚·
+	// ãƒ•ãƒ©ã‚°ã‚’ãŠã‚ã™
 	animationBitFlag_ &= ~index;
 }
 
@@ -91,7 +91,7 @@ void BaseDrawer::UpdateAnimationTimer()
 {
 	for (auto itr = animationTimers_.begin(); itr != animationTimers_.end(); ++itr)
 	{
-		// ƒAƒjƒ[ƒVƒ‡ƒ“‚µ‚È‚¢‚È‚ç”ò‚Î‚·
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã—ãªã„ãªã‚‰é£›ã°ã™
 		if ((animationBitFlag_ & itr->first) == 0) { continue; }
 
 		YMath::Timer& timer = itr->second.timer;
@@ -102,7 +102,7 @@ void BaseDrawer::UpdateAnimationTimer()
 		{
 			if (itr->second.isRoop)
 			{
-				// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‚à‚¤ˆê“xn‚ß‚é
+				// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚‚ã†ä¸€åº¦å§‹ã‚ã‚‹
 				PlaySubAnimation(itr->first, timer.EndFrame());
 				timer.Reset(true);
 			}
@@ -110,7 +110,7 @@ void BaseDrawer::UpdateAnimationTimer()
 			{
 				timer.Initialize(0);
 
-				// ƒtƒ‰ƒO‚ğ‚¨‚ë‚·
+				// ãƒ•ãƒ©ã‚°ã‚’ãŠã‚ã™
 				animationBitFlag_ &= ~itr->first;
 			}
 		}
@@ -121,19 +121,19 @@ void BaseDrawer::VisibleUpdate()
 {
 	if (isVisibleUpdate_ == false) { return; }
 
-	// ‹“_‚Æ‚Ì‹——£
+	// è¦–ç‚¹ã¨ã®è·é›¢
 	float distance = YMath::Vector3(spVP_->eye_ - pParent_->pos_).Length();
 
-	// •`‰æ”ÍˆÍ
+	// æç”»ç¯„å›²
 	static const float kRange = 750.0f;
 
-	// ‹“_‚Æ‚Ì‹——£‚Ì”ä—¦‚ÅƒAƒ‹ƒtƒ@’l•Ï‰»(‰“‚¢‚Ù‚Ç”–‚­)
+	// è¦–ç‚¹ã¨ã®è·é›¢ã®æ¯”ç‡ã§ã‚¢ãƒ«ãƒ•ã‚¡å€¤å¤‰åŒ–(é ã„ã»ã©è–„ã)
 	float distanceRate = 1.0f - distance / kRange;
 	if (distanceRate >= 0.8f) { distanceRate = 1.0f; }
 
 	cbColor_->data_.texColorRate.a_ = distanceRate;
 
-	// ˆê’è’lˆÈ‰º‚Í•`‰æØ‚é
+	// ä¸€å®šå€¤ä»¥ä¸‹ã¯æç”»åˆ‡ã‚‹
 	isVisible_ = (distanceRate >= 0.25f);
 }
 

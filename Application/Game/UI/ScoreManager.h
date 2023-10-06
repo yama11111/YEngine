@@ -13,24 +13,24 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 	
 	public:
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX“Ç‚İ‚İ
+		/// ãƒªã‚½ãƒ¼ã‚¹èª­ã¿è¾¼ã¿
 		/// </summary>
 		static void LoadResource();
 
@@ -39,7 +39,7 @@ namespace YGame
 		// UI
 		std::unique_ptr<UINumber> uiNum_;
 
-		// ƒXƒRƒA
+		// ã‚¹ã‚³ã‚¢
 		uint32_t score_;
 
 

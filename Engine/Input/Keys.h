@@ -11,30 +11,30 @@ namespace YInput
 	class Keys
 	{
 	private:
-		// ƒfƒoƒCƒX
+		// ãƒ‡ãƒã‚¤ã‚¹
 		Microsoft::WRL::ComPtr<IDirectInputDevice8> device_ = nullptr;
-		// ÅV
+		// æœ€æ–°
 		std::unique_ptr<unsigned char> keys_[256];
-		// 1F‘O
+		// 1Få‰
 		std::unique_ptr<unsigned char> elderKeys_[256];
 	public:
-		// ¶¬ (Å‰‚É1‰ñŒÄ‚Ô)
+		// ç”Ÿæˆ (æœ€åˆã«1å›å‘¼ã¶)
 		void Create(const HWND hwnd, IDirectInput8* directInput);
-		// “ü—Íî•ñ ‰Šú‰»
+		// å…¥åŠ›æƒ…å ± åˆæœŸåŒ–
 		void Initialize();
-		// XVˆ—
+		// æ›´æ–°å‡¦ç†
 		void Update();
 	public:
-		// ‰Ÿ‚µ‚Ä‚¢‚é
+		// æŠ¼ã—ã¦ã„ã‚‹
 		bool IsDown(const int key);
-		// ‰Ÿ‚µ‚½uŠÔ
+		// æŠ¼ã—ãŸç¬é–“
 		bool IsTrigger(const int key);
-		// ‰Ÿ‚µ‘±‚¯‚Ä‚¢‚é
+		// æŠ¼ã—ç¶šã‘ã¦ã„ã‚‹
 		bool IsLongPress(const int key);
-		// —£‚µ‚½uŠÔ
+		// é›¢ã—ãŸç¬é–“
 		bool IsRelease(const int key);
 	public:
-		// ˆÚ“®ƒL[Šî€
+		// ç§»å‹•ã‚­ãƒ¼åŸºæº–
 		enum class MoveStandard
 		{
 			WASD,
@@ -42,19 +42,19 @@ namespace YInput
 			All,
 		};
 	public:
-		// ¶
+		// å·¦
 		bool IsLeft(const MoveStandard& keyS = MoveStandard::All);
-		// ‰E
+		// å³
 		bool IsRight(const MoveStandard& keyS = MoveStandard::All);
-		// ã
+		// ä¸Š
 		bool IsUp(const MoveStandard& keyS = MoveStandard::All);
-		// ‰º
+		// ä¸‹
 		bool IsUnder(const MoveStandard& keyS = MoveStandard::All);
-		// ¶(-1) ‰E(+1)
+		// å·¦(-1) å³(+1)
 		int Horizontal(const MoveStandard& keyS = MoveStandard::All);
-		// ã(-1) ‰º(+1)
+		// ä¸Š(-1) ä¸‹(+1)
 		int Vertical(const MoveStandard& keyS = MoveStandard::All);
-		// ˆÚ“®‚µ‚Ä‚¢‚é‚©
+		// ç§»å‹•ã—ã¦ã„ã‚‹ã‹
 		bool IsMove(const MoveStandard& keyS = MoveStandard::All);
 	public:
 		static Keys* GetInstance();

@@ -13,12 +13,12 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="pPostEffect"> : ƒ|ƒXƒgƒGƒtƒFƒNƒgƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>ƒIƒuƒWƒFƒNƒgƒ|ƒCƒ“ƒ^ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</returns>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="pPostEffect"> : ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</returns>
 		static DrawObjectForPostEffect* Create(
 			const Transform::Status& status,
 			PostEffect* pPostEffect,
@@ -27,26 +27,26 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		void Initialize(
 			const Transform::Status& status = Transform::Status::Default(), 
 			const bool isClearWhenTransition = true) override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		void Update(const Transform::Status& status = {}) override;
 
 	public:
 
 		/// <summary>
-		/// ƒ|ƒXƒgƒGƒtƒFƒNƒg‚ğİ’è
+		/// ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pPostEffect"> : ƒ|ƒXƒgƒGƒtƒFƒNƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pPostEffect"> : ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		void SetPostEffect(PostEffect* pPostEffect);
 
 	public:
@@ -55,12 +55,12 @@ namespace YGame
 
 	private:
 
-		// ƒ‚ƒfƒ‹—pƒgƒ‰ƒ“ƒXƒtƒH[ƒ€’è”ƒoƒbƒtƒ@
+		// ãƒ¢ãƒ‡ãƒ«ç”¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBPostEffectTransform>> cbTransform_;
 
 	private:
 
-		// éŒ¾A‘ã“ü‚ğ‹Ö~
+		// å®£è¨€ã€ä»£å…¥ã‚’ç¦æ­¢
 		DrawObjectForPostEffect() = default;
 
 		DrawObjectForPostEffect(const DrawObjectForPostEffect&) = delete;

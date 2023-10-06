@@ -6,25 +6,25 @@ namespace YGame
 {
 	struct PipelineSetting
 	{
-		// ’¸“_ƒŒƒCƒAƒEƒg
+		// é ‚ç‚¹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 		std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout;
 		
-		// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼
 		std::vector<D3D12_STATIC_SAMPLER_DESC> samplerDescs;
 		
-		// ƒ|ƒŠƒSƒ“‚Ì“h‚è•û
+		// ãƒãƒªã‚´ãƒ³ã®å¡—ã‚Šæ–¹
 		D3D12_FILL_MODE fillMode = D3D12_FILL_MODE_SOLID;
 		
-		// ƒJƒŠƒ“ƒOİ’è
+		// ã‚«ãƒªãƒ³ã‚°è¨­å®š
 		D3D12_CULL_MODE cullMode;
 		
-		// [“xƒeƒXƒg‚ğs‚¤‚©
+		// æ·±åº¦ãƒ†ã‚¹ãƒˆã‚’è¡Œã†ã‹
 		bool depthEnable;
 
-		// Œ`óİ’è
+		// å½¢çŠ¶è¨­å®š
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE primitiveType;
 
-		// Œ`ó
+		// å½¢çŠ¶
 		D3D_PRIMITIVE_TOPOLOGY primitive;
 	};
 }

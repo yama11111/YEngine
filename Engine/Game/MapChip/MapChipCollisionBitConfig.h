@@ -3,36 +3,36 @@
 
 namespace YGame
 {
-	// ƒ}ƒbƒvƒ`ƒbƒv
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—
 	namespace ChipCollisionBit
 	{
-		// –³‚µ
+		// ç„¡ã—
 		const uint8_t kNone	 = 0;
 
 
-		// ã
+		// ä¸Š
 		const uint8_t kTop			 = 0b00001000;
 		
-		// ‰º
+		// ä¸‹
 		const uint8_t kBottom		 = 0b00000100;
 
-		// ¶
+		// å·¦
 		const uint8_t kLeft			 = 0b00000010;
 
-		// ‰E
+		// å³
 		const uint8_t kRight		 = 0b00000001;
 
 
-		// ã
+		// ä¸Š
 		const uint8_t kElderTop		 = kTop << 4;
 		
-		// ‰º
+		// ä¸‹
 		const uint8_t kElderBottom	 = kBottom << 4;
 
-		// ¶
+		// å·¦
 		const uint8_t kElderLeft	 = kLeft << 4;
 
-		// ‰E
+		// å³
 		const uint8_t kElderRight	 = kRight << 4;
 	}
 }

@@ -5,72 +5,72 @@
 
 namespace YGame
 {
-	// Šî’ê•`‰æƒIƒuƒWƒFƒNƒg
+	// åŸºåº•æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	class BaseDrawObject
 	{
 
 	public:
 		
-		// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+		// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 		Transform transform_;
 	
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		virtual void Initialize(
 			const Transform::Status& status = Transform::Status::Default(), 
 			const bool isClearWhenTransition = true) = 0;
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		virtual void Update(const Transform::Status& status = {}) = 0;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		void Draw(const std::string& shaderTag, const size_t drawPriority);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		void Draw(const std::string& shaderTag, const size_t drawPriority, BaseGraphic* pGraphic);
 	
 	public:
 
 		/// <summary>
-		/// ƒyƒAƒŒƒ“ƒgİ’è
+		/// ãƒšã‚¢ãƒ¬ãƒ³ãƒˆè¨­å®š
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
 		void SetParent(YMath::Matrix4* pParent);
 		
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^‘}“ü 
-		/// (“¯‚¶í—Ş‚Ì’è”ƒoƒbƒtƒ@‚ª—ˆ‚½‚ç“ü‚ê‘Ö‚¦‚é)
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿æŒ¿å…¥ 
+		/// (åŒã˜ç¨®é¡ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒæ¥ãŸã‚‰å…¥ã‚Œæ›¿ãˆã‚‹)
 		/// </summary>
-		/// <param name="pCBuff"> : ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pCBuff"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿</param>
 		void InsertConstBuffer(BaseConstBuffer* pCBuff);
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^‘}“ü (ƒfƒtƒHƒ‹ƒg)
-		/// (“¯‚¶í—Ş‚Ì’è”ƒoƒbƒtƒ@‚ª—ˆ‚½‚ç“ü‚ê‘Ö‚¦‚é)
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿æŒ¿å…¥ (ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ)
+		/// (åŒã˜ç¨®é¡ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒæ¥ãŸã‚‰å…¥ã‚Œæ›¿ãˆã‚‹)
 		/// </summary>
-		/// <param name="cbTag"> : ’è”ƒoƒbƒtƒ@ƒ^ƒO</param>
+		/// <param name="cbTag"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚¿ã‚°</param>
 		void InsertDefaultConstBuffer(const std::string& cbTag);
 
 		/// <summary>
-		/// •`‰æ‚·‚é‚©İ’è
+		/// æç”»ã™ã‚‹ã‹è¨­å®š
 		/// </summary>
-		/// <param name="isVisible">•`‰æƒtƒ‰ƒO</param>
+		/// <param name="isVisible">æç”»ãƒ•ãƒ©ã‚°</param>
 		void SetVisible(const bool isVisible) { isVisible_ = isVisible; }
 	
 	public:
@@ -81,21 +81,21 @@ namespace YGame
 
 	protected:
 
-		// ’è”ƒoƒbƒtƒ@ƒ}ƒbƒv
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒãƒƒãƒ—
 		ConstBufferPtrSet cbPtrSet_;
 
-		// ƒOƒ‰ƒtƒBƒbƒN
+		// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯
 		BaseGraphic* pGraphic_ = nullptr;
 
-		// •`‰æ‚·‚é‚©
+		// æç”»ã™ã‚‹ã‹
 		bool isVisible_ = true;
 	
 	protected:
 
 		/// <summary>
-		/// ƒOƒ‰ƒtƒBƒbƒNİ’è
+		/// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¨­å®š
 		/// </summary>
-		/// <param name="pGraphic"> : ƒOƒ‰ƒtƒBƒbƒNƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pGraphic"> : ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒã‚¤ãƒ³ã‚¿</param>
 		void SetGraphic(BaseGraphic* pGraphic);
 
 	};

@@ -4,67 +4,67 @@
 
 namespace YDX
 {
-	// ’¸“_ƒRƒ‚ƒ“ƒNƒ‰ƒX
+	// é ‚ç‚¹ã‚³ãƒ¢ãƒ³ã‚¯ãƒ©ã‚¹
 	class VertexCommon
 	{
 
 	protected:
 
-		// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 		static ID3D12GraphicsCommandList* spCmdList_;
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pCommandList"> : ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pCommandList"> : ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ID3D12GraphicsCommandList* pCommandList);
 	};
 
 
-	// ’¸“_
+	// é ‚ç‚¹
 	template <typename VData>
 	class Vertices : protected VertexCommon
 	{
 
 	protected:
 
-		// ’¸“_ƒf[ƒ^
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 		std::vector<VData> v_;
 
-		// ’¸“_ƒoƒbƒtƒ@
+		// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
 		GPUResource buffer_{};
 
-		// ’¸“_ƒoƒbƒtƒ@ƒrƒ…[
+		// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼
 		D3D12_VERTEX_BUFFER_VIEW view_{};
 
-		// ‰¼‘zƒƒ‚ƒŠ
+		// ä»®æƒ³ãƒ¡ãƒ¢ãƒª
 		VData* vertMap_ = nullptr;
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="v"> : ’¸“_”z—ñ</param>
+		/// <param name="v"> : é ‚ç‚¹é…åˆ—</param>
 		void Initialize(const std::vector<VData>& v);
 
 		/// <summary>
-		/// ƒ}ƒbƒv‚É“]‘—
+		/// ãƒãƒƒãƒ—ã«è»¢é€
 		/// </summary>
-		/// <param name="v"> : ’¸“_”z—ñ</param>
+		/// <param name="v"> : é ‚ç‚¹é…åˆ—</param>
 		void TransferMap(const std::vector<VData>& v);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() const;
 
 	protected:
 
 		/// <summary>
-		/// ƒoƒbƒtƒ@‚Æƒrƒ…[ì¬
+		/// ãƒãƒƒãƒ•ã‚¡ã¨ãƒ“ãƒ¥ãƒ¼ä½œæˆ
 		/// </summary>
 		void Create();
 
@@ -77,33 +77,33 @@ namespace YDX
 	};
 
 
-	// ’¸“_ƒCƒ“ƒfƒbƒNƒX
+	// é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	template <typename VData>
 	class VertexIndex : public Vertices<VData>
 	{
 
 	private:
 
-		// ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿
 		std::vector<uint16_t> idx_;
 
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
 		GPUResource idxBuffer_{};
 
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒrƒ…[
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼
 		D3D12_INDEX_BUFFER_VIEW idxView_{};
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="v"> : ’¸“_”z—ñ</param>
-		/// <param name="idx"> : ƒCƒ“ƒfƒbƒNƒX”z—ñ</param>
+		/// <param name="v"> : é ‚ç‚¹é…åˆ—</param>
+		/// <param name="idx"> : ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—</param>
 		void Initialize(const std::vector<VData>& v, const std::vector<uint16_t>& idx);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw() const override;
 

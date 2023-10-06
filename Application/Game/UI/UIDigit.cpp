@@ -32,7 +32,7 @@ namespace YGame
 
 	public:
 
-		// ƒXƒvƒ‰ƒCƒg‚Ìí—Ş
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ç¨®é¡
 		enum class SpriteType
 		{
 			eNone, e2D, e3D,
@@ -40,14 +40,14 @@ namespace YGame
 	
 	public:
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		void Initialize2D(
 			const uint32_t num, 
 			YMath::Matrix4* pParent, 
 			const YMath::Vector3& offset = {},
 			const bool isClearWhenTransition = true) override;
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		void Initialize3D(
 			const uint32_t num,
 			YMath::Matrix4* pParent,
@@ -56,22 +56,22 @@ namespace YGame
 			const YMath::Vector3& offset = {},
 			const bool isClearWhenTransition = true) override;
 
-		// XV
+		// æ›´æ–°
 		void Update(const Transform::Status& status = {}) override;
 
-		// •`‰æ
+		// æç”»
 		void Draw(const std::string& shaderTag, const uint16_t priority) override;
 
-		// ’è”ƒoƒbƒtƒ@‘}“ü
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡æŒ¿å…¥
 		void InsertConstBuffer(BaseConstBuffer* pCB) override;
 
-		// ”İ’è
+		// æ•°è¨­å®š
 		void SetNumber(const uint32_t num) override;
 		
-		// ƒIƒtƒZƒbƒgİ’è
+		// ã‚ªãƒ•ã‚»ãƒƒãƒˆè¨­å®š
 		void SetOffset(const YMath::Vector3& offset) override;
 
-		// ƒXƒvƒ‰ƒCƒgí—Şİ’è
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç¨®é¡è¨­å®š
 		void SetSpriteType(const SpriteType& type) { type_ = type; }
 
 	public:
@@ -82,20 +82,20 @@ namespace YGame
 
 	private:
 
-		// ƒIƒuƒWƒFƒNƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::unique_ptr<DrawObjectForSprite2D> obj2D_;
 		std::unique_ptr<DrawObjectForSprite3D> obj3D_;
 
-		// ƒIƒtƒZƒbƒg
+		// ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 		Vector3 offset_;
 		
-		// ’è”ƒoƒbƒtƒ@
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBTexConfig>> cbTexConfig_;
 
-		// ƒXƒvƒ‰ƒCƒgƒ^ƒCƒv
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¿ã‚¤ãƒ—
 		SpriteType type_ = SpriteType::eNone;
 
-		// ‘JˆÚƒNƒŠƒAƒtƒ‰ƒO
+		// é·ç§»æ™‚ã‚¯ãƒªã‚¢ãƒ•ãƒ©ã‚°
 		bool isClearWhenTransition_ = false;
 	};
 
@@ -131,7 +131,7 @@ namespace YGame
 
 		obj2D_->InsertConstBuffer(cbTexConfig_.get());
 		
-		// 10•ª‚Ì1‚ÌƒTƒCƒY•ª‚ÅƒXƒP[ƒ‹ + ƒ^ƒCƒŠƒ“ƒO
+		// 10åˆ†ã®1ã®ã‚µã‚¤ã‚ºåˆ†ã§ã‚¹ã‚±ãƒ¼ãƒ« + ã‚¿ã‚¤ãƒªãƒ³ã‚°
 		obj2D_->transform_.scale_ = { 0.1f,1.0f,0.0f };
 		cbTexConfig_->data_.tiling = Vector2(0.1f, 1.0f);
 
@@ -180,11 +180,11 @@ namespace YGame
 
 		obj3D_->InsertConstBuffer(cbTexConfig_.get());
 
-		// ƒeƒNƒXƒ`ƒƒ‚ÌƒTƒCƒY‚ğæ“¾
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
 		float rscSizeX = static_cast<float>(pTex->Buffer()->GetDesc().Width) / 10.0f;
 		float rscSizeY = static_cast<float>(pTex->Buffer()->GetDesc().Height);
 		
-		// 10•ª‚Ì1‚ÌƒTƒCƒY•ª‚ÅƒXƒP[ƒ‹ + ƒ^ƒCƒŠƒ“ƒO
+		// 10åˆ†ã®1ã®ã‚µã‚¤ã‚ºåˆ†ã§ã‚¹ã‚±ãƒ¼ãƒ« + ã‚¿ã‚¤ãƒªãƒ³ã‚°
 		obj3D_->transform_.scale_ = Vector3(rscSizeX, rscSizeY, 0.0f) / 100.0f;
 		cbTexConfig_->data_.tiling = Vector2(0.1f, 1.0f);
 
@@ -240,7 +240,7 @@ namespace YGame
 	{
 		assert(0 <= num && num <= 9);
 
-		// ”‚É‡‚í‚¹‚ÄƒeƒNƒXƒ`ƒƒ‚ÌƒIƒtƒZƒbƒg•Ï‚¦‚é
+		// æ•°ã«åˆã‚ã›ã¦ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆå¤‰ãˆã‚‹
 		cbTexConfig_->data_.offset = Vector2(0.1f * static_cast<float>(num), 0.0f);
 	}
 

@@ -14,7 +14,7 @@ void CharacterManager::Initialize()
 
 void CharacterManager::Update(const bool isUpdate)
 {
-	// ƒLƒƒƒ‰ƒNƒ^[‚ª€‚ñ‚¾‚çíœ
+	// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ­»ã‚“ã ã‚‰å‰Šé™¤
 	characters_.remove_if([](std::unique_ptr<BaseCharacter>& character) { return character->IsAlive() == false; });
 
 	for (std::unique_ptr<BaseCharacter>& character : characters_)
@@ -30,16 +30,16 @@ void CharacterManager::Update(const bool isUpdate)
 
 	while (true)
 	{		
-		// ‹ó‚É‚È‚Á‚½‚çI—¹
+		// ç©ºã«ãªã£ãŸã‚‰çµ‚äº†
 		if (updateQueue_.empty()) { break; }
 
-		// ã‚©‚ç‡‚ÉXV
+		// ä¸Šã‹ã‚‰é †ã«æ›´æ–°
 		updateQueue_.top().pChara_->Update(isUpdate);
 
 		updateQueue_.pop();
 	}
 
-	// ‘SƒLƒƒƒ‰ƒAƒ^ƒŠ”»’èƒ`ƒFƒbƒN
+	// å…¨ã‚­ãƒ£ãƒ©ã‚¢ã‚¿ãƒªåˆ¤å®šãƒã‚§ãƒƒã‚¯
 	CheckAllCollision();
 }
 
@@ -83,21 +83,21 @@ void CharacterManager::Clear()
 {
 	if (characters_.empty() == false)
 	{
-		// ‘Síœ
+		// å…¨å‰Šé™¤
 		characters_.clear();
 	}
 }
 
 void CharacterManager::PushBack(BaseCharacter* character)
 {
-	// nullƒ`ƒFƒbƒN
+	// nullãƒã‚§ãƒƒã‚¯
 	assert(character);
 
-	// V‹KƒLƒƒƒ‰ƒNƒ^[ó‚¯æ‚è—p
+	// æ–°è¦ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼å—ã‘å–ã‚Šç”¨
 	std::unique_ptr<BaseCharacter> newCharacter;
 	newCharacter.reset(character);
 
-	// ‘}“ü
+	// æŒ¿å…¥
 	characters_.push_back(std::move(newCharacter));
 }
 
@@ -109,24 +109,24 @@ CharacterManager* CharacterManager::GetInstance()
 
 void CharacterManager::CheckAllCollision()
 {
-	// A‚Ìn‚ß‚©‚ç
+	// Aã®å§‹ã‚ã‹ã‚‰
 	std::list<std::unique_ptr<BaseCharacter>>::iterator itrA = characters_.begin();
 
-	// A‚ÌI‚í‚è‚Ü‚Å
+	// Aã®çµ‚ã‚ã‚Šã¾ã§
 	for (; itrA != characters_.end(); ++itrA)
 	{
 		BaseCharacter* pCharaA = itrA->get();
 
-		// B‚Ì‰‚ß(A + 1)‚©‚ç
+		// Bã®åˆã‚(A + 1)ã‹ã‚‰
 		std::list<std::unique_ptr<BaseCharacter>>::iterator itrB = itrA;
 		itrB++;
 
-		// B‚ÌI‚í‚è‚Ü‚Å
+		// Bã®çµ‚ã‚ã‚Šã¾ã§
 		for (; itrB != characters_.end(); ++itrB)
 		{
 			BaseCharacter* pCharaB = itrB->get();
 
-			// ”»’èƒ`ƒFƒbƒN
+			// åˆ¤å®šãƒã‚§ãƒƒã‚¯
 			CheckCollisionCharacterPair(pCharaA, pCharaB);
 		}
 	}
@@ -134,10 +134,10 @@ void CharacterManager::CheckAllCollision()
 
 void CharacterManager::CheckCollisionCharacterPair(BaseCharacter* pCharacterA, BaseCharacter* pCharacterB)
 {
-	// ”»’è
+	// åˆ¤å®š
 	if (pCharacterA->ColliderPtr()->CheckCollision(pCharacterB->ColliderPtr()))
 	{
-		// ‚¨Œİ‚¢‚ÉÕ“Ë”»’è
+		// ãŠäº’ã„ã«è¡çªæ™‚åˆ¤å®š
 		pCharacterA->OnCollision(pCharacterB->GetCollisionInfo());
 		pCharacterB->OnCollision(pCharacterA->GetCollisionInfo());
 	}

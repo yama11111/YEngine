@@ -12,22 +12,22 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pDevice"> : ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pDescHeap"> : ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒvƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pDevice"> : ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pDescHeap"> : ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—ãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ID3D12GraphicsCommandList* pCmdList, YDX::DescriptorHeap* pDescHeap);
 
 	protected:
 
-		// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 		static ID3D12GraphicsCommandList* spCmdList_;
 
-		// Ã“IƒfƒXƒNƒŠƒvƒ^[ƒq[ƒvƒ|ƒCƒ“ƒ^
+		// é™çš„ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—ãƒã‚¤ãƒ³ã‚¿
 		static YDX::DescriptorHeap* spDescHeap_;
 	};
 
-	// Šî’ê’è”ƒoƒbƒtƒ@ƒNƒ‰ƒX
+	// åŸºåº•å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚¯ãƒ©ã‚¹
 	class BaseConstBuffer : 
 		protected ConstBufferCommon
 	{
@@ -35,17 +35,17 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// •`‰æ‘OƒRƒ}ƒ“ƒh
+		/// æç”»å‰ã‚³ãƒãƒ³ãƒ‰
 		/// </summary>
-		/// <param name="rootParamIndex"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^”Ô†</param>
+		/// <param name="rootParamIndex"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç•ªå·</param>
 		virtual void SetDrawCommand(const uint32_t rootParamIndex);
 	
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		virtual const std::string Tag() const = 0;
 
 	public:
@@ -54,30 +54,30 @@ namespace YGame
 	
 	protected:
 
-		// ƒoƒbƒtƒ@
+		// ãƒãƒƒãƒ•ã‚¡
 		YDX::GPUResource buff_;
 
-		// CBVİ’è
+		// CBVè¨­å®š
 		D3D12_CONSTANT_BUFFER_VIEW_DESC viewDesc_{};
 	
 	protected:
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@‚Ì¶¬ + ƒ}ƒbƒsƒ“ƒO
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ + ãƒãƒƒãƒ”ãƒ³ã‚°
 		/// </summary>
-		/// <param name="dataSize"> : ƒf[ƒ^ƒTƒCƒY</param>
-		/// <param name="map"> : ƒ}ƒbƒvƒ_ƒuƒ‹ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="dataSize"> : ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º</param>
+		/// <param name="map"> : ãƒãƒƒãƒ—ãƒ€ãƒ–ãƒ«ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		void CreateBuffer(const size_t dataSize, void** map, const bool isClearWhenTransition = true);
 
 	protected:
 
-		// éŒ¾‚ğ§ŒÀ
+		// å®£è¨€ã‚’åˆ¶é™
 		BaseConstBuffer() = default;
 	
 	private:
 
-		// ‘ã“ü‚ğ‹Ö~
+		// ä»£å…¥ã‚’ç¦æ­¢
 		BaseConstBuffer(const BaseConstBuffer&) = delete;
 
 		const BaseConstBuffer& operator=(const BaseConstBuffer&) = delete;

@@ -16,16 +16,16 @@ DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const size_t drawPriori
 
 void DefaultDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void DefaultDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// ƒ‚ƒfƒ‹‘}“ü
+	// ãƒ¢ãƒ‡ãƒ«æŒ¿å…¥
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";

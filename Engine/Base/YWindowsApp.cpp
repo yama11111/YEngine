@@ -7,70 +7,70 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 LRESULT YWindowsApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	// Imgui—pƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒŒÄ‚Ño‚µ
+	// Imguiç”¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£å‘¼ã³å‡ºã—
 	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam))
 	{
 		return true;
 	}
 
-	// ƒƒbƒZ[ƒW–ˆ‚ÉƒQ[ƒ€ŒÅ—L‚Ìˆ—
+	// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ¯ã«ã‚²ãƒ¼ãƒ å›ºæœ‰ã®å‡¦ç†
 	switch (msg)
 	{
-		//ƒEƒCƒ“ƒhƒE”jŠü
+		//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ç ´æ£„æ™‚
 	case WM_DESTROY:
-		//OS‚ÉƒAƒvƒŠI—¹“`’B
+		//OSã«ã‚¢ãƒ—ãƒªçµ‚äº†ä¼é”
 		PostQuitMessage(0);
 		return 0;
 	}
 
-	// •W€‚ÌƒƒbƒZ[ƒWˆ—
+	// æ¨™æº–ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
 void YWindowsApp::Create(const wchar_t* titleName, const float width, const float height)
 {
 	wDesc_.cbSize = sizeof(WNDCLASSEX);
-	wDesc_.lpfnWndProc = (WNDPROC)WindowProc;	  // ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒİ’è
-	wDesc_.lpszClassName = L"DirectXGame";		  // ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX–¼
-	wDesc_.hInstance = GetModuleHandle(nullptr);  // ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-	wDesc_.hCursor = LoadCursor(NULL, IDC_ARROW); // ƒJ[ƒ\ƒ‹w’è
-	// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ğOS‚É“o˜^
+	wDesc_.lpfnWndProc = (WNDPROC)WindowProc;	  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£è¨­å®š
+	wDesc_.lpszClassName = L"DirectXGame";		  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹å
+	wDesc_.hInstance = GetModuleHandle(nullptr);  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	wDesc_.hCursor = LoadCursor(NULL, IDC_ARROW); // ã‚«ãƒ¼ã‚½ãƒ«æŒ‡å®š
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã‚’OSã«ç™»éŒ²
 	RegisterClassEx(&wDesc_);
-	// ƒEƒBƒ“ƒhƒEƒTƒCƒY {x, y, widthCheight}
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º {x, y, widthï¼Œheight}
 	RECT wrc = { 0, 0, (LONG)width, (LONG)height };
-	// ©“®‚ÅƒTƒCƒX‚ğ•â³
+	// è‡ªå‹•ã§ã‚µã‚¤ã‚¹ã‚’è£œæ­£
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
-	// ------- ƒEƒBƒ“ƒhƒE¶¬ ------- //
-	// ƒEƒBƒ“ƒhƒEƒIƒuƒWƒFƒNƒg‚Ì¶¬
+	// ------- ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç”Ÿæˆ ------- //
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	hwnd_ = CreateWindow(
-		wDesc_.lpszClassName, // ƒNƒ‰ƒX–¼
-		titleName,			  // ƒ^ƒCƒgƒ‹ƒo[
-		WS_OVERLAPPEDWINDOW,  // •W€“I‚ÈƒEƒBƒ“ƒhƒEƒXƒ^ƒCƒ‹
-		CW_USEDEFAULT,		  // •\¦ X À•W (OS‚É”C‚¹‚é)
-		CW_USEDEFAULT,		  // •\¦ Y À•W (OS‚É”C‚¹‚é)
-		wrc.right - wrc.left, // ƒEƒBƒ“ƒhƒE‰¡•
-		wrc.bottom - wrc.top, // ƒEƒBƒ“ƒhƒEc•
-		nullptr,			  // eƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
-		nullptr,			  // ƒƒjƒ…[ƒnƒ“ƒhƒ‹
-		wDesc_.hInstance,	  // ŒÄ‚Ño‚µƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒnƒ“ƒhƒ‹
-		nullptr);			  // ƒIƒvƒVƒ‡ƒ“
-	// ƒEƒBƒ“ƒhƒE‚ğ•\¦ó‘Ô‚É‚·‚é
+		wDesc_.lpszClassName, // ã‚¯ãƒ©ã‚¹å
+		titleName,			  // ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼
+		WS_OVERLAPPEDWINDOW,  // æ¨™æº–çš„ãªã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
+		CW_USEDEFAULT,		  // è¡¨ç¤º X åº§æ¨™ (OSã«ä»»ã›ã‚‹)
+		CW_USEDEFAULT,		  // è¡¨ç¤º Y åº§æ¨™ (OSã«ä»»ã›ã‚‹)
+		wrc.right - wrc.left, // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æ¨ªå¹…
+		wrc.bottom - wrc.top, // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç¸¦å¹…
+		nullptr,			  // è¦ªã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+		nullptr,			  // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ³ãƒ‰ãƒ«
+		wDesc_.hInstance,	  // å‘¼ã³å‡ºã—ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ«
+		nullptr);			  // ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºçŠ¶æ…‹ã«ã™ã‚‹
 	ShowWindow(hwnd_, SW_SHOW);
 	// ------------------------------ //
-	// ƒVƒXƒeƒ€ƒ^ƒCƒ}[‚Ì•ª‰ğ”\‚ğã‚°‚é
+	// ã‚·ã‚¹ãƒ†ãƒ ã‚¿ã‚¤ãƒãƒ¼ã®åˆ†è§£èƒ½ã‚’ä¸Šã’ã‚‹
 	timeBeginPeriod(1);
 }
 
 bool YWindowsApp::CheckMessage()
 {
-	// ƒƒbƒZ[ƒW‚ª‚ ‚éH
+	// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒã‚ã‚‹ï¼Ÿ
 	if (PeekMessage(&msg_, nullptr, 0, 0, PM_REMOVE))
 	{
-		TranslateMessage(&msg_); // ƒL[“ü—ÍƒƒbƒZ[ƒW‚Ìˆ—
-		DispatchMessage(&msg_);  // ƒvƒƒV[ƒWƒƒ‚ÉƒƒbƒZ[ƒW‚ğ‘—‚é
+		TranslateMessage(&msg_); // ã‚­ãƒ¼å…¥åŠ›ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å‡¦ç†
+		DispatchMessage(&msg_);  // ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ã‚‹
 	}
 
-	// ~ƒ{ƒ^ƒ“‚ÅI—¹ƒƒbƒZ[ƒW‚ª—ˆ‚½‚çƒQ[ƒ€ƒ‹[ƒv‚ğ”²‚¯‚é
+	// Ã—ãƒœã‚¿ãƒ³ã§çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒæ¥ãŸã‚‰ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 	if (msg_.message == WM_QUIT) return true;
 
 	return false;
@@ -78,6 +78,6 @@ bool YWindowsApp::CheckMessage()
 
 void YWindowsApp::FinalProcess()
 {
-	// ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚ğ“o˜^‰ğœ
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã‚’ç™»éŒ²è§£é™¤
 	UnregisterClass(wDesc_.lpszClassName, wDesc_.hInstance);
 }

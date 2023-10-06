@@ -3,7 +3,7 @@
 
 namespace YMath
 {
-	// ƒXƒs[ƒh
+	// ã‚¹ãƒ”ãƒ¼ãƒ‰
 	class Speed
 	{
 	
@@ -11,35 +11,35 @@ namespace YMath
 		
 		/// <summary>
 		/// </summary>
-		/// ‰Šú‰»
-		/// <param name="acceleration"> : ‰Á‘¬“x</param>
-		/// <param name="max"> : Å‘å‘¬“x</param>
-		/// <param name="isGravity"> : d—Íƒtƒ‰ƒO</param>
+		/// åˆæœŸåŒ–
+		/// <param name="acceleration"> : åŠ é€Ÿåº¦</param>
+		/// <param name="max"> : æœ€å¤§é€Ÿåº¦</param>
+		/// <param name="isGravity"> : é‡åŠ›ãƒ•ãƒ©ã‚°</param>
 		void Initialize(const Vector3& acceleration, const Vector3& max, const bool isGravity = true);
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="power"> : —ÍƒxƒNƒgƒ‹</param>
+		/// <param name="power"> : åŠ›ãƒ™ã‚¯ãƒˆãƒ«</param>
 		void Update(const Vector3& power);
 	
 	public:
 		
-		// ‘¬“xæ“¾
+		// é€Ÿåº¦å–å¾—
 		Vector3 Velocity() const { return velocity_; }
 		
-		// Å‚‘¬“x
+		// æœ€é«˜é€Ÿåº¦
 		Vector3 Max() const { return max_; }
 		
-		// ‘¬“xæ“¾ (QÆ“n‚µ)
+		// é€Ÿåº¦å–å¾— (å‚ç…§æ¸¡ã—)
 		Vector3& VelocityRef() { return velocity_; }
 		
-		// Œü‚«æ“¾
+		// å‘ãå–å¾—
 		Vector3 Direction() const { return velocity_.Normalized(); }
 	
 	public:
@@ -52,17 +52,17 @@ namespace YMath
 	
 	private:
 		
-		// ‰Á‘¬“x
+		// åŠ é€Ÿåº¦
 		Vector3 acceleration_;
 		
-		// Å‚‘¬“x
+		// æœ€é«˜é€Ÿåº¦
 		Vector3 max_;
 		
-		// ‘¬“x
+		// é€Ÿåº¦
 		Vector3 velocity_;
 
 
-		// d—Íƒtƒ‰ƒO
+		// é‡åŠ›ãƒ•ãƒ©ã‚°
 		bool isGravity_ = false;
 	
 	};

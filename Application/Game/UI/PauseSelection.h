@@ -7,31 +7,31 @@ namespace YGame
 	
 	public:
 
-		// ƒ^ƒCƒgƒ‹ƒV[ƒ“—p
+		// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ç”¨
 		enum class TitleScene
 		{
-			Resume,		// –ß‚é
-			ReStart,	// ƒŠƒXƒ^[ƒg
-			Change,		// ‘JˆÚ
-			End, // ƒŠƒTƒCƒY—p
+			Resume,		// æˆ»ã‚‹
+			ReStart,	// ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ
+			Change,		// é·ç§»
+			End, // ãƒªã‚µã‚¤ã‚ºç”¨
 		};
 
-		// ƒZƒŒƒNƒgƒV[ƒ“—p
+		// ã‚»ãƒ¬ã‚¯ãƒˆã‚·ãƒ¼ãƒ³ç”¨
 		enum class SelectScene
 		{
-			Resume,		// –ß‚é
-			ReStart,	// ƒŠƒXƒ^[ƒg
-			Change,		// ‘JˆÚ
-			End, // ƒŠƒTƒCƒY—p
+			Resume,		// æˆ»ã‚‹
+			ReStart,	// ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ
+			Change,		// é·ç§»
+			End, // ãƒªã‚µã‚¤ã‚ºç”¨
 		};
 
-		// ƒvƒŒƒCƒV[ƒ“—p
+		// ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ç”¨
 		enum class PlayScene
 		{
-			Resume,		// –ß‚é
-			ReStart,	// ƒŠƒXƒ^[ƒg
-			Change,		// ‘JˆÚ
-			End, // ƒŠƒTƒCƒY—p
+			Resume,		// æˆ»ã‚‹
+			ReStart,	// ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ
+			Change,		// é·ç§»
+			End, // ãƒªã‚µã‚¤ã‚ºç”¨
 		};
 	};
 }

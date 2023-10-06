@@ -10,22 +10,22 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€î•ñ</param>
-		/// <param name="pPet"> : ƒyƒbƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æƒ…å ±</param>
+		/// <param name="pPet"> : ãƒšãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		void Initialize(const Transform::Status& status);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate) override;
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="info"> : Õ“Ëî•ñ</param>
+		/// <param name="info"> : è¡çªæ™‚æƒ…å ±</param>
 		void OnCollision(const CollisionInfo& info) override;
 	
 	private:

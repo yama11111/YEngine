@@ -11,7 +11,7 @@
 #include "SkydomeDrawer.h"
 #include "DefaultDrawer.h"
 
-#pragma region –¼‘O‹óŠÔ
+#pragma region åå‰ç©ºé–“
 
 using std::array;
 using std::vector;
@@ -38,106 +38,106 @@ void Level::LoadAsset()
 
 Level* Level::LoadJson(const std::string& fileName)
 {
-	// “®“IƒŒƒxƒ‹ƒf[ƒ^¶¬
+	// å‹•çš„ãƒ¬ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿ç”Ÿæˆ
 	std::unique_ptr<Level> newLevel = std::make_unique<Level>();
 
-	// ƒtƒ‹ƒpƒX
+	// ãƒ•ãƒ«ãƒ‘ã‚¹
 	const std::string fullpath = "Resources/LevelData/" + fileName;
 
-	// ƒtƒ@ƒCƒ‹ƒXƒgƒŠ[ƒ€
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚¹ãƒˆãƒªãƒ¼ãƒ 
 	std::ifstream file;
 
-	// ƒtƒ@ƒCƒ‹ŠJ‚­
+	// ãƒ•ã‚¡ã‚¤ãƒ«é–‹ã
 	file.open(fullpath);
 	
-	// ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“¸”s‚©ƒ`ƒFƒbƒN
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³å¤±æ•—ã‹ãƒã‚§ãƒƒã‚¯
 	assert(file.fail() == false);
 
 
-	// json•¶š—ñ‚©‚ç‰ğ“€‚µ‚½ƒf[ƒ^
+	// jsonæ–‡å­—åˆ—ã‹ã‚‰è§£å‡ã—ãŸãƒ‡ãƒ¼ã‚¿
 	nlohmann::json deserialized;
 	
-	// ‰ğ“€
+	// è§£å‡
 	file >> deserialized;
 
-	// ³‚µ‚¢ƒŒƒxƒ‹ƒf[ƒ^‚©ƒ`ƒFƒbƒN
+	// æ­£ã—ã„ãƒ¬ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ãƒã‚§ãƒƒã‚¯
 	assert(deserialized.is_object());
 	assert(deserialized.contains("name"));
 	assert(deserialized["name"].is_string());
 
-	// "name" ‚ğ•¶š—ñ‚Æ‚µ‚Äæ“¾
+	// "name" ã‚’æ–‡å­—åˆ—ã¨ã—ã¦å–å¾—
 	std::string name = deserialized["name"].get<std::string>();
 	
-	// ³‚µ‚¢ƒŒƒxƒ‹ƒf[ƒ^‚©ƒ`ƒFƒbƒN
+	// æ­£ã—ã„ãƒ¬ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ãƒã‚§ãƒƒã‚¯
 	assert(name.compare("scene") == 0);
 
-	// "object" ‘S‚Ä‘–¸
+	// "object" å…¨ã¦èµ°æŸ»
 	for (nlohmann::json& object : deserialized["objects"])
 	{
-		// ƒf[ƒ^“Ç‚İ‚İ
+		// ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 		newLevel->LoadData(object);
 	}
 
-	// •Ô‹p—pƒ|ƒCƒ“ƒ^
+	// è¿”å´ç”¨ãƒã‚¤ãƒ³ã‚¿
 	Level* pLevel = newLevel.get();
 
-	// ƒŠƒXƒg‚É‘}“ü
+	// ãƒªã‚¹ãƒˆã«æŒ¿å…¥
 	sLevelDatas_.push_back(std::move(newLevel));
 
-	// ƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return pLevel;
 }
 
 void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 {
-	// "type" ˆÈŠOŒx
+	// "type" ä»¥å¤–è­¦å‘Š
 	assert(object.contains("type"));
 
-	// í•Ê‚ğæ“¾
+	// ç¨®åˆ¥ã‚’å–å¾—
 	std::string type = object["type"].get<std::string>();
 
 	// MESH
 	if (type.compare("MESH") == 0)
 	{
-		// ƒIƒuƒWƒFƒNƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::unique_ptr<GameObject> newObj;
 
-		// –¼‘O
+		// åå‰
 		std::string name;
 
-		// ƒIƒuƒWƒFƒNƒg¶¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆ
 		newObj = std::make_unique<GameObject>();
 
-		// ƒtƒ@ƒCƒ‹–¼
+		// ãƒ•ã‚¡ã‚¤ãƒ«å
 		if (object.contains("name"))
 		{
 			name = object["name"];
 			name = YFile::ReplaceExtension(name, "");
 		}
 
-		// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ìƒpƒ‰ƒ[ƒ^“Ç‚İ‚İ
+		// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 		nlohmann::json& transform = object["transform"];
 
-		// ‰Šú‰»—p
+		// åˆæœŸåŒ–ç”¨
 		YGame::Transform::Status status{};
 
-		// ˆÊ’u
+		// ä½ç½®
 		status.pos_.x_ = +static_cast<float>(transform["translation"][1]);
 		status.pos_.y_ = +static_cast<float>(transform["translation"][2]);
 		status.pos_.z_ = -static_cast<float>(transform["translation"][0]);
 
-		// ‰ñ“]
+		// å›è»¢
 		status.rota_.x_ = -static_cast<float>(transform["rotation"][1]);
 		status.rota_.y_ = -static_cast<float>(transform["rotation"][2]);
 		status.rota_.z_ = +static_cast<float>(transform["rotation"][0]);
 		status.rota_ = YMath::ConvertFromDegreeToRadian(status.rota_);
 
-		// ‘å‚«‚³
+		// å¤§ãã•
 		status.scale_.x_ = static_cast<float>(transform["scaling"][1]);
 		status.scale_.y_ = static_cast<float>(transform["scaling"][2]);
 		status.scale_.z_ = static_cast<float>(transform["scaling"][0]);
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		newObj->Initialize(name, status, pParent);
 		if (name == "Cloud.")
 		{
@@ -148,64 +148,64 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, 4));
 		}
 
-		// q‚ğ“Ç‚İ‚Ş
+		// å­ã‚’èª­ã¿è¾¼ã‚€
 		if (object.contains("children"))
 		{
-			// q‚Ì”‚¾‚¯
+			// å­ã®æ•°ã ã‘
 			for (size_t i = 0; i < object["children"].size(); i++)
 			{
-				// qƒIƒuƒWƒFƒNƒg“Ç‚İ‚İ
+				// å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆèª­ã¿è¾¼ã¿
 				LoadData(object["children"][i], newObj.get());
 			}
 		}
 
-		// ƒŠƒXƒg‚É‘}“ü
+		// ãƒªã‚¹ãƒˆã«æŒ¿å…¥
 		objs_.push_back(std::move(newObj));
 	}
 	//// CAMERA
 	//else if (type.compare("CAMERA") == 0)
 	//{
-	//	// ƒIƒuƒWƒFƒNƒg
+	//	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	//	std::unique_ptr<Camera> newCamera;
 
-	//	// –¼‘O
+	//	// åå‰
 	//	std::string name;
 
-	//	// ƒIƒuƒWƒFƒNƒg¶¬
+	//	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆ
 	//	newCamera= std::make_unique<Camera>();
 
-	//	// ƒtƒ@ƒCƒ‹–¼
+	//	// ãƒ•ã‚¡ã‚¤ãƒ«å
 	//	if (object.contains("file_name"))
 	//	{
 	//		name = object["file_name"];
 	//	}
 
-	//	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ìƒpƒ‰ƒ[ƒ^“Ç‚İ‚İ
+	//	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	//	nlohmann::json& transform = object["transform"];
 
-	//	// ‰Šú‰»—p
+	//	// åˆæœŸåŒ–ç”¨
 	//	YGame::Transform::Status status{};
 
-	//	// ˆÊ’u
+	//	// ä½ç½®
 	//	status.pos_.x_ = +static_cast<float>(transform["translation"][1]);
 	//	status.pos_.y_ = +static_cast<float>(transform["translation"][2]);
 	//	status.pos_.z_ = -static_cast<float>(transform["translation"][0]);
 
-	//	// ‰ñ“]
+	//	// å›è»¢
 	//	status.rota_.x_ = -static_cast<float>(transform["rotation"][2]);
 	//	status.rota_.y_ = +static_cast<float>(transform["rotation"][0]);
 	//	status.rota_.z_ = -static_cast<float>(transform["rotation"][1]);
 	//	status.rota_ = YMath::ConvertFromDegreeToRadian(status.rota_);
 	//	
-	//	// ‰Šú‰»
+	//	// åˆæœŸåŒ–
 	//	newCamera->Initialize(status.pos_, status.rota_);
 	//	//newCamera->Initialize({0,0,-10}, {});
 
-	//	// ƒŠƒXƒg‚É‘}“ü
+	//	// ãƒªã‚¹ãƒˆã«æŒ¿å…¥
 	//	cameras_.push_back(std::move(newCamera));
 
 	//}
-	// ‚»‚êˆÈŠO‚È‚ç’e‚­
+	// ãã‚Œä»¥å¤–ãªã‚‰å¼¾ã
 	else
 	{
 		return;
@@ -215,10 +215,10 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 
 void Level::ClearAllData()
 {
-	// ‚ ‚é‚È‚ç
+	// ã‚ã‚‹ãªã‚‰
 	if (sLevelDatas_.empty() == false)
 	{
-		// ƒNƒŠƒA
+		// ã‚¯ãƒªã‚¢
 		sLevelDatas_.clear();
 	}
 }
@@ -229,20 +229,20 @@ void Level::Initialize()
 
 void Level::Update()
 {
-	// ‘Sƒ‚ƒfƒ‹
+	// å…¨ãƒ¢ãƒ‡ãƒ«
 	for (std::unique_ptr<GameObject>& obj : objs_)
 	{
-		// s—ñXV
+		// è¡Œåˆ—æ›´æ–°
 		obj->Update();
 	}
 }
 
 void Level::Draw()
 {
-	// ‘Sƒ‚ƒfƒ‹
+	// å…¨ãƒ¢ãƒ‡ãƒ«
 	for (std::unique_ptr<GameObject>& obj : objs_)
 	{
-		// •`‰æ
+		// æç”»
 		obj->Draw();
 	}
 }

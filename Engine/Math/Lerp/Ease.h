@@ -2,7 +2,7 @@
 
 namespace YMath
 {
-	// ƒC[ƒWƒ“ƒOƒNƒ‰ƒX
+	// ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã‚¯ãƒ©ã‚¹
 	template<typename T>
 	class Ease
 	{
@@ -10,98 +10,98 @@ namespace YMath
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="start"> : ‰Šú’l</param>
-		/// <param name="end"> : ÅI’l</param>
-		/// <param name="exponent"> : w”(ŠÉ‹})</param>
+		/// <param name="start"> : åˆæœŸå€¤</param>
+		/// <param name="end"> : æœ€çµ‚å€¤</param>
+		/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
 		void Initialize(const T& start, const T& end, const float exponent);
 	
 	public:
 		
 		/// <summary>
-		/// ƒC[ƒYƒCƒ“
-		/// (‚¾‚ñ‚¾‚ñ‘‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³
+		/// (ã ã‚“ã ã‚“æ—©ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T In(const float ratio) const;
 		
 		/// <summary>
-		/// ƒC[ƒYƒAƒEƒg
-		/// (‚¾‚ñ‚¾‚ñ’x‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ
+		/// (ã ã‚“ã ã‚“é…ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T Out(const float ratio) const;
 
 		/// <summary>
-		/// ƒC[ƒYƒCƒ“ƒAƒEƒg
-		/// (‚¾‚ñ‚¾‚ñ‘‚­ ¨ ‚¾‚ñ‚¾‚ñ’x‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ã‚¢ã‚¦ãƒˆ
+		/// (ã ã‚“ã ã‚“æ—©ã â†’ ã ã‚“ã ã‚“é…ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <param name="controlPoint"> : §Œä“_</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T InOut(const float ratio, const float controlPoint = 0.5f) const;
 
 		/// <summary>
-		/// ƒC[ƒYƒAƒEƒgƒCƒ“
-		/// (‚¾‚ñ‚¾‚ñ’x‚­ ¨ ‚¾‚ñ‚¾‚ñ‘‚­)
+		/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆã‚¤ãƒ³
+		/// (ã ã‚“ã ã‚“é…ã â†’ ã ã‚“ã ã‚“æ—©ã)
 		/// </summary>
-		/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-		/// <param name="controlPoint"> : §Œä“_</param>
-		/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+		/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+		/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+		/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 		T OutIn(const float ratio, const float controlPoint = 0.5f) const;
 	
 	public:
 		
 		/// <summary>
-		/// ‰Šú’lİ’è
+		/// åˆæœŸå€¤è¨­å®š
 		/// </summary>
-		/// <param name="start"> : ‰Šú’l</param>
+		/// <param name="start"> : åˆæœŸå€¤</param>
 		void SetStart(const T& start) { start_ = start; };
 
 		/// <summary>
-		/// ÅI’lİ’è
+		/// æœ€çµ‚å€¤è¨­å®š
 		/// </summary>
-		/// <param name="end"> : ÅI’l</param>
+		/// <param name="end"> : æœ€çµ‚å€¤</param>
 		void SetEnd(const T& end) { end_ = end; };
 
 		/// <summary>
-		/// ŠÉ‹}İ’è
+		/// ç·©æ€¥è¨­å®š
 		/// </summary>
-		/// <param name="exponent"> : ŠÉ‹}</param>
+		/// <param name="exponent"> : ç·©æ€¥</param>
 		void SetExponent(const float exponent) { exponent_ = exponent; }
 	
 	public:
 		
 		/// <summary>
-		/// ‰Šú’læ“¾
+		/// åˆæœŸå€¤å–å¾—
 		/// </summary>
-		/// <returns>‰Šú’l</returns>
+		/// <returns>åˆæœŸå€¤</returns>
 		T Start() const { return start_; };
 		
 		/// <summary>
-		/// ÅI’læ“¾
+		/// æœ€çµ‚å€¤å–å¾—
 		/// </summary>
-		/// <returns>ÅI’l</returns>
+		/// <returns>æœ€çµ‚å€¤</returns>
 		T End() const { return end_; };
 
 		/// <summary>
-		/// ŠÉ‹}æ“¾
+		/// ç·©æ€¥å–å¾—
 		/// </summary>
-		/// <returns>ŠÉ‹}</returns>
+		/// <returns>ç·©æ€¥</returns>
 		float Exponent() const { return exponent_; }
 
 	private:
 
-		// ‰Šú’l
+		// åˆæœŸå€¤
 		T start_ = T();
 
-		// ÅI’l
+		// æœ€çµ‚å€¤
 		T end_ = T();
 
-		// ŠÉ‹}(w”)
+		// ç·©æ€¥(æŒ‡æ•°)
 		float exponent_ = 0.0f;
 
 	};

@@ -15,7 +15,7 @@
 #include "CloudDrawer.h"
 #include "SkydomeDrawer.h"
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YGame::TestScene;
 using namespace YDX;
@@ -26,45 +26,45 @@ using namespace YGame;
 #pragma endregion 
 
 
-#pragma region StaticŠÖ˜A
+#pragma region Staticé–¢é€£
 
 #pragma endregion 
 
 
-#pragma region “Ç‚Ýž‚Ý
+#pragma region èª­ã¿è¾¼ã¿
 void TestScene::Load()
 {
-	// Šî’êƒNƒ‰ƒX
+	// åŸºåº•ã‚¯ãƒ©ã‚¹
 	BaseDrawer::StaticInitialize(&vp_);
 
-	// ƒfƒtƒHƒ‹ƒg
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 	DefaultDrawer::LoadResource();
 
-	// ƒvƒŒƒCƒ„[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	PlayerDrawer::LoadResource();
 
-	// ƒEƒ}
+	// ã‚¦ãƒž
 	HorseDrawer::LoadResource();
 
-	// ƒXƒ‰ƒCƒ€
+	// ã‚¹ãƒ©ã‚¤ãƒ 
 	SlimeDrawer::LoadResource();
 
-	// ŽaŒ‚UŒ‚
+	// æ–¬æ’ƒæ”»æ’ƒ
 	SlashAttackDrawer::LoadResource();
 
-	// •@‘§UŒ‚
+	// é¼»æ¯æ”»æ’ƒ
 	SnortAttackDrawer::LoadResource();
 
-	// ƒuƒƒbƒN
+	// ãƒ–ãƒ­ãƒƒã‚¯
 	BlockDrawer::LoadResource();
 
-	// ƒS[ƒ‹
+	// ã‚´ãƒ¼ãƒ«
 	GoalDrawer::LoadResource();
 
-	// “V‹…
+	// å¤©çƒ
 	SkydomeDrawer::LoadResource();
 
-	// ‰_
+	// é›²
 	CloudDrawer::LoadResource();
 
 	pGraph_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
@@ -72,7 +72,7 @@ void TestScene::Load()
 #pragma endregion
 
 
-#pragma region ‰Šú‰»
+#pragma region åˆæœŸåŒ–
 void TestScene::Initialize()
 {
 	vp_.Initialize();
@@ -125,14 +125,14 @@ void TestScene::Initialize()
 #pragma endregion
 
 
-#pragma region I—¹ˆ—
+#pragma region çµ‚äº†å‡¦ç†
 void TestScene::Finalize()
 {
 }
 #pragma endregion
 
 
-#pragma region XV
+#pragma region æ›´æ–°
 void TestScene::Update()
 {
 	{
@@ -220,7 +220,7 @@ void TestScene::Update()
 #pragma endregion
 
 
-#pragma region •`‰æ
+#pragma region æç”»
 void TestScene::Draw()
 {
 	obj_->Draw("ModelDefault", 0);

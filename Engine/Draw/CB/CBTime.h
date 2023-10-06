@@ -3,16 +3,16 @@
 
 namespace YGame
 {
-	// ŠÔ—p’è”ƒoƒbƒtƒ@
+	// æ™‚é–“ç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBTime
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// ŠÔ
+			// æ™‚é–“
 			float time = 0.0f;
 			
 			float pad1;
@@ -25,9 +25,9 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBTime";

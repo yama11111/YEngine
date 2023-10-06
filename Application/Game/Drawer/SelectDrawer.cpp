@@ -26,52 +26,52 @@ void SelectDrawer::Initialize()
 {
 	core_ = Transform::Status::Default();
 
-	// ’n‹…
+	// åœ°çƒ
 	earthTra_.Initialize();
 	earthTra_.parent_ = &core_.m_;
 	earthDra_.reset(EarthDrawer::Create(&earthTra_, 1));
 
-	// ƒXƒe[ƒWƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (g‚¤—p)
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½¿ã†ç”¨)
 	for (size_t i = 0; i < aliveStages_.size(); i++)
 	{
 		aliveStages_[i].Initialize();
 		aliveStages_[i].parent_ = &core_.m_;
 	}
 
-	// ƒXƒe[ƒWƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (g‚í‚È‚¢—p)
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½¿ã‚ãªã„ç”¨)
 	deadStage_.Initialize();
 
 	size_t stageNum = 10;
 
-	// ƒXƒe[ƒW•`‰æƒNƒ‰ƒX
-	stageDras_.resize(stageNum); // ƒŠƒTƒCƒY
+	// ã‚¹ãƒ†ãƒ¼ã‚¸æç”»ã‚¯ãƒ©ã‚¹
+	stageDras_.resize(stageNum); // ãƒªã‚µã‚¤ã‚º
 	for (size_t i = 0; i < stageDras_.size(); i++)
 	{
 		stageDras_[i].reset(StageDrawer::Create(nullptr, 0));
 
-		// ”Ô†‚ªƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ì”‚æ‚è¬‚³‚¢‚È‚ç
+		// ç•ªå·ãŒãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®æ•°ã‚ˆã‚Šå°ã•ã„ãªã‚‰
 		if (i < aliveStages_.size())
 		{
-			// g‚¤—p‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğ‘ã“ü
+			// ä½¿ã†ç”¨ã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚’ä»£å…¥
 			stageDras_[i]->Initialize(&aliveStages_[i], 1);
 		}
-		// ‚»‚êˆÈŠO‚È‚ç
+		// ãã‚Œä»¥å¤–ãªã‚‰
 		else
 		{
-			// g‚í‚È‚¢—p‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğ‘ã“ü
+			// ä½¿ã‚ãªã„ç”¨ã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚’ä»£å…¥
 			stageDras_[i]->Initialize(&deadStage_, 1);
 		}
 	}
 
 
-	// ƒXƒe[ƒWƒJ[ƒh
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰
 	cards_.resize(stageNum);
 	for (size_t i = 0; i < cards_.size(); i++)
 	{
 		cards_[i].Initialize();
 	}
 
-	// ƒXƒe[ƒWƒJ[ƒh•`‰æƒNƒ‰ƒX
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰æç”»ã‚¯ãƒ©ã‚¹
 	cardDras_.resize(stageNum);
 	for (size_t i = 0; i < cardDras_.size(); i++)
 	{
@@ -82,10 +82,10 @@ void SelectDrawer::Initialize()
 	letterBox_.reset(new UILetterBox());
 	letterBox_->Initialize(WinSize, 96.0f, 96.0f);
 
-	// ƒEƒBƒ“ƒhƒEƒTƒCƒY ‚ğ 3ŸŒ³ƒxƒNƒgƒ‹‚É‚µ‚Ä‚¨‚­
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º ã‚’ 3æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã«ã—ã¦ãŠã
 	Vector3 win = YMath::ConvertToVector3(WinSize);
 
-	// ƒƒS‰Šú‰»
+	// ãƒ­ã‚´åˆæœŸåŒ–
 	Vector3 logoPos = (win / 2.0f) - Vector3(288.0f, 288.0f, 0.0f);
 	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, spLogoSpr_));
 
@@ -97,85 +97,85 @@ void SelectDrawer::Initialize()
 	startButton_.reset(UIButton::Create(newStartButton));
 
 
-	// “V‹…
+	// å¤©çƒ
 	skydomeTra_.Initialize();
 	skydomeTra_.scale_ = { 32.0f,32.0f,32.0f };
 	skydomeTra_.parent_ = &core_.m_;
 	skydome_.reset(SkydomeDrawer::Create(&skydomeTra_, 3));
 
-	// ----- ƒC[ƒWƒ“ƒO ----- //
+	// ----- ã‚¤ãƒ¼ã‚¸ãƒ³ã‚° ----- //
 
-	// ƒXƒe[ƒW‰ñ“]—pƒpƒ[
+	// ã‚¹ãƒ†ãƒ¼ã‚¸å›è»¢ç”¨ãƒ‘ãƒ¯ãƒ¼
 	int32_t staNum = static_cast<int32_t>(stageNum) - 1;
-	stageRotaPows_.resize(static_cast<size_t>(staNum)); // ƒŠƒTƒCƒY
+	stageRotaPows_.resize(static_cast<size_t>(staNum)); // ãƒªã‚µã‚¤ã‚º
 	
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 }
 
 void SelectDrawer::Reset()
 {
-	// ----- ƒIƒuƒWƒFƒNƒg‰Šú‰» ----- //
+	// ----- ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ– ----- //
 
-	// Šj
+	// æ ¸
 	core_.Initialize();
 
-	// ‘å‚«‚³‚Ì—Ê
+	// å¤§ãã•ã®é‡
 	float earthScaleVal = 32.0f;
-	// ‰ñ“]‚Ì—Ê
+	// å›è»¢ã®é‡
 	float rotaVal = (kPI * 2.0f) / static_cast<float>(aliveStages_.size());
 
-	// ’n‹…
+	// åœ°çƒ
 	earthTra_.Initialize({ {},{},{earthScaleVal,earthScaleVal,earthScaleVal} });
 
-	// ----- ƒXƒe[ƒW ----- //
+	// ----- ã‚¹ãƒ†ãƒ¼ã‚¸ ----- //
 
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (g‚¤—p)
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½¿ã†ç”¨)
 	for (size_t i = 0; i < aliveStages_.size(); i++)
 	{
-		// ˆÊ’u
+		// ä½ç½®
 		float pos = earthScaleVal - 0.5f;
 
-		// ‰ñ“] ((360 / size) * idx)
+		// å›è»¢ ((360 / size) * idx)
 		float rota = rotaVal * i;
 
-		// ‰ñ“]—Ê‚É‡‚í‚¹‚½ˆÊ’u‚É‚È‚é‚æ‚¤‚É
+		// å›è»¢é‡ã«åˆã‚ã›ãŸä½ç½®ã«ãªã‚‹ã‚ˆã†ã«
 		aliveStages_[i].Initialize(
 			{
-				{ 0.0f, +pos * cosf(rota), +pos * sinf(rota) }, // ˆÊ’u
-				{ rota, 0, 0 }, // ‰ñ“]
-				{ 1.0f, 1.0f, 1.0f } // ‘å‚«‚³
+				{ 0.0f, +pos * cosf(rota), +pos * sinf(rota) }, // ä½ç½®
+				{ rota, 0, 0 }, // å›è»¢
+				{ 1.0f, 1.0f, 1.0f } // å¤§ãã•
 			}
 		);
 	}
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (g‚í‚È‚¢—p)
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½¿ã‚ãªã„ç”¨)
 	deadStage_.Initialize({ {-2000,-2000,-2000}, {}, {} });
 
-	// •`‰æƒNƒ‰ƒX
+	// æç”»ã‚¯ãƒ©ã‚¹
 	//for (size_t i = 0; i < stageDras_.size(); i++)
 	//{
-	//	// í—Ş
+	//	// ç¨®é¡
 	//	TowerDrawerCommon::Type type = TowerDrawerCommon::Type::eBlack;
 
-	//	// ƒNƒŠƒA‚µ‚Ä‚¢‚é‚È‚ç•ÏX
+	//	// ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ãªã‚‰å¤‰æ›´
 	//	if (spStageConfig_->GetIsClearStage((int)i))
 	//	{
-	//		// ƒNƒŠƒA‚µ‚Ä‚¢‚é‚È‚ç•ÏX
+	//		// ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ãªã‚‰å¤‰æ›´
 	//		type = TowerDrawerCommon::Type::eWhite;
 	//	}
 
 	//	stageDras_[i]->Reset(type);
 	//}
 
-	// ----- ƒXƒe[ƒWƒJ[ƒh ----- //
+	// ----- ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰ ----- //
 
-	// ‚‚³‚Ì•
+	// é«˜ã•ã®å¹…
 	float heightVal = 448.0f / static_cast<float>(10 - 1);
 
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (e)
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (è¦ª)
 	for (size_t i = 0; i < cards_.size(); i++)
 	{
-		// y ‚ÌˆÊ’u
+		// y ã®ä½ç½®
 		float y = WinSize.y_ / 2.0f + 8.0f + (448 / 2.0f)
 			- heightVal * static_cast<float>(i);
 
@@ -187,32 +187,32 @@ void SelectDrawer::Reset()
 			}
 		);
 	}
-	// •`‰æƒNƒ‰ƒX
+	// æç”»ã‚¯ãƒ©ã‚¹
 	//for (size_t i = 0; i < cardDras_.size(); i++)
 	//{
-	//	// ƒNƒŠƒA‚µ‚Ä‚¢‚é‚È‚ç•ÏX
+	//	// ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ãªã‚‰å¤‰æ›´
 	//	cardDras_[i]->Reset(spStageConfig_->GetIsClearStage((int)i));
 	//}
 
-	// “V‹…
+	// å¤©çƒ
 
-	// ----- ‚»‚Ì‘¼‰Šú‰» ----- //
+	// ----- ãã®ä»–åˆæœŸåŒ– ----- //
 
-	// “®ì’†‚©
+	// å‹•ä½œä¸­ã‹
 	isAct_ = false;
 
-	// ŠJn‰ñ“]—pƒC[ƒWƒ“ƒO
+	// é–‹å§‹æ™‚å›è»¢ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 	startRotaEas_.Initialize(0.0f, -rotaVal / 2.0f, 1.4f);
 
-	// ŠJn‰ñ“]—pƒ^ƒCƒ}[
+	// é–‹å§‹æ™‚å›è»¢ç”¨ã‚¿ã‚¤ãƒãƒ¼
 	startRotaTim_.Initialize(20);
 	startRotaTim_.SetActive(true);
 
 
-	// ƒXƒe[ƒW‰ñ“]—pƒC[ƒWƒ“ƒO
+	// ã‚¹ãƒ†ãƒ¼ã‚¸å›è»¢ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 	stageRotaEas_.Initialize(0.0f, -rotaVal, 1.4f);
 
-	// ƒXƒe[ƒW‰ñ“]—pƒpƒ[
+	// ã‚¹ãƒ†ãƒ¼ã‚¸å›è»¢ç”¨ãƒ‘ãƒ¯ãƒ¼
 	for (size_t i = 0; i < stageRotaPows_.size(); i++)
 	{
 		stageRotaPows_[i].Initialize(30);
@@ -221,94 +221,94 @@ void SelectDrawer::Reset()
 
 void SelectDrawer::UpdateRotaAnimation()
 {
-	// ‰ñ“]—Ê
+	// å›è»¢é‡
 	float rotaVal = 0.0f;
 
-	// ŠJn‰ñ“]ƒ^ƒCƒ}[XV
+	// é–‹å§‹æ™‚å›è»¢ã‚¿ã‚¤ãƒãƒ¼æ›´æ–°
 	startRotaTim_.Update();
-	// ŠJn‰ñ“]‚ğ‘ã“ü
+	// é–‹å§‹æ™‚å›è»¢ã‚’ä»£å…¥
 	rotaVal += startRotaEas_.In(startRotaTim_.Ratio());
 
-	// ƒXƒe[ƒW”•ª‰ñ“]‚³‚¹‚é
-	// ‰ñ“]‚ğ‚»‚Ì•ªƒXƒ^[ƒg
+	// ã‚¹ãƒ†ãƒ¼ã‚¸æ•°åˆ†å›è»¢ã•ã›ã‚‹
+	// å›è»¢ã‚’ãã®åˆ†ã‚¹ã‚¿ãƒ¼ãƒˆ
 	for (size_t i = 0; i < stageRotaPows_.size(); i++)
 	{
-		//‰ñ“]‚³‚¹‚é‚©
+		//å›è»¢ã•ã›ã‚‹ã‹
 		bool isRotaAct = false;
 
-		// Œ»İ‚ÌƒXƒe[ƒW”‚æ‚è”Ô†‚ª¬‚³‚¢‚È‚ç
+		// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ã‚ˆã‚Šç•ªå·ãŒå°ã•ã„ãªã‚‰
 		if (i < static_cast<size_t>(stageIndex_))
 		{
-			// “®ì‚·‚é
+			// å‹•ä½œã™ã‚‹
 			isRotaAct = true;
 		}
 
-		// XV
+		// æ›´æ–°
 		stageRotaPows_[i].Update(isRotaAct);
 
-		// ‰ñ“]‚³‚¹‚é‚È‚çƒC[ƒYƒCƒ“
+		// å›è»¢ã•ã›ã‚‹ãªã‚‰ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³
 		if (isRotaAct) { rotaVal += stageRotaEas_.In(stageRotaPows_[i].Ratio()); }
-		// ‚»‚êˆÈŠO‚È‚çƒC[ƒYƒAƒEƒg
+		// ãã‚Œä»¥å¤–ãªã‚‰ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ
 		else { rotaVal += stageRotaEas_.Out(stageRotaPows_[i].Ratio()); }
 
 		//rotaVal += stageRotaEas_.In(stageRotaPows_[i].Ratio());
 	}
 
-	// Šj‚É‘ã“ü (‰ñ“])
+	// æ ¸ã«ä»£å…¥ (å›è»¢)
 	core_.rota_.x_ = rotaVal;
 }
 
 void SelectDrawer::Update()
 {
-	// “®ì’†‚¶‚á‚È‚¢‚È‚ç’e‚­
+	// å‹•ä½œä¸­ã˜ã‚ƒãªã„ãªã‚‰å¼¾ã
 	//if (isAct_ == false) { return; }
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰ñ“]XV
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å›è»¢æ›´æ–°
 	UpdateRotaAnimation();
 
-	// Šj
+	// æ ¸
 	core_.UpdateMatrix();
 
-	// ’n‹…
+	// åœ°çƒ
 	earthDra_->Update();
 
-	// ----- ƒXƒe[ƒW ----- //
+	// ----- ã‚¹ãƒ†ãƒ¼ã‚¸ ----- //
 
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 	for (size_t i = 0; i < aliveStages_.size(); i++)
 	{
 		aliveStages_[i].UpdateMatrix();
 	}
-	// •`‰æƒNƒ‰ƒX
+	// æç”»ã‚¯ãƒ©ã‚¹
 	for (size_t i = 0; i < stageDras_.size(); i++)
 	{
 		stageDras_[i]->Update();
 	}
 
-	// ----- ƒXƒe[ƒWƒJ[ƒh ----- //
+	// ----- ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰ ----- //
 
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 	for (size_t i = 0; i < cards_.size(); i++)
 	{
 		cards_[i].UpdateMatrix();
 	}
-	// •`‰æƒNƒ‰ƒX
+	// æç”»ã‚¯ãƒ©ã‚¹
 	for (size_t i = 0; i < cardDras_.size(); i++)
 	{
 		cardDras_[i]->Update();
 
-		// ‘I‘ğ’†‚©
+		// é¸æŠä¸­ã‹
 		bool isSelect = false;
 
-		// ‘I‘ğ’†‚ÌƒXƒe[ƒW”Ô†‚Ì‚Æ‚«
+		// é¸æŠä¸­ã®ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã®ã¨ã
 		int staIdx = stageIndex_;
 		if (i == staIdx)
 		{
-			// ‘I‘ğ
+			// é¸æŠ
 			isSelect = true;
 		}
 
-		// ‘I‘ğ’†‚©İ’è
+		// é¸æŠä¸­ã‹è¨­å®š
 		cardDras_[i]->SetSelect(isSelect);
 	}
 
@@ -325,22 +325,22 @@ void SelectDrawer::Update()
 
 void SelectDrawer::Draw()
 {
-	// “V‹…
+	// å¤©çƒ
 	skydome_->Draw();
 
-	// ƒXƒe[ƒW•`‰æ
+	// ã‚¹ãƒ†ãƒ¼ã‚¸æç”»
 	for (size_t i = 0; i < stageDras_.size(); i++)
 	{
 		stageDras_[i]->Draw();
 	}
 
-	// ’n‹…
+	// åœ°çƒ
 	earthDra_->Draw();
 
-	// ƒŒƒ^[ƒ{ƒbƒNƒX•`‰æ
+	// ãƒ¬ã‚¿ãƒ¼ãƒœãƒƒã‚¯ã‚¹æç”»
 	letterBox_->Draw("Sprite2DDefault", 2);
 
-	// ƒJ[ƒh•`‰æ (Œã‚ë‚©‚ç)
+	// ã‚«ãƒ¼ãƒ‰æç”» (å¾Œã‚ã‹ã‚‰)
 	for (int i = static_cast<int>(cardDras_.size()) - 1; i >= 0; i--)
 	{
 		cardDras_[i]->Draw(1);

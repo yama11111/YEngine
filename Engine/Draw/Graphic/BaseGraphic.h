@@ -6,22 +6,22 @@
 
 namespace YGame
 {
-	// ƒOƒ‰ƒtƒBƒbƒNƒXŠî’êƒNƒ‰ƒX
+	// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹åŸºåº•ã‚¯ãƒ©ã‚¹
 	class BaseGraphic
 	{
 
 	public:
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="rpIndices"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^î•ñ + ”Ô†</param>
+		/// <param name="rpIndices"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ± + ç•ªå·</param>
 		virtual void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) = 0;
 
 		/// <summary>
-		/// •\¦‚·‚é‚©İ’è
+		/// è¡¨ç¤ºã™ã‚‹ã‹è¨­å®š
 		/// </summary>
-		/// <param name="isVisible"> : •\¦‚·‚é‚©</param>
+		/// <param name="isVisible"> : è¡¨ç¤ºã™ã‚‹ã‹</param>
 		void SetIsVisible(const bool isVisible) { isVisible_ = isVisible; }
 	
 	public:
@@ -32,10 +32,10 @@ namespace YGame
 
 	protected:
 
-		// ƒtƒ@ƒCƒ‹ƒpƒX
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 		std::string fileName_;
 
-		// •\¦‚·‚é‚©
+		// è¡¨ç¤ºã™ã‚‹ã‹
 		bool isVisible_ = true;
 	
 	};

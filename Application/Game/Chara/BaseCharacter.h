@@ -14,18 +14,18 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="name"> : –¼‘O</param>
-		/// <param name="status"> : ƒXƒe[ƒ^ƒX</param>
-		/// <param name="direction"> : Œü‚«</param>
-		/// <param name="acceleration"> : ‰Á‘¬“x</param>
-		/// <param name="maxSpeed"> : Å‘å‘¬“x</param>
+		/// <param name="name"> : åå‰</param>
+		/// <param name="status"> : ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="direction"> : å‘ã</param>
+		/// <param name="acceleration"> : åŠ é€Ÿåº¦</param>
+		/// <param name="maxSpeed"> : æœ€å¤§é€Ÿåº¦</param>
 		/// <param name="hp"> : HP</param>
-		/// <param name="attack"> : UŒ‚—Í</param>
-		/// <param name="invincibleTime"> : –³“GŠÔ</param>
-		/// <param name="collider"> : ƒRƒ‰ƒCƒ_[</param>
-		/// <param name="drawer"> : •`‰æƒNƒ‰ƒX</param>
+		/// <param name="attack"> : æ”»æ’ƒåŠ›</param>
+		/// <param name="invincibleTime"> : ç„¡æ•µæ™‚é–“</param>
+		/// <param name="collider"> : ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+		/// <param name="drawer"> : æç”»ã‚¯ãƒ©ã‚¹</param>
 		void Initialize(
 			const std::string& name,
 			const Transform::Status& status,
@@ -35,66 +35,66 @@ namespace YGame
 			GameCollider* collider, BaseDrawer* drawer);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		virtual void Update(const bool isUpdate);
 
 	public:
 
-		// Õ“Ëî•ñ\‘¢‘Ì
+		// è¡çªæ™‚æƒ…å ±æ§‹é€ ä½“
 		struct CollisionInfo
 		{
-			// ‘®«
+			// å±æ€§
 			AttributeType attribute_ = AttributeType::eNone;
 
-			// ˆÊ’u
+			// ä½ç½®
 			YMath::Vector3 pos_;
 
-			// ”¼Œa
+			// åŠå¾„
 			float radius_ = 0.0f;
 
-			// ƒLƒƒƒ‰ƒXƒe[ƒ^ƒXƒ|ƒCƒ“ƒ^
+			// ã‚­ãƒ£ãƒ©ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒã‚¤ãƒ³ã‚¿
 			CharacterStatus* pStatus_ = nullptr;
 
-			// ƒ|ƒCƒ“ƒ^
+			// ãƒã‚¤ãƒ³ã‚¿
 			BaseCharacter* pSelf_ = nullptr;
 		};
 		
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="info"> : Õ“Ëî•ñ</param>
+		/// <param name="info"> : è¡çªæ™‚æƒ…å ±</param>
 		virtual void OnCollision(const CollisionInfo& info) = 0;
 
 		/// <summary>
-		/// Õ“Ëî•ñæ“¾
+		/// è¡çªæ™‚æƒ…å ±å–å¾—
 		/// </summary>
-		/// <returns>Õ“Ëî•ñ</returns>
+		/// <returns>è¡çªæ™‚æƒ…å ±</returns>
 		virtual CollisionInfo GetCollisionInfo() = 0;
 	
 	public:
 
 		/// <summary>
-		/// ¶‘¶ƒtƒ‰ƒO
+		/// ç”Ÿå­˜ãƒ•ãƒ©ã‚°
 		/// </summary>
 		/// <returns></returns>
 		inline bool IsAlive() const { return status_.IsAlive(); }
 
 		/// <summary>
-		/// ƒLƒƒƒ‰ƒXƒe[ƒ^ƒXæ“¾
+		/// ã‚­ãƒ£ãƒ©ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å–å¾—
 		/// </summary>
-		/// <returns>ƒLƒƒƒ‰ƒXƒe[ƒ^ƒX</returns>
+		/// <returns>ã‚­ãƒ£ãƒ©ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</returns>
 		inline CharacterStatus Status() const { return status_; }
 
 		/// <summary>
-		/// ˆÊ’uæ“¾ (QÆ)
+		/// ä½ç½®å–å¾— (å‚ç…§)
 		/// </summary>
 		/// <returns></returns>
 		inline YMath::Vector3& PosRef() override { return transform_->pos_; }
 		
 		/// <summary>
-		/// ƒXƒs[ƒhæ“¾ (QÆ)
+		/// ã‚¹ãƒ”ãƒ¼ãƒ‰å–å¾— (å‚ç…§)
 		/// </summary>
 		/// <returns></returns>
 		inline YMath::Vector3& SpeedRef() override { return speed_.VelocityRef(); }
@@ -107,27 +107,27 @@ namespace YGame
 
 	protected:
 
-		// Œü‚«
+		// å‘ã
 		YMath::Vector3 direction_;
 
-		// ˆÚ“®•ûŒü
+		// ç§»å‹•æ–¹å‘
 		YMath::Vector3 moveDirection_;
 
-		// ƒXƒs[ƒh
+		// ã‚¹ãƒ”ãƒ¼ãƒ‰
 		YMath::Speed speed_;
 
-		// ƒLƒƒƒ‰ƒNƒ^[ƒXƒe[ƒ^ƒX
+		// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 		CharacterStatus status_;
 
 	protected:
 
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		virtual void DrawDebugTextContent() override;
 
 		/// <summary>
-		/// ‰æ–ÊŠOˆ—
+		/// ç”»é¢å¤–å‡¦ç†
 		/// </summary>
 		virtual void OffScreenProcess();
 	};

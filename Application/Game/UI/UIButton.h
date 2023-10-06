@@ -9,33 +9,33 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// “®“IƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		/// å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 		/// </summary>
-		/// <param name="obj"> : ƒIƒuƒWƒFƒNƒg (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+		/// <param name="obj"> : ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
 		static UIButton* Create(BaseDrawObject* obj, const bool isClearWhenTransition = true);
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="obj"> : ƒIƒuƒWƒFƒNƒg (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="obj"> : ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		virtual void Initialize(BaseDrawObject* obj, const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isDown"> : ‰Ÿ‚µ‚Ä‚¢‚é‚©</param>
+		/// <param name="isDown"> : æŠ¼ã—ã¦ã„ã‚‹ã‹</param>
 		virtual void Update(const bool isDown) = 0;
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="priority"> : •`‰æ—Dæ“x</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="priority"> : æç”»å„ªå…ˆåº¦</param>
 		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
 	
 	public:

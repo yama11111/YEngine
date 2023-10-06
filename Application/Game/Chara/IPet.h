@@ -11,48 +11,48 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate) override;
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="info"> : Õ“Ëî•ñ</param>
+		/// <param name="info"> : è¡çªæ™‚æƒ…å ±</param>
 		virtual void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
-		/// UŒ‚
+		/// æ”»æ’ƒ
 		/// </summary>
 		virtual void Attack() = 0;
 
 		/// <summary>
-		/// ƒWƒƒƒ“ƒv
+		/// ã‚¸ãƒ£ãƒ³ãƒ—
 		/// </summary>
-		/// <param name="isJumpCount"> : ƒJƒEƒ“ƒg‚·‚é‚©</param>
+		/// <param name="isJumpCount"> : ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã‹</param>
 		virtual void Jump(const bool isJumpCount = true);
 
 		/// <summary>
-		/// æ‚éˆÊ’u‚Ì‚‚³æ“¾
+		/// ä¹—ã‚‹ä½ç½®ã®é«˜ã•å–å¾—
 		/// </summary>
-		/// <returns>æ‚éˆÊ’u‚Ì‚‚³</returns>
+		/// <returns>ä¹—ã‚‹ä½ç½®ã®é«˜ã•</returns>
 		virtual YMath::Vector3 RidingPosHeight() = 0;
 
 		/// <summary>
-		/// æ‚ç‚ê‚é
+		/// ä¹—ã‚‰ã‚Œã‚‹
 		/// </summary>
 		virtual void Rideen();
 		
 		/// <summary>
-		/// ~‚è‚ç‚ê‚é
+		/// é™ã‚Šã‚‰ã‚Œã‚‹
 		/// </summary>
 		virtual void GotOff();
 		
 		/// <summary>
-		/// “–‚½‚Á‚½‚©æ“¾
+		/// å½“ãŸã£ãŸã‹å–å¾—
 		/// </summary>
-		/// <returns>“–‚½‚Á‚½‚©</returns>
+		/// <returns>å½“ãŸã£ãŸã‹</returns>
 		inline bool IsHit() { return isHit_; }
 
 	public:
@@ -64,37 +64,37 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pScrollCamera"> : ƒXƒNƒ[ƒ‹ƒJƒƒ‰ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pScrollCamera"> : ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚«ãƒ¡ãƒ©ãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ScrollCamera* pScrollCamera);
 
 	protected:
 
-		// “–‚½‚Á‚½
+		// å½“ãŸã£ãŸ
 		bool isHit_ = false;
 
-		// æ‚ç‚ê‚Ä‚¢‚éƒtƒ‰ƒO
+		// ä¹—ã‚‰ã‚Œã¦ã„ã‚‹ãƒ•ãƒ©ã‚°
 		bool isRidden_ = false;
 
-		// ƒWƒƒƒ“ƒvƒJƒEƒ“ƒ^[
+		// ã‚¸ãƒ£ãƒ³ãƒ—ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
 		uint16_t jumpCounter_ = 0;
 
-		// Å‘åƒWƒƒƒ“ƒv‰ñ”
+		// æœ€å¤§ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°
 		uint16_t maxJumpCount_ = 0;
 
-		// Ã“IƒXƒNƒ[ƒ‹ƒJƒƒ‰ƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚«ãƒ¡ãƒ©ãƒã‚¤ãƒ³ã‚¿
 		static ScrollCamera* spScrollCamera_;
 	
 	protected:
 
 		/// <summary>
-		/// Õ“Ëˆ—
+		/// è¡çªæ™‚å‡¦ç†
 		/// </summary>
 		virtual void Hit();
 
 		/// <summary>
-		/// ‰æ–ÊŠOˆ—
+		/// ç”»é¢å¤–å‡¦ç†
 		/// </summary>
 		void OffScreenProcess() override;
 

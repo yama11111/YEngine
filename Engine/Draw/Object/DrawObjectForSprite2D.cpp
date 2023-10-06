@@ -27,18 +27,18 @@ void DrawObjectForSprite2D::Initialize(const Transform::Status& status, const bo
 {
 	transform_.Initialize(status);
 
-	// ƒyƒAƒŒƒ“ƒg‰ğœ
+	// ãƒšã‚¢ãƒ¬ãƒ³ãƒˆè§£é™¤
 	SetParent(nullptr);
 
-	// ’è”ƒoƒbƒtƒ@‚ª¶¬‚³‚ê‚Ä‚È‚¢
-	// ¶¬ + ‘}“ü
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒç”Ÿæˆã•ã‚Œã¦ãªã„æ™‚
+	// ç”Ÿæˆ + æŒ¿å…¥
 	if (cbTransform_ == nullptr)
 	{
 		cbTransform_.reset(ConstBufferObject<CBSprite2DTransform>::Create(isClearWhenTransition));
 		InsertConstBuffer(cbTransform_.get());
 	}
 
-	// ƒfƒtƒHƒ‹ƒg‚Åİ’è
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è¨­å®š
 	InsertDefaultConstBuffer(CBColor::Tag());
 	InsertDefaultConstBuffer(CBTexConfig::Tag());
 
@@ -56,7 +56,7 @@ void DrawObjectForSprite2D::Update(const Transform::Status& status)
 
 void DrawObjectForSprite2D::SetSprite2D(Sprite2D* pSprite2D)
 {
-	// null ‚È‚çƒfƒtƒHƒ‹ƒg
+	// null ãªã‚‰ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 	if (pSprite2D == nullptr)
 	{
 		SetGraphic(DefaultGraphic::Ptr("Sprite2D"));

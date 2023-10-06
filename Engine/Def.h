@@ -3,17 +3,17 @@
 #include "Vector4.h"
 #include <cstring>
 
-// ƒEƒBƒ“ƒhƒEƒ^ƒCƒgƒ‹ 
+// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¿ã‚¤ãƒˆãƒ« 
 static const wchar_t WindowTitle[20] = L"BeDash";
 
-// ƒEƒBƒ“ƒhƒEƒTƒCƒY 
-static const YMath::Vector2 WinSize = { 1280, 720 }; // (‰¡, c)
+// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º 
+static const YMath::Vector2 WinSize = { 1280, 720 }; // (æ¨ª, ç¸¦)
 
-// ƒNƒŠƒAƒJƒ‰[
+// ã‚¯ãƒªã‚¢ã‚«ãƒ©ãƒ¼
 static const YMath::Vector4 ClearColor = { 0.1f, 0.25f, 0.5f, 0.0f }; // (RGBA)
 
-// ŒÅ’èFPS
+// å›ºå®šæ™‚FPS
 static const float FixFPS = 60.0f;
 
-// ƒÎ
+// Ï€
 static const float kPI = 3.141592f;

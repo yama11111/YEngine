@@ -5,7 +5,7 @@
 
 namespace YGame
 {
-	// ƒ‚ƒfƒ‹
+	// ãƒ¢ãƒ‡ãƒ«
 	class Model :
 		public BaseGraphic
 	{
@@ -13,45 +13,45 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ¶¬(—§•û‘Ì)
+		/// ç”Ÿæˆ(ç«‹æ–¹ä½“)
 		/// </summary>
-		/// <param name="pTexs"> : ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^”z—ñ</param>
-		/// <returns>ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="pTexs"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿é…åˆ—</param>
+		/// <returns>ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Model* CreateCube(const std::unordered_map<std::string, Texture*>& pTexs);
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹(.obj)“Ç‚İ‚İ
+		/// ãƒ¢ãƒ‡ãƒ«(.obj)èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="modelFileName"> : ƒ‚ƒfƒ‹‚ÌƒtƒHƒ‹ƒ_–¼ (obj‚Æ“¯‚¶–¼‘O‚Ì‚Ì‚İ) </param>
-		/// <param name="isSmoothing"> : ƒXƒ€[ƒVƒ“ƒO‚·‚é‚©</param>
-		/// <returns>ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="modelFileName"> : ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚©ãƒ«ãƒ€å (objã¨åŒã˜åå‰ã®æ™‚ã®ã¿) </param>
+		/// <param name="isSmoothing"> : ã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°ã™ã‚‹ã‹</param>
+		/// <returns>ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Model* LoadObj(const std::string& modelFileName, const bool isSmoothing);
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹(.obj)“Ç‚İ‚İ
+		/// ãƒ¢ãƒ‡ãƒ«(.obj)èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="modelFileName"> : ƒ‚ƒfƒ‹‚ÌƒtƒHƒ‹ƒ_–¼ (obj‚Æ“¯‚¶–¼‘O‚Ì‚Ì‚İ) </param>
-		/// <param name="isSmoothing"> : ƒXƒ€[ƒVƒ“ƒO‚·‚é‚©</param>
-		/// <returns>ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="modelFileName"> : ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚©ãƒ«ãƒ€å (objã¨åŒã˜åå‰ã®æ™‚ã®ã¿) </param>
+		/// <param name="isSmoothing"> : ã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°ã™ã‚‹ã‹</param>
+		/// <returns>ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Model* LoadFbx(const std::string& modelFileName, const bool isSmoothing);
 
 		/// <summary>
-		/// ‘Síœ
+		/// å…¨å‰Šé™¤
 		/// </summary>
 		static void AllClear();
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹—p‚ÌƒpƒCƒvƒ‰ƒCƒ“İ’èæ“¾
+		/// ãƒ¢ãƒ‡ãƒ«ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®šå–å¾—
 		/// </summary>
-		/// <returns>ƒpƒCƒvƒ‰ƒCƒ“İ’è</returns>
+		/// <returns>ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š</returns>
 		static PipelineSetting GetPipelineSetting();
 
 	public:
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="rpIndices"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^î•ñ + ”Ô†</param>
+		/// <param name="rpIndices"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ± + ç•ªå·</param>
 		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 	public:
@@ -62,56 +62,56 @@ namespace YGame
 
 	private:
 
-		// ƒƒbƒVƒ…”z—ñ
+		// ãƒ¡ãƒƒã‚·ãƒ¥é…åˆ—
 		std::vector<std::unique_ptr<Mesh>> meshes_;
 
-		// ƒm[ƒh”z—ñ
+		// ãƒãƒ¼ãƒ‰é…åˆ—
 		std::vector<std::unique_ptr<Node>> nodes_;
 	
 	private:
 
-		// Ã“Iƒ‚ƒfƒ‹Ši”[—pvector”z—ñ
+		// é™çš„ãƒ¢ãƒ‡ãƒ«æ ¼ç´ç”¨vectoré…åˆ—
 		static std::vector<std::unique_ptr<Model>> sModels_;
 	
 	public:
 
-		// FBX“Ç‚İ‚İƒNƒ‰ƒX‘O•ûéŒ¾
+		// FBXèª­ã¿è¾¼ã¿ã‚¯ãƒ©ã‚¹å‰æ–¹å®£è¨€
 		class FbxLoader;
 	};
 
-	// FBX“Ç‚İ‚İƒNƒ‰ƒX
+	// FBXèª­ã¿è¾¼ã¿ã‚¯ãƒ©ã‚¹
 	class Model::FbxLoader
 	{
 
 	public:
 
-		// Ã“IFBXƒ}ƒl[ƒWƒƒ[
+		// é™çš„FBXãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		static FbxManager* sFbxMan_;
 
-		// Ã“IFBXƒCƒ“ƒ|[ƒ^[
+		// é™çš„FBXã‚¤ãƒ³ãƒãƒ¼ã‚¿ãƒ¼
 		static FbxImporter* sFbxImp_;
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void StaticInitialize();
 
 		/// <summary>
-		/// Ã“II—¹ˆ—
+		/// é™çš„çµ‚äº†å‡¦ç†
 		/// </summary>
 		static void StaticFinalize();
 
 	public:
 
 		/// <summary>
-		/// Ä‹A“I‚Éƒm[ƒh\¬‚ğ‰ğÍ
+		/// å†å¸°çš„ã«ãƒãƒ¼ãƒ‰æ§‹æˆã‚’è§£æ
 		/// </summary>
-		/// <param name="pModel"> : ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="fbxNode"> : ‰ğÍ‚·‚éƒm[ƒh</param>
-		/// <param name="isSmoothing"> : ƒXƒ€[ƒVƒ“ƒO‚·‚é‚©</param>
-		/// <param name="parent"> : eƒm[ƒh</param>
+		/// <param name="pModel"> : ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="fbxNode"> : è§£æã™ã‚‹ãƒãƒ¼ãƒ‰</param>
+		/// <param name="isSmoothing"> : ã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°ã™ã‚‹ã‹</param>
+		/// <param name="parent"> : è¦ªãƒãƒ¼ãƒ‰</param>
 		static void ParseNodeRecursive(Model* pModel, FbxNode* fbxNode, const bool isSmoothing, Node* parent = nullptr);
 
 	};

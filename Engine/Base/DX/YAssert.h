@@ -4,7 +4,7 @@
 
 namespace YDX
 {
-	// 成功チェック
+	// 謌仙粥繝√ぉ繝�繧ｯ
 	bool Result(const HRESULT& result);
 	// failed -> true
 	bool IsFailed(const HRESULT& result);

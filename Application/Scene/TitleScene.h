@@ -4,7 +4,7 @@
 
 namespace YGame
 {
-	// ƒ^ƒCƒgƒ‹ƒV[ƒ“
+	// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
 	class TitleScene : public BaseScene
 	{
 
@@ -12,42 +12,42 @@ namespace YGame
 
 		TitleDrawer titleDra_;
 
-		// “]‘——pƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+		// è»¢é€ç”¨ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 		YGame::ViewProjection transferVP_;
 
 	public:
 		
 		/// <summary>
-		/// “Ç‚İ‚İ
+		/// èª­ã¿è¾¼ã¿
 		/// </summary>
 		void Load() override;
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize() override;
 		
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Finalize() override;
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update() override;
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw() override;
 	
 	public:
 		
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		TitleScene() = default;
 		
-		// ƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		~TitleScene() = default;
 	};
 }

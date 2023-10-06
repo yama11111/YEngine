@@ -11,7 +11,7 @@ InputManager* InputManager::GetInstance()
 
 void InputManager::Create(const HINSTANCE hInstance, HWND* hwnd)
 {
-	// DirectInput ¶¬
+	// DirectInput ç”Ÿæˆ
 	YDX::Result(DirectInput8Create(
 		hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
 		(void**)&directInput_, nullptr));

@@ -6,34 +6,34 @@ namespace YGame
 	class ScrollCamera : private Camera
 	{
 	public:
-		// ’Ç]“_‚Æ‚Ì‹——£
+		// è¿½å¾“ç‚¹ã¨ã®è·é›¢
 		YMath::Vector3 distance_;
-		// ’Ç]‚µ‚È‚¢”ÍˆÍ
+		// è¿½å¾“ã—ãªã„ç¯„å›²
 		YMath::Vector3 tolerance_;
 	public:
 		/// <summary>
-		/// ‰Šú‰» (’Ç]ver)
+		/// åˆæœŸåŒ– (è¿½å¾“ver)
 		/// </summary>
-		/// <param name="distance"> : ’Ç]“_‚Æ‚Ì‹——£ (‚±‚Ì‹——£‚ğ•Û‚¿‘±‚¯‚é)</param>
-		/// <param name="pFollowPoint"> : ’Ç]“_ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="tolerance"> : ’Ç]‚µ‚È‚¢”ÍˆÍ</param>
+		/// <param name="distance"> : è¿½å¾“ç‚¹ã¨ã®è·é›¢ (ã“ã®è·é›¢ã‚’ä¿ã¡ç¶šã‘ã‚‹)</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="tolerance"> : è¿½å¾“ã—ãªã„ç¯„å›²</param>
 		void Initialize(const YMath::Vector3 distance, YMath::Vector3* pFollowPoint, const YMath::Vector3 tolerance);
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : İ’è—pƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		void Update(const Transform::Status& status = {});
 	public:
-		// ƒJƒƒ‰ƒVƒFƒCƒN
+		// ã‚«ãƒ¡ãƒ©ã‚·ã‚§ã‚¤ã‚¯
 		void Shaking(const float swing, const float dekey, const float place) override { Camera::Shaking(swing, dekey, place); }
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 		ViewProjection GetViewProjection() override { return Camera::GetViewProjection(); }
-		// ƒJƒƒ‰Œü‚«
+		// ã‚«ãƒ¡ãƒ©å‘ã
 		YMath::Vector3 Direction() override { return Camera::Direction(); }
-		// ’Ç]“_İ’è
+		// è¿½å¾“ç‚¹è¨­å®š
 		void SetFollowPoint(YMath::Vector3* pFollowPoint) override;
-		// ’Ç]İ’è
+		// è¿½å¾“è¨­å®š
 		void SetIsFollow(const bool isFollow) override { Camera::SetIsFollow(isFollow); }
 	public:
 		ScrollCamera() = default;

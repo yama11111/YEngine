@@ -4,42 +4,42 @@
 
 namespace YGame
 {
-	// ƒXƒ|ƒbƒgƒ‰ƒCƒg’è”ƒoƒbƒtƒ@
+	// ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆå®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBSpotLight
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// À•W
+			// åº§æ¨™
 			YMath::Vector3 lightPos;
 			
 			float pad1;
 			
-			// Œü‚«
+			// å‘ã
 			YMath::Vector3 lightVec = { 0.0f,-1.0f,0.0f };
 
 			float pad2;
 
-			// F
+			// è‰²
 			YMath::Vector3 lightColor = { 1.0f,1.0f,1.0f };
 
 			float pad3;
 
-			// ‹——£Œ¸ŠŒW”
+			// è·é›¢æ¸›è¡°ä¿‚æ•°
 			YMath::Vector3 lightAtten = { 0.005f,0.005f,0.005f };
 			
 			float pad4;
 			
-			// Œ¸ŠŠJnŠp“x
+			// æ¸›è¡°é–‹å§‹è§’åº¦
 			float lightStartFactorAngleCos = 0.5f;
 
-			// Œ¸ŠI—¹Šp“x
+			// æ¸›è¡°çµ‚äº†è§’åº¦
 			float lightEndFactorAngleCos = 0.2f;
 			
-			// “®ìƒtƒ‰ƒO
+			// å‹•ä½œãƒ•ãƒ©ã‚°
 			float active = 0.0f;
 			
 			float pad5;
@@ -48,9 +48,9 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBSpotLight";

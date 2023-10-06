@@ -9,15 +9,15 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 
 		/// <summary>
-		/// ƒfƒtƒHƒ‹ƒg’l‚ÌƒOƒ‰ƒtƒBƒbƒN‚Ìƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã®ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <param name="tag"> : ƒ^ƒO</param>
-		/// <returns>ƒfƒtƒHƒ‹ƒg‚ÌƒOƒ‰ƒtƒBƒbƒN‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="tag"> : ã‚¿ã‚°</param>
+		/// <returns>ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		static BaseGraphic* Ptr(const std::string& tag);
 	};
 }

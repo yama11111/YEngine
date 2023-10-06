@@ -17,7 +17,7 @@ namespace YGame
 	
 	public:
 
-		// ƒXƒvƒ‰ƒCƒg‚Ìí—Ş
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ç¨®é¡
 		enum class SpriteType
 		{
 			eNone, e2D, e3D,
@@ -25,7 +25,7 @@ namespace YGame
 
 	public:
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		void Initialize2D(
 			const uint32_t num,
 			const size_t maxDigits,
@@ -34,7 +34,7 @@ namespace YGame
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true) override;
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		void Initialize3D(
 			const uint32_t num,
 			const size_t maxDigits,
@@ -45,31 +45,31 @@ namespace YGame
 			ViewProjection* pVP,
 			const bool isClearWhenTransition = true) override;
 
-		// XV
+		// æ›´æ–°
 		void Update(const Transform::Status& status = {}) override;
 
-		// •`‰æ
+		// æç”»
 		void Draw(const std::string& shaderTag, const uint16_t priority) override;
 
-		// ’è”ƒoƒbƒtƒ@‘}“ü
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡æŒ¿å…¥
 		void InsertConstBuffer(BaseConstBuffer* pCB) override;
 
-		// ”İ’è
+		// æ•°è¨­å®š
 		void SetNumber(const uint32_t num) override;
 
-		// ŠÔŠuİ’è
+		// é–“éš”è¨­å®š
 		void SetInterval(const float interval) override;
 
-		// Œ…‚²‚Æ‚ÌƒIƒtƒZƒbƒgİ’è
+		// æ¡ã”ã¨ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆè¨­å®š
 		void SetDigitOffset(const size_t digitIndex, const YMath::Vector3& offset) override;
 
-		// ƒ[ƒ•\¦İ’è
+		// ã‚¼ãƒ­è¡¨ç¤ºè¨­å®š
 		void SetShowZero(const bool shouldShowZero) override;
 
-		// ƒXƒvƒ‰ƒCƒgí—Şİ’è
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç¨®é¡è¨­å®š
 		void SetSpriteType(const SpriteType& type) { type_ = type; }
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“XV
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 		void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) override;
 
 	public:
@@ -88,39 +88,39 @@ namespace YGame
 	
 	private:
 
-		// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (Še”š‚Ìe)
+		// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (å„æ•°å­—ã®è¦ª)
 		Transform transform_;
 
-		// ”š
+		// æ•°å­—
 		std::vector<Digit> digits_;
 
-		// ”
+		// æ•°
 		uint32_t num_ = 0;
 		
-		// Œ…”
+		// æ¡æ•°
 		size_t digitSize_ = 0;
 
-		// ŠÔŠu
+		// é–“éš”
 		float interval_ = 0;
 
-		// ƒ[ƒ•\¦‚·‚é‚©
+		// ã‚¼ãƒ­è¡¨ç¤ºã™ã‚‹ã‹
 		bool shouldShowZero_ = false;
 	
-		// ƒXƒvƒ‰ƒCƒgƒ^ƒCƒv
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¿ã‚¤ãƒ—
 		SpriteType type_ = SpriteType::eNone;
 
-		// ‘JˆÚƒNƒŠƒAƒtƒ‰ƒO
+		// é·ç§»æ™‚ã‚¯ãƒªã‚¢ãƒ•ãƒ©ã‚°
 		bool isClearWhenTransition_ = false;
 
 	private:
 
-		// Še”š–ˆ‚É”šİ’è
+		// å„æ•°å­—æ¯ã«æ•°å­—è¨­å®š
 		void SetDigitNumber();
 
-		// Œ…”ŒvZ
+		// æ¡æ•°è¨ˆç®—
 		void CalcDigitSize();
 
-		// ƒIƒtƒZƒbƒg’²®
+		// ã‚ªãƒ•ã‚»ãƒƒãƒˆèª¿æ•´
 		void AdjustOffset();
 
 	};
@@ -289,8 +289,8 @@ namespace YGame
 
 	void impl_UINumber::SetDigitNumber()
 	{
-		// Œ…”ˆÈ‰º‚Ì”š‚ª—ˆ‚½‚ç
-		// ‘SŒ…‚ğ 0 ‚É‚µ‚Ä•Ô‚·
+		// æ¡æ•°ä»¥ä¸‹ã®æ•°å­—ãŒæ¥ãŸã‚‰
+		// å…¨æ¡ã‚’ 0 ã«ã—ã¦è¿”ã™
 		if (num_ <= 0)
 		{
 			for (size_t i = 0; i < digits_.size(); i++)
@@ -301,8 +301,8 @@ namespace YGame
 			return;
 		}
 
-		// Œ…”ˆÈã‚Ì”š‚ª—ˆ‚½‚ç
-		// ‘SŒ…‚ğ 9 ‚É‚µ‚Ä•Ô‚·
+		// æ¡æ•°ä»¥ä¸Šã®æ•°å­—ãŒæ¥ãŸã‚‰
+		// å…¨æ¡ã‚’ 9 ã«ã—ã¦è¿”ã™
 		if (static_cast<uint32_t>(std::powf(10.0f, static_cast<float>(digits_.size() + 1))) <= digitSize_)
 		{
 			for (size_t i = 0; i < digits_.size(); i++)
@@ -316,7 +316,7 @@ namespace YGame
 		uint32_t resultNum = num_;
 		for (size_t i = 0; i < digits_.size(); i++)
 		{
-			// Š„‚Á‚½—]‚è‚ª‚»‚ÌŒ…‚Ì”š
+			// å‰²ã£ãŸä½™ã‚ŠãŒãã®æ¡ã®æ•°å­—
 			uint32_t digitNum = resultNum % 10;
 			resultNum /= 10;
 
@@ -326,8 +326,8 @@ namespace YGame
 
 	void impl_UINumber::CalcDigitSize()
 	{
-		// 0‚É‚È‚é‚Ü‚ÅŠ„‚é
-		// Š„‚Á‚½”‚ªŒ…”
+		// 0ã«ãªã‚‹ã¾ã§å‰²ã‚‹
+		// å‰²ã£ãŸæ•°ãŒæ¡æ•°
 		uint32_t resultNum = num_;
 
 		for (size_t i = 0; i < digits_.size(); i++)
@@ -345,7 +345,7 @@ namespace YGame
 
 	void impl_UINumber::AdjustOffset()
 	{
-		// 1—ñ ‚©‚Â ’†S‚ªŒ…‚Ì”¼•ª‚ÌˆÊ’u ‚É‚È‚é‚æ‚¤‚É®—ñ
+		// 1åˆ— ã‹ã¤ ä¸­å¿ƒãŒæ¡ã®åŠåˆ†ã®ä½ç½® ã«ãªã‚‹ã‚ˆã†ã«æ•´åˆ—
 		size_t dSize = shouldShowZero_ ? digits_.size() : digitSize_;
 		
 		float halfRangeSize = static_cast<float>(dSize) * interval_ / 2.0f;

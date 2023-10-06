@@ -13,49 +13,49 @@ namespace YGame
 
 	public:
 
-		// ƒuƒŒƒ“ƒhî•ñ
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰æƒ…å ±
 		enum class BlendState
 		{
-			// ƒuƒŒƒ“ƒh‚µ‚È‚¢
+			// ãƒ–ãƒ¬ãƒ³ãƒ‰ã—ãªã„
 			None,
 
-			// ƒAƒ‹ƒtƒ@ƒuƒŒƒ“ƒh
+			// ã‚¢ãƒ«ãƒ•ã‚¡ãƒ–ãƒ¬ãƒ³ãƒ‰
 			Alpha,
 
-			// ‰ÁŽZ‡¬
+			// åŠ ç®—åˆæˆ
 			Add, 
 			
-			// Œ¸ŽZ‡¬
+			// æ¸›ç®—åˆæˆ
 			Sub,
 			
-			// F”½“]
+			// è‰²åè»¢
 			Inverse,
 		};
 	
 	public:
 
-		// •`‰æ—p\‘¢‘Ì
+		// æç”»ç”¨æ§‹é€ ä½“
 		struct DrawSet
 		{
-			// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^ƒZƒbƒgƒ|ƒCƒ“ƒ^
+			// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿ã‚»ãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿
 			ConstBufferPtrSet* pCBPtrSet = nullptr;
 				
-			// ƒOƒ‰ƒtƒBƒbƒNƒ|ƒCƒ“ƒ^
+			// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒã‚¤ãƒ³ã‚¿
 			BaseGraphic* pGraphic = nullptr;
 		};
 
 	public:
 		
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="shaderSet"> : ƒVƒF[ƒ_[</param>
-		/// <param name="constBufferKeys"> : ’è”ƒoƒbƒtƒ@ƒL[”z—ñ</param>
-		/// <param name="graphicRPKeys"> : ƒOƒ‰ƒtƒBƒbƒN—pƒ‹[ƒgƒpƒ‰ƒ[ƒ^ƒL[”z—ñ</param>
-		/// <param name="textureNum"> : ƒeƒNƒXƒ`ƒƒ–‡”</param>
-		/// <param name="pipelineSetting"> : ƒpƒCƒvƒ‰ƒCƒ“Ý’è</param>
-		/// <param name="blendState"> : ƒuƒŒƒ“ƒhÝ’è</param>
-		/// <param name="renderTargetNum"> : ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg–‡”</param>
+		/// <param name="shaderSet"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼</param>
+		/// <param name="constBufferKeys"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚­ãƒ¼é…åˆ—</param>
+		/// <param name="graphicRPKeys"> : ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ç”¨ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚­ãƒ¼é…åˆ—</param>
+		/// <param name="textureNum"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£æžšæ•°</param>
+		/// <param name="pipelineSetting"> : ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š</param>
+		/// <param name="blendState"> : ãƒ–ãƒ¬ãƒ³ãƒ‰è¨­å®š</param>
+		/// <param name="renderTargetNum"> : ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæžšæ•°</param>
 		/// <returns></returns>
 		static Pipeline* Create(
 			ShaderSet& shaderSet,
@@ -67,74 +67,74 @@ namespace YGame
 			const UINT renderTargetNum);
 
 		/// <summary>
-		/// •`‰æî•ñ‚ðƒLƒ…[‚ÉÏ‚Þ
+		/// æç”»æƒ…å ±ã‚’ã‚­ãƒ¥ãƒ¼ã«ç©ã‚€
 		/// </summary>
-		/// <param name="priority"> : —Dæ“x</param>
-		/// <param name="drawSet"> : •`‰æƒZƒbƒg</param>
+		/// <param name="priority"> : å„ªå…ˆåº¦</param>
+		/// <param name="drawSet"> : æç”»ã‚»ãƒƒãƒˆ</param>
 		/// <param name="-----------------------------------------"></param>
-		/// <param name="(ConstBufferPtrSet*) pCBPtrSet"> : ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^ƒZƒbƒgƒ|ƒCƒ“ƒ^</param>
-		/// <param name="(BaseGraphic*) pGraphic"> : ƒOƒ‰ƒtƒBƒbƒNƒ|ƒCƒ“ƒ^</param>
+		/// <param name="(ConstBufferPtrSet*) pCBPtrSet"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿ã‚»ãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="(BaseGraphic*) pGraphic"> : ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒã‚¤ãƒ³ã‚¿</param>
 		void EnqueueDrawSet(const size_t priority, const DrawSet& drawSet);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pDevice"> : ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pCommandList"> : ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pDevice"> : ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pCommandList"> : ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCommandList);
 
 	private:
 
-		// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ
+		// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
 
-		// ƒpƒCƒvƒ‰ƒ“ƒXƒe[ƒg
+		// ãƒ‘ã‚¤ãƒ—ãƒ©ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆ
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState_ = nullptr;
 
-		// ƒvƒŠƒ~ƒeƒBƒuŒ`ó
+		// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–å½¢çŠ¶
 		D3D_PRIMITIVE_TOPOLOGY primitive_ = D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 
-		// ’è”ƒoƒbƒtƒ@ƒ‹[ƒgƒpƒ‰ƒ[ƒ^”Ô†Ši”[”z—ñ
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç•ªå·æ ¼ç´é…åˆ—
 		std::unordered_map<std::string, uint32_t> cbRPIndices_;
 		
-		// ƒOƒ‰ƒtƒBƒbƒN—pƒ‹[ƒgƒpƒ‰ƒ[ƒ^”Ô†Ši”[”z—ñ
+		// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ç”¨ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç•ªå·æ ¼ç´é…åˆ—
 		std::unordered_map<std::string, uint32_t> graphicRPIndices_;
 
-		// •`‰æ—p\‘¢‘ÌƒLƒ…[
+		// æç”»ç”¨æ§‹é€ ä½“ã‚­ãƒ¥ãƒ¼
 		std::array<std::queue<DrawSet>, 10> drawQueue_;
 
-		// Ã“IƒfƒoƒCƒXƒ|ƒCƒ“ƒ^
+		// é™çš„ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿
 		static ID3D12Device* spDevice_;
 
-		// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 		static ID3D12GraphicsCommandList* spCmdList_;
 
 	private:
 
 		/// <summary>
-		/// ƒ‹[ƒgƒVƒOƒlƒ`ƒƒ¶¬
+		/// ãƒ«ãƒ¼ãƒˆã‚·ã‚°ãƒãƒãƒ£ç”Ÿæˆ
 		/// </summary>
-		/// <param name="rootParams"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^</param>
-		/// <param name="samplerDescs"> : ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[</param>
+		/// <param name="rootParams"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿</param>
+		/// <param name="samplerDescs"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼</param>
 		void CreateRootSignature(
 			const std::vector<D3D12_ROOT_PARAMETER>& rootParams,
 			const std::vector<D3D12_STATIC_SAMPLER_DESC>& samplerDescs);
 
 		/// <summary>
-		/// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg¶¬
+		/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆç”Ÿæˆ
 		/// </summary>
-		/// <param name="pipelineDesc"> : ƒpƒCƒvƒ‰ƒCƒ“Ý’è</param>
+		/// <param name="pipelineDesc"> : ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š</param>
 		void CreatePipelineState(D3D12_GRAPHICS_PIPELINE_STATE_DESC& pipelineDesc);
 
 		/// <summary>
-		/// ƒvƒŠƒ~ƒeƒBƒuŒ`ó‚ÌÝ’è
+		/// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–å½¢çŠ¶ã®è¨­å®š
 		/// </summary>
-		/// <param name="primitive"> : ƒvƒŠƒ~ƒeƒBƒuŒ`ó</param>
+		/// <param name="primitive"> : ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–å½¢çŠ¶</param>
 		void SetPrimitiveTopology(const D3D_PRIMITIVE_TOPOLOGY& primitive);
 
 	};

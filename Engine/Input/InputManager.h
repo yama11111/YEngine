@@ -1,5 +1,5 @@
 #pragma once
-#define DIRECTINPUT_VERSION 0x0800 // DirectInput‚Ìƒo[ƒWƒ‡ƒ“w’è
+#define DIRECTINPUT_VERSION 0x0800 // DirectInputã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æŒ‡å®š
 #include "Keys.h"
 #include "Mouse.h"
 #include "Pad.h"
@@ -16,11 +16,11 @@ namespace YInput
 		Mouse* mouse_ = nullptr;
 		Pad* pad_ = nullptr;
 	public:
-		// ¶¬ (Å‰‚É1‰ñŒÄ‚Ô)
+		// ç”Ÿæˆ (æœ€åˆã«1å›å‘¼ã¶)
 		void Create(const HINSTANCE hInstance, HWND* hwnd);
-		// “ü—Íî•ñ ‰Šú‰»
+		// å…¥åŠ›æƒ…å ± åˆæœŸåŒ–
 		void Initialize();
-		// XVˆ—
+		// æ›´æ–°å‡¦ç†
 		void Update();
 	public:
 		static InputManager* GetInstance();

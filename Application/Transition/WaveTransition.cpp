@@ -23,18 +23,18 @@ namespace
 
 void WaveTransition::LoadResource()
 {
-	// ƒXƒvƒ‰ƒCƒg¶¬
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”Ÿæˆ
 	spBlockSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png", false)} });
 }
 
 void WaveTransition::Initialize()
 {
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	for (size_t i = 0; i < waves_.size(); i++)
 	{
 		if (waves_[i] == nullptr)
 		{
-			// ƒuƒƒbƒN¶¬ + ‰Šú‰»
+			// ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆ + åˆæœŸåŒ–
 			waves_[i].reset(new Wave());
 
 			waves_[i]->obj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spBlockSpr_, false));
@@ -76,13 +76,13 @@ void WaveTransition::Activate(const uint32_t changeFrame, const uint32_t loadFra
 
 	loadTim_.Initialize(loadFrame);
 
-	// ƒ^ƒCƒ}[‰Šú‰» + ŠJn
+	// ã‚¿ã‚¤ãƒãƒ¼åˆæœŸåŒ– + é–‹å§‹
 	uint32_t framePerTen = changeFrame / 10;
 	waves_[0]->actTim_.Initialize(framePerTen * kFirstPercent, true);
 	waves_[1]->actTim_.Initialize(framePerTen * kSecondPercent, true);
 	waves_[2]->actTim_.Initialize(framePerTen * kThirdPercent, true);
 
-	// “®ìŠJn
+	// å‹•ä½œé–‹å§‹
 	isAct_ = true;
 	isFalling_ = true;
 }
@@ -97,7 +97,7 @@ void WaveTransition::UpdateChange()
 	{
 		if (waves_[waves_.size() - 1]->actTim_.IsEnd())
 		{
-			// •Â‚¶‚é ¨ “Ç‚İ‚İ
+			// é–‰ã˜ã‚‹ â†’ èª­ã¿è¾¼ã¿
 			step_ = Step::Load;
 
 			isFalling_ = false;
@@ -113,12 +113,12 @@ void WaveTransition::UpdateChange()
 
 		if (loadTim_.IsEnd())
 		{
-			// “Ç‚İ‚İ ¨ ŠJ‚­
+			// èª­ã¿è¾¼ã¿ â†’ é–‹ã
 			step_ = Step::Open;
 
 			isRising_ = true;
 
-			// ƒ^ƒCƒ}[Äİ’è + ƒXƒ^[ƒg
+			// ã‚¿ã‚¤ãƒãƒ¼å†è¨­å®š + ã‚¹ã‚¿ãƒ¼ãƒˆ
 			uint32_t framePerTen = waves_[2]->actTim_.EndFrame() / 10;
 			waves_[2]->actTim_.Initialize(framePerTen * kFirstPercent, true);
 			waves_[1]->actTim_.Initialize(framePerTen * kSecondPercent, true);
@@ -129,7 +129,7 @@ void WaveTransition::UpdateChange()
 	{
 		if (waves_[0]->actTim_.IsEnd())
 		{
-			// I—¹
+			// çµ‚äº†
 			Reset();
 
 			isEnd_ = true;
@@ -141,8 +141,8 @@ void WaveTransition::UpdateBlock()
 {
 	if (isAct_ == false) { return; }
 
-	// 0 ¨ ŠJ‚­Aƒ[ƒh
-	// 1 ¨ •Â‚¶‚é
+	// 0 â†’ é–‹ãã€ãƒ­ãƒ¼ãƒ‰
+	// 1 â†’ é–‰ã˜ã‚‹
 	size_t stepIndex = 0;
 	if (step_ == Step::Open) { stepIndex = 1; }
 

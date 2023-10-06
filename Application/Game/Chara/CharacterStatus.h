@@ -11,80 +11,80 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="hp"> : ‘Ì—Í</param>
-		/// <param name="attack"> : UŒ‚—Í</param>
-		/// <param name="invincibleTime"> : –³“GŠÔ</param>
+		/// <param name="hp"> : ä½“åŠ›</param>
+		/// <param name="attack"> : æ”»æ’ƒåŠ›</param>
+		/// <param name="invincibleTime"> : ç„¡æ•µæ™‚é–“</param>
 		void Initialize(const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// ƒ_ƒ[ƒW
+		/// ãƒ€ãƒ¡ãƒ¼ã‚¸
 		/// </summary>
-		/// <param name="attack"> : UŒ‚—Í</param>
-		/// <param name="isInvincible"> : –³“G‚É‚·‚é‚©</param>
+		/// <param name="attack"> : æ”»æ’ƒåŠ›</param>
+		/// <param name="isInvincible"> : ç„¡æ•µã«ã™ã‚‹ã‹</param>
 		void Damage(const uint32_t attack, const bool isInvincible);
 
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		void DrawDebugTextContent() override;
 
 	public:
 
 		/// <summary>
-		/// ¶‘¶ƒtƒ‰ƒOæ“¾
+		/// ç”Ÿå­˜ãƒ•ãƒ©ã‚°å–å¾—
 		/// </summary>
-		/// <returns>¶‘¶ƒtƒ‰ƒO</returns>
+		/// <returns>ç”Ÿå­˜ãƒ•ãƒ©ã‚°</returns>
 		bool IsAlive() const { return isAlive_; }
 
 		/// <summary>
-		/// HPæ“¾
+		/// HPå–å¾—
 		/// </summary>
 		/// <returns>HP</returns>
 		uint32_t HP() const { return hp_; }
 		
 		/// <summary>
-		/// UŒ‚—Íæ“¾
+		/// æ”»æ’ƒåŠ›å–å¾—
 		/// </summary>
-		/// <returns>UŒ‚—Í</returns>
+		/// <returns>æ”»æ’ƒåŠ›</returns>
 		uint32_t Attack() const { return attack_; }
 		
 		/// <summary>
-		/// –³“Gƒ‚[ƒhæ“¾
+		/// ç„¡æ•µãƒ¢ãƒ¼ãƒ‰å–å¾—
 		/// </summary>
-		/// <returns>–³“Gƒ‚[ƒh</returns>
+		/// <returns>ç„¡æ•µãƒ¢ãƒ¼ãƒ‰</returns>
 		bool IsInvincible() const { return isInvincible_; }
 
 	public:
 
 		/// <summary>
-		/// HPİ’è
+		/// HPè¨­å®š
 		/// </summary>
 		/// <param name="hp"> : HP</param>
 		void SetHP(const uint32_t hp);
 
 		/// <summary>
-		/// UŒ‚—Íİ’è
+		/// æ”»æ’ƒåŠ›è¨­å®š
 		/// </summary>
-		/// <param name="attack"> : UŒ‚—Í</param>
+		/// <param name="attack"> : æ”»æ’ƒåŠ›</param>
 		void SetAttack(const uint32_t attack);
 		
 		/// <summary>
-		/// –³“Gƒ‚[ƒhİ’è
+		/// ç„¡æ•µãƒ¢ãƒ¼ãƒ‰è¨­å®š
 		/// </summary>
-		/// <param name="isInvincible"> : –³“Gƒ‚[ƒh</param>
+		/// <param name="isInvincible"> : ç„¡æ•µãƒ¢ãƒ¼ãƒ‰</param>
 		void SetInvincible(const bool isInvincible);
 		
 		/// <summary>
-		/// –³“GŠÔİ’è
+		/// ç„¡æ•µæ™‚é–“è¨­å®š
 		/// </summary>
-		/// <param name="invincibleTime">–³“GŠÔ</param>
+		/// <param name="invincibleTime">ç„¡æ•µæ™‚é–“</param>
 		void SetInvincibleTime(const uint32_t invincibleTime);
 	
 	public:
@@ -95,19 +95,19 @@ namespace YGame
 
 	private:
 
-		// ¶‘¶ƒtƒ‰ƒO
+		// ç”Ÿå­˜ãƒ•ãƒ©ã‚°
 		bool isAlive_ = true;
 
-		// ‘Ì—Í
+		// ä½“åŠ›
 		uint32_t hp_ = 0;
 
-		// UŒ‚—Í
+		// æ”»æ’ƒåŠ›
 		uint32_t attack_ = 0;
 		
-		// –³“Gƒ‚[ƒh
+		// ç„¡æ•µãƒ¢ãƒ¼ãƒ‰
 		bool isInvincible_ = true;
 
-		// –³“Gƒ^ƒCƒ}[
+		// ç„¡æ•µã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer invincibleTimer_;
 
 	};

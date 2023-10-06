@@ -10,43 +10,43 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate);
 		
 		/// <summary>
-		/// ƒfƒoƒbƒO•`‰æ
+		/// ãƒ‡ãƒãƒƒã‚°æç”»
 		/// </summary>
 		void DrawDebugText();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 	public:
 
 		/// <summary>
-		/// ƒNƒŠƒA
+		/// ã‚¯ãƒªã‚¢
 		/// </summary>
 		void Clear();
 
 		/// <summary>
-		/// ‘}“ü
+		/// æŒ¿å…¥
 		/// </summary>
-		/// <param name="character"> : ƒLƒƒƒ‰ƒNƒ^[ (“®“I)</param>
+		/// <param name="character"> : ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ (å‹•çš„)</param>
 		void PushBack(BaseCharacter* character);
 
 	public:
 
 		/// <summary>
-		/// ƒVƒ“ƒOƒ‹ƒgƒ“
+		/// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
 		/// </summary>
 		/// <returns></returns>
 		static CharacterManager* GetInstance();
@@ -65,26 +65,26 @@ namespace YGame
 	private:
 
 		/// <summary>
-		/// ƒAƒ^ƒŠ”»’è‘Sƒ`ƒFƒbƒN
+		/// ã‚¢ã‚¿ãƒªåˆ¤å®šå…¨ãƒã‚§ãƒƒã‚¯
 		/// </summary>
 		void CheckAllCollision();
 
 		/// <summary>
-		/// ƒyƒA‚ÌƒAƒ^ƒŠ”»’èƒ`ƒFƒbƒN
+		/// ãƒšã‚¢ã®ã‚¢ã‚¿ãƒªåˆ¤å®šãƒã‚§ãƒƒã‚¯
 		/// </summary>
-		/// <param name="pCharacterA"> : ƒLƒƒƒ‰A</param>
-		/// <param name="pCharacterB"> : ƒLƒƒƒ‰B</param>
+		/// <param name="pCharacterA"> : ã‚­ãƒ£ãƒ©A</param>
+		/// <param name="pCharacterB"> : ã‚­ãƒ£ãƒ©B</param>
 		static void CheckCollisionCharacterPair(BaseCharacter* pCharacterA, BaseCharacter* pCharacterB);
 
 	private:
 
-		// ƒIƒuƒWƒFƒNƒgƒŠƒXƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆ
 		std::list<std::unique_ptr<BaseCharacter>> characters_;
 
-		// ²•`‰æƒtƒ‰ƒO
+		// è»¸æç”»ãƒ•ãƒ©ã‚°
 		bool isDrawAxis_ = false;
 		
-		// ƒAƒ^ƒŠ”»’è•`‰æƒtƒ‰ƒO
+		// ã‚¢ã‚¿ãƒªåˆ¤å®šæç”»ãƒ•ãƒ©ã‚°
 		bool isDrawCollision_ = false;
 
 	public:
@@ -98,7 +98,7 @@ namespace YGame
 	
 	private:
 
-		// ƒLƒƒƒ‰ƒNƒ^[XVˆ—ƒLƒ…[ (—Dæ‡ˆÊ•t‚« : ‡)
+		// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æ›´æ–°å‡¦ç†ã‚­ãƒ¥ãƒ¼ (å„ªå…ˆé †ä½ä»˜ã : é †)
 		std::priority_queue<CharaUpdateStatus> updateQueue_;
 	};
 	

@@ -17,13 +17,13 @@ namespace YGame
 	
 	public:
 
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		void Initialize(BaseDrawObject* obj, const bool isClearWhenTransition = true) override;
 
-		// XV
+		// æ›´æ–°
 		void Update(const bool isDown) override;
 
-		// •`‰æ
+		// æç”»
 		void Draw(const std::string& shaderTag, const uint16_t priority) override;
 	
 	public:
@@ -34,21 +34,21 @@ namespace YGame
 
 	private:
 
-		// ƒIƒuƒWƒFƒNƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::unique_ptr<BaseDrawObject> obj_;
 
-		// F’è”ƒoƒbƒtƒ@
+		// è‰²å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
-		// ƒXƒ‰ƒCƒ€ƒAƒjƒ[ƒVƒ‡ƒ“
+		// ã‚¹ãƒ©ã‚¤ãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		SlimeActor slimeActor_;
 
-		// ’×‚ê‚é—Ê
+		// æ½°ã‚Œã‚‹é‡
 		Transform::Status animeStatus_;
 
 	private:
 
-		// ‰Ÿ‚· (uŠÔ)
+		// æŠ¼ã™ (ç¬é–“)
 		void PressAnimation(const bool isDown);
 
 	};
@@ -64,7 +64,7 @@ namespace YGame
 
 		static const float kExponent = 3.0f;
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“‚Å’×‚ê‚é—Ê
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã§æ½°ã‚Œã‚‹é‡
 		Vector3 squashVal = YMath::DivAtComponent(obj_->transform_.scale_, Vector3(+4.0f, -4.0f, +4.0f));
 
 		slimeActor_.Initialize(kFrame, { {}, squashVal }, kExponent);
@@ -80,7 +80,7 @@ namespace YGame
 
 		PressAnimation(isDown);
 
-		// ƒuƒˆƒuƒˆƒAƒjƒ[ƒVƒ‡ƒ“‚ğ“K‰
+		// ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é©å¿œ
 		obj_->Update(animeStatus_);
 	}
 	
@@ -91,22 +91,22 @@ namespace YGame
 	
 	void impl_UIButton::PressAnimation(const bool isDown)
 	{
-		// ƒuƒˆƒuƒˆƒAƒjƒ[ƒVƒ‡ƒ“
+		// ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 
 		if (isDown)
 		{
-			// ’×‚ê‚é (ƒC[ƒYƒCƒ“)
+			// æ½°ã‚Œã‚‹ (ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³)
 			animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
-			// ˆÃ‚¢F‚É‚·‚é
+			// æš—ã„è‰²ã«ã™ã‚‹
 			cbColor_->data_.baseColor = Vector4(0.25f, 0.25f, 0.25f, 1.0f);
 		}
 		else
 		{
-			// –ß‚é (ƒC[ƒYƒAƒEƒg)
+			// æˆ»ã‚‹ (ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ)
 			animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
 			
-			// Œ³‚ÌF‚É–ß‚é
+			// å…ƒã®è‰²ã«æˆ»ã‚‹
 			cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);			
 		}
 		

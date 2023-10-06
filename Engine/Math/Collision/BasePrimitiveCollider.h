@@ -3,56 +3,56 @@
 
 namespace YMath
 {
-	// ƒ_ƒuƒ‹ƒfƒBƒXƒpƒbƒ`—p
+	// ãƒ€ãƒ–ãƒ«ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒç”¨
 	class RayCollider;
 	class PlaneCollider;
 	class TriangleCollider;
 	class SphereCollider;
 	class Box2DCollider;
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒRƒ‰ƒCƒ_[Šî’êƒNƒ‰ƒX
+	// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼åŸºåº•ã‚¯ãƒ©ã‚¹
 	class BasePrimitiveCollider
 	{
 
 	public:
 
-		// ‚·‚è”²‚¯ƒtƒ‰ƒO
+		// ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°
 		bool isSlip_ = false;
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
-		/// <param name="offset"> : ‚¸‚ê</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const bool isSlip = false);
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="other"> : ‘Šè</param>
-		/// <returns>Õ“Ë‚µ‚½‚©</returns>
+		/// <param name="other"> : ç›¸æ‰‹</param>
+		/// <returns>è¡çªã—ãŸã‹</returns>
 		virtual bool CheckCollision(const BasePrimitiveCollider& other) const = 0;
 
 	public:
 
 		/// <summary>
-		// ’Ç]“_İ’è
+		// è¿½å¾“ç‚¹è¨­å®š
 		/// </summary>
-		/// <param name="pFollowPoint"> : ’Ç]“_</param>
+		/// <param name="pFollowPoint"> : è¿½å¾“ç‚¹</param>
 		inline void SetFollowPoint(Vector3* pFollowPoint) { pFollowPoint_ = pFollowPoint; }
 
 		/// <summary>
-		// ‚¸‚êİ’è
+		// ãšã‚Œè¨­å®š
 		/// </summary>
-		/// <param name="offset"> : ‚¸‚ê</param>
+		/// <param name="offset"> : ãšã‚Œ</param>
 		inline void SetOffset(const Vector3& offset) { offset_ = offset; }
 	
 	public:
 
-		// ‹ï‘Ì“I‚Èˆ—
+		// å…·ä½“çš„ãªå‡¦ç†
 		virtual bool CheckConcreteCollision(const RayCollider& other) const { return false; }
 		virtual bool CheckConcreteCollision(const PlaneCollider& other) const { return false; }
 		virtual bool CheckConcreteCollision(const TriangleCollider& other) const { return false; }
@@ -61,10 +61,10 @@ namespace YMath
 
 	protected:
 
-		// ’Ç]“_
+		// è¿½å¾“ç‚¹
 		Vector3* pFollowPoint_ = nullptr;
 
-		// ‚¸‚ê
+		// ãšã‚Œ
 		Vector3 offset_;
 
 	public:

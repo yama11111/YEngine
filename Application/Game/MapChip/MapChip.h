@@ -11,43 +11,43 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset() override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update() override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw() override;
 
 	private:
 
-		// ƒ`ƒbƒv‚²‚Æ‚ÌƒAƒ^ƒŠ”»’è
+		// ãƒãƒƒãƒ—ã”ã¨ã®ã‚¢ã‚¿ãƒªåˆ¤å®š
 		bool CollisionChip(const int x, const int y) override;
 
 	private:
 
-		// ƒ`ƒbƒvƒf[ƒ^
+		// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿
 		struct ChipData
 		{
-			// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+			// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 			Transform transform_;
 
-			// •`‰æƒNƒ‰ƒX
+			// æç”»ã‚¯ãƒ©ã‚¹
 			std::unique_ptr<BaseDrawer> drawer_;
 
-			// ƒAƒ^ƒŠ”»’èƒ|ƒCƒ“ƒ^
+			// ã‚¢ã‚¿ãƒªåˆ¤å®šãƒã‚¤ãƒ³ã‚¿
 			bool* pIsColl_ = nullptr;
 		};
 
 	private:
 
-		// ƒ`ƒbƒvƒŠƒXƒg
+		// ãƒãƒƒãƒ—ãƒªã‚¹ãƒˆ
 		std::list<std::unique_ptr<ChipData>> chips_;
 
 	public:

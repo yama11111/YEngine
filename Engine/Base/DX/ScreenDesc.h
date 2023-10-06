@@ -9,28 +9,28 @@ namespace YDX
 	{
 	private:
 		
-		// ƒrƒ…[ƒ|[ƒgİ’èƒRƒ}ƒ“ƒh
+		// ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆè¨­å®šã‚³ãƒãƒ³ãƒ‰
 		std::vector<D3D12_VIEWPORT> viewport_;
 		
-		// ƒVƒU[‹éŒ`
+		// ã‚·ã‚¶ãƒ¼çŸ©å½¢
 		std::vector<D3D12_RECT> scissorRect_;
 	
 	public:
 		
-		// ‰Šú‰» (ˆø” : ¶ã, ‰E‰º)
+		// åˆæœŸåŒ– (å¼•æ•° : å·¦ä¸Š, å³ä¸‹)
 		void Initialize(const YMath::Vector2& topLeft, const YMath::Vector2& bottomRight, const size_t descNum = 1);
 		
-		// •`‰æ‘OƒRƒ}ƒ“ƒh
+		// æç”»å‰ã‚³ãƒãƒ³ãƒ‰
 		void SetDrawCommand();
 	
 	private:
 		
-		// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 		static ID3D12GraphicsCommandList* spCmdList_;
 	
 	public:
 		
-		// Ã“Iƒƒ“ƒo‰Šú‰»
+		// é™çš„ãƒ¡ãƒ³ãƒåˆæœŸåŒ–
 		static void StaticInitialize(ID3D12GraphicsCommandList* pCommandList);
 	};
 }

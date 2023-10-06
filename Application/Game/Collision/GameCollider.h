@@ -9,7 +9,7 @@
 
 namespace YGame
 {
-	// ƒQ[ƒ€—pƒRƒ‰ƒCƒ_[ƒNƒ‰ƒX
+	// ã‚²ãƒ¼ãƒ ç”¨ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚¯ãƒ©ã‚¹
 	class GameCollider : 
 		public DebugTextAttacher
 	{
@@ -17,13 +17,13 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="attribute"> : ‘®«</param>
-		/// <param name="mask"> : ƒ}ƒXƒN</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
-		/// <param name="isClear"> : ƒŠƒXƒg‚ğƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="attribute"> : å±æ€§</param>
+		/// <param name="mask"> : ãƒã‚¹ã‚¯</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
+		/// <param name="isClear"> : ãƒªã‚¹ãƒˆã‚’ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		void Initialize(
 			Transform* pParent, 
 			const AttributeType attribute, const AttributeType mask, 
@@ -31,60 +31,60 @@ namespace YGame
 			const bool isClear = false);
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="pOther">‘Šèƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pOther">ç›¸æ‰‹ãƒã‚¤ãƒ³ã‚¿</param>
 		bool CheckCollision(GameCollider* pOther);
 
 		/// <summary>
-		/// ƒRƒ‰ƒCƒ_[‘}“ü
+		/// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼æŒ¿å…¥
 		/// </summary>
-		/// <param name="collider">ƒRƒ‰ƒCƒ_[ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</param>
+		/// <param name="collider">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</param>
 		void PushBack(YMath::BasePrimitiveCollider* collider);
 
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		virtual void DrawDebugTextContent() override;
 
 	public:
 
 		/// <summary>
-		/// ƒRƒ‰ƒCƒ_[ƒŠƒXƒgæ“¾
+		/// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆå–å¾—
 		/// </summary>
-		/// <returns>ƒRƒ‰ƒCƒ_[ƒŠƒXƒg</returns>
+		/// <returns>ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆ</returns>
 		inline const std::list<std::unique_ptr<YMath::BasePrimitiveCollider>>& Colliders() const { return colliders_; }
 
 		/// <summary>
-		/// ‘®«æ“¾
+		/// å±æ€§å–å¾—
 		/// </summary>
-		/// <returns>‘®«</returns>
+		/// <returns>å±æ€§</returns>
 		inline AttributeType Attribute() const { return attribute_; }
 
 		/// <summary>
-		/// ƒ}ƒXƒNæ“¾
+		/// ãƒã‚¹ã‚¯å–å¾—
 		/// </summary>
-		/// <returns>ƒ}ƒXƒN</returns>
+		/// <returns>ãƒã‚¹ã‚¯</returns>
 		inline AttributeType Mask() const { return mask_; }
 
 		/// <summary>
-		/// ‚·‚è”²‚¯ƒtƒ‰ƒOæ“¾
+		/// ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°å–å¾—
 		/// </summary>
-		/// <returns>‚·‚è”²‚¯ƒtƒ‰ƒO</returns>
+		/// <returns>ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</returns>
 		inline  bool IsSlip() const { return isSlip_; }
 	
 	public:
 
 		/// <summary>
-		/// eƒ|ƒCƒ“ƒ^İ’è
+		/// è¦ªãƒã‚¤ãƒ³ã‚¿è¨­å®š
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
 		inline void SetParent(Transform* pParent) { pParent_ = pParent; }
 
 		/// <summary>
-		/// ‚·‚è”²‚¯ƒtƒ‰ƒOİ’è
+		/// ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°è¨­å®š
 		/// </summary>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		inline void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
 
 	public:
@@ -92,12 +92,12 @@ namespace YGame
 		GameCollider() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="attribute"> : ‘®«</param>
-		/// <param name="mask"> : ƒ}ƒXƒN</param>
-		/// <param name="isSlip"> : ‚·‚è”²‚¯ƒtƒ‰ƒO</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="attribute"> : å±æ€§</param>
+		/// <param name="mask"> : ãƒã‚¹ã‚¯</param>
+		/// <param name="isSlip"> : ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°</param>
 		GameCollider(
 			Transform* pParent, 
 			const AttributeType attribute, const AttributeType mask,
@@ -107,19 +107,19 @@ namespace YGame
 
 	private:
 
-		// eƒ|ƒCƒ“ƒ^
+		// è¦ªãƒã‚¤ãƒ³ã‚¿
 		Transform* pParent_ = nullptr;
 
-		// ‘®« (©•ª)
+		// å±æ€§ (è‡ªåˆ†)
 		AttributeType attribute_ = AttributeType::eAll;
 
-		// ƒ}ƒXƒN (‘Šè)
+		// ãƒã‚¹ã‚¯ (ç›¸æ‰‹)
 		AttributeType mask_ = AttributeType::eAll;
 
-		// ‚·‚è”²‚¯ƒtƒ‰ƒO
+		// ã™ã‚ŠæŠœã‘ãƒ•ãƒ©ã‚°
 		bool isSlip_ = false;
 
-		// ƒvƒŠƒ~ƒeƒBƒuƒRƒ‰ƒCƒ_[ƒŠƒXƒg
+		// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆ
 		std::list<std::unique_ptr<YMath::BasePrimitiveCollider>> colliders_;
 	};
 }

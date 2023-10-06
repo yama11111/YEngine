@@ -5,22 +5,22 @@
 
 namespace YGame
 {
-	// ƒ‚ƒfƒ‹—pƒgƒ‰ƒ“ƒXƒtƒH[ƒ€’è”ƒoƒbƒtƒ@
+	// ãƒ¢ãƒ‡ãƒ«ç”¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBModelTransform 
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// ƒ[ƒ‹ƒhs—ñ
+			// ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—
 			YMath::Matrix4 matWorld = YMath::Matrix4::Identity();
 			
-			// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ
+			// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—
 			YMath::Matrix4 matViewProj = YMath::Matrix4::Identity();
 			
-			// ƒJƒƒ‰À•W
+			// ã‚«ãƒ¡ãƒ©åº§æ¨™
 			YMath::Vector3 cameraPos{};
 			
 			float pad;
@@ -29,9 +29,9 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBModelTransform"; 

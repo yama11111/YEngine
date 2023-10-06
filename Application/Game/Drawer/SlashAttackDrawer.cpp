@@ -25,10 +25,10 @@ void SlashAttackDrawer::LoadResource()
 
 void SlashAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// ƒ‚ƒfƒ‹İ’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	obj_->SetModel(spModel_);
 
 	slimeActor_.Initialize(0, { {} }, 0);
@@ -49,7 +49,7 @@ void SlashAttackDrawer::PlaySubAnimation(const uint16_t index, const uint32_t fr
 {
 	if (index & static_cast<uint16_t>(AnimationType::eAttack))
 	{
-		// ƒuƒˆƒuƒˆƒAƒjƒ
+		// ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(-1.0f, -1.0f, -1.0f));
 		wobbleScaleValues.push_back(Vector3(+0.4f, +0.4f, +0.4f));

@@ -4,24 +4,24 @@
 
 namespace YGame
 {
-	// ƒm[ƒh
+	// ãƒãƒ¼ãƒ‰
 	struct Node
 	{
 	
 	public:
 	
-		// –¼‘O
+		// åå‰
 		std::string name_;
 
 
-		// ƒ[ƒJƒ‹ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
+		// ãƒ­ãƒ¼ã‚«ãƒ«ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
 		Transform local_;
 
-		// ƒOƒ[ƒoƒ‹•ÏŒ`s—ñ
+		// ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰å½¢è¡Œåˆ—
 		YMath::Matrix4 globalMat_{};
 
 
-		// eƒm[ƒh
+		// è¦ªãƒãƒ¼ãƒ‰
 		Node* parent_ = nullptr;
 
 	public:

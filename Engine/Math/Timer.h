@@ -9,63 +9,63 @@ namespace YMath
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="endFrame"> : I—¹‚ÌŠÔ (F)</param>
-		/// <param name="isAct"> : ‰Šú‰»Œã‚·‚®“®‚©‚·‚©</param>
+		/// <param name="endFrame"> : çµ‚äº†æ™‚ã®æ™‚é–“ (F)</param>
+		/// <param name="isAct"> : åˆæœŸåŒ–å¾Œã™ãå‹•ã‹ã™ã‹</param>
 		void Initialize(const uint32_t endFrame, const bool isAct = false);
 		
 		/// <summary>
-		/// ƒŠƒZƒbƒg (’†g‚¾‚¯‰Šú‰»)
+		/// ãƒªã‚»ãƒƒãƒˆ (ä¸­èº«ã ã‘åˆæœŸåŒ–)
 		/// </summary>
-		/// <param name="isAct"> : ‰Šú‰»Œã‚·‚®“®‚©‚·‚©</param>
+		/// <param name="isAct"> : åˆæœŸåŒ–å¾Œã™ãå‹•ã‹ã™ã‹</param>
 		void Reset(const bool isAct = false);
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="passRate"> : ŠÔ‚ÌŒo‰ß—¦</param>
+		/// <param name="passRate"> : æ™‚é–“ã®çµŒéç‡</param>
 		void Update(const float passRate = 1.0f);
 	
 	public:
 		
 		/// <summary>
-		/// ”ä—¦
+		/// æ¯”ç‡
 		/// </summary>
 		float Ratio() const;
 
 		/// <summary>
-		/// Œ»İ
+		/// ç¾åœ¨æ™‚åˆ»
 		/// </summary>
 		inline float Current() const { return current_; }
 
 		/// <summary>
-		/// ÅIŠÔ
+		/// æœ€çµ‚æ™‚é–“
 		/// </summary>
 		inline uint32_t EndFrame() const { return endFrame_; }
 
 		/// <summary>
-		/// “®‚¢‚Ä‚¢‚é‚©
+		/// å‹•ã„ã¦ã„ã‚‹ã‹
 		/// </summary>
 		inline bool IsAct() const { return isAct_; }
 
 		/// <summary>
-		/// I—¹‚µ‚½‚©
+		/// çµ‚äº†ã—ãŸã‹
 		/// </summary>
 		inline bool IsEnd() const { return endFrame_ != 0 && current_ == static_cast<float>(endFrame_); }
 
 	public:
 		
 		/// <summary>
-		/// “®ìİ’è
+		/// å‹•ä½œè¨­å®š
 		/// </summary>
-		/// <param name="isAct"> : “®‚©‚·‚©</param>
+		/// <param name="isAct"> : å‹•ã‹ã™ã‹</param>
 		void SetActive(const bool isAct);
 
 		/// <summary>
-		/// I—¹İ’è
+		/// çµ‚äº†æ™‚åˆ»è¨­å®š
 		/// </summary>
-		/// <param name="end"> : I—¹ (F)</param>
+		/// <param name="end"> : çµ‚äº†æ™‚åˆ» (F)</param>
 		inline void SetEndFrame(const uint32_t endFrame) { endFrame_ = endFrame; }
 
 	public:
@@ -73,23 +73,23 @@ namespace YMath
 		Timer() = default;
 
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="endFrame"> : I—¹‚ÌŠÔ (F)</param>
-		/// <param name="isAct"> : ‰Šú‰»Œã‚·‚®“®‚©‚·‚©</param>
+		/// <param name="endFrame"> : çµ‚äº†æ™‚ã®æ™‚é–“ (F)</param>
+		/// <param name="isAct"> : åˆæœŸåŒ–å¾Œã™ãå‹•ã‹ã™ã‹</param>
 		Timer(const uint32_t endFrame, const bool isAct = false);
 		
 		~Timer() = default;
 
 	private:
 
-		// “®ì‚µ‚Ä‚¢‚é‚©
+		// å‹•ä½œã—ã¦ã„ã‚‹ã‹
 		bool isAct_ = false;
 
-		// Œ»İŠÔ
+		// ç¾åœ¨æ™‚é–“
 		float current_ = 0;
 
-		// ƒ^ƒCƒ}[I—¹
+		// ã‚¿ã‚¤ãƒãƒ¼çµ‚äº†æ™‚åˆ»
 		uint32_t endFrame_ = 0;
 	};
 }

@@ -8,28 +8,28 @@ namespace YDX
 	{
 	private:
 
-		// •s•Ï SRV ”
+		// ä¸å¤‰ SRV æ•°
 		static const UINT ImmutableSRVCount_ = 10000;
 
-		// •s•Ï UAV ”
+		// ä¸å¤‰ UAV æ•°
 		static const UINT ImmutableUAVCount_ = 0;
 
-		// •s•Ï CBV ”
+		// ä¸å¤‰ CBV æ•°
 		static const UINT ImmutableCBVCount_ = 10000;
 
 
-		// Å‘å SRV ”
+		// æœ€å¤§ SRV æ•°
 		static const UINT MaxSRVCount_ = 100000;
 
-		// Å‘å UAV ”
+		// æœ€å¤§ UAV æ•°
 		static const UINT MaxUAVCount_ = 0;
 
-		// Å‘å CBV ”
+		// æœ€å¤§ CBV æ•°
 		static const UINT MaxCBVCount_ = 900000;
 
 	public:
 
-		// ƒnƒ“ƒhƒ‹ (CPU, GPU)
+		// ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)
 		struct Handle
 		{
 
@@ -43,27 +43,27 @@ namespace YDX
 
 	private:
 
-		// ƒfƒXƒNƒŠƒvƒ^[Œv”Ší
+		// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼è¨ˆæ•°å™¨
 		struct DescriptorCounter
 		{
 		public:
 
-			// SRV ”
+			// SRV æ•°
 			UINT srvCount_ = 0;
 
-			// UAV ”
+			// UAV æ•°
 			UINT uavCount_ = 0;
 
-			// CBV ”
+			// CBV æ•°
 			UINT cbvCount_ = 0;
 
-			// ‰ŠúˆÊ’uƒnƒ“ƒhƒ‹
+			// åˆæœŸä½ç½®ãƒãƒ³ãƒ‰ãƒ«
 			Handle startHandle_{};
 
 		public:
 
 			/// <summary>
-			/// ƒJƒEƒ“ƒg‰Šú‰»
+			/// ã‚«ã‚¦ãƒ³ãƒˆåˆæœŸåŒ–
 			/// </summary>
 			void ResetCount() { srvCount_ = uavCount_ = cbvCount_ = 0; }
 
@@ -71,118 +71,118 @@ namespace YDX
 
 	private:
 
-		// ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv
+		// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_ = nullptr;
 
-		// ƒCƒ“ƒNƒŠƒƒ“ƒg—p
+		// ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆç”¨
 		UINT incSize_ = 0;
 
 
-		// •s•Ï (ƒŠƒZƒbƒg‚µ‚È‚¢)
+		// ä¸å¤‰ (ãƒªã‚»ãƒƒãƒˆã—ãªã„)
 		DescriptorCounter immutableCounter_;
 
-		// ‰Â•Ï (ƒŠƒZƒbƒg‚·‚é)
+		// å¯å¤‰ (ãƒªã‚»ãƒƒãƒˆã™ã‚‹)
 		DescriptorCounter mutableCounter_;
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// •`‰æ‘OƒRƒ}ƒ“ƒh (Å‰‚Éˆê‰ñ)
+		/// æç”»å‰ã‚³ãƒãƒ³ãƒ‰ (æœ€åˆã«ä¸€å›)
 		/// </summary>
 		void SetDrawCommand();
 
 	public:
 
 		/// <summary>
-		/// SRV ¶¬
+		/// SRV ç”Ÿæˆ
 		/// </summary>
-		/// <param name="buff"> : ƒoƒbƒtƒ@</param>
-		/// <param name="srvDesc"> : SRV İ’è</param>
-		/// <param name="isMutable"> : ƒŠƒZƒbƒg‚·‚é‚©</param>
-		/// <returns>ƒnƒ“ƒhƒ‹ (CPU, GPU)</returns>
+		/// <param name="buff"> : ãƒãƒƒãƒ•ã‚¡</param>
+		/// <param name="srvDesc"> : SRV è¨­å®š</param>
+		/// <param name="isMutable"> : ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)</returns>
 		Handle CreateSRV(ID3D12Resource* buff, const D3D12_SHADER_RESOURCE_VIEW_DESC& srvDesc, const bool isMutable);
 
 		/// <summary>
-		/// UAV ¶¬
+		/// UAV ç”Ÿæˆ
 		/// </summary>
-		/// <param name="buff"> : ƒoƒbƒtƒ@</param>
-		/// <param name="srvDesc"> : UAV İ’è</param>
-		/// <param name="isMutable"> : ƒŠƒZƒbƒg‚·‚é‚©</param>
-		/// <returns>ƒnƒ“ƒhƒ‹ (CPU, GPU)</returns>
+		/// <param name="buff"> : ãƒãƒƒãƒ•ã‚¡</param>
+		/// <param name="srvDesc"> : UAV è¨­å®š</param>
+		/// <param name="isMutable"> : ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)</returns>
 		Handle CreateUAV(ID3D12Resource* buff, const D3D12_UNORDERED_ACCESS_VIEW_DESC& uavDesc, const bool isMutable);
 
 		/// <summary>
-		/// CBV ¶¬
+		/// CBV ç”Ÿæˆ
 		/// </summary>
-		/// <param name="buff"> : ƒoƒbƒtƒ@</param>
-		/// <param name="srvDesc"> : CBV İ’è</param>
-		/// <param name="isMutable"> : ƒŠƒZƒbƒg‚·‚é‚©</param>
-		/// <returns>ƒnƒ“ƒhƒ‹ (CPU, GPU)</returns>
+		/// <param name="buff"> : ãƒãƒƒãƒ•ã‚¡</param>
+		/// <param name="srvDesc"> : CBV è¨­å®š</param>
+		/// <param name="isMutable"> : ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)</returns>
 		Handle CreateCBV(const D3D12_CONSTANT_BUFFER_VIEW_DESC& cbvDesc, const bool isMutable);
 
 	public:
 
 		/// <summary>
-		/// SRV ’Ç‰Á
+		/// SRV è¿½åŠ 
 		/// </summary>
-		/// <param name="isMutable"> : ƒŠƒZƒbƒg‚·‚é‚©</param>
-		/// <returns>ƒnƒ“ƒhƒ‹ (CPU, GPU)</returns>
+		/// <param name="isMutable"> : ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)</returns>
 		Handle AddSRV(const bool isMutable);
 
 		/// <summary>
-		/// UAV ’Ç‰Á
+		/// UAV è¿½åŠ 
 		/// </summary>
-		/// <param name="isMutable"> : ƒŠƒZƒbƒg‚·‚é‚©</param>
-		/// <returns>ƒnƒ“ƒhƒ‹ (CPU, GPU)</returns>
+		/// <param name="isMutable"> : ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)</returns>
 		Handle AddUAV(const bool isMutable);
 
 		/// <summary>
-		/// CBV ’Ç‰Á
+		/// CBV è¿½åŠ 
 		/// </summary>
-		/// <param name="isMutable"> : ƒŠƒZƒbƒg‚·‚é‚©</param>
-		/// <returns>ƒnƒ“ƒhƒ‹ (CPU, GPU)</returns>
+		/// <param name="isMutable"> : ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒãƒ³ãƒ‰ãƒ« (CPU, GPU)</returns>
 		Handle AddCBV(const bool isMutable);
 
 	public:
 
 		/// <summary>
-		/// ‰Â•Ï‚ÌƒfƒXƒNƒŠƒvƒ^ƒJƒEƒ“ƒg‚ğƒNƒŠƒA
+		/// å¯å¤‰ã®ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã‚«ã‚¦ãƒ³ãƒˆã‚’ã‚¯ãƒªã‚¢
 		/// </summary>
 		void ClearMutableCount() { mutableCounter_.ResetCount(); }
 
 	public:
 
 		/// <summary>
-		/// ƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv‚Ìƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3D12DescriptorHeap* Get() { return descriptorHeap_.Get(); }
 
 		/// <summary>
-		/// ƒJƒEƒ“ƒg•\¦ (ƒfƒoƒbƒO‚Ì‚İ)
+		/// ã‚«ã‚¦ãƒ³ãƒˆè¡¨ç¤º (ãƒ‡ãƒãƒƒã‚°æ™‚ã®ã¿)
 		/// </summary>
 		void ShowCount();
 
 	private:
 
-		// Ã“IƒfƒoƒCƒXƒ|ƒCƒ“ƒ^
+		// é™çš„ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿
 		static ID3D12Device* spDevice_;
 
-		// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 		static ID3D12GraphicsCommandList* spCmdList_;
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pDevice"> : ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pCmdList"> : ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pDevice"> : ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pCmdList"> : ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ID3D12Device* pDevice, ID3D12GraphicsCommandList* pCmdList);
 
 	public:

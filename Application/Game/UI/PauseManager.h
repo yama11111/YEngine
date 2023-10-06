@@ -9,37 +9,37 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 	public:
 
 		/// <summary>
-		/// ƒ|[ƒY’†‚©
+		/// ãƒãƒ¼ã‚ºä¸­ã‹
 		/// </summary>
-		/// <returns>ƒ|[ƒY’†‚©</returns>
+		/// <returns>ãƒãƒ¼ã‚ºä¸­ã‹</returns>
 		bool IsPause() const { return isPause_; }
 
 		/// <summary>
-		/// ƒ|[ƒY’†‚¾‚Á‚½‚©
+		/// ãƒãƒ¼ã‚ºä¸­ã ã£ãŸã‹
 		/// </summary>
-		/// <returns>ƒ|[ƒY’†‚©</returns>
+		/// <returns>ãƒãƒ¼ã‚ºä¸­ã‹</returns>
 		bool IsElderPause() const { return isElderPause_; }
 
 	private:
@@ -50,16 +50,16 @@ namespace YGame
 
 	private:
 
-		// ƒ|[ƒY’†‚©
+		// ãƒãƒ¼ã‚ºä¸­ã‹
 		bool isPause_ = false;
 
-		// ƒ|[ƒY’†‚¾‚Á‚½‚©
+		// ãƒãƒ¼ã‚ºä¸­ã ã£ãŸã‹
 		bool isElderPause_ = false;
 
-		// Œ»İ‚Ì‘I‘ğ
+		// ç¾åœ¨ã®é¸æŠ
 		PauseDrawer::Selection current_ = PauseDrawer::Selection::Resume;
 	
-		// •`‰æƒNƒ‰ƒX
+		// æç”»ã‚¯ãƒ©ã‚¹
 		PauseDrawer pauseDra_;
 
 	};

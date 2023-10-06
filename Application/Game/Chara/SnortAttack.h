@@ -10,14 +10,14 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="aliveTimer"> : ¶‘¶ŠÔ</param>
-		/// <param name="emitPos"> : ”­¶ˆÊ’u</param>
-		/// <param name="acceleration"> : ‰Á‘¬“x</param>
-		/// <param name="maxspeed"> : Å‚‘¬“x</param>
-		/// <param name="radius"> : ”¼Œa</param>
-		/// <param name="attackPower"> : UŒ‚—Í</param>
+		/// <param name="aliveTimer"> : ç”Ÿå­˜æ™‚é–“</param>
+		/// <param name="emitPos"> : ç™ºç”Ÿä½ç½®</param>
+		/// <param name="acceleration"> : åŠ é€Ÿåº¦</param>
+		/// <param name="maxspeed"> : æœ€é«˜é€Ÿåº¦</param>
+		/// <param name="radius"> : åŠå¾„</param>
+		/// <param name="attackPower"> : æ”»æ’ƒåŠ›</param>
 		void Initialize(
 			const uint32_t aliveTimer,
 			const YMath::Vector3& emitPos,
@@ -27,21 +27,21 @@ namespace YGame
 			const uint32_t attackPower);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate) override;
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="info"> : Õ“Ëî•ñ</param>
+		/// <param name="info"> : è¡çªæ™‚æƒ…å ±</param>
 		void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
-		/// Õ“Ëî•ñæ“¾
+		/// è¡çªæ™‚æƒ…å ±å–å¾—
 		/// </summary>
-		/// <returns>Õ“Ëî•ñ</returns>
+		/// <returns>è¡çªæ™‚æƒ…å ±</returns>
 		CollisionInfo GetCollisionInfo() override;
 
 	public:
@@ -53,13 +53,13 @@ namespace YGame
 	private:
 
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		void DrawDebugTextContent() override;
 
 	private:
 
-		// ¶‘¶ƒ^ƒCƒ}[
+		// ç”Ÿå­˜ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer aliveTimer_;
 	};
 }

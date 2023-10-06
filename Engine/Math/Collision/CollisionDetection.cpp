@@ -5,27 +5,27 @@ using YMath::Vector3;
 
 static const float Epsilon = 1.0e-5f;
 
-#pragma region ü‚Æ•½–Ê
+#pragma region ç·šã¨å¹³é¢
 
 bool YMath::CollisionRayPlane(
 	const Vector3& rayStart, const Vector3& rayDirection,
 	const Vector3& planeNormal, const float planeDist)
 {
-	// –Ê–@ü‚ÆƒŒƒC‚Ì•ûŒüƒxƒNƒgƒ‹‚Ì“àÏ
+	// é¢æ³•ç·šã¨ãƒ¬ã‚¤ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©
 	float d1 = planeNormal.Dot(rayDirection);
-	// — –Ê‚É‚Í“–‚½‚ç‚È‚¢
+	// è£é¢ã«ã¯å½“ãŸã‚‰ãªã„
 	if (d1 > -Epsilon) { return false; }
 
-	// n“_ ¨ Œ´“_ (•½–Ê‚Ì–@ü•ûŒü)
-	// –Ê–@ü ‚Æ ƒŒƒC‚Ì‹“_À•W (ˆÊ’uƒxƒNƒgƒ‹) ‚Ì“àÏ
+	// å§‹ç‚¹ â†’ åŸç‚¹ (å¹³é¢ã®æ³•ç·šæ–¹å‘)
+	// é¢æ³•ç·š ã¨ ãƒ¬ã‚¤ã®è¦–ç‚¹åº§æ¨™ (ä½ç½®ãƒ™ã‚¯ãƒˆãƒ«) ã®å†…ç©
 	float d2 = planeNormal.Dot(rayStart);
 
-	// n“_‚Æ•½–Ê‚Ì‹——£ (•½–Ê‚Ì–@ü•ûŒü)
+	// å§‹ç‚¹ã¨å¹³é¢ã®è·é›¢ (å¹³é¢ã®æ³•ç·šæ–¹å‘)
 	float dist = d2 - planeDist;
 
-	// n“_‚Æ•½–Ê‚Ì‹——£ (ƒŒƒC•ûŒü)
+	// å§‹ç‚¹ã¨å¹³é¢ã®è·é›¢ (ãƒ¬ã‚¤æ–¹å‘)
 	float t = dist / -d1;
-	// Œğ“_‚ªn“_‚æ‚èŒã‚ë‚É‚ ‚é ¨ “–‚½‚ç‚È‚¢
+	// äº¤ç‚¹ãŒå§‹ç‚¹ã‚ˆã‚Šå¾Œã‚ã«ã‚ã‚‹ â†’ å½“ãŸã‚‰ãªã„
 	if (t < 0) { return false; }
 
 	return true;
@@ -36,26 +36,26 @@ bool YMath::CollisionRayPlane(
 	const Vector3& planeNormal, const float planeDist, 
 	float& distance, Vector3& inter)
 {
-	// –Ê–@ü‚ÆƒŒƒC‚Ì•ûŒüƒxƒNƒgƒ‹‚Ì“àÏ
+	// é¢æ³•ç·šã¨ãƒ¬ã‚¤ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©
 	float d1 = planeNormal.Dot(rayDirection);
-	// — –Ê‚É‚Í“–‚½‚ç‚È‚¢
+	// è£é¢ã«ã¯å½“ãŸã‚‰ãªã„
 	if (d1 > -Epsilon) { return false; }
 
-	// n“_ ¨ Œ´“_ (•½–Ê‚Ì–@ü•ûŒü)
-	// –Ê–@ü ‚Æ ƒŒƒC‚Ì‹“_À•W (ˆÊ’uƒxƒNƒgƒ‹) ‚Ì“àÏ
+	// å§‹ç‚¹ â†’ åŸç‚¹ (å¹³é¢ã®æ³•ç·šæ–¹å‘)
+	// é¢æ³•ç·š ã¨ ãƒ¬ã‚¤ã®è¦–ç‚¹åº§æ¨™ (ä½ç½®ãƒ™ã‚¯ãƒˆãƒ«) ã®å†…ç©
 	float d2 = planeNormal.Dot(rayStart);
 
-	// n“_‚Æ•½–Ê‚Ì‹——£ (•½–Ê‚Ì–@ü•ûŒü)
+	// å§‹ç‚¹ã¨å¹³é¢ã®è·é›¢ (å¹³é¢ã®æ³•ç·šæ–¹å‘)
 	float dist = d2 - planeDist;
 
-	// n“_‚Æ•½–Ê‚Ì‹——£ (ƒŒƒC•ûŒü)
+	// å§‹ç‚¹ã¨å¹³é¢ã®è·é›¢ (ãƒ¬ã‚¤æ–¹å‘)
 	float t = dist / -d1;
-	// Œğ“_‚ªn“_‚æ‚èŒã‚ë‚É‚ ‚é ¨ “–‚½‚ç‚È‚¢
+	// äº¤ç‚¹ãŒå§‹ç‚¹ã‚ˆã‚Šå¾Œã‚ã«ã‚ã‚‹ â†’ å½“ãŸã‚‰ãªã„
 	if (t < 0) { return false; }
 	
-	// ‹——£
+	// è·é›¢
 	distance = t;
-	// Œğ“_
+	// äº¤ç‚¹
 	inter = rayStart + (t * rayDirection);
 
 	return true;
@@ -64,44 +64,44 @@ bool YMath::CollisionRayPlane(
 #pragma endregion
 
 
-#pragma region ü‚ÆOŠpŒ`
+#pragma region ç·šã¨ä¸‰è§’å½¢
 
 bool YMath::CollisionRayTriangle(
 	const Vector3& rayStart, const Vector3& rayDirection,
 	const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal)
 {
-	// OŠpŒ`‚Ì•½–Ê
+	// ä¸‰è§’å½¢ã®å¹³é¢
 	Vector3 planeNormal = triNormal;
 	float planeDist = triNormal.Dot(triPos0);
 	float distance = 0.0f;
 	Vector3 interPlane;
 
-	// ƒŒƒC ‚Æ •½–Ê‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+	// ãƒ¬ã‚¤ ã¨ å¹³é¢ãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 	if (CollisionRayPlane(rayStart, rayDirection, planeNormal, planeDist, distance, interPlane) == false)
 	{
 		return false;
 	}
 
-	// ƒŒƒC ‚Æ •½–Ê‚ÌŒğ“_ ‚ª OŠpŒ`‚Ì“à‘¤‚©
-	// p0 ¨ p1
+	// ãƒ¬ã‚¤ ã¨ å¹³é¢ã®äº¤ç‚¹ ãŒ ä¸‰è§’å½¢ã®å†…å´ã‹
+	// p0 â†’ p1
 	Vector3 pt_p0 = triPos0 - interPlane;
 	Vector3 p0_p1 = triPos1 - triPos0;
 	Vector3 m1 = pt_p0.Cross(p0_p1);
-	// •Ó‚ÌŠO‘¤ ¨ “–‚½‚ç‚È‚¢
+	// è¾ºã®å¤–å´ â†’ å½“ãŸã‚‰ãªã„
 	if (m1.Dot(triNormal) < -Epsilon) { return false; }
 
-	// p1 ¨ p2
+	// p1 â†’ p2
 	Vector3 pt_p1 = triPos1 - interPlane;
 	Vector3 p1_p2 = triPos2 - triPos1;
 	Vector3 m2 = pt_p1.Cross(p1_p2);
-	// •Ó‚ÌŠO‘¤ ¨ “–‚½‚ç‚È‚¢
+	// è¾ºã®å¤–å´ â†’ å½“ãŸã‚‰ãªã„
 	if (m2.Dot(triNormal) < -Epsilon) { return false; }
 
-	// p2 ¨ p0
+	// p2 â†’ p0
 	Vector3 pt_p2 = triPos2 - interPlane;
 	Vector3 p2_p0 = triPos2 - triPos0;
 	Vector3 m3 = pt_p2.Cross(p2_p0);
-	// •Ó‚ÌŠO‘¤ ¨ “–‚½‚ç‚È‚¢
+	// è¾ºã®å¤–å´ â†’ å½“ãŸã‚‰ãªã„
 	if (m3.Dot(triNormal) < -Epsilon) { return false; }
 
 	return true;
@@ -112,40 +112,40 @@ bool YMath::CollisionRayTriangle(
 	const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
 	float& distance, Vector3& inter)
 {
-	// OŠpŒ`‚Ì•½–Ê
+	// ä¸‰è§’å½¢ã®å¹³é¢
 	Vector3 planeNormal = triNormal;
 	float planeDist = triNormal.Dot(triPos0);
 	Vector3 interPlane;
 
-	// ƒŒƒC ‚Æ •½–Ê‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+	// ãƒ¬ã‚¤ ã¨ å¹³é¢ãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 	if (CollisionRayPlane(rayStart, rayDirection, planeNormal, planeDist, distance, interPlane) == false) 
 	{
 		return false; 
 	}
 
-	// ƒŒƒC ‚Æ •½–Ê‚ÌŒğ“_ ‚ª OŠpŒ`‚Ì“à‘¤‚©
-	// p0 ¨ p1
+	// ãƒ¬ã‚¤ ã¨ å¹³é¢ã®äº¤ç‚¹ ãŒ ä¸‰è§’å½¢ã®å†…å´ã‹
+	// p0 â†’ p1
 	Vector3 pt_p0 = triPos0 - interPlane;
 	Vector3 p0_p1 = triPos1 - triPos0;
 	Vector3 m1 = pt_p0.Cross(p0_p1);
-	// •Ó‚ÌŠO‘¤ ¨ “–‚½‚ç‚È‚¢
+	// è¾ºã®å¤–å´ â†’ å½“ãŸã‚‰ãªã„
 	if (m1.Dot(triNormal) < -Epsilon) { return false; }
 
-	// p1 ¨ p2
+	// p1 â†’ p2
 	Vector3 pt_p1 = triPos1 - interPlane;
 	Vector3 p1_p2 = triPos2 - triPos1;
 	Vector3 m2 = pt_p1.Cross(p1_p2);
-	// •Ó‚ÌŠO‘¤ ¨ “–‚½‚ç‚È‚¢
+	// è¾ºã®å¤–å´ â†’ å½“ãŸã‚‰ãªã„
 	if (m2.Dot(triNormal) < -Epsilon) { return false; }
 	
-	// p2 ¨ p0
+	// p2 â†’ p0
 	Vector3 pt_p2 = triPos2 - interPlane;
 	Vector3 p2_p0 = triPos2 - triPos0;
 	Vector3 m3 = pt_p2.Cross(p2_p0);
-	// •Ó‚ÌŠO‘¤ ¨ “–‚½‚ç‚È‚¢
+	// è¾ºã®å¤–å´ â†’ å½“ãŸã‚‰ãªã„
 	if (m3.Dot(triNormal) < -Epsilon) { return false; }
 
-	// “à‘¤
+	// å†…å´
 	inter = interPlane;
 
 	return true;
@@ -154,7 +154,7 @@ bool YMath::CollisionRayTriangle(
 #pragma endregion
 
 
-#pragma region ü‚Æ‹…
+#pragma region ç·šã¨çƒ
 
 bool YMath::CollisionRaySphere(
 	const Vector3& rayStart, const Vector3& rayDirection,
@@ -163,14 +163,14 @@ bool YMath::CollisionRaySphere(
 	Vector3 m = rayStart - sphereCenter;
 	float b = m.Dot(rayDirection);
 	float c = m.Dot(m) - (sphereRad * sphereRad);
-	// ƒŒƒC‚Ìn“_ ‚ª ‹…‚ÌŠO‘¤ (c > 0) && ƒŒƒC ‚ª ‹… ‚©‚ç—£‚ê‚Ä‚¢‚­•ûŒü (b > 0) ¨ “–‚½‚ç‚È‚¢
+	// ãƒ¬ã‚¤ã®å§‹ç‚¹ ãŒ çƒã®å¤–å´ (c > 0) && ãƒ¬ã‚¤ ãŒ çƒ ã‹ã‚‰é›¢ã‚Œã¦ã„ãæ–¹å‘ (b > 0) â†’ å½“ãŸã‚‰ãªã„
 	if (c > 0.0f && b > 0.0f) { return false; }
 
 	float discr = b * b - c;
-	// •‰ ¨ ƒŒƒC ‚ª ‹… ‚ğŠO‚ê‚Ä‚¢‚é ¨ “–‚½‚ç‚È‚¢
+	// è²  â†’ ãƒ¬ã‚¤ ãŒ çƒ ã‚’å¤–ã‚Œã¦ã„ã‚‹ â†’ å½“ãŸã‚‰ãªã„
 	if (discr < 0.0f) { return false; }
 
-	// Œğ·
+	// äº¤å·®
 	return true;
 }
 bool YMath::CollisionRaySphere(
@@ -199,28 +199,28 @@ bool YMath::CollisionRaySphere(
 	Vector3 m = rayStart - sphereCenter;
 	float b = m.Dot(rayDirection);
 	float c = m.Dot(m) - (sphereRad * sphereRad);
-	// ƒŒƒC‚Ìn“_ ‚ª ‹…‚ÌŠO‘¤ (c > 0) && ƒŒƒC ‚ª ‹… ‚©‚ç—£‚ê‚Ä‚¢‚­•ûŒü (b > 0) ¨ “–‚½‚ç‚È‚¢
+	// ãƒ¬ã‚¤ã®å§‹ç‚¹ ãŒ çƒã®å¤–å´ (c > 0) && ãƒ¬ã‚¤ ãŒ çƒ ã‹ã‚‰é›¢ã‚Œã¦ã„ãæ–¹å‘ (b > 0) â†’ å½“ãŸã‚‰ãªã„
 	if (c > 0.0f && b > 0.0f) { return false; }
 
 	float discr = b * b - c;
-	// •‰ ¨ ƒŒƒC ‚ª ‹… ‚ğŠO‚ê‚Ä‚¢‚é ¨ “–‚½‚ç‚È‚¢
+	// è²  â†’ ãƒ¬ã‚¤ ãŒ çƒ ã‚’å¤–ã‚Œã¦ã„ã‚‹ â†’ å½“ãŸã‚‰ãªã„
 	if (discr < 0.0f) { return false; }
 
-	// Œğ·
-	float ts = -b - sqrtf(discr); // n“_
-	float te = -b + sqrtf(discr); // I“_
+	// äº¤å·®
+	float ts = -b - sqrtf(discr); // å§‹ç‚¹
+	float te = -b + sqrtf(discr); // çµ‚ç‚¹
 
-	// t ‚ª •‰ ¨ ƒŒƒC‚Ì“à‘¤
+	// t ãŒ è²  â†’ ãƒ¬ã‚¤ã®å†…å´
 	if (ts < 0) { ts = 0.0f; }
 	if (te < 0) { te = 0.0f; }
 	
-	// ‹——£
+	// è·é›¢
 	distance = ts;
 	//distance = te;
 
-	// Œğ·“_
-	start = rayStart + (ts * rayDirection); // n“_
-	end	  = rayStart + (te * rayDirection); // I“_
+	// äº¤å·®ç‚¹
+	start = rayStart + (ts * rayDirection); // å§‹ç‚¹
+	end	  = rayStart + (te * rayDirection); // çµ‚ç‚¹
 
 	return true;
 }
@@ -228,18 +228,18 @@ bool YMath::CollisionRaySphere(
 #pragma endregion
 
 
-#pragma region •½–Ê‚Æ‹…
+#pragma region å¹³é¢ã¨çƒ
 
 bool YMath::CollisionPlaneSphere(
 	const Vector3& planeNormal, const float planeDist, 
 	const Vector3& sphereCenter, const float sphereRad)
 {
-	// Œ´“_ ¨ ‹… ‚Ì‹——£
+	// åŸç‚¹ â†’ çƒ ã®è·é›¢
 	float sphereDist = sphereCenter.Dot(planeNormal);
 	
-	// (‹… - •½–Ê) = ‹… ¨ •½–Ê ‚Ì‹——£
+	// (çƒ - å¹³é¢) = çƒ â†’ å¹³é¢ ã®è·é›¢
 	float dist = sphereDist - planeDist;
-	// (‹——£(â‘Î’l) > ‹…‚Ì”¼Œa) = “–‚½‚Á‚Ä‚È‚¢
+	// (è·é›¢(çµ¶å¯¾å€¤) > çƒã®åŠå¾„) = å½“ãŸã£ã¦ãªã„
 	if (fabsf(dist) > sphereRad) { return false; }
 
 	return true;
@@ -249,15 +249,15 @@ bool YMath::CollisionPlaneSphere(
 	const Vector3& sphereCenter, const float sphereRad,
 	Vector3& inter)
 {
-	// Œ´“_ ¨ ‹… ‚Ì‹——£
+	// åŸç‚¹ â†’ çƒ ã®è·é›¢
 	float sphereDist = sphereCenter.Dot(planeNormal);
 
-	// (‹… - •½–Ê) = ‹… ¨ •½–Ê ‚Ì‹——£
+	// (çƒ - å¹³é¢) = çƒ â†’ å¹³é¢ ã®è·é›¢
 	float dist = sphereDist - planeDist;
-	// ‹——£(â‘Î’l) > ‹…‚Ì”¼Œa = “–‚½‚Á‚Ä‚È‚¢
+	// è·é›¢(çµ¶å¯¾å€¤) > çƒã®åŠå¾„ = å½“ãŸã£ã¦ãªã„
 	if (fabsf(dist) > sphereRad) { return false; }
 
-	// ‹^—Œğ“_ (•½–Êã‚ÌÅ‹ßÚ“_)
+	// ç–‘ä¼¼äº¤ç‚¹ (å¹³é¢ä¸Šã®æœ€è¿‘æ¥ç‚¹)
 	inter = -dist * planeNormal + sphereCenter;
 
 	return true;
@@ -266,11 +266,11 @@ bool YMath::CollisionPlaneSphere(
 #pragma endregion
 
 
-#pragma region OŠpŒ`‚Æ‹…
+#pragma region ä¸‰è§’å½¢ã¨çƒ
 
 static YMath::Vector3 ClosestPointTriangle(const Vector3& point, const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2)
 {
-	// p0 ‚Ì ŠO‘¤ ‚©
+	// p0 ã® å¤–å´ ã‹
 	Vector3 p0_p1 = triPos1 - triPos0;
 	Vector3 p0_p2 = triPos2 - triPos0;
 	Vector3 p0_pt = point - triPos0;
@@ -280,11 +280,11 @@ static YMath::Vector3 ClosestPointTriangle(const Vector3& point, const Vector3& 
 
 	if (d1 <= 0.0f && d2 <= 0.0f)
 	{
-		// p0 ‚ª Å‹ß–T
+		// p0 ãŒ æœ€è¿‘å‚
 		return triPos0;
 	}
 
-	// p1 ‚Ì ŠO‘¤ ‚©
+	// p1 ã® å¤–å´ ã‹
 	Vector3 p1_pt = point - triPos1;
 
 	float d3 = p0_p1.Dot(p1_pt);
@@ -292,44 +292,44 @@ static YMath::Vector3 ClosestPointTriangle(const Vector3& point, const Vector3& 
 
 	if (d3 >= 0.0f && d4 <= d3)
 	{
-		// p1 ‚ª Å‹ß–T
+		// p1 ãŒ æœ€è¿‘å‚
 		return triPos1;
 	}
 
-	// p0_p1 ‚Ì “à‘¤‚©
+	// p0_p1 ã® å†…å´ã‹
 	float vc = d1 * d4 - d3 * d2;
 	if (vc <= 0.0f && d1 >= 0.0f && d3 <= 0.0f)
 	{
-		// p0_p1 ã‚É‘Î‚·‚éË‰e‚ğ•Ô‚·
+		// p0_p1 ä¸Šã«å¯¾ã™ã‚‹å°„å½±ã‚’è¿”ã™
 		float v = d1 / (d1 - d3);
 		return triPos0 + v * p0_p1;
 	}
 
-	// p2 ‚Ì ŠO‘¤‚©
+	// p2 ã® å¤–å´ã‹
 	Vector3 p2_pt = point - triPos2;
 
 	float d5 = p0_p1.Dot(p2_pt);
 	float d6 = p0_p2.Dot(p2_pt);
 	if (d6 >= 0.0f && d5 <= d6)
 	{
-		// p2 ‚ª Å‹ß–T
+		// p2 ãŒ æœ€è¿‘å‚
 		return triPos2;
 	}
 
-	// p0_p2 ‚Ì “à‘¤‚© 
+	// p0_p2 ã® å†…å´ã‹ 
 	float vb = d5 * d2 - d1 * d6;
 	if (vb <= 0.0f && d2 >= 0.0f && d6 <= 0.0f)
 	{
-		// p0_p2 ã‚É‘Î‚·‚éË‰e‚ğ•Ô‚·
+		// p0_p2 ä¸Šã«å¯¾ã™ã‚‹å°„å½±ã‚’è¿”ã™
 		float w = d2 / (d2 - d6);
 		return triPos0 + w * p0_p2;
 	}
 
-	// p1_p2 ‚Ì “à‘¤‚©
+	// p1_p2 ã® å†…å´ã‹
 	float va = d3 * d6 - d5 * d4;
 	if (va <= 0.0f && (d4 - d3) >= 0.0f && (d5 - d6) >= 0.0f)
 	{
-		// p1_p2 ã‚É‘Î‚·‚éË‰e‚ğ•Ô‚·
+		// p1_p2 ä¸Šã«å¯¾ã™ã‚‹å°„å½±ã‚’è¿”ã™
 		float w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
 		return triPos1 + w * (triPos2 - triPos1);
 	}
@@ -345,12 +345,12 @@ bool YMath::CollisionTriangleSphere(
 	const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
 	const Vector3& sphereCenter, const float sphereRad)
 {
-	// ‹… ‚Ì OŠpŒ`ã ‚Ì Å‹ßÚ“_
+	// çƒ ã® ä¸‰è§’å½¢ä¸Š ã® æœ€è¿‘æ¥ç‚¹
 	Vector3 closest = ClosestPointTriangle(sphereCenter, triPos0, triPos1, triPos2);
 	
-	// ‹… ¨ Å‹ßÚ“_
+	// çƒ â†’ æœ€è¿‘æ¥ç‚¹
 	Vector3 v = closest - sphereCenter;
-	// (‹… ¨ Å‹ßÚ“_) ^ 2 > ‹…‚Ì”¼Œa ^ 2 = “–‚½‚Á‚Ä‚È‚¢
+	// (çƒ â†’ æœ€è¿‘æ¥ç‚¹) ^ 2 > çƒã®åŠå¾„ ^ 2 = å½“ãŸã£ã¦ãªã„
 	if (v.Dot(v) > sphereRad * sphereRad) { return false; }
 
 	return true;
@@ -360,15 +360,15 @@ bool YMath::CollisionTriangleSphere(
 	const Vector3& sphereCenter, const float sphereRad, 
 	Vector3& inter)
 {
-	// ‹… ‚Ì OŠpŒ`ã ‚Ì Å‹ßÚ“_
+	// çƒ ã® ä¸‰è§’å½¢ä¸Š ã® æœ€è¿‘æ¥ç‚¹
 	Vector3 closest = ClosestPointTriangle(sphereCenter, triPos0, triPos1, triPos2);
 
-	// ‹… ¨ Å‹ßÚ“_
+	// çƒ â†’ æœ€è¿‘æ¥ç‚¹
 	Vector3 v = closest - sphereCenter;
-	// (‹… ¨ Å‹ßÚ“_) ^ 2 > ‹…‚Ì”¼Œa ^ 2 = “–‚½‚Á‚Ä‚È‚¢
+	// (çƒ â†’ æœ€è¿‘æ¥ç‚¹) ^ 2 > çƒã®åŠå¾„ ^ 2 = å½“ãŸã£ã¦ãªã„
 	if (v.Dot(v) > sphereRad * sphereRad) { return false; }
 
-	// ‹^—Œğ“_ (OŠpŒ`ã‚ÌÅ‹ßÚ“_)
+	// ç–‘ä¼¼äº¤ç‚¹ (ä¸‰è§’å½¢ä¸Šã®æœ€è¿‘æ¥ç‚¹)
 	inter = closest;
 
 	return true;
@@ -392,7 +392,7 @@ bool YMath::CollisionBoxBox2D(
 	const Vector2& boxCenter1, const Vector2& boxRadSize1, 
 	const Vector2& boxCenter2, const Vector2& boxRadSize2)
 {
-	// ‚¨Œİ‚¢‚Ì—¼’[‚Å“àŠO”»’è
+	// ãŠäº’ã„ã®ä¸¡ç«¯ã§å†…å¤–åˆ¤å®š
 	bool xColl1 = boxCenter1.x_ - boxRadSize1.x_ <= boxCenter2.x_ + boxRadSize2.x_;
 	bool xColl2 = boxCenter1.x_ + boxRadSize1.x_ >= boxCenter2.x_ - boxRadSize2.x_;
 	bool yColl1 = boxCenter1.y_ - boxRadSize1.y_ <= boxCenter2.y_ + boxRadSize2.y_;

@@ -17,22 +17,22 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
@@ -41,38 +41,38 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 
 	private:
 
-		// Šj
+		// æ ¸
 		Transform core_;
 
 
-		// ’n‹…
+		// åœ°çƒ
 		Transform earthTra_;
 		std::unique_ptr<EarthDrawer> earthDra_;
 
-		// ƒXƒe[ƒWƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (g‚¤—p)
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½¿ã†ç”¨)
 		std::array<Transform, 24> aliveStages_;
 
-		// ƒXƒe[ƒWƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (g‚í‚È‚¢—p)
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½¿ã‚ãªã„ç”¨)
 		Transform deadStage_;
 
-		// ƒXƒe[ƒW•`‰æƒNƒ‰ƒX
+		// ã‚¹ãƒ†ãƒ¼ã‚¸æç”»ã‚¯ãƒ©ã‚¹
 		std::vector<std::unique_ptr<StageDrawer>> stageDras_;
 
 
-		// ƒXƒe[ƒWƒJ[ƒh—pƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (e)
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰ç”¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (è¦ª)
 		std::vector<Transform> cards_;
 
-		// ƒXƒe[ƒWƒJ[ƒh•`‰æƒNƒ‰ƒX
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰æç”»ã‚¯ãƒ©ã‚¹
 		std::vector<std::unique_ptr<CardDrawer>> cardDras_;
 
 
-		// •‘Ñ
+		// é»’å¸¯
 		std::unique_ptr<UILetterBox> letterBox_;
 
 		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
@@ -80,30 +80,30 @@ namespace YGame
 		
 		std::unique_ptr<UIButton> startButton_;
 
-		// “V‹…
+		// å¤©çƒ
 		Transform skydomeTra_;
 		std::unique_ptr<SkydomeDrawer> skydome_;
 
 
-		// ----- ƒAƒjƒ[ƒVƒ‡ƒ“ ----- //
+		// ----- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ ----- //
 
 		int32_t stageIndex_ = 0;
 
-		// “®ì’†‚©
+		// å‹•ä½œä¸­ã‹
 		bool isAct_ = false;
 
 
-		// ŠJn‰ñ“]—pƒC[ƒWƒ“ƒO
+		// é–‹å§‹æ™‚å›è»¢ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<float> startRotaEas_;
 
-		// ŠJn‰ñ“]—pƒ^ƒCƒ}[
+		// é–‹å§‹æ™‚å›è»¢ç”¨ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer startRotaTim_;
 
 
-		// ƒXƒe[ƒW‰ñ“]—pƒC[ƒWƒ“ƒO
+		// ã‚¹ãƒ†ãƒ¼ã‚¸å›è»¢ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<float> stageRotaEas_;
 
-		// ƒXƒe[ƒW‰ñ“]—pƒpƒ[
+		// ã‚¹ãƒ†ãƒ¼ã‚¸å›è»¢ç”¨ãƒ‘ãƒ¯ãƒ¼
 		std::vector<YMath::Power> stageRotaPows_;
 	
 	private:
@@ -116,7 +116,7 @@ namespace YGame
 
 	private:
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰ñ“]XV
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å›è»¢æ›´æ–°
 		void UpdateRotaAnimation();
 
 	};

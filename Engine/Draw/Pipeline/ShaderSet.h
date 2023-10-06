@@ -11,38 +11,38 @@ namespace YGame
 
 	public:
 
-		// ƒVƒF[ƒ_[‚Ìí—Ş
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ç¨®é¡
 		enum class ShaderType
 		{
-			// ’¸“_ƒVƒF[ƒ_[
+			// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 			eVertex,
 			
-			// ƒWƒIƒƒgƒŠƒVƒF[ƒ_[
+			// ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 			eGeometry,
 
-			// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+			// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 			ePixel,
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+		/// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="shaderFileName"> : ƒVƒF[ƒ_[‚Ìí—Ş</param>
-		/// <param name="type"> : ƒVƒF[ƒ_[‚Ìí—Ş</param>
+		/// <param name="shaderFileName"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ç¨®é¡</param>
+		/// <param name="type"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ç¨®é¡</param>
 		void LoadShader(const std::string& shaderFileName, const ShaderType type);
 
 		/// <summary>
-		/// ƒVƒF[ƒ_[ƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <param name="type"> : ƒVƒF[ƒ_[‚Ìí—Ş</param>
-		/// <returns>ƒVƒF[ƒ_[ƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="type"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ç¨®é¡</param>
+		/// <returns>ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3DBlob* ShaderPtr(const ShaderType type);
 
 	private:
 
-		// ƒVƒF[ƒ_[Ši”[”z—ñ
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼æ ¼ç´é…åˆ—
 		std::unordered_map<
 			ShaderType,
 			Microsoft::WRL::ComPtr<ID3DBlob>> shaders_;
@@ -50,13 +50,13 @@ namespace YGame
 	private:
 
 		/// <summary>
-		/// ƒVƒF[ƒ_[ƒIƒuƒWƒFƒNƒg“Ç‚İ‚İ
+		/// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆèª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="fileName"> : ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹–¼</param>
-		/// <param name="entryPoint"> : ƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg (main)</param>
-		/// <param name="target"> : ƒ^[ƒQƒbƒg (í—Ş + ƒo[ƒWƒ‡ƒ“)</param>
-		/// <param name="shaderBlob"> : ƒVƒF[ƒ_[ƒIƒuƒWƒFƒNƒg</param>
-		/// <param name="errorBlob"> : ƒGƒ‰[—p</param>
+		/// <param name="fileName"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <param name="entryPoint"> : ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆ (main)</param>
+		/// <param name="target"> : ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ (ç¨®é¡ + ãƒãƒ¼ã‚¸ãƒ§ãƒ³)</param>
+		/// <param name="shaderBlob"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
+		/// <param name="errorBlob"> : ã‚¨ãƒ©ãƒ¼ç”¨</param>
 		void CreateShaderObject(
 			const wchar_t* fileName,
 			const char* entryPoint,
@@ -65,9 +65,9 @@ namespace YGame
 			ID3DBlob* errorBlob);
 
 		/// <summary>
-		/// “Ç‚İ‚İƒGƒ‰[ˆ—
+		/// èª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼æ™‚å‡¦ç†
 		/// </summary>
-		/// <param name="errorBlob"> : ƒGƒ‰[—p</param>
+		/// <param name="errorBlob"> : ã‚¨ãƒ©ãƒ¼ç”¨</param>
 		void LoadErrorProcess(ID3DBlob* errorBlob);
 
 	};

@@ -11,7 +11,7 @@
 
 #include "StageManager.h"
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YGame::PlayScene;
 using namespace YDX;
@@ -21,117 +21,117 @@ using namespace YGame;
 
 #pragma endregion 
 
-#pragma region StaticŠÖ˜A
+#pragma region Staticé–¢é€£
 #pragma endregion 
 
 
-#pragma region “Ç‚Ýž‚Ý
+#pragma region èª­ã¿è¾¼ã¿
 void PlayScene::Load()
 {
 	pCharacterMan_ = CharacterManager::GetInstance();
 	
 	pMapChipManager_ = MapChipManager::GetInstance();
 
-	// •`‰æƒNƒ‰ƒX
+	// æç”»ã‚¯ãƒ©ã‚¹
 	BaseDrawer::StaticInitialize(&transferVP_);
 	
-	// ƒvƒŒƒCƒ„[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	Player::StaticInitialize(&scrollCamera_);
 	
-	// ƒyƒbƒg
+	// ãƒšãƒƒãƒˆ
 	IPet::StaticInitialize(&scrollCamera_);
 }
 #pragma endregion
 
 
-#pragma region ‰Šú‰»
+#pragma region åˆæœŸåŒ–
 void PlayScene::Initialize()
 {
 	StageManager::GetInstance()->Reset();
 
 	pLevel_ = Level::LoadJson("levelData.json");
 
-	// ƒ}ƒbƒvƒ`ƒbƒv‰Šú‰»
+	// ãƒžãƒƒãƒ—ãƒãƒƒãƒ—åˆæœŸåŒ–
 	pMapChipManager_->Initialize(StageManager::GetInstance()->CurrentStageIndex() + 1, Vector3(-17.0f, +10.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
 
-	// ƒQ[ƒ€ƒLƒƒƒ‰ƒNƒ^[ƒ}ƒl[ƒWƒƒ[‰Šú‰»
+	// ã‚²ãƒ¼ãƒ ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼åˆæœŸåŒ–
 	pCharacterMan_->Initialize();
 
-	// ƒJƒƒ‰‰Šú‰»
+	// ã‚«ãƒ¡ãƒ©åˆæœŸåŒ–
 	scrollCamera_.Initialize(Vector3(-15.0f, +10.0f, -30.0f), nullptr, Vector3());
 
-	// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“‰Šú‰»
+	// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åˆæœŸåŒ–
 	transferVP_.Initialize();
 
-	// ƒLƒƒƒ‰ƒNƒ^[
+	// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
 	{
-		// ƒvƒŒƒCƒ„[
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		{
-			// ƒvƒŒƒCƒ„[¶¬
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”Ÿæˆ
 			Player* newPlayer = new Player();
 			
-			// ƒyƒbƒg(ƒEƒ})¶¬
+			// ãƒšãƒƒãƒˆ(ã‚¦ãƒž)ç”Ÿæˆ
 			Horse* newHorse = new Horse();
 
-			// ƒyƒbƒg‰Šú‰»
+			// ãƒšãƒƒãƒˆåˆæœŸåŒ–
 			newHorse->Initialize({ {}, {}, {1.0f,1.0f,1.0f} });
 
-			// ƒvƒŒƒCƒ„[‰Šú‰»
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆæœŸåŒ–
 			newPlayer->Initialize(
 				{ {-100.0f,-100.0f,-100.0f}, {}, {1.0f,1.0f,1.0f} },
 				newHorse
 			);
 
-			// ‘}“ü
+			// æŒ¿å…¥
 			pCharacterMan_->PushBack(newHorse);
 			pCharacterMan_->PushBack(newPlayer);
 		}
 
-		// ƒXƒ‰ƒCƒ€
+		// ã‚¹ãƒ©ã‚¤ãƒ 
 		{
-			// ƒXƒ‰ƒCƒ€¶¬
+			// ã‚¹ãƒ©ã‚¤ãƒ ç”Ÿæˆ
 			Slime* newSlime = new Slime();
 
-			// ƒXƒ‰ƒCƒ€‰Šú‰»
+			// ã‚¹ãƒ©ã‚¤ãƒ åˆæœŸåŒ–
 			newSlime->Initialize({ {10.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
-			// ‘}“ü
+			// æŒ¿å…¥
 			pCharacterMan_->PushBack(newSlime);
 		}
 
-		// ƒXƒ‰ƒCƒ€
+		// ã‚¹ãƒ©ã‚¤ãƒ 
 		{
-			// ƒXƒ‰ƒCƒ€¶¬
+			// ã‚¹ãƒ©ã‚¤ãƒ ç”Ÿæˆ
 			Slime* newSlime = new Slime();
 
-			// ƒXƒ‰ƒCƒ€‰Šú‰»
+			// ã‚¹ãƒ©ã‚¤ãƒ åˆæœŸåŒ–
 			newSlime->Initialize({ {40.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
-			// ‘}“ü
+			// æŒ¿å…¥
 			pCharacterMan_->PushBack(newSlime);
 		}
 
-		// ƒXƒ‰ƒCƒ€
+		// ã‚¹ãƒ©ã‚¤ãƒ 
 		{
-			// ƒXƒ‰ƒCƒ€¶¬
+			// ã‚¹ãƒ©ã‚¤ãƒ ç”Ÿæˆ
 			Slime* newSlime = new Slime();
 
-			// ƒXƒ‰ƒCƒ€‰Šú‰»
+			// ã‚¹ãƒ©ã‚¤ãƒ åˆæœŸåŒ–
 			newSlime->Initialize({ {80.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
-			// ‘}“ü
+			// æŒ¿å…¥
 			pCharacterMan_->PushBack(newSlime);
 		}
 
-		// ƒXƒ‰ƒCƒ€
+		// ã‚¹ãƒ©ã‚¤ãƒ 
 		{
-			// ƒXƒ‰ƒCƒ€¶¬
+			// ã‚¹ãƒ©ã‚¤ãƒ ç”Ÿæˆ
 			Slime* newSlime = new Slime();
 
-			// ƒXƒ‰ƒCƒ€‰Šú‰»
+			// ã‚¹ãƒ©ã‚¤ãƒ åˆæœŸåŒ–
 			newSlime->Initialize({ {120.0f,20.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
-			// ‘}“ü
+			// æŒ¿å…¥
 			pCharacterMan_->PushBack(newSlime);
 		}
 	}
@@ -142,10 +142,10 @@ void PlayScene::Initialize()
 	uiMan_.Initialize();
 
 	
-	// ŠJŽn‰‰oƒ^ƒCƒ}[
+	// é–‹å§‹æ¼”å‡ºã‚¿ã‚¤ãƒžãƒ¼
 	startTimer_.Initialize(120, true);
 
-	// ƒ}ƒbƒv‚Ì‘å‚«‚³‚ÅƒIƒtƒZƒbƒg’l•Ï‚¦‚é
+	// ãƒžãƒƒãƒ—ã®å¤§ãã•ã§ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤å¤‰ãˆã‚‹
 	Vector3 offset = { pMapChipManager_->CurrentMapPointer()->Size().x_, pMapChipManager_->CurrentMapPointer()->Size().y_, 0.0f };
 	cameraOffset_.Initialize(offset, {}, 2.0f);
 
@@ -158,14 +158,14 @@ void PlayScene::Initialize()
 #pragma endregion
 
 
-#pragma region I—¹ˆ—
+#pragma region çµ‚äº†å‡¦ç†
 void PlayScene::Finalize()
 {
 }
 #pragma endregion
 
 
-#pragma region XV
+#pragma region æ›´æ–°
 void PlayScene::Update()
 {
 	bool isReset = false;
@@ -182,7 +182,7 @@ void PlayScene::Update()
 	{
 		startTimer_.Update();
 
-		// ŠJŽn‰‰oI—¹Žž
+		// é–‹å§‹æ¼”å‡ºçµ‚äº†æ™‚
 		if (startTimer_.IsEnd() && isStart_ == false)
 		{
 			uiMan_.PlayStartAnimation();
@@ -196,7 +196,7 @@ void PlayScene::Update()
 
 		pMapChipManager_->Update();
 
-		// ŠJŽn‰‰o’†XV‚µ‚È‚¢
+		// é–‹å§‹æ¼”å‡ºä¸­æ›´æ–°ã—ãªã„
 		pCharacterMan_->Update(isStart_);
 
 		DamageEmitter::Update();
@@ -209,7 +209,7 @@ void PlayScene::Update()
 
 	pCharacterMan_->DrawDebugText();
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_DOWN))
 	{
 		SceneManager::GetInstance()->Transition("PLAY", "");
@@ -221,7 +221,7 @@ void PlayScene::Update()
 #pragma endregion
 
 
-#pragma region •`‰æ
+#pragma region æç”»
 void PlayScene::Draw()
 {
 	pLevel_->Draw();

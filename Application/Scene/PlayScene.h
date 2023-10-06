@@ -10,47 +10,47 @@
 
 namespace YGame
 {
-	// ƒQ[ƒ€ƒV[ƒ“
+	// ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 	class PlayScene : public BaseScene
 	{
 
 	public:
 
-#pragma region ƒŠƒ\[ƒX
+#pragma region ãƒªã‚½ãƒ¼ã‚¹
 
 
 #pragma endregion
 
-#pragma region ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+#pragma region ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-		// ƒŒƒxƒ‹
+		// ãƒ¬ãƒ™ãƒ«
 		Level* pLevel_ = nullptr;
 
-		// ƒLƒƒƒ‰ƒNƒ^[ƒ}ƒl[ƒWƒƒ[
+		// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		CharacterManager* pCharacterMan_ = nullptr;
 
-		// ƒ}ƒbƒvƒ`ƒbƒvƒ}ƒl[ƒWƒƒ[
+		// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		MapChipManager* pMapChipManager_ = nullptr;
 
-		// ƒXƒNƒ[ƒ‹ƒJƒƒ‰
+		// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚«ãƒ¡ãƒ©
 		ScrollCamera scrollCamera_;
 
-		// “]‘——pƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+		// è»¢é€ç”¨ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 		ViewProjection transferVP_;
 
-		// UIƒ}ƒl[ƒWƒƒ[
+		// UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		UIManager uiMan_;
 		
-		// ŠJnƒtƒ‰ƒO
+		// é–‹å§‹ãƒ•ãƒ©ã‚°
 		bool isStart_ = false;
 
-		// ŠJn‰‰o—pƒ^ƒCƒ}[
+		// é–‹å§‹æ¼”å‡ºç”¨ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer startTimer_;
 
-		// ŠJn‰‰o—pƒJƒƒ‰ƒIƒtƒZƒbƒg
+		// é–‹å§‹æ¼”å‡ºç”¨ã‚«ãƒ¡ãƒ©ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 		YMath::Ease<YMath::Vector3> cameraOffset_;
 		
-		// ’â~ƒtƒ‰ƒO
+		// åœæ­¢ãƒ•ãƒ©ã‚°
 		bool isStop_ = false;
 
 		PauseManager pause_;
@@ -60,36 +60,36 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// “Ç‚İ‚İ
+		/// èª­ã¿è¾¼ã¿
 		/// </summary>
 		void Load() override;
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize() override;
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Finalize() override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update() override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw() override;
 
 	public:
 
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		PlayScene() = default;
 
-		// ƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		~PlayScene() = default;
 
 	};

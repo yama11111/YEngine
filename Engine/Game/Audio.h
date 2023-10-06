@@ -9,46 +9,46 @@
 
 namespace YGame
 {
-	// ƒI[ƒfƒBƒIƒNƒ‰ƒX
+	// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¯ãƒ©ã‚¹
 	class Audio
 	{
 	private:
 
-		// ƒ`ƒƒƒ“ƒNƒwƒbƒ_
+		// ãƒãƒ£ãƒ³ã‚¯ãƒ˜ãƒƒãƒ€
 		struct ChunkHeader 
 		{
-			char id_[4]; // ƒ`ƒƒƒ“ƒN‚²‚Æ‚Ìid
-			int32_t size_; // ƒ`ƒƒƒ“ƒNƒTƒCƒY
+			char id_[4]; // ãƒãƒ£ãƒ³ã‚¯ã”ã¨ã®id
+			int32_t size_; // ãƒãƒ£ãƒ³ã‚¯ã‚µã‚¤ã‚º
 		};
-		// RIFFƒwƒbƒ_ƒ`ƒƒƒ“ƒN
+		// RIFFãƒ˜ãƒƒãƒ€ãƒãƒ£ãƒ³ã‚¯
 		struct RiffHeader
 		{
 			ChunkHeader chunk_; // "RIFF"
 			char type_[4]; // "WAVE"
 		};
-		// FMIƒ`ƒƒƒ“ƒN
+		// FMIãƒãƒ£ãƒ³ã‚¯
 		struct FormatChunk
 		{
 			ChunkHeader chunk_; // "fmt"
-			WAVEFORMATEX fmt_; // ”gŒ`ƒtƒH[ƒ}ƒbƒg
+			WAVEFORMATEX fmt_; // æ³¢å½¢ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 		};
-		// ‰¹ºƒf[ƒ^
+		// éŸ³å£°ãƒ‡ãƒ¼ã‚¿
 		struct SoundData 
 		{
-			// ”gŒ`ƒtƒH[ƒ}ƒbƒg
+			// æ³¢å½¢ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 			WAVEFORMATEX wfex_;
-			// ƒoƒbƒtƒ@‚Ìæ“ªƒAƒhƒŒƒX
+			// ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 			BYTE* pBuff_;
-			// ƒoƒbƒtƒ@ƒTƒCƒY
+			// ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
 			unsigned int buffSize_;
 		};
 
 	private:
 
-		// ‰¹ºƒf[ƒ^
+		// éŸ³å£°ãƒ‡ãƒ¼ã‚¿
 		SoundData sound_{};
 
-		// ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹–¼
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«å
 		std::string fileName_;
 
 		// SourceVoice
@@ -56,74 +56,74 @@ namespace YGame
 
 	private:
 		
-		// Ã“IƒI[ƒfƒBƒIŠi”[—pvector”z—ñ
+		// é™çš„ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªæ ¼ç´ç”¨vectoré…åˆ—
 		static std::vector<std::unique_ptr<Audio>> audios_;
 
 	public:
 		
 		/// <summary>
-		/// ƒI[ƒfƒBƒI“Ç‚İ‚İ(.wav‚Ì‚İ)
+		/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªèª­ã¿è¾¼ã¿(.wavã®ã¿)
 		/// </summary>
-		/// <param name="audioFileName"> : ‰¹ºƒtƒ@ƒCƒ‹–¼</param>
-		/// <returns>ƒI[ƒfƒBƒIƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="audioFileName"> : éŸ³å£°ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <returns>ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒã‚¤ãƒ³ã‚¿</returns>
 		static Audio* Load(const std::string& audioFileName);
 
 		/// <summary>
-		/// ƒI[ƒfƒBƒI“Ç‚İ‚İ(.wav‚Ì‚İ)
+		/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªèª­ã¿è¾¼ã¿(.wavã®ã¿)
 		/// </summary>		
-		/// <param name="directoryPath"> : ƒfƒBƒŒƒNƒgƒŠƒpƒX–¼</param>
-		/// <param name="audioFileName"> : ‰¹ºƒtƒ@ƒCƒ‹–¼</param>
+		/// <param name="directoryPath"> : ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹å</param>
+		/// <param name="audioFileName"> : éŸ³å£°ãƒ•ã‚¡ã‚¤ãƒ«å</param>
 		/// <returns></returns>
 		static Audio* Load(const std::string& directoryPath, const std::string& audioFileName);
 
 		/// <summary>
-		/// ‘Síœ
+		/// å…¨å‰Šé™¤
 		/// </summary>
 		static void AllClear();
 
 	private:
 
 		/// <summary>
-		/// ƒwƒbƒ_[‘{õ
+		/// ãƒ˜ãƒƒãƒ€ãƒ¼æœç´¢
 		/// </summary>
 		static void SearchHeader(std::ifstream& file, const char* chunkId);
 
 	public:
 
 		/// <summary>
-		/// ƒI[ƒfƒBƒIÄ¶
+		/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªå†ç”Ÿ
 		/// </summary>
-		/// <param name="isLoop"> : ƒ‹[ƒv‚·‚é‚©</param>
+		/// <param name="isLoop"> : ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‹</param>
 		void Play(const bool isLoop);
 
 		/// <summary>
-		/// ƒ{ƒŠƒ…[ƒ€İ’è
+		/// ãƒœãƒªãƒ¥ãƒ¼ãƒ è¨­å®š
 		/// </summary>
-		/// <param name="volume"> : ‰¹—Ê</param>
+		/// <param name="volume"> : éŸ³é‡</param>
 		void SetVolume(const float volume);
 
 		/// <summary>
-		/// ƒI[ƒfƒBƒI’â~
+		/// ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªåœæ­¢
 		/// </summary>
 		void Stop();
 
 	public:
 
-		// ƒx[ƒXƒNƒ‰ƒX
+		// ãƒ™ãƒ¼ã‚¹ã‚¯ãƒ©ã‚¹
 		class Base
 		{
 		public:
 
-			// XAudio2ƒGƒ“ƒWƒ“
+			// XAudio2ã‚¨ãƒ³ã‚¸ãƒ³
 			static Microsoft::WRL::ComPtr<IXAudio2> sXAudio2_;
 
-			// ƒ}ƒXƒ^[ƒ{ƒCƒX
+			// ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹
 			static IXAudio2MasteringVoice* sMasterVoice_;
 
 		public:
 
 			/// <summary>
-			/// Ã“I‰Šú‰»
+			/// é™çš„åˆæœŸåŒ–
 			/// </summary>
 			static void StaticInitialize();
 

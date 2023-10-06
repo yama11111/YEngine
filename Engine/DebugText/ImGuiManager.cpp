@@ -8,19 +8,19 @@ using YDX::DescriptorHeap;
 
 void ImGuiManager::Initialize(const InitStatus& state)
 {
-	// nullƒ`ƒFƒbƒN
+	// nullãƒã‚§ãƒƒã‚¯
 	assert(state.hwnd_);
 	assert(state.pDevice_);
 	assert(state.pCmdList_);
 	assert(state.pDescHeap_);
-	// ‘ã“ü
+	// ä»£å…¥
 	pCmdList_= state.pCmdList_;
 	pDescHeap_ = state.pDescHeap_;
 
-	// SRV—pƒnƒ“ƒhƒ‹
+	// SRVç”¨ãƒãƒ³ãƒ‰ãƒ«
 	DescriptorHeap::Handle descHeapHandle{};
 	
-	// SRV‚ð’Ç‰Á
+	// SRVã‚’è¿½åŠ 
 	descHeapHandle = state.pDescHeap_->AddSRV(false);
 
 	// Setup Dear ImGui context
@@ -66,7 +66,7 @@ void ImGuiManager::End()
 
 void ImGuiManager::Draw()
 {
-	// SRVƒq[ƒv‚ÌÝ’èƒRƒ}ƒ“ƒh
+	// SRVãƒ’ãƒ¼ãƒ—ã®è¨­å®šã‚³ãƒžãƒ³ãƒ‰
 	ID3D12DescriptorHeap* ppHeaps[] = { pDescHeap_->Get() };
 	pCmdList_->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 

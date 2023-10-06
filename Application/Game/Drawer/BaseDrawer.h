@@ -21,77 +21,77 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		virtual void Initialize(Transform* pParent, const size_t drawPriority);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update();
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 		/// </summary>
-		/// <param name="index"> : ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†</param>
-		/// <param name="frame"> : Ä¶ƒtƒŒ[ƒ€</param>
-		/// <param name="isRoop"> : ƒ‹[ƒv‚·‚é‚©</param>
+		/// <param name="index"> : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·</param>
+		/// <param name="frame"> : å†ç”Ÿãƒ•ãƒ¬ãƒ¼ãƒ </param>
+		/// <param name="isRoop"> : ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‹</param>
 		void PlayAnimation(const uint16_t index, const uint32_t frame, const bool isRoop = false);
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‚â‚ß‚é
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚„ã‚ã‚‹
 		/// </summary>
-		/// <param name="index"> : ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†</param>
+		/// <param name="index"> : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·</param>
 		void AbortAnimation(const uint16_t index);
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw();
 
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		virtual void DrawDebugTextContent() override;
 
 	public:
 
 		/// <summary>
-		/// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿</returns>
 		Transform* TransformPtr() const { return &obj_->transform_; }
 		
 		/// <summary>
-		/// eƒgƒ‰ƒ“ƒXƒtƒH[ƒ€İ’è
+		/// è¦ªãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ è¨­å®š
 		/// </summary>
-		/// <param name="pParent"> : eƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pParent"> : è¦ªãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿</param>
 		virtual void SetParent(Transform* pParent);
 
 		/// <summary>
-		/// ƒIƒtƒZƒbƒgİ’è
+		/// ã‚ªãƒ•ã‚»ãƒƒãƒˆè¨­å®š
 		/// </summary>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆ</param>
 		void SetOffset(const YMath::Vector3& offset) { offset_ = offset; }
 		
 		/// <summary>
-		/// •`‰æˆÊ’uİ’è
+		/// æç”»ä½ç½®è¨­å®š
 		/// </summary>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		void SetDrawPriority(const size_t drawPriority) { drawPriority_ = drawPriority; }
 
 		/// <summary>
-		/// •`‰æ‚·‚é‚©
+		/// æç”»ã™ã‚‹ã‹
 		/// </summary>
-		/// <param name="isVisible"> : •`‰æ‚·‚é‚©</param>
+		/// <param name="isVisible"> : æç”»ã™ã‚‹ã‹</param>
 		void SetIsVisible(const bool isVisible) { isVisible_ = isVisible; }
 
 		/// <summary>
-		/// •`‰æXV‚·‚é‚©
+		/// æç”»æ›´æ–°ã™ã‚‹ã‹
 		/// </summary>
-		/// <param name="isVisibleUpdate"> : •`‰æXV‚·‚é‚©</param>
+		/// <param name="isVisibleUpdate"> : æç”»æ›´æ–°ã™ã‚‹ã‹</param>
 		void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
 	
 	public:
@@ -103,92 +103,92 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ViewProjection* pVP);
 
 	protected:
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“—pƒ^ƒCƒ}[
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚¿ã‚¤ãƒãƒ¼
 		struct AnimationTimer
 		{
-			// ƒ^ƒCƒ}[
+			// ã‚¿ã‚¤ãƒãƒ¼
 			YMath::Timer timer;
 
-			// ƒ‹[ƒv‚·‚é‚©
+			// ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‹
 			bool isRoop = false;
 		};
 	
 	protected:
 
-		// eƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^
+		// è¦ªãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿
 		Transform* pParent_ = nullptr;
 
-		// ƒIƒtƒZƒbƒg
+		// ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 		YMath::Vector3 offset_;
 		
-		// ƒIƒuƒWƒFƒNƒg
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::unique_ptr<DrawObjectForModel> obj_;
 		
-		// F’è”ƒoƒbƒtƒ@
+		// è‰²å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
-		// ƒ}ƒeƒŠƒAƒ‹’è”ƒoƒbƒtƒ@
+		// ãƒãƒ†ãƒªã‚¢ãƒ«å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBMaterial>> cbMaterial_;
 
-		// •`‰æˆÊ’u
+		// æç”»ä½ç½®
 		size_t drawPriority_ = 0;
 
-		// ƒVƒF[ƒ_[
+		// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 		std::string shaderKey_ = "ModelDefault";
 
-		// •`‰æƒtƒ‰ƒO
+		// æç”»ãƒ•ãƒ©ã‚°
 		bool isVisible_ = true;
 		
-		// •`‰æXVƒtƒ‰ƒO
+		// æç”»æ›´æ–°ãƒ•ãƒ©ã‚°
 		bool isVisibleUpdate_ = true;
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“ƒrƒbƒgƒtƒ‰ƒO
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ“ãƒƒãƒˆãƒ•ãƒ©ã‚°
 		uint16_t animationBitFlag_ = 0;
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒ}[ƒ}ƒbƒv
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒãƒ¼ãƒãƒƒãƒ—
 		std::unordered_map<uint16_t, AnimationTimer> animationTimers_;
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“•Ï“®’l
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å¤‰å‹•å€¤
 		Transform::Status animeStatus_;
 
 	protected:
 
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿
 		static ViewProjection* spVP_;
 
 	protected:
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒ}[‘}“ü
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒãƒ¼æŒ¿å…¥
 		/// </summary>
 		virtual void InsertAnimationTimers() = 0;
 
 		/// <summary>
-		/// ƒTƒuƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+		/// ã‚µãƒ–ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 		/// </summary>
-		/// <param name="index"> : ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†</param>
-		/// <param name="frame"> : Ä¶ƒtƒŒ[ƒ€</param>
+		/// <param name="index"> : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·</param>
+		/// <param name="frame"> : å†ç”Ÿãƒ•ãƒ¬ãƒ¼ãƒ </param>
 		virtual void PlaySubAnimation(const uint16_t index, const uint32_t frame) = 0;
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒ}[XV
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒãƒ¼æ›´æ–°
 		/// </summary>
 		void UpdateAnimationTimer();
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“XV
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 		/// </summary>
 		virtual void UpdateAnimation() = 0;
 
 		/// <summary>
-		/// •`‰æ‚·‚é‚©XV
+		/// æç”»ã™ã‚‹ã‹æ›´æ–°
 		/// </summary>
 		void VisibleUpdate();
 

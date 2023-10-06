@@ -10,50 +10,50 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€î•ñ</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æƒ…å ±</param>
 		void Initialize(const Transform::Status& status);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate) override;
 
 		/// <summary>
-		/// ƒWƒƒƒ“ƒv
+		/// ã‚¸ãƒ£ãƒ³ãƒ—
 		/// </summary>
-		/// <param name="isJumpCount"> : ƒJƒEƒ“ƒg‚·‚é‚©</param>
+		/// <param name="isJumpCount"> : ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã‹</param>
 		void Jump(const bool isJumpCount = true) override;
 
 		/// <summary>
-		/// UŒ‚
+		/// æ”»æ’ƒ
 		/// </summary>
 		void Attack() override;
 
 		/// <summary>
-		/// æ‚ç‚ê‚é
+		/// ä¹—ã‚‰ã‚Œã‚‹
 		/// </summary>
 		void Rideen() override;
 		
 		/// <summary>
-		/// ~‚è‚ç‚ê‚é
+		/// é™ã‚Šã‚‰ã‚Œã‚‹
 		/// </summary>
 		void GotOff() override;
 
 	public:
 
 		/// <summary>
-		/// Õ“Ëî•ñæ“¾
+		/// è¡çªæ™‚æƒ…å ±å–å¾—
 		/// </summary>
-		/// <returns>Õ“Ëî•ñ</returns>
+		/// <returns>è¡çªæ™‚æƒ…å ±</returns>
 		CollisionInfo GetCollisionInfo() override;
 
 		/// <summary>
-		/// æ‚éˆÊ’u‚Ì‚‚³æ“¾
+		/// ä¹—ã‚‹ä½ç½®ã®é«˜ã•å–å¾—
 		/// </summary>
-		/// <returns>æ‚éˆÊ’u‚Ì‚‚³</returns>
+		/// <returns>ä¹—ã‚‹ä½ç½®ã®é«˜ã•</returns>
 		YMath::Vector3 RidingPosHeight() override;
 
 	public:
@@ -65,7 +65,7 @@ namespace YGame
 	protected:
 
 		/// <summary>
-		/// Õ“Ëˆ—
+		/// è¡çªæ™‚å‡¦ç†
 		/// </summary>
 		void Hit() override;
 	};

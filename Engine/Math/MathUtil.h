@@ -4,30 +4,30 @@
 
 namespace YMath
 {
-	// —”‰Šú‰»
+	// ä¹±æ•°åˆæœŸåŒ–
 	void Srand();
 	
-	// —”æ“¾
+	// ä¹±æ•°å–å¾—
 	int GetRand(const int start, const int end);
 	float GetRand(const float start, const float end, const float place);
 	Vector3 GetRand(const Vector3& start, const Vector3& end, const float place);
 
-	// •„†
+	// ç¬¦å·
 	template<typename T>
 	T Sign(const T num);
 	
-	// ”ÍˆÍ“à‚©
+	// ç¯„å›²å†…ã‹
 	template<typename T>
 	bool InRange(const T& num, const T& lower, const T& upper);
 
-	// ”ÍˆÍ§ŒÀ
+	// ç¯„å›²åˆ¶é™
 	template<typename T>
 	T Clamp(const T& num, const T& lower, const T& upper);
 
-	// F•ÏŠ·((0`255)¨(0.0`1.0))
+	// è‰²å¤‰æ›((0ï½255)â†’(0.0ï½1.0))
 	Vector4 GetColor(const int R, const int G, const int B, const int A);
 
-	// “x”‚©‚çƒ‰ƒWƒAƒ“‚É•ÏŠ·
+	// åº¦æ•°ã‹ã‚‰ãƒ©ã‚¸ã‚¢ãƒ³ã«å¤‰æ›
 	float ConvertFromDegreeToRadian(const float degree);
 	
 	Vector3 ConvertFromDegreeToRadian(const Vector3& degree);

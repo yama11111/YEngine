@@ -3,25 +3,25 @@
 
 namespace YGame
 {
-	// ‘®«
+	// å±æ€§
 	enum class AttributeType : uint32_t
 	{
-		// –³‚µ
+		// ç„¡ã—
 		eNone	 = 0,
 
-		// ‘S‚Ä
+		// å…¨ã¦
 		eAll	 = 0xffffffff,
 
-		// ƒvƒŒƒCƒ„[
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		ePlayer	 = 0b1,
 		
-		// ƒyƒbƒg
+		// ãƒšãƒƒãƒˆ
 		ePet	 = 0b1 << 1,
 
-		// ƒGƒlƒ~[
+		// ã‚¨ãƒãƒŸãƒ¼
 		eEnemy	 = 0b1 << 2,
 
-		// ƒAƒCƒeƒ€
+		// ã‚¢ã‚¤ãƒ†ãƒ 
 		eItem	 = 0b1 << 3,
 	};
 }

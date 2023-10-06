@@ -11,20 +11,20 @@ Keys* Keys::GetInstance()
 
 void Keys::Create(const HWND hwnd, IDirectInput8* directInput)
 {
-	// ¶¬
+	// ç”Ÿæˆ
 	for (size_t i = 0; i < 256; i++)
 	{
 		keys_[i] = std::make_unique<unsigned char>();
 		elderKeys_[i] = std::make_unique<unsigned char>();
 	}
 
-	// ƒL[ƒ{[ƒhƒfƒoƒCƒX ¶¬
+	// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ ç”Ÿæˆ
 	YDX::Result(directInput->CreateDevice(GUID_SysKeyboard, &device_, NULL));
 
-	// “ü—Íƒf[ƒ^Œ`®ƒZƒbƒg
+	// å…¥åŠ›ãƒ‡ãƒ¼ã‚¿å½¢å¼ã‚»ãƒƒãƒˆ
 	YDX::Result(device_->SetDataFormat(&c_dfDIKeyboard));
 
-	// ”r‘¼§ŒäƒŒƒxƒ‹ƒZƒbƒg
+	// æ’ä»–åˆ¶å¾¡ãƒ¬ãƒ™ãƒ«ã‚»ãƒƒãƒˆ
 	YDX::Result(device_->SetCooperativeLevel(
 		hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY));
 
@@ -41,13 +41,13 @@ void Keys::Initialize()
 
 void Keys::Update()
 {
-	// 1ƒtƒŒ[ƒ€‘O‚Ìî•ñ‚ğ•Û‘¶
+	// 1ãƒ•ãƒ¬ãƒ¼ãƒ å‰ã®æƒ…å ±ã‚’ä¿å­˜
 	for (int i = 0; i < 256; i++) { *elderKeys_[i] = *keys_[i]; }
 
-	// ÅV‚Ìî•ñ‚ğæ“¾
+	// æœ€æ–°ã®æƒ…å ±ã‚’å–å¾—
 	device_->Acquire();
 
-	// “ü—Íó‘Ô‚ğæ“¾
+	// å…¥åŠ›çŠ¶æ…‹ã‚’å–å¾—
 	BYTE key[256] = {};
 	device_->GetDeviceState(sizeof(key), key);
 

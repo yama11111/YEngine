@@ -4,28 +4,28 @@
 
 namespace YGame
 {
-	// F—p’è”ƒoƒbƒtƒ@
+	// è‰²ç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBColor
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// F (RGBA)
+			// è‰² (RGBA)
 			YMath::Vector4 baseColor = { 1.0f,1.0f,1.0f,1.0f };
 			
-			// ƒeƒNƒXƒ`ƒƒ‚ÌF‚ÌŠ„‡
+			// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è‰²ã®å‰²åˆ
 			YMath::Vector4 texColorRate = { 1.0f,1.0f,1.0f,1.0f };
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBColor";

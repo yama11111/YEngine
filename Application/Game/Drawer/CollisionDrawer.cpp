@@ -18,7 +18,7 @@ CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius,
 
 void CollisionDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::LoadObj("sphere", true);
 }
 
@@ -29,7 +29,7 @@ std::string CollisionDrawer::Name()
 
 void CollisionDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	isVisibleUpdate_ = false;
@@ -38,7 +38,7 @@ void CollisionDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	//cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
-	// ƒ‚ƒfƒ‹‘}“ü
+	// ãƒ¢ãƒ‡ãƒ«æŒ¿å…¥
 	//obj_->SetModel(spModel_);
 	obj_->SetModel(nullptr);
 

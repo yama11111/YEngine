@@ -49,7 +49,7 @@ Vector3 RayCollider::Start() const
 
 bool RayCollider::CheckCollision(const BasePrimitiveCollider& other) const
 {
-	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
+	//  Ç‚  ç‚©   è”²    È‚ e  
 	if (isSlip_ || other.isSlip_) { return false; }
 
 	return other.CheckConcreteCollision(*this);
@@ -88,7 +88,7 @@ void PlaneCollider::Initialize(const Vector3& normal, const float distance, cons
 
 bool PlaneCollider::CheckCollision(const BasePrimitiveCollider& other) const
 {
-	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
+	//  Ç‚  ç‚©   è”²    È‚ e  
 	if (isSlip_ || other.isSlip_) { return false; }
 
 	return other.CheckConcreteCollision(*this);
@@ -142,7 +142,7 @@ void TriangleCollider::CalcTriangleNormal()
 	Vector3 vecPos0ToPos1 = vertices_[1] - vertices_[0];
 	Vector3 vecPos0ToPos2 = vertices_[2] - vertices_[0];
 
-	// ŠOÏ (2•Ó‚É‚’¼‚ÈƒxƒNƒgƒ‹)
+	//  O   (2 Ó‚É    Èƒx N g  )
 	normal_ = vecPos0ToPos1.Cross(vecPos0ToPos2).Normalized();
 }
 Vector3 TriangleCollider::VertexPos(const size_t index) const
@@ -157,7 +157,7 @@ Vector3 TriangleCollider::VertexPos(const size_t index) const
 
 bool TriangleCollider::CheckCollision(const BasePrimitiveCollider& other) const
 {
-	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
+	//  Ç‚  ç‚©   è”²    È‚ e  
 	if (isSlip_ || other.isSlip_) { return false; }
 
 	return other.CheckConcreteCollision(*this);
@@ -213,7 +213,7 @@ Vector3 SphereCollider::Center() const
 
 bool SphereCollider::CheckCollision(const BasePrimitiveCollider& other) const
 {
-	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
+	//  Ç‚  ç‚©   è”²    È‚ e  
 	if (isSlip_ || other.isSlip_) { return false; }
 
 	return other.CheckConcreteCollision(*this);
@@ -278,7 +278,7 @@ Vector2 Box2DCollider::Center() const
 
 bool Box2DCollider::CheckCollision(const BasePrimitiveCollider& other) const
 {
-	// ‚Ç‚¿‚ç‚©‚·‚è”²‚¯‚é‚È‚ç’e‚­
+	//  Ç‚  ç‚©   è”²    È‚ e  
 	if (isSlip_ || other.isSlip_) { return false; }
 
 	return other.CheckConcreteCollision(*this);

@@ -5,84 +5,84 @@
 
 namespace YGame
 {
-	// ƒ}ƒbƒvî•ñ
+	// ãƒãƒƒãƒ—æƒ…å ±
 	struct MapData
 	{
 	
 	public:
 		
-		// ƒ}ƒbƒvƒ`ƒbƒv”Ô†
+		// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ç•ªå·
 		std::vector<std::vector<uint16_t>> chipNums_;
 	
 	public:
 
 		/// <summary>
-		/// csv“Ç‚İ‚İ
+		/// csvèª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="mapFileName"> : ƒ}ƒbƒvƒtƒ@ƒCƒ‹–¼</param>
+		/// <param name="mapFileName"> : ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«å</param>
 		void LoadCSV(const std::string& mapFileName);
 
 		/// <summary>
-		/// Á‹
+		/// æ¶ˆå»
 		/// </summary>
 		void Clear();
 	
 	};
 
-	// ƒ}ƒbƒvƒ`ƒbƒv
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—
 	class IMapChip
 	{
 	
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pMapData"> : ƒ}ƒbƒvƒf[ƒ^ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="leftTop"> : ¶ã</param>
-		/// <param name="chipScale"> : ƒ`ƒbƒv1‚Â‚Ì‘å‚«‚³</param>
+		/// <param name="pMapData"> : ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="leftTop"> : å·¦ä¸Š</param>
+		/// <param name="chipScale"> : ãƒãƒƒãƒ—1ã¤ã®å¤§ãã•</param>
 		void Initialize(MapData* pMapData, const YMath::Vector3& leftTop, const YMath::Vector3& chipScale);
 		
 		/// <summary>
-		/// ‰Šú‰» (ƒ}ƒbƒvƒf[ƒ^)
+		/// åˆæœŸåŒ– (ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿)
 		/// </summary>
-		/// <param name="pMapData"> : ƒ}ƒbƒvƒf[ƒ^ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pMapData"> : ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿</param>
 		void Initialize(MapData* pMapData);
 
 		/// <summary>
-		/// ‰Šú‰» (¶ã + ƒ`ƒbƒvƒTƒCƒY)
+		/// åˆæœŸåŒ– (å·¦ä¸Š + ãƒãƒƒãƒ—ã‚µã‚¤ã‚º)
 		/// </summary>
-		/// <param name="leftTop"> : ¶ã</param>
-		/// <param name="chipScale"> : ƒ`ƒbƒv1‚Â‚Ì‘å‚«‚³</param>
+		/// <param name="leftTop"> : å·¦ä¸Š</param>
+		/// <param name="chipScale"> : ãƒãƒƒãƒ—1ã¤ã®å¤§ãã•</param>
 		void Initialize(const YMath::Vector3& leftTop, const YMath::Vector3& chipScale);
 		
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		virtual void Reset() = 0;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update() = 0;
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() = 0;
 	
 	public:
 
 		/// <summary>
-		/// Õ“Ëˆ—
+		/// è¡çªæ™‚å‡¦ç†
 		/// </summary>
-		/// <param name="collider"> : ƒRƒ‰ƒCƒ_[</param>
+		/// <param name="collider"> : ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
 		void PerfectPixelCollision(MapChipCollider& collider);
 		
 		/// <summary>
-		/// ‘å‚«‚³ (‹éŒ`)
+		/// å¤§ãã• (çŸ©å½¢)
 		/// </summary>
-		/// <returns>‘å‚«‚³ (‹éŒ`)</returns>
+		/// <returns>å¤§ãã• (çŸ©å½¢)</returns>
 		YMath::Vector2 Size();
 	
 	public:
@@ -93,27 +93,27 @@ namespace YGame
 	
 	protected:	
 		
-		// ƒ`ƒbƒv‚²‚Æ‚ÌƒAƒ^ƒŠ”»’è
+		// ãƒãƒƒãƒ—ã”ã¨ã®ã‚¢ã‚¿ãƒªåˆ¤å®š
 		virtual bool CollisionChip(const int x, const int y) = 0;
 	
 	private:
 		
-		// ‰¼ˆÚ“®Œã‚Ìƒ`ƒbƒv‚²‚Æ‚ÌƒAƒ^ƒŠ”»’è
+		// ä»®ç§»å‹•å¾Œã®ãƒãƒƒãƒ—ã”ã¨ã®ã‚¢ã‚¿ãƒªåˆ¤å®š
 		bool CollisionTemporaryMap(const YMath::Vector3& pos, const YMath::Vector3& scale, const YMath::Vector3& spd);
 		
-		// ƒ`ƒbƒv‚²‚Æ‚ÌƒAƒ^ƒŠ”»’è
+		// ãƒãƒƒãƒ—ã”ã¨ã®ã‚¢ã‚¿ãƒªåˆ¤å®š
 		bool CollisionMap(const float left, const float right, const float top, const float bottom);
 	
 	protected:
 		
-		// ƒ}ƒbƒvƒf[ƒ^ƒ|ƒCƒ“ƒ^
+		// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿
 		MapData* pMapData_ = nullptr;
 
 
-		// ƒ`ƒbƒv1ŒÂ•ª‚Ì‘å‚«‚³
+		// ãƒãƒƒãƒ—1å€‹åˆ†ã®å¤§ãã•
 		YMath::Vector3 chipScale_;
 		
-		// ¶ã([0][0])
+		// å·¦ä¸Š([0][0])
 		YMath::Vector3 leftTop_;
 	
 	};

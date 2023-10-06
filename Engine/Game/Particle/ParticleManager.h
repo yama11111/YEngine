@@ -4,45 +4,45 @@
 
 namespace YGame
 {
-	// ƒp[ƒeƒBƒNƒ‹ƒ}ƒl[ƒWƒƒ[
+	// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	class ParticleManager
 	{
 
 	public:
 
 		/// <summary>
-		/// ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		static ParticleManager* GetInstance();
 
 	public:
 
 		/// <summary>
-		/// ƒNƒŠƒA
+		/// ã‚¯ãƒªã‚¢
 		/// </summary>
 		void Clear();
 
 		/// <summary>
-		/// ƒp[ƒeƒBƒNƒ‹‚ğ‘}“ü‚·‚é
+		/// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚’æŒ¿å…¥ã™ã‚‹
 		/// </summary>
-		/// <param name="tag"> : ƒp[ƒeƒBƒNƒ‹ƒ^ƒO</param>
-		/// <param name="particles"> : ƒp[ƒeƒBƒNƒ‹ƒ|ƒCƒ“ƒ^”z—ñ</param>
+		/// <param name="tag"> : ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚¿ã‚°</param>
+		/// <param name="particles"> : ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ãƒã‚¤ãƒ³ã‚¿é…åˆ—</param>
 		void InsertParticles(const std::string& tag, const std::list<BaseParticle*>& particles);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 	private:
 
-		// ƒp[ƒeƒBƒNƒ‹ƒ|ƒCƒ“ƒ^ƒ}ƒbƒv
+		// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ãƒã‚¤ãƒ³ã‚¿ãƒãƒƒãƒ—
 		std::unordered_map<
 			std::string, 
 			std::list<BaseParticle*>> particles_;

@@ -11,48 +11,48 @@ namespace YGame
 
 	public:
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		enum class AnimationType : uint16_t
 		{
-			// —§‚¿
+			// ç«‹ã¡
 			eIdle	 = 0b1,
 
-			// ’…’n
+			// ç€åœ°
 			eLanding = 0b1 << 2,
 
-			// ”í’e
+			// è¢«å¼¾
 			eHit	 = 0b1 << 3,
 
-			// €–S
+			// æ­»äº¡
 			eDead	 = 0b1 << 4,
 		};
 
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
-		/// <returns>ƒvƒŒƒCƒ„[•`‰æƒNƒ‰ƒXƒ|ƒCƒ“ƒ^ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</returns>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
+		/// <returns>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æç”»ã‚¯ãƒ©ã‚¹ãƒã‚¤ãƒ³ã‚¿ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</returns>
 		static SlimeDrawer* Create(Transform* pParent, const size_t drawPriority);
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw() override;
 
@@ -64,31 +64,31 @@ namespace YGame
 
 	private:
 
-		// ƒXƒ‰ƒCƒ€
+		// ã‚¹ãƒ©ã‚¤ãƒ 
 		SlimeActor slimeActor_;
 
-		// ”í’e
+		// è¢«å¼¾
 		HitActor hitActor_;
 
-		// ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^
+		// ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿
 		static Model* spModel_;
 
 	private:
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒ}[‘}“ü
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒãƒ¼æŒ¿å…¥
 		/// </summary>
 		void InsertAnimationTimers() override;
 
 		/// <summary>
-		/// ƒTƒuƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+		/// ã‚µãƒ–ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 		/// </summary>
-		/// <param name="index"> : ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†</param>
-		/// <param name="frame"> : Ä¶ƒtƒŒ[ƒ€</param>
+		/// <param name="index"> : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·</param>
+		/// <param name="frame"> : å†ç”Ÿãƒ•ãƒ¬ãƒ¼ãƒ </param>
 		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“XV
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 		/// </summary>
 		void UpdateAnimation() override;
 	};

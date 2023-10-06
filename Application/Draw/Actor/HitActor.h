@@ -11,39 +11,39 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// ”í’e
+		/// è¢«å¼¾
 		/// </summary>
-		/// <param name="swing"> : —h‚ê</param>
-		/// <param name="dekey"> : Œ¸Š’l</param>
-		/// <param name="place"> : ˆÊ</param>
+		/// <param name="swing"> : æºã‚Œ</param>
+		/// <param name="dekey"> : æ¸›è¡°å€¤</param>
+		/// <param name="place"> : ä½</param>
 		void Hit(const float swing, const float dekey, const float place);
 
 	public:
 		
 		/// <summary>
-		/// “®ì’†‚©
+		/// å‹•ä½œä¸­ã‹
 		/// </summary>
-		/// <returns>“®ìƒtƒ‰ƒO</returns>
+		/// <returns>å‹•ä½œãƒ•ãƒ©ã‚°</returns>
 		inline bool IsAct() const { return isAct_; }
 
 		/// <summary>
-		/// —h‚ê’læ“¾
+		/// æºã‚Œå€¤å–å¾—
 		/// </summary>
-		/// <returns>—h‚ê’l</returns>
+		/// <returns>æºã‚Œå€¤</returns>
 		inline YMath::Vector3 ShakePosValue() const { return shake_.Value(); }
 
 		/// <summary>
-		/// ƒqƒbƒg‚ÌF
+		/// ãƒ’ãƒƒãƒˆæ™‚ã®è‰²
 		/// </summary>
 		/// <returns></returns>
 		inline YMath::Vector4 ColorValue() const { return colorValue_; }
@@ -56,13 +56,13 @@ namespace YGame
 	
 	private:
 
-		// “®‚¢‚Ä‚¢‚é‚©ƒtƒ‰ƒO
+		// å‹•ã„ã¦ã„ã‚‹ã‹ãƒ•ãƒ©ã‚°
 		bool isAct_ = false;
 		
-		// —h‚ê
+		// æºã‚Œ
 		YMath::Shake shake_;
 
-		// F
+		// è‰²
 		YMath::Vector4 colorValue_;
 	};
 }

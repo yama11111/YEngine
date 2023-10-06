@@ -7,39 +7,39 @@ void DebugTextAttacher::DrawDebugText(const bool isWindow)
 
 	if (isWindow)
 	{
-		// ƒEƒBƒ“ƒhƒEì¬
+		// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä½œæˆ
 		ImGui::Begin(name_.c_str());
 	}
 	else
 	{
 		if (name_.empty())
 		{
-			// ƒcƒŠ[ƒm[ƒhì¬
+			// ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ä½œæˆ
 			isTree = ImGui::TreeNode("noname");
 		}
 		else
 		{
-			// ƒcƒŠ[ƒm[ƒhì¬
+			// ãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ä½œæˆ
 			isTree = ImGui::TreeNode(name_.c_str());
 		}
 	}
 
 	if (isTree)
 	{
-		// ƒfƒoƒbƒOƒeƒLƒXƒg
+		// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆ
 		DrawDebugTextContent();
 	}
 
 	if (isWindow)
 	{
-		// I—¹
+		// çµ‚äº†
 		ImGui::End();
 	}
 	else
 	{
 		if (isTree)
 		{
-			// ƒ|ƒbƒv
+			// ãƒãƒƒãƒ—
 			ImGui::TreePop();
 		}
 	}
@@ -47,6 +47,6 @@ void DebugTextAttacher::DrawDebugText(const bool isWindow)
 
 void DebugTextAttacher::SetName(const std::string& name)
 {
-	// –¼‘O‘}“ü
+	// åå‰æŒ¿å…¥
 	name_ = name;
 }

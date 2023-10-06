@@ -4,47 +4,47 @@
 
 namespace YGame
 {
-	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ (ˆÊ’uA‰ñ“]A‘å‚«‚³)
+	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ  (ä½ç½®ã€å›è»¢ã€å¤§ãã•)
 	struct Transform
 	{
 	
 	public:
 		
-		// ˆÊ’u
+		// ä½ç½®
 		YMath::Vector3 pos_;
 		
-		// ‰ñ“]
+		// å›è»¢
 		YMath::Vector3 rota_;
 		
-		// ‘å‚«‚³
+		// å¤§ãã•
 		YMath::Vector3 scale_;
 		
-		// s—ñ
+		// è¡Œåˆ—
 		YMath::Matrix4 m_;
 		
-		// es—ñ
+		// è¦ªè¡Œåˆ—
 		YMath::Matrix4* parent_;
 	
 	public:
 		
-		// İ’è—pƒXƒe[ƒ^ƒX
+		// è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 		struct Status
 		{
 
 		public:
 
-			// ˆÊ’u
+			// ä½ç½®
 			YMath::Vector3 pos_;
 			
-			// ‰ñ“]
+			// å›è»¢
 			YMath::Vector3 rota_;
 			
-			// ‘å‚«‚³
+			// å¤§ãã•
 			YMath::Vector3 scale_;
 
 		public:
 
-			// ƒfƒtƒHƒ‹ƒg’l
+			// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
 			static Status Default();
 
 		};
@@ -52,37 +52,37 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : İ’è—pƒXƒe[ƒ^ƒX</param>
-		/// <param name="(Vector3) status.pos_"> : ˆÊ’u</param>
-		/// <param name="(Vector3) status.rota_"> : ‰ñ“]</param>
-		/// <param name="(Vector3) status.scale_"> : ‘å‚«‚³</param>
+		/// <param name="status"> : è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="(Vector3) status.pos_"> : ä½ç½®</param>
+		/// <param name="(Vector3) status.rota_"> : å›è»¢</param>
+		/// <param name="(Vector3) status.scale_"> : å¤§ãã•</param>
 		void Initialize(const Status& status = Status::Default());
 		
 		/// <summary>
-		/// ƒAƒtƒBƒ“•ÏŠ·
+		/// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›
 		/// </summary>
 		void UpdateMatrix();
 		
 		/// <summary>
-		/// ƒAƒtƒBƒ“•ÏŠ· (ˆÊ’uA‰ñ“]A‘å‚«‚³ ‚ğ‰ÁZ‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ås—ñŒvZ)
+		/// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ› (ä½ç½®ã€å›è»¢ã€å¤§ãã• ã‚’åŠ ç®—ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§è¡Œåˆ—è¨ˆç®—)
 		/// </summary>
-		/// <param name="status"> : İ’è—pƒXƒe[ƒ^ƒX</param>
-		/// <param name="(Vector3) status.pos_"> : ˆÊ’u</param>
-		/// <param name="(Vector3) status.rota_"> : ‰ñ“]</param>
-		/// <param name="(Vector3) status.scale_"> : ‘å‚«‚³</param>
+		/// <param name="status"> : è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="(Vector3) status.pos_"> : ä½ç½®</param>
+		/// <param name="(Vector3) status.rota_"> : å›è»¢</param>
+		/// <param name="(Vector3) status.scale_"> : å¤§ãã•</param>
 		void UpdateMatrix(const Status& status);
 	
 		/// <summary>
-		/// ƒAƒtƒBƒ“•ÏŠ· (ˆÊ’uA‰ñ“]A‘å‚«‚³ ‚ğ‰ÁZ‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ås—ñŒvZ)
+		/// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ› (ä½ç½®ã€å›è»¢ã€å¤§ãã• ã‚’åŠ ç®—ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§è¡Œåˆ—è¨ˆç®—)
 		/// </summary>
-		/// <param name="status"> : İ’è—pƒXƒe[ƒ^ƒX</param>
-		/// <param name="(Vector3) status.pos_"> : ˆÊ’u</param>
-		/// <param name="(Vector3) status.rota_"> : ‰ñ“]</param>
-		/// <param name="(Vector3) status.scale_"> : ‘å‚«‚³</param>
+		/// <param name="status"> : è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="(Vector3) status.pos_"> : ä½ç½®</param>
+		/// <param name="(Vector3) status.rota_"> : å›è»¢</param>
+		/// <param name="(Vector3) status.scale_"> : å¤§ãã•</param>
 		/// <param name="">----------------</param>
-		/// <param name="mat"> : s—ñ</param>
+		/// <param name="mat"> : è¡Œåˆ—</param>
 		void UpdateMatrix(const Status& status, const YMath::Matrix4& mat);
 
 	public:
@@ -90,12 +90,12 @@ namespace YGame
 		Transform();
 		
 		/// <summary>
-		/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		/// </summary>
-		/// <param name="status"> : İ’è—pƒXƒe[ƒ^ƒX</param>
-		/// <param name="(Vector3) status.pos_"> : ˆÊ’u</param>
-		/// <param name="(Vector3) status.rota_"> : ‰ñ“]</param>
-		/// <param name="(Vector3) status.scale_"> : ‘å‚«‚³</param>
+		/// <param name="status"> : è¨­å®šç”¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="(Vector3) status.pos_"> : ä½ç½®</param>
+		/// <param name="(Vector3) status.rota_"> : å›è»¢</param>
+		/// <param name="(Vector3) status.scale_"> : å¤§ãã•</param>
 		Transform(const Status& status);
 		
 		virtual ~Transform() = default;

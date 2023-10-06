@@ -10,61 +10,61 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		static PipelineManager* GetInstance();
 	
 	public:
 
 		/// <summary>
-		/// ƒNƒŠƒA
+		/// ã‚¯ãƒªã‚¢
 		/// </summary>
 		void Clear();
 
 		/// <summary>
-		/// ‘}“ü
+		/// æŒ¿å…¥
 		/// </summary>
-		/// <param name="key"> : ƒL[</param>
-		/// <param name="pipeline"> : ƒpƒCƒvƒ‰ƒCƒ“ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</param>
+		/// <param name="key"> : ã‚­ãƒ¼</param>
+		/// <param name="pipeline"> : ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</param>
 		void Insert(const std::string& key, Pipeline* pipeline);
 
 		/// <summary>
-		/// ƒpƒCƒvƒ‰ƒCƒ“‚Ì•`‰æ‡
+		/// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã®æç”»é †
 		/// </summary>
-		/// <param name="pipelineKeys">ƒpƒCƒvƒ‰ƒCƒ“ƒL[vector”z—ñ</param>
+		/// <param name="pipelineKeys">ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚­ãƒ¼vectoré…åˆ—</param>
 		void SetDrawOrder(const std::vector<std::string> pipelineKeys);
 
 		/// <summary>
-		/// •`‰æî•ñ‚ğƒLƒ…[‚ÉÏ‚Ş
+		/// æç”»æƒ…å ±ã‚’ã‚­ãƒ¥ãƒ¼ã«ç©ã‚€
 		/// </summary>
-		/// <param name="key"> : ƒL[ (ƒpƒCƒvƒ‰ƒCƒ“–¼)</param>
-		/// <param name="priority"> : —Dæ“x</param>
-		/// <param name="drawSet"> : •`‰æƒZƒbƒg</param>
+		/// <param name="key"> : ã‚­ãƒ¼ (ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å)</param>
+		/// <param name="priority"> : å„ªå…ˆåº¦</param>
+		/// <param name="drawSet"> : æç”»ã‚»ãƒƒãƒˆ</param>
 		/// <param name="-----------------------------------------"></param>
-		/// <param name="(ConstBufferPtrSet*) pCBPtrSet"> : ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^ƒZƒbƒgƒ|ƒCƒ“ƒ^</param>
-		/// <param name="(BaseGraphic*) pGraphic"> : ƒOƒ‰ƒtƒBƒbƒNƒ|ƒCƒ“ƒ^</param>
+		/// <param name="(ConstBufferPtrSet*) pCBPtrSet"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿ã‚»ãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="(BaseGraphic*) pGraphic"> : ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒã‚¤ãƒ³ã‚¿</param>
 		void EnqueueDrawSet(const std::string& key, const size_t priority, const Pipeline::DrawSet& drawSet);
 		
 		/// <summary>
-		/// ƒ|ƒXƒgƒGƒtƒFƒNƒg‚É‘‚«‚Ş
+		/// ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã«æ›¸ãè¾¼ã‚€
 		/// </summary>
-		/// <param name="pPostEffect"> : ƒ|ƒXƒgƒGƒtƒFƒNƒgƒ|ƒCƒ“ƒ^vector”z—ñ</param>
+		/// <param name="pPostEffect"> : ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿vectoré…åˆ—</param>
 		void RenderToPostEffect(std::vector<PostEffect*> pPostEffects);
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 	private:
 
-		// ƒpƒCƒvƒ‰ƒCƒ“Ši”[”z—ñ
+		// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³æ ¼ç´é…åˆ—
 		std::unordered_map<
 			std::string,
 			std::unique_ptr<Pipeline>> pipelines_;
 
-		// •`‰æ‡
+		// æç”»é †
 		std::vector<std::string> drawOrder_;
 
 	private:

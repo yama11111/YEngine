@@ -1,7 +1,7 @@
 #include "BaseScene.h"
 #include <cassert>
 
-#pragma region –¼‘O‹óŠÔéŒ¾
+#pragma region åå‰ç©ºé–“å®£è¨€
 
 using YGame::BaseScene;
 using YInput::Keys;
@@ -23,7 +23,7 @@ PipelineManager* BaseScene::spPipelineMan_ = nullptr;
 
 void BaseScene::StaticInitialize()
 {
-	// ƒVƒ“ƒOƒ‹ƒgƒ“‰Šú‰»
+	// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³åˆæœŸåŒ–
 	spKeys_ = Keys::GetInstance();
 	spMouse_ = Mouse::GetInstance();
 	spPad_ = Pad::GetInstance();

@@ -4,25 +4,25 @@
 
 namespace YGame
 {
-	// ƒXƒvƒ‰ƒCƒg2D—p’è”ƒoƒbƒtƒ@
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ2Dç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBSprite2DTransform
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// 3D•ÏŠ·s—ñ
+			// 3Då¤‰æ›è¡Œåˆ—
 			YMath::Matrix4 matWorld = YMath::Matrix4::Identity();
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBSprite2DTransform";

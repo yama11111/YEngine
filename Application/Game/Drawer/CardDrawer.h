@@ -14,38 +14,38 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pParent"> : eƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="number"> : ”Ô†</param>
-		/// <param name="isClear"> : ƒNƒŠƒAƒtƒ‰ƒO</param>
+		/// <param name="pParent"> : è¦ªãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="number"> : ç•ªå·</param>
+		/// <param name="isClear"> : ã‚¯ãƒªã‚¢ãƒ•ãƒ©ã‚°</param>
 		void Initialize(Transform* pParent, const int32_t number, const bool isClear = false);
 		
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
-		/// <param name="isClear"> : ƒNƒŠƒAƒtƒ‰ƒO</param>
+		/// <param name="isClear"> : ã‚¯ãƒªã‚¢ãƒ•ãƒ©ã‚°</param>
 		void Reset(const bool isClear = false);
 		
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw(uint16_t p);
 	
 	public:
 		
 		/// <summary>
-		/// Œˆ’è
+		/// æ±ºå®š
 		/// </summary>
 		void Decision() { isDecided_ = true;  }
 		
 		/// <summary>
-		/// ‘I‘ğİ’è
+		/// é¸æŠè¨­å®š
 		/// </summary>
 		/// <param name="isSelect"></param>
 		void SetSelect(const bool isSelect) { isSelected_ = isSelect; }
@@ -53,44 +53,44 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 	
 	private:
 	
-		// Šj
+		// æ ¸
 		Transform core_;
 
-		// ”š—pƒIƒuƒWƒFƒNƒg
+		// æ•°å­—ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		Transform numberTra_;
 		std::unique_ptr<UINumber> numberUI_;
 		
-		// ƒXƒe[ƒWƒJ[ƒh
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰
 		std::unique_ptr<DrawObjectForSprite2D> cardObj_;
 		std::unique_ptr<ConstBufferObject<CBColor>> color_;
 
-		// ”š
+		// æ•°å­—
 		int32_t number_ = 0;
 
-		// ‘I‘ğ‚³‚ê‚Ä‚¢‚é‚©
+		// é¸æŠã•ã‚Œã¦ã„ã‚‹ã‹
 		bool isSelected_ = false;
-		// ‘I‘ğ‚³‚ê‚Ä‚¢‚½‚©
+		// é¸æŠã•ã‚Œã¦ã„ãŸã‹
 		bool isElderSelected_ = false;
-		// Œˆ’è‚³‚ê‚½‚©
+		// æ±ºå®šã•ã‚ŒãŸã‹
 		bool isDecided_ = false;
 
-		// ˆÚ“®—pƒC[ƒWƒ“ƒO
+		// ç§»å‹•ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<float> moveEas_;
-		// Šg‘å—pƒC[ƒWƒ“ƒO
+		// æ‹¡å¤§ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 		YMath::Ease<float> scaleEas_;
-		// ‘I‘ğ—pƒpƒ[
+		// é¸æŠç”¨ãƒ‘ãƒ¯ãƒ¼
 		YMath::Power selectPow_;
 
-		// ”š—pF
+		// æ•°å­—ç”¨è‰²
 		//std::unique_ptr<ConstBufferObject<CBColor>> color_;
 		
-		// ƒNƒŠƒA‚µ‚½‚©
+		// ã‚¯ãƒªã‚¢ã—ãŸã‹
 		bool isClear_ = false;
 
 	private:
@@ -99,7 +99,7 @@ namespace YGame
 
 	private:
 
-		// ‘I‘ğƒAƒjƒ[ƒVƒ‡ƒ“XV
+		// é¸æŠã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 		void UpdateSelectAnimation();
 	};
 }

@@ -8,103 +8,103 @@
 
 namespace YGame
 {
-	// ƒeƒNƒXƒ`ƒƒ
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	class Texture
 	{
 		
 	private:
 		
-		// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡
 		YDX::GPUResource buff_;
 		
-		// SRVƒnƒ“ƒhƒ‹ (CPU)
+		// SRVãƒãƒ³ãƒ‰ãƒ« (CPU)
 		D3D12_CPU_DESCRIPTOR_HANDLE srvCpuHandle_{};
 		
-		// SRVƒnƒ“ƒhƒ‹ (GPU)
+		// SRVãƒãƒ³ãƒ‰ãƒ« (GPU)
 		D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle_{};
 	
-		// ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹–¼
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«å
 		std::string fileName_;
 
 	private:
 		
-		// Ã“IƒeƒNƒXƒ`ƒƒŠi”[—pvector”z—ñ
+		// é™çš„ãƒ†ã‚¯ã‚¹ãƒãƒ£æ ¼ç´ç”¨vectoré…åˆ—
 		static std::vector<std::unique_ptr<Texture>> sTexs_;
 
 	public:
 		
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ¶¬
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆ
 		/// </summary>
-		/// <param name="color"> : F (0.0 ~ 1.0)</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="color"> : è‰² (0.0 ~ 1.0)</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Texture* Create(const YMath::Vector4& color = { 1.0f,1.0f,1.0f,1.0f });
 
 		/// <summary>
-		/// ƒŒƒ“ƒ_[ƒeƒNƒXƒ`ƒƒ¶¬
+		/// ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆ
 		/// </summary>
-		/// <returns>ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Texture* CreateRender();
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="texFileName"> : ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹–¼</param>
-		/// <param name="mipMap"> : ƒ~ƒbƒvƒ}ƒbƒv‚ğ¶¬‚·‚é‚©</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="texFileName"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <param name="mipMap"> : ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã‚’ç”Ÿæˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Texture* Load(const std::string& texFileName, const bool mipMap = true);
 
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ (ƒfƒBƒŒƒNƒgƒŠƒpƒXw’èver)
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿ (ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹æŒ‡å®šver)
 		/// </summary>
-		/// <param name="directoryPath"> : ƒfƒBƒŒƒNƒgƒŠƒpƒX–¼</param>
-		/// <param name="texFileName"> : ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹–¼</param>
-		/// <param name="mipMap"> : ƒ~ƒbƒvƒ}ƒbƒv‚ğ¶¬‚·‚é‚©</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="directoryPath"> : ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹å</param>
+		/// <param name="texFileName"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <param name="mipMap"> : ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã‚’ç”Ÿæˆã™ã‚‹ã‹</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Texture* Load(const std::string& directoryPath, const std::string texFileName, const bool mipMap = true);
 
 		/// <summary>
-		/// ‘Síœ
+		/// å…¨å‰Šé™¤
 		/// </summary>
 		static void AllClear();
 
 	public:
 
 		/// <summary>
-		/// •`‰æƒRƒ}ƒ“ƒh (ƒVƒF[ƒ_[‚É“]‘—)
+		/// æç”»ã‚³ãƒãƒ³ãƒ‰ (ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«è»¢é€)
 		/// </summary>
-		/// <param name="rootParamIndex"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^”Ô†</param>
+		/// <param name="rootParamIndex"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç•ªå·</param>
 		void SetDrawCommand(const UINT rootParamIndex);
 	
 		/// <summary>
-		/// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@æ“¾
+		/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡å–å¾—
 		/// </summary>
 		ID3D12Resource* Buffer();
 
 	public:
 		
-		// ƒRƒ‚ƒ“ƒNƒ‰ƒX
+		// ã‚³ãƒ¢ãƒ³ã‚¯ãƒ©ã‚¹
 		class Common
 		{
 		public:
 
-			// Ã“IƒfƒoƒCƒXƒ|ƒCƒ“ƒ^
+			// é™çš„ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿
 			static ID3D12Device* spDevice_;
 			
-			// Ã“IƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^
+			// é™çš„ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿
 			static ID3D12GraphicsCommandList* spCmdList_;
 			
-			// Ã“IƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv
+			// é™çš„ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—
 			static YDX::DescriptorHeap* spDescHeap_;
 
 		public:
 
 			/// <summary>
-			/// Ã“I‰Šú‰»
+			/// é™çš„åˆæœŸåŒ–
 			/// </summary>
-			/// <param name="pDevice"> : ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</param>
-			/// <param name="pCmdList"> : ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</param>
-			/// <param name="pDescHeap"> : ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒvƒ|ƒCƒ“ƒ^</param>
+			/// <param name="pDevice"> : ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</param>
+			/// <param name="pCmdList"> : ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
+			/// <param name="pDescHeap"> : ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ—ãƒã‚¤ãƒ³ã‚¿</param>
 			static void StaticInitialize(
 				ID3D12Device* pDevice, 
 				ID3D12GraphicsCommandList* pCmdList, 

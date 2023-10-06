@@ -3,79 +3,79 @@
 namespace YMath
 {
 	/// <summary>
-	/// ‘¬‚³ŒvZ
+	/// é€Ÿã•è¨ˆç®—
 	/// </summary>
-	/// <param name="accel"> : ‰Á‘¬“x</param>
-	/// <param name="time"> : ŠÔ</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>‘¬“x</returns>
+	/// <param name="accel"> : åŠ é€Ÿåº¦</param>
+	/// <param name="time"> : æ™‚é–“</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>é€Ÿåº¦</returns>
 	float CalcSpeed(const float acceleration, const float time, const float initiale = 0.0f);
 
 	/// <summary>
-	/// ‘¬‚³ŒvZ (‹——£‚ğg‚¤)
+	/// é€Ÿã•è¨ˆç®— (è·é›¢ã‚’ä½¿ã†)
 	/// </summary>
-	/// <param name="accel"> : ‰Á‘¬“x</param>
-	/// <param name="distance"> : ‹——£</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>‘¬“x</returns>
+	/// <param name="accel"> : åŠ é€Ÿåº¦</param>
+	/// <param name="distance"> : è·é›¢</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>é€Ÿåº¦</returns>
 	float CalcSpeedUsingDistance(const float acceleration, const float distance, const float initiale = 0.0f);
 
 	/// <summary>
-	/// ‰Á‘¬“xŒvZ
+	/// åŠ é€Ÿåº¦è¨ˆç®—
 	/// </summary>
-	/// <param name="speed"> : ‘¬‚³</param>
-	/// <param name="time"> : ŠÔ</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>‰Á‘¬“x</returns>
+	/// <param name="speed"> : é€Ÿã•</param>
+	/// <param name="time"> : æ™‚é–“</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>åŠ é€Ÿåº¦</returns>
 	float CalcAcceleration(const float speed, const float time, const float initiale = 0.0f);
 
 	/// <summary>
-	/// ‹——£ŒvZ
+	/// è·é›¢è¨ˆç®—
 	/// </summary>
-	/// <param name="accel"> : ‰Á‘¬“x</param>
-	/// <param name="time"> : ŠÔ</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>‹——£</returns>
+	/// <param name="accel"> : åŠ é€Ÿåº¦</param>
+	/// <param name="time"> : æ™‚é–“</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>è·é›¢</returns>
 	float CalcDistance(const float acceleration, const float time, const float initiale = 0.0f);
 
 	/// <summary>
-	/// ‹——£ŒvZ (‘¬‚³‚ğg‚¤)
+	/// è·é›¢è¨ˆç®— (é€Ÿã•ã‚’ä½¿ã†)
 	/// </summary>
-	/// <param name="speed"> : ‘¬‚³</param>
-	/// <param name="time"> : ŠÔ</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>‹——£</returns>
+	/// <param name="speed"> : é€Ÿã•</param>
+	/// <param name="time"> : æ™‚é–“</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>è·é›¢</returns>
 	float CalcDistanceUsingSpeed(const float speed, const float time, const float initiale = 0.0f);
 
 	/// <summary>
-	/// d—Í‰Á‘¬“xŒvZ
+	/// é‡åŠ›åŠ é€Ÿåº¦è¨ˆç®—
 	/// </summary>
-	/// <param name="time"> : ŠÔ</param>
+	/// <param name="time"> : æ™‚é–“</param>
 	/// <returns></returns>
 	float CalcGravityAcceleration(const float time);
 
 	/// <summary>
-	/// d—Í‘¬“xŒvZ
+	/// é‡åŠ›é€Ÿåº¦è¨ˆç®—
 	/// </summary>
-	/// <param name="time"> : ŠÔ</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>d—Í‘¬“x</returns>
+	/// <param name="time"> : æ™‚é–“</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>é‡åŠ›é€Ÿåº¦</returns>
 	float CalcGravitySpeed(const float time, const float initiale = 0.0f);
 
 	/// <summary>
-	/// ‹——£ŒvZ
+	/// è·é›¢è¨ˆç®—
 	/// </summary>
-	/// <param name="time"> : ŠÔ</param>
-	/// <param name="initiale"> : ‰‘¬“x</param>
-	/// <returns>‹——£</returns>
+	/// <param name="time"> : æ™‚é–“</param>
+	/// <param name="initiale"> : åˆé€Ÿåº¦</param>
+	/// <returns>è·é›¢</returns>
 	float CalcDistanceUsingGravity(const float time, const float initiale);
 
 	/// <summary>
-	/// ’ïR—ÍŒvZ
+	/// æŠµæŠ—åŠ›è¨ˆç®—
 	/// </summary>
-	/// <param name="proportion"> : ”ä—á’è”</param>
-	/// <param name="speed"> : ‘¬‚³</param>
-	/// <returns>’ïR—Í</returns>
+	/// <param name="proportion"> : æ¯”ä¾‹å®šæ•°</param>
+	/// <param name="speed"> : é€Ÿã•</param>
+	/// <returns>æŠµæŠ—åŠ›</returns>
 	float CalcResistingForce(const float proportion, const float speed);
 };
 

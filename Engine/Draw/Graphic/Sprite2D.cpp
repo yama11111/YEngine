@@ -19,20 +19,20 @@ Sprite2D* Sprite2D::Create(
 
 	unique_ptr<Sprite2D> newSprite = std::make_unique<Sprite2D>();
 
-	// ƒeƒNƒXƒ`ƒƒ‚ÌƒTƒCƒY‚ğæ“¾
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
 	float rscSizeX = static_cast<float>(pTexs.begin()->second->Buffer()->GetDesc().Width);
 	float rscSizeY = static_cast<float>(pTexs.begin()->second->Buffer()->GetDesc().Height);
 
 	// ----- Status ----- //
 
-	// ”½“]İ’è
+	// åè»¢è¨­å®š
 	float flipX = isFlipX ? -1.0f : 1.0f;
 	float flipY = isFlipY ? -1.0f : 1.0f;
 
-	// ƒTƒCƒY‚ğİ’è (‰æ‘œ‚É‡‚í‚¹‚é‚È‚ç‚»‚Ì‚Ü‚Ü)
+	// ã‚µã‚¤ã‚ºã‚’è¨­å®š (ç”»åƒã«åˆã‚ã›ã‚‹ãªã‚‰ãã®ã¾ã¾)
 	Vector2 size = Vector2(rscSizeX, rscSizeY);
 
-	// ¶‰Eã‰º‚Ìƒ|ƒCƒ“ƒgİ’è (0.0~1,0)
+	// å·¦å³ä¸Šä¸‹ã®ãƒã‚¤ãƒ³ãƒˆè¨­å®š (0.0~1,0)
 	float left	 = (0.0f - anchor.x_) * size.x_ * flipX;
 	float right	 = (1.0f - anchor.x_) * size.x_ * flipX;
 	float top	 = (0.0f - anchor.y_) * size.y_ * flipY;
@@ -40,40 +40,40 @@ Sprite2D* Sprite2D::Create(
 
 	// ----- TexStatus ----- //
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ã‚Æ‰E‰º‚ğİ’è (‰æ‘œ‚É‡‚í‚¹‚é‚È‚ç‚»‚Ì‚Ü‚Ü)
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å·¦ä¸Šã¨å³ä¸‹ã‚’è¨­å®š (ç”»åƒã«åˆã‚ã›ã‚‹ãªã‚‰ãã®ã¾ã¾)
 	Vector2 texLT = Vector2(0.0f, 0.0f);
 	Vector2 texRB = Vector2(rscSizeX, rscSizeY);
 
-	// UVÀ•W‚ğŒvZ
+	// UVåº§æ¨™ã‚’è¨ˆç®—
 	float texLeft	= texLT.x_ / rscSizeX;
 	float texRight	= texRB.x_ / rscSizeX;
 	float texTop	= texLT.y_ / rscSizeY;
 	float texBottom = texRB.y_ / rscSizeY;
 
-	// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬ (“®“I)
+	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ (å‹•çš„)
 	newSprite->vt_.Initialize(
 		{
-			{ {  left,bottom,0.0f },{  texLeft,texBottom } }, // ¶‰º
-			{ {  left,top,   0.0f },{  texLeft,texTop } },    // ¶ã
-			{ { right,bottom,0.0f },{ texRight,texBottom } }, // ‰E‰º
-			{ { right,top,   0.0f },{ texRight,texTop } },    // ‰Eã
+			{ {  left,bottom,0.0f },{  texLeft,texBottom } }, // å·¦ä¸‹
+			{ {  left,top,   0.0f },{  texLeft,texTop } },    // å·¦ä¸Š
+			{ { right,bottom,0.0f },{ texRight,texBottom } }, // å³ä¸‹
+			{ { right,top,   0.0f },{ texRight,texTop } },    // å³ä¸Š
 		});
 
-	// ‚¢‚ë‚¢‚ëİ’è
-	newSprite->size_	 = size; // ‘å‚«‚³
-	newSprite->anchor_	 = anchor; // ƒAƒ“ƒJ[ƒ|ƒCƒ“ƒg
-	newSprite->isFlipX_	 = isFlipX; // X”½“]
-	newSprite->isFlipY_	 = isFlipY; // Y”½“]
+	// ã„ã‚ã„ã‚è¨­å®š
+	newSprite->size_	 = size; // å¤§ãã•
+	newSprite->anchor_	 = anchor; // ã‚¢ãƒ³ã‚«ãƒ¼ãƒã‚¤ãƒ³ãƒˆ
+	newSprite->isFlipX_	 = isFlipX; // Xåè»¢
+	newSprite->isFlipY_	 = isFlipY; // Yåè»¢
 
-	newSprite->pTexs_ = pTexs; // ƒeƒNƒXƒ`ƒƒƒCƒ“ƒfƒbƒNƒX
+	newSprite->pTexs_ = pTexs; // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Sprite2D* newSpritePtr = newSprite.get();
 
-	// ƒXƒvƒ‰ƒCƒg‚ğ•Û‘¶
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä¿å­˜
 	sSprites_.push_back(std::move(newSprite));
 
-	// ƒXƒvƒ‰ƒCƒgƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newSpritePtr;
 }
 
@@ -90,16 +90,16 @@ void Sprite2D::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndic
 {
 	if (isVisible_ == false) { return; }
 
-	// ƒeƒNƒXƒ`ƒƒ
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	for (auto itr = rpIndices.begin(); itr != rpIndices.end(); ++itr)
 	{
-		// “¯ˆêƒL[‚ª‚È‚¢ê‡Œx
+		// åŒä¸€ã‚­ãƒ¼ãŒãªã„å ´åˆè­¦å‘Š
 		assert(pTexs_.contains(itr->first));
 
 		pTexs_[itr->first]->SetDrawCommand(itr->second);
 	}
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ‘—‚é + •`‰æƒRƒ}ƒ“ƒh
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’é€ã‚‹ + æç”»ã‚³ãƒãƒ³ãƒ‰
 	vt_.Draw();
 }
 
@@ -107,14 +107,14 @@ PipelineSetting Sprite2D::GetPipelineSetting()
 {
 	PipelineSetting result;
 
-	// ’¸“_ƒŒƒCƒAƒEƒg
+	// é ‚ç‚¹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout =
 	{
-		// ’¸“_À•W	 (x, y, z)
+		// é ‚ç‚¹åº§æ¨™	 (x, y, z)
 		{
 			"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
-		// UVÀ•W	 (x, y)
+		// UVåº§æ¨™	 (x, y)
 		{
 			"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		}
@@ -122,30 +122,30 @@ PipelineSetting Sprite2D::GetPipelineSetting()
 
 	result.inputLayout = inputLayout;
 
-	// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[‚Ìİ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã®è¨­å®š
 	D3D12_STATIC_SAMPLER_DESC samplerDesc{};
-	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ‰¡Ü‚è•Ô‚µ   (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // cÜ‚è•Ô‚µ   (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ‰œsÜ‚è•Ô‚µ (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ƒ{[ƒ_[‚Ì‚Í•
-	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // ‘S‚ÄƒŠƒjƒA•âŠÔ
-	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ƒ~ƒjƒ}ƒbƒvÅ‘å’l
-	samplerDesc.MinLOD = 0.0f;              // ƒ~ƒjƒ}ƒbƒvÅ¬’l
+	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // æ¨ªæŠ˜ã‚Šè¿”ã—   (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ç¸¦æŠ˜ã‚Šè¿”ã—   (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // å¥¥è¡ŒæŠ˜ã‚Šè¿”ã— (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ãƒœãƒ¼ãƒ€ãƒ¼ã®æ™‚ã¯é»’
+	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // å…¨ã¦ãƒªãƒ‹ã‚¢è£œé–“
+	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ãƒŸãƒ‹ãƒãƒƒãƒ—æœ€å¤§å€¤
+	samplerDesc.MinLOD = 0.0f;              // ãƒŸãƒ‹ãƒãƒƒãƒ—æœ€å°å€¤
 	samplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
-	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚©‚ç‚Ì‚İg—p‰Â”\
+	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‹ã‚‰ã®ã¿ä½¿ç”¨å¯èƒ½
 
-	// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[”z—ñ‚É‘}“ü
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼é…åˆ—ã«æŒ¿å…¥
 	result.samplerDescs.emplace_back(samplerDesc);
 
-	result.fillMode = D3D12_FILL_MODE_SOLID; // ƒ|ƒŠƒSƒ““à“h‚è‚Â‚Ô‚µ
+	result.fillMode = D3D12_FILL_MODE_SOLID; // ãƒãƒªã‚´ãƒ³å†…å¡—ã‚Šã¤ã¶ã—
 
-	result.cullMode = D3D12_CULL_MODE_NONE; // ƒJƒŠƒ“ƒO‚µ‚È‚¢
+	result.cullMode = D3D12_CULL_MODE_NONE; // ã‚«ãƒªãƒ³ã‚°ã—ãªã„
 
-	result.depthEnable = false; // [“xƒeƒXƒg‚µ‚È‚¢
+	result.depthEnable = false; // æ·±åº¦ãƒ†ã‚¹ãƒˆã—ãªã„
 
-	result.primitiveType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE; // OŠpŒ`
+	result.primitiveType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE; // ä¸‰è§’å½¢
 
-	result.primitive = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; // OŠpŒ`ƒXƒgƒŠƒbƒv
+	result.primitive = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; // ä¸‰è§’å½¢ã‚¹ãƒˆãƒªãƒƒãƒ—
 
 	return result;
 }

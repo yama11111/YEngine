@@ -15,11 +15,11 @@ using YMath::Vector3;
 
 void Slime::Initialize(const Transform::Status& status)
 {
-	// ƒQ[ƒ€ƒLƒƒƒ‰ƒNƒ^[‰Šú‰»
+	// ã‚²ãƒ¼ãƒ ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼åˆæœŸåŒ–
 	BaseCharacter::Initialize(
 		"Slime",
 		status,
-		{ -1.0f, 0.0f, 0.0f }, // ¶Œü‚«
+		{ -1.0f, 0.0f, 0.0f }, // å·¦å‘ã
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed,
 		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime,
 		new GameCollider(transform_.get(), AttributeType::eEnemy, AttributeType::eAll),
@@ -29,7 +29,7 @@ void Slime::Initialize(const Transform::Status& status)
 
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
 
-	// —§‚¿ƒAƒjƒ[ƒVƒ‡ƒ“
+	// ç«‹ã¡ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(SlimeDrawer::AnimationType::eIdle),
 		SlimeAnimationConfig::kIdleFrame
@@ -40,11 +40,11 @@ void Slime::Update(const bool isUpdate)
 {
 	BaseCharacter::Update(isUpdate);
 	
-	// ’…’n‚µ‚½uŠÔ
+	// ç€åœ°ã—ãŸçž¬é–“
 	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
 		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
 	{
-		// ’…’nƒAƒjƒ[ƒVƒ‡ƒ“
+		// ç€åœ°ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		drawer_->PlayAnimation(
 			static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding),
 			SlimeAnimationConfig::Landing::kFrame
@@ -69,7 +69,7 @@ void Slime::Hit()
 {
 	IEnemy::Hit();
 
-	// ”í’eƒAƒjƒ[ƒVƒ‡ƒ“
+	// è¢«å¼¾ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	drawer_->PlayAnimation(
 		static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit),
 		SlimeAnimationConfig::Hit::kFrame
@@ -77,7 +77,7 @@ void Slime::Hit()
 
 	if (status_.IsAlive() == false)
 	{
-		// Ž€–SƒAƒjƒ[ƒVƒ‡ƒ“
+		// æ­»äº¡ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		drawer_->PlayAnimation(
 			static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead),
 			SlimeAnimationConfig::Dead::kFrame

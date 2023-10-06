@@ -4,7 +4,7 @@ using YGame::BaseTransition;
 
 void BaseTransition::Reset()
 {
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	step_ = Step::Close;
 
 	isAct_ = false;

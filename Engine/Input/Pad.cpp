@@ -41,7 +41,7 @@ void Pad::PadState::Connect(const DWORD index)
 
 void Pad::Create()
 {
-	// ¶¬
+	// ç”Ÿæˆ
 	pad_ = std::make_unique<PadState>();
 	elderPad_ = std::make_unique<PadState>();
 
@@ -64,12 +64,12 @@ void YInput::Pad::Update()
 {
 	if (!pad_->isConnect_) { return; }
 
-	// 1ƒtƒŒ[ƒ€‘O‚Ìî•ñ‚ğ•Û‘¶
+	// 1ãƒ•ãƒ¬ãƒ¼ãƒ å‰ã®æƒ…å ±ã‚’ä¿å­˜
 	*elderPad_ = *pad_;
 
-	// ÅV‚Ìî•ñ‚ğæ“¾
+	// æœ€æ–°ã®æƒ…å ±ã‚’å–å¾—
 	DWORD result = XInputGetState(pad_->index_, &pad_->state_);
-	// ƒGƒ‰[‚È‚ç‰Šú‰»
+	// ã‚¨ãƒ©ãƒ¼ãªã‚‰åˆæœŸåŒ–
 	if (result != ERROR_SUCCESS) 
 	{
 		pad_->Initialize(); 

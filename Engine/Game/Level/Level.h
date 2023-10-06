@@ -14,14 +14,14 @@ namespace YGame
 		static void LoadAsset();
 
 		/// <summary>
-		/// ƒŒƒxƒ‹ƒf[ƒ^“Ç‚İ‚İ (.json)
+		/// ãƒ¬ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ (.json)
 		/// </summary>
-		/// <param name="fileName"> : ƒtƒ@ƒCƒ‹–¼ (.json)</param>
-		/// <returns>ƒŒƒxƒ‹ƒf[ƒ^ƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="fileName"> : ãƒ•ã‚¡ã‚¤ãƒ«å (.json)</param>
+		/// <returns>ãƒ¬ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Level* LoadJson(const std::string& fileName);
 
 		/// <summary>
-		/// ‘Sƒf[ƒ^ƒNƒŠƒA
+		/// å…¨ãƒ‡ãƒ¼ã‚¿ã‚¯ãƒªã‚¢
 		/// </summary>
 		static void ClearAllData();
 
@@ -30,12 +30,12 @@ namespace YGame
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
@@ -52,23 +52,23 @@ namespace YGame
 	private:
 		
 		/// <summary>
-		/// ƒf[ƒ^“Ç‚İ‚İ
+		/// ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="object"> : ƒIƒuƒWƒFƒNƒg(json)</param>
-		/// <param name="pParent"> : eƒIƒuƒWƒFƒNƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="object"> : ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(json)</param>
+		/// <param name="pParent"> : è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		void LoadData(nlohmann::json& object, GameObject* pParent = nullptr);
 	
 	private:
 
-		// ‘SƒIƒuƒWƒFƒNƒg
+		// å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		std::list<std::unique_ptr<GameObject>> objs_;
 
-		// ƒtƒ@ƒCƒ‹ƒpƒX
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 		std::string fileName_;
 
 	private:
 
-		// Ã“IƒŒƒxƒ‹ƒf[ƒ^Ši”[—plist
+		// é™çš„ãƒ¬ãƒ™ãƒ«ãƒ‡ãƒ¼ã‚¿æ ¼ç´ç”¨list
 		static std::list<std::unique_ptr<Level>> sLevelDatas_;
 
 	};

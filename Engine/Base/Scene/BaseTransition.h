@@ -10,76 +10,76 @@
 
 namespace YGame
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“Šî’êƒNƒ‰ƒX
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³åŸºåº•ã‚¯ãƒ©ã‚¹
 	class BaseTransition
 	{
 	
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		virtual void Initialize() = 0;
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg (’†g‚¾‚¯‰Šú‰»)
+		/// ãƒªã‚»ãƒƒãƒˆ (ä¸­èº«ã ã‘åˆæœŸåŒ–)
 		/// </summary>
 		virtual void Reset();
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Finalize() = 0;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update() = 0;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() = 0;
 	
 	public:
 		
 		/// <summary> 
-		/// “®ìŠJn
+		/// å‹•ä½œé–‹å§‹
 		/// </summary>
-		/// <param name="changeFrame"> : ‘JˆÚŠÔ</param>
-		/// <param name="loadFrame"> : “Ç‚İ‚ŞŠÔ</param>
+		/// <param name="changeFrame"> : é·ç§»æ™‚é–“</param>
+		/// <param name="loadFrame"> : èª­ã¿è¾¼ã‚€æ™‚é–“</param>
 		virtual void Activate(const uint32_t changeFrame, const uint32_t loadFrame) = 0;
 
 	public:
 
 		/// <summary>
-		/// “®ì’†‚©æ“¾
+		/// å‹•ä½œä¸­ã‹å–å¾—
 		/// </summary>
-		/// <returns>“®ì’†‚©</returns>
+		/// <returns>å‹•ä½œä¸­ã‹</returns>
 		bool IsAct() const { return isAct_; }
 
 		/// <summary>
-		/// –‹Ø‚ê’†‚©
+		/// å¹•åˆ‡ã‚Œä¸­ã‹
 		/// </summary>
 		/// <returns></returns>
 		bool IsFalling() const { return isFalling_; }
 		
 		/// <summary> 
-		/// Ø‚è‘Ö‚í‚è‚ÌuŠÔ‚©æ“¾
+		/// åˆ‡ã‚Šæ›¿ã‚ã‚Šã®ç¬é–“ã‹å–å¾—
 		/// </summary>
-		/// <returns>Ø‚è‘Ö‚í‚è‚ÌuŠÔ‚©</returns>
+		/// <returns>åˆ‡ã‚Šæ›¿ã‚ã‚Šã®ç¬é–“ã‹</returns>
 		bool IsChangeMoment() const { return isChangeMoment_; }
 
 		/// <summary>
-		/// –‹ŠJ‚¯’†‚©
+		/// å¹•é–‹ã‘ä¸­ã‹
 		/// </summary>
-		/// <returns>Ø‚è‘Ö‚í‚Á‚Ä‚¢‚é“r’†‚©</returns>
+		/// <returns>åˆ‡ã‚Šæ›¿ã‚ã£ã¦ã„ã‚‹é€”ä¸­ã‹</returns>
 		bool IsRising() const { return isRising_; }
 
 		/// <summary>
-		/// I—¹‚µ‚Ä‚¢‚é‚©æ“¾
+		/// çµ‚äº†ã—ã¦ã„ã‚‹ã‹å–å¾—
 		/// </summary>
-		/// <returns>I—¹‚µ‚Ä‚¢‚é‚©</returns>
+		/// <returns>çµ‚äº†ã—ã¦ã„ã‚‹ã‹</returns>
 		bool IsEnd() const { return isEnd_; }
 	
 	public:
@@ -90,35 +90,35 @@ namespace YGame
 
 	protected:
 
-		// ’iŠK
+		// æ®µéš
 		enum class Step
 		{
-			Close,	 // •Â‚¶‚é
-			Load,	 // ƒ[ƒhŠÔ
-			Open,	 // ŠJ‚­
+			Close,	 // é–‰ã˜ã‚‹
+			Load,	 // ãƒ­ãƒ¼ãƒ‰æ™‚é–“
+			Open,	 // é–‹ã
 		};
 	
 	protected:
 
-		// “®ì‚µ‚Ä‚¢‚é‚©
+		// å‹•ä½œã—ã¦ã„ã‚‹ã‹
 		bool isAct_ = false;
 
-		// –‹Ø‚ê’†‚©
+		// å¹•åˆ‡ã‚Œä¸­ã‹
 		bool isFalling_ = false;
 
-		// Ø‚è‘Ö‚í‚è‚ÌuŠÔ
+		// åˆ‡ã‚Šæ›¿ã‚ã‚Šã®ç¬é–“
 		bool isChangeMoment_ = false;
 
-		// –‹ŠJ‚¯’†‚©
+		// å¹•é–‹ã‘ä¸­ã‹
 		bool isRising_ = false;
 
-		// I—¹‚µ‚Ä‚¢‚é‚©
+		// çµ‚äº†ã—ã¦ã„ã‚‹ã‹
 		bool isEnd_ = false;
 
-		// ƒ[ƒfƒBƒ“ƒO—pƒ^ƒCƒ}[
+		// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ç”¨ã‚¿ã‚¤ãƒãƒ¼
 		YMath::Timer loadTim_;
 
-		// ’iŠK
+		// æ®µéš
 		Step step_ = Step::Close;
 
 	};

@@ -19,7 +19,7 @@ AxisDrawer* AxisDrawer::Create(Transform* pParent, const size_t drawPriority)
 
 void AxisDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹İ’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png") } });
 }
 
@@ -34,7 +34,7 @@ void AxisDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	{
 		if (objs_[i] == nullptr)
 		{
-			// ƒIƒuƒWƒFƒNƒg + ’è”ƒoƒbƒtƒ@¶¬
+			// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ + å®šæ•°ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 			objs_[i].reset(DrawObjectForModel::Create({}, spVP_, nullptr));
 
 			cbColors_[i].reset(ConstBufferObject<CBColor>::Create());
@@ -45,7 +45,7 @@ void AxisDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 		
 		objs_[i]->SetParent(&pParent->m_);
 
-		// ƒIƒuƒWƒFƒNƒg‚É’è”ƒoƒbƒtƒ@‚ğİ’è
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å®šæ•°ãƒãƒƒãƒ•ã‚¡ã‚’è¨­å®š
 		objs_[i]->InsertConstBuffer(cbColors_[i].get());
 
 	}

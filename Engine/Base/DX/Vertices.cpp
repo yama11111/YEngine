@@ -20,87 +20,87 @@ void VertexCommon::StaticInitialize(ID3D12GraphicsCommandList* pCommandList)
 template <typename VData>
 void Vertices<VData>::Initialize(const std::vector<VData>& v)
 {
-	// ’¸“_î•ñ‚ğƒRƒs[
+	// é ‚ç‚¹æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
 	v_ = v;
 
-	// ƒoƒbƒtƒ@‚Æƒrƒ…[ì¬
+	// ãƒãƒƒãƒ•ã‚¡ã¨ãƒ“ãƒ¥ãƒ¼ä½œæˆ
 	Create();
 }
 
 template<typename VData>
 void Vertices<VData>::TransferMap(const std::vector<VData>& v)
 {
-	// ’¸“_î•ñ‚ğƒNƒŠƒA
+	// é ‚ç‚¹æƒ…å ±ã‚’ã‚¯ãƒªã‚¢
 	v_.clear();
-	// ’¸“_î•ñ‚ğƒRƒs[
+	// é ‚ç‚¹æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
 	v_ = v;
-	// ‘S’¸“_‚É‘Î‚µ‚ÄÀ•W‚ğƒRƒs[
+	// å…¨é ‚ç‚¹ã«å¯¾ã—ã¦åº§æ¨™ã‚’ã‚³ãƒ”ãƒ¼
 	for (int i = 0; i < v_.size(); i++) { vertMap_[i] = v_[i]; }
 }
 
 template<typename VData>
 void Vertices<VData>::Create()
 {
-	// ’¸“_ƒTƒCƒY
+	// é ‚ç‚¹ã‚µã‚¤ã‚º
 	UINT dataSize = static_cast <UINT> (sizeof(v_[0]) * v_.size());
 
-	// ’¸“_ƒoƒbƒtƒ@İ’è
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	D3D12_HEAP_PROPERTIES heapProp{};
-	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPU‚Ö‚Ì“]‘——p
+	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPUã¸ã®è»¢é€ç”¨
 
-	// ƒŠƒ\[ƒXİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	resDesc.Width = dataSize; // ’¸“_ƒf[ƒ^‘S‘Ì‚ÌƒTƒCƒY
+	resDesc.Width = dataSize; // é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®ã‚µã‚¤ã‚º
 	resDesc.Height = 1;
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
 	resDesc.SampleDesc.Count = 1;
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ì¶¬
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ
 	buffer_.Create(&heapProp, &resDesc);
 
 
-	// GPUã‚Ìƒoƒbƒtƒ@‚É‘Î‰‚µ‚½‰¼‘zƒƒ‚ƒŠ(ƒƒCƒ“ƒƒ‚ƒŠã)‚ğæ“¾
+	// GPUä¸Šã®ãƒãƒƒãƒ•ã‚¡ã«å¯¾å¿œã—ãŸä»®æƒ³ãƒ¡ãƒ¢ãƒª(ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ¢ãƒªä¸Š)ã‚’å–å¾—
 	Result(buffer_.Get()->Map(0, nullptr, (void**)&vertMap_));
 	
-	// ‘S’¸“_‚É‘Î‚µ‚ÄÀ•W‚ğƒRƒs[
+	// å…¨é ‚ç‚¹ã«å¯¾ã—ã¦åº§æ¨™ã‚’ã‚³ãƒ”ãƒ¼
 	for (int i = 0; i < v_.size(); i++) { vertMap_[i] = v_[i]; }
 	
-	// Œq‚ª‚è‚ğ‰ğœ
+	// ç¹‹ãŒã‚Šã‚’è§£é™¤
 	buffer_.Get()->Unmap(0, nullptr);
 
 
-	// ’¸“_ƒoƒbƒtƒ@ƒrƒ…[‚Ìì¬
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
 	
-	// GPU‰¼‘zƒAƒhƒŒƒX
+	// GPUä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹
 	view_.BufferLocation = buffer_.Get()->GetGPUVirtualAddress();
 	
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
 	view_.SizeInBytes = dataSize;
 	
-	// ’¸“_1‚Â•ª‚Ìƒf[ƒ^ƒTƒCƒY
+	// é ‚ç‚¹1ã¤åˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º
 	view_.StrideInBytes = sizeof(v_[0]);
 }
 
 template <typename VData>
 void Vertices<VData>::Draw() const
 {
-	// ’¸“_ƒoƒbƒtƒ@ƒrƒ…[‚Ìİ’èƒRƒ}ƒ“ƒh
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã®è¨­å®šã‚³ãƒãƒ³ãƒ‰
 	spCmdList_->IASetVertexBuffers(0, 1, &view_);
 	
-	// •`‰æƒRƒ}ƒ“ƒh
-	spCmdList_->DrawInstanced(static_cast<UINT>(v_.size()), 1, 0, 0); // ‘S‚Ä‚Ì’¸“_‚ğg‚Á‚Ä•`‰æ
+	// æç”»ã‚³ãƒãƒ³ãƒ‰
+	spCmdList_->DrawInstanced(static_cast<UINT>(v_.size()), 1, 0, 0); // å…¨ã¦ã®é ‚ç‚¹ã‚’ä½¿ã£ã¦æç”»
 }
 
 template <typename VData>
 void VertexIndex<VData>::Initialize(const std::vector<VData>& v, const std::vector<uint16_t>& idx)
 {
-	// ’¸“_î•ñ‚ğƒRƒs[
+	// é ‚ç‚¹æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
 	this->v_ = v;
 	
-	// ƒCƒ“ƒfƒbƒNƒXî•ñ‚ğƒRƒs[
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
 	this->idx_ = idx;
 
 	// ----- vertices ----- //
@@ -109,61 +109,61 @@ void VertexIndex<VData>::Initialize(const std::vector<VData>& v, const std::vect
 
 	// ----- index ----- //
 
-	// ƒCƒ“ƒfƒbƒNƒXƒTƒCƒY
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚µã‚¤ã‚º
 	UINT dataSize = static_cast <UINT> (sizeof(uint16_t) * idx.size());
 
-	// ’¸“_ƒoƒbƒtƒ@İ’è
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	D3D12_HEAP_PROPERTIES heapProp{};
-	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPU‚Ö‚Ì“]‘——p
+	heapProp.Type = D3D12_HEAP_TYPE_UPLOAD; // GPUã¸ã®è»¢é€ç”¨
 
-	// ƒŠƒ\[ƒXİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹è¨­å®š
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	resDesc.Width = dataSize; // ’¸“_ƒf[ƒ^‘S‘Ì‚ÌƒTƒCƒY
+	resDesc.Width = dataSize; // é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿å…¨ä½“ã®ã‚µã‚¤ã‚º
 	resDesc.Height = 1;
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
 	resDesc.SampleDesc.Count = 1;
 	resDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì¶¬
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ
 	idxBuffer_.Create(&heapProp, &resDesc);
 
 
-	// GPUã‚Ìƒoƒbƒtƒ@‚É‘Î‰‚µ‚½‰¼‘zƒƒ‚ƒŠ(ƒƒCƒ“ƒƒ‚ƒŠã)‚ğæ“¾
+	// GPUä¸Šã®ãƒãƒƒãƒ•ã‚¡ã«å¯¾å¿œã—ãŸä»®æƒ³ãƒ¡ãƒ¢ãƒª(ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ¢ãƒªä¸Š)ã‚’å–å¾—
 	
-	uint16_t* idxMap = nullptr; // ‰¼‘zƒƒ‚ƒŠ
+	uint16_t* idxMap = nullptr; // ä»®æƒ³ãƒ¡ãƒ¢ãƒª
 	
 	Result(idxBuffer_.Get()->Map(0, nullptr, (void**)&idxMap));
 	
-	// ‘SƒCƒ“ƒfƒbƒNƒX‚É‘Î‚µ‚ÄƒCƒ“ƒfƒbƒNƒX‚ğƒRƒs[
+	// å…¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«å¯¾ã—ã¦ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ã‚³ãƒ”ãƒ¼
 	for (int i = 0; i < this->idx_.size(); i++) { idxMap[i] = this->idx_[i]; }
 	
-	// Œq‚ª‚è‚ğ‰ğœ
+	// ç¹‹ãŒã‚Šã‚’è§£é™¤
 	idxBuffer_.Get()->Unmap(0, nullptr);
 
 
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒrƒ…[‚Ìì¬
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
 	
-	// GPU‰¼‘zƒAƒhƒŒƒX
+	// GPUä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹
 	idxView_.BufferLocation = idxBuffer_.Get()->GetGPUVirtualAddress();
 	idxView_.Format = DXGI_FORMAT_R16_UINT;
 	
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌƒTƒCƒY
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
 	idxView_.SizeInBytes = dataSize;
 }
 
 template <typename VData>
 void VertexIndex<VData>::Draw() const
 {
-	// ’¸“_ƒoƒbƒtƒ@ƒrƒ…[‚Ìİ’èƒRƒ}ƒ“ƒh
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã®è¨­å®šã‚³ãƒãƒ³ãƒ‰
 	this->spCmdList_->IASetVertexBuffers(0, 1, &this->view_);
 	
-	// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒrƒ…[‚Ìİ’èƒRƒ}ƒ“ƒh
+	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã®è¨­å®šã‚³ãƒãƒ³ãƒ‰
 	this->spCmdList_->IASetIndexBuffer(&idxView_);
 	
-	// •`‰æƒRƒ}ƒ“ƒh
-	this->spCmdList_->DrawIndexedInstanced(static_cast<UINT>(idx_.size()), 1, 0, 0, 0); // ‘S‚Ä‚Ì’¸“_‚ğg‚Á‚Ä•`‰æ
+	// æç”»ã‚³ãƒãƒ³ãƒ‰
+	this->spCmdList_->DrawIndexedInstanced(static_cast<UINT>(idx_.size()), 1, 0, 0, 0); // å…¨ã¦ã®é ‚ç‚¹ã‚’ä½¿ã£ã¦æç”»
 }
 
 template class YDX::Vertices<YGame::Sprite2D::VData>;

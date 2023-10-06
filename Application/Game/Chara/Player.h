@@ -4,7 +4,7 @@
 
 namespace YGame
 {
-	// ƒvƒŒƒCƒ„[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	class Player final :
 		public BaseCharacter
 	{
@@ -12,49 +12,49 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€î•ñ</param>
-		/// <param name="pPet"> : ƒyƒbƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æƒ…å ±</param>
+		/// <param name="pPet"> : ãƒšãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		void Initialize(
 			const Transform::Status& status, 
 			IPet* pPet = nullptr);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate) override;
 
 		/// <summary>
-		/// Õ“Ë”»’è
+		/// è¡çªåˆ¤å®š
 		/// </summary>
-		/// <param name="info"> : Õ“Ëî•ñ</param>
+		/// <param name="info"> : è¡çªæ™‚æƒ…å ±</param>
 		void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
-		/// Õ“Ëî•ñæ“¾
+		/// è¡çªæ™‚æƒ…å ±å–å¾—
 		/// </summary>
-		/// <returns>Õ“Ëî•ñ</returns>
+		/// <returns>è¡çªæ™‚æƒ…å ±</returns>
 		CollisionInfo GetCollisionInfo() override;
 
 		/// <summary>
-		/// ƒyƒbƒg‚Éæ‚é
+		/// ãƒšãƒƒãƒˆã«ä¹—ã‚‹
 		/// </summary>
-		/// <param name="pPet"> : ƒyƒbƒgƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pPet"> : ãƒšãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿</param>
 		void RideOnPet(IPet* pPet);
 		
 		/// <summary>
-		/// ƒyƒbƒg‚©‚ç~‚è‚é
+		/// ãƒšãƒƒãƒˆã‹ã‚‰é™ã‚Šã‚‹
 		/// </summary>
 		void GetOffPet();
 
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pScrollCamera"> : ƒXƒNƒ[ƒ‹ƒJƒƒ‰ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pScrollCamera"> : ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚«ãƒ¡ãƒ©ãƒã‚¤ãƒ³ã‚¿</param>
 		static void StaticInitialize(ScrollCamera* pScrollCamera);
 
 	public:
@@ -65,43 +65,43 @@ namespace YGame
 
 	private:
 
-		// ƒWƒƒƒ“ƒvƒJƒEƒ“ƒ^[
+		// ã‚¸ãƒ£ãƒ³ãƒ—ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
 		uint16_t jumpCounter_ = 0;
 
-		// Å‘åƒWƒƒƒ“ƒv‰ñ”
+		// æœ€å¤§ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°
 		uint16_t maxJumpCount_ = 0;
 
-		// ŠZ‚ğ’…‚Ä‚¢‚é‚©
+		// é§ã‚’ç€ã¦ã„ã‚‹ã‹
 		bool isArmed_ = false;
 
-		// ƒyƒbƒgƒ|ƒCƒ“ƒ^
+		// ãƒšãƒƒãƒˆãƒã‚¤ãƒ³ã‚¿
 		IPet* pPet_ = nullptr;
 
 	private:
 
-		// Ã“IƒXƒNƒ[ƒ‹ƒJƒƒ‰ƒ|ƒCƒ“ƒ^
+		// é™çš„ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚«ãƒ¡ãƒ©ãƒã‚¤ãƒ³ã‚¿
 		static ScrollCamera* spScrollCamera_;
 
 	private:
 		
 		/// <summary>
-		/// ƒWƒƒƒ“ƒv
+		/// ã‚¸ãƒ£ãƒ³ãƒ—
 		/// </summary>
-		/// <param name="isJumpCount"> : ƒJƒEƒ“ƒg‚·‚é‚©</param>
+		/// <param name="isJumpCount"> : ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã‹</param>
 		void Jump(const bool isJumpCount = true);
 
 		/// <summary>
-		/// UŒ‚
+		/// æ”»æ’ƒ
 		/// </summary>
 		void Attack();
 
 		/// <summary>
-		/// ‰æ–ÊŠOˆ—
+		/// ç”»é¢å¤–å‡¦ç†
 		/// </summary>
 		void OffScreenProcess() override;
 		
 		/// <summary>
-		/// ƒfƒoƒbƒOƒeƒLƒXƒg–{•¶
+		/// ãƒ‡ãƒãƒƒã‚°ãƒ†ã‚­ã‚¹ãƒˆæœ¬æ–‡
 		/// </summary>
 		void DrawDebugTextContent() override;
 

@@ -8,37 +8,37 @@ namespace YMath
         float x_;
         float y_;
     public:
-        // ƒRƒ“ƒXƒgƒ‰ƒNƒ^(—ëƒxƒNƒgƒ‹)
+        // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(é›¶ãƒ™ã‚¯ãƒˆãƒ«)
         Vector2();
-        // ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ˆø”—L)
+        // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(å¼•æ•°æœ‰)
         Vector2(float x, float y);
     public:
-        // ƒmƒ‹ƒ€(’·‚³)
+        // ãƒãƒ«ãƒ (é•·ã•)
         float Length() const;
-        // ’·‚³ 2æ
+        // é•·ã• 2ä¹—
         constexpr float LengthSquare() const;
-        // ³‹K‰»
+        // æ­£è¦åŒ–
         Vector2 Normalized() const;
-        // —ëƒxƒNƒgƒ‹‚©
+        // é›¶ãƒ™ã‚¯ãƒˆãƒ«ã‹
         constexpr bool IsZero() const;
-        // “àÏ
+        // å†…ç©
         constexpr float Dot(const Vector2& v) const;
-        // ‹——£
+        // è·é›¢
         float Distance(const Vector2& v) const;
     public:
-        // ’P€‰‰Zq
+        // å˜é …æ¼”ç®—å­
         Vector2 operator+() const;
         Vector2 operator-() const;
-        // ‘ã“ü‰‰Zq
+        // ä»£å…¥æ¼”ç®—å­
         Vector2& operator+=(const Vector2& v);
         Vector2& operator-=(const Vector2& v);
         Vector2& operator*=(float s);
         Vector2& operator/=(float s);
-        // ”äŠr‰‰Zq
+        // æ¯”è¼ƒæ¼”ç®—å­
         bool operator==(const Vector2& v);
         bool operator!=(const Vector2& v);
     };
-    // “ñ€‰‰Zq
+    // äºŒé …æ¼”ç®—å­
     inline Vector2 operator+(const Vector2& v1, const Vector2& v2)
     {
         return{ v1.x_ + v2.x_, v1.y_ + v2.y_ };

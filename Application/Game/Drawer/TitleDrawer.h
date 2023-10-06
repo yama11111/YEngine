@@ -16,65 +16,65 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 	
 	public:
 
 		/// <summary>
-		/// ŠJnƒAƒjƒ[ƒVƒ‡ƒ“
+		/// é–‹å§‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		/// </summary>
 		void StartAnimation();
 		
 		/// <summary>
-		/// ƒI[ƒvƒjƒ“ƒOƒAƒjƒ[ƒVƒ‡ƒ“
+		/// ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		/// </summary>
 		void OpeningAnimation();
 	
 	public:
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 	
 	private:
 
-		// ƒ^ƒCƒgƒ‹
+		// ã‚¿ã‚¤ãƒˆãƒ«
 		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
 		std::unique_ptr<DrawObjectForSprite2D> lineObj_;
 		std::unique_ptr<DrawObjectForSprite2D> nameObj_;
 
-		// ƒXƒ^[ƒg
+		// ã‚¹ã‚¿ãƒ¼ãƒˆ
 		std::unique_ptr<DrawObjectForSprite2D> startObj_;
 		std::unique_ptr<ConstBufferObject<CBColor>> startColor_;
 
-		// ƒXƒ^[ƒgƒ{ƒ^ƒ“
+		// ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³
 		std::unique_ptr<UIButton> startButton_;
 
-		// •‘Ñ
+		// é»’å¸¯
 		std::unique_ptr<UILetterBox> letterBox_;
 
-		// ƒvƒŒƒCƒ„[
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 		Transform player_;
 		std::unique_ptr<PlayerDrawer> playerDra_;
 
-		// ƒEƒ}
+		// ã‚¦ãƒ
 		Transform horse_;
 		std::unique_ptr<HorseDrawer> horseDra_;
 
-		// ƒŒƒxƒ‹
+		// ãƒ¬ãƒ™ãƒ«
 		Level* pLevel_ = nullptr;
 
 		

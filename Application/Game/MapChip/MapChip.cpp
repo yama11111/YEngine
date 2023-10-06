@@ -8,47 +8,47 @@ using YMath::Vector3;
 
 void MapChip::Reset()
 {
-	// nullƒ`ƒFƒbƒN
+	// nullãƒã‚§ãƒƒã‚¯
 	assert(pMapData_);
 
-	// ‘SÁ‹
+	// å…¨æ¶ˆå»
 	chips_.clear();
 
-	// ”Ô†
+	// ç•ªå·
 	std::vector<std::vector<uint16_t>> nums = pMapData_->chipNums_;
 
-	// ‚Ğ‚Æ‚Â‚¸‚Âİ’è + ¶¬
+	// ã²ã¨ã¤ãšã¤è¨­å®š + ç”Ÿæˆ
 	for (size_t y = 0; y < nums.size(); y++)
 	{
 		for (size_t x = 0; x < nums[y].size(); x++)
 		{
-			// 0‚È‚ç’e‚­
+			// 0ãªã‚‰å¼¾ã
 			if (nums[y][x] == 0) { continue; }
 
-			// ƒ`ƒbƒv¶¬
+			// ãƒãƒƒãƒ—ç”Ÿæˆ
 			std::unique_ptr<ChipData> chip = std::make_unique<ChipData>();
 
-			// ˆÊ’u
+			// ä½ç½®
 			float posX = +(chipScale_.x_ * 2.0f) * x + chipScale_.x_;
 			float posY = -(chipScale_.y_ * 2.0f) * y - chipScale_.y_;
 
 			Vector3 pos = Vector3(posX, posY, 0.0f) + leftTop_;
 
-			// ‰Šú‰»
+			// åˆæœŸåŒ–
 			chip->transform_.Initialize({ pos,{},chipScale_ });
 
 			if (nums[y][x] == 1)
 			{
-				// •`‰æƒNƒ‰ƒX
+				// æç”»ã‚¯ãƒ©ã‚¹
 				chip->drawer_.reset(BlockDrawer::Create(&chip->transform_, 1));
 			}
 			if (nums[y][x] == 2)
 			{
-				// •`‰æƒNƒ‰ƒX
+				// æç”»ã‚¯ãƒ©ã‚¹
 				chip->drawer_.reset(GoalDrawer::Create(&chip->transform_, 1));
 			}
 
-			// 1”ÔŒã‚ë‚É‘}“ü
+			// 1ç•ªå¾Œã‚ã«æŒ¿å…¥
 			chips_.push_back(std::move(chip));
 		}
 	}
@@ -58,10 +58,10 @@ void MapChip::Reset()
 
 void MapChip::Update()
 {
-	// ƒ}ƒbƒvƒf[ƒ^‚ªnull‚È‚ç’e‚­
+	// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãŒnullãªã‚‰å¼¾ã
 	if (pMapData_ == nullptr) { return; }
 
-	// XV
+	// æ›´æ–°
 	for (std::unique_ptr<ChipData>& chip : chips_)
 	{
 		chip->transform_.UpdateMatrix();
@@ -71,10 +71,10 @@ void MapChip::Update()
 
 void MapChip::Draw()
 {
-	// ƒ}ƒbƒvƒf[ƒ^‚ªnull‚È‚ç’e‚­
+	// ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãŒnullãªã‚‰å¼¾ã
 	if (pMapData_ == nullptr) { return; }
 
-	// •`‰æ
+	// æç”»
 	for (std::unique_ptr<ChipData>& chip : chips_)
 	{
 		chip->drawer_->Draw();

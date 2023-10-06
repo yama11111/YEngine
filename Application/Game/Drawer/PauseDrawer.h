@@ -12,75 +12,75 @@ namespace YGame
 
 	public:
 
-		// ‘I‘ğ
+		// é¸æŠ
 		enum class Selection : size_t
 		{
-			Resume, // –ß‚é
-			ReStart, // ƒŠƒXƒ^[ƒg
-			Change, // ‘JˆÚ
+			Resume, // æˆ»ã‚‹
+			ReStart, // ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ
+			Change, // é·ç§»
 			End,
 		};
 
-		// ‘I‘ğˆ‚Ì”
+		// é¸æŠè‚¢ã®æ•°
 		static const size_t kSelectionNum = static_cast<size_t>(Selection::End);
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 	public:
 
 		/// <summary>
-		/// ‹N“®ƒAƒjƒ[ƒVƒ‡ƒ“
+		/// èµ·å‹•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		/// </summary>
 		void BootAnimation();
 		
 		/// <summary>
-		/// ’â~ƒAƒjƒ[ƒVƒ‡ƒ“
+		/// åœæ­¢ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		/// </summary>
 		void ShutdownAnimation();
 
 		/// <summary>
-		/// ‘I‘ğˆİ’è
+		/// é¸æŠè‚¢è¨­å®š
 		/// </summary>
-		/// <param name="select"> : ‘I‘ğ</param>
+		/// <param name="select"> : é¸æŠ</param>
 		void SetSelection(const Selection select);
 
 	public:
 
 		/// <summary>
-		/// ƒŠƒ\[ƒX“Ç‚İ‚İ
+		/// ãƒªã‚½ãƒ¼ã‚¹èª­ã¿è¾¼ã¿
 		/// </summary>
 		static void LoadResource();
 
 	private:
 		
-		// ‘I‘ğˆ\‘¢‘Ì
+		// é¸æŠè‚¢æ§‹é€ ä½“
 		struct SelectionObject
 		{
-			// ƒIƒuƒWƒFƒNƒg
+			// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 			std::unique_ptr<DrawObjectForSprite2D> obj_;
 			std::unique_ptr<ConstBufferObject<CBColor>> color_;
 
-			// ‰‰o—p
+			// æ¼”å‡ºç”¨
 			bool isActPos_ = false;
 			YMath::Power posXPow_;
 			YMath::Ease<float> posXEas_;
@@ -89,26 +89,26 @@ namespace YGame
 	
 	private:
 
-		// ‘I‘ğ
+		// é¸æŠ
 		Selection selection_ = Selection::Resume;
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		bool isAct_ = false;
 		YMath::Power animePow_;
 
-		// ƒ|[ƒYƒƒS
+		// ãƒãƒ¼ã‚ºãƒ­ã‚´
 		std::unique_ptr<DrawObjectForSprite2D> pauseLogo_;
 		YMath::Ease<float> pauseLogoPosXEas_;
 		
-		// ‘I‘ğˆ
+		// é¸æŠè‚¢
 		std::array<SelectionObject, kSelectionNum> selectionObjs_;
 		YMath::Ease<YMath::Vector3> selectScaleEas_;
 		
-		// ‹«ŠEü
+		// å¢ƒç•Œç·š
 		std::unique_ptr<DrawObjectForSprite2D> border_;
 		YMath::Ease<float> borderScaleYEas_;
 
-		// ”wŒiƒJ[ƒeƒ“
+		// èƒŒæ™¯ã‚«ãƒ¼ãƒ†ãƒ³
 		std::unique_ptr<DrawObjectForSprite2D> curten_;
 		std::unique_ptr<ConstBufferObject<CBColor>> curtenColor_;
 		YMath::Power curtenAlphaPow_;
@@ -116,22 +116,22 @@ namespace YGame
 
 	private:
 
-		// ƒ|[ƒYƒƒSƒXƒvƒ‰ƒCƒg
+		// ãƒãƒ¼ã‚ºãƒ­ã‚´ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 		static Sprite2D* spPauseLogo_;
 
-		// ‘I‘ğˆƒƒSƒXƒvƒ‰ƒCƒg
+		// é¸æŠè‚¢ãƒ­ã‚´ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 		static std::array<Sprite2D*, kSelectionNum> spSelectionSprites_;
 		
-		// ‹«ŠEüƒXƒvƒ‰ƒCƒg
+		// å¢ƒç•Œç·šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 		static Sprite2D* spBorder_;
 		
-		// ƒJ[ƒeƒ“ƒXƒvƒ‰ƒCƒg
+		// ã‚«ãƒ¼ãƒ†ãƒ³ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 		static Sprite2D* spCurten_;
 
 	private:
 
 		/// <summary>
-		/// “`”d
+		/// ä¼æ’­
 		/// </summary>
 		void PropagateSelection(const size_t index);
 	};

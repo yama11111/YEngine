@@ -4,38 +4,38 @@
 
 namespace YGame
 {
-	// ƒ}ƒeƒŠƒAƒ‹—p’è”ƒoƒbƒtƒ@
+	// ãƒãƒ†ãƒªã‚¢ãƒ«ç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBMaterial
 	{
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// ƒAƒ“ƒrƒGƒ“ƒgŒW”
+			// ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆä¿‚æ•°
 			YMath::Vector3 ambient = { 1.0f,1.0f,1.0f };
 
 			float pad1;
 
-			// ƒfƒBƒtƒ…[ƒYŒW”
+			// ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºä¿‚æ•°
 			YMath::Vector3 diffuse = { 1.0f,1.0f,1.0f };
 
 			float pad2;
 
-			// ƒXƒyƒLƒ…ƒ‰[ŒW”
+			// ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ä¿‚æ•°
 			YMath::Vector3 specular = { 1.0f,1.0f,1.0f };
 			
-			// ƒAƒ‹ƒtƒ@’l
+			// ã‚¢ãƒ«ãƒ•ã‚¡å€¤
 			float alpha = 1.0f;
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBMaterial";

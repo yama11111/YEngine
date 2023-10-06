@@ -14,121 +14,121 @@ namespace YDX
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="hwnd"> : ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹</param>
-		/// <param name="windowSize"> : ƒEƒBƒ“ƒhƒEƒTƒCƒY</param>
-		/// <returns>‰Šú‰»‚É¬Œ÷‚µ‚½‚©</returns>
+		/// <param name="hwnd"> : ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«</param>
+		/// <param name="windowSize"> : ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º</param>
+		/// <returns>åˆæœŸåŒ–ã«æˆåŠŸã—ãŸã‹</returns>
 		bool Initialize(const HWND& hwnd, const YMath::Vector2& windowSize = { 1280, 720 }); 
 		
 		/// <summary>
-		/// •`‰æ‘O€”õ
+		/// æç”»å‰æº–å‚™
 		/// </summary>
-		/// <param name="clearColor"> : ‰æ–ÊƒNƒŠƒA‚ÌF</param>
+		/// <param name="clearColor"> : ç”»é¢ã‚¯ãƒªã‚¢æ™‚ã®è‰²</param>
 		void PreDraw(const YMath::Vector4& clearColor);
 
 		/// <summary>
-		/// •`‰æŒãˆ—
+		/// æç”»å¾Œå‡¦ç†
 		/// </summary>
 		void PostDraw();
 	
 	public:
 
 		/// <summary>
-		/// DXGIƒtƒ@ƒNƒgƒŠ[ƒ|ƒCƒ“ƒ^æ“¾
+		/// DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>DXGIƒtƒ@ƒNƒgƒŠ[ƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ã‚¿</returns>
 		IDXGIFactory7* DXGIFactoryPtr() { return dxgiFactory_.Get(); }
 
 		/// <summary>
-		/// ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^æ“¾
+		/// ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒfƒoƒCƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ãƒ‡ãƒã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3D12Device* DevicePtr() { return device_.Get(); }
 		
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3D12GraphicsCommandList* CommandListPtr() { return cmdList_.Get(); }
 
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^æ“¾
+		/// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿å–å¾—
 		/// </summary>
-		/// <returns>ƒRƒ}ƒ“ƒhƒŠƒXƒgƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆãƒã‚¤ãƒ³ã‚¿</returns>
 		ID3D12CommandQueue* CommandQueuePtr() { return cmdQueue_.Get(); }
 		
 		/// <summary>
-		/// ƒoƒbƒNƒoƒbƒtƒ@”æ“¾
+		/// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡æ•°å–å¾—
 		/// </summary>
-		/// <returns>ƒoƒbƒNƒoƒbƒtƒ@”</returns>
+		/// <returns>ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡æ•°</returns>
 		size_t BackBufferCount() { return backBuffers_.size(); }
 	
 	public:
 		
 		/// <summary>
-		/// FPSİ’è
+		/// FPSè¨­å®š
 		/// </summary>
 		/// <param name="fps"> : FPS</param>
 		static void SetFPS(const float fps);
 	
 	private:
 		
-		// ComPtr—pƒGƒCƒŠƒAƒXƒeƒ“ƒvƒŒ[ƒg
+		// ComPtrç”¨ã‚¨ã‚¤ãƒªã‚¢ã‚¹ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ
 		template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 	
 	private:
 		
-		// DXGIƒtƒ@ƒNƒgƒŠ[
+		// DXGIãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
 		ComPtr<IDXGIFactory7> dxgiFactory_ = nullptr;
 		
-		// ƒfƒoƒCƒX
+		// ãƒ‡ãƒã‚¤ã‚¹
 		ComPtr<ID3D12Device> device_ = nullptr;
 		
 
-		// ƒRƒ}ƒ“ƒhƒAƒƒP[ƒ^[
+		// ã‚³ãƒãƒ³ãƒ‰ã‚¢ãƒ­ã‚±ãƒ¼ã‚¿ãƒ¼
 		ComPtr<ID3D12CommandAllocator> cmdAllocator_ = nullptr;
 		
-		// ƒRƒ}ƒ“ƒhƒŠƒXƒg
+		// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
 		ComPtr<ID3D12GraphicsCommandList> cmdList_ = nullptr;
 		
-		// ƒRƒ}ƒ“ƒhƒLƒ…[
+		// ã‚³ãƒãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼
 		ComPtr<ID3D12CommandQueue> cmdQueue_ = nullptr;
 		
 
-		// ƒXƒƒbƒvƒ`ƒF[ƒ“
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³
 		ComPtr<IDXGISwapChain4> swapChain_ = nullptr;
 		
 
-		// RTV—pƒq[ƒv
+		// RTVç”¨ãƒ’ãƒ¼ãƒ—
 		ComPtr<ID3D12DescriptorHeap> rtvHeap_ = nullptr;
 		
-		// ƒoƒbƒNƒoƒbƒtƒ@ (RTV–{‘Ì)
+		// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ (RTVæœ¬ä½“)
 		std::vector<ComPtr<ID3D12Resource>> backBuffers_;
 		
 
-		// DSV—pƒq[ƒv
+		// DSVç”¨ãƒ’ãƒ¼ãƒ—
 		ComPtr<ID3D12DescriptorHeap> dsvHeap_ = nullptr;
 		
-		// [“xƒoƒbƒtƒ@ (DSV–{‘Ì)
+		// æ·±åº¦ãƒãƒƒãƒ•ã‚¡ (DSVæœ¬ä½“)
 		ComPtr<ID3D12Resource> depthBuff_ = nullptr;
 		
 
-		// ƒtƒFƒ“ƒX
+		// ãƒ•ã‚§ãƒ³ã‚¹
 		ComPtr<ID3D12Fence> fence_ = nullptr;
 		
-		// ƒtƒFƒ“ƒX”Ô†
+		// ãƒ•ã‚§ãƒ³ã‚¹ç•ªå·
 		UINT64 fenceValue_ = 0;
 		
-		// FPSŒÅ’è—pŠÔ‹L˜^
+		// FPSå›ºå®šç”¨æ™‚é–“è¨˜éŒ²
 		std::chrono::steady_clock::time_point timeRef_;
 	
 	private:
 		
-		// ŒÅ’èfps (‰Šú’l : 60fps)
+		// å›ºå®šæ™‚fps (åˆæœŸå€¤ : 60fps)
 		static std::chrono::microseconds MinTime_;
 		
-		// ’²®—pfps (‰Šú’l : 65fps)
+		// èª¿æ•´ç”¨fps (åˆæœŸå€¤ : 65fps)
 		static std::chrono::microseconds MinCheckTime_;
 	
 	};

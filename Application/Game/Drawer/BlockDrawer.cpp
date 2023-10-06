@@ -23,13 +23,13 @@ void BlockDrawer::LoadResource()
 
 void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 	obj_->transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
 
 	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelPhong";

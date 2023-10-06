@@ -17,91 +17,91 @@ void CardDrawer::Initialize(Transform* pParent, const int32_t number, const bool
 	assert(0 < number);
 	number_ = number;
 
-	// ----- ¶¬ ----- //
+	// ----- ç”Ÿæˆ ----- //
 
-	// Šj
+	// æ ¸
 	core_ = Transform::Status::Default();
 	core_.parent_ = &pParent->m_;
 
-	// F
+	// è‰²
 	color_.reset(ConstBufferObject<CBColor>::Create());
 
-	// ƒNƒŠƒAF
+	// ã‚¯ãƒªã‚¢è‰²
 	//clearCharaColor_.reset(CBColor::Create());
 
-	// ƒXƒe[ƒWƒJ[ƒhƒIƒuƒWƒFƒNƒg
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚«ãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	cardObj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spCardSpr_));
 	cardObj_->SetParent(&core_.m_);
 
-	// ”š
+	// æ•°å­—
 	numberTra_.Initialize({ {}, {}, {0.5f,0.5f,0.0f} });
 	numberTra_.parent_ = &core_.m_;
 	numberUI_.reset(UINumber::Create2D(static_cast<uint32_t>(number_), 2, 64.0f, false, &numberTra_.m_));
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset(isClear);
 }
 
 void CardDrawer::Reset(const bool isClear)
 {
-	// ----- ƒIƒuƒWƒFƒNƒg‰Šú‰» ----- //
+	// ----- ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ– ----- //
 
-	// Šj
+	// æ ¸
 	core_.Initialize();
 
-	// ”š
+	// æ•°å­—
 	numberTra_.Initialize({ {}, {}, {0.5f,0.5f,0.0f} });
 	
-	// ƒJ[ƒh
+	// ã‚«ãƒ¼ãƒ‰
 	cardObj_->Initialize();
 	cardObj_->SetParent(&core_.m_);
 
-	// F‰Šú‰»
+	// è‰²åˆæœŸåŒ–
 	color_->data_.baseColor = { 1.0f,1.0f,1.0f,1.0f };
 
-	// F‰Šú‰»
+	// è‰²åˆæœŸåŒ–
 	//clearCharaColor_->SetRGBA({ 1.0f,1.0f,0.0f,1.0f });
 
-	// ----- ƒAƒjƒ[ƒVƒ‡ƒ“ ----- //
+	// ----- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ ----- //
 
-	// ‘I‘ğ‚³‚ê‚Ä‚¢‚é‚©
+	// é¸æŠã•ã‚Œã¦ã„ã‚‹ã‹
 	isSelected_ = false;
-	// ‘I‘ğ‚³‚ê‚Ä‚¢‚½‚©
+	// é¸æŠã•ã‚Œã¦ã„ãŸã‹
 	isElderSelected_ = false;
-	// Œˆ’è‚³‚ê‚½‚©
+	// æ±ºå®šã•ã‚ŒãŸã‹
 	isDecided_ = false;
 
-	// ˆÚ“®—pƒC[ƒWƒ“ƒO
+	// ç§»å‹•ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 	moveEas_.Initialize(0.0f, -128.0f, 1.2f);
-	// Šg‘å—pƒC[ƒWƒ“ƒO
+	// æ‹¡å¤§ç”¨ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°
 	scaleEas_.Initialize(0.0f, 0.25f, 1.2f);
-	// ‘I‘ğ—pƒpƒ[
+	// é¸æŠç”¨ãƒ‘ãƒ¯ãƒ¼
 	selectPow_.Initialize(10);
 
-	// ƒNƒŠƒA‚µ‚½‚©
+	// ã‚¯ãƒªã‚¢ã—ãŸã‹
 	isClear_ = isClear;
 }
 
 void CardDrawer::UpdateSelectAnimation()
 {
-	// ----- ƒuƒˆƒuƒˆƒAƒjƒ[ƒVƒ‡ƒ“ ----- //
+	// ----- ãƒ–ãƒ¨ãƒ–ãƒ¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ ----- //
 	
-	//// ‘I‘ğ‚³‚ê‚½uŠÔ
+	//// é¸æŠã•ã‚ŒãŸç¬é–“
 	//if (isSelected_ && isElderSelected_ == false)
 	//{
-	//	// Lk—Ê
+	//	// ä¼¸ç¸®é‡
 	//	Vector3 val = core_->scale_ * SlimeAction::Value;
 
-	//	// ’×‚µL‚Î‚µ
+	//	// æ½°ã—ä¼¸ã°ã—
 	//	Vector3 squash = +val;
 	//	Vector3 streach = -val;
 
-	//	// ŠÔ
+	//	// æ™‚é–“
 	//	unsigned int frame = SlimeAction::Frame;
-	//	// w”
+	//	// æŒ‡æ•°
 	//	float exponent = SlimeAction::Exponent;
 
-	//	// “®ì‚·‚é
+	//	// å‹•ä½œã™ã‚‹
 	//	SlimeActor::Activate(
 	//		{ 
 	//			{ {}, frame, exponent},
@@ -112,81 +112,81 @@ void CardDrawer::UpdateSelectAnimation()
 	//	);
 	//}
 
-	// ‘I‘ğ‚ğ‹L˜^
+	// é¸æŠã‚’è¨˜éŒ²
 	isElderSelected_ = isSelected_;
 
 
-	// -------- ƒAƒjƒ[ƒVƒ‡ƒ“ --------- //
+	// -------- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ --------- //
 
-	// ‘I‘ğ’†‚È‚çƒpƒ[XV
+	// é¸æŠä¸­ãªã‚‰ãƒ‘ãƒ¯ãƒ¼æ›´æ–°
 	selectPow_.Update(isSelected_);
 	
-	// ----- ˆÚ“® ----- //
+	// ----- ç§»å‹• ----- //
 
-	// ˆÚ“®—Ê
+	// ç§»å‹•é‡
 	float moveVal = 0.0f;
 	
-	// ‘I‚Î‚ê‚Ä‚¢‚é‚È‚ç
+	// é¸ã°ã‚Œã¦ã„ã‚‹ãªã‚‰
 	if (isSelected_)
 	{
-		// ƒC[ƒYƒCƒ“‘ã“ü
+		// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ä»£å…¥
 		moveVal = moveEas_.In(selectPow_.Ratio());
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ƒC[ƒYƒAƒEƒg‘ã“ü
+		// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆä»£å…¥
 		moveVal = moveEas_.Out(selectPow_.Ratio());
 	}
 
-	// ˆÚ“®—Ê‘ã“ü
+	// ç§»å‹•é‡ä»£å…¥
 	core_.pos_.x_ = moveVal;
 
 	
-	// ----- Šg‘å ----- //
+	// ----- æ‹¡å¤§ ----- //
 
-	// ˆÚ“®—Ê
+	// ç§»å‹•é‡
 	float scaleVal = 0.0f;
 
-	// ‘I‚Î‚ê‚Ä‚¢‚é‚È‚ç
+	// é¸ã°ã‚Œã¦ã„ã‚‹ãªã‚‰
 	if (isSelected_)
 	{
-		// ƒC[ƒYƒCƒ“‘ã“ü
+		// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ä»£å…¥
 		scaleVal = scaleEas_.In(selectPow_.Ratio());
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ƒC[ƒYƒAƒEƒg‘ã“ü
+		// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆä»£å…¥
 		scaleVal = scaleEas_.Out(selectPow_.Ratio());
 	}
 
-	// ˆÚ“®—Ê‘ã“ü
+	// ç§»å‹•é‡ä»£å…¥
 	core_.scale_ = Vector3(1.0f, 1.0f, 1.0f) + Vector3(scaleVal, scaleVal, 0.0f);
 
 	
-	// -------------- F -------------- //
+	// -------------- è‰² -------------- //
 
-	// F‚Ì’l
+	// è‰²ã®å€¤
 	Vector3 colorVal = {};
 	Vector3 clearColorVal = {};
 
-	// ‘I‚Î‚ê‚Ä‚¢‚é‚È‚ç
+	// é¸ã°ã‚Œã¦ã„ã‚‹ãªã‚‰
 	if (isSelected_)
 	{
-		// ’ÊíF‚É
+		// é€šå¸¸è‰²ã«
 		colorVal = { 1.0f,1.0f,1.0f };
 		clearColorVal = { 0.25f,1.0f,0.75f };
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ˆÃ‚¢F‚É
+		// æš—ã„è‰²ã«
 		colorVal = { 0.25f,0.25f,0.25f };
 		clearColorVal = Vector3(0.25f, 1.0f, 0.75f) * 0.25f;
 	}
 
-	// Fİ’è
+	// è‰²è¨­å®š
 	YMath::Vector4 color = { colorVal.x_,colorVal.y_,colorVal.z_,color_->data_.baseColor.a_ };
 	color_->data_.baseColor = color;
 	//clearCharaColor_->SetRGB(clearColorVal);
@@ -194,17 +194,17 @@ void CardDrawer::UpdateSelectAnimation()
 
 void CardDrawer::Update()
 {
-	// ‘I‘ğƒAƒjƒ[ƒVƒ‡ƒ“XV
+	// é¸æŠã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 	UpdateSelectAnimation();
 
-	// Šj
+	// æ ¸
 	core_.UpdateMatrix();
 
-	// ”š
+	// æ•°å­—
 	numberTra_.UpdateMatrix();
 	numberUI_->Update();
 
-	// ƒJ[ƒh
+	// ã‚«ãƒ¼ãƒ‰
 	cardObj_->Update();
 }
 

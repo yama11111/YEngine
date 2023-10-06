@@ -7,45 +7,45 @@
 
 namespace YGame
 {
-	// ƒXƒvƒ‰ƒCƒg3D (ƒrƒ‹ƒ{[ƒh)
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3D (ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰)
 	class Sprite3D :
 		public BaseGraphic
 	{
 
 	public:
 
-		// ’¸“_ƒf[ƒ^
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 		struct VData
 		{
-			YMath::Vector3 pos_; // xyzÀ•W
+			YMath::Vector3 pos_; // xyzåº§æ¨™
 		};
 
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="pTexs"> : ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^”z—ñ</param>
-		/// <returns>ƒXƒvƒ‰ƒCƒgƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="pTexs"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿é…åˆ—</param>
+		/// <returns>ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒã‚¤ãƒ³ã‚¿</returns>
 		static Sprite3D* Create(const std::unordered_map<std::string, Texture*>& pTexs);
 
 		/// <summary>
-		/// ‘Síœ
+		/// å…¨å‰Šé™¤
 		/// </summary>
 		static void AllClear();
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹—p‚ÌƒpƒCƒvƒ‰ƒCƒ“İ’èæ“¾
+		/// ãƒ¢ãƒ‡ãƒ«ç”¨ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®šå–å¾—
 		/// </summary>
-		/// <returns>ƒpƒCƒvƒ‰ƒCƒ“İ’è</returns>
+		/// <returns>ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³è¨­å®š</returns>
 		static PipelineSetting GetPipelineSetting();
 
 	public:
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="rpIndices"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^î•ñ + ”Ô†</param>
+		/// <param name="rpIndices"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ± + ç•ªå·</param>
 		void SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices) override;
 
 	public:
@@ -56,18 +56,18 @@ namespace YGame
 
 	private:
 
-		// ƒeƒNƒXƒ`ƒƒ
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		std::unordered_map<std::string, Texture*> pTexs_{};
 
 	private:
 
-		// ’¸“_ƒf[ƒ^
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 		static YDX::Vertices<VData> vt_;
 
-		// ‰Šú‰»ƒtƒ‰ƒO
+		// åˆæœŸåŒ–ãƒ•ãƒ©ã‚°
 		static bool isInitVertices_;
 
-		// Ã“IƒXƒvƒ‰ƒCƒg3DŠi”[—pvector”z—ñ
+		// é™çš„ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3Dæ ¼ç´ç”¨vectoré…åˆ—
 		static std::vector<std::unique_ptr<Sprite3D>> sSprites_;
 	};
 }

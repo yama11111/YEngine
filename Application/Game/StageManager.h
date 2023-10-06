@@ -9,44 +9,44 @@ namespace YGame
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		void Initialize();
 
 		/// <summary>
-		/// ƒŠƒZƒbƒg
+		/// ãƒªã‚»ãƒƒãƒˆ
 		/// </summary>
 		void Reset();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 	public:
 
 		/// <summary>
-		/// ƒQ[ƒ€ƒI[ƒo[
+		/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
 		/// </summary>
 		void GameOver();
 
 		/// <summary>
-		/// ƒXƒe[ƒWƒNƒŠƒA
+		/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢
 		/// </summary>
 		void ClearStage();
 		
 	public:
 
 		/// <summary>
-		/// Œ»İ‚ÌƒXƒe[ƒW”Ô†
+		/// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
 		/// </summary>
-		/// <returns>ƒXƒe[ƒW”Ô†</returns>
+		/// <returns>ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·</returns>
 		uint32_t CurrentStageIndex() const;
 
 		/// <summary>
-		/// ƒXƒe[ƒW”Ô†İ’è
+		/// ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·è¨­å®š
 		/// </summary>
-		/// <param name="index"> : ƒXƒe[ƒW”Ô†</param>
+		/// <param name="index"> : ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·</param>
 		void SetStageIndex(const uint32_t index);
 
 	public:

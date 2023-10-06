@@ -4,63 +4,63 @@
 
 namespace YMath
 {
-	// ƒAƒ^ƒŠ”»’è (ü~•½–Ê)
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ç·šÃ—å¹³é¢)
 	bool CollisionRayPlane(
 		const Vector3& rayStart, const Vector3& rayDirection,
 		const Vector3& planeNormal, const float planeDist);
-	// ƒAƒ^ƒŠ”»’è (ü~•½–Ê) <‹——£,‹^—Œğ“_æ“¾ver>
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ç·šÃ—å¹³é¢) <è·é›¢,ç–‘ä¼¼äº¤ç‚¹å–å¾—ver>
 	bool CollisionRayPlane(
 		const Vector3& rayStart, const Vector3& rayDirection,
 		const Vector3& planeNormal, const float planeDist,
 		float& distance, Vector3& inter);
 
-	// ƒAƒ^ƒŠ”»’è (ü~OŠpŒ`)
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ç·šÃ—ä¸‰è§’å½¢)
 	bool CollisionRayTriangle(
 		const Vector3& rayStart, const Vector3& rayDirection,
 		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal);
-	// ƒAƒ^ƒŠ”»’è (ü~OŠpŒ`) <‹——£,‹^—Œğ“_æ“¾ver>
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ç·šÃ—ä¸‰è§’å½¢) <è·é›¢,ç–‘ä¼¼äº¤ç‚¹å–å¾—ver>
 	bool CollisionRayTriangle(
 		const Vector3& rayStart, const Vector3& rayDirection,
 		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
 		float& distance, Vector3& inter);
 
-	// ƒAƒ^ƒŠ”»’è (ü~‹…)
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ç·šÃ—çƒ)
 	bool CollisionRaySphere(
 		const Vector3& rayStart, const Vector3& rayDirection,
 		const Vector3& sphereCenter, const float sphereRad);
-	// ƒAƒ^ƒŠ”»’è (ü~‹…) <ŠÑ’Ê“_æ“¾ver>
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ç·šÃ—çƒ) <è²«é€šç‚¹å–å¾—ver>
 	bool CollisionRaySphere(
 		const Vector3& rayStart, const Vector3& rayDirection,
 		const Vector3& sphereCenter, const float sphereRad,
 		float& distance, Vector3& start, Vector3& end);
 
-	// ƒAƒ^ƒŠ”»’è (•½–Ê~‹…)
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (å¹³é¢Ã—çƒ)
 	bool CollisionPlaneSphere(
 		const Vector3& planeNormal, const float planeDist, 
 		const Vector3& sphereCenter, const float sphereRad);
-	// ƒAƒ^ƒŠ”»’è (•½–Ê~‹…) <‹^—Œğ“_æ“¾ver>
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (å¹³é¢Ã—çƒ) <ç–‘ä¼¼äº¤ç‚¹å–å¾—ver>
 	bool CollisionPlaneSphere(
 		const Vector3& planeNormal, const float planeDist,
 		const Vector3& sphereCenter, const float sphereRad,
 		Vector3& inter);
 	
-	// ƒAƒ^ƒŠ”»’è (OŠpŒ`~‹…)
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ä¸‰è§’å½¢Ã—çƒ)
 	bool CollisionTriangleSphere(
 		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
 		const Vector3& sphereCenter, const float sphereRad);
-	// ƒAƒ^ƒŠ”»’è (OŠpŒ`~‹…) <‹^—Œğ“_æ“¾ver>
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (ä¸‰è§’å½¢Ã—çƒ) <ç–‘ä¼¼äº¤ç‚¹å–å¾—ver>
 	bool CollisionTriangleSphere(
 		const Vector3& triPos0, const Vector3& triPos1, const Vector3& triPos2, const Vector3& triNormal,
 		const Vector3& sphereCenter, const float sphereRad,
 		Vector3& inter);
 
-	// ƒAƒ^ƒŠ”»’è (‹…~‹…)
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (çƒÃ—çƒ)
 	bool CollisionSphereSphere(
 		const Vector3& sphereCenter1, const float sphereRad1,
 		const Vector3& sphereCenter2, const float sphereRad2
 	);
 
-	// ƒAƒ^ƒŠ”»’è (lŠpŒ`~lŠpŒ`) [2D]
+	// ã‚¢ã‚¿ãƒªåˆ¤å®š (å››è§’å½¢Ã—å››è§’å½¢) [2D]
 	bool CollisionBoxBox2D(
 		const Vector2& boxCenter1, const Vector2& boxRadSize1,
 		const Vector2& boxCenter2, const Vector2& boxRadSize2

@@ -7,8 +7,8 @@ YGame::Sprite2D* UILetterBox::spSpr_ = nullptr;
 
 namespace
 {
-	const size_t kTopIndex = 0; // ã
-	const size_t kBottomIndex = 1; // ‰º 
+	const size_t kTopIndex = 0; // ä¸Š
+	const size_t kBottomIndex = 1; // ä¸‹ 
 }
 
 void UILetterBox::Initialize(const YMath::Vector2& winSize, const float topHeight, const float bottomHeight)
@@ -18,7 +18,7 @@ void UILetterBox::Initialize(const YMath::Vector2& winSize, const float topHeigh
 		cbColor_.reset(ConstBufferObject<CBColor>::Create());
 	}
 
-	// •F
+	// é»’è‰²
 	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,1.0f };
 
 	for (size_t i = 0; i < objs_.size(); i++)
@@ -32,11 +32,11 @@ void UILetterBox::Initialize(const YMath::Vector2& winSize, const float topHeigh
 		heightEas_[i].Initialize({}, {}, 0.0f);
 	}
 
-	// ƒEƒBƒ“ƒhƒE‚Ì‰¡•‚Æw’è‚³‚ê‚½‚‚³‚É
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ¨ªå¹…ã¨æŒ‡å®šã•ã‚ŒãŸé«˜ã•ã«
 	objs_[kTopIndex]	->transform_.scale_ = { winSize.x_, topHeight, 0.0f };
 	objs_[kBottomIndex]	->transform_.scale_ = { winSize.x_, bottomHeight, 0.0f };
 
-	// ƒEƒBƒ“ƒhƒE‚Ìã‚Æ‰º‚É—×Ú‚·‚é‚æ‚¤‚É
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä¸Šã¨ä¸‹ã«éš£æ¥ã™ã‚‹ã‚ˆã†ã«
 	objs_[kTopIndex]	->transform_.pos_ = { winSize.x_ / 2.0f, +topHeight / 2.0f, 0.0f };
 	objs_[kBottomIndex]	->transform_.pos_ = { winSize.x_ / 2.0f, winSize.y_ - bottomHeight / 2.0f, 0.0f };
 
@@ -58,7 +58,7 @@ void UILetterBox::UpdatePos()
 	{
 		Transform::Status status = {};
 
-		// ã‰º‚Å•„†•Ï‚¦‚é
+		// ä¸Šä¸‹ã§ç¬¦å·å¤‰ãˆã‚‹
 		float sign = 0.0f;
 
 		if (i == kTopIndex)
@@ -89,7 +89,7 @@ void UILetterBox::Update()
 
 	UpdatePos();
 
-	// I—¹Œã‰Šú‰»
+	// çµ‚äº†å¾ŒåˆæœŸåŒ–
 	if (heightEasTimer_.IsEnd())
 	{
 		heightEasTimer_.Reset(false);

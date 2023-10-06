@@ -10,25 +10,25 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
-		/// <returns>•`‰æƒNƒ‰ƒXƒ|ƒCƒ“ƒ^ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</returns>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
+		/// <returns>æç”»ã‚¯ãƒ©ã‚¹ãƒã‚¤ãƒ³ã‚¿ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</returns>
 		static EarthDrawer* Create(Transform* pParent, const size_t drawPriority);
 
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void LoadResource();
 
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="pParent"> : eƒ|ƒCƒ“ƒ^</param>
-		/// <param name="drawPriority"> : •`‰æ—Dæ“x</param>
+		/// <param name="pParent"> : è¦ªãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="drawPriority"> : æç”»å„ªå…ˆåº¦</param>
 		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
 	public:
@@ -39,25 +39,25 @@ namespace YGame
 
 	private:
 
-		// ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^
+		// ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿
 		static Model* spModel_;
 
 	private:
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒ}[‘}“ü
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒãƒ¼æŒ¿å…¥
 		/// </summary>
 		void InsertAnimationTimers() override;
 
 		/// <summary>
-		/// ƒTƒuƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+		/// ã‚µãƒ–ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 		/// </summary>
-		/// <param name="index"> : ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†</param>
-		/// <param name="frame"> : Ä¶ƒtƒŒ[ƒ€</param>
+		/// <param name="index"> : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·</param>
+		/// <param name="frame"> : å†ç”Ÿãƒ•ãƒ¬ãƒ¼ãƒ </param>
 		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“XV
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 		/// </summary>
 		void UpdateAnimation() override;
 	};

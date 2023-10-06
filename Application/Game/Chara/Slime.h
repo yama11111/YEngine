@@ -10,21 +10,21 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€î•ñ</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ æƒ…å ±</param>
 		void Initialize(const Transform::Status& status);
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="isUpdate"> : XV‚·‚é‚©</param>
+		/// <param name="isUpdate"> : æ›´æ–°ã™ã‚‹ã‹</param>
 		void Update(const bool isUpdate) override;
 
 		/// <summary>
-		/// Õ“Ëî•ñæ“¾
+		/// è¡çªæ™‚æƒ…å ±å–å¾—
 		/// </summary>
-		/// <returns>Õ“Ëî•ñ</returns>
+		/// <returns>è¡çªæ™‚æƒ…å ±</returns>
 		CollisionInfo GetCollisionInfo() override;
 
 	public:

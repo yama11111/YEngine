@@ -15,7 +15,7 @@ void ConstBufferPtrSet::Insert(BaseConstBuffer* pCB)
 {
 	assert(pCB);
 
-	// Šù‚É‚ ‚é‚È‚ç“ü‚ê‘Ö‚¦
+	// æ—¢ã«ã‚ã‚‹ãªã‚‰å…¥ã‚Œæ›¿ãˆ
 	if (cbPtrMap_.contains(pCB->Tag()))
 	{
 		cbPtrMap_[pCB->Tag()] = pCB;
@@ -23,7 +23,7 @@ void ConstBufferPtrSet::Insert(BaseConstBuffer* pCB)
 		return;
 	}
 	
-	// –{‘Ì‚Ìƒ^ƒO‚ð‚»‚Ì‚Ü‚ÜƒL[‚É‚µ‚Ä‘}“ü
+	// æœ¬ä½“ã®ã‚¿ã‚°ã‚’ãã®ã¾ã¾ã‚­ãƒ¼ã«ã—ã¦æŒ¿å…¥
 	cbPtrMap_.insert({ pCB->Tag(), pCB });
 }
 

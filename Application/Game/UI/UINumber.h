@@ -11,15 +11,15 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// “®“IƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		/// å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="maxDigits"> : Å‘åŒ…”</param>
-		/// <param name="interval"> : ŠÔŠu</param>
-		/// <param name="shouldShowZero"> : ƒ[ƒ‚ğ•\¦‚·‚é‚©</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="maxDigits"> : æœ€å¤§æ¡æ•°</param>
+		/// <param name="interval"> : é–“éš”</param>
+		/// <param name="shouldShowZero"> : ã‚¼ãƒ­ã‚’è¡¨ç¤ºã™ã‚‹ã‹</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
 		static UINumber* Create2D(
 			const uint32_t num, 
 			const size_t maxDigits, 
@@ -29,15 +29,15 @@ namespace YGame
 			const bool isClearWhenTransition = true);
 
 		/// <summary>
-		/// “®“IƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+		/// å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="maxDigits"> : Å‘åŒ…”</param>
-		/// <param name="interval"> : ŠÔŠu</param>
-		/// <param name="shouldShowZero"> : ƒ[ƒ‚ğ•\¦‚·‚é‚©</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="maxDigits"> : æœ€å¤§æ¡æ•°</param>
+		/// <param name="interval"> : é–“éš”</param>
+		/// <param name="shouldShowZero"> : ã‚¼ãƒ­ã‚’è¡¨ç¤ºã™ã‚‹ã‹</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
 		static UINumber* Create3D(
 			const uint32_t num, 
 			const size_t maxDigits, 
@@ -51,13 +51,13 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="maxDigits"> : Å‘åŒ…”</param>
-		/// <param name="shouldShowZero"> : ƒ[ƒ‚ğ•\¦‚·‚é‚©</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="maxDigits"> : æœ€å¤§æ¡æ•°</param>
+		/// <param name="shouldShowZero"> : ã‚¼ãƒ­ã‚’è¡¨ç¤ºã™ã‚‹ã‹</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		virtual void Initialize2D(
 			const uint32_t num,
 			const size_t maxDigits,
@@ -67,13 +67,13 @@ namespace YGame
 			const bool isClearWhenTransition = true) = 0;
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="num"> : ”</param>
-		/// <param name="maxDigits"> : Å‘åŒ…”</param>
-		/// <param name="shouldShowZero"> : ƒ[ƒ‚ğ•\¦‚·‚é‚©</param>
-		/// <param name="pParent"> : es—ñƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="num"> : æ•°</param>
+		/// <param name="maxDigits"> : æœ€å¤§æ¡æ•°</param>
+		/// <param name="shouldShowZero"> : ã‚¼ãƒ­ã‚’è¡¨ç¤ºã™ã‚‹ã‹</param>
+		/// <param name="pParent"> : è¦ªè¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		virtual void Initialize3D(
 			const uint32_t num,
 			const size_t maxDigits,
@@ -85,56 +85,56 @@ namespace YGame
 			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update(const Transform::Status& status = {}) = 0;
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="shaderTag"> : ƒVƒF[ƒ_[ƒ^ƒO</param>
-		/// <param name="priority"> : •`‰æ—Dæ“x</param>
+		/// <param name="shaderTag"> : ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚°</param>
+		/// <param name="priority"> : æç”»å„ªå…ˆåº¦</param>
 		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
 
 	public:
 
 		/// <summary>
-		/// ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^‘}“ü 
-		/// (“¯‚¶í—Ş‚Ì’è”ƒoƒbƒtƒ@‚ª—ˆ‚½‚ç“ü‚ê‘Ö‚¦‚é)
+		/// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿æŒ¿å…¥ 
+		/// (åŒã˜ç¨®é¡ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒæ¥ãŸã‚‰å…¥ã‚Œæ›¿ãˆã‚‹)
 		/// </summary>
-		/// <param name="pCBuff"> : ’è”ƒoƒbƒtƒ@ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pCBuff"> : å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒã‚¤ãƒ³ã‚¿</param>
 		virtual void InsertConstBuffer(BaseConstBuffer* pCB) = 0;
 
 		/// <summary>
-		/// ”šİ’è
+		/// æ•°å­—è¨­å®š
 		/// </summary>
-		/// <param name="num"> : ”š</param>
+		/// <param name="num"> : æ•°å­—</param>
 		virtual void SetNumber(const uint32_t num) = 0;
 		
 		/// <summary>
-		/// ŠÔŠuİ’è
+		/// é–“éš”è¨­å®š
 		/// </summary>
-		/// <param name="interval"> : ŠÔŠu</param>
+		/// <param name="interval"> : é–“éš”</param>
 		virtual void SetInterval(const float interval) = 0;
 
 		/// <summary>
-		/// Œ…‚²‚Æ‚ÌƒIƒtƒZƒbƒgİ’è
+		/// æ¡ã”ã¨ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆè¨­å®š
 		/// </summary>
-		/// <param name="digitIndex"> : Œ…”Ô†</param>
-		/// <param name="offset"> : ƒIƒtƒZƒbƒg’l</param>
+		/// <param name="digitIndex"> : æ¡ç•ªå·</param>
+		/// <param name="offset"> : ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤</param>
 		virtual void SetDigitOffset(const size_t digitIndex, const YMath::Vector3& offset) = 0;
 
 		/// <summary>
-		/// ƒ[ƒ•\¦İ’è
+		/// ã‚¼ãƒ­è¡¨ç¤ºè¨­å®š
 		/// </summary>
-		/// <param name="shouldShowZero"> : ƒ[ƒ‚ğ•\¦‚·‚é‚©</param>
+		/// <param name="shouldShowZero"> : ã‚¼ãƒ­ã‚’è¡¨ç¤ºã™ã‚‹ã‹</param>
 		virtual void SetShowZero(const bool shouldShowZero) = 0;
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“XV
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
 		/// </summary>
-		/// <param name="digitIndex"> : Œ…”Ô†</param>
-		/// <param name="status"> : ƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒ^ƒX</param>
+		/// <param name="digitIndex"> : æ¡ç•ªå·</param>
+		/// <param name="status"> : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		virtual void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) = 0;
 
 	public:

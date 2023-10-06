@@ -15,88 +15,88 @@ namespace YGame
 
 	public:
 
-		// ’¸“_ƒf[ƒ^\‘¢‘Ì
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct VData
 		{
-			YMath::Vector3 pos_;	 // xyzÀ•W
-			YMath::Vector3 normal_;	 // –@üƒxƒNƒgƒ‹
-			YMath::Vector2 uv_;		 // uvÀ•W
-			//YMath::Vector3 tangent_; // Ú‹óŠÔ
-			//YMath::Vector4 color_;	 // ’¸“_F
+			YMath::Vector3 pos_;	 // xyzåº§æ¨™
+			YMath::Vector3 normal_;	 // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+			YMath::Vector2 uv_;		 // uvåº§æ¨™
+			//YMath::Vector3 tangent_; // æ¥ç©ºé–“
+			//YMath::Vector4 color_;	 // é ‚ç‚¹è‰²
 		};
 
 	private:
 		
-		// ’¸“_ƒCƒ“ƒfƒbƒNƒX”z—ñ
+		// é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—
 		YDX::VertexIndex<VData> vtIdx_;
 
-		// ’¸“_–@üƒXƒ€[ƒVƒ“ƒO—pƒf[ƒ^
+		// é ‚ç‚¹æ³•ç·šã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°ç”¨ãƒ‡ãƒ¼ã‚¿
 		std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData_;
 
-		// ƒm[ƒh
+		// ãƒãƒ¼ãƒ‰
 		Node node_;
 
-		// ƒeƒNƒXƒ`ƒƒ
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 		std::unordered_map<std::string, Texture*> pTexs_{};
 
 	public:
 		
 		/// <summary>
-		/// ¶¬(—§•û‘Ì)
+		/// ç”Ÿæˆ(ç«‹æ–¹ä½“)
 		/// </summary>
-		/// <param name="pTexs"> : ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^”z—ñ</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX (new ‚³‚ê‚½‚à‚Ì)</returns>
+		/// <param name="pTexs"> : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿é…åˆ—</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ (new ã•ã‚ŒãŸã‚‚ã®)</returns>
 		static Mesh* CreateCube(const std::unordered_map<std::string, Texture*> pTexs);
 
 		/// <summary>
-		/// ƒƒbƒVƒ…(.obj)“Ç‚İ‚İ
+		/// ãƒ¡ãƒƒã‚·ãƒ¥(.obj)èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="directoryPath"> : ƒfƒBƒŒƒNƒgƒŠƒpƒX </param>
-		/// <param name="objFileName"> : objƒtƒ@ƒCƒ‹–¼ </param>
-		/// <param name="isSmoothing"> : ƒXƒ€[ƒVƒ“ƒO‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX (new ‚³‚ê‚½‚à‚Ì)</returns>
+		/// <param name="directoryPath"> : ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ </param>
+		/// <param name="objFileName"> : objãƒ•ã‚¡ã‚¤ãƒ«å </param>
+		/// <param name="isSmoothing"> : ã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ (new ã•ã‚ŒãŸã‚‚ã®)</returns>
 		static Mesh* LoadObj(const std::string& directoryPath, const std::string& objFileName, const bool isSmoothing);
 
 		/// <summary>
-		/// ƒƒbƒVƒ…(.fbx)“Ç‚İ‚İ
+		/// ãƒ¡ãƒƒã‚·ãƒ¥(.fbx)èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="folderPath"> : ƒ‚ƒfƒ‹ƒtƒHƒ‹ƒ_‚ÌƒpƒX</param>
-		/// <param name="fbxNode"> :  FBXƒm[ƒh</param>
-		/// <param name="isSmoothing"> : ƒXƒ€[ƒVƒ“ƒO‚·‚é‚©</param>
-		/// <returns>“®“IƒCƒ“ƒXƒ^ƒ“ƒX (new ‚³‚ê‚½‚à‚Ì)</returns>
+		/// <param name="folderPath"> : ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ‘ã‚¹</param>
+		/// <param name="fbxNode"> :  FBXãƒãƒ¼ãƒ‰</param>
+		/// <param name="isSmoothing"> : ã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°ã™ã‚‹ã‹</param>
+		/// <returns>å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ (new ã•ã‚ŒãŸã‚‚ã®)</returns>
 		static Mesh* LoadFbx(const std::string& folderPath, FbxNode* fbxNode, const bool isSmoothing);
 
 	public:
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
-		/// <param name="rpIndices"> : ƒ‹[ƒgƒpƒ‰ƒ[ƒ^î•ñ + ”Ô†</param>
+		/// <param name="rpIndices"> : ãƒ«ãƒ¼ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿æƒ…å ± + ç•ªå·</param>
 		void SetDrawCommand(const std::unordered_map<std::string, uint32_t>& rpIndices);
 
 	private:
 
 		/// <summary>
-		/// –@üŒvZ
+		/// æ³•ç·šè¨ˆç®—
 		/// </summary>
-		/// <param name="vertices"> : ’¸“_”z—ñ</param>
-		/// <param name="indices"> : ƒCƒ“ƒfƒbƒNƒX”z—ñ</param>
+		/// <param name="vertices"> : é ‚ç‚¹é…åˆ—</param>
+		/// <param name="indices"> : ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—</param>
 		static void CalculateNormals(std::vector<VData>& vertices, const std::vector<uint16_t>& indices);
 
 		/// <summary>
-		/// –@üŒvZ (ƒXƒ€[ƒVƒ“ƒO)
+		/// æ³•ç·šè¨ˆç®— (ã‚¹ãƒ ãƒ¼ã‚·ãƒ³ã‚°)
 		/// </summary>
-		/// <param name="vertices"> : ’¸“_”z—ñ</param>
-		/// <param name="smoothData"> : •Û‘¶—pƒXƒ€[ƒXƒf[ƒ^</param>
+		/// <param name="vertices"> : é ‚ç‚¹é…åˆ—</param>
+		/// <param name="smoothData"> : ä¿å­˜ç”¨ã‚¹ãƒ ãƒ¼ã‚¹ãƒ‡ãƒ¼ã‚¿</param>
 		static void CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
 			std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData);
 		
 		/// <summary>
-		/// ƒ}ƒeƒŠƒAƒ‹(ƒeƒNƒXƒ`ƒƒ)“Ç‚İ‚İ
+		/// ãƒãƒ†ãƒªã‚¢ãƒ«(ãƒ†ã‚¯ã‚¹ãƒãƒ£)èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="directoryPath"> : ƒfƒBƒŒƒNƒgƒŠƒpƒX</param>
-		/// <param name="fileName"> : ƒtƒ@ƒCƒ‹–¼</param>
-		/// <returns>ƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^</returns>
+		/// <param name="directoryPath"> : ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹</param>
+		/// <param name="fileName"> : ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+		/// <returns>ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿</returns>
 		static Texture* LoadMaterial(const std::string& directoryPath, const std::string& fileName);
 
 
@@ -104,42 +104,42 @@ namespace YGame
 
 	public:
 
-		// FBX“Ç‚İ‚İ—p
+		// FBXèª­ã¿è¾¼ã¿ç”¨
 		class FbxLoader
 		{
 
 		public:
 
 			/// <summary>
-			/// ’¸“_“Ç‚İæ‚è
+			/// é ‚ç‚¹èª­ã¿å–ã‚Š
 			/// </summary>
-			/// <param name="vertices"> : ’¸“_”z—ñ</param>
-			/// <param name="fbxNode"> : ‰ğÍ‚·‚éƒm[ƒh</param>
+			/// <param name="vertices"> : é ‚ç‚¹é…åˆ—</param>
+			/// <param name="fbxNode"> : è§£æã™ã‚‹ãƒãƒ¼ãƒ‰</param>
 			static void ParseMeshVertices(std::vector<VData>& vertices, FbxMesh* fbxMesh);
 
 			/// <summary>
-			/// –Ê“Ç‚İæ‚è
+			/// é¢èª­ã¿å–ã‚Š
 			/// </summary>
-			/// <param name="vertices"> : ’¸“_”z—ñ</param>
-			/// <param name="indices"> : ƒCƒ“ƒfƒbƒNƒX”z—ñ</param>
-			/// <param name="fbxMesh"> : ‰ğÍ‚·‚éƒƒbƒVƒ…</param>
+			/// <param name="vertices"> : é ‚ç‚¹é…åˆ—</param>
+			/// <param name="indices"> : ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—</param>
+			/// <param name="fbxMesh"> : è§£æã™ã‚‹ãƒ¡ãƒƒã‚·ãƒ¥</param>
 			static void ParseMeshFaces(std::vector<VData>& vertices, std::vector<uint16_t>& indices, FbxMesh* fbxMesh);
 
 			/// <summary>
-			/// ƒ}ƒeƒŠƒAƒ‹“Ç‚İæ‚è
+			/// ãƒãƒ†ãƒªã‚¢ãƒ«èª­ã¿å–ã‚Š
 			/// </summary>
-			/// <param name="folderPath"> : ƒ‚ƒfƒ‹ƒtƒHƒ‹ƒ_‚ÌƒpƒX</param>
-			/// <param name="refPtrTex"> : QÆƒeƒNƒXƒ`ƒƒƒ|ƒCƒ“ƒ^</param>
-			/// <param name="fbxNode"> : ‰ğÍ‚·‚éƒm[ƒh</param>
+			/// <param name="folderPath"> : ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ‘ã‚¹</param>
+			/// <param name="refPtrTex"> : å‚ç…§ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒã‚¤ãƒ³ã‚¿</param>
+			/// <param name="fbxNode"> : è§£æã™ã‚‹ãƒãƒ¼ãƒ‰</param>
 			static void ParseMaterial(const std::string& folderPath, Texture*& refPtrTex, FbxNode* fbxNode);
 
 		public:
 
 			/// <summary>
-			/// Fbx—p‚Ìs—ñ‚©‚çs—ñ‚É•ÏŠ·
+			/// Fbxç”¨ã®è¡Œåˆ—ã‹ã‚‰è¡Œåˆ—ã«å¤‰æ›
 			/// </summary>
-			/// <param name="fbxMat"> : Fbx—ps—ñ</param>
-			/// <returns>s—ñ</returns>
+			/// <param name="fbxMat"> : Fbxç”¨è¡Œåˆ—</param>
+			/// <returns>è¡Œåˆ—</returns>
 			static YMath::Matrix4 ConvertFromFbxAMatrixToMatrix4(const FbxAMatrix& fbxMat);
 
 		};

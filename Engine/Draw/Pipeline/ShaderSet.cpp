@@ -11,12 +11,12 @@ void ShaderSet::LoadShader(const std::string& shaderFileName, const ShaderType t
 {
 	static const std::string kFolderName = "Resources/Shaders/";
 	
-	// ƒtƒ‹ƒpƒX
+	// ãƒ•ãƒ«ãƒ‘ã‚¹
 	const std::string kFullPath = kFolderName + shaderFileName;
 
 	std::string target;
 
-	// ƒVƒF[ƒ_[‚Ìí—Ş–ˆ‚Éƒ^[ƒQƒbƒg‚ÆƒL[‚ğ•Ï‚¦‚é
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ç¨®é¡æ¯ã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã‚­ãƒ¼ã‚’å¤‰ãˆã‚‹
 	if (type == ShaderType::eVertex)
 	{
 		target = "vs_5_0";
@@ -50,12 +50,12 @@ void ShaderSet::CreateShaderObject(
 	ID3DBlob* errorBlob)
 {
 	if (YDX::IsFailed(D3DCompileFromFile(
-		fileName, // ƒVƒF[ƒ_ƒtƒ@ƒCƒ‹–¼
+		fileName, // ã‚·ã‚§ãƒ¼ãƒ€ãƒ•ã‚¡ã‚¤ãƒ«å
 		nullptr,
-		D3D_COMPILE_STANDARD_FILE_INCLUDE, // ƒCƒ“ƒNƒ‹[ƒh‰Â”\‚É‚·‚é
-		entryPoint, // ƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg–¼ 
-		target, // ƒVƒF[ƒ_[ƒ‚ƒfƒ‹w’è
-		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // ƒfƒoƒbƒO—pİ’è
+		D3D_COMPILE_STANDARD_FILE_INCLUDE, // ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰å¯èƒ½ã«ã™ã‚‹
+		entryPoint, // ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆå 
+		target, // ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ‡ãƒ«æŒ‡å®š
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, // ãƒ‡ãƒãƒƒã‚°ç”¨è¨­å®š
 		0,
 		&shaderBlob,
 		&errorBlob)))
@@ -66,7 +66,7 @@ void ShaderSet::CreateShaderObject(
 
 void ShaderSet::LoadErrorProcess(ID3DBlob* errorBlob)
 {
-	// errorBlob‚©‚çƒGƒ‰[“à—e‚ğstringŒ^‚ÉƒRƒs[
+	// errorBlobã‹ã‚‰ã‚¨ãƒ©ãƒ¼å†…å®¹ã‚’stringå‹ã«ã‚³ãƒ”ãƒ¼
 	std::string error;
 	error.resize(errorBlob->GetBufferSize());
 	std::copy_n((char*)errorBlob->GetBufferPointer(),
@@ -74,7 +74,7 @@ void ShaderSet::LoadErrorProcess(ID3DBlob* errorBlob)
 		error.begin());
 	error += "\n";
 	
-	// ƒGƒ‰[“à—e‚ğo—ÍƒEƒBƒ“ƒhƒE‚É•\¦
+	// ã‚¨ãƒ©ãƒ¼å†…å®¹ã‚’å‡ºåŠ›ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã«è¡¨ç¤º
 	OutputDebugStringA(error.c_str());
 	assert(false);
 }
@@ -83,7 +83,7 @@ ID3DBlob* ShaderSet::ShaderPtr(const ShaderType type)
 {
 	if (shaders_.empty()) { return nullptr; }
 
-	// ’T‚µ‚Ä‚à‚È‚©‚Á‚½‚ç null
+	// æ¢ã—ã¦ã‚‚ãªã‹ã£ãŸã‚‰ null
 	if (shaders_.count(type) <= 0) { return nullptr; }
 
 	return shaders_[type].Get();

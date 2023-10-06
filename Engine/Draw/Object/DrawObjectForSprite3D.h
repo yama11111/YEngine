@@ -14,15 +14,15 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="isXAxisBillboard"> : X²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="isYAxisBillboard"> : Y²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pSprite3D"> : ƒXƒvƒ‰ƒCƒg3Dƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>ƒIƒuƒWƒFƒNƒgƒ|ƒCƒ“ƒ^ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</returns>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="isXAxisBillboard"> : Xè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="isYAxisBillboard"> : Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pSprite3D"> : ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3Dãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</returns>
 		static DrawObjectForSprite3D* Create(
 			const Transform::Status& status,
 			const bool isXAxisBillboard, const bool isYAxisBillboard, 
@@ -33,39 +33,39 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		void Initialize(
 			const Transform::Status& status = Transform::Status::Default(),
 			const bool isClearWhenTransition = true) override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		void Update(const Transform::Status& status = {}) override;
 
 	public:
 
 		/// <summary>
-		/// ƒrƒ‹ƒ{[ƒhİ’è
+		/// ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰è¨­å®š
 		/// </summary>
-		/// <param name="isXAxisBillbord"> : X²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
-		/// <param name="isYAxisBillbord"> : Y²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO</param>
+		/// <param name="isXAxisBillbord"> : Xè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
+		/// <param name="isYAxisBillbord"> : Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°</param>
 		void SetBillboardFrag(const bool isXAxisBillbord, const bool isYAxisBillbord);
 
 		/// <summary>
-		/// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“‚ğİ’è
+		/// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
 		void SetViewProjection(ViewProjection* pVP);
 
 		/// <summary>
-		/// ƒXƒvƒ‰ƒCƒg3D‚ğİ’è
+		/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3Dã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pSprite3D"> : ƒXƒvƒ‰ƒCƒg3Dƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pSprite3D"> : ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3Dãƒã‚¤ãƒ³ã‚¿</param>
 		void SetSprite3D(Sprite3D* pSprite3D);
 
 	public:
@@ -74,21 +74,21 @@ namespace YGame
 
 	private:
 
-		// X²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO
+		// Xè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°
 		bool isXAxisBillboard_ = false;
 		
-		// Y²ƒrƒ‹ƒ{[ƒhƒtƒ‰ƒO
+		// Yè»¸ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°
 		bool isYAxisBillboard_ = false;
 
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿
 		ViewProjection* pVP_ = nullptr;
 
-		// ƒXƒvƒ‰ƒCƒg3D—pƒgƒ‰ƒ“ƒXƒtƒH[ƒ€’è”ƒoƒbƒtƒ@
+		// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3Dç”¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBSprite3DTransform>> cbTransform_;
 
 	private:
 
-		// éŒ¾A‘ã“ü‚ğ‹Ö~
+		// å®£è¨€ã€ä»£å…¥ã‚’ç¦æ­¢
 		DrawObjectForSprite3D() = default;
 
 		DrawObjectForSprite3D(const DrawObjectForSprite3D&) = delete;

@@ -32,18 +32,18 @@ void DrawObjectForModel::Initialize(const Transform::Status& status, const bool 
 {
 	transform_.Initialize(status);
 
-	// ƒyƒAƒŒƒ“ƒg‰ğœ
+	// ãƒšã‚¢ãƒ¬ãƒ³ãƒˆè§£é™¤
 	SetParent(nullptr);
 
-	// ’è”ƒoƒbƒtƒ@‚ª¶¬‚³‚ê‚Ä‚È‚¢
-	// ¶¬ + ‘}“ü
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãŒç”Ÿæˆã•ã‚Œã¦ãªã„æ™‚
+	// ç”Ÿæˆ + æŒ¿å…¥
 	if (cbTransform_ == nullptr)
 	{
 		cbTransform_.reset(ConstBufferObject<CBModelTransform>::Create(isClearWhenTransition));
 		InsertConstBuffer(cbTransform_.get());
 	}
 
-	// ƒfƒtƒHƒ‹ƒg‚Åİ’è
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è¨­å®š
 	InsertDefaultConstBuffer(CBColor::Tag());
 	InsertDefaultConstBuffer(CBLightGroup::Tag());
 	InsertDefaultConstBuffer(CBMaterial::Tag());
@@ -72,7 +72,7 @@ void DrawObjectForModel::SetViewProjection(ViewProjection* pVP)
 
 void DrawObjectForModel::SetModel(Model* pModel)
 {
-	// null ‚È‚çƒfƒtƒHƒ‹ƒg
+	// null ãªã‚‰ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 	if (pModel == nullptr)
 	{
 		SetGraphic(DefaultGraphic::Ptr("Model"));

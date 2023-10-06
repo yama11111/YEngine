@@ -8,42 +8,42 @@ namespace YMath
 #pragma region Lerp
 
 	/// <summary>
-	/// •âŠÔ
+	/// è£œé–“
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="a"> : ‰Šú’l</param>
-	/// <param name="b"> : ÅI’l</param>
-	/// <param name="t"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="a"> : åˆæœŸå€¤</param>
+	/// <param name="b"> : æœ€çµ‚å€¤</param>
+	/// <param name="t"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T Lerp(const T& a, const T& b, const float t);
 
 	/// <summary>
-	/// 3ŸŒ³•âŠÔ
+	/// 3æ¬¡å…ƒè£œé–“
 	/// </summary>
-	/// <param name="v1"> : ‰Šú’l</param>
-	/// <param name="v2"> : ÅI’l</param>
-	/// <param name="t"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="v1"> : åˆæœŸå€¤</param>
+	/// <param name="v2"> : æœ€çµ‚å€¤</param>
+	/// <param name="t"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t);
 
 	/// <summary>
-	/// ƒxƒWƒG‹Èü
+	/// ãƒ™ã‚¸ã‚¨æ›²ç·š
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T Bezier(const std::vector<T>& points, const float ratio);
 
 	/// <summary>
-	/// ƒXƒvƒ‰ƒCƒ“‹Èü
+	/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·š
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (2“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (2ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T Spline(const std::vector<T>& points, const float ratio);
 
@@ -52,56 +52,56 @@ namespace YMath
 #pragma region Ease
 
 	/// <summary>
-	/// ƒC[ƒYƒCƒ“
-	/// (‚¾‚ñ‚¾‚ñ‘‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³
+	/// (ã ã‚“ã ã‚“æ—©ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="start"> : ‰Šú’l</param>
-	/// <param name="end"> : ÅI’l</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="start"> : åˆæœŸå€¤</param>
+	/// <param name="end"> : æœ€çµ‚å€¤</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T EaseIn(const T& start, const T& end, const float ratio, const float exponent);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg
-	/// (‚¾‚ñ‚¾‚ñ’x‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ
+	/// (ã ã‚“ã ã‚“é…ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="start"> : ‰Šú’l</param>
-	/// <param name="end"> : ÅI’l</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="start"> : åˆæœŸå€¤</param>
+	/// <param name="end"> : æœ€çµ‚å€¤</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T EaseOut(const T& start, const T& end, const float ratio, const float exponent);
 
 	/// <summary>
-	/// ƒC[ƒYƒCƒ“ƒAƒEƒg
-	/// (‚¾‚ñ‚¾‚ñ‘‚­ ¨ ‚¾‚ñ‚¾‚ñ’x‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ã‚¢ã‚¦ãƒˆ
+	/// (ã ã‚“ã ã‚“æ—©ã â†’ ã ã‚“ã ã‚“é…ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="start"> : ‰Šú’l</param>
-	/// <param name="end"> : ÅI’l</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <param name="controlPoint"> : §Œä“_</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="start"> : åˆæœŸå€¤</param>
+	/// <param name="end"> : æœ€çµ‚å€¤</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T EaseInOut(const T& start, const T& end, const float ratio, const float exponent, const float controlPoint = 0.5f);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒgƒCƒ“
-	/// (‚¾‚ñ‚¾‚ñ’x‚­ ¨ ‚¾‚ñ‚¾‚ñ‘‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆã‚¤ãƒ³
+	/// (ã ã‚“ã ã‚“é…ã â†’ ã ã‚“ã ã‚“æ—©ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="start"> : ‰Šú’l</param>
-	/// <param name="end"> : ÅI’l</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <param name="controlPoint"> : §Œä“_</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="start"> : åˆæœŸå€¤</param>
+	/// <param name="end"> : æœ€çµ‚å€¤</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T EaseOutIn(const T& start, const T& end, const float ratio, const float exponent, const float controlPoint = 0.5f);
 
@@ -110,52 +110,52 @@ namespace YMath
 #pragma region BezierEase
 
 	/// <summary>
-	/// ƒC[ƒYƒCƒ“ [ƒxƒWƒG‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ‘‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ [ãƒ™ã‚¸ã‚¨æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“æ—©ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T BezierEaseIn(const std::vector<T>& points, const float ratio, const float exponent);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg [ƒxƒWƒG‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ’x‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ [ãƒ™ã‚¸ã‚¨æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“é…ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T BezierEaseOut(const std::vector<T>& points, const float ratio, const float exponent);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg [ƒxƒWƒG‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ‘‚­ ¨ ‚¾‚ñ‚¾‚ñ’x‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ [ãƒ™ã‚¸ã‚¨æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“æ—©ã â†’ ã ã‚“ã ã‚“é…ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <param name="controlPoint"> : §Œä“_</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T BezierEaseOutIn(const std::vector<T>& points, const float ratio, const float exponent, const float controlPoint = 0.5f);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg [ƒxƒWƒG‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ’x‚­ ¨ ‚¾‚ñ‚¾‚ñ‘‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ [ãƒ™ã‚¸ã‚¨æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“é…ã â†’ ã ã‚“ã ã‚“æ—©ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <param name="controlPoint"> : §Œä“_</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T BezierEaseInOut(const std::vector<T>& points, const float ratio, const float exponent, const float controlPoint = 0.5f);
 
@@ -164,52 +164,52 @@ namespace YMath
 #pragma region SplineEase
 
 	/// <summary>
-	/// ƒC[ƒYƒCƒ“ [ƒXƒvƒ‰ƒCƒ“‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ‘‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³ [ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“æ—©ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (4“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (4ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T SplineEaseIn(const std::vector<T>& points, const float ratio, const float exponent);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg [ƒXƒvƒ‰ƒCƒ“‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ’x‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ [ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“é…ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (4“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (4ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T SplineEaseOut(const std::vector<T>& points, const float ratio, const float exponent);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg [ƒXƒvƒ‰ƒCƒ“‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ‘‚­ ¨ ‚¾‚ñ‚¾‚ñ’x‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ [ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“æ—©ã â†’ ã ã‚“ã ã‚“é…ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <param name="controlPoint"> : §Œä“_</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T SplineEaseOutIn(const std::vector<T>& points, const float ratio, const float exponent, const float controlPoint = 0.5f);
 
 	/// <summary>
-	/// ƒC[ƒYƒAƒEƒg [ƒXƒvƒ‰ƒCƒ“‹Èüver]
-	/// (‚¾‚ñ‚¾‚ñ’x‚­ ¨ ‚¾‚ñ‚¾‚ñ‘‚­)
+	/// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ [ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šver]
+	/// (ã ã‚“ã ã‚“é…ã â†’ ã ã‚“ã ã‚“æ—©ã)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <param name="points"> : Šî€“_‚Ì”z—ñ (1“_ˆÈã•K{)</param>
-	/// <param name="ratio"> : Š„‡ (Šî–{ 0.0 ~ 1.0)</param>
-	/// <param name="exponent"> : w”(ŠÉ‹})</param>
-	/// <param name="controlPoint"> : §Œä“_</param>
-	/// <returns>‚»‚ÌŠ„‡‚Ì‚Ì’l</returns>
+	/// <param name="points"> : åŸºæº–ç‚¹ã®é…åˆ— (1ç‚¹ä»¥ä¸Šå¿…é ˆ)</param>
+	/// <param name="ratio"> : å‰²åˆ (åŸºæœ¬ 0.0 ~ 1.0)</param>
+	/// <param name="exponent"> : æŒ‡æ•°(ç·©æ€¥)</param>
+	/// <param name="controlPoint"> : åˆ¶å¾¡ç‚¹</param>
+	/// <returns>ãã®å‰²åˆã®æ™‚ã®å€¤</returns>
 	template<typename T>
 	T SplineEaseInOut(const std::vector<T>& points, const float ratio, const float exponent, const float controlPoint = 0.5f);
 

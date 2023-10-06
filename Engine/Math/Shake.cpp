@@ -5,7 +5,7 @@ using YMath::Shake;
 
 void Shake::Initialize()
 {
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	isAct_ = false;
 	swing_ = 0.0f;
 	dekey_ = 0.0f;
@@ -15,22 +15,22 @@ void Shake::Initialize()
 
 void Shake::Activate(const float swing, const float dekey, const float place)
 {
-	// “®ì‚µ‚Ä‚¢‚È‚¢‚È‚ç
+	// å‹•ä½œã—ã¦ã„ãªã„ãªã‚‰
 	if (!isAct_)
 	{
-		// ‰Šú‰» + ‘ã“ü
+		// åˆæœŸåŒ– + ä»£å…¥
 		dekey_ = dekey;
 		swing_ = swing;
 		place_ = place;
 		value_ = {};
 
-		// “®ìŠJn
+		// å‹•ä½œé–‹å§‹
 		isAct_ = true;
 	}
-	// —h‚ê—Ê‚ª¡‚æ‚è‘å‚«‚¢‚È‚ç
+	// æºã‚Œé‡ãŒä»Šã‚ˆã‚Šå¤§ãã„ãªã‚‰
 	else if (swing_ <= swing)
 	{
-		// ‘ã“ü
+		// ä»£å…¥
 		dekey_ = dekey;
 		swing_ = swing;
 		place_ = place;
@@ -39,23 +39,23 @@ void Shake::Activate(const float swing, const float dekey, const float place)
 
 void Shake::Update()
 {
-	// ”ÍˆÍ‚ª0ˆÈã‚È‚ç
+	// ç¯„å›²ãŒ0ä»¥ä¸Šãªã‚‰
 	if (swing_ > 0) 
 	{
-		// ”ÍˆÍ‚ğ‹·‚ß‚é
+		// ç¯„å›²ã‚’ç‹­ã‚ã‚‹
 		swing_ -= dekey_; 
 	}
-	// ‚»‚êˆÈŠO‚È‚ç
+	// ãã‚Œä»¥å¤–ãªã‚‰
 	else
 	{
-		// ‰Šú‰»
+		// åˆæœŸåŒ–
 		Initialize();
 	}
 
-	// “®ì’†‚È‚ç
+	// å‹•ä½œä¸­ãªã‚‰
 	if (isAct_)
 	{
-		// ”ÍˆÍ“à‚Ì—”¶¬
+		// ç¯„å›²å†…ã®ä¹±æ•°ç”Ÿæˆ
 		value_.x_ = GetRand(-swing_, swing_, place_);
 		value_.y_ = GetRand(-swing_, swing_, place_);
 		value_.z_ = GetRand(-swing_, swing_, place_);

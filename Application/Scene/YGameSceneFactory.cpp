@@ -15,7 +15,7 @@ const std::string YGameSceneFactory::Test_		 = "TEST";
 
 BaseScene* YGameSceneFactory::CreateScene(const std::string& sceneName)
 {
-	// Ÿ‚ÌƒV[ƒ“‚ğ¶¬
+	// æ¬¡ã®ã‚·ãƒ¼ãƒ³ã‚’ç”Ÿæˆ
 	BaseScene* newScene = nullptr;
 
 	if (sceneName == Title_)	{ newScene = new TitleScene(); }

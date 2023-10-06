@@ -6,47 +6,47 @@
 
 namespace YGame
 {
-	// ŒõŒ¹ƒOƒ‹[ƒv—p’è”ƒoƒbƒtƒ@
+	// å…‰æºã‚°ãƒ«ãƒ¼ãƒ—ç”¨å®šæ•°ãƒãƒƒãƒ•ã‚¡
 	struct CBLightGroup
 	{
 
 	public:
 
-		// •½sŒõŒ¹”
+		// å¹³è¡Œå…‰æºæ•°
 		static const size_t DireLightNum_ = 3;
 
-		// “_ŒõŒ¹”
+		// ç‚¹å…‰æºæ•°
 		static const size_t PointLightNum_ = 3;
 
-		// ƒXƒ|ƒbƒgƒ‰ƒCƒgŒõŒ¹”
+		// ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆå…‰æºæ•°
 		static const size_t SpotLightNum_ = 1;
 
 	public:
 
-		// ’è”ƒoƒbƒtƒ@ƒf[ƒ^\‘¢‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
 		struct Data
 		{
-			// ŠÂ‹«Œõ‚ÌF
+			// ç’°å¢ƒå…‰ã®è‰²
 			YMath::Vector3 ambientColor;
 			
 			float pad;
 			
-			// •½sŒõŒ¹
+			// å¹³è¡Œå…‰æº
 			std::array<CBDirectionalLight::Data, DireLightNum_> direLights;
 			
-			// “_ŒõŒ¹
+			// ç‚¹å…‰æº
 			std::array<CBPointLight::Data, PointLightNum_> pointLights;
 			
-			// ƒXƒ|ƒbƒgƒ‰ƒCƒgŒõŒ¹
+			// ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆå…‰æº
 			//std::array<CBSpotLight::Data, SpotLightNum_> spotLights;
 		};
 
 	public:
 
 		/// <summary>
-		/// ƒ^ƒOæ“¾
+		/// ã‚¿ã‚°å–å¾—
 		/// </summary>
-		/// <returns>ƒ^ƒO–¼</returns>
+		/// <returns>ã‚¿ã‚°å</returns>
 		static const std::string Tag()
 		{
 			return "CBLightGroup";

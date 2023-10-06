@@ -9,80 +9,80 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX
+		/// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 		/// </summary>
-		/// <returns>ƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^</returns>
+		/// <returns>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿</returns>
 		static SceneManager* GetInstance();
 	
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="sceneName"> : ‰ŠúƒV[ƒ“</param>
+		/// <param name="sceneName"> : åˆæœŸã‚·ãƒ¼ãƒ³</param>
 		void Initialize(const std::string& sceneName);
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		void Finalize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		void Update();
 
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		void Draw();
 
 	public:
 
 		/// <summary>
-		/// ƒV[ƒ“Ø‚è‘Ö‚¦
+		/// ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
 		/// </summary>
-		/// <param name="sceneName"> : ŸƒV[ƒ“–¼</param>
-		/// <param name="transitionName"> : ‘JˆÚ–¼</param>
+		/// <param name="sceneName"> : æ¬¡ã‚·ãƒ¼ãƒ³å</param>
+		/// <param name="transitionName"> : é·ç§»å</param>
 		void Transition(const std::string& sceneName, const std::string& transitionName);
 
 	public:
 
 		/// <summary>
-		/// ƒV[ƒ“ƒtƒ@ƒNƒgƒŠ[İ’è
+		/// ã‚·ãƒ¼ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼è¨­å®š
 		/// </summary>
-		/// <param name="sceneFactory"> : ƒV[ƒ“ƒtƒ@ƒNƒgƒŠ[</param>
+		/// <param name="sceneFactory"> : ã‚·ãƒ¼ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼</param>
 		void SetSceneFactory(ISceneFactory* sceneFactory);
 
 		/// <summary>
-		/// ƒV[ƒ“‘JˆÚ‘}“ü
+		/// ã‚·ãƒ¼ãƒ³é·ç§»æŒ¿å…¥
 		/// </summary>
-		/// <param name="transitionName"> : ‘JˆÚ‚Ì–¼‘O</param>
-		/// <param name="transition"> : ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</param>
+		/// <param name="transitionName"> : é·ç§»ã®åå‰</param>
+		/// <param name="transition"> : ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</param>
 		void InsertTransition(const std::string& transitionName, BaseTransition* transition);
 
 		/// <summary>
-		/// ƒfƒXƒNƒŠƒvƒ^ƒq[ƒvƒ|ƒCƒ“ƒ^İ’è
+		/// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ãƒã‚¤ãƒ³ã‚¿è¨­å®š
 		/// </summary>
-		/// <param name="sceneFactory"> : ƒfƒXƒNƒŠƒvƒ^ƒq[ƒvƒ|ƒCƒ“ƒ^</param>
+		/// <param name="sceneFactory"> : ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ãƒã‚¤ãƒ³ã‚¿</param>
 		void SetDescriptorHeapPointer(YDX::DescriptorHeap* pDescHeap);
 
 		/// <summary>
-		/// I—¹ƒtƒ‰ƒOİ’è
+		/// çµ‚äº†ãƒ•ãƒ©ã‚°è¨­å®š
 		/// </summary>
-		/// <param name="isEnd"> : I—¹ƒtƒ‰ƒO</param>
+		/// <param name="isEnd"> : çµ‚äº†ãƒ•ãƒ©ã‚°</param>
 		void SetEnd(const bool isEnd) { isEnd_ = isEnd; }
 
 		/// <summary>
-		/// I—¹ƒtƒ‰ƒOæ“¾
+		/// çµ‚äº†ãƒ•ãƒ©ã‚°å–å¾—
 		/// </summary>
-		/// <returns>I—¹ƒtƒ‰ƒO</returns>
+		/// <returns>çµ‚äº†ãƒ•ãƒ©ã‚°</returns>
 		bool IsEnd() const { return isEnd_; }
 
 		/// <summary>
-		/// ‘JˆÚƒtƒ‰ƒOæ“¾
+		/// é·ç§»ãƒ•ãƒ©ã‚°å–å¾—
 		/// </summary>
-		/// <returns>‘JˆÚƒtƒ‰ƒO</returns>
+		/// <returns>é·ç§»ãƒ•ãƒ©ã‚°</returns>
 		bool IsTransition() const { return isTransition_; }
 
 	private:
@@ -94,38 +94,38 @@ namespace YGame
 
 	private:
 
-		// ‘JˆÚXV
+		// é·ç§»æ›´æ–°
 		void UpdateTransition();
 
-		// ƒV[ƒ“Ø‚è‘Ö‚¦
+		// ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
 		void Change();
 
 	private:
 
-		// ƒV[ƒ“
+		// ã‚·ãƒ¼ãƒ³
 		std::unique_ptr<BaseScene> scene_;
 
-		// ƒV[ƒ“ƒtƒ@ƒNƒgƒŠ[
+		// ã‚·ãƒ¼ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
 		std::unique_ptr<ISceneFactory> sceneFactory_;
 
-		// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
+		// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
 		std::unordered_map<std::string, std::unique_ptr<BaseTransition>> transitions_;
 
-		// ƒfƒXƒNƒŠƒvƒ^ƒq[ƒvƒ|ƒCƒ“ƒ^
+		// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ãƒã‚¤ãƒ³ã‚¿
 		YDX::DescriptorHeap* pDescHeap_ = nullptr;
 
 
-		// ƒV[ƒ“‘JˆÚƒtƒ‰ƒO
+		// ã‚·ãƒ¼ãƒ³é·ç§»ãƒ•ãƒ©ã‚°
 		bool isTransition_ = false;
 
-		// ƒV[ƒ“–¼
+		// ã‚·ãƒ¼ãƒ³å
 		std::string nextSceneName_ = {};
 
-		// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“–¼
+		// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³å
 		std::string transitionName_ = {};
 
 
-		// I—¹ƒtƒ‰ƒO
+		// çµ‚äº†ãƒ•ãƒ©ã‚°
 		bool isEnd_ = false;
 
 	};

@@ -3,13 +3,13 @@
 
 namespace YGame
 {
-	// ƒvƒŒƒCƒ„[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	namespace PlayerAnimationConfig
 	{
-		// —§‚¿
+		// ç«‹ã¡
 		static const uint16_t kIdleFrame = 60;
 
-		// ˆÚ“®
+		// ç§»å‹•
 		namespace Move
 		{
 			static const uint16_t kFrame = 8;
@@ -17,7 +17,7 @@ namespace YGame
 			static const size_t kDustNum = 4;
 		}
 		
-		// ƒWƒƒƒ“ƒv
+		// ã‚¸ãƒ£ãƒ³ãƒ—
 		namespace Jump
 		{
 			static const uint16_t kFrame = 20;
@@ -25,7 +25,7 @@ namespace YGame
 			static const size_t kDustNum = 8;
 		}
 
-		// ’…’n
+		// ç€åœ°
 		namespace Landing
 		{
 			static const uint16_t kFrame = 20;
@@ -35,19 +35,19 @@ namespace YGame
 			static const size_t kDustNum = 2;
 		}
 		
-		// UŒ‚
+		// æ”»æ’ƒ
 		static const uint16_t kAttackFrame = 10;
 
-		// ”í’e
+		// è¢«å¼¾
 		namespace Hit
 		{
 			static const uint16_t kFrame = 4;
 
-			// ƒuƒŒ
+			// ãƒ–ãƒ¬
 			static const float kSwing = 0.2f;
 		}
 		
-		// €–S
+		// æ­»äº¡
 		namespace Dead
 		{
 			static const uint16_t kFrame = 10;
@@ -56,13 +56,13 @@ namespace YGame
 		}
 	}
 
-	// ƒEƒ}
+	// ã‚¦ãƒ
 	namespace HorseAnimationConfig
 	{
-		// —§‚¿
+		// ç«‹ã¡
 		static const uint16_t kIdleFrame = 60;
 
-		// ˆÚ“®
+		// ç§»å‹•
 		namespace Move
 		{
 			static const uint16_t kFrame = 8;
@@ -70,7 +70,7 @@ namespace YGame
 			static const size_t kDustNum = 4;
 		}
 
-		// ƒWƒƒƒ“ƒv
+		// ã‚¸ãƒ£ãƒ³ãƒ—
 		namespace Jump
 		{
 			static const uint16_t kFrame = 20;
@@ -78,7 +78,7 @@ namespace YGame
 			static const size_t kDustNum = 8;
 		}
 
-		// ’…’n
+		// ç€åœ°
 		namespace Landing
 		{
 			static const uint16_t kFrame = 20;
@@ -88,19 +88,19 @@ namespace YGame
 			static const size_t kDustNum = 2;
 		}
 
-		// UŒ‚
+		// æ”»æ’ƒ
 		static const uint16_t kAttackFrame = 10;
 
-		// ”í’e
+		// è¢«å¼¾
 		namespace Hit
 		{
 			static const uint16_t kFrame = 4;
 
-			// ƒuƒŒ
+			// ãƒ–ãƒ¬
 			static const float kSwing = 0.2f;
 		}
 
-		// €–S
+		// æ­»äº¡
 		namespace Dead
 		{
 			static const uint16_t kFrame = 10;
@@ -109,13 +109,13 @@ namespace YGame
 		}
 	}
 
-	// ƒXƒ‰ƒCƒ€
+	// ã‚¹ãƒ©ã‚¤ãƒ 
 	namespace SlimeAnimationConfig
 	{
-		// —§‚¿
+		// ç«‹ã¡
 		static const uint16_t kIdleFrame = 60;
 
-		// ’…’n
+		// ç€åœ°
 		namespace Landing
 		{
 			static const uint16_t kFrame = 20;
@@ -125,16 +125,16 @@ namespace YGame
 			static const size_t kDustNum = 2;
 		}
 
-		// ”í’e
+		// è¢«å¼¾
 		namespace Hit
 		{
 			static const uint16_t kFrame = 4;
 
-			// ƒuƒŒ
+			// ãƒ–ãƒ¬
 			static const float kSwing = 0.2f;
 		}
 
-		// €–S
+		// æ­»äº¡
 		namespace Dead
 		{
 			static const uint16_t kFrame = 10;

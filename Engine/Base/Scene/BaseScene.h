@@ -12,63 +12,63 @@
 
 namespace YGame
 {
-	// Šî’êƒV[ƒ“ƒNƒ‰ƒX
+	// åŸºåº•ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹
 	class BaseScene
 	{
 	
 	public:
 		
 		/// <summary>
-		/// “Ç‚İ‚İ
+		/// èª­ã¿è¾¼ã¿
 		/// </summary>
 		virtual void Load() = 0;
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
 		virtual void Initialize() = 0;
 		
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Finalize() = 0;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update() = 0;
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() = 0;
 	
 	public:
 		
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		BaseScene() = default;
 		
-		// ƒfƒXƒgƒ‰ƒNƒ^
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		virtual ~BaseScene() = default;
 	
 	protected:
 		
-		// ƒL[(ƒVƒ“ƒOƒ‹ƒgƒ“)
+		// ã‚­ãƒ¼(ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³)
 		static YInput::Keys* spKeys_;
 		
-		// ƒ}ƒEƒX(ƒVƒ“ƒOƒ‹ƒgƒ“)
+		// ãƒã‚¦ã‚¹(ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³)
 		static YInput::Mouse* spMouse_;
 		
-		// ƒpƒbƒh(ƒVƒ“ƒOƒ‹ƒgƒ“)
+		// ãƒ‘ãƒƒãƒ‰(ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³)
 		static YInput::Pad* spPad_;
 		
-		// ƒpƒCƒvƒ‰ƒCƒ“ƒ}ƒl[ƒWƒƒ[
+		// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		static PipelineManager* spPipelineMan_;
 	
 	public:
 		
 		/// <summary>
-		/// Ã“I‰Šú‰»
+		/// é™çš„åˆæœŸåŒ–
 		/// </summary>
 		static void StaticInitialize();
 	

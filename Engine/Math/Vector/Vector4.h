@@ -10,24 +10,24 @@ namespace YMath
 		float b_;
 		float a_;
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^(—ëƒxƒNƒgƒ‹)
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(é›¶ãƒ™ã‚¯ãƒˆãƒ«)
 		Vector4();
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^(ˆø”—L)
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿(å¼•æ•°æœ‰)
 		Vector4(float r, float g, float b, float a);
 	public:
-		// ’P€‰‰Zq
+		// å˜é …æ¼”ç®—å­
 		Vector4 operator+() const;
 		Vector4 operator-() const;
-		// ‘ã“ü‰‰Zq
+		// ä»£å…¥æ¼”ç®—å­
 		Vector4& operator+=(const Vector4& v);
 		Vector4& operator-=(const Vector4& v);
 		Vector4& operator*=(float s);
 		Vector4& operator/=(float s);
-		// ”äŠr‰‰Zq
+		// æ¯”è¼ƒæ¼”ç®—å­
 		bool operator==(const Vector4& v);
 		bool operator!=(const Vector4& v);
 	};
-	// “ñ€‰‰Zq
+	// äºŒé …æ¼”ç®—å­
 	inline Vector4 operator+(const Vector4& v1, const Vector4& v2)
 	{
 		return { v1.r_ + v2.r_, v1.g_ + v2.g_, v1.b_ + v2.b_, v1.a_ + v2.a_ };

@@ -12,7 +12,7 @@ Transform::Transform() :
 	m_(Matrix4::Identity()),
 	parent_(nullptr)
 {
-	// s—ñXV
+	// è¡Œåˆ—æ›´æ–°
 	UpdateMatrix();
 }
 
@@ -23,38 +23,38 @@ Transform::Transform(const Status & status) :
 	m_(Matrix4::Identity()),
 	parent_(nullptr)
 {
-	// s—ñXV
+	// è¡Œåˆ—æ›´æ–°
 	UpdateMatrix();
 }
 
 Transform::Status Transform::Status::Default()
 {
-	// –ß‚è’l—p
+	// æˆ»ã‚Šå€¤ç”¨
 	Status result;
 	
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	result.pos_ = Vector3(0.0f, 0.0f, 0.0f);
 	result.rota_ = Vector3(0.0f, 0.0f, 0.0f);
 	result.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 
-	// •Ô‚·
+	// è¿”ã™
 	return result;
 }
 
 void Transform::Initialize(const Status& status)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	pos_ = status.pos_;
 	rota_ = status.rota_;
 	scale_ = status.scale_;
 	
-	// s—ñXV
+	// è¡Œåˆ—æ›´æ–°
 	UpdateMatrix();
 }
 
 void Transform::UpdateMatrix()
 {
-	// ƒAƒtƒBƒ“•ÏŠ·
+	// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›
 	m_ = Matrix4::Identity();
 	m_ *= MatScale(scale_) * MatRotation(rota_) * MatTranslation(pos_);
 	if (parent_) { m_ *= *parent_; }
@@ -62,15 +62,15 @@ void Transform::UpdateMatrix()
 
 void Transform::UpdateMatrix(const Status& status)
 {
-	// ŒvZ—p
+	// è¨ˆç®—ç”¨
 	Vector3 p, r, s;
 	
-	// ‰ÁZ‚µ‚Ä‘ã“ü
+	// åŠ ç®—ã—ã¦ä»£å…¥
 	p = pos_ + status.pos_;
 	r = rota_ + status.rota_;
 	s = scale_ + status.scale_;
 
-	// ƒAƒtƒBƒ“•ÏŠ·
+	// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›
 	m_ = Matrix4::Identity();
 	m_ *= MatScale(s) * MatRotation(r) * MatTranslation(p);
 	if (parent_) { m_ *= *parent_; }
@@ -78,15 +78,15 @@ void Transform::UpdateMatrix(const Status& status)
 
 void Transform::UpdateMatrix(const Status& status, const Matrix4& mat)
 {
-	// ŒvZ—p
+	// è¨ˆç®—ç”¨
 	Vector3 p, r, s;
 
-	// ‰ÁZ‚µ‚Ä‘ã“ü
+	// åŠ ç®—ã—ã¦ä»£å…¥
 	p = pos_ + status.pos_;
 	r = rota_ + status.rota_;
 	s = scale_ + status.scale_;
 
-	// ƒAƒtƒBƒ“•ÏŠ·
+	// ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›
 	m_ = Matrix4::Identity();
 	m_ *= mat;
 	m_ *= MatScale(s) * MatRotation(r) * MatTranslation(p);

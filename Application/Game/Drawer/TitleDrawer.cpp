@@ -32,7 +32,7 @@ void TitleDrawer::LoadResource()
 
 void TitleDrawer::Initialize()
 {
-	// ƒEƒBƒ“ƒhƒEƒTƒCƒY ‚ð 3ŽŸŒ³ƒxƒNƒgƒ‹‚É‚µ‚Ä‚¨‚­
+	//  E B   h E T C Y    3     x N g   É‚  Ä‚   
 	Vector3 win = YMath::ConvertToVector3(WinSize);
 
 	Vector3 logoPos = (win / 2.0f);

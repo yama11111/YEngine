@@ -11,40 +11,40 @@ Power::Power(const uint32_t maxPower) :
 
 void Power::Initialize(const uint32_t maxPower)
 {
-	// ‘ã“ü
+	// ä»£å…¥
 	SetMaxPower(maxPower);
 
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 }
 
 void Power::Reset()
 {
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	current_ = 0;
 }
 
 void Power::Update(const bool isAct)
 {
-	// ‰ÁZ’l
+	// åŠ ç®—å€¤
 	float spd = 1.0f;
 
-	// “®ì’†‚È‚ç
+	// å‹•ä½œä¸­ãªã‚‰
 	if (isAct)
 	{
-		// ‰ÁZ (Å‘å’l‚ğ’´‚¦‚È‚¢‚æ‚¤‚É)
+		// åŠ ç®— (æœ€å¤§å€¤ã‚’è¶…ãˆãªã„ã‚ˆã†ã«)
 		current_ = fminf(current_ + spd, maxPower_);
 	}
 	else
 	{
-		// Œ¸Z (0.0f‚ğ’´‚¦‚È‚¢‚æ‚¤‚É)
+		// æ¸›ç®— (0.0fã‚’è¶…ãˆãªã„ã‚ˆã†ã«)
 		current_ = fmaxf(current_ - spd, 0.0f);
 	}
 }
 
 float Power::Ratio() const
 {
-	// 0‚ÅŠ„‚ç‚È‚¢‚æ‚¤‚É
+	// 0ã§å‰²ã‚‰ãªã„ã‚ˆã†ã«
 	if (maxPower_ == 0) { return 0.0f; }
 	return current_ / maxPower_;
 }

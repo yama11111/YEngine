@@ -16,28 +16,28 @@ namespace YBase
 	public:
 		
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <returns>¬Œ÷‚µ‚½‚©</returns>
+		/// <returns>æˆåŠŸã—ãŸã‹</returns>
 		virtual bool Initialize();
 
 		/// <summary>
-		/// I—¹ˆ—
+		/// çµ‚äº†å‡¦ç†
 		/// </summary>
 		virtual void Finalize();
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
 		virtual void Update();
 		
 		/// <summary>
-		/// •`‰æ
+		/// æç”»
 		/// </summary>
 		virtual void Draw() = 0;
 
 		/// <summary>
-		/// Às
+		/// å®Ÿè¡Œ
 		/// </summary>
 		void Run();
 	
@@ -55,28 +55,28 @@ namespace YBase
 		// DirectX12
 		YDX::YDirectX dx_;
 		
-		// inputƒ}ƒl[ƒWƒƒ[
+		// inputãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		YInput::InputManager* inputMan_ = nullptr;
 		
-		// ƒXƒNƒŠ[ƒ“İ’è
+		// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³è¨­å®š
 		YDX::ScreenDesc screenDesc_;
 		
-		// ƒfƒXƒNƒŠƒvƒ^[ƒq[ƒv (SRV, UAV, CBV)
+		// ãƒ‡ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ¼ãƒ’ãƒ¼ãƒ— (SRV, UAV, CBV)
 		YDX::DescriptorHeap descHeap_;
 		
-		// imguiƒ}ƒl[ƒWƒƒ[
+		// imguiãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		ImGuiManager imguiMan_;
 
-		// ƒpƒCƒvƒ‰ƒCƒ“ƒ}ƒl[ƒWƒƒ[
+		// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		YGame::PipelineManager* pPipelineMan_ = nullptr;
 		
-		// ƒp[ƒeƒBƒNƒ‹ƒ}ƒl[ƒWƒƒ[
+		// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		YGame::ParticleManager* pParticleMan_ = nullptr;
 		
-		// ƒV[ƒ“ƒ}ƒl[ƒWƒƒ[
+		// ã‚·ãƒ¼ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 		YGame::SceneManager* sceneMan_ = nullptr;
 		
-		// I—¹ƒtƒ‰ƒO
+		// çµ‚äº†ãƒ•ãƒ©ã‚°
 		bool isEnd_ = false;
 	
 	};

@@ -17,36 +17,36 @@ bool Sprite3D::isInitVertices_ = false;
 
 Sprite3D* Sprite3D::Create(const std::unordered_map<std::string, Texture*>& pTexs)
 {
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	if (isInitVertices_ == false)
 	{
 		vt_.Initialize({ {} });
 		isInitVertices_ = true;
 	}
 
-	// ƒXƒvƒ‰ƒCƒg¶¬
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”Ÿæˆ
 	unique_ptr<Sprite3D> newSprite = std::make_unique<Sprite3D>();
 
-	// ƒeƒNƒXƒ`ƒƒ
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	newSprite->pTexs_ = pTexs;
 
-	// •`‰æ‚·‚é
+	// æç”»ã™ã‚‹
 	newSprite->isVisible_ = true;
 
 
-	// ƒ|ƒCƒ“ƒ^‚ğŠl“¾
+	// ãƒã‚¤ãƒ³ã‚¿ã‚’ç²å¾—
 	Sprite3D* newSpritePtr = newSprite.get();
 
-	// ƒXƒvƒ‰ƒCƒg‚ğ•Û‘¶
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä¿å­˜
 	sSprites_.push_back(std::move(newSprite));
 
-	// ƒXƒvƒ‰ƒCƒgƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	return newSpritePtr;
 }
 
 void Sprite3D::AllClear()
 {
-	// ƒXƒvƒ‰ƒCƒg3D‘SÁ‹
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ3Då…¨æ¶ˆå»
 	for (size_t i = 0; i < sSprites_.size(); i++)
 	{
 		sSprites_[i].reset(nullptr);
@@ -56,19 +56,19 @@ void Sprite3D::AllClear()
 
 void Sprite3D::SetDrawCommand(std::unordered_map<std::string, uint32_t>& rpIndices)
 {
-	// •`‰æ‚µ‚È‚¢‚È‚ç’e‚­
+	// æç”»ã—ãªã„ãªã‚‰å¼¾ã
 	if (isVisible_ == false) { return; }
 
-	// ƒeƒNƒXƒ`ƒƒ
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	for (auto itr = rpIndices.begin(); itr != rpIndices.end(); ++itr)
 	{
-		// “¯ˆêƒL[‚ª‚È‚¢ê‡Œx
+		// åŒä¸€ã‚­ãƒ¼ãŒãªã„å ´åˆè­¦å‘Š
 		assert(pTexs_.contains(itr->first));
 
 		pTexs_[itr->first]->SetDrawCommand(itr->second);
 	}
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ‘—‚é + •`‰æƒRƒ}ƒ“ƒh
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’é€ã‚‹ + æç”»ã‚³ãƒãƒ³ãƒ‰
 	vt_.Draw();
 }
 
@@ -76,10 +76,10 @@ PipelineSetting Sprite3D::GetPipelineSetting()
 {
 	PipelineSetting result;
 
-	// ’¸“_ƒŒƒCƒAƒEƒg
+	// é ‚ç‚¹ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout =
 	{
-		// ’¸“_À•W	 (x, y, z)
+		// é ‚ç‚¹åº§æ¨™	 (x, y, z)
 		{
 			"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
@@ -87,30 +87,30 @@ PipelineSetting Sprite3D::GetPipelineSetting()
 
 	result.inputLayout = inputLayout;
 
-	// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[‚Ìİ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã®è¨­å®š
 	D3D12_STATIC_SAMPLER_DESC samplerDesc{};
-	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ‰¡Ü‚è•Ô‚µ   (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // cÜ‚è•Ô‚µ   (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ‰œsÜ‚è•Ô‚µ (ƒ^ƒCƒŠƒ“ƒO)
-	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ƒ{[ƒ_[‚Ì‚Í•
-	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // ‘S‚ÄƒŠƒjƒA•âŠÔ
-	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ƒ~ƒjƒ}ƒbƒvÅ‘å’l
-	samplerDesc.MinLOD = 0.0f;              // ƒ~ƒjƒ}ƒbƒvÅ¬’l
+	samplerDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // æ¨ªæŠ˜ã‚Šè¿”ã—   (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // ç¸¦æŠ˜ã‚Šè¿”ã—   (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP; // å¥¥è¡ŒæŠ˜ã‚Šè¿”ã— (ã‚¿ã‚¤ãƒªãƒ³ã‚°)
+	samplerDesc.BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK; // ãƒœãƒ¼ãƒ€ãƒ¼ã®æ™‚ã¯é»’
+	samplerDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;   // å…¨ã¦ãƒªãƒ‹ã‚¢è£œé–“
+	samplerDesc.MaxLOD = D3D12_FLOAT32_MAX; // ãƒŸãƒ‹ãƒãƒƒãƒ—æœ€å¤§å€¤
+	samplerDesc.MinLOD = 0.0f;              // ãƒŸãƒ‹ãƒãƒƒãƒ—æœ€å°å€¤
 	samplerDesc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
-	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚©‚ç‚Ì‚İg—p‰Â”\
+	samplerDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‹ã‚‰ã®ã¿ä½¿ç”¨å¯èƒ½
 
-	// ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰[”z—ñ‚É‘}“ü
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©ãƒ¼é…åˆ—ã«æŒ¿å…¥
 	result.samplerDescs.emplace_back(samplerDesc);
 
-	result.fillMode = D3D12_FILL_MODE_SOLID; // ƒ|ƒŠƒSƒ““à“h‚è‚Â‚Ô‚µ
+	result.fillMode = D3D12_FILL_MODE_SOLID; // ãƒãƒªã‚´ãƒ³å†…å¡—ã‚Šã¤ã¶ã—
 
-	result.cullMode = D3D12_CULL_MODE_NONE; // ƒJƒŠƒ“ƒO‚µ‚È‚¢
+	result.cullMode = D3D12_CULL_MODE_NONE; // ã‚«ãƒªãƒ³ã‚°ã—ãªã„
 
-	result.depthEnable = false; // [“xƒeƒXƒg‚µ‚È‚¢
+	result.depthEnable = false; // æ·±åº¦ãƒ†ã‚¹ãƒˆã—ãªã„
 	
-	result.primitiveType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT; // “_
+	result.primitiveType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT; // ç‚¹
 
-	result.primitive = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ƒ|ƒCƒ“ƒgƒŠƒXƒg
+	result.primitive = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; // ãƒã‚¤ãƒ³ãƒˆãƒªã‚¹ãƒˆ
 
 	return result;
 }

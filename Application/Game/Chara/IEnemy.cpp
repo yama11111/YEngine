@@ -5,17 +5,17 @@ using YGame::IEnemy;
 
 void IEnemy::OnCollision(const CollisionInfo& info)
 {
-	// ©g‚Ìî•ñ
+	// è‡ªèº«ã®æƒ…å ±
 	CollisionInfo self = GetCollisionInfo();
 	
-		// ƒvƒŒƒCƒ„[ or ƒyƒbƒg
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ or ãƒšãƒƒãƒˆ
 	if (info.attribute_ == AttributeType::ePlayer || 
 		info.attribute_ == AttributeType::ePet)
 	{
-		// ©•ª ‚ª ‰º‘¤ ‚È‚ç
+		// è‡ªåˆ† ãŒ ä¸‹å´ ãªã‚‰
 		if (self.pos_.y_ + (self.radius_ / 2.0f) < info.pos_.y_ - (info.radius_ / 2.0f))
 		{
-			// ”í’e
+			// è¢«å¼¾
 			Hit();
 		}
 
@@ -25,7 +25,7 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 
 void IEnemy::Hit()
 {
-	//// ƒ_ƒ[ƒW‚ğó‚¯‚é
+	//// ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹
 	//status_.Damage(info.pStatus_->Attack(), true);
 
 	//spScrollCamera_->Shaking(4.0f, 2.0f, 100.0f);

@@ -14,13 +14,13 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ¶¬
+		/// ç”Ÿæˆ
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="pModel"> : ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
-		/// <returns>ƒIƒuƒWƒFƒNƒgƒ|ƒCƒ“ƒ^ (“®“IƒCƒ“ƒXƒ^ƒ“ƒX)</returns>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="pModel"> : ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
+		/// <returns>ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿ (å‹•çš„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹)</returns>
 		static DrawObjectForModel* Create(
 			const Transform::Status& status, 
 			ViewProjection* pVP, 
@@ -30,32 +30,32 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// ‰Šú‰»
+		/// åˆæœŸåŒ–
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
-		/// <param name="isClearWhenTransition"> : ‘JˆÚƒNƒŠƒA‚·‚é‚©</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+		/// <param name="isClearWhenTransition"> : é·ç§»æ™‚ã‚¯ãƒªã‚¢ã™ã‚‹ã‹</param>
 		void Initialize(
 			const Transform::Status& status = Transform::Status::Default(),
 			const bool isClearWhenTransition = true) override;
 
 		/// <summary>
-		/// XV
+		/// æ›´æ–°
 		/// </summary>
-		/// <param name="status"> : ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒXƒe[ƒ^ƒX</param>
+		/// <param name="status"> : ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
 		void Update(const Transform::Status& status = {}) override;
 
 	public:
 
 		/// <summary>
-		/// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“‚ğİ’è
+		/// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pVP"> : ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pVP"> : ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿</param>
 		void SetViewProjection(ViewProjection* pVP);
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹‚ğİ’è
+		/// ãƒ¢ãƒ‡ãƒ«ã‚’è¨­å®š
 		/// </summary>
-		/// <param name="pModel"> : ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^</param>
+		/// <param name="pModel"> : ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿</param>
 		void SetModel(Model* pModel);
 	
 	public:
@@ -64,15 +64,15 @@ namespace YGame
 
 	private:
 
-		// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ|ƒCƒ“ƒ^
+		// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒã‚¤ãƒ³ã‚¿
 		ViewProjection* pVP_ = nullptr;
 
-		// ƒ‚ƒfƒ‹—pƒgƒ‰ƒ“ƒXƒtƒH[ƒ€’è”ƒoƒbƒtƒ@
+		// ãƒ¢ãƒ‡ãƒ«ç”¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ å®šæ•°ãƒãƒƒãƒ•ã‚¡
 		std::unique_ptr<ConstBufferObject<CBModelTransform>> cbTransform_;
 
 	private:
 
-		// éŒ¾A‘ã“ü‚ğ‹Ö~
+		// å®£è¨€ã€ä»£å…¥ã‚’ç¦æ­¢
 		DrawObjectForModel() = default;
 
 		DrawObjectForModel(const DrawObjectForModel&) = delete;

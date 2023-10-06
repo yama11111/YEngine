@@ -18,19 +18,19 @@ GoalDrawer* GoalDrawer::Create(Transform* pParent, const size_t drawPriority)
 
 void GoalDrawer::LoadResource()
 {
-	// ƒ‚ƒfƒ‹Ý’è
+	// ãƒ¢ãƒ‡ãƒ«è¨­å®š
 	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void GoalDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
-	// ƒIƒuƒWƒFƒNƒg‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 	BaseDrawer::Initialize(pParent, drawPriority);
 	obj_->transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
 
 	cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 0.0f, 0.25f);
 
-	// ƒ‚ƒfƒ‹‘}“ü
+	// ãƒ¢ãƒ‡ãƒ«æŒ¿å…¥
 	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";

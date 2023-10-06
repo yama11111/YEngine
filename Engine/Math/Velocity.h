@@ -17,13 +17,13 @@ namespace YMath
 
 	private:
 
-		// ベクトル
+		// 繝吶け繝医Ν
 		Vector3 vector_;
 
-		// 加速度
+		// 蜉騾溷ｺｦ
 		Vector3 accel_;
 
-		// 最大値
+		// 譛螟ｧ蛟､
 		Vector3 max_;
 
 	};

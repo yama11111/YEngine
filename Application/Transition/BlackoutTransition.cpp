@@ -11,13 +11,13 @@ YMath::Ease<float> BlackoutTransition::sBlendEas_;
 
 void BlackoutTransition::LoadResource()
 {
-	// ƒeƒNƒXƒ`ƒƒ“Ç‚Ýž‚Ý
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	Texture* pTex = Texture::Load("white1x1.png", false);
 	
-	// ƒXƒvƒ‰ƒCƒg¶¬
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”Ÿæˆ
 	spCurtenSpr_ = Sprite2D::Create({ {"Texture0", pTex} });
 
-	// “§‰ßƒC[ƒWƒ“ƒO‰Šú‰»
+	// é€éŽã‚¤ãƒ¼ã‚¸ãƒ³ã‚°åˆæœŸåŒ–
 	sBlendEas_.Initialize(0.0f, 1.0f, 3.0f);
 }
 
@@ -46,7 +46,7 @@ void BlackoutTransition::Reset()
 
 	blendPow_.Reset();
 
-	// ‰æ–Ê’†‰›
+	// ç”»é¢ä¸­å¤®
 	Vector2 p = WinSize / 2.0f;
 	obj_->transform_.pos_ = { p.x_, p.y_, 0.0f };
 	obj_->transform_.scale_ = { WinSize.x_, WinSize.y_, 0.0f };
@@ -57,10 +57,10 @@ void BlackoutTransition::Reset()
 
 void BlackoutTransition::Activate(const uint32_t changeFrame, const uint32_t loadFrame)
 {
-	// ƒŠƒZƒbƒg
+	// ãƒªã‚»ãƒƒãƒˆ
 	Reset();
 	
-	// “®ìŠJŽn
+	// å‹•ä½œé–‹å§‹
 	isAct_ = true;
 	isFalling_ = true;
 
@@ -71,107 +71,107 @@ void BlackoutTransition::Activate(const uint32_t changeFrame, const uint32_t loa
 
 void BlackoutTransition::UpdateChange()
 {
-	// “®ì’†‚¶‚á‚È‚¢‚È‚ç’e‚­
+	// å‹•ä½œä¸­ã˜ã‚ƒãªã„ãªã‚‰å¼¾ã
 	if (isAct_ == false) { return; }
 
-	// uŠÔƒtƒ‰ƒO‚ðfalse‚É
+	// çž¬é–“ãƒ•ãƒ©ã‚°ã‚’falseã«
 	isChangeMoment_ = false;
 	
-	// ƒuƒŒƒ“ƒh“®ì(ˆÃ“])ƒtƒ‰ƒO
+	// ãƒ–ãƒ¬ãƒ³ãƒ‰å‹•ä½œ(æš—è»¢)ãƒ•ãƒ©ã‚°
 	bool act = false;
 
-	// ˆÃ“]’† ‚È‚ç
+	// æš—è»¢ä¸­ ãªã‚‰
 	if (step_ == Step::Close)
 	{
-		// ƒuƒŒƒ“ƒh‚·‚é
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰ã™ã‚‹
 		act = true;
 		
-		// ƒuƒŒƒ“ƒh‚ªÅ‘å(^‚ÁˆÃ)‚È‚ç
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰ãŒæœ€å¤§(çœŸã£æš—)ãªã‚‰
 		if (blendPow_.IsMax())
 		{
-			// ’iŠK ¨ “Ç‚Ýž‚Ý
+			// æ®µéšŽ â†’ èª­ã¿è¾¼ã¿
 			step_ = Step::Load;
 			
 			
-			// –‹ŠJ‚¯ƒtƒ‰ƒO‚ðtfalse‚É
+			// å¹•é–‹ã‘ãƒ•ãƒ©ã‚°ã‚’tfalseã«
 			isFalling_ = false;
 
-			// uŠÔƒtƒ‰ƒO‚ðtrue‚É
+			// çž¬é–“ãƒ•ãƒ©ã‚°ã‚’trueã«
 			isChangeMoment_ = true;
 			
 			
-			// “Ç‚Ýž‚Ýƒ^ƒCƒ}[ŠJŽn
+			// èª­ã¿è¾¼ã¿ã‚¿ã‚¤ãƒžãƒ¼é–‹å§‹
 			loadTim_.SetActive(true);
 		}
 	}
-	// “Ç‚Ýž‚Ý’† ‚È‚ç
+	// èª­ã¿è¾¼ã¿ä¸­ ãªã‚‰
 	else if (step_ == Step::Load)
 	{
-		// ƒuƒŒƒ“ƒh‚·‚é
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰ã™ã‚‹
 		act = true;
 		
-		// “Ç‚Ýž‚Ýƒ^ƒCƒ}[XV
+		// èª­ã¿è¾¼ã¿ã‚¿ã‚¤ãƒžãƒ¼æ›´æ–°
 		loadTim_.Update();
 		
-		// “Ç‚Ýž‚Ýƒ^ƒCƒ}[‚ªI—¹‚µ‚½‚ç
+		// èª­ã¿è¾¼ã¿ã‚¿ã‚¤ãƒžãƒ¼ãŒçµ‚äº†ã—ãŸã‚‰
 		if (loadTim_.IsEnd())
 		{
-			// ’iŠK ¨ –¾“]
+			// æ®µéšŽ â†’ æ˜Žè»¢
 			step_ = Step::Open;
 
 
-			// uŠÔƒtƒ‰ƒO‚ðfalse‚É
+			// çž¬é–“ãƒ•ãƒ©ã‚°ã‚’falseã«
 			isChangeMoment_ = false;
 
-			// –‹ŠJ‚¯ƒtƒ‰ƒO‚ðtrue‚É
+			// å¹•é–‹ã‘ãƒ•ãƒ©ã‚°ã‚’trueã«
 			isRising_ = true;
 		}
 	}
-	// –¾“]’† ‚È‚ç
+	// æ˜Žè»¢ä¸­ ãªã‚‰
 	else if (step_ == Step::Open)
 	{
-		// ƒuƒŒƒ“ƒh‚µ‚È‚¢
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰ã—ãªã„
 		act = false;
 		
-		// ƒuƒŒƒ“ƒh‚ªÅ¬(“§–¾) ‚È‚ç
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰ãŒæœ€å°(é€æ˜Ž) ãªã‚‰
 		if (blendPow_.IsZero())
 		{
 			
-			// ƒŠƒZƒbƒg
+			// ãƒªã‚»ãƒƒãƒˆ
 			Reset();
 			
-			// I—¹ƒtƒ‰ƒO‚ðtrue‚É
+			// çµ‚äº†ãƒ•ãƒ©ã‚°ã‚’trueã«
 			isEnd_ = true;
 		
 		}
 	}
 
-	// ƒuƒŒƒ“ƒh’lXV
+	// ãƒ–ãƒ¬ãƒ³ãƒ‰å€¤æ›´æ–°
 	blendPow_.Update(act);
 }
 
 void BlackoutTransition::UpdateBlend()
 {
-	// “®ì’†‚¶‚á‚È‚¢‚È‚ç’e‚­
+	// å‹•ä½œä¸­ã˜ã‚ƒãªã„ãªã‚‰å¼¾ã
 	if (isAct_ == false) { return; }
 
-	// ƒuƒŒƒ“ƒh’l‰Šú‰»
+	// ãƒ–ãƒ¬ãƒ³ãƒ‰å€¤åˆæœŸåŒ–
 	float blendVal = 0.0f;
 	
-	// ˆÃ“] or “Ç‚Ýž‚Ý’† ‚È‚ç
+	// æš—è»¢ or èª­ã¿è¾¼ã¿ä¸­ ãªã‚‰
 	if (step_ == Step::Close || step_ == Step::Load)
 	{
-		// ƒC[ƒYƒCƒ“
+		// ã‚¤ãƒ¼ã‚ºã‚¤ãƒ³
 		blendVal = sBlendEas_.In(blendPow_.Ratio());
 	}
-	// –¾“]’† ‚È‚ç
+	// æ˜Žè»¢ä¸­ ãªã‚‰
 	else if (step_ == Step::Open)
 	{
-		// ƒC[ƒYƒAƒEƒg
+		// ã‚¤ãƒ¼ã‚ºã‚¢ã‚¦ãƒˆ
 		blendVal = sBlendEas_.Out(blendPow_.Ratio());
 	}
 
-	// F•ÏX
+	// è‰²å¤‰æ›´
 	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,blendVal };
 }
 
