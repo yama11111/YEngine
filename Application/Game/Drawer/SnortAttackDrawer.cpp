@@ -32,7 +32,7 @@ void SnortAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority
 
 	slimeActor_.Initialize(0, { {} }, 0);
 
-	rotaEas_.Initialize(0.0f, PI * 4.0f, 3.0f);
+	rotaEas_.Initialize(0.0f, kPI * 4.0f, 3.0f);
 
 	cbColor_->data_.baseColor = { 0.95f,0.95f,0.95f,0.5f };
 

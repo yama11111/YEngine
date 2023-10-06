@@ -87,7 +87,7 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		for (size_t i = 0; i < Anime::Landing::kDirectionNum; i++)
 		{
 			// Šp“x = 2ƒÎ (360) / Œü‚«‚Ì” * index
-			float rad = (2.0f * PI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
+			float rad = (2.0f * kPI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
 			Vector3 surrounding = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);

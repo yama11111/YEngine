@@ -123,7 +123,7 @@ void SelectDrawer::Reset()
 	// ‘å‚«‚³‚Ì—Ê
 	float earthScaleVal = 32.0f;
 	// ‰ñ“]‚Ì—Ê
-	float rotaVal = (PI * 2.0f) / static_cast<float>(aliveStages_.size());
+	float rotaVal = (kPI * 2.0f) / static_cast<float>(aliveStages_.size());
 
 	// ’n‹…
 	earthTra_.Initialize({ {},{},{earthScaleVal,earthScaleVal,earthScaleVal} });

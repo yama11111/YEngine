@@ -117,7 +117,7 @@ YMath::Vector4 YMath::GetColor(const int R, const int G, const int B, const int 
 
 float YMath::ConvertFromDegreeToRadian(const float degree)
 {
-	return degree * (PI / 180.0f);
+	return degree * (kPI / 180.0f);
 }
 
 Vector3 YMath::ConvertFromDegreeToRadian(const Vector3& degree)

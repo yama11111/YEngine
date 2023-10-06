@@ -1,60 +1,47 @@
-#include "PlayerDrawer.h"
+#include "HorseDrawer.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
-#include "DebriParticle.h"
-#include <cmath>
 #include "Def.h"
+#include <cmath>
 
-using YGame::PlayerDrawer;
+using YGame::HorseDrawer;
 using YGame::Model;
 using YMath::Vector3;
 using YMath::Timer;
-namespace Anime = YGame::PlayerAnimationConfig;
+namespace Anime = YGame::HorseAnimationConfig;
 
-std::array<Model*, 3> PlayerDrawer::spModels_ = { nullptr, nullptr, nullptr };
+Model* HorseDrawer::spModel_ = nullptr;
 
-PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const size_t drawPriority)
+HorseDrawer* HorseDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	PlayerDrawer* newDrawer = new PlayerDrawer();
+	HorseDrawer* newDrawer = new HorseDrawer();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
 	return newDrawer;
 }
 
-void PlayerDrawer::LoadResource()
+void HorseDrawer::LoadResource()
 {
 	// モデル設定
-	spModels_[1] = Model::LoadObj("player/body", true);
-	spModels_[0] = Model::LoadObj("player/leg_L", true);
-	spModels_[2] = Model::LoadObj("player/leg_R", true);
+	spModel_ = Model::LoadObj("horse", true);
 }
 
-void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	// モデル設定
-	obj_->SetModel(spModels_[0]);
+	obj_->SetModel(spModel_);
 
 	shaderKey_ = "ModelToon";
 
-	slimeActor_.Initialize(0, { {} }, 0);
 	hitActor_.Initialize();
+	slimeActor_.Initialize(0, { {} }, 0);
 }
 
-void PlayerDrawer::Draw()
-{
-	if (isVisible_ == false) { return; }
-
-	for (size_t i = 0; i < spModels_.size(); i++)
-	{
-		obj_->Draw(shaderKey_, drawPriority_, spModels_[i]);
-	}
-}
-
-void PlayerDrawer::InsertAnimationTimers()
+void HorseDrawer::InsertAnimationTimers()
 {
 	// アニメーションの数だけタイマー作成
 	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
@@ -66,14 +53,14 @@ void PlayerDrawer::InsertAnimationTimers()
 	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eDead), AnimationTimer() });
 }
 
-void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 {
 	// 立ち
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle))
+	if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eIdle))
 	{
 	}
 	// 移動
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove))
+	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eMove))
 	{
 		// 土煙を発生
 		// 自分の足元
@@ -83,12 +70,12 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		// 正面と逆方向 かつ 上方向
 		float rad = pParent_->rota_.y_;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
-		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
+		Vector3 powerDirection = -front + Vector3(0.0f, +0.3f, 0.0f);
 
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// ジャンプ
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump))
+	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eJump))
 	{
 		// ブヨブヨアニメ
 		// 伸びる
@@ -110,12 +97,12 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		// 正面と逆方向 かつ 下方向
 		float rad = pParent_->rota_.y_;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
-		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
+		Vector3 powerDirection = -front + Vector3(0.0f, -1.0f, 0.0f);
 
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// 着地
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding))
 	{
 		// ブヨブヨアニメ
 		// 潰れる
@@ -138,20 +125,20 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		for (size_t i = 0; i < Anime::Landing::kDirectionNum; i++)
 		{
 			// 角度 = 2π (360) / 向きの数 * index
-			float rad = (2.0f * PI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
+			float rad = (2.0f * kPI / static_cast<float>(Anime::Landing::kDirectionNum)) * i;
 			Vector3 surrounding = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 
-			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.1f, 0.0f);
+			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);
 
 			DustParticle::Emit(Anime::Landing::kDustNum, pParent_->pos_, powerDirection, spVP_);
 		}
 	}
 	// 攻撃
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack))
+	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eAttack))
 	{
 	}
 	// 被弾
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eHit))
 	{
 		hitActor_.Hit(
 			Anime::Hit::kSwing,
@@ -159,21 +146,20 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 			100.0f);
 	}
 	// 死亡
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eDead))
 	{
-		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
 	}
 }
 
-void PlayerDrawer::UpdateAnimation()
+void HorseDrawer::UpdateAnimation()
 {
-	slimeActor_.Update();
-
 	hitActor_.Update();
+
+	slimeActor_.Update();
 
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
-	
+
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 }

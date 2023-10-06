@@ -39,7 +39,7 @@ void SelectScene::Initialize()
 	stageIndex_ = StageManager::GetInstance()->CurrentStageIndex();
 
 	transferVP_.Initialize();
-	camera_.Initialize({ +4.0f,+31.0f,-15.0f }, { -PI / 15.0f,-PI / 30.0f,-PI / 45.0f });
+	camera_.Initialize({ +4.0f,+31.0f,-15.0f }, { -kPI / 15.0f,-kPI / 30.0f,-kPI / 45.0f });
 }
 #pragma endregion
 

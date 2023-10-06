@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -112,51 +112,53 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
-    <ClCompile Include="Application\Game\AxisDrawer.cpp" />
-    <ClCompile Include="Application\Game\BlockDrawer.cpp" />
-    <ClCompile Include="Application\Game\CardDrawer.cpp" />
-    <ClCompile Include="Application\Game\CloudDrawer.cpp" />
-    <ClCompile Include="Application\Game\CollisionDrawer.cpp" />
-    <ClCompile Include="Application\Draw\Actor\DamageEmitter.cpp" />
-    <ClCompile Include="Application\Game\DebriParticle.cpp" />
-    <ClCompile Include="Application\Game\DustParticle.cpp" />
-    <ClCompile Include="Application\Game\DefaultDrawer.cpp" />
-    <ClCompile Include="Application\Game\EarthDrawer.cpp" />
-    <ClCompile Include="Application\Game\GoalDrawer.cpp" />
-    <ClCompile Include="Application\Game\HorseDrawer.cpp" />
-    <ClCompile Include="Application\Game\BaseDrawer.cpp" />
-    <ClCompile Include="Application\Game\IItem.cpp" />
-    <ClCompile Include="Application\Game\PauseManager.cpp" />
-    <ClCompile Include="Application\Game\PlayerDrawer.cpp" />
-    <ClCompile Include="Application\Game\ScoreManager.cpp" />
-    <ClCompile Include="Application\Game\SelectDrawer.cpp" />
-    <ClCompile Include="Application\Game\SkydomeDrawer.cpp" />
-    <ClCompile Include="Application\Game\SlashAttack.cpp" />
-    <ClCompile Include="Application\Game\SlashAttackDrawer.cpp" />
-    <ClCompile Include="Application\Game\SlimeDrawer.cpp" />
-    <ClCompile Include="Application\Game\CharacterStatus.cpp" />
-    <ClCompile Include="Application\Game\CharacterManager.cpp" />
-    <ClCompile Include="Application\Game\Horse.cpp" />
-    <ClCompile Include="Application\Game\IAttack.cpp" />
-    <ClCompile Include="Application\Game\IEnemy.cpp" />
-    <ClCompile Include="Application\Game\BaseCharacter.cpp" />
-    <ClCompile Include="Application\Game\GameObject.cpp" />
-    <ClCompile Include="Application\Game\IPet.cpp" />
-    <ClCompile Include="Application\Game\MapChip.cpp" />
-    <ClCompile Include="Application\Game\Player.cpp" />
-    <ClCompile Include="Application\Game\Slime.cpp" />
-    <ClCompile Include="Application\Game\SnortAttack.cpp" />
-    <ClCompile Include="Application\Game\SnortAttackDrawer.cpp" />
-    <ClCompile Include="Application\Game\GameCollider.cpp" />
-    <ClCompile Include="Application\Game\StageDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\CardDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\CloudDrawer.cpp" />
+    <ClCompile Include="Application\Game\Chara\Coin.cpp" />
+    <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\DamageEmitter.cpp" />
+    <ClCompile Include="Application\Game\Particle\DebriParticle.cpp" />
+    <ClCompile Include="Application\Game\Particle\DustParticle.cpp" />
+    <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\EarthDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\GoalDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\HorseDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\BaseDrawer.cpp" />
+    <ClCompile Include="Application\Game\Chara\IItem.cpp" />
+    <ClCompile Include="Application\Game\Drawer\PauseDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\PauseManager.cpp" />
+    <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\ScoreManager.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SkydomeDrawer.cpp" />
+    <ClCompile Include="Application\Game\Chara\SlashAttack.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SlashAttackDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SlimeDrawer.cpp" />
+    <ClCompile Include="Application\Game\Chara\CharacterStatus.cpp" />
+    <ClCompile Include="Application\Game\Chara\CharacterManager.cpp" />
+    <ClCompile Include="Application\Game\Chara\Horse.cpp" />
+    <ClCompile Include="Application\Game\Chara\IAttack.cpp" />
+    <ClCompile Include="Application\Game\Chara\IEnemy.cpp" />
+    <ClCompile Include="Application\Game\Chara\BaseCharacter.cpp" />
+    <ClCompile Include="Application\Game\Chara\GameObject.cpp" />
+    <ClCompile Include="Application\Game\Chara\IPet.cpp" />
+    <ClCompile Include="Application\Game\MapChip\MapChip.cpp" />
+    <ClCompile Include="Application\Game\Chara\Player.cpp" />
+    <ClCompile Include="Application\Game\Chara\Slime.cpp" />
+    <ClCompile Include="Application\Game\Chara\SnortAttack.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SnortAttackDrawer.cpp" />
+    <ClCompile Include="Application\Game\Collision\GameCollider.cpp" />
+    <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
     <ClCompile Include="Application\Game\StageManager.cpp" />
-    <ClCompile Include="Application\Game\TitleDrawer.cpp" />
-    <ClCompile Include="Application\Game\UILetterBox.cpp" />
-    <ClCompile Include="Application\Game\UIManager.cpp" />
-    <ClCompile Include="Application\Game\UIButton.cpp" />
-    <ClCompile Include="Application\Game\UIDigit.cpp" />
-    <ClCompile Include="Application\Game\UINumber.cpp" />
-    <ClCompile Include="Application\Game\WaveTransition.cpp" />
+    <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\UILetterBox.cpp" />
+    <ClCompile Include="Application\Game\UI\UIManager.cpp" />
+    <ClCompile Include="Application\Game\UI\UIButton.cpp" />
+    <ClCompile Include="Application\Game\UI\UIDigit.cpp" />
+    <ClCompile Include="Application\Game\UI\UINumber.cpp" />
+    <ClCompile Include="Application\Transition\WaveTransition.cpp" />
     <ClCompile Include="Application\Scene\ResultScene.cpp" />
     <ClCompile Include="Application\Transition\WindBlocks.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
@@ -198,7 +200,7 @@
     <ClCompile Include="Engine\Math\Collision\PrimitiveCollider.cpp" />
     <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp" />
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp" />
-    <ClCompile Include="Application\Game\MapChipManager.cpp" />
+    <ClCompile Include="Application\Game\MapChip\MapChipManager.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\Mesh.cpp" />
     <ClCompile Include="Engine\Draw\Transform.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\Texture.cpp" />
@@ -233,58 +235,61 @@
     <ClCompile Include="Engine\Draw\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp" />
-    <ClCompile Include="Application\Game\ExplosionParticle.cpp" />
+    <ClCompile Include="Application\Game\Particle\ExplosionParticle.cpp" />
     <ClCompile Include="Engine\Math\Velocity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
-    <ClInclude Include="Application\Game\AnimationConfig.h" />
-    <ClInclude Include="Application\Game\AxisDrawer.h" />
-    <ClInclude Include="Application\Game\BlockDrawer.h" />
-    <ClInclude Include="Application\Game\CardDrawer.h" />
-    <ClInclude Include="Application\Game\CharacterConfig.h" />
-    <ClInclude Include="Application\Game\CloudDrawer.h" />
-    <ClInclude Include="Application\Game\CollisionDrawer.h" />
-    <ClInclude Include="Application\Game\ColorConfig.h" />
-    <ClInclude Include="Application\Draw\Actor\DamageEmitter.h" />
-    <ClInclude Include="Application\Game\DebriParticle.h" />
-    <ClInclude Include="Application\Game\DustParticle.h" />
-    <ClInclude Include="Application\Game\DefaultDrawer.h" />
-    <ClInclude Include="Application\Game\EarthDrawer.h" />
-    <ClInclude Include="Application\Game\GoalDrawer.h" />
-    <ClInclude Include="Application\Game\HorseDrawer.h" />
-    <ClInclude Include="Application\Game\BaseDrawer.h" />
-    <ClInclude Include="Application\Game\IItem.h" />
-    <ClInclude Include="Application\Game\PauseManager.h" />
-    <ClInclude Include="Application\Game\PlayerDrawer.h" />
-    <ClInclude Include="Application\Game\ScoreManager.h" />
-    <ClInclude Include="Application\Game\SelectDrawer.h" />
-    <ClInclude Include="Application\Game\SkydomeDrawer.h" />
-    <ClInclude Include="Application\Game\SlashAttack.h" />
-    <ClInclude Include="Application\Game\SlashAttackDrawer.h" />
-    <ClInclude Include="Application\Game\SlimeDrawer.h" />
-    <ClInclude Include="Application\Game\CharacterStatus.h" />
-    <ClInclude Include="Application\Game\CharacterManager.h" />
-    <ClInclude Include="Application\Game\Horse.h" />
-    <ClInclude Include="Application\Game\IAttack.h" />
-    <ClInclude Include="Application\Game\IEnemy.h" />
-    <ClInclude Include="Application\Game\BaseCharacter.h" />
-    <ClInclude Include="Application\Game\GameObject.h" />
-    <ClInclude Include="Application\Game\IPet.h" />
-    <ClInclude Include="Application\Game\MapChip.h" />
-    <ClInclude Include="Application\Game\Player.h" />
-    <ClInclude Include="Application\Game\Slime.h" />
-    <ClInclude Include="Application\Game\SnortAttack.h" />
-    <ClInclude Include="Application\Game\SnortAttackDrawer.h" />
-    <ClInclude Include="Application\Game\GameCollider.h" />
-    <ClInclude Include="Application\Game\StageDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\AnimationConfig.h" />
+    <ClInclude Include="Application\Game\Drawer\AxisDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\BlockDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\CardDrawer.h" />
+    <ClInclude Include="Application\Game\Chara\CharacterConfig.h" />
+    <ClInclude Include="Application\Game\Drawer\CloudDrawer.h" />
+    <ClInclude Include="Application\Game\Chara\Coin.h" />
+    <ClInclude Include="Application\Game\Drawer\CollisionDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\ColorConfig.h" />
+    <ClInclude Include="Application\Game\UI\DamageEmitter.h" />
+    <ClInclude Include="Application\Game\Particle\DebriParticle.h" />
+    <ClInclude Include="Application\Game\Particle\DustParticle.h" />
+    <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\EarthDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\GoalDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\HorseDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\BaseDrawer.h" />
+    <ClInclude Include="Application\Game\Chara\IItem.h" />
+    <ClInclude Include="Application\Game\Drawer\PauseDrawer.h" />
+    <ClInclude Include="Application\Game\UI\PauseManager.h" />
+    <ClInclude Include="Application\Game\UI\PauseSelection.h" />
+    <ClInclude Include="Application\Game\Drawer\PlayerDrawer.h" />
+    <ClInclude Include="Application\Game\UI\ScoreManager.h" />
+    <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\SkydomeDrawer.h" />
+    <ClInclude Include="Application\Game\Chara\SlashAttack.h" />
+    <ClInclude Include="Application\Game\Drawer\SlashAttackDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\SlimeDrawer.h" />
+    <ClInclude Include="Application\Game\Chara\CharacterStatus.h" />
+    <ClInclude Include="Application\Game\Chara\CharacterManager.h" />
+    <ClInclude Include="Application\Game\Chara\Horse.h" />
+    <ClInclude Include="Application\Game\Chara\IAttack.h" />
+    <ClInclude Include="Application\Game\Chara\IEnemy.h" />
+    <ClInclude Include="Application\Game\Chara\BaseCharacter.h" />
+    <ClInclude Include="Application\Game\Chara\GameObject.h" />
+    <ClInclude Include="Application\Game\Chara\IPet.h" />
+    <ClInclude Include="Application\Game\MapChip\MapChip.h" />
+    <ClInclude Include="Application\Game\Chara\Player.h" />
+    <ClInclude Include="Application\Game\Chara\Slime.h" />
+    <ClInclude Include="Application\Game\Chara\SnortAttack.h" />
+    <ClInclude Include="Application\Game\Drawer\SnortAttackDrawer.h" />
+    <ClInclude Include="Application\Game\Collision\GameCollider.h" />
+    <ClInclude Include="Application\Game\Drawer\StageDrawer.h" />
     <ClInclude Include="Application\Game\StageManager.h" />
-    <ClInclude Include="Application\Game\TitleDrawer.h" />
-    <ClInclude Include="Application\Game\UILetterBox.h" />
-    <ClInclude Include="Application\Game\UIManager.h" />
-    <ClInclude Include="Application\Game\UIButton.h" />
-    <ClInclude Include="Application\Game\UIDigit.h" />
-    <ClInclude Include="Application\Game\WaveTransition.h" />
+    <ClInclude Include="Application\Game\Drawer\TitleDrawer.h" />
+    <ClInclude Include="Application\Game\UI\UILetterBox.h" />
+    <ClInclude Include="Application\Game\UI\UIManager.h" />
+    <ClInclude Include="Application\Game\UI\UIButton.h" />
+    <ClInclude Include="Application\Game\UI\UIDigit.h" />
+    <ClInclude Include="Application\Transition\WaveTransition.h" />
     <ClInclude Include="Application\Scene\ResultScene.h" />
     <ClInclude Include="Application\Transition\WindBlocks.h" />
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
@@ -337,14 +342,14 @@
     <ClInclude Include="Engine\Game\Camera\Camera.h" />
     <ClInclude Include="Engine\Game\Camera\ScrollCamera.h" />
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h" />
-    <ClInclude Include="Application\Game\AttributeType.h" />
+    <ClInclude Include="Application\Game\Collision\AttributeType.h" />
     <ClInclude Include="Engine\Math\Collision\BasePrimitiveCollider.h" />
     <ClInclude Include="Engine\Math\Lerp\BezierEase.h" />
     <ClInclude Include="Engine\Math\Lerp\Ease.h" />
     <ClInclude Include="Engine\Math\Collision\PrimitiveCollider.h" />
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />
-    <ClInclude Include="Application\Game\MapChipManager.h" />
+    <ClInclude Include="Application\Game\MapChip\MapChipManager.h" />
     <ClInclude Include="Engine\Draw\Graphic\Mesh.h" />
     <ClInclude Include="Engine\Draw\Transform.h" />
     <ClInclude Include="Engine\Draw\Graphic\Texture.h" />
@@ -380,9 +385,9 @@
     <ClInclude Include="Engine\Draw\Pipeline\Pipeline.h" />
     <ClInclude Include="Engine\Draw\Pipeline\PipelineManager.h" />
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
-    <ClInclude Include="Application\Game\ExplosionParticle.h" />
+    <ClInclude Include="Application\Game\Particle\ExplosionParticle.h" />
     <ClInclude Include="Engine\Math\Velocity.h" />
-    <ClInclude Include="Application\Game\UINumber.h" />
+    <ClInclude Include="Application\Game\UI\UINumber.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Dissolve.hlsli" />

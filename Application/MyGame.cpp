@@ -45,7 +45,7 @@
 #include "UILetterBox.h"
 #include "UIDigit.h"
 
-#include "PauseManager.h"
+#include "PauseDrawer.h"
 
 #pragma region 名前空間宣言
 using YBase::MyGame;
@@ -76,7 +76,7 @@ bool MyGame::Initialize()
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
 	// シーンマネージャー初期化
-	sceneMan_->Initialize(YGameSceneFactory::Title_);
+	sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
@@ -374,46 +374,52 @@ void MyGame::LoadMapData()
 
 void MyGame::LoadDrawer()
 {	
-	UILetterBox::LoadResource();
+	// UI
+	{
+		UILetterBox::LoadResource();
 
-	UIDigit::LoadResource();
+		UIDigit::LoadResource();
 
-	UIManager::LoadResource();
+		UIManager::LoadResource();
 
-	PauseManager::LoadResource();
+		PauseDrawer::LoadResource();
+	}
 
-	DefaultDrawer::LoadResource();
+	// Game
+	{
+		DefaultDrawer::LoadResource();
 
-	PlayerDrawer::LoadResource();
+		PlayerDrawer::LoadResource();
 
-	HorseDrawer::LoadResource();
+		HorseDrawer::LoadResource();
 
-	SlimeDrawer::LoadResource();
+		SlimeDrawer::LoadResource();
 
-	SlashAttackDrawer::LoadResource();
+		SlashAttackDrawer::LoadResource();
 
-	SnortAttackDrawer::LoadResource();
+		SnortAttackDrawer::LoadResource();
 
-	BlockDrawer::LoadResource();
+		BlockDrawer::LoadResource();
 
-	GoalDrawer::LoadResource();
+		GoalDrawer::LoadResource();
 
-	SkydomeDrawer::LoadResource();
+		SkydomeDrawer::LoadResource();
 
-	CloudDrawer::LoadResource();
-	
-	AxisDrawer::LoadResource();
+		CloudDrawer::LoadResource();
 
-	CollisionDrawer::LoadResource();
-	
-	TitleDrawer::LoadResource();
+		AxisDrawer::LoadResource();
 
-	SelectDrawer::LoadResource();
-	
-	EarthDrawer::LoadResource();
+		CollisionDrawer::LoadResource();
 
-	StageDrawer::LoadResource();
+		TitleDrawer::LoadResource();
 
-	CardDrawer::LoadResource();
+		SelectDrawer::LoadResource();
+
+		EarthDrawer::LoadResource();
+
+		StageDrawer::LoadResource();
+
+		CardDrawer::LoadResource();
+	}
 }
 
