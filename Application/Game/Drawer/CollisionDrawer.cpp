@@ -12,6 +12,7 @@ CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius,
 	CollisionDrawer* newDrawer = new CollisionDrawer();
 
 	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->obj_->transform_.scale_ = { radius, radius, radius };
 
 	return newDrawer;
 }

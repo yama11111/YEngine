@@ -41,10 +41,6 @@ void CloudDrawer::InsertAnimationTimers()
 {
 }
 
-void CloudDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
-{
-}
-
 void CloudDrawer::UpdateAnimation()
 {
 	posXTim_.Update();

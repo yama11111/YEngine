@@ -43,10 +43,6 @@ void SkydomeDrawer::InsertAnimationTimers()
 {
 }
 
-void SkydomeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
-{
-}
-
 void SkydomeDrawer::UpdateAnimation()
 {
 }

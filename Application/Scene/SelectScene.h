@@ -11,9 +11,11 @@ namespace YGame
 
 	private:
 
+		bool isStarted_ = false;
+		YMath::Timer startTimer_;
 		SelectDrawer selectDra_;
 
-		uint32_t stageIndex_ = 0;
+		int32_t stageIndex_ = 0;
 
 		// ビュープロジェクション
 		ViewProjection transferVP_;

@@ -3,6 +3,8 @@
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+	hInstance; hPrevInstance; lpCmdLine; nCmdShow;
+
 	// ゲーム
 	std::unique_ptr<YBase::YFramework> game = nullptr;
 

@@ -175,7 +175,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		virtual void PlaySubAnimation(const uint16_t index, const uint32_t frame) = 0;
+		virtual void PlaySubAnimation(const uint16_t index, const uint32_t frame);
 
 		/// <summary>
 		/// アニメーションタイマー更新

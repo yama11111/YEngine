@@ -137,6 +137,8 @@ void Audio::SearchHeader(std::ifstream& file, const char* chunkId)
 	ChunkHeader checkHeader{};
 	std::streampos currentPos{ file.tellg() };
 
+	chunkId;
+
 	file.read((char*)&checkHeader, sizeof(checkHeader));
 	while (std::strncmp(checkHeader.id_, "fmt ", 4) != 0)
 	{

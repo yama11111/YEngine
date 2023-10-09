@@ -82,6 +82,7 @@ void PlaneCollider::Initialize(const Vector3& normal, const float distance, cons
 {
 	BasePrimitiveCollider::Initialize(nullptr, Vector3(), isSlip);
 
+	normal_ = normal;
 	distance_ = distance;
 	isSlip_ = isSlip;
 }
@@ -298,13 +299,13 @@ bool YMath::CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane
 		plane.Normal(), plane.Distance());
 }
 
-bool YMath::CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane, float& distance, Vector3& inter)
-{
-	return YMath::CollisionRayPlane(
-		ray.Start(), ray.Direction(),
-		plane.Normal(), plane.Distance(),
-		distance, inter);
-}
+//bool YMath::CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane, float& distance, Vector3& inter)
+//{
+//	return YMath::CollisionRayPlane(
+//		ray.Start(), ray.Direction(),
+//		plane.Normal(), plane.Distance(),
+//		distance, inter);
+//}
 
 bool YMath::CollisionRayTriangle(const RayCollider& ray, const TriangleCollider& triangle)
 {

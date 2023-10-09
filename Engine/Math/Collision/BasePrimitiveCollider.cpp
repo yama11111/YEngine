@@ -10,7 +10,33 @@ void BasePrimitiveCollider::Initialize(Vector3* pFollowPoint, const Vector3& off
 	isSlip_ = isSlip;
 }
 
-BasePrimitiveCollider::BasePrimitiveCollider(const bool isSlip) : 
+bool BasePrimitiveCollider::CheckConcreteCollision(const RayCollider& other) const
+{
+	other;
+	return false;
+}
+bool BasePrimitiveCollider::CheckConcreteCollision(const PlaneCollider& other) const
+{
+	other;
+	return false;
+}
+bool BasePrimitiveCollider::CheckConcreteCollision(const TriangleCollider& other) const
+{
+	other;
+	return false;
+}
+bool BasePrimitiveCollider::CheckConcreteCollision(const SphereCollider& other) const
+{
+	other;
+	return false;
+}
+bool BasePrimitiveCollider::CheckConcreteCollision(const Box2DCollider& other) const
+{
+	other;
+	return false;
+}
+
+BasePrimitiveCollider::BasePrimitiveCollider(const bool isSlip) :
 	pFollowPoint_(nullptr), offset_(Vector3()), isSlip_(isSlip)
 {
 }

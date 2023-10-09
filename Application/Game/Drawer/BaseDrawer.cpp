@@ -87,6 +87,12 @@ void BaseDrawer::Update()
 	VisibleUpdate();
 }
 
+void BaseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+{
+	index;
+	frame;
+}
+
 void BaseDrawer::UpdateAnimationTimer()
 {
 	for (auto itr = animationTimers_.begin(); itr != animationTimers_.end(); ++itr)

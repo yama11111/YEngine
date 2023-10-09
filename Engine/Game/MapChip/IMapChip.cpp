@@ -37,7 +37,7 @@ void MapData::LoadCSV(const std::string& mapFileName)
 	while (true)
 	{
 		// 文字取得
-		int16_t c = fgetc(fp);
+		int16_t c = static_cast<int16_t>(fgetc(fp));
 
 		// 列
 		if (c == ',') 

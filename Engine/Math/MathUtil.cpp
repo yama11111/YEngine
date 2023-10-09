@@ -1,7 +1,8 @@
 #include "MathUtil.h"
 #include <cmath>
 #include <algorithm>
-#include <stdlib.h>
+#include <cstdlib>
+#include <cstdint>
 #include <time.h>
 #include "Def.h"
 
@@ -73,6 +74,11 @@ bool YMath::InRange(const Vector3& num, const Vector3& lower, const Vector3& upp
 
 template<typename T>
 T YMath::Clamp(const T& num, const T& lower, const T& upper)
+{
+	return std::min(std::max(num, lower), upper);
+}
+template<>
+uint32_t YMath::Clamp(const uint32_t& num, const uint32_t& lower, const uint32_t& upper)
 {
 	return std::min(std::max(num, lower), upper);
 }

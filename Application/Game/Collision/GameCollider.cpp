@@ -10,8 +10,9 @@ GameCollider::GameCollider(
 	Transform* pParent, 
 	const AttributeType attribute, const AttributeType mask,
 	const bool isSlip) :
-	pParent_(nullptr), attribute_(attribute), mask_(mask), isSlip_(isSlip)
+	pParent_(pParent), attribute_(attribute), mask_(mask), isSlip_(isSlip)
 {
+	colliders_.clear();
 }
 
 void GameCollider::Initialize(

@@ -50,13 +50,6 @@ namespace YGame
 		void InsertAnimationTimers() override;
 
 		/// <summary>
-		/// サブアニメーション再生
-		/// </summary>
-		/// <param name="index"> : アニメーション番号</param>
-		/// <param name="frame"> : 再生フレーム</param>
-		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
-
-		/// <summary>
 		/// アニメーション更新
 		/// </summary>
 		void UpdateAnimation() override;

@@ -32,7 +32,6 @@ namespace YGame
 			const Vector3& power,
 			const Vector3& acceleration,
 			const Vector3& maxSpeed,
-			const float endAlpha,
 			const float exponent,
 			ViewProjection* pVP);
 
@@ -78,7 +77,6 @@ namespace YGame
 		const Vector3& power,
 		const Vector3& acceleration,
 		const Vector3& maxSpeed,
-		const float endAlpha,
 		const float exponent,
 		ViewProjection* pVP)
 	{
@@ -175,7 +173,7 @@ void DebriParticle::Emit(
 
 	static const float kMaxSpeedVal = 0.5f;
 
-	static const float kEndAlpha = 0.6f;
+	//static const float kEndAlpha = 0.6f;
 
 	static const float kExponent = 6.0f;
 
@@ -193,6 +191,6 @@ void DebriParticle::Emit(
 
 		Vector3 maxSpeed = { kMaxSpeedVal, kMaxSpeedVal , kMaxSpeedVal };
 
-		pParticle->Initialize(kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, kEndAlpha, kExponent, pVP);
+		pParticle->Initialize(kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, kExponent, pVP);
 	}
 }

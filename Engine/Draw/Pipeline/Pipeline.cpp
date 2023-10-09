@@ -199,6 +199,8 @@ Pipeline* Pipeline::Create(
 		blendDesc.SrcBlendAlpha = D3D12_BLEND_ONE;   // ソースの値を100%使う
 		blendDesc.DestBlendAlpha = D3D12_BLEND_ZERO; // デストの値を  0%使う
 
+		if (blendState == Pipeline::BlendState::Alpha) {}
+
 		// 半透明合成
 		blendDesc.BlendOp = D3D12_BLEND_OP_ADD;			 // 加算
 		blendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;      // ソースのアルファ値

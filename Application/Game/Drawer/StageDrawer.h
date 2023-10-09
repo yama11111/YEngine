@@ -1,64 +1,125 @@
 #pragma once
-#include "BaseDrawer.h"
+#include "DrawObjectForSprite3D.h"
+#include "CBColor.h"
+#include "UINumber.h"
+
+#include "Ease.h"
+#include "Timer.h"
+#include "Power.h"
+
+#include <array>
 
 namespace YGame
 {
-	class StageDrawer final : 
-		public BaseDrawer
+	class StageDrawer
 	{
-
-	public:
-
-		/// <summary>
-		/// 生成
-		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		/// <returns>描画クラスポインタ (動的インスタンス)</returns>
-		static StageDrawer* Create(Transform* pParent, const size_t drawPriority);
-
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		static void LoadResource();
 
 	public:
 
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(Transform* pParent, const size_t drawPriority) override;
+		void Initialize(
+			YMath::Matrix4* pParent,
+			const uint32_t number,
+			const bool isTutorial,
+			const std::array<bool, 3>& isMissionClear);
+
+		/// <summary>
+		/// リセット
+		/// </summary>
+		void Reset();
+
+		/// <summary>
+		/// 更新
+		/// </summary>
+		void Update();
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw();
 
 	public:
 
-		StageDrawer() = default;
+		/// <summary>
+		/// 生成アニメーション
+		/// </summary>
+		void PopAnimation();
+		
+		/// <summary>
+		/// 選択アニメーション
+		/// </summary>
+		void SelectAnimation();
 
-		~StageDrawer() = default;
+		/// <summary>
+		/// 開放アニメーション
+		/// </summary>
+		void ReleseAnimation();
+	
+	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void LoadResource();
+
+		/// <summary>
+		/// ビュープロジェクションポインタ設定
+		/// </summary>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		static void SetViewProjection(ViewProjection* pVP);
 
 	private:
 
-		// モデルポインタ
-		static Model* spModel_;
+		struct MissionFrame
+		{
+			bool isClear = false;
+			std::unique_ptr<DrawObjectForSprite3D> frame;
+			std::unique_ptr<ConstBufferObject<CBColor>> color;
+
+			bool isPop = false;
+			YMath::Power popScalePow;
+			YMath::Ease<float> popScaleEas;
+			
+			bool isSelect = false;
+			YMath::Power selectScalePow;
+			YMath::Ease<float> selectScaleEas;
+		};
+	
+	private:
+
+		Transform trfm_;
+
+		std::unique_ptr<DrawObjectForSprite3D> centerFrame_;
+		std::unique_ptr<ConstBufferObject<CBColor>> color_;
+		
+		Transform uiTrfm_;
+		std::unique_ptr<UINumber> uiNum_;
+		std::unique_ptr<DrawObjectForSprite3D> uiTutorial_;
+		bool isTutorial_ = false;
+
+		bool isPop_ = false;
+		YMath::Power popScalePow_;
+		YMath::Ease<float> popScaleEas_;
+
+		bool isSelect_ = false;
+		YMath::Power selectScalePow_;
+		YMath::Ease<float> selectScaleEas_;
+		
+		std::array<MissionFrame, 3> missionFrames_;
 
 	private:
 
-		/// <summary>
-		/// アニメーションタイマー挿入
-		/// </summary>
-		void InsertAnimationTimers() override;
+		static ViewProjection* spVP_;
 
-		/// <summary>
-		/// サブアニメーション再生
-		/// </summary>
-		/// <param name="index"> : アニメーション番号</param>
-		/// <param name="frame"> : 再生フレーム</param>
-		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
+		static Sprite3D* spFrameSpr_;
+		
+		static Sprite3D* spTutorialSpr_;
+	
+	private:
 
-		/// <summary>
-		/// アニメーション更新
-		/// </summary>
-		void UpdateAnimation() override;
+		void UpdateActFlag();
+
 	};
 }

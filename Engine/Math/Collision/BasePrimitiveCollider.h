@@ -53,11 +53,11 @@ namespace YMath
 	public:
 
 		// 具体的な処理
-		virtual bool CheckConcreteCollision(const RayCollider& other) const { return false; }
-		virtual bool CheckConcreteCollision(const PlaneCollider& other) const { return false; }
-		virtual bool CheckConcreteCollision(const TriangleCollider& other) const { return false; }
-		virtual bool CheckConcreteCollision(const SphereCollider& other) const { return false; }
-		virtual bool CheckConcreteCollision(const Box2DCollider& other) const { return false; }
+		virtual bool CheckConcreteCollision(const RayCollider& other) const;
+		virtual bool CheckConcreteCollision(const PlaneCollider& other) const;
+		virtual bool CheckConcreteCollision(const TriangleCollider& other) const;
+		virtual bool CheckConcreteCollision(const SphereCollider& other) const;
+		virtual bool CheckConcreteCollision(const Box2DCollider& other) const;
 
 	protected:
 

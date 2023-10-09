@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <array>
+#include <vector>
 
 namespace YGame
 {
@@ -7,7 +9,26 @@ namespace YGame
 	{
 	
 	public:
+
+		// ステージステータス
+		struct StageStatus
+		{
+			bool isTutorial = false;
+			std::array<bool, 3> isMissionClear;
+		};
+	
+	public:
 		
+		/// <summary>
+		/// 読み込み
+		/// </summary>
+		void Load();
+		
+		/// <summary>
+		/// 書き込み
+		/// </summary>
+		void Save();
+
 		/// <summary>
 		/// 初期化
 		/// </summary>
@@ -44,6 +65,19 @@ namespace YGame
 		uint32_t CurrentStageIndex() const;
 
 		/// <summary>
+		/// ステージ最大数
+		/// </summary>
+		/// <returns>ステージ最大数</returns>
+		uint32_t MaxStageNum() const;
+
+		/// <summary>
+		/// ステージステータス
+		/// </summary>
+		/// <param name="index"> : ステージ番号</param>
+		/// <returns>ステージステータス</returns>
+		StageStatus Status(const size_t index) const;
+
+		/// <summary>
 		/// ステージ番号設定
 		/// </summary>
 		/// <param name="index"> : ステージ番号</param>
@@ -62,6 +96,8 @@ namespace YGame
 	
 	private:
 
+		std::vector<StageStatus> statuses_;
+		
 		uint32_t stageIndex = 0;
 
 		bool isGameOver_ = false;

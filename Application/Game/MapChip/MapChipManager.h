@@ -19,7 +19,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="mapIndex"> : マップ番号</param>
 		/// <param name="mapFileName"> : マップファイル名</param>
-		void Load(const uint16_t mapIndex, const std::string& mapFileName);
+		void Load(const uint32_t mapIndex, const std::string& mapFileName);
 		
 		/// <summary>
 		/// 初期化
@@ -28,7 +28,7 @@ namespace YGame
 		/// <param name="leftTop"> : 左上座標</param>
 		/// <param name="chipScale"> : チップ1つの大きさ</param>
 		void Initialize(
-			const uint16_t mapIndex,
+			const uint32_t mapIndex,
 			const YMath::Vector3& leftTop,
 			const YMath::Vector3& chipScale);
 		
@@ -80,7 +80,7 @@ namespace YGame
 		std::vector<std::unique_ptr<MapData>> mapDatas_;
 		
 		// 現在のマップデータインデックス
-		uint16_t currentIndex_ = 0;
+		uint32_t currentIndex_ = 0;
 		
 		// マップ
 		MapChip map_;

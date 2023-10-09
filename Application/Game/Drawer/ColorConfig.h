@@ -8,7 +8,7 @@ namespace YGame
 	{
 		static const std::array<YMath::Vector4, 5> skTurquoise =
 		{
-			YMath::GetColor(120, 255, 205, 255),
+			YMath::GetColor(192, 252, 229, 255),
 			YMath::GetColor( 19, 232, 182, 255),
 			YMath::GetColor( 16, 196, 166, 255),
 			YMath::GetColor(  9, 179, 150, 255),

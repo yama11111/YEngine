@@ -27,6 +27,8 @@ using namespace YMath;
 void SelectScene::Load()
 {
 	BaseDrawer::StaticInitialize(&transferVP_);
+
+	SelectDrawer::SetViewProjection(&transferVP_);
 }
 #pragma endregion
 
@@ -34,12 +36,14 @@ void SelectScene::Load()
 #pragma region 初期化
 void SelectScene::Initialize()
 {
+	isStarted_ = false;
+	startTimer_.Initialize(30, true);
 	selectDra_.Initialize();
 
-	stageIndex_ = StageManager::GetInstance()->CurrentStageIndex();
+	stageIndex_ = static_cast<int32_t>(StageManager::GetInstance()->CurrentStageIndex());
 
 	transferVP_.Initialize();
-	camera_.Initialize({ +4.0f,+31.0f,-15.0f }, { -kPI / 15.0f,-kPI / 30.0f,-kPI / 45.0f });
+	camera_.Initialize({ 0.0f,+5.0f,0.0f }, { kPI / 2.0f,0.0f,0.0f });
 }
 #pragma endregion
 
@@ -54,22 +58,38 @@ void SelectScene::Finalize()
 #pragma region 更新
 void SelectScene::Update()
 {
-	if (spKeys_->IsTrigger(DIK_LEFT) || spKeys_->IsTrigger(DIK_A))
+	startTimer_.Update();
+	if (startTimer_.IsEnd())
 	{
-		stageIndex_--;
-	}
-	if (spKeys_->IsTrigger(DIK_RIGHT) || spKeys_->IsTrigger(DIK_D))
-	{
-		stageIndex_++;
+		selectDra_.PopAnimation();
+		startTimer_.Reset();
+
+		isStarted_ = true;
 	}
 
-	if (stageIndex_ <= 0) { stageIndex_ = 0; }
-	if (9 <= stageIndex_) { stageIndex_ = 9; }
+	if (isStarted_)
+	{
+		if (spKeys_->IsTrigger(DIK_LEFT) || spKeys_->IsTrigger(DIK_A))
+		{
+			stageIndex_--;
+		}
+		if (spKeys_->IsTrigger(DIK_RIGHT) || spKeys_->IsTrigger(DIK_D))
+		{
+			stageIndex_++;
+		}
 
-	selectDra_.SetStageIndex(static_cast<int32_t>(stageIndex_));
+		int32_t stageSize = static_cast<int32_t>(StageManager::GetInstance()->MaxStageNum());
+
+		if (stageIndex_ < 0) { stageIndex_ = stageSize - 1; }
+		if (stageSize <= stageIndex_) { stageIndex_ = 0; }
+
+		selectDra_.SetStageIndex(stageIndex_);
+	}
+	
 	selectDra_.Update();
 
 	// ビュープロジェクション更新
+	camera_.pos_ = Vector3(0.0f, +5.0f, 0.0f) + selectDra_.FollowPoint();
 	camera_.Update();
 	transferVP_ = camera_.GetViewProjection();
 	transferVP_.UpdateMatrix();

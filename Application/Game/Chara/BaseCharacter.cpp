@@ -34,6 +34,8 @@ void BaseCharacter::Initialize(
 
 void BaseCharacter::Update(const bool isUpdate)
 {
+	if (isUpdate == false) {}
+
 	speed_.Update(moveDirection_);
 	
 	moveDirection_ = Vector3();

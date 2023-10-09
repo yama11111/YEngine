@@ -13,10 +13,10 @@ void MapChipManager::Load(const std::string& mapFileName)
 	mapDatas_.push_back(std::move(mapData));
 	
 	// 読み込み
-	Load(static_cast<uint16_t>(mapDatas_.size() - 1), mapFileName);
+	Load(static_cast<uint32_t>(mapDatas_.size() - 1), mapFileName);
 }
 
-void MapChipManager::Load(const uint16_t mapIndex, const std::string& mapFileName)
+void MapChipManager::Load(const uint32_t mapIndex, const std::string& mapFileName)
 {
 	// データサイズ超過時弾く
 	assert(0 <= mapIndex && mapIndex < mapDatas_.size());
@@ -26,7 +26,7 @@ void MapChipManager::Load(const uint16_t mapIndex, const std::string& mapFileNam
 }
 
 void MapChipManager::Initialize(
-	const uint16_t mapIndex, 
+	const uint32_t mapIndex, 
 	const YMath::Vector3& leftTop, 
 	const YMath::Vector3& chipScale)
 {

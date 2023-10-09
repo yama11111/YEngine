@@ -37,9 +37,8 @@
 
 #include "TitleDrawer.h"
 #include "SelectDrawer.h"
-#include "EarthDrawer.h"
 #include "StageDrawer.h"
-#include "CardDrawer.h"
+#include "StageStatusDrawer.h"
 
 #include "UIManager.h"
 #include "UILetterBox.h"
@@ -76,7 +75,7 @@ bool MyGame::Initialize()
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
 	//  V [   } l [ W   [      
-	sceneMan_->Initialize(YGameSceneFactory::Play_);
+	sceneMan_->Initialize(YGameSceneFactory::Select_);
 
 	return true;
 }
@@ -369,6 +368,7 @@ void MyGame::LoadMapData()
 	MapChipManager::GetInstance()->Load("stage9.csv");
 	MapChipManager::GetInstance()->Load("stage10.csv");
 
+	StageManager::GetInstance()->Load();
 	StageManager::GetInstance()->Initialize();
 }
 
@@ -410,16 +410,17 @@ void MyGame::LoadDrawer()
 		AxisDrawer::LoadResource();
 
 		CollisionDrawer::LoadResource();
+	}
 
+	// Scene
+	{
 		TitleDrawer::LoadResource();
 
-		SelectDrawer::LoadResource();
-
-		EarthDrawer::LoadResource();
-
 		StageDrawer::LoadResource();
+		
+		StageStatusDrawer::LoadResource();
 
-		CardDrawer::LoadResource();
+		SelectDrawer::LoadResource();
 	}
 }
 

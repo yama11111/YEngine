@@ -120,7 +120,7 @@ UIButton* UIButton::Create(BaseDrawObject* obj, const bool isClearWhenTransition
 {
 	impl_UIButton* newInstance = new impl_UIButton();
 
-	newInstance->Initialize(obj);
+	newInstance->Initialize(obj, isClearWhenTransition);
 
 	return newInstance;
 }

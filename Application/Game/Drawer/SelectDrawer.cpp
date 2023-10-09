@@ -1,352 +1,205 @@
 #include "SelectDrawer.h"
-#include "MathUtil.h"
-#include "MathVector.h"
+#include "StageManager.h"
+#include "Lerp.h"
 #include "Def.h"
-#include "Keys.h"
-#include "Pad.h"
 #include <cassert>
 
 using YGame::SelectDrawer;
+using YMath::Vector2;
 using YMath::Vector3;
 
-YGame::Sprite2D* SelectDrawer::spLogoSpr_ = nullptr;
-YGame::Sprite2D* SelectDrawer::spStickSpr_ = nullptr;
-YGame::Sprite2D* SelectDrawer::spButtonSpr_ = nullptr;
+YGame::ViewProjection* SelectDrawer::spVP_ = nullptr;
+YGame::Sprite3D* SelectDrawer::spBackSpr_ = nullptr;
+
+namespace 
+{
+	YGame::ViewProjection sVP;
+}
 
 void SelectDrawer::LoadResource()
 {
-	spLogoSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("select/stage_logo.png")} });
+	spBackSpr_ = Sprite3D::Create({ { "Texture0", Texture::Load("select/back.png")} });
+}
 
-	spStickSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/stick_L.png")} });
+void SelectDrawer::SetViewProjection(ViewProjection* pVP)
+{
+	assert(pVP);
+	spVP_ = pVP;
 
-	spButtonSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png")} });
+	StageDrawer::SetViewProjection(pVP);
+
+	sVP.Initialize();
+	sVP.eye_ = { 0.0f,0.0f,-5.0f };
+	sVP.UpdateMatrix();
 }
 
 void SelectDrawer::Initialize()
 {
-	core_ = Transform::Status::Default();
+	stageIndex_ = 0;
 
-	// 地球
-	earthTra_.Initialize();
-	earthTra_.parent_ = &core_.m_;
-	earthDra_.reset(EarthDrawer::Create(&earthTra_, 1));
-
-	// ステージトランスフォーム (使う用)
-	for (size_t i = 0; i < aliveStages_.size(); i++)
+	stages_.resize(StageManager::GetInstance()->MaxStageNum());
+	for (size_t i = 0; i < stages_.size(); i++)
 	{
-		aliveStages_[i].Initialize();
-		aliveStages_[i].parent_ = &core_.m_;
+		stages_[i].trfm.Initialize();
+		
+		StageManager::StageStatus status = StageManager::GetInstance()->Status(i);
+		
+		bool isTutotial = status.isTutorial;
+		std::array<bool, 3> mission = status.isMissionClear;
+		
+		stages_[i].stage.Initialize(&stages_[i].trfm.m_, static_cast<uint32_t>(i), isTutotial, mission);
+		stages_[i].status.Initialize(static_cast<uint32_t>(i), isTutotial, mission);
+
+		stages_[i].followPointPow_.Initialize(20);
 	}
+	followPointEas_.Initialize({}, Vector3(2.0f, 0.0f, 3.5f), 3.0f);
+	offsetEas_.Initialize({}, Vector2(2.0f, 3.5f) / 20.0f, 3.0f);
 
-	// ステージトランスフォーム (使わない用)
-	deadStage_.Initialize();
+	popTimer_.Initialize(5);
 
-	size_t stageNum = 10;
-
-	// ステージ描画クラス
-	stageDras_.resize(stageNum); // リサイズ
-	for (size_t i = 0; i < stageDras_.size(); i++)
+	if (back_ == nullptr)
 	{
-		stageDras_[i].reset(StageDrawer::Create(nullptr, 0));
-
-		// 番号がトランスフォームの数より小さいなら
-		if (i < aliveStages_.size())
-		{
-			// 使う用のトランスフォームを代入
-			stageDras_[i]->Initialize(&aliveStages_[i], 1);
-		}
-		// それ以外なら
-		else
-		{
-			// 使わない用のトランスフォームを代入
-			stageDras_[i]->Initialize(&deadStage_, 1);
-		}
+		back_.reset(DrawObjectForSprite3D::Create(Transform::Status::Default(), false, false, &sVP, spBackSpr_));
 	}
-
-
-	// ステージカード
-	cards_.resize(stageNum);
-	for (size_t i = 0; i < cards_.size(); i++)
+	if (backColor_ == nullptr)
 	{
-		cards_[i].Initialize();
+		backColor_.reset(ConstBufferObject<CBColor>::Create());
 	}
-
-	// ステージカード描画クラス
-	cardDras_.resize(stageNum);
-	for (size_t i = 0; i < cardDras_.size(); i++)
+	back_->InsertConstBuffer(backColor_.get());
+	if (backTexConfig_ == nullptr)
 	{
-		cardDras_[i].reset(new CardDrawer());
-		cardDras_[i]->Initialize(&cards_[i], static_cast<int>(i + 1));
+		backTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create());
 	}
+	back_->InsertConstBuffer(backTexConfig_.get());
 
-	letterBox_.reset(new UILetterBox());
-	letterBox_->Initialize(WinSize, 96.0f, 96.0f);
-
-	// ウィンドウサイズ を 3次元ベクトルにしておく
-	Vector3 win = YMath::ConvertToVector3(WinSize);
-
-	// ロゴ初期化
-	Vector3 logoPos = (win / 2.0f) - Vector3(288.0f, 288.0f, 0.0f);
-	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, spLogoSpr_));
-
-	Vector3 stickPos = (win / 2.0f) + Vector3(-448.0f, 288.0f, 0.0f);
-	stickObj_.reset(DrawObjectForSprite2D::Create({ stickPos, {}, {1.0f,1.0f,1.0f} }, spStickSpr_));
-
-	Vector3 buttonPos = (win / 2.0f) + Vector3(-288.0f, 308.0f, 0.0f);
-	DrawObjectForSprite2D* newStartButton = DrawObjectForSprite2D::Create({ buttonPos, {}, {1.0f,1.0f,0.0f} }, spButtonSpr_);
-	startButton_.reset(UIButton::Create(newStartButton));
-
-
-	// 天球
-	skydomeTra_.Initialize();
-	skydomeTra_.scale_ = { 32.0f,32.0f,32.0f };
-	skydomeTra_.parent_ = &core_.m_;
-	skydome_.reset(SkydomeDrawer::Create(&skydomeTra_, 3));
-
-	// ----- イージング ----- //
-
-	// ステージ回転用パワー
-	int32_t staNum = static_cast<int32_t>(stageNum) - 1;
-	stageRotaPows_.resize(static_cast<size_t>(staNum)); // リサイズ
+	offsetTimer_.Initialize(240);
 	
-	// リセット
 	Reset();
 }
 
 void SelectDrawer::Reset()
 {
-	// ----- オブジェクト初期化 ----- //
-
-	// 核
-	core_.Initialize();
-
-	// 大きさの量
-	float earthScaleVal = 32.0f;
-	// 回転の量
-	float rotaVal = (kPI * 2.0f) / static_cast<float>(aliveStages_.size());
-
-	// 地球
-	earthTra_.Initialize({ {},{},{earthScaleVal,earthScaleVal,earthScaleVal} });
-
-	// ----- ステージ ----- //
-
-	// トランスフォーム (使う用)
-	for (size_t i = 0; i < aliveStages_.size(); i++)
+	for (size_t i = 0; i < stages_.size(); i++)
 	{
-		// 位置
-		float pos = earthScaleVal - 0.5f;
+		stages_[i].trfm.Initialize();
+		stages_[i].trfm.pos_ = Vector3(-3.0f, -5.0f, 0.0f) + Vector3(2.0f * i, 0.0f, 3.5f * i);
+		stages_[i].trfm.rota_.x_ = kPI / 2.0f;
+		stages_[i].stage.Reset();
 
-		// 回転 ((360 / size) * idx)
-		float rota = rotaVal * i;
-
-		// 回転量に合わせた位置になるように
-		aliveStages_[i].Initialize(
-			{
-				{ 0.0f, +pos * cosf(rota), +pos * sinf(rota) }, // 位置
-				{ rota, 0, 0 }, // 回転
-				{ 1.0f, 1.0f, 1.0f } // 大きさ
-			}
-		);
+		stages_[i].status.Reset();
+		
+		stages_[i].isPop = false;
+		
+		stages_[i].followPointPow_.Reset();
 	}
-	// トランスフォーム (使わない用)
-	deadStage_.Initialize({ {-2000,-2000,-2000}, {}, {} });
 
-	// 描画クラス
-	//for (size_t i = 0; i < stageDras_.size(); i++)
-	//{
-	//	// 種類
-	//	TowerDrawerCommon::Type type = TowerDrawerCommon::Type::eBlack;
+	popTimer_.Reset();
+	
+	back_->transform_.rota_ = { 0.0f,0.0f,kPI - kPI / 4.0f };
+	back_->transform_.scale_ = { 8.0f,8.0f,0.0f };
+	backColor_->data_.baseColor = { 0.25f,0.25f,0.25f,1.0f };
+	backTexConfig_->data_.tiling = { 16.0f, 16.0f };
+	
+	offsetTimer_.Reset(true);
+}
 
-	//	// クリアしているなら変更
-	//	if (spStageConfig_->GetIsClearStage((int)i))
-	//	{
-	//		// クリアしているなら変更
-	//		type = TowerDrawerCommon::Type::eWhite;
-	//	}
+void SelectDrawer::SetStageIndex(const int32_t index)
+{
+	assert(0 <= index && index < stages_.size());
 
-	//	stageDras_[i]->Reset(type);
-	//}
+	stageIndex_ = index; 
 
-	// ----- ステージカード ----- //
-
-	// 高さの幅
-	float heightVal = 448.0f / static_cast<float>(10 - 1);
-
-	// トランスフォーム (親)
-	for (size_t i = 0; i < cards_.size(); i++)
+	for (size_t i = 0; i < stages_.size(); i++)
 	{
-		// y の位置
-		float y = WinSize.y_ / 2.0f + 8.0f + (448 / 2.0f)
-			- heightVal * static_cast<float>(i);
-
-		cards_[i].Initialize(
-			{
-				{WinSize.x_ - 96.0f, y, 0.0f },
-				{},
-				{ 1.0f, 1.0f, 1.0f }
-			}
-		);
-	}
-	// 描画クラス
-	//for (size_t i = 0; i < cardDras_.size(); i++)
-	//{
-	//	// クリアしているなら変更
-	//	cardDras_[i]->Reset(spStageConfig_->GetIsClearStage((int)i));
-	//}
-
-	// 天球
-
-	// ----- その他初期化 ----- //
-
-	// 動作中か
-	isAct_ = false;
-
-	// 開始時回転用イージング
-	startRotaEas_.Initialize(0.0f, -rotaVal / 2.0f, 1.4f);
-
-	// 開始時回転用タイマー
-	startRotaTim_.Initialize(20);
-	startRotaTim_.SetActive(true);
-
-
-	// ステージ回転用イージング
-	stageRotaEas_.Initialize(0.0f, -rotaVal, 1.4f);
-
-	// ステージ回転用パワー
-	for (size_t i = 0; i < stageRotaPows_.size(); i++)
-	{
-		stageRotaPows_[i].Initialize(30);
+		if (i == stageIndex_)
+		{
+			stages_[i].stage.SelectAnimation();
+			stages_[i].status.AppearAnimation();
+		}
+		else
+		{
+			stages_[i].stage.ReleseAnimation();
+			stages_[i].status.DisappearAnimation();
+		}
 	}
 }
 
-void SelectDrawer::UpdateRotaAnimation()
+void SelectDrawer::PopAnimation()
 {
-	// 回転量
-	float rotaVal = 0.0f;
+	popTimer_.Reset(true);
+}
 
-	// 開始時回転タイマー更新
-	startRotaTim_.Update();
-	// 開始時回転を代入
-	rotaVal += startRotaEas_.In(startRotaTim_.Ratio());
-
-	// ステージ数分回転させる
-	// 回転をその分スタート
-	for (size_t i = 0; i < stageRotaPows_.size(); i++)
+Vector3 SelectDrawer::FollowPoint() const
+{
+	Vector3 result;
+	for (size_t i = 0; i < stages_.size(); i++)
 	{
-		//回転させるか
-		bool isRotaAct = false;
-
-		// 現在のステージ数より番号が小さいなら
-		if (i < static_cast<size_t>(stageIndex_))
-		{
-			// 動作する
-			isRotaAct = true;
-		}
-
-		// 更新
-		stageRotaPows_[i].Update(isRotaAct);
-
-		// 回転させるならイーズイン
-		if (isRotaAct) { rotaVal += stageRotaEas_.In(stageRotaPows_[i].Ratio()); }
-		// それ以外ならイーズアウト
-		else { rotaVal += stageRotaEas_.Out(stageRotaPows_[i].Ratio()); }
-
-		//rotaVal += stageRotaEas_.In(stageRotaPows_[i].Ratio());
+		result += followPointEas_.InOut(stages_[i].followPointPow_.Ratio());
 	}
 
-	// 核に代入 (回転)
-	core_.rota_.x_ = rotaVal;
+	return result;
 }
 
 void SelectDrawer::Update()
 {
-	// 動作中じゃないなら弾く
-	//if (isAct_ == false) { return; }
-
-	// アニメーションの回転更新
-	UpdateRotaAnimation();
-
-	// 核
-	core_.UpdateMatrix();
-
-	// 地球
-	earthDra_->Update();
-
-	// ----- ステージ ----- //
-
-	// トランスフォーム
-	for (size_t i = 0; i < aliveStages_.size(); i++)
+	popTimer_.Update();
+	if (popTimer_.IsEnd())
 	{
-		aliveStages_[i].UpdateMatrix();
-	}
-	// 描画クラス
-	for (size_t i = 0; i < stageDras_.size(); i++)
-	{
-		stageDras_[i]->Update();
-	}
-
-	// ----- ステージカード ----- //
-
-	// トランスフォーム
-	for (size_t i = 0; i < cards_.size(); i++)
-	{
-		cards_[i].UpdateMatrix();
-	}
-	// 描画クラス
-	for (size_t i = 0; i < cardDras_.size(); i++)
-	{
-		cardDras_[i]->Update();
-
-		// 選択中か
-		bool isSelect = false;
-
-		// 選択中のステージ番号のとき
-		int staIdx = stageIndex_;
-		if (i == staIdx)
+		bool isAct = false;
+		for (size_t i = 0; i < stages_.size(); i++)
 		{
-			// 選択
-			isSelect = true;
+			if(stages_[i].isPop == false)
+			{
+				stages_[i].stage.PopAnimation();
+				stages_[i].isPop = true;
+				isAct = true;
+				break;
+			}
+			isAct = false;
 		}
-
-		// 選択中か設定
-		cardDras_[i]->SetSelect(isSelect);
+		popTimer_.Reset(isAct);
 	}
 
-	skydome_->Update();
+	for (size_t i = 0; i < stages_.size(); i++)
+	{
+		stages_[i].trfm.UpdateMatrix();
+		stages_[i].stage.Update();
+		stages_[i].status.Update();
 
-	letterBox_->Update();
-	logoObj_->Update();
-	stickObj_->Update();
-	startButton_->Update(
-		YInput::Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
-		YInput::Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A));
+		bool isActPow = (i < stageIndex_);
+		stages_[i].followPointPow_.Update(isActPow);
+	}
 
+	Vector2 offset;
+	
+	if (offsetTimer_.IsEnd())
+	{
+		offsetTimer_.Reset(true);
+	}
+	else
+	{
+		offsetTimer_.Update();
+	}
+
+	offset.x_ += YMath::Lerp(0.0f, 1.0f, offsetTimer_.Ratio());
+	
+	for (size_t i = 0; i < stages_.size(); i++)
+	{
+		offset += offsetEas_.InOut(stages_[i].followPointPow_.Ratio());
+	}
+
+	backTexConfig_->data_.offset = offset;
+
+	back_->Update();
 }
 
 void SelectDrawer::Draw()
 {
-	// 天球
-	skydome_->Draw();
+	back_->Draw("Sprite3DDefault", 2);
 
-	// ステージ描画
-	for (size_t i = 0; i < stageDras_.size(); i++)
+	for (size_t i = 0; i < stages_.size(); i++)
 	{
-		stageDras_[i]->Draw();
+		stages_[i].stage.Draw();
+		stages_[i].status.Draw();
 	}
-
-	// 地球
-	earthDra_->Draw();
-
-	// レターボックス描画
-	letterBox_->Draw("Sprite2DDefault", 2);
-
-	// カード描画 (後ろから)
-	for (int i = static_cast<int>(cardDras_.size()) - 1; i >= 0; i--)
-	{
-		cardDras_[i]->Draw(1);
-	}
-
-	logoObj_->Draw("Sprite2DDefault", 1);
-	stickObj_->Draw("Sprite2DDefault", 1);
-	startButton_->Draw("Sprite2DDefault", 1);
 }

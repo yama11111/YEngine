@@ -55,7 +55,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -82,7 +82,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -116,15 +116,16 @@
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp" />
-    <ClCompile Include="Application\Game\Drawer\CardDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\CloudDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\Coin.cpp" />
     <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\StageStatusDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\DamageEmitter.cpp" />
     <ClCompile Include="Application\Game\Particle\DebriParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\DustParticle.cpp" />
     <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp" />
-    <ClCompile Include="Application\Game\Drawer\EarthDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\GoalDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\HorseDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\BaseDrawer.cpp" />
@@ -133,7 +134,6 @@
     <ClCompile Include="Application\Game\UI\PauseManager.cpp" />
     <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp" />
-    <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\SlashAttack.cpp" />
     <ClCompile Include="Application\Game\Drawer\SlashAttackDrawer.cpp" />
@@ -152,7 +152,6 @@
     <ClCompile Include="Application\Game\Chara\SnortAttack.cpp" />
     <ClCompile Include="Application\Game\Drawer\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\Collision\GameCollider.cpp" />
-    <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
     <ClCompile Include="Application\Game\StageManager.cpp" />
     <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\UILetterBox.cpp" />
@@ -245,17 +244,18 @@
     <ClInclude Include="Application\Game\Drawer\AnimationConfig.h" />
     <ClInclude Include="Application\Game\Drawer\AxisDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\BlockDrawer.h" />
-    <ClInclude Include="Application\Game\Drawer\CardDrawer.h" />
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h" />
     <ClInclude Include="Application\Game\Drawer\CloudDrawer.h" />
     <ClInclude Include="Application\Game\Chara\Coin.h" />
     <ClInclude Include="Application\Game\Drawer\CollisionDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\ColorConfig.h" />
+    <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\StageDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\StageStatusDrawer.h" />
     <ClInclude Include="Application\Game\UI\DamageEmitter.h" />
     <ClInclude Include="Application\Game\Particle\DebriParticle.h" />
     <ClInclude Include="Application\Game\Particle\DustParticle.h" />
     <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h" />
-    <ClInclude Include="Application\Game\Drawer\EarthDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\GoalDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\HorseDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\BaseDrawer.h" />
@@ -265,7 +265,6 @@
     <ClInclude Include="Application\Game\UI\PauseSelection.h" />
     <ClInclude Include="Application\Game\Drawer\PlayerDrawer.h" />
     <ClInclude Include="Application\Game\UI\ScoreManager.h" />
-    <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\Chara\SlashAttack.h" />
     <ClInclude Include="Application\Game\Drawer\SlashAttackDrawer.h" />
@@ -284,7 +283,6 @@
     <ClInclude Include="Application\Game\Chara\SnortAttack.h" />
     <ClInclude Include="Application\Game\Drawer\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\Collision\GameCollider.h" />
-    <ClInclude Include="Application\Game\Drawer\StageDrawer.h" />
     <ClInclude Include="Application\Game\StageManager.h" />
     <ClInclude Include="Application\Game\Drawer\TitleDrawer.h" />
     <ClInclude Include="Application\Game\UI\UILetterBox.h" />
@@ -430,6 +428,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Primitive3DPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Primitive3DVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>

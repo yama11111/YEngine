@@ -50,7 +50,7 @@ void UIManager::Update()
 {
 	bool isJump = (pKeys->IsDown(DIK_SPACE) || pPad->IsDown(PadButton::XIP_A));
 
-	bool isAttack = (pKeys->IsDown(DIK_RETURN) || pPad->IsDown(PadButton::XIP_X));
+	//bool isAttack = (pKeys->IsDown(DIK_RETURN) || pPad->IsDown(PadButton::XIP_X));
 
 
 	letterBox_->Update();

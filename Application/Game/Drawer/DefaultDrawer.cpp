@@ -35,10 +35,6 @@ void DefaultDrawer::InsertAnimationTimers()
 {
 }
 
-void DefaultDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
-{
-}
-
 void DefaultDrawer::UpdateAnimation()
 {
 }

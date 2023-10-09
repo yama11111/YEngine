@@ -1,13 +1,8 @@
 #pragma once
-#include "EarthDrawer.h"
 #include "StageDrawer.h"
-#include "CardDrawer.h"
-#include "SkydomeDrawer.h"
+#include "StageStatusDrawer.h"
 
-#include "UILetterBox.h"
-#include "UIButton.h"
-
-#include "Power.h"
+#include "CBTexConfig.h"
 
 namespace YGame
 {
@@ -36,8 +31,25 @@ namespace YGame
 		/// </summary>
 		void Draw();
 
-		void SetStageIndex(const int32_t index) { stageIndex_ = index; }
+		/// <summary>
+		/// ステージ番号設定
+		/// </summary>
+		/// <param name="index"> : ステージ番号</param>
+		void SetStageIndex(const int32_t index);
 
+	public:
+
+		/// <summary>
+		/// 生成アニメーション
+		/// </summary>
+		void PopAnimation();
+
+		/// <summary>
+		/// 追従点
+		/// </summary>
+		/// <returns>追従点</returns>
+		YMath::Vector3 FollowPoint() const;
+	
 	public:
 
 		/// <summary>
@@ -45,79 +57,46 @@ namespace YGame
 		/// </summary>
 		static void LoadResource();
 
+		/// <summary>
+		/// ビュープロジェクションポインタ設定
+		/// </summary>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		static void SetViewProjection(ViewProjection* pVP);
+		
 	private:
 
-		// 核
-		Transform core_;
+		struct Stage
+		{
+			Transform trfm;
+			StageDrawer stage;
+			StageStatusDrawer status;
+			bool isPop = false;
 
-
-		// 地球
-		Transform earthTra_;
-		std::unique_ptr<EarthDrawer> earthDra_;
-
-		// ステージトランスフォーム (使う用)
-		std::array<Transform, 24> aliveStages_;
-
-		// ステージトランスフォーム (使わない用)
-		Transform deadStage_;
-
-		// ステージ描画クラス
-		std::vector<std::unique_ptr<StageDrawer>> stageDras_;
-
-
-		// ステージカード用トランスフォーム (親)
-		std::vector<Transform> cards_;
-
-		// ステージカード描画クラス
-		std::vector<std::unique_ptr<CardDrawer>> cardDras_;
-
-
-		// 黒帯
-		std::unique_ptr<UILetterBox> letterBox_;
-
-		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
-		std::unique_ptr<DrawObjectForSprite2D> stickObj_;
-		
-		std::unique_ptr<UIButton> startButton_;
-
-		// 天球
-		Transform skydomeTra_;
-		std::unique_ptr<SkydomeDrawer> skydome_;
-
-
-		// ----- アニメーション ----- //
-
-		int32_t stageIndex_ = 0;
-
-		// 動作中か
-		bool isAct_ = false;
-
-
-		// 開始時回転用イージング
-		YMath::Ease<float> startRotaEas_;
-
-		// 開始時回転用タイマー
-		YMath::Timer startRotaTim_;
-
-
-		// ステージ回転用イージング
-		YMath::Ease<float> stageRotaEas_;
-
-		// ステージ回転用パワー
-		std::vector<YMath::Power> stageRotaPows_;
+			YMath::Power followPointPow_;
+		};
 	
 	private:
 
-		static Sprite2D* spLogoSpr_;
+		int32_t stageIndex_;
+		
+		std::vector<Stage> stages_;
+		
+		YMath::Ease<YMath::Vector3> followPointEas_;
+		YMath::Ease<YMath::Vector2> offsetEas_;
+		
+		YMath::Timer popTimer_;
 
-		static Sprite2D* spStickSpr_;
+		std::unique_ptr<DrawObjectForSprite3D> back_;
+		std::unique_ptr<ConstBufferObject<CBColor>> backColor_;
+		std::unique_ptr<ConstBufferObject<CBTexConfig>> backTexConfig_;
 
-		static Sprite2D* spButtonSpr_;
+		YMath::Timer offsetTimer_;
 
 	private:
 
-		// アニメーションの回転更新
-		void UpdateRotaAnimation();
+		static ViewProjection* spVP_;
+
+		static Sprite3D* spBackSpr_;
 
 	};
 }

@@ -581,7 +581,7 @@ void Mesh::FbxLoader::ParseMeshFaces(std::vector<VData>& vertices, std::vector<u
 				if (j < 3)
 				{
 					// 1点追加し、他の2点と三角形を構築する
-					indices.push_back(index);
+					indices.push_back(static_cast<uint16_t>(index));
 				}
 				// 4頂点目
 				else
@@ -591,9 +591,9 @@ void Mesh::FbxLoader::ParseMeshFaces(std::vector<VData>& vertices, std::vector<u
 					int index2 = indices[indices.size() - 1];
 					int index3 = index;
 					int index0 = indices[indices.size() - 3];
-					indices.push_back(index2);
-					indices.push_back(index3);
-					indices.push_back(index0);
+					indices.push_back(static_cast<uint16_t>(index2));
+					indices.push_back(static_cast<uint16_t>(index3));
+					indices.push_back(static_cast<uint16_t>(index0));
 				}
 			}
 		}

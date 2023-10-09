@@ -202,6 +202,9 @@
     <Filter Include="Application\Game\Drawer\Scene">
       <UniqueIdentifier>{5b2a3675-1363-475a-94d4-c42fc74a0baf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Drawer\Scene\Select">
+      <UniqueIdentifier>{79d69ebf-82cf-4680-b9ff-0d83b20fd75e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -546,18 +549,6 @@
     <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp">
       <Filter>Application\Game\Drawer\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\EarthDrawer.cpp">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\CardDrawer.cpp">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
@@ -581,6 +572,15 @@
     </ClCompile>
     <ClCompile Include="Application\Game\StageManager.cpp">
       <Filter>Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\StageStatusDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene\Select</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -989,18 +989,6 @@
     <ClInclude Include="Application\Game\Drawer\TitleDrawer.h">
       <Filter>Application\Game\Drawer\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\SelectDrawer.h">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\StageDrawer.h">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\CardDrawer.h">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\EarthDrawer.h">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\UI\ScoreManager.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
@@ -1030,6 +1018,15 @@
     </ClInclude>
     <ClInclude Include="Application\Game\StageManager.h">
       <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\SelectDrawer.h">
+      <Filter>Application\Game\Drawer\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\StageStatusDrawer.h">
+      <Filter>Application\Game\Drawer\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\StageDrawer.h">
+      <Filter>Application\Game\Drawer\Scene\Select</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1110,6 +1107,12 @@
     </FxCompile>
     <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
       <Filter>Application\Shader\Model</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Primitive3DVS.hlsl">
+      <Filter>Application\Shader\Sprite3D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Primitive3DPS.hlsl">
+      <Filter>Application\Shader\Sprite3D</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -347,7 +347,8 @@ bool YMath::CollisionTriangleSphere(
 {
 	// 球 の 三角形上 の 最近接点
 	Vector3 closest = ClosestPointTriangle(sphereCenter, triPos0, triPos1, triPos2);
-	
+	triNormal;
+
 	// 球 → 最近接点
 	Vector3 v = closest - sphereCenter;
 	// (球 → 最近接点) ^ 2 > 球の半径 ^ 2 = 当たってない
@@ -362,6 +363,7 @@ bool YMath::CollisionTriangleSphere(
 {
 	// 球 の 三角形上 の 最近接点
 	Vector3 closest = ClosestPointTriangle(sphereCenter, triPos0, triPos1, triPos2);
+	triNormal;
 
 	// 球 → 最近接点
 	Vector3 v = closest - sphereCenter;
