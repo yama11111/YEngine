@@ -75,7 +75,9 @@ bool MyGame::Initialize()
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
 	//  V [   } l [ W   [      
-	sceneMan_->Initialize(YGameSceneFactory::Select_);
+	sceneMan_->Initialize(YGameSceneFactory::Title_);
+	//sceneMan_->Initialize(YGameSceneFactory::Select_);
+	//sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }

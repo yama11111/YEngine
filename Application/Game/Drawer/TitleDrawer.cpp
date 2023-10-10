@@ -2,6 +2,8 @@
 #include "CharacterConfig.h"
 #include "MathUtil.h"
 #include "MathVector.h"
+#include "ColorConfig.h"
+#include "Lerp.h"
 #include "Def.h"
 
 #include "Keys.h"
@@ -10,163 +12,260 @@
 using YGame::TitleDrawer;
 using YMath::Vector3;
 
-YGame::Sprite2D* TitleDrawer::spLogoSpr_ = nullptr;
-YGame::Sprite2D* TitleDrawer::spLineSpr_ = nullptr;
-YGame::Sprite2D* TitleDrawer::spNameSpr_ = nullptr;
+std::array<YGame::Sprite2D*, 6> TitleDrawer::spTitleCharaSprs_ = {};
 YGame::Sprite2D* TitleDrawer::spStartSpr_ = nullptr;
 YGame::Sprite2D* TitleDrawer::spButtonSpr_ = nullptr;
-YGame::MapChipManager* TitleDrawer::spMapChipManager_ = nullptr;
+YGame::Sprite2D* TitleDrawer::spCircleSpr_ = nullptr;
+YGame::Sprite2D* TitleDrawer::spWhiteSpr_ = nullptr;
 
 void TitleDrawer::LoadResource()
 {
-	spLogoSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_logo.png")} });
-	spLineSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_line.png")} });
-	spNameSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_name.png")} });
-
+	spTitleCharaSprs_[0] = Sprite2D::Create({ { "Texture0", Texture::Load("title/logo/B.png")} });
+	spTitleCharaSprs_[1] = Sprite2D::Create({ { "Texture0", Texture::Load("title/logo/E.png")} });
+	spTitleCharaSprs_[2] = Sprite2D::Create({ { "Texture0", Texture::Load("title/logo/D.png")} });
+	spTitleCharaSprs_[3] = Sprite2D::Create({ { "Texture0", Texture::Load("title/logo/A.png")} });
+	spTitleCharaSprs_[4] = Sprite2D::Create({ { "Texture0", Texture::Load("title/logo/S.png")} });
+	spTitleCharaSprs_[5] = Sprite2D::Create({ { "Texture0", Texture::Load("title/logo/H.png")} });
+	
 	spStartSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_start.png")} });
-	
+
 	spButtonSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png")} });
+
+	spCircleSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/circle.png")} });
 	
-	spMapChipManager_ = MapChipManager::GetInstance();
+	spWhiteSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png")} });
+	spWhiteSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void TitleDrawer::Initialize()
 {
-	//  E B   h E T C Y    3     x N g   ɂ  Ă   
-	Vector3 win = YMath::ConvertToVector3(WinSize);
+	for (size_t i = 0; i < titleLogo_.size(); i++)
+	{
+		if (titleLogo_[i].chara == nullptr)
+		{
+			titleLogo_[i].chara.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spTitleCharaSprs_[i]));
+		}
+		if (titleLogo_[i].color == nullptr)
+		{
+			titleLogo_[i].color.reset(ConstBufferObject<CBColor>::Create());
+		}
+		titleLogo_[i].chara->InsertConstBuffer(titleLogo_[i].color.get());
+	}
 
-	Vector3 logoPos = (win / 2.0f);
-	logoObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, spLogoSpr_));
-	lineObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, spLineSpr_));
-	nameObj_.reset(DrawObjectForSprite2D::Create({ logoPos, {}, {1.0f,1.0f,1.0f} }, spNameSpr_));
+	for (size_t i = 0; i < bands_.size(); i++)
+	{
+		if (bands_[i].band == nullptr)
+		{
+			bands_[i].band.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spWhiteSpr_));
+		}
+		if (bands_[i].color == nullptr)
+		{
+			bands_[i].color.reset(ConstBufferObject<CBColor>::Create());
+		}
+		bands_[i].band->InsertConstBuffer(bands_[i].color.get());
+	}
 
-
-	Vector3 startPos = (win / 2.0f) + Vector3(480.0f, 240.0f, 0.0f);
-	startObj_.reset(DrawObjectForSprite2D::Create({ startPos, {}, {0.75f,0.75f,0.0f} }, spStartSpr_));
-
-	startColor_.reset(ConstBufferObject<CBColor>::Create());
-	startObj_->InsertConstBuffer(startColor_.get());
-
-	Vector3 buttonPos = startPos + Vector3(0.0f, 64.0f, 0.0f);
-	DrawObjectForSprite2D* newStartButton = DrawObjectForSprite2D::Create({ buttonPos, {}, {1.0f,1.0f,0.0f} }, spButtonSpr_);
-	startButton_.reset(UIButton::Create(newStartButton));
-
-	letterBox_.reset(new UILetterBox());
-	letterBox_->Initialize(WinSize, 96.0f, 96.0f);
-
-
-	pLevel_ = Level::LoadJson("levelData.json");
+	if (start_ == nullptr)
+	{
+		start_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spStartSpr_));
+	}
+	if (startColor_ == nullptr)
+	{
+		startColor_.reset(ConstBufferObject<CBColor>::Create());
+	}
+	start_->InsertConstBuffer(startColor_.get());
 	
-	spMapChipManager_->Initialize(0, Vector3(-28.0f, +17.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f));
+	startButtonTrfm_.Initialize();
+	if (startButton_ == nullptr)
+	{
+		DrawObjectForSprite2D* obj = DrawObjectForSprite2D::Create(Transform::Status::Default(), spButtonSpr_);
+		obj->SetParent(&startButtonTrfm_.m_);
+		startButton_.reset(UIButton::Create(obj));
+	}
 
-	horse_.Initialize();
-	horseDra_.reset(HorseDrawer::Create(&horse_, 0));
-	//horseDra_->PlayAnimation(static_cast<uint16_t>(HorseDrawer::AnimationType::eMove), 10, true);
+	if (circle_ == nullptr)
+	{
+		circle_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spCircleSpr_));
+	}
+	if (circleColor_ == nullptr)
+	{
+		circleColor_.reset(ConstBufferObject<CBColor>::Create());
+	}
+	circle_->InsertConstBuffer(circleColor_.get());
 
-	player_.Initialize();
-	player_.pos_ = YGame::PetConfig::kRiddenHeight;
-	player_.parent_ = &horse_.m_;
-	playerDra_.reset(PlayerDrawer::Create(&player_, 0));
-
-
-	openingTims_[0].Initialize(60);
-	openingTims_[1].Initialize(60);
+	if (curten_ == nullptr)
+	{
+		curten_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spWhiteSpr_));
+	}
+	if (curtenColor_ == nullptr)
+	{
+		curtenColor_.reset(ConstBufferObject<CBColor>::Create());
+	}
+	curten_->InsertConstBuffer(curtenColor_.get());
 	
-	titlePosEass_[0].Initialize({0.0f,-400.0f, 0.0f}, {}, 3.0f);
-	titlePosEass_[1].Initialize({}, { -450, -250.0f, 0.0f }, 3.0f);
+	skydomeTrfm_.Initialize();
+	if (skydomeDra_ == nullptr)
+	{
+		skydomeDra_.reset(SkydomeDrawer::Create(&skydomeTrfm_, 2));
+	}	
+
+	Reset();
+}
+
+void TitleDrawer::Reset()
+{
+	Vector3 pos = Vector3(WinSize.x_ / 2.0f, 256.0f, 0.0f);
+
+	for (size_t i = 0; i < titleLogo_.size(); i++)
+	{
+		titleLogo_[i].chara->transform_.Initialize();
+		titleLogo_[i].chara->transform_.pos_ = pos;
+		float ratio = static_cast<float>(i) / static_cast<float>(titleLogo_.size() - 1);
+		titleLogo_[i].chara->transform_.pos_.x_ += YMath::Lerp(-320.0f, +320.0f, ratio);
+		
+		titleLogo_[i].color->data_.baseColor.a_ = 0.0f;
+
+		titleLogo_[i].animeTim.Initialize(40);
+		float startVal = -96.0f;
+		if (i % 2 == 0) { startVal *= -1; }
+		titleLogo_[i].posEas.Initialize(startVal, 0.0f, 3.0f);
+	}
 	
-	titleScaleEass_[0].Initialize(-1.0f, 0.0f, 3.0f);
-	titleScaleEass_[1].Initialize(0.0f, -0.6f, 3.0f);
+	bands_[0].color->data_.baseColor = ColorConfig::skTurquoise[1];
+	bands_[1].color->data_.baseColor = ColorConfig::skTurquoise[2];
+	for (size_t i = 0; i < bands_.size(); i++)
+	{
+		bands_[i].band->transform_.Initialize();
+		bands_[i].band->transform_.pos_ = pos;
+		bands_[i].band->transform_.scale_ = {};
+		
+		bands_[i].color->data_.baseColor.a_ = 1.0f;
+		
+		bands_[i].scaleTim.Initialize(30);
+		bands_[i].scaleEas.Initialize({}, { WinSize.x_, 128.0f - (16.0f * i), 0.0f }, 3.0f);
+	}
+
+	start_->transform_.Initialize();
+	start_->transform_.pos_ = { WinSize.x_ / 2.0f, 512.0f, 0.0f };
+
+	startButtonTrfm_.Initialize();
+	startButtonTrfm_.pos_ = { WinSize.x_ / 2.0f, 640.0f, 0.0f };
+
+	circle_->transform_.Initialize();
+	circle_->transform_.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f;
+	circle_->transform_.scale_ = {};
+	circleColor_->data_.baseColor = ColorConfig::skTurquoise[1];
 	
-	slimeActor_.Initialize(70, { {}, Vector3(+0.15f, +0.15f, 0.0f), {} }, 3.0f);
+	circleScaleTim_.Initialize(10);
+	circleScaleEas_.Initialize(0.0f, 16.0f, 2.0f);
+
+	curten_->transform_.Initialize();
+	curten_->transform_.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f;
+	curten_->transform_.scale_ = Vector3(WinSize.x_, WinSize.y_, 0.0f);
+	curtenColor_->data_.baseColor = ColorConfig::skTurquoise[0];
+
+	curtenAlphaTim_.Initialize(30);
+	
+	skydomeTrfm_.Initialize();
+	skydomeTrfm_.scale_ = { 100.0f,100.0f,100.0f };
+}
+
+void TitleDrawer::UpdateAnimeFlag()
+{
+	if(circleScaleTim_.IsEnd())
+	{
+		bands_[0].scaleTim.SetActive(true);
+	}
+
+	if (0.4f <= bands_[0].scaleTim.Ratio())
+	{
+		bands_[1].scaleTim.SetActive(true);
+		titleLogo_[0].animeTim.SetActive(true);
+	}
+
+	for (size_t i = 0; i < titleLogo_.size(); i++)
+	{
+		if (0.2f <= titleLogo_[i].animeTim.Ratio())
+		{
+			if (titleLogo_.size() - 1 <= i)
+			{
+				curtenAlphaTim_.SetActive(true);
+				break;
+			}
+			titleLogo_[i + 1].animeTim.SetActive(true);
+		}
+	}
 }
 
 void TitleDrawer::Update()
 {
+	UpdateAnimeFlag();
+
+	for (size_t i = 0; i < titleLogo_.size(); i++)
 	{
-		size_t animeIndex = 0;
-		Transform::Status anime;
+		titleLogo_[i].animeTim.Update();
+		float posY = titleLogo_[i].posEas.InOut(titleLogo_[i].animeTim.Ratio());
+		titleLogo_[i].chara->Update({ {0.0f, posY, 0.0f} });
 
-		for (size_t i = 0; i < openingTims_.size(); i++)
-		{
-			openingTims_[i].Update();
-		}
-		slimeActor_.Update();
-
-		if (openingTims_[0].IsEnd() && slimeActor_.IsAct() == false)
-		{
-			openingTims_[1].SetActive(true);
-		}
-
-		if (openingTims_[1].IsAct())
-		{
-			animeIndex = 1;
-		}
-
-		anime.pos_ += titlePosEass_[animeIndex].InOut(openingTims_[animeIndex].Ratio());
-
-		float scale = titleScaleEass_[animeIndex].InOut(openingTims_[animeIndex].Ratio());
-		anime.scale_ += { scale, scale, scale };
-		anime.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
-
-		logoObj_->Update(anime);
-		lineObj_->Update(anime);
-		nameObj_->Update(anime);
+		float alpha = YMath::EaseIn<float>(0.0f, 1.0f, titleLogo_[i].animeTim.Ratio(), 3.0f);
+		titleLogo_[i].color->data_.baseColor.a_ = alpha;
 	}
 
+	for (size_t i = 0; i < bands_.size(); i++)
 	{
-		startObj_->Update();
-
-		startButton_->Update(
-			YInput::Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
-			YInput::Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A));
-
-		letterBox_->Update();
+		bands_[i].scaleTim.Update();
+		YMath::Vector3 scaleVal = bands_[i].scaleEas.Out(bands_[i].scaleTim.Ratio());
+		bands_[i].band->Update({ {},{},scaleVal });
 	}
 
-	{
-		horse_.rota_ = YMath::AdjustAngle({ +1.0f, 0.0f, 0.0f });
-		horse_.UpdateMatrix();
+	start_->Update();
+	startButtonTrfm_.UpdateMatrix();
+	startButton_->Update(
+		YInput::Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
+		YInput::Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A));
 
-		horseDra_->Update();
+	circleScaleTim_.Update();
+	float circleScale = circleScaleEas_.In(circleScaleTim_.Ratio());
+	circle_->Update({ {},{},{circleScale, circleScale, 0.0f} });
+	
+	curten_->Update();
+	curtenAlphaTim_.Update();
+	float curtenAlpha = YMath::EaseIn<float>(1.0f, 0.0f, curtenAlphaTim_.Ratio(), 3.0f);
+	curtenColor_->data_.baseColor.a_ = curtenAlpha;
 
-		player_.UpdateMatrix();
-		playerDra_->Update();
-
-		spMapChipManager_->Update();
-
-		pLevel_->Update(); 
-	}
+	skydomeTrfm_.UpdateMatrix();
+	skydomeDra_->Update();
 }
 
 void TitleDrawer::Draw()
 {
-	pLevel_->Draw();
-	spMapChipManager_->Draw();
-	horseDra_->Draw();
-	playerDra_->Draw();
+	skydomeDra_->Draw();
+	
+	start_->Draw("Sprite2DDefault", 3);
+	startButton_->Draw("Sprite2DDefault", 3);
 
-	logoObj_->Draw("Sprite2DDefault", 1);
-	lineObj_->Draw("Sprite2DDefault", 1);
-	nameObj_->Draw("Sprite2DDefault", 1);
-	startObj_->Draw("Sprite2DDefault", 1);
+	curten_->Draw("Sprite2DDefault", 2);
+	
+	circle_->Draw("Sprite2DDefault", 2);
 
-	startButton_->Draw("Sprite2DDefault", 1);
-
-	letterBox_->Draw("Sprite2DDefault", 2);
+	for (size_t i = 0; i < bands_.size(); i++)
+	{
+		bands_[i].band->Draw("Sprite2DDefault", 1);
+	}
+	
+	for (size_t i = 0; i < titleLogo_.size(); i++)
+	{
+		titleLogo_[i].chara->Draw("Sprite2DDefault", 1);
+	}
 }
 
 void TitleDrawer::StartAnimation()
 {
 	startColor_->data_.baseColor = { 1.0f,1.0f,0.0f,1.0f };
-
-	//horseDra_->AbortAnimation(static_cast<uint16_t>(HorseDrawer::AnimationType::eMove));
-	//horseDra_->PlayAnimation(static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding), 8);
 }
 
 void TitleDrawer::OpeningAnimation()
 {
-	openingTims_[0].Reset(true);
-	openingTims_[1].Reset(false);
-	slimeActor_.Wobble();
+	Reset();
+	circleScaleTim_.SetActive(true);
 }

@@ -3,9 +3,17 @@
 
 namespace YGame
 {
-	class SkydomeDrawer final :
-		public BaseDrawer
+	class SkydomeDrawer final : public BaseDrawer
 	{
+
+	public:
+
+		// アニメーション
+		enum class AnimationType : uint16_t
+		{
+			// 立ち
+			eIdle = 0b1,
+		};
 
 	public:
 
@@ -37,6 +45,11 @@ namespace YGame
 
 		~SkydomeDrawer() = default;
 
+	private:
+
+		// テクスチャ設定
+		std::unique_ptr<ConstBufferObject<CBTexConfig>> backTexConfig_;
+	
 	private:
 
 		// モデルポインタ

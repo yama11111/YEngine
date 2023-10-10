@@ -78,9 +78,6 @@
     <Filter Include="Application\Game\Drawer\Pet">
       <UniqueIdentifier>{c1bb83d5-5a96-46d7-8353-fb27465b0a04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Drawer\Player">
-      <UniqueIdentifier>{923fd883-3c08-481e-bfea-9e06cd257020}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Drawer\etc">
       <UniqueIdentifier>{7f9f146c-3789-4ed2-8432-98245287f8b3}</UniqueIdentifier>
     </Filter>
@@ -204,6 +201,12 @@
     </Filter>
     <Filter Include="Application\Game\Drawer\Scene\Select">
       <UniqueIdentifier>{79d69ebf-82cf-4680-b9ff-0d83b20fd75e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Player">
+      <UniqueIdentifier>{923fd883-3c08-481e-bfea-9e06cd257020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Scene\Title">
+      <UniqueIdentifier>{e2d35930-384c-4c99-9343-bb8ae34fffe9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -546,9 +549,6 @@
     <ClCompile Include="Application\Transition\WindBlocks.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
@@ -581,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp">
       <Filter>Application\Game\Drawer\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -986,9 +989,6 @@
     <ClInclude Include="Application\Transition\WindBlocks.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\TitleDrawer.h">
-      <Filter>Application\Game\Drawer\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\UI\ScoreManager.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
@@ -1027,6 +1027,9 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\StageDrawer.h">
       <Filter>Application\Game\Drawer\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\TitleDrawer.h">
+      <Filter>Application\Game\Drawer\Scene\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

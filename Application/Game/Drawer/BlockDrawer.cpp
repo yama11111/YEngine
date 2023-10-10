@@ -35,6 +35,11 @@ void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	shaderKey_ = "ModelPhong";
 }
 
+void BlockDrawer::Draw()
+{
+	BaseDrawer::Draw();
+}
+
 void BlockDrawer::InsertAnimationTimers()
 {
 }

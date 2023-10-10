@@ -31,6 +31,11 @@ namespace YGame
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw() override;
+
 	public:
 
 		BlockDrawer() = default;

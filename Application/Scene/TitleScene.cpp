@@ -37,7 +37,7 @@ void TitleScene::Initialize()
 	titleDra_.Initialize();
 	titleDra_.OpeningAnimation();
 	
-	transferVP_.Initialize({ {-2.0f, -0.75f, -10.0f}, {+4.0f,+2.0f,+1.0f}, {0.1f,1.0f,-0.1f} });
+	transferVP_.Initialize();
 }
 #pragma endregion
 

@@ -1,4 +1,5 @@
 #include "PauseDrawer.h"
+#include "ColorConfig.h"
 #include "Lerp.h"
 #include "Def.h"
 #include <cassert>
@@ -116,6 +117,8 @@ void PauseDrawer::Reset()
 
 	curten_->transform_.Initialize({ Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f, {}, { WinSize.x_, WinSize.y_, 0.0f } });
 	
+	curtenColor_->data_.baseColor = ColorConfig::skTurquoise[1];
+
 	curtenAlphaPow_.Reset();
 }
 

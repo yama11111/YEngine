@@ -1,12 +1,14 @@
 #pragma once
-#include "PlayerDrawer.h"
-#include "HorseDrawer.h"
-#include "MapchipManager.h"
+#include "SkydomeDrawer.h"
 
-#include "Level.h"
-
+#include "DrawObjectForSprite2D.h"
 #include "UIButton.h"
-#include "UILetterBox.h"
+
+#include "Ease.h"
+#include "Timer.h"
+#include "Power.h"
+
+#include <array>
 
 namespace YGame
 {
@@ -19,6 +21,11 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		void Initialize();
+
+		/// <summary>
+		/// リセット
+		/// </summary>
+		void Reset();
 
 		/// <summary>
 		/// 更新
@@ -51,49 +58,63 @@ namespace YGame
 	
 	private:
 
-		// タイトル
-		std::unique_ptr<DrawObjectForSprite2D> logoObj_;
-		std::unique_ptr<DrawObjectForSprite2D> lineObj_;
-		std::unique_ptr<DrawObjectForSprite2D> nameObj_;
+		struct TitleChara
+		{
+			std::unique_ptr<DrawObjectForSprite2D> chara;
+			std::unique_ptr<ConstBufferObject<CBColor>> color;
 
-		// スタート
-		std::unique_ptr<DrawObjectForSprite2D> startObj_;
+			YMath::Timer animeTim;
+			YMath::Ease<float> posEas;
+		};
+
+		struct Band
+		{
+			std::unique_ptr<DrawObjectForSprite2D> band;
+			std::unique_ptr<ConstBufferObject<CBColor>> color;
+			
+			YMath::Timer scaleTim;
+			YMath::Ease<YMath::Vector3> scaleEas;
+		};
+	
+	private:
+
+		std::array<TitleChara, 6> titleLogo_;
+		std::array<Band, 2> bands_;
+
+		std::unique_ptr<DrawObjectForSprite2D> start_;
 		std::unique_ptr<ConstBufferObject<CBColor>> startColor_;
-
-		// スタートボタン
+		
+		Transform startButtonTrfm_;
 		std::unique_ptr<UIButton> startButton_;
 
-		// 黒帯
-		std::unique_ptr<UILetterBox> letterBox_;
-
-		// プレイヤー
-		Transform player_;
-		std::unique_ptr<PlayerDrawer> playerDra_;
-
-		// ウマ
-		Transform horse_;
-		std::unique_ptr<HorseDrawer> horseDra_;
-
-		// レベル
-		Level* pLevel_ = nullptr;
-
+		std::unique_ptr<DrawObjectForSprite2D> circle_;
+		std::unique_ptr<ConstBufferObject<CBColor>> circleColor_;
+		YMath::Timer circleScaleTim_;
+		YMath::Ease<float> circleScaleEas_;
 		
-		std::array<YMath::Timer, 2> openingTims_;
-		std::array<YMath::Ease<YMath::Vector3>, 2> titlePosEass_;
-		std::array<YMath::Ease<float>, 2> titleScaleEass_;
-		SlimeActor slimeActor_;
+		std::unique_ptr<DrawObjectForSprite2D> curten_;
+		std::unique_ptr<ConstBufferObject<CBColor>> curtenColor_;
+		YMath::Timer curtenAlphaTim_;
+
+		Transform skydomeTrfm_;
+		std::unique_ptr<SkydomeDrawer> skydomeDra_;
 
 	private:
 
-		static Sprite2D* spLogoSpr_;
-		static Sprite2D* spLineSpr_;
-		static Sprite2D* spNameSpr_;
-		
+		static std::array<Sprite2D*, 6> spTitleCharaSprs_;
+
 		static Sprite2D* spStartSpr_;
+		
 		static Sprite2D* spButtonSpr_;
 		
-		static MapChipManager* spMapChipManager_;
+		static Sprite2D* spCircleSpr_;
+		
+		static Sprite2D* spWhiteSpr_;
+	
+	private:
 
+		void UpdateAnimeFlag();
+	
 	};
 }
 
