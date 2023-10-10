@@ -73,6 +73,9 @@ namespace YGame
 	
 	private:
 
+		std::unique_ptr<DrawObjectForModel> outlineObj_;
+		std::unique_ptr<ConstBufferObject<CBColor>> outlineColor_;
+
 		// スライム
 		SlimeActor slimeActor_;
 		

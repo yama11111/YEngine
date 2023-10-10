@@ -1,7 +1,8 @@
 #include "UIManager.h"
+#include "ColorConfig.h"
+#include "Def.h"
 #include "Keys.h"
 #include "Pad.h"
-#include "Def.h"
 
 using YGame::UIManager;
 using YGame::Sprite2D;
@@ -44,6 +45,7 @@ void UIManager::Initialize()
 	letterBox_.reset(new UILetterBox());
 
 	letterBox_->Initialize(WinSize, 96.0f, 96.0f);
+	letterBox_->SetColor(YMath::GetColor(2, 38, 32, 255));
 }
 
 void UIManager::Update()

@@ -47,6 +47,12 @@ namespace YGame
 		/// <param name="priority"> : 描画優先度</param>
 		void Draw(const std::string& shaderTag, const uint16_t priority);
 	
+		/// <summary>
+		/// 色設定
+		/// </summary>
+		/// <param name="color"></param>
+		void SetColor(const YMath::Vector4& color);
+	
 	public:
 
 		/// <summary>

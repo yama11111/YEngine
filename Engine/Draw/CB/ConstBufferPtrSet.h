@@ -1,11 +1,10 @@
 #pragma once
-#pragma once
 #include "BaseConstBuffer.h"
 #include <unordered_map>
 
 namespace YGame
 {
-	// 定数バッファポインタセットクラス
+	// 定数バッファポインタセット
 	class ConstBufferPtrSet final
 	{
 
@@ -27,7 +26,7 @@ namespace YGame
 		/// 定数バッファポインタ挿入 (デフォルト)
 		/// (同じ種類の定数バッファが来たら入れ替える)
 		/// </summary>
-		/// <param name="cbTag"> : 定数バッファタグ</param>
+		/// <param name="cbTag"> : タグ</param>
 		void InsertDefault(const std::string& tag);
 
 		/// <summary>
@@ -37,6 +36,12 @@ namespace YGame
 		/// <param name="rpIndex"> : ルートパラメータ番号</param>
 		void SetDrawCommand(const std::string& tag, const uint32_t rpIndex);
 
+	public:
+
+		ConstBufferPtrSet() = default;
+		
+		~ConstBufferPtrSet() = default;
+	
 	private:
 
 		// マップ

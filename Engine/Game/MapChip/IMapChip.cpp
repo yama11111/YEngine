@@ -26,7 +26,8 @@ void MapData::LoadCSV(const std::string& mapFileName)
 	
 	// 読み込み用ファイルを開く
 	errno_t err = fopen_s(&fp, filePath.c_str(), "r");
-	
+	err;
+
 	// ファイルが無いならエラー
 	assert(err == 0);
 

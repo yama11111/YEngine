@@ -106,6 +106,7 @@ namespace YGame
 		
 		// 境界線
 		std::unique_ptr<DrawObjectForSprite2D> border_;
+		std::unique_ptr<ConstBufferObject<CBColor>> borderColor_;
 		YMath::Ease<float> borderScaleYEas_;
 
 		// 背景カーテン

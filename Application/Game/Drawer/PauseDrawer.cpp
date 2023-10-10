@@ -37,13 +37,10 @@ void PauseDrawer::LoadResource()
 
 void PauseDrawer::Initialize()
 {
-	animePow_.Initialize(20);
-
 	if (pauseLogo_ == nullptr)
 	{
 		pauseLogo_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spPauseLogo_));
 	}
-	pauseLogoPosXEas_.Initialize(-256.0f, +256.0f, 3.0f);
 	
 	for (size_t i = 0; i < selectionObjs_.size(); i++)
 	{
@@ -56,18 +53,17 @@ void PauseDrawer::Initialize()
 			selectionObjs_[i].color_.reset(ConstBufferObject<CBColor>::Create());
 		}
 		selectionObjs_[i].obj_->InsertConstBuffer(selectionObjs_[i].color_.get());
-		
-		selectionObjs_[i].posXPow_.Initialize(20);
-		selectionObjs_[i].posXEas_.Initialize(-512.0f, +512.0f - 32.0f * static_cast<float>(i), 3.0f);
-		selectionObjs_[i].scalePow_.Initialize(8);
 	}
-	selectScaleEas_.Initialize({ -0.2f,-0.2f,0.0f }, {}, 3.0f);
 	
 	if (border_ == nullptr)
 	{
 		border_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), spBorder_));
 	}
-	borderScaleYEas_.Initialize(0.0f, 2048.0f, 3.0f);
+	if (borderColor_ == nullptr)
+	{
+		borderColor_.reset(ConstBufferObject<CBColor>::Create());
+	}
+	border_->InsertConstBuffer(borderColor_.get());
 
 	if (curten_ == nullptr)
 	{
@@ -77,9 +73,6 @@ void PauseDrawer::Initialize()
 	{
 		curtenColor_.reset(ConstBufferObject<CBColor>::Create());
 	}
-	curten_->InsertConstBuffer(curtenColor_.get());
-	curtenAlphaPow_.Initialize(20);
-	curtenAlphaEas_.Initialize(0.0f, 0.6f, 3.0f);
 
 	Reset();
 }
@@ -89,9 +82,10 @@ void PauseDrawer::Reset()
 	selection_ = Selection::Resume;
 	
 	isAct_ = false;
-	animePow_.Reset();
+	animePow_.Initialize(20);
 
 	pauseLogo_->transform_.Initialize({ {0.0f,128.0f,0.0f}, {}, {1.0f,1.0f,0.0f} });
+	pauseLogoPosXEas_.Initialize(-256.0f, +256.0f, 3.0f);
 	
 	for (size_t i = 0; i < selectionObjs_.size(); i++)
 	{
@@ -103,9 +97,11 @@ void PauseDrawer::Reset()
 			}
 		);
 		selectionObjs_[i].isActPos_ = false;
-		selectionObjs_[i].posXPow_.Reset();
-		selectionObjs_[i].scalePow_.Reset();
+		selectionObjs_[i].posXPow_.Initialize(20);
+		selectionObjs_[i].posXEas_.Initialize(-512.0f, +512.0f - 32.0f * static_cast<float>(i), 3.0f);
+		selectionObjs_[i].scalePow_.Initialize(8);
 	}
+	selectScaleEas_.Initialize({ -0.2f,-0.2f,0.0f }, {}, 3.0f);
 
 	border_->transform_.Initialize(
 		{
@@ -114,10 +110,13 @@ void PauseDrawer::Reset()
 			{288.0f,0.0f,0.0f}
 		}
 	);
-
-	curten_->transform_.Initialize({ Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f, {}, { WinSize.x_, WinSize.y_, 0.0f } });
+	borderColor_->data_.baseColor = ColorConfig::skTurquoise[4];
+	borderScaleYEas_.Initialize(0.0f, 2048.0f, 3.0f);
 	
-	curtenColor_->data_.baseColor = ColorConfig::skTurquoise[1];
+	curten_->transform_.Initialize({ Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f, {}, { WinSize.x_, WinSize.y_, 0.0f } });
+	curten_->InsertConstBuffer(curtenColor_.get());
+	curtenAlphaPow_.Initialize(20);
+	curtenAlphaEas_.Initialize(0.0f, 0.6f, 3.0f);
 
 	curtenAlphaPow_.Reset();
 }

@@ -69,7 +69,7 @@ bool MyGame::Initialize()
 	LoadMapData();
 
 	LoadDrawer();
-	
+
 
 	//  V [   t @ N g   [ ݒ 
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
@@ -117,14 +117,14 @@ void MyGame::Draw()
 	//  p C v   C   `  
 	pPipelineMan_->Draw();
 
-#ifdef _DEBUG
+	//#ifdef _DEBUG
 
-	// imgui `  
+		// imgui `  
 	imguiMan_.Draw();
 
-#endif // DEBUG
+	//#endif // DEBUG
 
-	//  `  ㏈  
+		//  `  ㏈  
 	dx_.PostDraw();
 }
 
@@ -142,21 +142,48 @@ void MyGame::InitializePipelines()
 		Pipeline* newPipeline =
 			Pipeline::Create(
 				shader,
-				{ 
+				{
 					CBModelTransform::Tag(),
 					CBColor::Tag(),
 					CBMaterial::Tag(),
 					CBLightGroup::Tag(),
 					CBTexConfig::Tag(),
 				},
-				{ 
+				{
 					"Texture0" ,
 				},
 				1, Model::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
-			);
+				);
 
 		pPipelineMan_->Insert("ModelDefault", newPipeline);
+	}
+
+	// ModelOutline
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		PipelineSetting setting = Model::GetPipelineSetting();
+		setting.cullMode = D3D12_CULL_MODE_FRONT;
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, setting,
+				Pipeline::BlendState::Alpha, 2
+				);
+
+		pPipelineMan_->Insert("ModelOutline", newPipeline);
 	}
 
 	// ModelSingleColor
@@ -208,7 +235,7 @@ void MyGame::InitializePipelines()
 				},
 				1, Model::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
-			);
+				);
 
 		pPipelineMan_->Insert("ModelPhong", newPipeline);
 	}
@@ -235,11 +262,11 @@ void MyGame::InitializePipelines()
 				},
 				1, Model::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
-			);
+				);
 
 		pPipelineMan_->Insert("ModelToon", newPipeline);
 	}
-	
+
 	// Sprite2DDefault
 	{
 		ShaderSet shader;
@@ -260,12 +287,12 @@ void MyGame::InitializePipelines()
 				},
 				1, Sprite2D::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 1
-			);
+				);
 
 		pPipelineMan_->Insert("Sprite2DDefault", newPipeline);
 	}
 
-	
+
 	// Sprite3DDefault
 	{
 		ShaderSet shader;
@@ -287,7 +314,7 @@ void MyGame::InitializePipelines()
 				},
 				1, Sprite3D::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 2
-			);
+				);
 
 		pPipelineMan_->Insert("Sprite3DDefault", newPipeline);
 	}
@@ -313,7 +340,7 @@ void MyGame::InitializePipelines()
 				},
 				1, PostEffect::GetPipelineSetting(),
 				Pipeline::BlendState::Alpha, 1
-			);
+				);
 
 		pPipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
@@ -322,16 +349,17 @@ void MyGame::InitializePipelines()
 	//  ` 揇  ݒ 
 	pPipelineMan_->SetDrawOrder(
 		{
-			"ModelDefault", 
-			"ModelSingleColor", 
-			"ModelPhong", 
-			"ModelToon", 
-			
-			"Sprite3DDefault", 
-			
-			"Sprite2DDefault", 
-			
-			"PostEffectDefault", 
+			"ModelDefault",
+			"ModelOutline",
+			"ModelSingleColor",
+			"ModelPhong",
+			"ModelToon",
+
+			"Sprite3DDefault",
+
+			"Sprite2DDefault",
+
+			"PostEffectDefault",
 		}
 	);
 }
@@ -375,7 +403,7 @@ void MyGame::LoadMapData()
 }
 
 void MyGame::LoadDrawer()
-{	
+{
 	// UI
 	{
 		UILetterBox::LoadResource();
@@ -419,7 +447,7 @@ void MyGame::LoadDrawer()
 		TitleDrawer::LoadResource();
 
 		StageDrawer::LoadResource();
-		
+
 		StageStatusDrawer::LoadResource();
 
 		SelectDrawer::LoadResource();

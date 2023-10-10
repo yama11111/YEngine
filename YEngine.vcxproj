@@ -118,6 +118,7 @@
     <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\CloudDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\Coin.cpp" />
+    <ClCompile Include="Application\Game\Drawer\CoinDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h" />
     <ClInclude Include="Application\Game\Drawer\CloudDrawer.h" />
     <ClInclude Include="Application\Game\Chara\Coin.h" />
+    <ClInclude Include="Application\Game\Drawer\CoinDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\CollisionDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\ColorConfig.h" />
     <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />

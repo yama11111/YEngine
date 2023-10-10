@@ -2,8 +2,9 @@
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "DebriParticle.h"
-#include <cmath>
+#include "ColorConfig.h"
 #include "Def.h"
+#include <cmath>
 
 using YGame::PlayerDrawer;
 using YGame::Model;
@@ -38,6 +39,12 @@ void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// モデル設定
 	obj_->SetModel(spModels_[0]);
 
+	//outlineObj_.reset(DrawObjectForModel::Create(Transform::Status::Default(), spVP_, nullptr));
+	//outlineObj_->transform_.parent_ = &obj_->transform_.m_;
+	//outlineColor_.reset(ConstBufferObject<CBColor>::Create());
+	//outlineObj_->InsertConstBuffer(outlineColor_.get());
+	//outlineColor_->data_.baseColor = ColorConfig::skTurquoise[0];
+
 	shaderKey_ = "ModelToon";
 
 	slimeActor_.Initialize(0, { {} }, 0);
@@ -50,6 +57,7 @@ void PlayerDrawer::Draw()
 
 	for (size_t i = 0; i < spModels_.size(); i++)
 	{
+		//outlineObj_->Draw("ModelOutline", drawPriority_, spModels_[i]);
 		obj_->Draw(shaderKey_, drawPriority_, spModels_[i]);
 	}
 }
@@ -176,4 +184,7 @@ void PlayerDrawer::UpdateAnimation()
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 	
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
+
+	//Transform::Status status = animeStatus_;
+	//outlineObj_->Update(status);
 }

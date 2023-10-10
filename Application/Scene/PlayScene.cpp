@@ -212,7 +212,7 @@ void PlayScene::Update()
 	// リセット
 	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_DOWN))
 	{
-		SceneManager::GetInstance()->Transition("PLAY", "");
+		SceneManager::GetInstance()->Transition("PLAY", "WAVE_REV");
 	}
 
 
