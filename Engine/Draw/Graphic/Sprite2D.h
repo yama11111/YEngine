@@ -59,7 +59,7 @@ namespace YGame
 
 	public:
 
-		Sprite2D() = default;
+		Sprite2D();
 
 		~Sprite2D() = default;
 

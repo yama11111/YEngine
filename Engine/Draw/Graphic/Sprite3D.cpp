@@ -1,4 +1,5 @@
 #include "Sprite3D.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include <cassert>
 
@@ -14,6 +15,11 @@ using YMath::Matrix4;
 std::vector<std::unique_ptr<Sprite3D>> Sprite3D::sSprites_{};
 YDX::Vertices<Sprite3D::VData> Sprite3D::vt_{};
 bool Sprite3D::isInitVertices_ = false;
+
+Sprite3D::Sprite3D() :
+	BaseGraphic(GraphicType::kSprite3DTag), pTexs_()
+{
+}
 
 Sprite3D* Sprite3D::Create(const std::unordered_map<std::string, Texture*>& pTexs)
 {

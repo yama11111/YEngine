@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
+    <ClCompile Include="Application\Game\Drawer\Animation.cpp" />
     <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\CloudDrawer.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Application\Transition\WaveTransition.cpp" />
     <ClCompile Include="Application\Scene\ResultScene.cpp" />
     <ClCompile Include="Application\Transition\WindBlocks.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\BaseGraphic.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\DefaultGraphic.cpp" />
     <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp" />
     <ClCompile Include="Engine\Draw\CB\DefaultConstBuffer.cpp" />
@@ -243,6 +245,7 @@
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Game\Drawer\AnimationConfig.h" />
+    <ClInclude Include="Application\Game\Drawer\Animation.h" />
     <ClInclude Include="Application\Game\Drawer\AxisDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\BlockDrawer.h" />
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h" />
@@ -295,6 +298,7 @@
     <ClInclude Include="Application\Scene\ResultScene.h" />
     <ClInclude Include="Application\Transition\WindBlocks.h" />
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h" />
+    <ClInclude Include="Engine\Draw\Graphic\GraphicType.h" />
     <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h" />
     <ClInclude Include="Engine\Draw\CB\CBTime.h" />
     <ClInclude Include="Engine\Draw\CB\ConstBufferObject.h" />

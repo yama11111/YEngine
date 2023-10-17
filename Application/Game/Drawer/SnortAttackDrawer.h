@@ -12,7 +12,7 @@ namespace YGame
 	public:
 
 		// アニメーション
-		enum class AnimationType : uint16_t
+		enum class AnimationType : uint32_t
 		{
 			// 攻撃
 			eAttack = 0b1,
@@ -56,22 +56,24 @@ namespace YGame
 		// 回転イージング
 		YMath::Ease<float> rotaEas_;
 
-		// モデルポインタ
-		static Model* spModel_;
-
 	private:
 
 		/// <summary>
-		/// アニメーションタイマー挿入
+		/// オブジェクト初期化
 		/// </summary>
-		void InsertAnimationTimers() override;
+		void InitializeObjects() override;
 
 		/// <summary>
-		/// サブアニメーション再生
+		/// タイマー初期化
+		/// </summary>
+		void InitializeTimers() override;
+
+		/// <summary>
+		/// アニメーション準備
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
+		void GetReadyForAnimation(const uint32_t index, const uint32_t frame) override;
 
 		/// <summary>
 		/// アニメーション更新

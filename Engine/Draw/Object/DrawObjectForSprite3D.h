@@ -68,6 +68,12 @@ namespace YGame
 		/// <param name="pSprite3D"> : スプライト3Dポインタ</param>
 		void SetSprite3D(Sprite3D* pSprite3D);
 
+		/// <summary>
+		/// グラフィック設定
+		/// </summary>
+		/// <param name="pGraphic"> : グラフィックポインタ</param>
+		void SetGraphic(BaseGraphic* pGraphic) override;
+
 	public:
 
 		~DrawObjectForSprite3D() = default;

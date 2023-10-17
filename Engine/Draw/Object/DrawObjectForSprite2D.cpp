@@ -1,4 +1,5 @@
 #include "DrawObjectForSprite2D.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include <cassert>
 
@@ -56,13 +57,20 @@ void DrawObjectForSprite2D::Update(const Transform::Status& status)
 
 void DrawObjectForSprite2D::SetSprite2D(Sprite2D* pSprite2D)
 {
+	SetGraphic(pSprite2D);
+}
+
+void DrawObjectForSprite2D::SetGraphic(BaseGraphic * pGraphic)
+{
 	// null ならデフォルト
-	if (pSprite2D == nullptr)
+	if (pGraphic == nullptr)
 	{
-		SetGraphic(DefaultGraphic::Ptr("Sprite2D"));
+		pGraphic_ = DefaultGraphic::Ptr(GraphicType::kSprite2DTag);
 
 		return;
 	}
 
-	SetGraphic(pSprite2D);
+	assert(GraphicType::kSprite2DTag == pGraphic->TypeTag());
+
+	pGraphic_ = pGraphic;
 }

@@ -1,4 +1,5 @@
 #include "HorseDrawer.h"
+#include "DrawObjectForModel.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "Def.h"
@@ -10,7 +11,20 @@ using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::HorseAnimationConfig;
 
-Model* HorseDrawer::spModel_ = nullptr;
+namespace 
+{
+	// モデルポインタ
+	Model* pModel = nullptr;
+
+	// アニメーション番号
+	const uint32_t kIdleIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eIdle);
+	const uint32_t kMoveIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eMove);
+	const uint32_t kJumpIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eJump);
+	const uint32_t kLandingIndex = static_cast<uint32_t>(HorseDrawer::AnimationType::eLanding);
+	const uint32_t kAttackIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eAttack);
+	const uint32_t kHitIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eHit);
+	const uint32_t kDeadIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eDead);
+}
 
 HorseDrawer* HorseDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -24,7 +38,7 @@ HorseDrawer* HorseDrawer::Create(Transform* pParent, const size_t drawPriority)
 void HorseDrawer::LoadResource()
 {
 	// モデル設定
-	spModel_ = Model::LoadObj("horse", true);
+	pModel = Model::LoadObj("horse", true);
 }
 
 void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -32,35 +46,37 @@ void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル設定
-	obj_->SetModel(spModel_);
-
-	shaderKey_ = "ModelToon";
+	SetShaderTag("ModelToon");
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
 }
 
-void HorseDrawer::InsertAnimationTimers()
+void HorseDrawer::InitializeObjects()
 {
-	// アニメーションの数だけタイマー作成
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eMove), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eJump), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eLanding), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eAttack), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eHit), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eDead), AnimationTimer() });
+	InsertObject("Body", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
-void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+void HorseDrawer::InitializeTimers()
+{
+	// アニメーションの数だけタイマー作成
+	InsertAnimationTimer(kIdleIndex,	 AnimationTimer(Timer(HorseAnimationConfig::kIdleFrame), true));
+	InsertAnimationTimer(kMoveIndex,	 AnimationTimer(Timer(HorseAnimationConfig::Move::kFrame), true));
+	InsertAnimationTimer(kJumpIndex,	 AnimationTimer(Timer(HorseAnimationConfig::Jump::kFrame), false));
+	InsertAnimationTimer(kLandingIndex,	 AnimationTimer(Timer(HorseAnimationConfig::Landing::kFrame), false));
+	InsertAnimationTimer(kAttackIndex,	 AnimationTimer(Timer(HorseAnimationConfig::kAttackFrame), false));
+	InsertAnimationTimer(kHitIndex,		 AnimationTimer(Timer(HorseAnimationConfig::Hit::kFrame), false));
+	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(HorseAnimationConfig::Dead::kFrame), false));
+}
+
+void HorseDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
 {
 	// 立ち
-	if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eIdle))
+	if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eIdle))
 	{
 	}
 	// 移動
-	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eMove))
+	else if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eMove))
 	{
 		// 土煙を発生
 		// 自分の足元
@@ -75,7 +91,7 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// ジャンプ
-	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eJump))
+	else if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eJump))
 	{
 		// ブヨブヨアニメ
 		// 伸びる
@@ -102,7 +118,7 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// 着地
-	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eLanding))
 	{
 		// ブヨブヨアニメ
 		// 潰れる
@@ -134,11 +150,11 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		}
 	}
 	// 攻撃
-	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eAttack))
+	else if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eAttack))
 	{
 	}
 	// 被弾
-	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eHit))
 	{
 		hitActor_.Hit(
 			Anime::Hit::kSwing,
@@ -146,7 +162,7 @@ void HorseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 			100.0f);
 	}
 	// 死亡
-	else if (index & static_cast<uint16_t>(HorseDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eDead))
 	{
 	}
 }

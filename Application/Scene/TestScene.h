@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 #include "BaseDrawer.h"
+#include "DrawObjectForModel.h"
 
 #include "Ease.h"
 #include "BezierEase.h"

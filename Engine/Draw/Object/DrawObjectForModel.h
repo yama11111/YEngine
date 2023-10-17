@@ -57,6 +57,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="pModel"> : モデルポインタ</param>
 		void SetModel(Model* pModel);
+
+		/// <summary>
+		/// グラフィック設定
+		/// </summary>
+		/// <param name="pGraphic"> : グラフィックポインタ</param>
+		void SetGraphic(BaseGraphic* pGraphic) override;
 	
 	public:
 

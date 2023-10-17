@@ -74,7 +74,7 @@ namespace YGame
 
 	public:
 
-		PostEffect() = default;
+		PostEffect();
 
 		~PostEffect() = default;
 

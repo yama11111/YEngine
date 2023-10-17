@@ -1,4 +1,5 @@
 #include "DrawObjectForPostEffect.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include <cassert>
 
@@ -56,13 +57,20 @@ void DrawObjectForPostEffect::Update(const Transform::Status& status)
 
 void DrawObjectForPostEffect::SetPostEffect(PostEffect* pPostEffect)
 {
+	SetGraphic(pPostEffect);
+}
+
+void DrawObjectForPostEffect::SetGraphic(BaseGraphic* pGraphic)
+{
 	// null ならデフォルト
-	if (pPostEffect == nullptr)
+	if (pGraphic == nullptr)
 	{
-		SetGraphic(DefaultGraphic::Ptr("PostEffect"));
+		pGraphic_ = DefaultGraphic::Ptr(GraphicType::kPostEffectTag);
 
 		return;
 	}
 
-	SetGraphic(pPostEffect);
+	assert(GraphicType::kPostEffectTag == pGraphic->TypeTag());
+
+	pGraphic_ = pGraphic;
 }

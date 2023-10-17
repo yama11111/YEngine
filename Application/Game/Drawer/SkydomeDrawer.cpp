@@ -1,4 +1,5 @@
 #include "SkydomeDrawer.h"
+#include "DrawObjectForModel.h"
 #include "ColorConfig.h"
 #include "Lerp.h"
 #include "Def.h"
@@ -8,7 +9,10 @@ using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
 
-Model* SkydomeDrawer::spModel_ = nullptr;
+namespace
+{
+	Model* pModel = nullptr;
+}
 
 SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -22,7 +26,7 @@ SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const size_t drawPriori
 void SkydomeDrawer::LoadResource()
 {
 	// モデル設定
-	spModel_ = Model::LoadObj("skydome", true);
+	pModel = Model::LoadObj("sphere", true);
 }
 
 void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -34,7 +38,7 @@ void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	{
 		backTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create());
 	}
-	obj_->InsertConstBuffer(backTexConfig_.get());
+	InsertConstBuffer(backTexConfig_.get());
 	
 	backTexConfig_->data_.tiling = { 50.0f,50.0f };
 	
@@ -42,19 +46,20 @@ void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	//cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
 
 	isVisibleUpdate_ = false;
-	
-	// モデル挿入
-	obj_->SetModel(spModel_);
 
-	shaderKey_ = "ModelDefault";
+	SetShaderTag("ModelDefault");
 
-	PlayAnimation(static_cast<uint16_t>(AnimationType::eIdle), 240, true);
+	PlayAnimation(static_cast<uint32_t>(AnimationType::eIdle), true);
 }
 
-void SkydomeDrawer::InsertAnimationTimers()
+void SkydomeDrawer::InitializeObjects()
 {
-	// アニメーションの数だけタイマー作成
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer(YMath::Timer(), true) });
+	InsertObject("Sphere", DrawObjectForModel::Create({}, spVP_, pModel));
+}
+
+void SkydomeDrawer::InitializeTimers()
+{
+	InsertAnimationTimer(static_cast<uint32_t>(AnimationType::eIdle), AnimationTimer(YMath::Timer(240), true));
 }
 
 void SkydomeDrawer::UpdateAnimation()

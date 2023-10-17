@@ -6,7 +6,7 @@
 namespace YGame
 {
 	// モデル
-	class Model :
+	class Model final : 
 		public BaseGraphic
 	{
 
@@ -56,7 +56,7 @@ namespace YGame
 
 	public:
 
-		Model() = default;
+		Model();
 
 		~Model() = default;
 

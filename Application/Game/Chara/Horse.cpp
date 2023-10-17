@@ -36,17 +36,10 @@ void Horse::Initialize(const Transform::Status& status)
 	maxJumpCount_ = PetConfig::kMaxJumpCount;
 
 	// 立ちアニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(HorseDrawer::AnimationType::eIdle),
-		HorseAnimationConfig::kIdleFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eIdle), true);
 
 	// 移動アニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(HorseDrawer::AnimationType::eMove), 
-		HorseAnimationConfig::Move::kFrame, 
-		true
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eMove), true);
 }
 
 void Horse::Update(const bool isUpdate)
@@ -58,10 +51,7 @@ void Horse::Update(const bool isUpdate)
 		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
 	{
 		// 着地アニメーション
-		drawer_->PlayAnimation(
-			static_cast<uint16_t>(HorseDrawer::AnimationType::eLanding),
-			HorseAnimationConfig::Landing::kFrame
-		);
+		drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eLanding), true);
 	}
 }
 
@@ -88,10 +78,7 @@ void Horse::Hit()
 	IPet::Hit();
 
 	// 被弾アニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(HorseDrawer::AnimationType::eHit),
-		HorseAnimationConfig::Hit::kFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eHit), true);
 }
 
 void Horse::Jump(const bool isJumpCount)
@@ -101,10 +88,7 @@ void Horse::Jump(const bool isJumpCount)
 	if (isJumpCount && jumpCounter_ >= maxJumpCount_) { return; }
 
 	// ジャンプアニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(HorseDrawer::AnimationType::eJump),
-		HorseAnimationConfig::Jump::kFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eJump), true);
 }
 
 void Horse::Attack()
@@ -124,10 +108,7 @@ void Horse::Attack()
 	CharacterManager::GetInstance()->PushBack(newAttack);
 
 	// 攻撃アニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(HorseDrawer::AnimationType::eAttack),
-		HorseAnimationConfig::kAttackFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eAttack), true);
 }
 
 void Horse::Rideen()

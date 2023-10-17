@@ -30,10 +30,7 @@ void Slime::Initialize(const Transform::Status& status)
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
 
 	// 立ちアニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(SlimeDrawer::AnimationType::eIdle),
-		SlimeAnimationConfig::kIdleFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
 }
 
 void Slime::Update(const bool isUpdate)
@@ -45,10 +42,7 @@ void Slime::Update(const bool isUpdate)
 		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
 	{
 		// 着地アニメーション
-		drawer_->PlayAnimation(
-			static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding),
-			SlimeAnimationConfig::Landing::kFrame
-		);
+		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding), true);
 	}
 }
 
@@ -70,17 +64,11 @@ void Slime::Hit()
 	IEnemy::Hit();
 
 	// 被弾アニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit),
-		SlimeAnimationConfig::Hit::kFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eHit), true);
 
 	if (status_.IsAlive() == false)
 	{
 		// 死亡アニメーション
-		drawer_->PlayAnimation(
-			static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead),
-			SlimeAnimationConfig::Dead::kFrame
-		);
+		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead), true);
 	}
 }

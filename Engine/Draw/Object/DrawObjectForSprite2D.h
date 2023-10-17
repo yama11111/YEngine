@@ -49,6 +49,12 @@ namespace YGame
 		/// <param name="pSprite2D"> : スプライト2Dポインタ</param>
 		void SetSprite2D(Sprite2D* pSprite2D);
 
+		/// <summary>
+		/// グラフィック設定
+		/// </summary>
+		/// <param name="pGraphic"> : グラフィックポインタ</param>
+		void SetGraphic(BaseGraphic* pGraphic) override;
+
 	public:
 
 		~DrawObjectForSprite2D() = default;

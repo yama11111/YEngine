@@ -31,11 +31,6 @@ namespace YGame
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void Draw() override;
-
 	public:
 
 		BlockDrawer() = default;
@@ -44,19 +39,11 @@ namespace YGame
 
 	private:
 
-		// モデルポインタ
-		static Model* spModel_;
-
 	private:
 
 		/// <summary>
-		/// アニメーションタイマー挿入
+		/// オブジェクト初期化
 		/// </summary>
-		void InsertAnimationTimers() override;
-
-		/// <summary>
-		/// アニメーション更新
-		/// </summary>
-		void UpdateAnimation() override;
+		void InitializeObjects() override;
     };
 }

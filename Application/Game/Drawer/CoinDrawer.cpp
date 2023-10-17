@@ -9,7 +9,7 @@
 //using YMath::Vector3;
 //using YMath::Vector4;
 //
-//Model* CoinDrawer::spModel_ = nullptr;
+//Model* CoinDrawer::pModel = nullptr;
 //
 //CoinDrawer* CoinDrawer::Create(Transform* pParent, const size_t drawPriority)
 //{
@@ -23,7 +23,7 @@
 //void CoinDrawer::LoadResource()
 //{
 //	// モデル設定
-//	spModel_ = Model::LoadObj("skydome", true);
+//	pModel = Model::LoadObj("skydome", true);
 //}
 //
 //void CoinDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -45,7 +45,7 @@
 //	isVisibleUpdate_ = false;
 //
 //	// モデル挿入
-//	obj_->SetModel(spModel_);
+//	obj_->SetModel(pModel);
 //
 //	shaderKey_ = "ModelDefault";
 //

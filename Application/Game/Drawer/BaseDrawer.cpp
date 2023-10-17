@@ -5,41 +5,44 @@ using YGame::BaseDrawer;
 
 YGame::ViewProjection* BaseDrawer::spVP_ = nullptr;
 
+void BaseDrawer::StaticInitialize(ViewProjection* pVP)
+{
+	assert(pVP);
+
+	spVP_ = pVP;
+}
+
 void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {	
-	if (obj_ == nullptr)
+	if (cbColor_ == nullptr)
 	{
-		// オブジェクト + 定数バッファ生成
-		obj_.reset(DrawObjectForModel::Create({}, spVP_, nullptr));
-		
 		cbColor_.reset(ConstBufferObject<CBColor>::Create());
-
+	}
+	if (cbMaterial_ == nullptr)
+	{
 		cbMaterial_.reset(ConstBufferObject<CBMaterial>::Create());
 	}
 
-	obj_->Initialize();
+	transform_.Initialize();
 
-	// オブジェクトに定数バッファを設定
-	obj_->InsertConstBuffer(cbColor_.get());
-	obj_->InsertConstBuffer(cbMaterial_.get());
+	InitializeObjects();
+
+	assert(0 < objs_.size());
+
+	InsertConstBuffer(cbColor_.get());
+	InsertConstBuffer(cbMaterial_.get());
 	
 	SetParent(pParent);
-	
-	// 環境光を暗めに
-	cbMaterial_->data_.ambient = { 0.2f,0.2f,0.2f };
 
-	drawPriority_ = drawPriority;
+	SetDrawPriority(drawPriority);
 
-	isVisible_ = true;
+	SetIsVisible(true);
 
 	isVisibleUpdate_ = true;
 
 	animationBitFlag_ = 0;
 
-	// タイマークリア後、再挿入 + 初期化
-	animationTimers_.clear();
-
-	InsertAnimationTimers();
+	InitializeTimers();
 
 	for (auto itr = animationTimers_.begin(); itr != animationTimers_.end(); ++itr)
 	{
@@ -49,48 +52,40 @@ void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	animeStatus_ = {};
 }
 
-void BaseDrawer::PlayAnimation(const uint16_t index, const uint32_t frame, const bool isRoop)
+void BaseDrawer::InitializeTimers()
+{
+}
+
+void BaseDrawer::PlayAnimation(const uint32_t index, const bool isTimerReset)
 {
 	assert(animationTimers_.contains(index));
 
-	PlaySubAnimation(index, frame);
+	GetReadyForAnimation(index, animationTimers_[index].timer.EndFrame());
 
-	animationTimers_[index].timer.Initialize(frame, true);
-	animationTimers_[index].isRoop = isRoop;
+	if (isTimerReset)
+	{
+		animationTimers_[index].timer.Reset();
+	}
+
+	animationTimers_[index].timer.SetActive(true);
 
 	// フラグを立てる
 	animationBitFlag_ |= index;
 }
 
-void BaseDrawer::AbortAnimation(const uint16_t index)
+void BaseDrawer::StopAnimation(const uint32_t index)
 {
 	assert(animationTimers_.contains(index));
-	
-	animationTimers_[index].timer.Initialize(0);
-	
+
+	animationTimers_[index].timer.SetActive(false);
+
 	// フラグをおろす
 	animationBitFlag_ &= ~index;
 }
 
-void BaseDrawer::Update()
+void BaseDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
 {
-	animeStatus_ = {};
-
-	animeStatus_.pos_ += offset_;
-
-	UpdateAnimationTimer();
-
-	UpdateAnimation();
-
-	obj_->Update(animeStatus_);
-
-	VisibleUpdate();
-}
-
-void BaseDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
-{
-	index;
-	frame;
+	index; frame;
 }
 
 void BaseDrawer::UpdateAnimationTimer()
@@ -109,7 +104,7 @@ void BaseDrawer::UpdateAnimationTimer()
 			if (itr->second.isRoop)
 			{
 				// アニメーションをもう一度始める
-				PlaySubAnimation(itr->first, timer.EndFrame());
+				GetReadyForAnimation(itr->first, timer.EndFrame());
 				timer.Reset(true);
 			}
 			else
@@ -121,6 +116,10 @@ void BaseDrawer::UpdateAnimationTimer()
 			}
 		}
 	}
+}
+
+void BaseDrawer::UpdateAnimation()
+{
 }
 
 void BaseDrawer::VisibleUpdate()
@@ -140,14 +139,35 @@ void BaseDrawer::VisibleUpdate()
 	cbColor_->data_.texColorRate.a_ = distanceRate;
 
 	// 一定値以下は描画切る
-	isVisible_ = (distanceRate >= 0.25f);
+	SetIsVisible((distanceRate >= 0.25f));
+}
+
+void BaseDrawer::Update()
+{
+	animeStatus_ = {};
+
+	animeStatus_.pos_ += offset_;
+
+	UpdateAnimationTimer();
+
+	UpdateAnimation();
+
+	transform_.UpdateMatrix(animeStatus_);
+
+	for (auto itr = objs_.begin(); itr != objs_.end(); ++itr)
+	{
+		itr->second->Update();
+	}
+
+	VisibleUpdate();
 }
 
 void BaseDrawer::Draw()
 {
-	if (isVisible_ == false) { return; }
-
-	obj_->Draw(shaderKey_, drawPriority_);
+	for (auto itr = objs_.begin(); itr != objs_.end(); ++itr)
+	{
+		itr->second->Draw();
+	}
 }
 
 void BaseDrawer::DrawDebugTextContent()
@@ -156,23 +176,91 @@ void BaseDrawer::DrawDebugTextContent()
 
 void BaseDrawer::SetParent(Transform* pParent)
 {
+	pParent_ = pParent;
+	
 	if (pParent)
 	{
-		pParent_ = pParent;
-
-		obj_->SetParent(&pParent->m_);
+		transform_.parent_ = &pParent->m_;
 	}
 	else
 	{
-		pParent_ = nullptr;
-
-		obj_->SetParent(nullptr);
+		transform_.parent_ = nullptr;
 	}
 }
 
-void BaseDrawer::StaticInitialize(ViewProjection* pVP)
+void BaseDrawer::InsertObject(const std::string& objTag, BaseDrawObject* pObj)
 {
-	assert(pVP);
+	assert(pObj);
 
-	spVP_ = pVP;
+	// 初期設定
+	pObj->Initialize();
+	pObj->SetParent(&transform_.m_);
+	pObj->InsertConstBuffer(cbColor_.get());
+	pObj->InsertConstBuffer(cbMaterial_.get());
+
+	// 無ければ新規挿入
+	if (objs_.contains(objTag) == false)
+	{
+		objs_.insert({ objTag, nullptr});
+	}
+
+	objs_[objTag].reset(pObj);
+}
+
+void BaseDrawer::InsertConstBuffer(BaseConstBuffer* pCB)
+{
+	for (auto itr = objs_.begin(); itr != objs_.end(); ++itr)
+	{
+		itr->second->InsertConstBuffer(pCB);
+	}
+}
+void BaseDrawer::InsertConstBuffer(const std::string& objTag, BaseConstBuffer* pCB)
+{
+	assert(objs_.contains(objTag));
+
+	objs_[objTag]->InsertConstBuffer(pCB);
+}
+
+void BaseDrawer::SetShaderTag(const std::string& shaderTag)
+{
+	for (auto itr = objs_.begin(); itr != objs_.end(); ++itr)
+	{
+		itr->second->SetShaderTag(shaderTag);
+	}
+}
+
+void BaseDrawer::SetShaderTag(const std::string& objTag, const std::string& shaderTag)
+{
+	assert(objs_.contains(objTag));
+
+	objs_[objTag]->SetShaderTag(shaderTag);
+}
+
+void BaseDrawer::SetDrawPriority(const size_t drawPriority)
+{
+	for (auto itr = objs_.begin(); itr != objs_.end(); ++itr)
+	{
+		itr->second->SetDrawPriority(drawPriority);
+	}
+}
+
+void BaseDrawer::SetIsVisible(const bool isVisible)
+{
+	for (auto itr = objs_.begin(); itr != objs_.end(); ++itr)
+	{
+		itr->second->SetIsVisible(isVisible);
+	}
+}
+
+void BaseDrawer::InsertAnimationTimer(const uint32_t index, const AnimationTimer& timer)
+{
+	// 既にあるなら入れ替え
+	if (animationTimers_.contains(index))
+	{
+		animationTimers_[index] = timer;
+
+		return;
+	}
+
+	animationTimers_.insert({ index, timer });
 }

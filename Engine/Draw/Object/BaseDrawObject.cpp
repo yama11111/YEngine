@@ -4,6 +4,13 @@
 
 using YGame::BaseDrawObject;
 
+void BaseDrawObject::Draw()
+{
+	if (isVisible_ == false) { return; }
+
+	PipelineManager::GetInstance()->EnqueueDrawSet(shaderTag_, drawPriority_, { &cbPtrSet_, pGraphic_ });
+}
+
 void BaseDrawObject::Draw(const std::string& shaderTag, const size_t drawPriority)
 {
 	if (isVisible_ == false) { return; }
@@ -31,11 +38,4 @@ void BaseDrawObject::InsertConstBuffer(BaseConstBuffer* pCBuff)
 void BaseDrawObject::InsertDefaultConstBuffer(const std::string& cbTag)
 {
 	cbPtrSet_.InsertDefault(cbTag);
-}
-
-void BaseDrawObject::SetGraphic(BaseGraphic* pGraphic)
-{
-	assert(pGraphic);
-
-	pGraphic_ = pGraphic;
 }

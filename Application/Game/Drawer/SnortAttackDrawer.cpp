@@ -1,4 +1,5 @@
 #include "SnortAttackDrawer.h"
+#include "DrawObjectForModel.h"
 #include "Def.h"
 
 using YGame::SnortAttackDrawer;
@@ -6,7 +7,11 @@ using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
 
-Model* SnortAttackDrawer::spModel_ = nullptr;
+namespace
+{
+	// モデルポインタ
+	Model* pModel = nullptr;
+}
 
 SnortAttackDrawer* SnortAttackDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -19,7 +24,7 @@ SnortAttackDrawer* SnortAttackDrawer::Create(Transform* pParent, const size_t dr
 
 void SnortAttackDrawer::LoadResource()
 {
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
+	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void SnortAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -27,26 +32,28 @@ void SnortAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル設定
-	obj_->SetModel(spModel_);
-
+	SetShaderTag("ModelPhong");
+	
 	slimeActor_.Initialize(0, { {} }, 0);
 
 	rotaEas_.Initialize(0.0f, kPI * 4.0f, 3.0f);
 
 	cbColor_->data_.baseColor = { 0.95f,0.95f,0.95f,0.5f };
-
-	shaderKey_ = "ModelPhong";
 }
 
-void SnortAttackDrawer::InsertAnimationTimers()
+void SnortAttackDrawer::InitializeObjects()
 {
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eAttack), AnimationTimer() });
+	InsertObject("Attack", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
-void SnortAttackDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+void SnortAttackDrawer::InitializeTimers()
 {
-	if (index & static_cast<uint16_t>(AnimationType::eAttack))
+	InsertAnimationTimer(static_cast<uint32_t>(AnimationType::eAttack), AnimationTimer());
+}
+
+void SnortAttackDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+{
+	if (index & static_cast<uint32_t>(AnimationType::eAttack))
 	{
 		// ブヨブヨアニメ
 		std::vector<Vector3> wobbleScaleValues;

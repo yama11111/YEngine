@@ -1,18 +1,22 @@
 #include "CollisionDrawer.h"
+#include "DrawObjectForModel.h"
 
 using YGame::CollisionDrawer;
 using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
 
-Model* CollisionDrawer::spModel_ = nullptr;
+namespace
+{
+	Model* pModel = nullptr;
+}
 
 CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius, const size_t drawPriority)
 {
 	CollisionDrawer* newDrawer = new CollisionDrawer();
 
 	newDrawer->Initialize(pParent, drawPriority);
-	newDrawer->obj_->transform_.scale_ = { radius, radius, radius };
+	newDrawer->SetRadius(radius);
 
 	return newDrawer;
 }
@@ -20,7 +24,7 @@ CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius,
 void CollisionDrawer::LoadResource()
 {
 	// モデル設定
-	spModel_ = Model::LoadObj("sphere", true);
+	pModel = Model::LoadObj("sphere", true);
 }
 
 std::string CollisionDrawer::Name()
@@ -37,16 +41,15 @@ void CollisionDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	cbColor_->data_.baseColor = { 1.0f,0.0f,1.0f,0.5f };
 
-	//cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
+	SetShaderTag("ModelPhong");
+}
 
-	// モデル挿入
-	//obj_->SetModel(spModel_);
-	obj_->SetModel(nullptr);
-
-	shaderKey_ = "ModelPhong";
+void CollisionDrawer::InitializeObjects()
+{
+	InsertObject("Sphere", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
 void CollisionDrawer::SetRadius(const float radius)
 {
-	obj_->transform_.scale_ = Vector3(radius, radius, radius);
+	transform_.scale_ = Vector3(radius, radius, radius);
 }

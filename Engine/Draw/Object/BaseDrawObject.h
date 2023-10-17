@@ -34,6 +34,11 @@ namespace YGame
 		/// <summary>
 		/// 描画
 		/// </summary>
+		void Draw();
+
+		/// <summary>
+		/// 描画
+		/// </summary>
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Draw(const std::string& shaderTag, const size_t drawPriority);
@@ -68,10 +73,28 @@ namespace YGame
 		void InsertDefaultConstBuffer(const std::string& cbTag);
 
 		/// <summary>
+		/// グラフィック設定
+		/// </summary>
+		/// <param name="pGraphic"> : グラフィックポインタ</param>
+		virtual void SetGraphic(BaseGraphic* pGraphic) = 0;
+
+		/// <summary>
+		/// シェーダータグ設定
+		/// </summary>
+		/// <param name="shaderTag"> : シェーダータグ</param>
+		void SetShaderTag(const std::string& shaderTag) { shaderTag_ = shaderTag; }
+
+		/// <summary>
+		/// 描画位置設定
+		/// </summary>
+		/// <param name="drawPriority"> : 描画優先度</param>
+		void SetDrawPriority(const size_t drawPriority) { drawPriority_ = drawPriority; }
+
+		/// <summary>
 		/// 描画するか設定
 		/// </summary>
 		/// <param name="isVisible">描画フラグ</param>
-		void SetVisible(const bool isVisible) { isVisible_ = isVisible; }
+		void SetIsVisible(const bool isVisible) { isVisible_ = isVisible; }
 	
 	public:
 		
@@ -87,16 +110,14 @@ namespace YGame
 		// グラフィック
 		BaseGraphic* pGraphic_ = nullptr;
 
+		// シェーダータグ
+		std::string shaderTag_ = "";
+
+		// 描画位置
+		size_t drawPriority_ = 0;
+
 		// 描画するか
 		bool isVisible_ = true;
 	
-	protected:
-
-		/// <summary>
-		/// グラフィック設定
-		/// </summary>
-		/// <param name="pGraphic"> : グラフィックポインタ</param>
-		void SetGraphic(BaseGraphic* pGraphic);
-
 	};
 }

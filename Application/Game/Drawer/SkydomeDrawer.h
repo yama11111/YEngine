@@ -49,18 +49,18 @@ namespace YGame
 
 		// テクスチャ設定
 		std::unique_ptr<ConstBufferObject<CBTexConfig>> backTexConfig_;
-	
-	private:
-
-		// モデルポインタ
-		static Model* spModel_;
 
 	private:
 
 		/// <summary>
-		/// アニメーションタイマー挿入
+		/// オブジェクト初期化
 		/// </summary>
-		void InsertAnimationTimers() override;
+		void InitializeObjects() override;
+
+		/// <summary>
+		/// タイマー初期化
+		/// </summary>
+		void InitializeTimers() override;
 
 		/// <summary>
 		/// アニメーション更新

@@ -38,20 +38,11 @@ namespace YGame
 
 	private:
 
-		// モデルポインタ
-		static Model* spModel_;
-
 	private:
 
 		/// <summary>
-		/// アニメーションタイマー挿入
+		/// オブジェクト初期化
 		/// </summary>
-		void InsertAnimationTimers() override;
-
-		/// <summary>
-		/// アニメーション更新
-		/// </summary>
-		void UpdateAnimation() override;
-
+		void InitializeObjects() override;
 	};
 }

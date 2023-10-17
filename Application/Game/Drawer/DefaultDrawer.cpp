@@ -1,9 +1,13 @@
 #include "DefaultDrawer.h"
+#include "DrawObjectForModel.h"
 
 using YGame::DefaultDrawer;
 using YGame::Model;
 
-Model* DefaultDrawer::spModel_ = nullptr;
+namespace
+{
+	Model* pModel = nullptr;
+}
 
 DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -17,7 +21,7 @@ DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const size_t drawPriori
 void DefaultDrawer::LoadResource()
 {
 	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
+	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void DefaultDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -25,16 +29,10 @@ void DefaultDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル挿入
-	obj_->SetModel(spModel_);
-
-	shaderKey_ = "ModelToon";
+	SetShaderTag("ModelDefault");
 }
 
-void DefaultDrawer::InsertAnimationTimers()
+void DefaultDrawer::InitializeObjects()
 {
-}
-
-void DefaultDrawer::UpdateAnimation()
-{
+	InsertObject("Default", DrawObjectForModel::Create({}, spVP_, pModel));
 }

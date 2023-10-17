@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include "MathUtil.h"
 #include "FileUtil.h"
@@ -19,6 +20,11 @@ using YMath::Vector4;
 vector<unique_ptr<Model>> Model::sModels_{};
 FbxManager* Model::FbxLoader::sFbxMan_ = nullptr;
 FbxImporter* Model::FbxLoader::sFbxImp_ = nullptr;
+
+Model::Model() :
+	BaseGraphic(GraphicType::kModelTag), meshes_(), nodes_()
+{
+}
 
 Model* Model::CreateCube(const std::unordered_map<std::string, Texture*>& pTexs)
 {

@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseGraphic.h"
+#include "GraphicType.h"
 
 namespace YGame
 {

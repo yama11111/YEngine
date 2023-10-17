@@ -1,11 +1,15 @@
 #include "BlockDrawer.h"
+#include "DrawObjectForModel.h"
 
 using YGame::BlockDrawer;
 using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
 
-Model* BlockDrawer::spModel_ = nullptr;
+namespace
+{
+	Model* pModel = nullptr;
+}
 
 BlockDrawer* BlockDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -18,32 +22,22 @@ BlockDrawer* BlockDrawer::Create(Transform* pParent, const size_t drawPriority)
 
 void BlockDrawer::LoadResource()
 {
-	spModel_ = Model::LoadObj("soil", true);
+	pModel = Model::LoadObj("soil", true);
 }
 
 void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 {
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
-	obj_->transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
+	
+	SetShaderTag("ModelPhong");
+	
+	transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
 
 	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
-
-	// モデル設定
-	obj_->SetModel(spModel_);
-
-	shaderKey_ = "ModelPhong";
 }
 
-void BlockDrawer::Draw()
+void BlockDrawer::InitializeObjects()
 {
-	BaseDrawer::Draw();
-}
-
-void BlockDrawer::InsertAnimationTimers()
-{
-}
-
-void BlockDrawer::UpdateAnimation()
-{
+	InsertObject("Block", DrawObjectForModel::Create({}, spVP_, pModel));
 }

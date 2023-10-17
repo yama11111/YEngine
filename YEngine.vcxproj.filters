@@ -366,9 +366,6 @@
     <ClCompile Include="Application\Game\Drawer\GoalDrawer.cpp">
       <Filter>Application\Game\Drawer\etc</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\HorseDrawer.cpp">
-      <Filter>Application\Game\Drawer\Pet</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Drawer\SlashAttackDrawer.cpp">
       <Filter>Application\Game\Drawer\Attack</Filter>
     </ClCompile>
@@ -588,6 +585,15 @@
     <ClCompile Include="Application\Game\Drawer\CoinDrawer.cpp">
       <Filter>Application\Game\Drawer\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Draw\Graphic\BaseGraphic.cpp">
+      <Filter>Engine\Draw\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\Animation.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\HorseDrawer.cpp">
+      <Filter>Application\Game\Drawer\Pet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -741,9 +747,6 @@
       <Filter>Application\Game\Drawer\Player</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\SkydomeDrawer.h">
-      <Filter>Application\Game\Drawer\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\CloudDrawer.h">
       <Filter>Application\Game\Drawer\etc</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\BlockDrawer.h">
@@ -1036,6 +1039,15 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\CoinDrawer.h">
       <Filter>Application\Game\Drawer\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Graphic\GraphicType.h">
+      <Filter>Engine\Draw\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\Animation.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\CloudDrawer.h">
+      <Filter>Application\Game\Drawer\etc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

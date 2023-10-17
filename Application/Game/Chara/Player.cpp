@@ -56,10 +56,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	}
 
 	// 立ちアニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle), 
-		PlayerAnimationConfig::kIdleFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
 }
 
 void Player::RideOnPet(IPet* pPet)
@@ -88,7 +85,7 @@ void Player::RideOnPet(IPet* pPet)
 		pPet_->Rideen();
 
 		// 移動アニメーションをやめる
-		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
+		drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
 	}
 }
 
@@ -118,11 +115,7 @@ void Player::GetOffPet()
 	spScrollCamera_->SetFollowPoint(&transform_->pos_);
 
 	// 移動アニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove), 
-		PlayerAnimationConfig::Move::kFrame, 
-		true
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), true);
 }
 
 void Player::Update(const bool isUpdate)
@@ -176,24 +169,17 @@ void Player::Update(const bool isUpdate)
 		if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
 		{
 			// 着地アニメーション
-			drawer_->PlayAnimation(
-				static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding), 
-				PlayerAnimationConfig::Landing::kFrame
-			);
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding), true);
 
 			// 移動アニメーション
-			drawer_->PlayAnimation(
-				static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove),
-				PlayerAnimationConfig::Move::kFrame,
-				true
-			);
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), false);
 		}
 	}
 	// 離陸した瞬間
 	else if(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom)
 	{
 		// 移動アニメーションをやめる
-		drawer_->AbortAnimation(static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove));
+		drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
 	}
 }
 
@@ -222,10 +208,7 @@ void Player::OnCollision(const CollisionInfo& info)
 			if (status_.IsAlive() == false)
 			{
 				// 死亡アニメーション
-				drawer_->PlayAnimation(
-					static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead),
-					PlayerAnimationConfig::Dead::kFrame
-				);
+				drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead), true);
 
 				spScrollCamera_->SetFollowPoint(nullptr);
 				StageManager::GetInstance()->GameOver();
@@ -234,10 +217,7 @@ void Player::OnCollision(const CollisionInfo& info)
 			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
 
 			// 被弾アニメーション
-			drawer_->PlayAnimation(
-				static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit), 
-				PlayerAnimationConfig::Hit::kFrame
-			);
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit), true);
 		}
 
 		return;
@@ -291,10 +271,7 @@ void Player::Jump(const bool isJumpCount)
 	moveDirection_.y_ = 1.0f;
 
 	// ジャンプアニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump), 
-		PlayerAnimationConfig::Jump::kFrame
-	);
+	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
 }
 
 void Player::Attack()
@@ -322,9 +299,7 @@ void Player::Attack()
 
 	// 攻撃アニメーション
 	drawer_->PlayAnimation(
-		static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack), 
-		PlayerAnimationConfig::kAttackFrame
-	);
+		static_cast<uint32_t>(PlayerDrawer::AnimationType::eAttack), true);
 }
 
 void Player::OffScreenProcess()

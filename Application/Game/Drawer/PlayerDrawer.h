@@ -12,7 +12,7 @@ namespace YGame
 	public:
 
 		// アニメーション
-		enum class AnimationType : uint16_t
+		enum class AnimationType : uint32_t
 		{
 			// 立ち
 			eIdle	 = 0b1,
@@ -60,11 +60,6 @@ namespace YGame
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void Draw() override;
-
 	public:
 
 		PlayerDrawer() = default;
@@ -72,8 +67,7 @@ namespace YGame
 		~PlayerDrawer() = default;
 	
 	private:
-
-		std::unique_ptr<DrawObjectForModel> outlineObj_;
+		
 		std::unique_ptr<ConstBufferObject<CBColor>> outlineColor_;
 
 		// スライム
@@ -82,22 +76,24 @@ namespace YGame
 		// 被弾
 		HitActor hitActor_;
 
-		// モデルポインタ
-		static std::array<Model*, 3> spModels_;
-
 	private:
 
 		/// <summary>
-		/// アニメーションタイマー挿入
+		/// オブジェクト初期化
 		/// </summary>
-		void InsertAnimationTimers() override;
+		void InitializeObjects() override;
 
 		/// <summary>
-		/// サブアニメーション再生
+		/// タイマー初期化
+		/// </summary>
+		void InitializeTimers() override;
+
+		/// <summary>
+		/// アニメーション準備
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		void PlaySubAnimation(const uint16_t index, const uint32_t frame) override;
+		void GetReadyForAnimation(const uint32_t index, const uint32_t frame) override;
 
 		/// <summary>
 		/// アニメーション更新

@@ -4,7 +4,7 @@
 
 namespace YDX
 {
-	class GPUResource
+	class GPUResource final
 	{
 
 	public:
@@ -36,6 +36,12 @@ namespace YDX
 		/// <returns>バッファポインタポインタ</returns>
 		ID3D12Resource** GetAddressOf() { return buffer_.GetAddressOf(); }
 
+	public:
+
+		GPUResource() = default;
+		
+		~GPUResource() = default;
+	
 	public:
 
 		/// <summary>

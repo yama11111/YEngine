@@ -1,4 +1,5 @@
 #include "PlayerDrawer.h"
+#include "DrawObjectForModel.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "DebriParticle.h"
@@ -12,7 +13,20 @@ using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::PlayerAnimationConfig;
 
-std::array<Model*, 3> PlayerDrawer::spModels_ = { nullptr, nullptr, nullptr };
+namespace
+{
+	// モデルポインタ
+	std::array<Model*, 3> pModels{};
+	
+	// アニメーション番号
+	const uint32_t kIdleIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle);
+	const uint32_t kMoveIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove);
+	const uint32_t kJumpIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump);
+	const uint32_t kLandingIndex = static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding);
+	const uint32_t kAttackIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eAttack);
+	const uint32_t kHitIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit);
+	const uint32_t kDeadIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead);
+}
 
 PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -26,9 +40,9 @@ PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const size_t drawPriority
 void PlayerDrawer::LoadResource()
 {
 	// モデル設定
-	spModels_[1] = Model::LoadObj("player/body", true);
-	spModels_[0] = Model::LoadObj("player/leg_L", true);
-	spModels_[2] = Model::LoadObj("player/leg_R", true);
+	pModels[1] = Model::LoadObj("player/body", true);
+	pModels[0] = Model::LoadObj("player/leg_L", true);
+	pModels[2] = Model::LoadObj("player/leg_R", true);
 }
 
 void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -36,52 +50,39 @@ void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル設定
-	obj_->SetModel(spModels_[0]);
-
-	//outlineObj_.reset(DrawObjectForModel::Create(Transform::Status::Default(), spVP_, nullptr));
-	//outlineObj_->transform_.parent_ = &obj_->transform_.m_;
-	//outlineColor_.reset(ConstBufferObject<CBColor>::Create());
-	//outlineObj_->InsertConstBuffer(outlineColor_.get());
-	//outlineColor_->data_.baseColor = ColorConfig::skTurquoise[0];
-
-	shaderKey_ = "ModelToon";
+	SetShaderTag("ModelToon");
 
 	slimeActor_.Initialize(0, { {} }, 0);
 	hitActor_.Initialize();
 }
 
-void PlayerDrawer::Draw()
+void PlayerDrawer::InitializeObjects()
 {
-	if (isVisible_ == false) { return; }
-
-	for (size_t i = 0; i < spModels_.size(); i++)
-	{
-		//outlineObj_->Draw("ModelOutline", drawPriority_, spModels_[i]);
-		obj_->Draw(shaderKey_, drawPriority_, spModels_[i]);
-	}
+	InsertObject("Body",	 DrawObjectForModel::Create({}, spVP_, pModels[0]));
+	InsertObject("Leg_L",	 DrawObjectForModel::Create({}, spVP_, pModels[1]));
+	InsertObject("Leg_R",	 DrawObjectForModel::Create({}, spVP_, pModels[2]));
 }
 
-void PlayerDrawer::InsertAnimationTimers()
+void PlayerDrawer::InitializeTimers()
 {
 	// アニメーションの数だけタイマー作成
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eMove), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eJump), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eLanding), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eAttack), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eHit), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eDead), AnimationTimer() });
+	InsertAnimationTimer(kIdleIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::kIdleFrame), true));
+	InsertAnimationTimer(kMoveIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::Move::kFrame), true));
+	InsertAnimationTimer(kJumpIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::Jump::kFrame), false));
+	InsertAnimationTimer(kLandingIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::Landing::kFrame), false));
+	InsertAnimationTimer(kAttackIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::kAttackFrame), false));
+	InsertAnimationTimer(kHitIndex,		 AnimationTimer(Timer(PlayerAnimationConfig::Hit::kFrame), false));
+	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::Dead::kFrame), false));
 }
 
-void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+void PlayerDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
 {
 	// 立ち
-	if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eIdle))
+	if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle))
 	{
 	}
 	// 移動
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eMove))
+	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove))
 	{
 		// 土煙を発生
 		// 自分の足元
@@ -96,7 +97,7 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// ジャンプ
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eJump))
+	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump))
 	{
 		// ブヨブヨアニメ
 		// 伸びる
@@ -123,7 +124,7 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// 着地
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding))
 	{
 		// ブヨブヨアニメ
 		// 潰れる
@@ -155,11 +156,11 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		}
 	}
 	// 攻撃
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eAttack))
+	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eAttack))
 	{
 	}
 	// 被弾
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit))
 	{
 		hitActor_.Hit(
 			Anime::Hit::kSwing,
@@ -167,7 +168,7 @@ void PlayerDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 			100.0f);
 	}
 	// 死亡
-	else if (index & static_cast<uint16_t>(PlayerDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead))
 	{
 		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
 	}

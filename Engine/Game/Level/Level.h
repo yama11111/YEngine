@@ -1,5 +1,6 @@
 #pragma once
 #include "CharacterManager.h"
+#include "DrawObjectForModel.h"
 #include "MapChipManager.h"
 #include "Camera.h"
 #include <json.hpp>

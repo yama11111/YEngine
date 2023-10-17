@@ -1,4 +1,5 @@
 #include "PostEffect.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include "YAssert.h"
 #include "Def.h"
@@ -18,6 +19,13 @@ using YMath::Matrix4;
 vector<unique_ptr<PostEffect>> PostEffect::sPostEffects_{};
 ID3D12Device* PostEffect::spDevice_ = nullptr;
 ID3D12GraphicsCommandList* PostEffect::spCmdList_ = nullptr;
+
+PostEffect::PostEffect() : 
+	BaseGraphic(GraphicType::kPostEffectTag), 
+	vt_() ,pTexs_() ,phase_(Phase::None) ,screenDesc_(), 
+	rtvHeap_(nullptr) ,dsvHeap_(nullptr) ,depthBuff_()
+{
+}
 
 PostEffect* PostEffect::Create(const std::vector<std::string>& rtvTags)
 {

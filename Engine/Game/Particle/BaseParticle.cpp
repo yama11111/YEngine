@@ -31,7 +31,7 @@ void BaseParticle::UpdateLife()
 	{
 		isAlive_ = false; 
 
-		obj_->SetVisible(false);
+		obj_->SetIsVisible(false);
 	}
 }
 

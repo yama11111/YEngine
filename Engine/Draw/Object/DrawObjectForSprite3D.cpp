@@ -1,4 +1,5 @@
 #include "DrawObjectForSprite3D.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include <cassert>
 
@@ -78,13 +79,20 @@ void DrawObjectForSprite3D::SetViewProjection(ViewProjection* pVP)
 
 void DrawObjectForSprite3D::SetSprite3D(Sprite3D* pSprite3D)
 {
+	SetGraphic(pSprite3D);
+}
+
+void DrawObjectForSprite3D::SetGraphic(BaseGraphic* pGraphic)
+{
 	// null ならデフォルト
-	if (pSprite3D == nullptr)
+	if (pGraphic == nullptr)
 	{
-		SetGraphic(DefaultGraphic::Ptr("Sprite3D"));
+		pGraphic_ = DefaultGraphic::Ptr(GraphicType::kSprite3DTag);
 
 		return;
 	}
 
-	SetGraphic(pSprite3D);
+	assert(GraphicType::kSprite3DTag == pGraphic->TypeTag());
+
+	pGraphic_ = pGraphic;
 }

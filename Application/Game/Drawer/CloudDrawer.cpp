@@ -1,9 +1,13 @@
 #include "CloudDrawer.h"
+#include "DrawObjectForModel.h"
 
 using YGame::CloudDrawer;
 using YGame::Model;
 
-Model* CloudDrawer::spModel_ = nullptr;
+namespace
+{
+	Model* pModel = nullptr;
+}
 
 CloudDrawer* CloudDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -17,7 +21,7 @@ CloudDrawer* CloudDrawer::Create(Transform* pParent, const size_t drawPriority)
 void CloudDrawer::LoadResource()
 {
 	// モデル設定
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
+	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void CloudDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -25,26 +29,12 @@ void CloudDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	SetShaderTag("ModelToon");
+
 	cbColor_->data_.baseColor.a_ = 0.4f;
-
-	// モデル挿入
-	obj_->SetModel(spModel_);
-
-	shaderKey_ = "ModelToon";
-
-	posXTim_.Initialize(60000, true);
-
-	posXEas_.Initialize(0.0f, -100.0f, 1.0f);
 }
 
-void CloudDrawer::InsertAnimationTimers()
+void CloudDrawer::InitializeObjects()
 {
-}
-
-void CloudDrawer::UpdateAnimation()
-{
-	posXTim_.Update();
-	if (posXTim_.IsEnd()) { posXTim_.Reset(true); }
-	
-	animeStatus_.pos_.x_ = posXEas_.InOut(posXTim_.Ratio());
+	InsertObject("Cloud", DrawObjectForModel::Create({}, spVP_, pModel));
 }

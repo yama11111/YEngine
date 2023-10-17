@@ -25,16 +25,16 @@ void DefaultGraphic::LoadResource()
 	Texture* pTex = Texture::Load("white1x1.png");
 
 	spModel = Model::CreateCube({ { "Texture0", pTex } });
-	sDefGraphics.insert({ "Model", spModel});
-	
+	sDefGraphics.insert({ GraphicType::kModelTag, spModel });
+
 	spSprite2D = Sprite2D::Create({ { "Texture0", pTex } });
-	sDefGraphics.insert({ "Sprite2D", spSprite2D});
-	
+	sDefGraphics.insert({ GraphicType::kSprite2DTag, spSprite2D });
+
 	spSprite3D = Sprite3D::Create({ { "Texture0", pTex } });
-	sDefGraphics.insert({ "Sprite3D", spSprite3D});
-	
+	sDefGraphics.insert({ GraphicType::kSprite3DTag, spSprite3D });
+
 	spPostEffect = PostEffect::Create({ { "Texture0" } });
-	sDefGraphics.insert({ "PostEffect", spPostEffect });
+	sDefGraphics.insert({ GraphicType::kPostEffectTag, spPostEffect });
 }
 
 BaseGraphic* DefaultGraphic::Ptr(const std::string& tag)

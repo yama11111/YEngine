@@ -46,7 +46,7 @@
 
 #include "PauseDrawer.h"
 
-#pragma region    O  Ԑ錾
+#pragma region 名前空間宣言
 using YBase::MyGame;
 using namespace YDX;
 using namespace YInput;
@@ -57,7 +57,6 @@ using namespace YGame;
 
 bool MyGame::Initialize()
 {
-	//    N   X          
 	if (YFramework::Initialize() == false) { return false; }
 
 	InitializePipelines();
@@ -70,62 +69,56 @@ bool MyGame::Initialize()
 
 	LoadDrawer();
 
-
-	//  V [   t @ N g   [ ݒ 
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
-	//  V [   } l [ W   [      
-	sceneMan_->Initialize(YGameSceneFactory::Title_);
+	//sceneMan_->Initialize(YGameSceneFactory::Title_);
 	//sceneMan_->Initialize(YGameSceneFactory::Select_);
-	//sceneMan_->Initialize(YGameSceneFactory::Play_);
+	sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
 
 void MyGame::Finalize()
 {
-	//    N   X I      
 	YFramework::Finalize();
 }
 
 void MyGame::Update()
 {
-	//    N   X X V    
 	YFramework::Update();
-
-	// -------------------  I       ------------------- //
-	// ------------------------------------------------ //
 }
 
 void MyGame::Draw()
 {
-	//  f X N   v ^ [ q [ v Z b g
+	// デスクリプターヒープ設定
 	descHeap_.SetDrawCommand();
 
-	//  V [   `  
+	// ----- 描画を積む ----- //
+	
 	sceneMan_->Draw();
 
-	//  p [ e B N   `  
 	pParticleMan_->Draw();
 
-	//  ` 揀  
+	// ---------------------- //
+
+	// ----- 描画処理 ----- //
+	
 	dx_.PreDraw(ClearColor);
 
-	//  X N   [   ݒ Z b g
 	screenDesc_.SetDrawCommand();
 
-	//  p C v   C   `  
 	pPipelineMan_->Draw();
 
-	//#ifdef _DEBUG
+//#ifdef _DEBUG
 
-		// imgui `  
+	// デバッグテキスト描画
 	imguiMan_.Draw();
 
-	//#endif // DEBUG
+//#endif // DEBUG
 
-		//  `  ㏈  
 	dx_.PostDraw();
+	
+	// -------------------- //
 }
 
 void MyGame::InitializePipelines()
@@ -346,7 +339,7 @@ void MyGame::InitializePipelines()
 	}
 
 
-	//  ` 揇  ݒ 
+	// 描画順序設定
 	pPipelineMan_->SetDrawOrder(
 		{
 			"ModelDefault",

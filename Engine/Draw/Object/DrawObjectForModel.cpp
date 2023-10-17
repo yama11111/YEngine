@@ -1,4 +1,5 @@
 #include "DrawObjectForModel.h"
+#include "GraphicType.h"
 #include "MathVector.h"
 #include <cassert>
 
@@ -72,13 +73,20 @@ void DrawObjectForModel::SetViewProjection(ViewProjection* pVP)
 
 void DrawObjectForModel::SetModel(Model* pModel)
 {
+	SetGraphic(pModel);
+}
+
+void DrawObjectForModel::SetGraphic(BaseGraphic* pGraphic)
+{
 	// null ならデフォルト
-	if (pModel == nullptr)
+	if (pGraphic == nullptr)
 	{
-		SetGraphic(DefaultGraphic::Ptr("Model"));
-		
+		pGraphic_ = DefaultGraphic::Ptr(GraphicType::kModelTag);
+
 		return;
 	}
+	
+	assert(GraphicType::kModelTag == pGraphic->TypeTag());
 
-	SetGraphic(pModel);
+	pGraphic_ = pGraphic;
 }

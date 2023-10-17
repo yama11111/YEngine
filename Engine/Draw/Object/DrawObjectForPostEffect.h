@@ -49,6 +49,12 @@ namespace YGame
 		/// <param name="pPostEffect"> : ポストエフェクトポインタ</param>
 		void SetPostEffect(PostEffect* pPostEffect);
 
+		/// <summary>
+		/// グラフィック設定
+		/// </summary>
+		/// <param name="pGraphic"> : グラフィックポインタ</param>
+		void SetGraphic(BaseGraphic* pGraphic) override;
+
 	public:
 
 		~DrawObjectForPostEffect() = default;

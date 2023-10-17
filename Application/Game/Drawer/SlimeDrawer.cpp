@@ -1,4 +1,5 @@
 #include "SlimeDrawer.h"
+#include "DrawObjectForModel.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "DebriParticle.h"
@@ -13,7 +14,17 @@ using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::SlimeAnimationConfig;
 
-Model* SlimeDrawer::spModel_ = nullptr;
+namespace 
+{
+	// モデルポインタ
+	Model* pModel = nullptr;
+
+	// アニメーション番号
+	const uint32_t kIdleIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle);
+	const uint32_t kLandingIndex = static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding);
+	const uint32_t kHitIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eHit);
+	const uint32_t kDeadIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead);
+}
 
 SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -26,7 +37,7 @@ SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const size_t drawPriority)
 
 void SlimeDrawer::LoadResource()
 {
-	spModel_ = Model::LoadObj("slime", true);
+	pModel = Model::LoadObj("slime", true);
 }
 
 void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -34,37 +45,34 @@ void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル設定
-	obj_->SetModel(spModel_);
-
-	shaderKey_ = "ModelToon";
+	SetShaderTag("ModelToon");
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
 }
 
-void SlimeDrawer::Draw()
+void SlimeDrawer::InitializeObjects()
 {
-	BaseDrawer::Draw();
+	InsertObject("Body", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
-void SlimeDrawer::InsertAnimationTimers()
+void SlimeDrawer::InitializeTimers()
 {
 	// アニメーションの数だけタイマー作成
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eLanding), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eHit), AnimationTimer() });
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eDead), AnimationTimer() });
+	InsertAnimationTimer(kIdleIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::kIdleFrame), true));
+	InsertAnimationTimer(kLandingIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::Landing::kFrame), false));
+	InsertAnimationTimer(kHitIndex,		 AnimationTimer(Timer(SlimeAnimationConfig::Hit::kFrame), false));
+	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::Dead::kFrame), false));
 }
 
-void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+void SlimeDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
 {
 	// 立ち
-	if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eIdle))
+	if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle))
 	{
 	}
 	// 着地
-	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding))
 	{
 		// ブヨブヨアニメ
 		// 潰れる
@@ -96,7 +104,7 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		}
 	}
 	// 被弾
-	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eHit))
 	{
 		hitActor_.Hit(
 			Anime::Hit::kSwing,
@@ -106,7 +114,7 @@ void SlimeDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
 		DamageEmitter::Emit(pParent_->pos_, 100);
 	}
 	// 死亡
-	else if (index & static_cast<uint16_t>(SlimeDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead))
 	{
 		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
 	}

@@ -1,5 +1,5 @@
 #include "SlashAttackDrawer.h"
-
+#include "DrawObjectForModel.h"
 #include "Def.h"
 
 using YGame::SlashAttackDrawer;
@@ -7,7 +7,11 @@ using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
 
-Model* SlashAttackDrawer::spModel_ = nullptr;
+namespace
+{
+	// モデルポインタ
+	Model* pModel = nullptr;
+}
 
 SlashAttackDrawer* SlashAttackDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
@@ -20,7 +24,7 @@ SlashAttackDrawer* SlashAttackDrawer::Create(Transform* pParent, const size_t dr
 
 void SlashAttackDrawer::LoadResource()
 {
-	spModel_ = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
+	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
 void SlashAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -28,26 +32,28 @@ void SlashAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	// モデル設定
-	obj_->SetModel(spModel_);
+	SetShaderTag("ModelPhong");
 
 	slimeActor_.Initialize(0, { {} }, 0);
 
 	rotaEas_.Initialize(0.0f, kPI * 4.0f, 3.0f);
 
 	cbColor_->data_.baseColor = { 0.95f,0.95f,0.95f,0.5f };
-
-	shaderKey_ = "ModelPhong";
 }
 
-void SlashAttackDrawer::InsertAnimationTimers()
+void SlashAttackDrawer::InitializeObjects()
 {
-	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eAttack), AnimationTimer() });
+	InsertObject("Attack", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
-void SlashAttackDrawer::PlaySubAnimation(const uint16_t index, const uint32_t frame)
+void SlashAttackDrawer::InitializeTimers()
 {
-	if (index & static_cast<uint16_t>(AnimationType::eAttack))
+	InsertAnimationTimer(static_cast<uint32_t>(AnimationType::eAttack), AnimationTimer());
+}
+
+void SlashAttackDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+{
+	if (index & static_cast<uint32_t>(AnimationType::eAttack))
 	{
 		// ブヨブヨアニメ
 		std::vector<Vector3> wobbleScaleValues;
@@ -68,5 +74,5 @@ void SlashAttackDrawer::UpdateAnimation()
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
-	animeStatus_.rota_.x_ += rotaEas_.InOut(animationTimers_[static_cast<uint16_t>(AnimationType::eAttack)].timer.Ratio());
+	animeStatus_.rota_.z_ += rotaEas_.InOut(animationTimers_[static_cast<uint16_t>(AnimationType::eAttack)].timer.Ratio());
 }

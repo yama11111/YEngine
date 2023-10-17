@@ -1,4 +1,5 @@
 #include "Sprite2D.h"
+#include "GraphicType.h"
 #include <cassert>
 
 using std::vector;
@@ -8,6 +9,13 @@ using YGame::PipelineSetting;
 using YMath::Vector2;
 
 vector<unique_ptr<Sprite2D>> Sprite2D::sSprites_{};
+
+Sprite2D::Sprite2D() : 
+	BaseGraphic(GraphicType::kSprite2DTag),
+	vt_() ,size_() ,anchor_() ,isFlipX_(false), isFlipY_(false),
+	pTexs_() ,isVisible_(true)
+{
+}
 
 Sprite2D* Sprite2D::Create(
 	const std::unordered_map<std::string, Texture*>& pTexs, 
