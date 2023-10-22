@@ -4,7 +4,8 @@
 #include "CharacterManager.h"
 #include "PauseManager.h"
 #include "ScrollCamera.h"
-#include "UIManager.h"
+#include "ScoreManager.h"
+#include "UIDrawer.h"
 
 #include "Level.h"
 
@@ -38,8 +39,11 @@ namespace YGame
 		// 転送用ビュープロジェクション
 		ViewProjection transferVP_;
 
+		// スコアマネージャー
+		ScoreManager* pScoreManager_ = nullptr;
+
 		// UIマネージャー
-		UIManager uiMan_;
+		UIDrawer uiDra_;
 		
 		// 開始フラグ
 		bool isStart_ = false;

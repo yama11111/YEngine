@@ -31,6 +31,7 @@ namespace YGame
 			const size_t maxDigits,
 			const float interval,
 			const bool shouldShowZero,
+			const bool shouldAdjustCenter,
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true) override;
 
@@ -40,6 +41,7 @@ namespace YGame
 			const size_t maxDigits,
 			const float interval,
 			const bool shouldShowZero,
+			const bool shouldAdjustCenter,
 			YMath::Matrix4* pParent,
 			const bool isXAxisBillboard, const bool isYAxisBillboard,
 			ViewProjection* pVP,
@@ -49,7 +51,7 @@ namespace YGame
 		void Update(const Transform::Status& status = {}) override;
 
 		// 描画
-		void Draw(const std::string& shaderTag, const uint16_t priority) override;
+		void Draw(const std::string& shaderTag, const size_t priority) override;
 
 		// 定数バッファ挿入
 		void InsertConstBuffer(BaseConstBuffer* pCB) override;
@@ -65,6 +67,9 @@ namespace YGame
 
 		// ゼロ表示設定
 		void SetShowZero(const bool shouldShowZero) override;
+
+		// 中心整列設定
+		void SetAdjustCenter(const bool shouldAdjustCenter) override;
 
 		// スプライト種類設定
 		void SetSpriteType(const SpriteType& type) { type_ = type; }
@@ -105,6 +110,9 @@ namespace YGame
 
 		// ゼロ表示するか
 		bool shouldShowZero_ = false;
+
+		// 中心に整列するか
+		bool shouldAdjustCenter_ = false;
 	
 		// スプライトタイプ
 		SpriteType type_ = SpriteType::eNone;
@@ -130,6 +138,7 @@ namespace YGame
 		const size_t maxDigits,
 		const float interval,
 		const bool shouldShowZero,
+		const bool shouldAdjustCenter,
 		YMath::Matrix4* pParent,
 		const bool isClearWhenTransition)
 	{
@@ -139,7 +148,7 @@ namespace YGame
 
 		transform_.parent_ = pParent;
 
-		if (type_ != SpriteType::e2D || 
+		if (type_ != SpriteType::e2D ||
 			digits_.empty() ||
 			isClearWhenTransition_ != isClearWhenTransition)
 		{
@@ -160,21 +169,20 @@ namespace YGame
 		}
 
 		SetInterval(interval);
-
 		SetNumber(num);
-
 		SetShowZero(shouldShowZero);
-
+		SetAdjustCenter(shouldAdjustCenter);
 		SetSpriteType(SpriteType::e2D);
 
 		isClearWhenTransition_ = isClearWhenTransition;
 	}
 
 	void impl_UINumber::Initialize3D(
-		const uint32_t num, 
-		const size_t maxDigits, 
-		const float interval, 
-		const bool shouldShowZero, 
+		const uint32_t num,
+		const size_t maxDigits,
+		const float interval,
+		const bool shouldShowZero,
+		const bool shouldAdjustCenter,
 		YMath::Matrix4* pParent, 
 		const bool isXAxisBillboard, const bool isYAxisBillboard, 
 		ViewProjection* pVP, 
@@ -209,11 +217,9 @@ namespace YGame
 		}
 
 		SetInterval(interval);
-
 		SetNumber(num);
-
 		SetShowZero(shouldShowZero);
-
+		SetAdjustCenter(shouldAdjustCenter);
 		SetSpriteType(SpriteType::e3D);
 
 		isClearWhenTransition_ = isClearWhenTransition;
@@ -230,7 +236,7 @@ namespace YGame
 		}
 	}
 
-	void impl_UINumber::Draw(const std::string& shaderTag, const uint16_t priority)
+	void impl_UINumber::Draw(const std::string& shaderTag, const size_t priority)
 	{
 		size_t dSize = shouldShowZero_ ? digits_.size() : digitSize_;
 
@@ -276,6 +282,11 @@ namespace YGame
 	void impl_UINumber::SetShowZero(const bool shouldShowZero)
 	{
 		shouldShowZero_ = shouldShowZero;
+	}
+
+	void impl_UINumber::SetAdjustCenter(const bool shouldAdjustCenter)
+	{
+		shouldAdjustCenter_ = shouldAdjustCenter;
 
 		AdjustOffset();
 	}
@@ -346,7 +357,7 @@ namespace YGame
 	void impl_UINumber::AdjustOffset()
 	{
 		// 1列 かつ 中心が桁の半分の位置 になるように整列
-		size_t dSize = shouldShowZero_ ? digits_.size() : digitSize_;
+		size_t dSize = shouldAdjustCenter_ ? digitSize_ : digits_.size();
 		
 		float halfRangeSize = static_cast<float>(dSize) * interval_ / 2.0f;
 		halfRangeSize -= interval_ / 2.0f;
@@ -365,21 +376,23 @@ UINumber* UINumber::Create2D(
 	const size_t maxDigits,
 	const float interval,
 	const bool shouldShowZero,
+	const bool shouldAdjustCenter,
 	YMath::Matrix4* pParent,
 	const bool isClearWhenTransition)
 {
 	impl_UINumber* newInstance = new impl_UINumber();
 
-	newInstance->Initialize2D(num, maxDigits, interval, shouldShowZero, pParent, isClearWhenTransition);
+	newInstance->Initialize2D(num, maxDigits, interval, shouldShowZero, shouldAdjustCenter, pParent, isClearWhenTransition);
 
 	return newInstance;
 }
 
 UINumber* UINumber::Create3D(
-	const uint32_t num, 
-	const size_t maxDigits, 
-	const float interval, 
-	const bool shouldShowZero, 
+	const uint32_t num,
+	const size_t maxDigits,
+	const float interval,
+	const bool shouldShowZero,
+	const bool shouldAdjustCenter,
 	YMath::Matrix4* pParent, 
 	const bool isXAxisBillboard, const bool isYAxisBillboard, 
 	ViewProjection* pVP, 
@@ -387,7 +400,7 @@ UINumber* UINumber::Create3D(
 {
 	impl_UINumber* newInstance = new impl_UINumber();
 
-	newInstance->Initialize3D(num, maxDigits, interval, shouldShowZero, pParent, 
+	newInstance->Initialize3D(num, maxDigits, interval, shouldShowZero, shouldAdjustCenter, pParent, 
 		isXAxisBillboard, isYAxisBillboard, pVP, isClearWhenTransition);
 
 	return newInstance;

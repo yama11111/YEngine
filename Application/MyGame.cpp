@@ -40,11 +40,12 @@
 #include "StageDrawer.h"
 #include "StageStatusDrawer.h"
 
-#include "UIManager.h"
+#include "UIDrawer.h"
+#include "ScoreDrawer.h"
+#include "PauseDrawer.h"
+
 #include "UILetterBox.h"
 #include "UIDigit.h"
-
-#include "PauseDrawer.h"
 
 #pragma region 名前空間宣言
 using YBase::MyGame;
@@ -403,7 +404,7 @@ void MyGame::LoadDrawer()
 
 		UIDigit::LoadResource();
 
-		UIManager::LoadResource();
+		UIDrawer::LoadResource();
 
 		PauseDrawer::LoadResource();
 	}

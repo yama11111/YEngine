@@ -17,6 +17,7 @@ namespace YGame
 		/// <param name="maxDigits"> : 最大桁数</param>
 		/// <param name="interval"> : 間隔</param>
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		/// <param name="shouldAdjustCenter"> : 中心に整列するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		/// <returns>動的インスタンス</returns>
@@ -25,6 +26,7 @@ namespace YGame
 			const size_t maxDigits, 
 			const float interval,
 			const bool shouldShowZero,
+			const bool shouldAdjustCenter,
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true);
 
@@ -35,6 +37,7 @@ namespace YGame
 		/// <param name="maxDigits"> : 最大桁数</param>
 		/// <param name="interval"> : 間隔</param>
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		/// <param name="shouldAdjustCenter"> : 中心に整列するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		/// <returns>動的インスタンス</returns>
@@ -43,6 +46,7 @@ namespace YGame
 			const size_t maxDigits, 
 			const float interval,
 			const bool shouldShowZero,
+			const bool shouldAdjustCenter,
 			YMath::Matrix4* pParent,
 			const bool isXAxisBillboard, const bool isYAxisBillboard,
 			ViewProjection* pVP,
@@ -56,6 +60,7 @@ namespace YGame
 		/// <param name="num"> : 数</param>
 		/// <param name="maxDigits"> : 最大桁数</param>
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		/// <param name="shouldAdjustCenter"> : 中心に整列するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		virtual void Initialize2D(
@@ -63,6 +68,7 @@ namespace YGame
 			const size_t maxDigits,
 			const float interval,
 			const bool shouldShowZero,
+			const bool shouldAdjustCenter,
 			YMath::Matrix4* pParent,
 			const bool isClearWhenTransition = true) = 0;
 		
@@ -72,6 +78,7 @@ namespace YGame
 		/// <param name="num"> : 数</param>
 		/// <param name="maxDigits"> : 最大桁数</param>
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
+		/// <param name="shouldAdjustCenter"> : 中心に整列するか</param>
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		/// <param name="isClearWhenTransition"> : 遷移時クリアするか</param>
 		virtual void Initialize3D(
@@ -79,6 +86,7 @@ namespace YGame
 			const size_t maxDigits,
 			const float interval,
 			const bool shouldShowZero,
+			const bool shouldAdjustCenter,
 			YMath::Matrix4* pParent,
 			const bool isXAxisBillboard, const bool isYAxisBillboard,
 			ViewProjection* pVP,
@@ -94,7 +102,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="priority"> : 描画優先度</param>
-		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
+		virtual void Draw(const std::string& shaderTag, const size_t priority) = 0;
 
 	public:
 
@@ -129,6 +137,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="shouldShowZero"> : ゼロを表示するか</param>
 		virtual void SetShowZero(const bool shouldShowZero) = 0;
+
+		/// <summary>
+		/// 中心整列設定
+		/// </summary>
+		/// <param name="shouldShowZero"> : 中心に整列するか</param>
+		virtual void SetAdjustCenter(const bool shouldAdjustCenter) = 0;
 
 		/// <summary>
 		/// アニメーション更新

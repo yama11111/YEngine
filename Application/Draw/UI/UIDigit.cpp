@@ -60,7 +60,7 @@ namespace YGame
 		void Update(const Transform::Status& status = {}) override;
 
 		// 描画
-		void Draw(const std::string& shaderTag, const uint16_t priority) override;
+		void Draw(const std::string& shaderTag, const size_t priority) override;
 
 		// 定数バッファ挿入
 		void InsertConstBuffer(BaseConstBuffer* pCB) override;
@@ -82,9 +82,8 @@ namespace YGame
 
 	private:
 
-		// オブジェクト
-		std::unique_ptr<DrawObjectForSprite2D> obj2D_;
-		std::unique_ptr<DrawObjectForSprite3D> obj3D_;
+		// オブジェクトマップ
+		std::unordered_map<SpriteType, std::unique_ptr<BaseDrawObject>> objs_;
 
 		// オフセット
 		Vector3 offset_;
@@ -109,19 +108,19 @@ namespace YGame
 
 		Transform::Status status = Transform::Status::Default();
 
-		if (type_ != SpriteType::e2D ||
-			obj2D_ == nullptr || 
+		if (objs_.contains(SpriteType::e2D) == false ||
 			isClearWhenTransition_ != isClearWhenTransition)
 		{
-			obj2D_.reset(DrawObjectForSprite2D::Create(
+			objs_.insert({ SpriteType::e2D, nullptr });
+			objs_[SpriteType::e2D].reset(DrawObjectForSprite2D::Create(
 				status, pNumberSpr2D, isClearWhenTransition));
 		}
 		else
 		{
-			obj2D_->Initialize(status, isClearWhenTransition);
+			objs_[SpriteType::e2D]->Initialize(status, isClearWhenTransition);
 		}
 
-		obj2D_->SetParent(pParent);
+		objs_[SpriteType::e2D]->SetParent(pParent);
 
 		if (cbTexConfig_ == nullptr ||
 			isClearWhenTransition_ != isClearWhenTransition)
@@ -129,10 +128,10 @@ namespace YGame
 			cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create(isClearWhenTransition));
 		}
 
-		obj2D_->InsertConstBuffer(cbTexConfig_.get());
+		objs_[SpriteType::e2D]->InsertConstBuffer(cbTexConfig_.get());
 		
 		// 10分の1のサイズ分でスケール + タイリング
-		obj2D_->transform_.scale_ = { 0.1f,1.0f,0.0f };
+		objs_[SpriteType::e2D]->transform_.scale_ = { 0.1f,1.0f,0.0f };
 		cbTexConfig_->data_.tiling = Vector2(0.1f, 1.0f);
 
 		SetNumber(num);
@@ -156,21 +155,23 @@ namespace YGame
 
 		Transform::Status status = Transform::Status::Default();
 
-		if (type_ != SpriteType::e3D ||
-			obj3D_ == nullptr ||
+		if (objs_.contains(SpriteType::e3D) == false ||
 			isClearWhenTransition_ != isClearWhenTransition)
 		{
-			obj3D_.reset(DrawObjectForSprite3D::Create(
+			objs_.insert({ SpriteType::e3D, nullptr });
+			objs_[SpriteType::e3D].reset(DrawObjectForSprite3D::Create(
 				status, isXAxisBillboard, isYAxisBillboard, pVP, pNumberSpr3D, isClearWhenTransition));
 		}
 		else
 		{
-			obj3D_->Initialize(status, isClearWhenTransition);
-			obj3D_->SetBillboardFrag(isXAxisBillboard, isYAxisBillboard);
-			obj3D_->SetViewProjection(pVP);
+			objs_[SpriteType::e3D]->Initialize(status, isClearWhenTransition);
+
+			DrawObjectForSprite3D* obj = static_cast<DrawObjectForSprite3D*>(objs_[SpriteType::e3D].get());
+			obj->SetBillboardFrag(isXAxisBillboard, isYAxisBillboard);
+			obj->SetViewProjection(pVP);
 		}
 
-		obj3D_->SetParent(pParent);
+		objs_[SpriteType::e3D]->SetParent(pParent);
 
 		if (cbTexConfig_ == nullptr ||
 			isClearWhenTransition_ != isClearWhenTransition)
@@ -178,14 +179,14 @@ namespace YGame
 			cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create(isClearWhenTransition));
 		}
 
-		obj3D_->InsertConstBuffer(cbTexConfig_.get());
+		objs_[SpriteType::e3D]->InsertConstBuffer(cbTexConfig_.get());
 
 		// テクスチャのサイズを取得
 		float rscSizeX = static_cast<float>(pTex->Buffer()->GetDesc().Width) / 10.0f;
 		float rscSizeY = static_cast<float>(pTex->Buffer()->GetDesc().Height);
 		
 		// 10分の1のサイズ分でスケール + タイリング
-		obj3D_->transform_.scale_ = Vector3(rscSizeX, rscSizeY, 0.0f) / 100.0f;
+		objs_[SpriteType::e3D]->transform_.scale_ = Vector3(rscSizeX, rscSizeY, 0.0f) / 100.0f;
 		cbTexConfig_->data_.tiling = Vector2(0.1f, 1.0f);
 
 		SetNumber(num);
@@ -202,38 +203,23 @@ namespace YGame
 		Transform::Status s = status;
 		s.pos_ += offset_;
 
-		if (type_ == SpriteType::e2D)
-		{
-			obj2D_->Update(s);
-		}
-		else if (type_ == SpriteType::e3D)
-		{
-			obj3D_->Update(s);
-		}
+		if (type_ == SpriteType::eNone) { return; }
+		
+		objs_[type_]->Update(s);
 	}
 
-	void impl_UIDigit::Draw(const std::string& shaderTag, const uint16_t priority)
+	void impl_UIDigit::Draw(const std::string& shaderTag, const size_t priority)
 	{
-		if (type_ == SpriteType::e2D)
-		{
-			obj2D_->Draw(shaderTag, priority);
-		}
-		else if (type_ == SpriteType::e3D)
-		{
-			obj3D_->Draw(shaderTag, priority);
-		}
+		if (type_ == SpriteType::eNone) { return; }
+
+		objs_[type_]->Draw(shaderTag, priority);
 	}
 	
 	void impl_UIDigit::InsertConstBuffer(BaseConstBuffer* pCB)
 	{
-		if (type_ == SpriteType::e2D)
-		{
-			obj2D_->InsertConstBuffer(pCB);
-		}
-		else if (type_ == SpriteType::e3D)
-		{
-			obj3D_->InsertConstBuffer(pCB);
-		}
+		if (type_ == SpriteType::eNone) { return; }
+
+		objs_[type_]->InsertConstBuffer(pCB);
 	}
 
 	void impl_UIDigit::SetNumber(const uint32_t num)

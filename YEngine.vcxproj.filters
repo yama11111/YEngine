@@ -190,9 +190,6 @@
     <Filter Include="Engine\Math\Physics">
       <UniqueIdentifier>{d3539f7d-9dfb-4a15-8ea8-6ebd914ff078}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Draw\HUD">
-      <UniqueIdentifier>{16ef26ea-5fb0-4b76-9dd0-6cf9f6098c19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Drawer\Debug">
       <UniqueIdentifier>{0a04e373-d08c-4ed8-842d-aef6b82e02d5}</UniqueIdentifier>
     </Filter>
@@ -207,6 +204,12 @@
     </Filter>
     <Filter Include="Application\Game\Drawer\Scene\Title">
       <UniqueIdentifier>{e2d35930-384c-4c99-9343-bb8ae34fffe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Draw\UI">
+      <UniqueIdentifier>{16ef26ea-5fb0-4b76-9dd0-6cf9f6098c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\UI">
+      <UniqueIdentifier>{917ed4d4-32fd-4186-a28d-53500bf1aeb4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -471,18 +474,6 @@
     <ClCompile Include="Application\Game\Particle\ExplosionParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UI\UIManager.cpp">
-      <Filter>Application\Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\UIButton.cpp">
-      <Filter>Application\Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\UILetterBox.cpp">
-      <Filter>Application\Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\UIDigit.cpp">
-      <Filter>Application\Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Math\Power.cpp">
       <Filter>Engine\Math</Filter>
     </ClCompile>
@@ -503,9 +494,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Math\Velocity.cpp">
       <Filter>Engine\Math\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\UINumber.cpp">
-      <Filter>Application\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp">
       <Filter>Application\Game\Drawer\Debug</Filter>
@@ -549,17 +537,11 @@
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp">
       <Filter>Application\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UI\DamageEmitter.cpp">
-      <Filter>Application\Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Transition\WaveTransition.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Chara\Coin.cpp">
       <Filter>Application\Game\Chara\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\PauseDrawer.cpp">
-      <Filter>Application\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp">
       <Filter>Application\Draw\Actor</Filter>
@@ -593,6 +575,30 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\HorseDrawer.cpp">
       <Filter>Application\Game\Drawer\Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\UI\UIButton.cpp">
+      <Filter>Application\Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\UI\UIDigit.cpp">
+      <Filter>Application\Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\UI\UILetterBox.cpp">
+      <Filter>Application\Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Draw\UI\UINumber.cpp">
+      <Filter>Application\Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\ScoreDrawer.cpp">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\PauseDrawer.cpp">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\DamageEmitter.cpp">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\UIDrawer.cpp">
+      <Filter>Application\Game\Drawer\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -917,18 +923,6 @@
     <ClInclude Include="Application\Game\Particle\ExplosionParticle.h">
       <Filter>Application\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UI\UIManager.h">
-      <Filter>Application\Game\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\UIButton.h">
-      <Filter>Application\Game\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\UILetterBox.h">
-      <Filter>Application\Game\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\UIDigit.h">
-      <Filter>Application\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Math\Power.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
@@ -949,9 +943,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Math\Velocity.h">
       <Filter>Engine\Math\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\UINumber.h">
-      <Filter>Application\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\AxisDrawer.h">
       <Filter>Application\Game\Drawer\Debug</Filter>
@@ -998,17 +989,11 @@
     <ClInclude Include="Application\Game\UI\ScoreManager.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UI\DamageEmitter.h">
-      <Filter>Application\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Transition\WaveTransition.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Chara\Coin.h">
       <Filter>Application\Game\Chara\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\PauseDrawer.h">
-      <Filter>Application\Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\UI\PauseSelection.h">
       <Filter>Application\Game\UI</Filter>
@@ -1048,6 +1033,30 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\CloudDrawer.h">
       <Filter>Application\Game\Drawer\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\UI\UIButton.h">
+      <Filter>Application\Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\UI\UIDigit.h">
+      <Filter>Application\Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\UI\UILetterBox.h">
+      <Filter>Application\Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Draw\UI\UINumber.h">
+      <Filter>Application\Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\ScoreDrawer.h">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\PauseDrawer.h">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\DamageEmitter.h">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\UIDrawer.h">
+      <Filter>Application\Game\Drawer\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

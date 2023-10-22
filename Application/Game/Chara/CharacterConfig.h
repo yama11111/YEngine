@@ -61,4 +61,11 @@ namespace YGame
 		static const float kRadius = 2.0f;
 		static const uint32_t kPower = 20;
 	}
+
+	namespace CoinConfig
+	{
+		static const uint32_t kAliveTime = 20;
+		static const float kRadius = 2.0f;
+		static const uint32_t kPower = 20;
+	}
 }

@@ -86,7 +86,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="priority"> : 描画優先度</param>
-		virtual void Draw(const std::string& shaderTag, const uint16_t priority) = 0;
+		virtual void Draw(const std::string& shaderTag, const size_t priority) = 0;
 
 	public:
 

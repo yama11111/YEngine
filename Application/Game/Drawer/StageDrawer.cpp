@@ -48,7 +48,7 @@ void StageDrawer::Initialize(
 	
 	if (uiNum_ == nullptr)
 	{
-		uiNum_.reset(UINumber::Create3D(number, 3, 0.5f, false, &uiTrfm_.m_, false, false, spVP_));
+		uiNum_.reset(UINumber::Create3D(number, 3, 0.5f, false, true, &uiTrfm_.m_, false, false, spVP_));
 	}
 	uiNum_->SetNumber(number);
 	if (uiTutorial_ == nullptr)

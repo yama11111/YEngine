@@ -60,7 +60,7 @@ void BaseDrawer::PlayAnimation(const uint32_t index, const bool isTimerReset)
 {
 	assert(animationTimers_.contains(index));
 
-	GetReadyForAnimation(index, animationTimers_[index].timer.EndFrame());
+	GetReadyForAnimation(index);
 
 	if (isTimerReset)
 	{
@@ -83,9 +83,9 @@ void BaseDrawer::StopAnimation(const uint32_t index)
 	animationBitFlag_ &= ~index;
 }
 
-void BaseDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+void BaseDrawer::GetReadyForAnimation(const uint32_t index)
 {
-	index; frame;
+	index;
 }
 
 void BaseDrawer::UpdateAnimationTimer()
@@ -104,7 +104,7 @@ void BaseDrawer::UpdateAnimationTimer()
 			if (itr->second.isRoop)
 			{
 				// アニメーションをもう一度始める
-				GetReadyForAnimation(itr->first, timer.EndFrame());
+				GetReadyForAnimation(itr->first);
 				timer.Reset(true);
 			}
 			else

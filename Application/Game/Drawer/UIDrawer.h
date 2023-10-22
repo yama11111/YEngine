@@ -1,10 +1,11 @@
 #pragma once
 #include "UIButton.h"
 #include "UILetterBox.h"
+#include "ScoreDrawer.h"
 
 namespace YGame
 {
-	class UIManager final
+	class UIDrawer final
 	{
 
 	public:
@@ -46,15 +47,20 @@ namespace YGame
 		std::unique_ptr<UIButton> buttonJump_;
 		
 		// ジャンプUI
-		std::unique_ptr<BaseDrawObject> jumpUI_;
+		std::unique_ptr<BaseDrawObject> uiJump_;
 		
 
 		// 攻撃ボタン
 		std::unique_ptr<UIButton> buttonAttack_;
 
 		// 攻撃UI
-		std::unique_ptr<BaseDrawObject> attackUI_;
+		std::unique_ptr<BaseDrawObject> uiAttack_;
 		
+
+		// スコア
+		Transform scoreTrfm_;
+		std::unique_ptr<ScoreDrawer> scoreDra_;
+
 	};
 }
 

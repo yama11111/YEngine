@@ -59,11 +59,11 @@ YGame::BaseCharacter::CollisionInfo Horse::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute_ = collider_->Attribute();
-	result.pos_ = transform_->pos_;
-	result.radius_ = PetConfig::kRadius;
-	result.pStatus_ = &status_;
-	result.pSelf_ = this;
+	result.attribute = collider_->Attribute();
+	result.pos		 = transform_->pos_;
+	result.radius	 = PetConfig::kRadius;
+	result.pStatus	 = &status_;
+	result.pSelf	 = this;
 
 	return result;
 }

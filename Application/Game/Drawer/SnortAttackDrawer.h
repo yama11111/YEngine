@@ -73,7 +73,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="frame"> : 再生フレーム</param>
-		void GetReadyForAnimation(const uint32_t index, const uint32_t frame) override;
+		void GetReadyForAnimation(const uint32_t index) override;
 
 		/// <summary>
 		/// アニメーション更新

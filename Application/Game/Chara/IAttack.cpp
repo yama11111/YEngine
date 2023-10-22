@@ -4,5 +4,5 @@ using YGame::IAttack;
 
 void IAttack::OnCollision(const CollisionInfo& info)
 {
-	info.attribute_;
+	info.attribute;
 }

@@ -59,7 +59,7 @@ void StageStatusDrawer::Initialize(const uint32_t number, const bool isTutorial,
 	if (number_ == nullptr) 
 	{
 		numberTrfm_.Initialize();
-		number_.reset(UINumber::Create2D(number, 3, 0.5f, false, &numberTrfm_.m_));
+		number_.reset(UINumber::Create2D(number, 3, 0.5f, false, true, &numberTrfm_.m_));
 	}
 	numberTrfm_.parent_ = &titleTrfm_.m_;
 

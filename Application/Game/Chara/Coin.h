@@ -27,6 +27,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
 		void OnCollision(const CollisionInfo& info) override;
+
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		CollisionInfo GetCollisionInfo() override;
 	
 	private:
 	

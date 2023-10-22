@@ -50,11 +50,11 @@ YGame::BaseCharacter::CollisionInfo Slime::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute_ = collider_->Attribute();
-	result.pos_ = transform_->pos_;
-	result.radius_ = SlimeConfig::kRadius;
-	result.pStatus_ = &status_;
-	result.pSelf_ = this;
+	result.attribute = collider_->Attribute();
+	result.pos		 = transform_->pos_;
+	result.radius	 = SlimeConfig::kRadius;
+	result.pStatus	 = &status_;
+	result.pSelf	 = this;
 
 	return result;
 }

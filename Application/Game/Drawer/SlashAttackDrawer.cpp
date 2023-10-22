@@ -51,8 +51,11 @@ void SlashAttackDrawer::InitializeTimers()
 	InsertAnimationTimer(static_cast<uint32_t>(AnimationType::eAttack), AnimationTimer());
 }
 
-void SlashAttackDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+void SlashAttackDrawer::GetReadyForAnimation(const uint32_t index)
 {
+	// 時間
+	const uint32_t frame = animationTimers_[index].timer.EndFrame();
+
 	if (index & static_cast<uint32_t>(AnimationType::eAttack))
 	{
 		// ブヨブヨアニメ

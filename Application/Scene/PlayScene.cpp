@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Horse.h"
 #include "Slime.h"
+#include "Coin.h"
 #include "DamageEmitter.h"
 
 #include "StageManager.h"
@@ -134,12 +135,27 @@ void PlayScene::Initialize()
 			// 挿入
 			pCharacterMan_->PushBack(newSlime);
 		}
+
+		// コイン
+		{
+			// コイン生成
+			Coin* newCoin = new Coin();
+
+			// コイン初期化
+			newCoin->Initialize({ {120.0f,20.0f,0.0f}, {}, {20.0f,20.0f,20.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newCoin);
+		}
 	}
 
 	DamageEmitter::Initialize(&transferVP_);
 
+	pScoreManager_ = ScoreManager::GetInstance();
+	pScoreManager_->Initialize();
+
 	// UI
-	uiMan_.Initialize();
+	uiDra_.Initialize();
 
 	
 	// 開始演出タイマー
@@ -185,12 +201,12 @@ void PlayScene::Update()
 		// 開始演出終了時
 		if (startTimer_.IsEnd() && isStart_ == false)
 		{
-			uiMan_.PlayStartAnimation();
+			uiDra_.PlayStartAnimation();
 
 			isStart_ = true;
 		}
 
-		uiMan_.Update();
+		uiDra_.Update();
 
 		pLevel_->Update();
 
@@ -232,7 +248,7 @@ void PlayScene::Draw()
 
 	DamageEmitter::Draw();
 
-	uiMan_.Draw();
+	uiDra_.Draw();
 
 	pause_.Draw();
 }

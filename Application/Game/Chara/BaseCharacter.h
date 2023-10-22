@@ -46,19 +46,19 @@ namespace YGame
 		struct CollisionInfo
 		{
 			// 属性
-			AttributeType attribute_ = AttributeType::eNone;
+			AttributeType attribute = AttributeType::eNone;
 
 			// 位置
-			YMath::Vector3 pos_;
+			YMath::Vector3 pos;
 
 			// 半径
-			float radius_ = 0.0f;
+			float radius = 0.0f;
 
 			// キャラステータスポインタ
-			CharacterStatus* pStatus_ = nullptr;
+			CharacterStatus* pStatus = nullptr;
 
 			// ポインタ
-			BaseCharacter* pSelf_ = nullptr;
+			BaseCharacter* pSelf = nullptr;
 		};
 		
 		/// <summary>

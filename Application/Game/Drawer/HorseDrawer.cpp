@@ -69,8 +69,11 @@ void HorseDrawer::InitializeTimers()
 	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(HorseAnimationConfig::Dead::kFrame), false));
 }
 
-void HorseDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+void HorseDrawer::GetReadyForAnimation(const uint32_t index)
 {
+	// 時間
+	const uint32_t frame = animationTimers_[index].timer.EndFrame();
+
 	// 立ち
 	if (index & static_cast<uint32_t>(HorseDrawer::AnimationType::eIdle))
 	{

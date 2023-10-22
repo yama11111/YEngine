@@ -70,10 +70,10 @@ void SlashAttack::Update(const bool isUpdate)
 void SlashAttack::OnCollision(const CollisionInfo& info)
 {
 	// 敵
-	if (info.attribute_ == AttributeType::eEnemy)
+	if (info.attribute == AttributeType::eEnemy)
 	{
 		// ダメージを与える
-		info.pStatus_->Damage(status_.Attack(), true);
+		info.pStatus->Damage(status_.Attack(), true);
 	}
 }
 
@@ -81,11 +81,11 @@ YGame::BaseCharacter::CollisionInfo SlashAttack::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute_ = collider_->Attribute();
-	result.pos_ = transform_->pos_;
-	result.radius_ = transform_->scale_.x_;
-	result.pStatus_ = &status_;
-	result.pSelf_ = this;
+	result.attribute = collider_->Attribute();
+	result.pos		 = transform_->pos_;
+	result.radius	 = transform_->scale_.x_;
+	result.pStatus	 = &status_;
+	result.pSelf	 = this;
 
 	return result;
 }

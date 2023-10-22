@@ -59,11 +59,11 @@ void DamageEmitter::Damage::Initialize(ViewProjection* pVP)
 
 	if (uiNum_ == nullptr)
 	{
-		uiNum_.reset(UINumber::Create3D(0, kMaxDigitNum, kInterval, false, &trfm_.m_, false, false, pVP));
+		uiNum_.reset(UINumber::Create3D(0, kMaxDigitNum, kInterval, false, true, &trfm_.m_, false, false, pVP));
 	}
 	else
 	{
-		uiNum_->Initialize3D(0, kMaxDigitNum, kInterval, false, &trfm_.m_, false, false, pVP);
+		uiNum_->Initialize3D(0, kMaxDigitNum, kInterval, false, true, &trfm_.m_, false, false, pVP);
 	}
 
 	if (cbColor_ == nullptr)

@@ -1,68 +1,66 @@
-//#include "CoinDrawer.h"
-//#include "SkydomeDrawer.h"
-//#include "ColorConfig.h"
-//#include "Lerp.h"
-//#include "Def.h"
-//
-//using YGame::CoinDrawer;
-//using YGame::Model;
-//using YMath::Vector3;
-//using YMath::Vector4;
-//
-//Model* CoinDrawer::pModel = nullptr;
-//
-//CoinDrawer* CoinDrawer::Create(Transform* pParent, const size_t drawPriority)
-//{
-//	CoinDrawer* newDrawer = new CoinDrawer();
-//
-//	newDrawer->Initialize(pParent, drawPriority);
-//
-//	return newDrawer;
-//}
-//
-//void CoinDrawer::LoadResource()
-//{
-//	// モデル設定
-//	pModel = Model::LoadObj("skydome", true);
-//}
-//
-//void CoinDrawer::Initialize(Transform* pParent, const size_t drawPriority)
-//{
-//	// オブジェクト初期化
-//	BaseDrawer::Initialize(pParent, drawPriority);
-//
-//	if (backTexConfig_ == nullptr)
-//	{
-//		backTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create());
-//	}
-//	obj_->InsertConstBuffer(backTexConfig_.get());
-//
-//	backTexConfig_->data_.tiling = { 50.0f,50.0f };
-//
-//	//cbColor_->data_.baseColor = YGame::ColorConfig::skTurquoise[0];
-//	//cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
-//
-//	isVisibleUpdate_ = false;
-//
-//	// モデル挿入
-//	obj_->SetModel(pModel);
-//
-//	shaderKey_ = "ModelDefault";
-//
-//	PlayAnimation(static_cast<uint16_t>(AnimationType::eIdle), 240, true);
-//}
-//
-//void CoinDrawer::InsertAnimationTimers()
-//{
-//	// アニメーションの数だけタイマー作成
-//	animationTimers_.insert({ static_cast<uint16_t>(AnimationType::eIdle), AnimationTimer(YMath::Timer(), true) });
-//}
-//
-//void CoinDrawer::UpdateAnimation()
-//{
-//	float ratio = animationTimers_[static_cast<uint16_t>(AnimationType::eIdle)].timer.Ratio();
-//	float offsetX = YMath::Lerp(0.0f, 1.0f, ratio);
-//	float offsetY = YMath::Lerp(0.0f, 1.0f, ratio);
-//
-//	backTexConfig_->data_.offset = { offsetX, offsetY };
-//}
+#include "CoinDrawer.h"
+#include "DrawObjectForModel.h"
+#include "ColorConfig.h"
+#include "Lerp.h"
+#include "Def.h"
+
+using YGame::CoinDrawer;
+using YGame::Model;
+using YMath::Timer;
+using YMath::Vector3;
+using YMath::Vector4;
+
+namespace
+{
+	// モデルポインタ
+	Model* pModel = nullptr;
+
+	// アニメーション番号
+	const uint32_t kIdleIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle);
+	const uint32_t kEarnIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn);
+}
+
+CoinDrawer* CoinDrawer::Create(Transform* pParent, const size_t drawPriority)
+{
+	CoinDrawer* newDrawer = new CoinDrawer();
+
+	newDrawer->Initialize(pParent, drawPriority);
+
+	return newDrawer;
+}
+
+void CoinDrawer::LoadResource()
+{
+	// モデル設定
+	pModel = Model::LoadObj("skydome", true);
+}
+
+void CoinDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+{
+	// オブジェクト初期化
+	BaseDrawer::Initialize(pParent, drawPriority);
+
+	SetShaderTag("ModelToon");
+}
+
+void CoinDrawer::InitializeObjects()
+{
+	InsertObject("Coin", DrawObjectForModel::Create({}, spVP_, pModel));
+}
+
+void CoinDrawer::InitializeTimers()
+{
+	// アニメーションの数だけタイマー作成
+	InsertAnimationTimer(kIdleIndex, AnimationTimer());
+	InsertAnimationTimer(kEarnIndex, AnimationTimer());
+}
+
+void CoinDrawer::GetReadyForAnimation(const uint32_t index)
+{
+	index;
+}
+
+void CoinDrawer::UpdateAnimation()
+{
+
+}

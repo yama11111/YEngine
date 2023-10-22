@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
 #include "CharacterConfig.h"
-#include "AnimationConfig.h"
 #include "CharacterManager.h"
 #include "SlashAttack.h"
 
@@ -186,13 +185,13 @@ void Player::Update(const bool isUpdate)
 void Player::OnCollision(const CollisionInfo& info)
 {
 	// 敵
-	if (info.attribute_  == AttributeType::eEnemy)
+	if (info.attribute  == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos_.y_ + (info.radius_ / 2.0f))
+		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
 		{
 			// ダメージを与える
-			info.pStatus_->Damage(status_.Attack(), true);
+			info.pStatus->Damage(status_.Attack(), true);
 
 			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
@@ -203,7 +202,7 @@ void Player::OnCollision(const CollisionInfo& info)
 		else
 		{
 			// ダメージを受ける
-			status_.Damage(info.pStatus_->Attack(), true);
+			status_.Damage(info.pStatus->Attack(), true);
 
 			if (status_.IsAlive() == false)
 			{
@@ -224,10 +223,10 @@ void Player::OnCollision(const CollisionInfo& info)
 	}
 
 	// ペット
-	if (info.attribute_ == AttributeType::ePet)
+	if (info.attribute == AttributeType::ePet)
 	{
 		// 乗る
-		RideOnPet(static_cast<IPet*>(info.pSelf_));
+		RideOnPet(static_cast<IPet*>(info.pSelf));
 
 		return;
 	}
@@ -237,11 +236,11 @@ YGame::BaseCharacter::CollisionInfo Player::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute_ = collider_->Attribute();
-	result.pos_ = transform_->pos_;
-	result.radius_ = PlayerConfig::kRadius;
-	result.pStatus_ = &status_;
-	result.pSelf_ = this;
+	result.attribute = collider_->Attribute();
+	result.pos		 = transform_->pos_;
+	result.radius	 = PlayerConfig::kRadius;
+	result.pStatus	 = &status_;
+	result.pSelf	 = this;
 
 	return result;
 }

@@ -75,8 +75,11 @@ void PlayerDrawer::InitializeTimers()
 	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(PlayerAnimationConfig::Dead::kFrame), false));
 }
 
-void PlayerDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 {
+	// 時間
+	const uint32_t frame = animationTimers_[index].timer.EndFrame();
+
 	// 立ち
 	if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle))
 	{

@@ -171,8 +171,7 @@ namespace YGame
 		/// アニメーション準備
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
-		/// <param name="frame"> : 再生フレーム</param>
-		virtual void GetReadyForAnimation(const uint32_t index, const uint32_t frame);
+		virtual void GetReadyForAnimation(const uint32_t index);
 
 		/// <summary>
 		/// アニメーションタイマー更新

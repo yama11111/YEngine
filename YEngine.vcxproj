@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\Drawer;$(ProjectDir)Application\Draw\Particle;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -124,7 +124,7 @@
     <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\StageStatusDrawer.cpp" />
-    <ClCompile Include="Application\Game\UI\DamageEmitter.cpp" />
+    <ClCompile Include="Application\Game\Drawer\DamageEmitter.cpp" />
     <ClCompile Include="Application\Game\Particle\DebriParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\DustParticle.cpp" />
     <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp" />
@@ -156,11 +156,11 @@
     <ClCompile Include="Application\Game\Collision\GameCollider.cpp" />
     <ClCompile Include="Application\Game\StageManager.cpp" />
     <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp" />
-    <ClCompile Include="Application\Game\UI\UILetterBox.cpp" />
-    <ClCompile Include="Application\Game\UI\UIManager.cpp" />
-    <ClCompile Include="Application\Game\UI\UIButton.cpp" />
-    <ClCompile Include="Application\Game\UI\UIDigit.cpp" />
-    <ClCompile Include="Application\Game\UI\UINumber.cpp" />
+    <ClCompile Include="Application\Draw\UI\UILetterBox.cpp" />
+    <ClCompile Include="Application\Game\Drawer\UIDrawer.cpp" />
+    <ClCompile Include="Application\Draw\UI\UIButton.cpp" />
+    <ClCompile Include="Application\Draw\UI\UIDigit.cpp" />
+    <ClCompile Include="Application\Draw\UI\UINumber.cpp" />
     <ClCompile Include="Application\Transition\WaveTransition.cpp" />
     <ClCompile Include="Application\Scene\ResultScene.cpp" />
     <ClCompile Include="Application\Transition\WindBlocks.cpp" />
@@ -241,6 +241,7 @@
     <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp" />
     <ClCompile Include="Application\Game\Particle\ExplosionParticle.cpp" />
     <ClCompile Include="Engine\Math\Velocity.cpp" />
+    <ClCompile Include="Application\Game\Drawer\ScoreDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
@@ -257,7 +258,7 @@
     <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\StageDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\StageStatusDrawer.h" />
-    <ClInclude Include="Application\Game\UI\DamageEmitter.h" />
+    <ClInclude Include="Application\Game\Drawer\DamageEmitter.h" />
     <ClInclude Include="Application\Game\Particle\DebriParticle.h" />
     <ClInclude Include="Application\Game\Particle\DustParticle.h" />
     <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h" />
@@ -290,10 +291,10 @@
     <ClInclude Include="Application\Game\Collision\GameCollider.h" />
     <ClInclude Include="Application\Game\StageManager.h" />
     <ClInclude Include="Application\Game\Drawer\TitleDrawer.h" />
-    <ClInclude Include="Application\Game\UI\UILetterBox.h" />
-    <ClInclude Include="Application\Game\UI\UIManager.h" />
-    <ClInclude Include="Application\Game\UI\UIButton.h" />
-    <ClInclude Include="Application\Game\UI\UIDigit.h" />
+    <ClInclude Include="Application\Draw\UI\UILetterBox.h" />
+    <ClInclude Include="Application\Game\Drawer\UIDrawer.h" />
+    <ClInclude Include="Application\Draw\UI\UIButton.h" />
+    <ClInclude Include="Application\Draw\UI\UIDigit.h" />
     <ClInclude Include="Application\Transition\WaveTransition.h" />
     <ClInclude Include="Application\Scene\ResultScene.h" />
     <ClInclude Include="Application\Transition\WindBlocks.h" />
@@ -393,7 +394,8 @@
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
     <ClInclude Include="Application\Game\Particle\ExplosionParticle.h" />
     <ClInclude Include="Engine\Math\Velocity.h" />
-    <ClInclude Include="Application\Game\UI\UINumber.h" />
+    <ClInclude Include="Application\Draw\UI\UINumber.h" />
+    <ClInclude Include="Application\Game\Drawer\ScoreDrawer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

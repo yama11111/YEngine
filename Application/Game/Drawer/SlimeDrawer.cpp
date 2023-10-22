@@ -65,8 +65,11 @@ void SlimeDrawer::InitializeTimers()
 	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::Dead::kFrame), false));
 }
 
-void SlimeDrawer::GetReadyForAnimation(const uint32_t index, const uint32_t frame)
+void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 {
+	// 時間
+	const uint32_t frame = animationTimers_[index].timer.EndFrame();
+
 	// 立ち
 	if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle))
 	{

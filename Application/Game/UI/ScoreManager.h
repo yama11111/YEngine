@@ -34,6 +34,16 @@ namespace YGame
 		/// </summary>
 		static void LoadResource();
 
+
+		static ScoreManager* GetInstance();
+
+	private:
+
+		ScoreManager() = default;
+		~ScoreManager() = default;
+		ScoreManager(const ScoreManager&) = delete;
+		const ScoreManager& operator=(const ScoreManager&) = delete;
+
 	private:
 
 		// UI
@@ -41,7 +51,6 @@ namespace YGame
 
 		// スコア
 		uint32_t score_;
-
 
 	};
 }

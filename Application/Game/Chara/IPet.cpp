@@ -37,13 +37,13 @@ void IPet::OnCollision(const CollisionInfo& info)
 	if (isRidden_ == false) { return; }
 
 	// 敵
-	if (info.attribute_ == AttributeType::eEnemy)
+	if (info.attribute == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pos_.y_ + (info.radius_ / 2.0f))
+		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
 		{
 			// ダメージを与える
-			info.pStatus_->Damage(status_.Attack(), true);
+			info.pStatus->Damage(status_.Attack(), true);
 
 			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
 			
