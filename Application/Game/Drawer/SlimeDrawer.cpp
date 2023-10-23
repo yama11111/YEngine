@@ -7,6 +7,7 @@
 #include <cmath>
 
 #include "DamageEmitter.h"
+#include "ShockWaveEmitter.h"
 
 using YGame::SlimeDrawer;
 using YGame::Model;
@@ -49,6 +50,33 @@ void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
+}
+
+void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
+{
+	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
+
+	DamageEmitter::Emit(pParent_->pos_, damage);
+	
+	if (isStepOn)
+	{
+		// ブヨブヨアニメ
+		// 潰れる
+		std::vector<Vector3> wobbleScaleValues;
+		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
+		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
+		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
+
+		uint32_t wobbleFrame = animationTimers_[kHitIndex].timer.EndFrame();;
+
+		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		slimeActor_.Wobble();
+
+		Vector3 pos = pParent_->pos_;
+		pos.y_ += pParent_->scale_.y_;
+
+		ShockWaveEmitter::Emit(pos);
+	}
 }
 
 void SlimeDrawer::InitializeObjects()
@@ -113,8 +141,6 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 			Anime::Hit::kSwing,
 			Anime::Hit::kSwing / static_cast<float>(frame),
 			100.0f);
-
-		DamageEmitter::Emit(pParent_->pos_, 100);
 	}
 	// 死亡
 	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead))

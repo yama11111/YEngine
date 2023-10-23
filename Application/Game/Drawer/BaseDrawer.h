@@ -85,11 +85,27 @@ namespace YGame
 		/// <param name="isVisibleUpdate"> : 描画更新するか</param>
 		void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
 
+	public:
+	
 		/// <summary>
 		/// トランスフォームポインタ取得
 		/// </summary>
 		/// <returns>トランスフォームポインタ</returns>
 		Transform* TransformPtr() { return &transform_; }
+
+		/// <summary>
+		/// タイマーが終了したか
+		/// </summary>
+		/// <param name="index"> : 番号</param>
+		/// <returns>タイマー終了フラグ</returns>
+		bool IsEndTimer(const uint32_t index);
+
+		/// <summary>
+		/// アニメーションが動作しているか
+		/// </summary>
+		/// <param name="index"> : 番号</param>
+		/// <returns>アニメーション動作フラグ</returns>
+		bool IsActAnimation(const uint32_t index);
 	
 	public:
 

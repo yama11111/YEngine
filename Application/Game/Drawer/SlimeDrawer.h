@@ -51,6 +51,13 @@ namespace YGame
 		/// <param name="drawPriority"> : 描画優先度</param>
 		void Initialize(Transform* pParent, const size_t drawPriority) override;
 
+		/// <summary>
+		/// 被弾アニメーション
+		/// </summary>
+		/// <param name="damage"> : ダメージ</param>
+		/// <param name="isStepOn"> : 踏まれたか</param>
+		void PlayHitAnimation(const uint32_t damage, const bool isStepOn);
+
 	public:
 
 		SlimeDrawer() = default;

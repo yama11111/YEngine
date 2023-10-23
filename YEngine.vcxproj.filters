@@ -211,6 +211,9 @@
     <Filter Include="Application\Game\Drawer\UI">
       <UniqueIdentifier>{917ed4d4-32fd-4186-a28d-53500bf1aeb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Drawer\Emitter">
+      <UniqueIdentifier>{14b56157-9f6e-4ddc-9516-1acb195db30d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -594,11 +597,14 @@
     <ClCompile Include="Application\Game\Drawer\PauseDrawer.cpp">
       <Filter>Application\Game\Drawer\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\DamageEmitter.cpp">
-      <Filter>Application\Game\Drawer\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Drawer\UIDrawer.cpp">
       <Filter>Application\Game\Drawer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\DamageEmitter.cpp">
+      <Filter>Application\Game\Drawer\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\ShockWaveEmitter.cpp">
+      <Filter>Application\Game\Drawer\Emitter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1052,11 +1058,14 @@
     <ClInclude Include="Application\Game\Drawer\PauseDrawer.h">
       <Filter>Application\Game\Drawer\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\DamageEmitter.h">
-      <Filter>Application\Game\Drawer\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Drawer\UIDrawer.h">
       <Filter>Application\Game\Drawer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\DamageEmitter.h">
+      <Filter>Application\Game\Drawer\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\ShockWaveEmitter.h">
+      <Filter>Application\Game\Drawer\Emitter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

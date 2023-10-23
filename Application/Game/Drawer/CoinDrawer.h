@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseDrawer.h"
+#include "Ease.h"
+#include "SlimeActor.h"
 
 namespace YGame
 {
@@ -49,6 +51,16 @@ namespace YGame
 		~CoinDrawer() = default;
 
 	private:
+
+		// 立ちアニメーション用
+		YMath::SplineEase<float> idlePosEas_;
+		YMath::SplineEase<float> idleRotaEas_;
+
+		// 獲得アニメーション用
+		YMath::Ease<float> earnPosEas_;
+		YMath::Ease<float> earnRotaEas_;
+
+		SlimeActor slimeActor_;
 
 	private:
 

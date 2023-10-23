@@ -54,9 +54,6 @@ namespace
 
 void DamageEmitter::Damage::Initialize(ViewProjection* pVP)
 {
-	trfm_.Initialize();
-	trfm_.scale_ = { kScaleValue, kScaleValue, kScaleValue };
-
 	if (uiNum_ == nullptr)
 	{
 		uiNum_.reset(UINumber::Create3D(0, kMaxDigitNum, kInterval, false, true, &trfm_.m_, false, false, pVP));

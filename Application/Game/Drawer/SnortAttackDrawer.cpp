@@ -43,7 +43,7 @@ void SnortAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority
 
 void SnortAttackDrawer::InitializeObjects()
 {
-	InsertObject("Attack", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Attack", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
 }
 
 void SnortAttackDrawer::InitializeTimers()
@@ -75,7 +75,7 @@ void SnortAttackDrawer::UpdateAnimation()
 {
 	slimeActor_.Update();
 
-	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
+	//animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 	
-	animeStatus_.rota_.z_ += rotaEas_.InOut(animationTimers_[static_cast<uint16_t>(AnimationType::eAttack)].timer.Ratio());
+	//animeStatus_.rota_.z_ += rotaEas_.InOut(animationTimers_[static_cast<uint16_t>(AnimationType::eAttack)].timer.Ratio());
 }

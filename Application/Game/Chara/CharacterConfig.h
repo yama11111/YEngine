@@ -38,11 +38,12 @@ namespace YGame
 	namespace SlimeConfig
 	{
 		static const float kRadius = 1.0f;
-		static const YMath::Vector3 kAcceleration = { 0.1f,3.0f,0.0f };
-		static const YMath::Vector3 kMaxSpeed = { 0.3f,3.0f,0.0f };
-		static const uint32_t kHP = 1;
+		static const YMath::Vector3 kAcceleration = { 0.5f,0.5f,0.0f };
+		static const YMath::Vector3 kMaxSpeed = { 0.5f,0.5f,0.0f };
+		static const uint32_t kHP = 10000;
 		static const uint32_t kAttack = 1;
-		static const uint32_t kInvincibleTime = 10;
+		static const uint32_t kInvincibleTime = 20;
+		static const uint32_t kBlowTime = 2;
 	}
 
 	namespace SlashAttackConfig
@@ -64,8 +65,6 @@ namespace YGame
 
 	namespace CoinConfig
 	{
-		static const uint32_t kAliveTime = 20;
 		static const float kRadius = 2.0f;
-		static const uint32_t kPower = 20;
 	}
 }

@@ -33,9 +33,14 @@ namespace YGame
 
 		~Slime() = default;
 
-	protected:
+	private:
 
-		void Hit() override;
+		/// <summary>
+		/// 被弾
+		/// </summary>
+		/// <param name="damage"> : ダメージ</param>
+		/// <param name="isStepOn"> : 踏まれたか</param>
+		void Hit(const uint32_t damage, const bool isStepOn) override;
 
 	};
 }

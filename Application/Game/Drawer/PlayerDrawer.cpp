@@ -81,11 +81,11 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 	const uint32_t frame = animationTimers_[index].timer.EndFrame();
 
 	// 立ち
-	if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle))
+	if (index & static_cast<uint32_t>(AnimationType::eIdle))
 	{
 	}
 	// 移動
-	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove))
+	else if (index & static_cast<uint32_t>(AnimationType::eMove))
 	{
 		// 土煙を発生
 		// 自分の足元
@@ -100,7 +100,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// ジャンプ
-	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump))
+	else if (index & static_cast<uint32_t>(AnimationType::eJump))
 	{
 		// ブヨブヨアニメ
 		// 伸びる
@@ -127,7 +127,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
 	}
 	// 着地
-	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding))
+	else if (index & static_cast<uint32_t>(AnimationType::eLanding))
 	{
 		// ブヨブヨアニメ
 		// 潰れる
@@ -159,11 +159,11 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		}
 	}
 	// 攻撃
-	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eAttack))
+	else if (index & static_cast<uint32_t>(AnimationType::eAttack))
 	{
 	}
 	// 被弾
-	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit))
+	else if (index & static_cast<uint32_t>(AnimationType::eHit))
 	{
 		hitActor_.Hit(
 			Anime::Hit::kSwing,
@@ -171,7 +171,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 			100.0f);
 	}
 	// 死亡
-	else if (index & static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead))
+	else if (index & static_cast<uint32_t>(AnimationType::eDead))
 	{
 		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
 	}

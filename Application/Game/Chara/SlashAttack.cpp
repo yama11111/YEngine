@@ -23,7 +23,7 @@ void SlashAttack::Initialize(
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
 		Vector3(), Vector3(),
 		1, attackPower, 0,
-		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eEnemy),
+		new GameCollider(transform_.get(), AttributeType::ePlayerAttack, AttributeType::eEnemy),
 		SlashAttackDrawer::Create(nullptr, 3));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));

@@ -27,6 +27,10 @@ void Speed::Update(const Vector3& power)
 	// Friction
 	if (velocity_.x_ > 0) { velocity_.x_ -= 0.05f; }
 	if (velocity_.x_ < 0) { velocity_.x_ += 0.05f; }
+	if (-0.05f < velocity_.x_ && velocity_.x_ < +0.05f)
+	{
+		velocity_.x_ = 0;
+	}
 	
 	if (isGravity_)
 	{

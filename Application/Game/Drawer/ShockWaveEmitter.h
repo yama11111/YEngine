@@ -1,7 +1,7 @@
 #pragma once
-#include "UINumber.h"
-#include "CBColor.h"
+#include "DrawObjectForSprite3D.h"
 #include "ConstBufferObject.h"
+#include "CBColor.h"
 #include "Ease.h"
 #include "Timer.h"
 #include <array>
@@ -9,10 +9,15 @@
 
 namespace YGame
 {
-	class DamageEmitter final
+	class ShockWaveEmitter final
 	{
 
 	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void LoadResource();
 
 		/// <summary>
 		/// 静的初期化
@@ -24,8 +29,7 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="pos"> : 位置</param>
-		/// <param name="damageVal"> : ダメージ量</param>
-		static void Emit(const YMath::Vector3& pos, const uint32_t damageVal);
+		static void Emit(const YMath::Vector3& pos);
 
 		/// <summary>
 		/// 更新
@@ -39,7 +43,7 @@ namespace YGame
 
 	private:
 
-		class Damage final
+		class ShockWave final
 		{
 
 		public:
@@ -70,8 +74,7 @@ namespace YGame
 			/// ダメージ生成
 			/// </summary>
 			/// <param name="pos"> : 位置</param>
-			/// <param name="damageValue"> : ダメージ量</param>
-			void Pop(const YMath::Vector3& pos, const uint32_t damageValue);
+			void Pop(const YMath::Vector3& pos);
 
 			/// <summary>
 			/// 動作中か
@@ -81,17 +84,8 @@ namespace YGame
 
 		private:
 
-			// トランスフォーム
-			Transform trfm_;
-
-			// X軸ビルボードフラグ
-			bool isXBillboard_ = false;
-
-			// Y軸ビルボードフラグ
-			bool isYBillboard_ = false;
-
-			// 数字
-			std::unique_ptr<UINumber> uiNum_;
+			// オブジェクト
+			std::unique_ptr<DrawObjectForSprite3D> obj_;
 
 			// 色
 			std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
@@ -100,29 +94,20 @@ namespace YGame
 			// 動作フラグ
 			bool isAct_ = false;
 
-			// 生成タイマー
-			YMath::Timer popTim_;
-
-			// 上昇イージング
-			YMath::Ease<float> upEas_;
+			// アニメーションタイマー
+			YMath::Timer actTim_;
 
 			// スケールイージング
-			YMath::Ease<float> popScaEas_;
-
-			// 残存タイマー
-			YMath::Timer remainTim_;
-
-			// 消失タイマー
-			YMath::Timer vanishTim_;
+			YMath::Ease<float> scaEas_;
 
 			// アルファ値イージング
-			YMath::Ease<float> vanishAlphaEas_;
+			YMath::Ease<float> alphaEas_;
 		};
 
 	private:
 
-		// ダメージ配列
-		static std::array<Damage, 10> damage_;
+		// 衝撃波配列
+		static std::array<ShockWave, 10> shockWave_;
 
 		// ビュープロジェクションポインタ
 		static ViewProjection* spVP_;

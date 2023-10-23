@@ -13,15 +13,21 @@ namespace YGame
 		eAll	 = 0xffffffff,
 
 		// プレイヤー
-		ePlayer	 = 0b1,
+		ePlayer	 = 0b1 << 0,
 		
 		// ペット
 		ePet	 = 0b1 << 1,
 
+		// プレイヤー陣営攻撃
+		ePlayerAttack	 = 0b1 << 2,
+
 		// エネミー
-		eEnemy	 = 0b1 << 2,
+		eEnemy	 = 0b1 << 3,
+		
+		// エネミー陣営攻撃
+		eEnemyAttack	 = 0b1 << 4,
 
 		// アイテム
-		eItem	 = 0b1 << 3,
+		eItem	 = 0b1 << 5,
 	};
 }

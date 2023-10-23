@@ -8,7 +8,9 @@
 #include "Horse.h"
 #include "Slime.h"
 #include "Coin.h"
+
 #include "DamageEmitter.h"
+#include "ShockWaveEmitter.h"
 
 #include "StageManager.h"
 
@@ -142,7 +144,7 @@ void PlayScene::Initialize()
 			Coin* newCoin = new Coin();
 
 			// コイン初期化
-			newCoin->Initialize({ {120.0f,20.0f,0.0f}, {}, {20.0f,20.0f,20.0f} });
+			newCoin->Initialize({ {80.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
 			// 挿入
 			pCharacterMan_->PushBack(newCoin);
@@ -150,6 +152,7 @@ void PlayScene::Initialize()
 	}
 
 	DamageEmitter::Initialize(&transferVP_);
+	ShockWaveEmitter::Initialize(&transferVP_);
 
 	pScoreManager_ = ScoreManager::GetInstance();
 	pScoreManager_->Initialize();
@@ -216,6 +219,7 @@ void PlayScene::Update()
 		pCharacterMan_->Update(isStart_);
 
 		DamageEmitter::Update();
+		ShockWaveEmitter::Update();
 
 		scrollCamera_.Update({ cameraOffset_.InOut(startTimer_.Ratio(), 0.4f) });
 		transferVP_ = scrollCamera_.GetViewProjection();
@@ -247,6 +251,7 @@ void PlayScene::Draw()
 	pCharacterMan_->Draw();
 
 	DamageEmitter::Draw();
+	ShockWaveEmitter::Draw();
 
 	uiDra_.Draw();
 

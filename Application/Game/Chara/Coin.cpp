@@ -15,14 +15,16 @@ void Coin::Initialize(const Transform::Status& status)
 	BaseCharacter::Initialize(
 		"Coin",
 		status,
-		{ +1.0f, 0.0f, 0.0f }, // 右向き
-		{}, {}, 0, 0, 0,
+		{ 0.0f, 0.0f, +1.0f }, // 右向き
+		{}, {}, 
+		1, 0, 0,
 		new GameCollider(transform_.get(), AttributeType::eItem, AttributeType::eAll),
 		CoinDrawer::Create(nullptr, 1));
 
 	collider_->PushBack(new YMath::SphereCollider(Vector3(), CoinConfig::kRadius));
 	
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), CoinConfig::kRadius, 1));
+	drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
 
 	drawer_->SetParent(transform_.get());
 }
@@ -30,13 +32,25 @@ void Coin::Initialize(const Transform::Status& status)
 void Coin::Update(const bool isUpdate)
 {
 	BaseCharacter::Update(isUpdate);
+
+	if (status_.IsInvincible() && 
+		drawer_->IsActAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn)) == false)
+	{
+		status_.SetHP(0);
+	}
 }
 
 void Coin::OnCollision(const CollisionInfo& info)
 {
-	if (info.attribute == AttributeType::ePlayer)
+	if (status_.IsInvincible()) { return; }
+	
+	if (info.attribute == AttributeType::ePlayer || 
+		info.attribute == AttributeType::ePet)
 	{
-		//ScoreManager::
+		//ScoreManager::GetInstance()->;
+		
+  		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn), true);
+		status_.SetInvincible(true);
 	}
 }
 

@@ -26,6 +26,7 @@
 #include "PlayerDrawer.h"
 #include "HorseDrawer.h"
 #include "SlimeDrawer.h"
+#include "CoinDrawer.h"
 #include "SlashAttackDrawer.h"
 #include "SnortAttackDrawer.h"
 #include "BlockDrawer.h"
@@ -34,6 +35,8 @@
 #include "SkydomeDrawer.h"
 #include "AxisDrawer.h"
 #include "CollisionDrawer.h"
+
+#include "ShockWaveEmitter.h"
 
 #include "TitleDrawer.h"
 #include "SelectDrawer.h"
@@ -423,6 +426,8 @@ void MyGame::LoadDrawer()
 
 		SnortAttackDrawer::LoadResource();
 
+		CoinDrawer::LoadResource();
+
 		BlockDrawer::LoadResource();
 
 		GoalDrawer::LoadResource();
@@ -434,6 +439,9 @@ void MyGame::LoadDrawer()
 		AxisDrawer::LoadResource();
 
 		CollisionDrawer::LoadResource();
+
+
+		ShockWaveEmitter::LoadResource();
 	}
 
 	// Scene

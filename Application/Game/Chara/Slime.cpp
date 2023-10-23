@@ -29,13 +29,15 @@ void Slime::Initialize(const Transform::Status& status)
 
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
 
+	blowTim_.Initialize(SlimeConfig::kBlowTime);
+
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
 }
 
 void Slime::Update(const bool isUpdate)
 {
-	BaseCharacter::Update(isUpdate);
+	IEnemy::Update(isUpdate);
 	
 	// 着地した瞬間
 	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
@@ -59,12 +61,10 @@ YGame::BaseCharacter::CollisionInfo Slime::GetCollisionInfo()
 	return result;
 }
 
-void Slime::Hit()
+void Slime::Hit(const uint32_t damage, const bool isStepOn)
 {
-	IEnemy::Hit();
-
 	// 被弾アニメーション
-	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eHit), true);
+	static_cast<SlimeDrawer*>(drawer_.get())->PlayHitAnimation(damage, isStepOn);
 
 	if (status_.IsAlive() == false)
 	{

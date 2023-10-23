@@ -46,7 +46,7 @@ void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	for (auto itr = animationTimers_.begin(); itr != animationTimers_.end(); ++itr)
 	{
-		itr->second.timer.Initialize(0);
+		itr->second.timer.Reset();
 	}
 
 	animeStatus_ = {};
@@ -109,7 +109,7 @@ void BaseDrawer::UpdateAnimationTimer()
 			}
 			else
 			{
-				timer.Initialize(0);
+				timer.Reset();
 
 				// フラグをおろす
 				animationBitFlag_ &= ~itr->first;
@@ -263,4 +263,16 @@ void BaseDrawer::InsertAnimationTimer(const uint32_t index, const AnimationTimer
 	}
 
 	animationTimers_.insert({ index, timer });
+}
+
+bool BaseDrawer::IsEndTimer(const uint32_t index)
+{
+	assert(animationTimers_.contains(index));
+
+	return animationTimers_[index].timer.IsEnd();
+}
+
+bool BaseDrawer::IsActAnimation(const uint32_t index)
+{
+	return animationBitFlag_ & index;
 }

@@ -42,9 +42,6 @@ void IPet::OnCollision(const CollisionInfo& info)
 		// 自分 が 敵 より上にいる なら
 		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
 		{
-			// ダメージを与える
-			info.pStatus->Damage(status_.Attack(), true);
-
 			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
 			
 			// ジャンプ

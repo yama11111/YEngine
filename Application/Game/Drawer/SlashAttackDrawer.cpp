@@ -43,7 +43,7 @@ void SlashAttackDrawer::Initialize(Transform* pParent, const size_t drawPriority
 
 void SlashAttackDrawer::InitializeObjects()
 {
-	InsertObject("Attack", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Attack", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
 }
 
 void SlashAttackDrawer::InitializeTimers()

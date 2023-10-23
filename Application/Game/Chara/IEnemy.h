@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseCharacter.h"
+#include "Timer.h"
 
 namespace YGame
 {
@@ -8,6 +9,12 @@ namespace YGame
     {
 
 	public:
+
+		/// <summary>
+		/// 更新
+		/// </summary>
+		/// <param name="isUpdate"> : 更新するか</param>
+		virtual void Update(const bool isUpdate);
 
 		/// <summary>
 		/// 衝突判定
@@ -23,10 +30,17 @@ namespace YGame
 
     protected:
 
+		// ぶっ飛びタイマー
+		YMath::Timer blowTim_;
+
+    protected:
+	
 		/// <summary>
 		/// 被弾
 		/// </summary>
-		virtual void Hit();
+		/// <param name="damage"> : ダメージ</param>
+		/// <param name="isStepOn"> : 踏まれたか</param>
+		virtual void Hit(const uint32_t damage, const bool isStepOn) = 0;
 
     };
 }
