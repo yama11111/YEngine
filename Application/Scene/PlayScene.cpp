@@ -12,6 +12,7 @@
 #include "DamageEmitter.h"
 #include "ShockWaveEmitter.h"
 
+#include "ScoreManager.h"
 #include "StageManager.h"
 
 #pragma region 名前空間宣言
@@ -144,7 +145,43 @@ void PlayScene::Initialize()
 			Coin* newCoin = new Coin();
 
 			// コイン初期化
-			newCoin->Initialize({ {80.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+			newCoin->Initialize({ {15.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newCoin);
+		}
+
+		// コイン
+		{
+			// コイン生成
+			Coin* newCoin = new Coin();
+
+			// コイン初期化
+			newCoin->Initialize({ {25.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newCoin);
+		}
+
+		// コイン
+		{
+			// コイン生成
+			Coin* newCoin = new Coin();
+
+			// コイン初期化
+			newCoin->Initialize({ {35.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
+
+			// 挿入
+			pCharacterMan_->PushBack(newCoin);
+		}
+
+		// コイン
+		{
+			// コイン生成
+			Coin* newCoin = new Coin();
+
+			// コイン初期化
+			newCoin->Initialize({ {75.0f,0.0f,0.0f}, {}, {1.0f,1.0f,1.0f} });
 
 			// 挿入
 			pCharacterMan_->PushBack(newCoin);
@@ -173,6 +210,9 @@ void PlayScene::Initialize()
 	isStop_ = false;
 
 	pause_.Initialize();
+
+	ScoreManager::GetInstance()->Initialize();
+	ScoreManager::GetInstance()->StartScoreMeasurement();
 }
 #pragma endregion
 

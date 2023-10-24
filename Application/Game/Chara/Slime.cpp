@@ -6,6 +6,7 @@
 #include "CollisionDrawer.h"
 #include "PrimitiveCollider.h"
 #include "MapChipCollisionBitConfig.h"
+#include "ScoreManager.h"
 
 #include "Def.h"
 #include <cassert>
@@ -70,5 +71,6 @@ void Slime::Hit(const uint32_t damage, const bool isStepOn)
 	{
 		// 死亡アニメーション
 		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead), true);
+		ScoreManager::GetInstance()->AddScore(1000);
 	}
 }

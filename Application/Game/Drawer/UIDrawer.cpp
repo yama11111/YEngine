@@ -88,7 +88,7 @@ void UIDrawer::Initialize()
 	// スコア
 	{
 		Transform::Status scoreStatus;
-		scoreStatus.pos_ = { WinSize.x_ - 320.0f, +96.0f, 0.0f };
+		scoreStatus.pos_ = { WinSize.x_ - 280.0f, +96.0f, 0.0f };
 		scoreStatus.scale_ = { 1.0f,1.0f,1.0f };
 
 		scoreTrfm_.Initialize(scoreStatus);
@@ -109,7 +109,7 @@ void UIDrawer::Update()
 	//uiAttack_->Update();
 
 	scoreTrfm_.UpdateMatrix();
-	//scoreDra_->ChangeScoreAnimation(ScoreManager::GetInstance()->);
+	scoreDra_->ChangeScoreAnimation(ScoreManager::GetInstance()->ScoreInCurrentStage());
 	scoreDra_->Update();
 }
 

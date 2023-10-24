@@ -75,11 +75,7 @@ namespace YGame
 
 		// UI
 		std::unique_ptr<UINumber> uiNum_;
-		std::unique_ptr<ConstBufferObject<CBColor>> uiColor_;
-		
-		// UI(背景)
-		std::unique_ptr<UINumber> uiBackNum_;
-		std::unique_ptr<ConstBufferObject<CBColor>> uiBackColor_;
+		std::array<std::unique_ptr<ConstBufferObject<CBColor>>, 6> uiColors_;
 		
 		// アニメーション用
 		std::array<Transform::Status, 6> digitAnimeStatuses_;
@@ -93,5 +89,13 @@ namespace YGame
 
 		// リールタイマー
 		YMath::Timer reelTim_;
+
+	private:
+
+		/// <summary>
+		/// 桁ごとの色更新
+		/// </summary>
+		void UpdateDigitColor();
+
 	};
 }

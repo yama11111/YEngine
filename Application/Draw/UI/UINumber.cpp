@@ -56,6 +56,9 @@ namespace YGame
 		// 定数バッファ挿入
 		void InsertConstBuffer(BaseConstBuffer* pCB) override;
 
+		// 桁ごとの定数バッファ挿入
+		void InsertConstBuffer(const size_t digitIndex, BaseConstBuffer* pCB) override;
+
 		// 数設定
 		void SetNumber(const uint32_t num) override;
 
@@ -252,6 +255,13 @@ namespace YGame
 		{
 			digits_[i].ui->InsertConstBuffer(pCB);
 		}
+	}
+
+	void impl_UINumber::InsertConstBuffer(const size_t digitIndex, BaseConstBuffer* pCB)
+	{
+		assert(0 <= digitIndex && digitIndex < digits_.size());
+		
+		digits_[digitIndex].ui->InsertConstBuffer(pCB);
 	}
 
 	void impl_UINumber::SetNumber(const uint32_t num)

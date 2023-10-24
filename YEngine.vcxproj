@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
+    <ClCompile Include="Application\Game\Chara\NeedleAttack.cpp" />
     <ClCompile Include="Application\Game\Drawer\Animation.cpp" />
     <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp" />
@@ -121,6 +122,7 @@
     <ClCompile Include="Application\Game\Chara\Coin.cpp" />
     <ClCompile Include="Application\Game\Drawer\CoinDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\NeedleAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\ShockWaveEmitter.cpp" />
     <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
@@ -134,6 +136,7 @@
     <ClCompile Include="Application\Game\Drawer\BaseDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\IItem.cpp" />
     <ClCompile Include="Application\Game\Drawer\PauseDrawer.cpp" />
+    <ClCompile Include="Application\Game\Particle\WaveParticle.cpp" />
     <ClCompile Include="Application\Game\UI\PauseManager.cpp" />
     <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp" />
@@ -246,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
+    <ClInclude Include="Application\Game\Chara\NeedleAttack.h" />
     <ClInclude Include="Application\Game\Drawer\AnimationConfig.h" />
     <ClInclude Include="Application\Game\Drawer\Animation.h" />
     <ClInclude Include="Application\Game\Drawer\AxisDrawer.h" />
@@ -256,6 +260,7 @@
     <ClInclude Include="Application\Game\Drawer\CoinDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\CollisionDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\ColorConfig.h" />
+    <ClInclude Include="Application\Game\Drawer\NeedleAttackDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\ShockWaveEmitter.h" />
     <ClInclude Include="Application\Game\Drawer\StageDrawer.h" />
@@ -269,6 +274,7 @@
     <ClInclude Include="Application\Game\Drawer\BaseDrawer.h" />
     <ClInclude Include="Application\Game\Chara\IItem.h" />
     <ClInclude Include="Application\Game\Drawer\PauseDrawer.h" />
+    <ClInclude Include="Application\Game\Particle\WaveParticle.h" />
     <ClInclude Include="Application\Game\UI\PauseManager.h" />
     <ClInclude Include="Application\Game\UI\PauseSelection.h" />
     <ClInclude Include="Application\Game\Drawer\PlayerDrawer.h" />

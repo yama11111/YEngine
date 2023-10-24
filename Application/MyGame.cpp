@@ -15,6 +15,7 @@
 
 #include "DustParticle.h"
 #include "DebriParticle.h"
+#include "WaveParticle.h"
 
 #include "BlackoutTransition.h"
 #include "WindBlocks.h"
@@ -27,6 +28,7 @@
 #include "HorseDrawer.h"
 #include "SlimeDrawer.h"
 #include "CoinDrawer.h"
+#include "NeedleAttackDrawer.h"
 #include "SlashAttackDrawer.h"
 #include "SnortAttackDrawer.h"
 #include "BlockDrawer.h"
@@ -366,6 +368,8 @@ void MyGame::InitializeParticles()
 	DustParticle::StaticInitialize();
 
 	DebriParticle::StaticInitialize();
+	
+	WaveParticle::StaticInitialize();
 }
 
 void MyGame::InitializeTransition()
@@ -422,6 +426,8 @@ void MyGame::LoadDrawer()
 
 		SlimeDrawer::LoadResource();
 
+		NeedleAttackDrawer::LoadResource();
+		
 		SlashAttackDrawer::LoadResource();
 
 		SnortAttackDrawer::LoadResource();

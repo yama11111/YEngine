@@ -2,7 +2,7 @@
 #include "PlayerDrawer.h"
 #include "CharacterConfig.h"
 #include "CharacterManager.h"
-#include "SlashAttack.h"
+#include "NeedleAttack.h"
 
 #include "PrimitiveCollider.h"
 #include "MapChipCollisionBitConfig.h"
@@ -124,7 +124,7 @@ void Player::Update(const bool isUpdate)
 	{
 		if (pPet_->IsHit())
 		{
-			GetOffPet();
+			//GetOffPet();
 		}
 	}
 	
@@ -282,14 +282,16 @@ void Player::Attack()
 	}
 
 	// 攻撃新規生成
-	SlashAttack* newAttack = new SlashAttack();
+	NeedleAttack* newAttack = new NeedleAttack();
 
 	newAttack->Initialize(
-		SlashAttackConfig::kAliveTime,
-		&transform_->pos_,
-		SlashAttackConfig::kOffset, 
-		SlashAttackConfig::kRadius, 
-		SlashAttackConfig::kPower);
+		NeedleAttackConfig::kAliveTime,
+		transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
+		NeedleAttackConfig::kAcceleration,
+		NeedleAttackConfig::kMaxSpeed,
+		NeedleAttackConfig::kRadius,
+		NeedleAttackConfig::kPower
+	);
 	
 	CharacterManager::GetInstance()->PushBack(newAttack);
 

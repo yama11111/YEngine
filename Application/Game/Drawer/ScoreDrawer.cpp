@@ -30,14 +30,12 @@ void ScoreDrawer::Initialize(YMath::Matrix4* pParent, const std::string& shaderT
 	transform_.Initialize();
 	transform_.parent_ = pParent;
 
-	uiNum_.reset(UINumber::Create2D(0, digitAnimeStatuses_.size(), 80.0f, false, false, &transform_.m_));
-	uiColor_.reset(ConstBufferObject<CBColor>::Create());
-	uiNum_->InsertConstBuffer(uiColor_.get());
-
-	uiBackNum_.reset(UINumber::Create2D(0, digitAnimeStatuses_.size(), 80.0f, true, false, &transform_.m_));
-	uiBackColor_.reset(ConstBufferObject<CBColor>::Create());
-	uiBackNum_->InsertConstBuffer(uiBackColor_.get());
-	uiBackColor_->data_.baseColor = { 0.5f,0.5f,0.5f,0.5f };
+	uiNum_.reset(UINumber::Create2D(0, digitAnimeStatuses_.size(), 80.0f, true, false, &transform_.m_));
+	for (size_t i = 0; i < uiColors_.size(); i++)
+	{
+		uiColors_[i].reset(ConstBufferObject<CBColor>::Create());
+		uiNum_->InsertConstBuffer(i, uiColors_[i].get());
+	}
 
 	shaderTag_ = shaderTag;
 	drawPriority_ = drawPriority;
@@ -64,17 +62,17 @@ void ScoreDrawer::Update()
 		uiNum_->SetAnimationStatus(i, digitAnimeStatuses_[i]);
 	}
 	uiNum_->Update();
-	uiBackNum_->Update();
 
 	if (reelTim_.IsEnd())
 	{
 		elderScore_ = currentScore_;
 	}
+
+	UpdateDigitColor();
 }
 
 void ScoreDrawer::Draw()
 {
-	uiBackNum_->Draw(shaderTag_, drawPriority_);
 	uiNum_->Draw(shaderTag_, drawPriority_);
 }
 
@@ -86,4 +84,23 @@ void ScoreDrawer::ChangeScoreAnimation(const uint32_t score)
 	}
 
 	currentScore_ = score;
+}
+
+void ScoreDrawer::UpdateDigitColor()
+{
+	uint32_t num = scoreForAnimation_;
+
+	for (size_t i = 0; i < uiColors_.size(); i++)
+	{
+		if (num <= 0 && 0 < i)
+		{
+			uiColors_[i]->data_.baseColor = { 0.5f,0.5f,0.5f,0.5f };
+		}
+		else
+		{
+			uiColors_[i]->data_.baseColor = { 1.0f,1.0f,1.0f,1.0f };
+		}
+		
+		num /= 10;
+	}
 }

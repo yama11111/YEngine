@@ -42,6 +42,9 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 		// ぶっ飛ぶ
 		blowTim_.Reset(true);
 
+		// ダメージを受ける
+		status_.Damage(info.pStatus->Attack(), true);
+
 		// 被弾
 		Hit(info.pStatus->Attack(), false);
 	}

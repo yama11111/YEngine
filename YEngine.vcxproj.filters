@@ -606,6 +606,15 @@
     <ClCompile Include="Application\Game\Drawer\ShockWaveEmitter.cpp">
       <Filter>Application\Game\Drawer\Emitter</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\Chara\NeedleAttack.cpp">
+      <Filter>Application\Game\Chara\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\NeedleAttackDrawer.cpp">
+      <Filter>Application\Game\Drawer\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Particle\WaveParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -1066,6 +1075,15 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\ShockWaveEmitter.h">
       <Filter>Application\Game\Drawer\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\NeedleAttack.h">
+      <Filter>Application\Game\Chara\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\NeedleAttackDrawer.h">
+      <Filter>Application\Game\Drawer\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Particle\WaveParticle.h">
+      <Filter>Application\Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

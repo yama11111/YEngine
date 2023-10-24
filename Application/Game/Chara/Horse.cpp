@@ -3,7 +3,7 @@
 #include "CharacterConfig.h"
 #include "AnimationConfig.h"
 #include "CharacterManager.h"
-#include "SnortAttack.h"
+#include "NeedleAttack.h"
 
 #include "CollisionDrawer.h"
 #include "PrimitiveCollider.h"
@@ -94,15 +94,15 @@ void Horse::Jump(const bool isJumpCount)
 void Horse::Attack()
 {
 	// 攻撃新規生成
-	SnortAttack* newAttack = new SnortAttack();
+	NeedleAttack* newAttack = new NeedleAttack();
 
 	newAttack->Initialize(
-		SnortAttackConfig::kAliveTime,
-		transform_->pos_,
-		SnortAttackConfig::kAcceleration,
-		SnortAttackConfig::kMaxSpeed,
-		SnortAttackConfig::kRadius,
-		SnortAttackConfig::kPower
+		NeedleAttackConfig::kAliveTime,
+		transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
+		NeedleAttackConfig::kAcceleration,
+		NeedleAttackConfig::kMaxSpeed,
+		NeedleAttackConfig::kRadius,
+		NeedleAttackConfig::kPower
 	);
 
 	CharacterManager::GetInstance()->PushBack(newAttack);

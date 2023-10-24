@@ -114,6 +114,14 @@ namespace YGame
 		virtual void InsertConstBuffer(BaseConstBuffer* pCB) = 0;
 
 		/// <summary>
+		/// 桁ごとの定数バッファポインタ挿入 
+		/// (同じ種類の定数バッファが来たら入れ替える)
+		/// </summary>
+		/// <param name="digitIndex"> : 桁番号</param>
+		/// <param name="pCBuff"> : 定数バッファポインタ</param>
+		virtual void InsertConstBuffer(const size_t digitIndex, BaseConstBuffer* pCB) = 0;
+
+		/// <summary>
 		/// 数字設定
 		/// </summary>
 		/// <param name="num"> : 数字</param>

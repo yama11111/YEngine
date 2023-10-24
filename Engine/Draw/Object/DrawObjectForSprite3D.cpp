@@ -72,8 +72,6 @@ void DrawObjectForSprite3D::SetBillboardFrag(const bool isXAxisBillboard, const 
 
 void DrawObjectForSprite3D::SetViewProjection(ViewProjection* pVP)
 {
-	assert(pVP);
-
 	pVP_ = pVP;
 }
 
