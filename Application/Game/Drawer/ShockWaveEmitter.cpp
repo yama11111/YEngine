@@ -67,6 +67,8 @@ void ShockWaveEmitter::ShockWave::Initialize(ViewProjection* pVP)
 	else
 	{
 		obj_->Initialize();
+		obj_->SetViewProjection(pVP);
+		obj_->SetSprite3D(pSpr);
 	}
 
 	if (cbColor_ == nullptr)
@@ -89,7 +91,6 @@ void ShockWaveEmitter::ShockWave::Reset()
 	obj_->transform_.rota_.x_ = kPI / 2.0f;
 
 	cbColor_->data_.baseColor = YGame::ColorConfig::skYellow;
-	cbColor_->data_.baseColor.a_ = 0.0f;
 
 	isAct_ = false;
 

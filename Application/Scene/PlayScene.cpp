@@ -270,7 +270,7 @@ void PlayScene::Update()
 	pCharacterMan_->DrawDebugText();
 
 	// リセット
-	if (isReset || spKeys_->IsTrigger(DIK_R) || spPad_->IsTrigger(PadButton::XIP_DOWN))
+	if (isReset || spKeys_->IsTrigger(DIK_R))
 	{
 		SceneManager::GetInstance()->Transition("PLAY", "WAVE_REV");
 	}

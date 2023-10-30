@@ -14,6 +14,7 @@ using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
 using YInput::PadButton;
+using YInput::PadStick;
 
 void PauseManager::Initialize()
 {
@@ -97,7 +98,7 @@ void PauseManager::ChangeSelect()
 {
 	// 選択切り替え
 	if (Keys::GetInstance()->IsTrigger(DIK_W) || Keys::GetInstance()->IsTrigger(DIK_UP) ||
-		Pad::GetInstance()->IsTrigger(PadButton::XIP_UP))
+		Pad::GetInstance()->IsTrigger(PadButton::XIP_UP)/* || Pad::GetInstance()->IsUp(PadStick::LStick)*/)
 	{
 		if (current_ == PauseDrawer::Selection::Resume)
 		{
@@ -114,7 +115,7 @@ void PauseManager::ChangeSelect()
 	}
 
 	if (Keys::GetInstance()->IsTrigger(DIK_S) || Keys::GetInstance()->IsTrigger(DIK_DOWN) ||
-		Pad::GetInstance()->IsTrigger(PadButton::XIP_DOWN))
+		Pad::GetInstance()->IsTrigger(PadButton::XIP_DOWN)/* || Pad::GetInstance()->IsUnder(PadStick::LStick)*/)
 	{
 		if (current_ == PauseDrawer::Selection::Resume)
 		{

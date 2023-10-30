@@ -69,11 +69,17 @@ void SelectScene::Update()
 
 	if (isStarted_)
 	{
-		if (spKeys_->IsTrigger(DIK_LEFT) || spKeys_->IsTrigger(DIK_A))
+		if (spKeys_->IsTrigger(DIK_LEFT) || spKeys_->IsTrigger(DIK_A) ||
+			spKeys_->IsTrigger(DIK_DOWN) || spKeys_->IsTrigger(DIK_S) ||
+			spPad_->IsTrigger(PadButton::XIP_LEFT)/* || spPad_->IsLeft(PadStick::LStick)*/ ||
+			spPad_->IsTrigger(PadButton::XIP_DOWN)/* || spPad_->IsUnder(PadStick::LStick)*/)
 		{
 			stageIndex_--;
 		}
-		if (spKeys_->IsTrigger(DIK_RIGHT) || spKeys_->IsTrigger(DIK_D))
+		if (spKeys_->IsTrigger(DIK_RIGHT) || spKeys_->IsTrigger(DIK_D) ||
+			spKeys_->IsTrigger(DIK_UP) || spKeys_->IsTrigger(DIK_W) ||
+			spPad_->IsTrigger(PadButton::XIP_RIGHT)/* || spPad_->IsRight(PadStick::LStick)*/ ||
+			spPad_->IsTrigger(PadButton::XIP_UP)/* || spPad_->IsUp(PadStick::LStick)*/)
 		{
 			stageIndex_++;
 		}
@@ -103,7 +109,7 @@ void SelectScene::Update()
 	}
 
 	// ESC でタイトルに戻る
-	if (spKeys_->IsTrigger(DIK_ESCAPE))
+	if (spKeys_->IsTrigger(DIK_ESCAPE) || spPad_->IsTrigger(PadButton::XIP_MENU))
 	{
 		SceneManager::GetInstance()->Transition("TITLE", "WAVE_REV");
 	}

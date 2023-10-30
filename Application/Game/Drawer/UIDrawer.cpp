@@ -29,10 +29,10 @@ namespace
 void UIDrawer::LoadResource()
 {
 	pButtonASpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png") } });
-	//pButtonXSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_X.png") } });
+	pButtonXSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_X.png") } });
 
 	pJumpSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/jump.png") } });
-	//pAttackSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/jump.png") } });
+	pAttackSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/attack.png") } });
 
 	pKeys = Keys::GetInstance();
 	pPad = Pad::GetInstance();
@@ -67,22 +67,22 @@ void UIDrawer::Initialize()
 
 	// 攻撃
 	{
-		//Transform::Status uiStatus;
+		Transform::Status uiStatus;
 
-		//uiStatus.scale_ = { 1.0f,1.0f,1.0f };
-		//uiStatus.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) + Vector3(-160.0f, -160.0f, 0.0f);
+		uiStatus.scale_ = { 1.0f,1.0f,1.0f };
+		uiStatus.pos_ = Vector3(0.0f, WinSize.y_, 0.0f) + Vector3(+160.0f, -160.0f, 0.0f);
 
-		//uiAttack_.reset(DrawObjectForSprite2D::Create(uiStatus, pAttackSpr_));
+		uiAttack_.reset(DrawObjectForSprite2D::Create(uiStatus, pAttackSpr_));
 
 
-		//Transform::Status buttonStatus;
+		Transform::Status buttonStatus;
 
-		//buttonStatus.scale_ = uiStatus.scale_;
+		buttonStatus.scale_ = uiStatus.scale_;
 
-		//float height = 64.0f * uiStatus.scale_.y_ + 24.0f * buttonStatus.scale_.y_;
-		//buttonStatus.pos_ = uiStatus.pos_ + Vector3(0.0f, +height, 0.0f);
+		float height = 64.0f * uiStatus.scale_.y_ + 24.0f * buttonStatus.scale_.y_;
+		buttonStatus.pos_ = uiStatus.pos_ + Vector3(0.0f, +height, 0.0f);
 
-		//buttonAttack_.reset(UIButton::Create(DrawObjectForSprite2D::Create(buttonStatus, pButtonXSpr_)));
+		buttonAttack_.reset(UIButton::Create(DrawObjectForSprite2D::Create(buttonStatus, pButtonXSpr_)));
 	}
 
 	// スコア
@@ -104,9 +104,9 @@ void UIDrawer::Update()
 	buttonJump_->Update(isJump);
 	uiJump_->Update();
 
-	//bool isAttack = (pKeys->IsDown(DIK_RETURN) || pPad->IsDown(PadButton::XIP_X));
-	//buttonAttack_->Update(isAttack);
-	//uiAttack_->Update();
+	bool isAttack = (pKeys->IsDown(DIK_RETURN) || pPad->IsDown(PadButton::XIP_X));
+	buttonAttack_->Update(isAttack);
+	uiAttack_->Update();
 
 	scoreTrfm_.UpdateMatrix();
 	scoreDra_->ChangeScoreAnimation(ScoreManager::GetInstance()->ScoreInCurrentStage());
@@ -123,8 +123,10 @@ void UIDrawer::Draw()
 	letterBox_->Draw(kShaderTag, 2);
 	
 	uiJump_->Draw(kShaderTag, 2);
-
 	buttonJump_->Draw(kShaderTag, 2);
+
+	uiAttack_->Draw(kShaderTag, 2);
+	buttonAttack_->Draw(kShaderTag, 2);
 
 	scoreDra_->Draw();
 }
