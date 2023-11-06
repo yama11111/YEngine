@@ -9,9 +9,6 @@
 #include "Slime.h"
 #include "Coin.h"
 
-#include "DamageEmitter.h"
-#include "ShockWaveEmitter.h"
-
 #include "ScoreManager.h"
 #include "StageManager.h"
 
@@ -188,9 +185,6 @@ void PlayScene::Initialize()
 		}
 	}
 
-	DamageEmitter::Initialize(&transferVP_);
-	ShockWaveEmitter::Initialize(&transferVP_);
-
 	pScoreManager_ = ScoreManager::GetInstance();
 	pScoreManager_->Initialize();
 
@@ -258,9 +252,6 @@ void PlayScene::Update()
 		// 開始演出中更新しない
 		pCharacterMan_->Update(isStart_);
 
-		DamageEmitter::Update();
-		ShockWaveEmitter::Update();
-
 		scrollCamera_.Update({ cameraOffset_.InOut(startTimer_.Ratio(), 0.4f) });
 		transferVP_ = scrollCamera_.GetViewProjection();
 	}
@@ -289,9 +280,6 @@ void PlayScene::Draw()
 	pMapChipManager_->Draw();
 
 	pCharacterMan_->Draw();
-
-	DamageEmitter::Draw();
-	ShockWaveEmitter::Draw();
 
 	uiDra_.Draw();
 

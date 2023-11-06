@@ -77,8 +77,15 @@ namespace YGame
 			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
+		/// トランスフォーム初期化
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		virtual void InitializeTransform(const Transform::Status& status = {}) = 0;
+
+		/// <summary>
 		/// 更新
 		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
 		virtual void Update(const Transform::Status& status = {}) = 0;
 
 		/// <summary>
@@ -108,6 +115,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="offset"> : オフセット値</param>
 		virtual void SetOffset(const YMath::Vector3& offset) = 0;
+
+		/// <summary>
+		/// ビュープロジェクション設定
+		/// </summary>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		virtual void SetViewProjection(ViewProjection* pVP) = 0;
 
 	public:
 

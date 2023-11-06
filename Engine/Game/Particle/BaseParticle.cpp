@@ -13,7 +13,10 @@ void BaseParticle::Initialize(
 
 	aliveTimer_.Initialize(aliveFrame, true);
 
-	obj_->Initialize(status);
+	if (obj_) 
+	{
+		obj_->Initialize(status); 
+	}
 
 	shaderTag_ = shaderTag;
 
@@ -31,7 +34,10 @@ void BaseParticle::UpdateLife()
 	{
 		isAlive_ = false; 
 
-		obj_->SetIsVisible(false);
+		if (obj_) 
+		{
+			obj_->SetIsVisible(false); 
+		}
 	}
 }
 
@@ -39,7 +45,10 @@ void BaseParticle::Draw()
 {
 	if (isAlive_ == false) { return; }
 
-	obj_->Draw(shaderTag_, drawPriority_);
+	if (obj_)
+	{
+		obj_->Draw(shaderTag_, drawPriority_);
+	}
 }
 
 void BaseParticle::SetObject(BaseDrawObject* obj)

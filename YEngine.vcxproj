@@ -124,10 +124,9 @@
     <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\NeedleAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\SelectDrawer.cpp" />
-    <ClCompile Include="Application\Game\Drawer\ShockWaveEmitter.cpp" />
     <ClCompile Include="Application\Game\Drawer\StageDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\StageStatusDrawer.cpp" />
-    <ClCompile Include="Application\Game\Drawer\DamageEmitter.cpp" />
+    <ClCompile Include="Application\Game\Particle\DamageParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\DebriParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\DustParticle.cpp" />
     <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp" />
@@ -258,10 +257,9 @@
     <ClInclude Include="Application\Game\Drawer\ColorConfig.h" />
     <ClInclude Include="Application\Game\Drawer\NeedleAttackDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\SelectDrawer.h" />
-    <ClInclude Include="Application\Game\Drawer\ShockWaveEmitter.h" />
     <ClInclude Include="Application\Game\Drawer\StageDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\StageStatusDrawer.h" />
-    <ClInclude Include="Application\Game\Drawer\DamageEmitter.h" />
+    <ClInclude Include="Application\Game\Particle\DamageParticle.h" />
     <ClInclude Include="Application\Game\Particle\DebriParticle.h" />
     <ClInclude Include="Application\Game\Particle\DustParticle.h" />
     <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h" />

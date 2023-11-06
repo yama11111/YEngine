@@ -17,6 +17,7 @@
 #include "DustParticle.h"
 #include "DebriParticle.h"
 #include "WaveParticle.h"
+#include "DamageParticle.h"
 
 #include "BlackoutTransition.h"
 #include "WindBlocks.h"
@@ -36,8 +37,6 @@
 #include "SkydomeDrawer.h"
 #include "AxisDrawer.h"
 #include "CollisionDrawer.h"
-
-#include "ShockWaveEmitter.h"
 
 #include "TitleDrawer.h"
 #include "SelectDrawer.h"
@@ -64,15 +63,15 @@ bool MyGame::Initialize()
 {
 	if (YFramework::Initialize() == false) { return false; }
 
+	LoadMapData();
+
+	LoadDrawer();
+
 	InitializePipelines();
 
 	InitializeParticles();
 
 	InitializeTransition();
-
-	LoadMapData();
-
-	LoadDrawer();
 
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
@@ -369,6 +368,8 @@ void MyGame::InitializeParticles()
 	DebriParticle::StaticInitialize();
 	
 	WaveParticle::StaticInitialize();
+
+	DamageParticle::StaticInitialize();
 }
 
 void MyGame::InitializeTransition()
@@ -440,9 +441,6 @@ void MyGame::LoadDrawer()
 		AxisDrawer::LoadResource();
 
 		CollisionDrawer::LoadResource();
-
-
-		ShockWaveEmitter::LoadResource();
 	}
 
 	// Scene

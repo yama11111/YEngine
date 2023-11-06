@@ -1,6 +1,7 @@
 #include "UINumber.h"
 #include "UIDigit.h"
 #include "Transform.h"
+#include "MathVector.h"
 #include <cassert>
 #include <vector>
 #include <memory>
@@ -47,6 +48,9 @@ namespace YGame
 			ViewProjection* pVP,
 			const bool isClearWhenTransition = true) override;
 
+		// トランスフォーム初期化
+		void InitializeTransform(const Transform::Status& status = {}) override;
+
 		// 更新
 		void Update(const Transform::Status& status = {}) override;
 
@@ -79,6 +83,9 @@ namespace YGame
 
 		// アニメーション更新
 		void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) override;
+
+		// ビュープロジェクション設定
+		void SetViewProjection(ViewProjection* pVP) override;
 
 	public:
 
@@ -120,6 +127,15 @@ namespace YGame
 		// スプライトタイプ
 		SpriteType type_ = SpriteType::eNone;
 
+		// X軸ビルボードフラグ
+		bool isXBillboard_ = false;
+
+		// Y軸ビルボードフラグ
+		bool isYBillboard_ = false;
+
+		// ビュープロジェクションポインタ
+		ViewProjection* pVP_ = nullptr;
+
 		// 遷移時クリアフラグ
 		bool isClearWhenTransition_ = false;
 
@@ -145,8 +161,6 @@ namespace YGame
 		YMath::Matrix4* pParent,
 		const bool isClearWhenTransition)
 	{
-		assert(pParent);
-
 		transform_.Initialize();
 
 		transform_.parent_ = pParent;
@@ -191,8 +205,6 @@ namespace YGame
 		ViewProjection* pVP, 
 		const bool isClearWhenTransition)
 	{
-		assert(pParent);
-
 		transform_.Initialize();
 
 		transform_.parent_ = pParent;
@@ -205,7 +217,7 @@ namespace YGame
 			{
 				digits_.emplace_back();
 				digits_[i].ui.reset(UIDigit::Create3D(
-					0, &transform_.m_, isXAxisBillboard, isYAxisBillboard, pVP, {}, isClearWhenTransition));
+					0, &transform_.m_, false, false, pVP, {}, isClearWhenTransition));
 				digits_[i].animeStatus = {};
 			}
 		}
@@ -214,7 +226,7 @@ namespace YGame
 			for (size_t i = 0; i < digits_.size(); i++)
 			{
 				digits_[i].ui->Initialize3D(
-					0, &transform_.m_, isXAxisBillboard, isYAxisBillboard, pVP, {}, isClearWhenTransition);
+					0, &transform_.m_, false, false, pVP, {}, isClearWhenTransition);
 				digits_[i].animeStatus = {};
 			}
 		}
@@ -225,12 +237,33 @@ namespace YGame
 		SetAdjustCenter(shouldAdjustCenter);
 		SetSpriteType(SpriteType::e3D);
 
+		isXBillboard_ = isXAxisBillboard;
+		isYBillboard_ = isYAxisBillboard;
+
+		SetViewProjection(pVP);
+
 		isClearWhenTransition_ = isClearWhenTransition;
+	}
+
+	void impl_UINumber::InitializeTransform(const Transform::Status& status)
+	{
+		transform_.Initialize(status);
 	}
 
 	void impl_UINumber::Update(const Transform::Status& status)
 	{
-		transform_.UpdateMatrix(status);
+		if (type_ == SpriteType::e2D)
+		{
+			transform_.UpdateMatrix(status);
+		}
+		else if (type_ == SpriteType::e3D)
+		{
+			assert(pVP_);
+
+			YMath::Matrix4 billMat = 
+				YMath::MatBillboard(isXBillboard_, isYBillboard_, pVP_->eye_, pVP_->target_, pVP_->up_);
+			transform_.UpdateMatrix(status, billMat);
+		}
 
 		for (size_t i = 0; i < digits_.size(); i++)
 		{
@@ -306,6 +339,16 @@ namespace YGame
 		assert(0 <= digitIndex && digitIndex < digits_.size());
 
 		digits_[digitIndex].animeStatus = status;
+	}
+
+	void impl_UINumber::SetViewProjection(ViewProjection* pVP)
+	{
+		pVP_ = pVP;
+
+		for (size_t i = 0; i < digits_.size(); i++)
+		{
+			digits_[i].ui->SetViewProjection(pVP);
+		}
 	}
 
 	void impl_UINumber::SetDigitNumber()

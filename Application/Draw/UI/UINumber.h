@@ -93,6 +93,12 @@ namespace YGame
 			const bool isClearWhenTransition = true) = 0;
 
 		/// <summary>
+		/// トランスフォーム初期化
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		virtual void InitializeTransform(const Transform::Status& status = {}) = 0;
+
+		/// <summary>
 		/// 更新
 		/// </summary>
 		virtual void Update(const Transform::Status& status = {}) = 0;
@@ -158,6 +164,12 @@ namespace YGame
 		/// <param name="digitIndex"> : 桁番号</param>
 		/// <param name="status"> : アニメーションステータス</param>
 		virtual void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) = 0;
+
+		/// <summary>
+		/// ビュープロジェクション設定
+		/// </summary>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		virtual void SetViewProjection(ViewProjection* pVP) = 0;
 
 	public:
 

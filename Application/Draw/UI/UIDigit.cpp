@@ -56,6 +56,9 @@ namespace YGame
 			const YMath::Vector3& offset = {},
 			const bool isClearWhenTransition = true) override;
 
+		// トランスフォーム初期化
+		void InitializeTransform(const Transform::Status& status = {}) override;
+
 		// 更新
 		void Update(const Transform::Status& status = {}) override;
 
@@ -70,6 +73,9 @@ namespace YGame
 		
 		// オフセット設定
 		void SetOffset(const YMath::Vector3& offset) override;
+
+		// ビュープロジェクション設定
+		void SetViewProjection(ViewProjection* pVP) override;
 
 		// スプライト種類設定
 		void SetSpriteType(const SpriteType& type) { type_ = type; }
@@ -104,8 +110,6 @@ namespace YGame
 		const YMath::Vector3& offset, 
 		const bool isClearWhenTransition)
 	{
-		assert(pParent);
-
 		Transform::Status status = Transform::Status::Default();
 
 		if (objs_.contains(SpriteType::e2D) == false ||
@@ -151,8 +155,6 @@ namespace YGame
 		const YMath::Vector3& offset, 
 		const bool isClearWhenTransition)
 	{
-		assert(pParent);
-
 		Transform::Status status = Transform::Status::Default();
 
 		if (objs_.contains(SpriteType::e3D) == false ||
@@ -198,6 +200,11 @@ namespace YGame
 		isClearWhenTransition_ = isClearWhenTransition;
 	}
 
+	void impl_UIDigit::InitializeTransform(const Transform::Status& status)
+	{
+		objs_[type_]->Initialize(status);
+	}
+
 	void impl_UIDigit::Update(const Transform::Status& status)
 	{
 		Transform::Status s = status;
@@ -233,6 +240,14 @@ namespace YGame
 	void impl_UIDigit::SetOffset(const YMath::Vector3& offset)
 	{
 		offset_ = offset;
+	}
+	
+	void impl_UIDigit::SetViewProjection(ViewProjection* pVP)
+	{
+		if (type_ == SpriteType::e3D)
+		{
+			static_cast<DrawObjectForSprite3D*>(objs_[type_].get())->SetViewProjection(pVP);
+		}
 	}
 }
 

@@ -7,8 +7,8 @@
 #include "Def.h"
 #include <cmath>
 
-#include "DamageEmitter.h"
-#include "ShockWaveEmitter.h"
+#include "DamageParticle.h"
+#include "WaveParticle.h"
 
 using YGame::SlimeDrawer;
 using YGame::Model;
@@ -148,7 +148,7 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 {
 	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
 
-	DamageEmitter::Emit(pParent_->pos_, damage);
+	DamageParticle::Emit(damage, pParent_->pos_, spVP_);
 
 	if (isStepOn)
 	{
@@ -167,6 +167,6 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 		Vector3 pos = pParent_->pos_;
 		pos.y_ += pParent_->scale_.y_;
 
-		ShockWaveEmitter::Emit(pos);
+		WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, spVP_);
 	}
 }

@@ -21,7 +21,7 @@ namespace YGame
 		/// <summary>
 		/// 描画
 		/// </summary>
-		void Draw();
+		virtual void Draw();
 
 		/// <summary>
 		/// 生存フラグ取得

@@ -211,9 +211,6 @@
     <Filter Include="Application\Game\Drawer\UI">
       <UniqueIdentifier>{917ed4d4-32fd-4186-a28d-53500bf1aeb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Drawer\Emitter">
-      <UniqueIdentifier>{14b56157-9f6e-4ddc-9516-1acb195db30d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -585,12 +582,6 @@
     <ClCompile Include="Application\Game\Drawer\UIDrawer.cpp">
       <Filter>Application\Game\Drawer\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\DamageEmitter.cpp">
-      <Filter>Application\Game\Drawer\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\ShockWaveEmitter.cpp">
-      <Filter>Application\Game\Drawer\Emitter</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Chara\NeedleAttack.cpp">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClCompile>
@@ -598,6 +589,9 @@
       <Filter>Application\Game\Drawer\Attack</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Particle\WaveParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Particle\DamageParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1040,12 +1034,6 @@
     <ClInclude Include="Application\Game\Drawer\UIDrawer.h">
       <Filter>Application\Game\Drawer\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\DamageEmitter.h">
-      <Filter>Application\Game\Drawer\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\ShockWaveEmitter.h">
-      <Filter>Application\Game\Drawer\Emitter</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Chara\NeedleAttack.h">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClInclude>
@@ -1057,6 +1045,9 @@
     </ClInclude>
     <ClInclude Include="Application\ConstBuffer\CBOutline.h">
       <Filter>Application\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Particle\DamageParticle.h">
+      <Filter>Application\Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
