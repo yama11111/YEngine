@@ -4,28 +4,13 @@
 
 using YGame::GameCollider;
 using YMath::BasePrimitiveCollider;
+using YMath::SphereCollider;
+using YMath::Box2DCollider;
 using YMath::Vector3;
 
-GameCollider::GameCollider(
-	Transform* pParent, 
-	const AttributeType attribute, const AttributeType mask,
-	const bool isSlip) :
-	pParent_(pParent), attribute_(attribute), mask_(mask), isSlip_(isSlip)
+void GameCollider::Initialize()
 {
-	colliders_.clear();
-}
-
-void GameCollider::Initialize(
-	Transform* pParent, 
-	const AttributeType attribute, const AttributeType mask, 
-	const bool isSlip, const bool isClear)
-{
-	pParent_ = pParent;
-	attribute_ = attribute;
-	mask_ = mask;
-	isSlip_ = isSlip;
-
-	if (isClear && colliders_.empty() == false)
+	if (colliders_.empty() == false)
 	{
 		colliders_.clear();
 	}
@@ -34,46 +19,45 @@ void GameCollider::Initialize(
 bool GameCollider::CheckCollision(GameCollider* pOther)
 {
 	if (pOther == nullptr) { return false; }
-
-	// どちらかすり抜けるなら弾く
+	
 	if (isSlip_ || pOther->IsSlip()) { return false; }
 
-	// 属性とマスク一致しないなら弾く
-	if ((static_cast<uint32_t>(attribute_) & static_cast<uint32_t>(pOther->Mask())) == 0 ||
-		(static_cast<uint32_t>(pOther->Attribute()) & static_cast<uint32_t>(mask_)) == 0)
-	{
-		return false;
-	}
+	// 当たった回数をカウント → 1以上ならアタリ
+	uint32_t collCounter = 0;
 
 	// 互いに全部位チェック
-	for (std::unique_ptr<BasePrimitiveCollider>& colliderA : colliders_)
+	for (std::unique_ptr<ColliderSet>& colliderA : colliders_)
 	{
-		for (const std::unique_ptr<BasePrimitiveCollider>& colliderB : pOther->Colliders())
+		for (const std::unique_ptr<ColliderSet>& colliderB : pOther->Colliders())
 		{
-			// 1つでも当たったらtrue
-			if (colliderA->CheckCollision(*colliderB))
+			// 属性とマスク一致しないなら弾く
+			if ((static_cast<uint32_t>(colliderA->attribute) & static_cast<uint32_t>(colliderB->mask)) == 0 ||
+				(static_cast<uint32_t>(colliderB->attribute) & static_cast<uint32_t>(colliderA->mask)) == 0)
 			{
-				return true;
+				continue;
+			}
+			
+			if (colliderA->collider->CheckCollision(*colliderB->collider))
+			{
+				collCounter += 1;
 			}
 		}
 	}
 
-	return false;
+	return (0 < collCounter);
 }
 
-void GameCollider::PushBack(BasePrimitiveCollider* collider)
+void GameCollider::PushBack(const AttributeType attribute, const AttributeType mask, YMath::BasePrimitiveCollider* collider)
 {
-	std::unique_ptr<BasePrimitiveCollider> newCollider;
+	assert(collider);
+
+	std::unique_ptr<ColliderSet> colliderSet = std::make_unique<ColliderSet>();
 	
-	newCollider.reset(collider);
+	colliderSet->mask = mask;
+	colliderSet->attribute = attribute;
+	colliderSet->collider.reset(collider);
 
-	if (pParent_)
-	{
-		// 追従点挿入
-		newCollider->SetFollowPoint(&pParent_->pos_);
-	}
-
-	colliders_.push_back(std::move(newCollider));
+	colliders_.push_back(std::move(colliderSet));
 }
 
 void GameCollider::DrawDebugTextContent()

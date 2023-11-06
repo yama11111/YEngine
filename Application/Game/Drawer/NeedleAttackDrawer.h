@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "SlimeActor.h"
 #include "Ease.h"
+#include "CBOutline.h"
 
 namespace YGame
 {
@@ -50,6 +51,9 @@ namespace YGame
 		~NeedleAttackDrawer() = default;
 
 	private:
+
+
+		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
 		// スライム
 		SlimeActor slimeActor_;

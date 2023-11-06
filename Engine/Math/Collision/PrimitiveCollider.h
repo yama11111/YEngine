@@ -16,19 +16,32 @@ namespace YMath
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="start"> ; 始点</param>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="direction"> : 向き</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(const Vector3& start, const Vector3& direction, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint, 
+			const Vector3& direction,
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
-		/// 初期化 (追従ver)
+		/// 初期化
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
 		/// <param name="direction"> : 向き</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const Vector3& direction, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint, 
+			Vector3* pVelocity,
+			const Vector3& direction,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 衝突判定
@@ -53,31 +66,41 @@ namespace YMath
 	
 	public:
 
-		RayCollider() = default;
+		RayCollider() = delete;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="start"> ; 始点</param>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="direction"> : 向き</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		RayCollider(const Vector3& start, const Vector3& direction, const bool isSlip = false);
+		RayCollider(
+			Vector3* pFollowPoint,
+			const Vector3& direction,
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
-		/// コンストラクタ (追従ver)
+		/// コンストラクタ
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
 		/// <param name="direction"> : 向き</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		RayCollider(Vector3* pFollowPoint, const Vector3& offset, const Vector3& direction, const bool isSlip = false);
+		RayCollider(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const Vector3& direction,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		virtual ~RayCollider() = default;
 
 	protected:
-
-		// 初期位置
-		Vector3 start_ = { 0,0,0 };
 
 		// 方向
 		Vector3 direction_ = { 1,0,0 };
@@ -105,10 +128,40 @@ namespace YMath
 		/// <summary>
 		/// 初期化
 		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="normal"> : 法線</param>
 		/// <param name="distance"> : 距離</param>
+		/// <param name="rectangle"> : 縦横サイズ</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(const Vector3& normal, const float distance, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint,
+			const Vector3& normal, 
+			const float distance, 
+			const Vector2& rectangle, 
+			const Vector3& offset = {},
+			const bool isSlip = false);
+
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
+		/// <param name="normal"> : 法線</param>
+		/// <param name="distance"> : 距離</param>
+		/// <param name="rectangle"> : 縦横サイズ</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
+		/// <param name="isSlip"> : すり抜けフラグ</param>
+		void Initialize(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const Vector3& normal, 
+			const float distance, 
+			const Vector2& rectangle, 
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 衝突判定
@@ -133,15 +186,46 @@ namespace YMath
 	
 	public:
 
-		PlaneCollider() = default;
+		PlaneCollider() = delete;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="normal"> : 法線</param>
 		/// <param name="distance"> : 距離</param>
+		/// <param name="rectangle"> : 縦横サイズ</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		PlaneCollider(const Vector3& normal, const float distance, const bool isSlip = false);
+		PlaneCollider(
+			Vector3* pFollowPoint,
+			const Vector3& normal,
+			const float distance,
+			const Vector2& rectangle,
+			const Vector3& offset = {},
+			const bool isSlip = false);
+
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
+		/// <param name="normal"> : 法線</param>
+		/// <param name="distance"> : 距離</param>
+		/// <param name="rectangle"> : 縦横サイズ</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
+		/// <param name="isSlip"> : すり抜けフラグ</param>
+		PlaneCollider(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const Vector3& normal,
+			const float distance,
+			const Vector2& rectangle,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
+
 
 		virtual ~PlaneCollider() = default;
 
@@ -152,6 +236,9 @@ namespace YMath
 
 		// 原点からの距離
 		float distance_ = 0.0f;
+
+		// 縦横サイズ
+		Vector2 rectangle_ = {};
 
 	protected:
 
@@ -172,18 +259,32 @@ namespace YMath
 		/// <summary>
 		/// 初期化
 		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="vertices"> : 頂点位置</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(const std::array<Vector3, 3>& vertices, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint, 
+			const std::array<Vector3, 3>& vertices, 
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
-		/// 初期化 (追従ver)
+		/// 初期化
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
 		/// <param name="vertices"> : 頂点位置</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const std::array<Vector3, 3>& vertices, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const std::array<Vector3, 3>& vertices,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 三角形法線の計算 (現在の3点から)
@@ -198,7 +299,6 @@ namespace YMath
 		bool CheckCollision(const BasePrimitiveCollider& other) const override;
 
 	public:
-
 		
 		/// <summary>
 		/// 三角形頂点位置
@@ -215,23 +315,37 @@ namespace YMath
 
 	public:
 
-		TriangleCollider() = default;
+		TriangleCollider() = delete;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="vertices"> : 頂点位置</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		TriangleCollider(const std::array<Vector3, 3>& vertices, const bool isSlip = false);
+		TriangleCollider(
+			Vector3* pFollowPoint,
+			const std::array<Vector3, 3>& vertices,
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
-		/// コンストラクタ (追従ver)
+		/// コンストラクタ
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
 		/// <param name="vertices"> : 頂点位置</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		TriangleCollider(Vector3* pFollowPoint, const Vector3& offset, const std::array<Vector3, 3>& vertices, const bool isSlip = false);
+		TriangleCollider(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const std::array<Vector3, 3>& vertices,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		virtual ~TriangleCollider() = default;
 
@@ -259,23 +373,36 @@ namespace YMath
 	{
 
 	public:
+		
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
+		/// <param name="radius"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isSlip"> : すり抜けフラグ</param>
+		void Initialize(
+			Vector3* pFollowPoint,
+			const float radius, 
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="center"> : 中心点</param>
-		/// <param name="radius"> : 半径</param>
-		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(const Vector3& center, const float radius, const bool isSlip = false);
-
-		/// <summary>
-		/// 初期化 (追従ver)
-		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
 		/// <param name="radius"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const float radius, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const float radius, 
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 		
 		/// <summary>
 		/// 衝突判定
@@ -300,32 +427,41 @@ namespace YMath
 
 	public:
 
-		SphereCollider() = default;
+		SphereCollider() = delete;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="center"> : 中心点</param>
+		/// <param name="pFollowPoint"> : 追従点</param>
 		/// <param name="radius"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		SphereCollider(const Vector3& center, const float radius, const bool isSlip = false);
+		SphereCollider(
+			Vector3* pFollowPoint,
+			const float radius,
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
-		/// コンストラクタ (追従ver)
+		/// コンストラクタ
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
 		/// <param name="radius"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		SphereCollider(Vector3* pFollowPoint, const Vector3& offset, const float radius, const bool isSlip = false);
-
+		SphereCollider(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const float radius,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		virtual ~SphereCollider() = default;
 
 	protected:
-
-		// 中心点
-		YMath::Vector3 center_ = { 0.0f,0.0f,0.0f };
 
 		// 半径
 		float radius_ = 0.0f;
@@ -352,23 +488,37 @@ namespace YMath
 	{
 
 	public:
+		
+		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="pFollowPoint"> : 追従点</param>
+		/// <param name="rectSize"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
+		/// <param name="isSlip"> : すり抜けフラグ</param>
+		void Initialize(
+			Vector3* pFollowPoint,
+			const Vector2& rectSize,
+			const Vector3& offset = {},
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="center"> : 中心点</param>
-		/// <param name="radSize"> : 半径</param>
-		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(const Vector2& center, const Vector2& radSize, const bool isSlip = false);
-		
-		/// <summary>
-		/// 初期化 (追従ver)
-		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
-		/// <param name="radSize"> : 半径</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
+		/// <param name="rectSize"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		void Initialize(Vector3* pFollowPoint, const Vector3& offset, const Vector2& radSize, const bool isSlip = false);
+		void Initialize(
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const Vector2& rectSize,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		/// <summary>
 		/// 衝突判定
@@ -389,38 +539,49 @@ namespace YMath
 		/// 半径
 		/// </summary>
 		/// <returns>半径</returns>
-		inline YMath::Vector2 RadSize() const { return radSize_; }
+		inline YMath::Vector2 RectSize() const { return rectSize_; }
 
 	public:
 
-		Box2DCollider() = default;
+		Box2DCollider() = delete;
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="center"> : 中心点</param>
-		/// <param name="radSize"> : 半径</param>
+		/// <param name="pFollowPoint"> : 追従点</param>
+		/// <param name="rectSize"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		Box2DCollider(const Vector2& center, const Vector2& radSize, const bool isSlip = false);
-		
+		Box2DCollider(	
+			Vector3* pFollowPoint,
+			const Vector2& rectSize,
+			const Vector3& offset = {},
+			const bool isSlip = false);
+
 		/// <summary>
-		/// コンストラクタ (追従ver)
+		/// コンストラクタ
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		/// <param name="offset"> : ずれ</param>
-		/// <param name="radSize"> : 半径</param>
+		/// <param name="pVelocity"> : 速度ベクトル</param>
+		/// <param name="rectSize"> : 半径</param>
+		/// <param name="offset"> : オフセット</param>
+		/// <param name="isPushBack"> : 押し戻しフラグ</param>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		Box2DCollider(Vector3* pFollowPoint, const Vector3& offset, const Vector2& radSize, const bool isSlip = false);
+		Box2DCollider(	
+			Vector3* pFollowPoint,
+			Vector3* pVelocity,
+			const Vector2& rectSize,
+			const Vector3& offset = {},
+			const bool isPushBack = false,
+			const bool isSlip = false);
 
 		virtual ~Box2DCollider() = default;
 
 	protected:
 
-		// 中心座標
-		YMath::Vector2 center_ = { 0.0f,0.0f };
-
 		// 半径
-		YMath::Vector2 radSize_ = { 0.0f,0.0f };
+		YMath::Vector2 rectSize_ = { 0.0f,0.0f };
 
 	protected:
 
@@ -432,7 +593,7 @@ namespace YMath
 
 	// 線 × 平面
 	static bool CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane);
-	static bool CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane, float& distance, YMath::Vector3& inter);
+	//static bool CollisionRayPlane(const RayCollider& ray, const PlaneCollider& plane, float& distance, YMath::Vector3& inter);
 
 	// 線 × 三角形
 	static bool CollisionRayTriangle(const RayCollider& ray, const TriangleCollider& triangle);

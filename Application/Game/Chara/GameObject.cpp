@@ -75,15 +75,7 @@ void GameObject::SetParent(GameObject* pParent)
 
 void GameObject::SetCollider(GameCollider* collider)
 {
-	// コライダークラス設定
 	collider_.reset(collider);
-
-	// null じゃないなら
-	if (collider_)
-	{
-		// コライダークラス親ポインタ設定
-		collider_->SetParent(transform_.get());
-	}
 }
 
 void GameObject::SetDrawer(BaseDrawer* drawer)
@@ -110,7 +102,7 @@ void GameObject::InsertSubDrawer(const std::string& tag, BaseDrawer* drawer)
 	newDrawer->SetParent(transform_.get());
 
 	// マップに挿入
-	subDrawer_.insert({ tag, std::move(newDrawer)});
+	subDrawer_.insert({ tag, std::move(newDrawer) });
 }
 
 void GameObject::DrawDebugTextContent()

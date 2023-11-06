@@ -189,7 +189,7 @@ void PauseDrawer::PropagateSelection(const size_t index)
 
 void PauseDrawer::Draw()
 {
-	curten_->Draw("Sprite2DDefault", 3);
+	curten_->Draw("Sprite2DDefault", 2);
 
 	border_->Draw("Sprite2DDefault", 2);
 

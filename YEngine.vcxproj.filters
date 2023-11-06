@@ -351,12 +351,6 @@
     <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp">
       <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Chara\SlashAttack.cpp">
-      <Filter>Application\Game\Chara\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Chara\SnortAttack.cpp">
-      <Filter>Application\Game\Chara\Attack</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp">
       <Filter>Application\Game\Drawer\Player</Filter>
     </ClCompile>
@@ -371,12 +365,6 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\GoalDrawer.cpp">
       <Filter>Application\Game\Drawer\etc</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\SlashAttackDrawer.cpp">
-      <Filter>Application\Game\Drawer\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\SnortAttackDrawer.cpp">
-      <Filter>Application\Game\Drawer\Attack</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\SlimeDrawer.cpp">
       <Filter>Application\Game\Drawer\Enemy</Filter>
@@ -523,9 +511,6 @@
       <Filter>Application\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Application\Scene\SelectScene.cpp">
-      <Filter>Application\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Scene\TestScene.cpp">
       <Filter>Application\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Application\Scene\TitleScene.cpp">
@@ -755,12 +740,6 @@
     <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h">
       <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Chara\SlashAttack.h">
-      <Filter>Application\Game\Chara\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Chara\SnortAttack.h">
-      <Filter>Application\Game\Chara\Attack</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
@@ -778,12 +757,6 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\HorseDrawer.h">
       <Filter>Application\Game\Drawer\Pet</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\SlashAttackDrawer.h">
-      <Filter>Application\Game\Drawer\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\SnortAttackDrawer.h">
-      <Filter>Application\Game\Drawer\Attack</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\SlimeDrawer.h">
       <Filter>Application\Game\Drawer\Enemy</Filter>
@@ -989,9 +962,6 @@
     <ClInclude Include="Application\Scene\SelectScene.h">
       <Filter>Application\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Scene\TestScene.h">
-      <Filter>Application\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Scene\TitleScene.h">
       <Filter>Application\Scene</Filter>
     </ClInclude>
@@ -1085,6 +1055,9 @@
     <ClInclude Include="Application\Game\Particle\WaveParticle.h">
       <Filter>Application\Game\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBOutline.h">
+      <Filter>Application\ConstBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Sprite3D.hlsli">
@@ -1106,6 +1079,9 @@
       <Filter>Application\Shader\Model</Filter>
     </None>
     <None Include=".editorconfig" />
+    <None Include="Resources\Shaders\Outline.hlsli">
+      <Filter>Application\Shader\Model</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
@@ -1170,6 +1146,12 @@
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Primitive3DPS.hlsl">
       <Filter>Application\Shader\Sprite3D</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OutlineVS.hlsl">
+      <Filter>Application\Shader\Model</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OutlinePS.hlsl">
+      <Filter>Application\Shader\Model</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "DebriParticle.h"
+#include "ColorConfig.h"
 #include "Def.h"
 #include <cmath>
 
@@ -46,42 +47,23 @@ void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
+	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.range = 0.2f;
+
+	InsertConstBuffer("Body_O", cbOutline_.get());
+
 	SetShaderTag("ModelToon");
+	SetShaderTag("Body_O", "ModelOutline");
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
 }
 
-void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
-{
-	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
-
-	DamageEmitter::Emit(pParent_->pos_, damage);
-	
-	if (isStepOn)
-	{
-		// ブヨブヨアニメ
-		// 潰れる
-		std::vector<Vector3> wobbleScaleValues;
-		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
-		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-
-		uint32_t wobbleFrame = animationTimers_[kHitIndex].timer.EndFrame();;
-
-		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
-		slimeActor_.Wobble();
-
-		Vector3 pos = pParent_->pos_;
-		pos.y_ += pParent_->scale_.y_;
-
-		ShockWaveEmitter::Emit(pos);
-	}
-}
-
 void SlimeDrawer::InitializeObjects()
 {
 	InsertObject("Body", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Body_O", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
 void SlimeDrawer::InitializeTimers()
@@ -160,4 +142,31 @@ void SlimeDrawer::UpdateAnimation()
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
+}
+
+void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
+{
+	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
+
+	DamageEmitter::Emit(pParent_->pos_, damage);
+
+	if (isStepOn)
+	{
+		// ブヨブヨアニメ
+		// 潰れる
+		std::vector<Vector3> wobbleScaleValues;
+		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
+		wobbleScaleValues.push_back(Vector3(+0.5f, -0.25f, +0.5f));
+		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
+
+		uint32_t wobbleFrame = animationTimers_[kHitIndex].timer.EndFrame();;
+
+		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		slimeActor_.Wobble();
+
+		Vector3 pos = pParent_->pos_;
+		pos.y_ += pParent_->scale_.y_;
+
+		ShockWaveEmitter::Emit(pos);
+	}
 }

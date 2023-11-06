@@ -2,6 +2,7 @@
 #include "BaseDrawer.h"
 #include "Ease.h"
 #include "SlimeActor.h"
+#include "CBOutline.h"
 
 namespace YGame
 {
@@ -51,6 +52,8 @@ namespace YGame
 		~CoinDrawer() = default;
 
 	private:
+
+		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
 		// 立ちアニメーション用
 		YMath::SplineEase<float> idlePosEas_;

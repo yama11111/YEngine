@@ -20,7 +20,7 @@ void CharacterManager::Update(const bool isUpdate)
 	for (std::unique_ptr<BaseCharacter>& character : characters_)
 	{
 		uint16_t priority = 0;
-		if (character->ColliderPtr()->Attribute() == AttributeType::ePet)
+		if (character->Attribute() == AttributeType::ePet)
 		{
 			priority = 1;
 		}

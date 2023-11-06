@@ -12,6 +12,7 @@
 #include <cassert>
 
 using YGame::Horse;
+using YMath::Vector2;
 using YMath::Vector3;
 
 void Horse::Initialize(const Transform::Status& status)
@@ -22,10 +23,21 @@ void Horse::Initialize(const Transform::Status& status)
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
 		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
 		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
-		new GameCollider(transform_.get(), AttributeType::ePet, AttributeType::eAll),
 		HorseDrawer::Create(nullptr, 1));
 
-	collider_->PushBack(new YMath::SphereCollider(Vector3(), PetConfig::kRadius));
+	transform_->Initialize();
+
+	{
+		attribute_ = AttributeType::ePet;
+
+		collider_->PushBack(
+			attribute_, AttributeType::eBlock,
+			new YMath::Box2DCollider(&transform_->pos_, speed_.VelocityPtr(), PetConfig::kRectSize, {}, true));
+
+		collider_->PushBack(
+			attribute_, AttributeType::eAll,
+			new YMath::SphereCollider(&transform_->pos_, PetConfig::kRadius));
+	}
 
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PetConfig::kRadius, 1));
 
@@ -59,7 +71,7 @@ YGame::BaseCharacter::CollisionInfo Horse::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute = collider_->Attribute();
+	result.attribute = attribute_;
 	result.pos		 = transform_->pos_;
 	result.radius	 = PetConfig::kRadius;
 	result.pStatus	 = &status_;

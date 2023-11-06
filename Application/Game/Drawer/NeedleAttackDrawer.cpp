@@ -1,5 +1,4 @@
 #include "NeedleAttackDrawer.h"
-#include "SlashAttackDrawer.h"
 #include "DrawObjectForModel.h"
 #include "Lerp.h"
 #include "WaveParticle.h"
@@ -37,7 +36,14 @@ void NeedleAttackDrawer::Initialize(Transform* pParent, const size_t drawPriorit
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
+	cbOutline_->data_.color = ColorConfig::skTurquoise[0];
+	cbOutline_->data_.range = 0.2f;
+
+	InsertConstBuffer("Attack_O", cbOutline_.get());
+
 	SetShaderTag("ModelToon");
+	SetShaderTag("Attack_O", "ModelOutline");
 
 	slimeActor_.Initialize(0, { {} }, 0);
 
@@ -52,6 +58,7 @@ void NeedleAttackDrawer::Initialize(Transform* pParent, const size_t drawPriorit
 void NeedleAttackDrawer::InitializeObjects()
 {
 	InsertObject("Attack", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Attack_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
 }
 
 void NeedleAttackDrawer::InitializeTimers()

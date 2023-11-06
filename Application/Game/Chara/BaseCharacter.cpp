@@ -14,7 +14,7 @@ void BaseCharacter::Initialize(
 	const Vector3& direction,
 	const Vector3& acceleration, const Vector3& maxSpeed,
 	const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
-	GameCollider* collider, BaseDrawer* drawer)
+	BaseDrawer* drawer)
 {
 	GameObject::Initialize(name, status);
 
@@ -24,7 +24,7 @@ void BaseCharacter::Initialize(
 
 	status_.Initialize(hp, attack, invincibleTime);
 
-	GameObject::SetCollider(collider);
+	GameObject::SetCollider(new GameCollider());
 	
 	GameObject::SetDrawer(drawer);
 

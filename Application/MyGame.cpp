@@ -12,6 +12,7 @@
 #include "CBLightGroup.h"
 #include "CBTexConfig.h"
 #include "CBTime.h"
+#include "CBOutline.h"
 
 #include "DustParticle.h"
 #include "DebriParticle.h"
@@ -29,8 +30,6 @@
 #include "SlimeDrawer.h"
 #include "CoinDrawer.h"
 #include "NeedleAttackDrawer.h"
-#include "SlashAttackDrawer.h"
-#include "SnortAttackDrawer.h"
 #include "BlockDrawer.h"
 #include "GoalDrawer.h"
 #include "CloudDrawer.h"
@@ -162,8 +161,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("OutlineVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("OutlinePS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		PipelineSetting setting = Model::GetPipelineSetting();
 		setting.cullMode = D3D12_CULL_MODE_FRONT;
@@ -173,7 +172,7 @@ void MyGame::InitializePipelines()
 				shader,
 				{
 					CBModelTransform::Tag(),
-					CBColor::Tag(),
+					CBOutline::Tag(),
 				},
 				{
 					"Texture0",
@@ -427,10 +426,6 @@ void MyGame::LoadDrawer()
 		SlimeDrawer::LoadResource();
 
 		NeedleAttackDrawer::LoadResource();
-		
-		SlashAttackDrawer::LoadResource();
-
-		SnortAttackDrawer::LoadResource();
 
 		CoinDrawer::LoadResource();
 

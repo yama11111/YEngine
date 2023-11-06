@@ -50,8 +50,20 @@ void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	SetShaderTag("ModelToon");
+	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
+	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Body_O", cbOutline_.get());
+	InsertConstBuffer("Leg_L_O", cbOutline_.get());
+	InsertConstBuffer("Leg_R_O", cbOutline_.get());
+
+	SetShaderTag("ModelToon");
+	
+	SetShaderTag("Body_O", "ModelOutline");
+	SetShaderTag("Leg_L_O", "ModelOutline");
+	SetShaderTag("Leg_R_O", "ModelOutline");
+	
 	slimeActor_.Initialize(0, { {} }, 0);
 	hitActor_.Initialize();
 }
@@ -61,6 +73,10 @@ void PlayerDrawer::InitializeObjects()
 	InsertObject("Body",	 DrawObjectForModel::Create({}, spVP_, pModels[0]));
 	InsertObject("Leg_L",	 DrawObjectForModel::Create({}, spVP_, pModels[1]));
 	InsertObject("Leg_R",	 DrawObjectForModel::Create({}, spVP_, pModels[2]));
+
+	InsertObject("Body_O", DrawObjectForModel::Create({}, spVP_, pModels[0]));
+	InsertObject("Leg_L_O", DrawObjectForModel::Create({}, spVP_, pModels[1]));
+	InsertObject("Leg_R_O", DrawObjectForModel::Create({}, spVP_, pModels[2]));
 }
 
 void PlayerDrawer::InitializeTimers()

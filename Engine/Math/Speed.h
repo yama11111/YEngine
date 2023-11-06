@@ -36,11 +36,14 @@ namespace YMath
 		// 最高速度
 		Vector3 Max() const { return max_; }
 		
-		// 速度取得 (参照渡し)
-		Vector3& VelocityRef() { return velocity_; }
-		
 		// 向き取得
 		Vector3 Direction() const { return velocity_.Normalized(); }
+		
+		// 速度取得 (参照渡し)
+		Vector3& VelocityRef() { return velocity_; }
+
+		// 速度取得 (ポインタ渡し)
+		Vector3* VelocityPtr() { return &velocity_; }
 	
 	public:
 

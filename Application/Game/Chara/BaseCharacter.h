@@ -24,7 +24,6 @@ namespace YGame
 		/// <param name="hp"> : HP</param>
 		/// <param name="attack"> : 攻撃力</param>
 		/// <param name="invincibleTime"> : 無敵時間</param>
-		/// <param name="collider"> : コライダー</param>
 		/// <param name="drawer"> : 描画クラス</param>
 		void Initialize(
 			const std::string& name,
@@ -32,7 +31,7 @@ namespace YGame
 			const YMath::Vector3& direction,
 			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
 			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
-			GameCollider* collider, BaseDrawer* drawer);
+			BaseDrawer* drawer);
 
 		/// <summary>
 		/// 更新
@@ -99,6 +98,12 @@ namespace YGame
 		/// <returns></returns>
 		inline YMath::Vector3& SpeedRef() override { return speed_.VelocityRef(); }
 
+		/// <summary>
+		/// 属性取得
+		/// </summary>
+		/// <returns>属性</returns>
+		inline AttributeType Attribute() const { return attribute_; }
+
 	public:
 
 		BaseCharacter() = default;
@@ -118,6 +123,9 @@ namespace YGame
 
 		// キャラクターステータス
 		CharacterStatus status_;
+
+		// 属性
+		AttributeType attribute_ = AttributeType::eNone;
 
 	protected:
 

@@ -24,14 +24,20 @@ void NeedleAttack::Initialize(
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
 		acceleration, maxSpeed,
 		1, attackPower, 0,
-		new GameCollider(transform_.get(), AttributeType::ePlayerAttack, AttributeType::eEnemy),
 		NeedleAttackDrawer::Create(nullptr, 3));
 
-	collider_->PushBack(new YMath::SphereCollider(Vector3(), radius));
+	transform_->scale_ = Vector3(radius, radius, radius);
+	transform_->Initialize();
+
+	{
+		attribute_ = AttributeType::ePlayerAttack;
+
+		collider_->PushBack(
+			attribute_, AttributeType::eEnemy,
+			new YMath::SphereCollider(&transform_->pos_, radius));
+	}
 
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), radius, 1));
-
-	transform_->scale_ = Vector3(radius, radius, radius);
 
 	// 跳ね返らない
 	MapChipCollider::SetIsBounce(false);
@@ -79,7 +85,7 @@ YGame::BaseCharacter::CollisionInfo NeedleAttack::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute = collider_->Attribute();
+	result.attribute = attribute_;
 	result.pos = transform_->pos_;
 	result.radius = transform_->scale_.x_;
 	result.pStatus = &status_;

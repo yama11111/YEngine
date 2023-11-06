@@ -379,6 +379,8 @@ bool YMath::CollisionTriangleSphere(
 #pragma endregion
 
 
+#pragma region 球と球
+
 bool YMath::CollisionSphereSphere(
 	const Vector3& sphereCenter1, const float sphereRad1, 
 	const Vector3& sphereCenter2, const float sphereRad2)
@@ -389,6 +391,11 @@ bool YMath::CollisionSphereSphere(
 
 	return true;
 }
+
+#pragma endregion
+
+
+#pragma region 四角形と四角形 (2D)
 
 bool YMath::CollisionBoxBox2D(
 	const Vector2& boxCenter1, const Vector2& boxRadSize1, 
@@ -402,3 +409,5 @@ bool YMath::CollisionBoxBox2D(
 
 	return  xColl1 && xColl2 && yColl1 && yColl2;
 }
+
+#pragma endregion

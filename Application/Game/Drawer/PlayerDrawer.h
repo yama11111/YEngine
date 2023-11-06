@@ -2,6 +2,7 @@
 #include "BaseDrawer.h"
 #include "SlimeActor.h"
 #include "HitActor.h"
+#include "CBOutline.h"
 
 namespace YGame
 {
@@ -68,7 +69,7 @@ namespace YGame
 	
 	private:
 		
-		std::unique_ptr<ConstBufferObject<CBColor>> outlineColor_;
+		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
 		// スライム
 		SlimeActor slimeActor_;

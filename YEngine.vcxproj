@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;$(ProjectDir)Application\ConstBuffer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Base\Scene;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Chara;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Drawer;$(ProjectDir)Application\Game\MapChip;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Transition;$(ProjectDir)Application\ConstBuffer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -141,8 +141,6 @@
     <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp" />
     <ClCompile Include="Application\Game\Drawer\SkydomeDrawer.cpp" />
-    <ClCompile Include="Application\Game\Chara\SlashAttack.cpp" />
-    <ClCompile Include="Application\Game\Drawer\SlashAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\CharacterStatus.cpp" />
     <ClCompile Include="Application\Game\Chara\CharacterManager.cpp" />
@@ -155,8 +153,6 @@
     <ClCompile Include="Application\Game\MapChip\MapChip.cpp" />
     <ClCompile Include="Application\Game\Chara\Player.cpp" />
     <ClCompile Include="Application\Game\Chara\Slime.cpp" />
-    <ClCompile Include="Application\Game\Chara\SnortAttack.cpp" />
-    <ClCompile Include="Application\Game\Drawer\SnortAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\Collision\GameCollider.cpp" />
     <ClCompile Include="Application\Game\StageManager.cpp" />
     <ClCompile Include="Application\Game\Drawer\TitleDrawer.cpp" />
@@ -216,7 +212,6 @@
     <ClCompile Include="Application\MyGame.cpp" />
     <ClCompile Include="Application\Scene\PlayScene.cpp" />
     <ClCompile Include="Application\Scene\SelectScene.cpp" />
-    <ClCompile Include="Application\Scene\TestScene.cpp" />
     <ClCompile Include="Application\Scene\TitleScene.cpp" />
     <ClCompile Include="Application\Scene\YGameSceneFactory.cpp" />
     <ClCompile Include="Application\Transition\BlackoutTransition.cpp" />
@@ -248,6 +243,7 @@
     <ClCompile Include="Application\Game\Drawer\ScoreDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application\ConstBuffer\CBOutline.h" />
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Game\Chara\NeedleAttack.h" />
     <ClInclude Include="Application\Game\Drawer\AnimationConfig.h" />
@@ -280,8 +276,6 @@
     <ClInclude Include="Application\Game\Drawer\PlayerDrawer.h" />
     <ClInclude Include="Application\Game\UI\ScoreManager.h" />
     <ClInclude Include="Application\Game\Drawer\SkydomeDrawer.h" />
-    <ClInclude Include="Application\Game\Chara\SlashAttack.h" />
-    <ClInclude Include="Application\Game\Drawer\SlashAttackDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\SlimeDrawer.h" />
     <ClInclude Include="Application\Game\Chara\CharacterStatus.h" />
     <ClInclude Include="Application\Game\Chara\CharacterManager.h" />
@@ -294,8 +288,6 @@
     <ClInclude Include="Application\Game\MapChip\MapChip.h" />
     <ClInclude Include="Application\Game\Chara\Player.h" />
     <ClInclude Include="Application\Game\Chara\Slime.h" />
-    <ClInclude Include="Application\Game\Chara\SnortAttack.h" />
-    <ClInclude Include="Application\Game\Drawer\SnortAttackDrawer.h" />
     <ClInclude Include="Application\Game\Collision\GameCollider.h" />
     <ClInclude Include="Application\Game\StageManager.h" />
     <ClInclude Include="Application\Game\Drawer\TitleDrawer.h" />
@@ -371,7 +363,6 @@
     <ClInclude Include="Application\MyGame.h" />
     <ClInclude Include="Application\Scene\PlayScene.h" />
     <ClInclude Include="Application\Scene\SelectScene.h" />
-    <ClInclude Include="Application\Scene\TestScene.h" />
     <ClInclude Include="Application\Scene\TitleScene.h" />
     <ClInclude Include="Application\Scene\YGameSceneFactory.h" />
     <ClInclude Include="Application\Transition\BlackoutTransition.h" />
@@ -409,6 +400,7 @@
     <None Include=".editorconfig" />
     <None Include="Resources\Shaders\Dissolve.hlsli" />
     <None Include="Resources\Shaders\Light.hlsli" />
+    <None Include="Resources\Shaders\Outline.hlsli" />
     <None Include="Resources\Shaders\PostEffect.hlsli" />
     <None Include="Resources\Shaders\Sprite3D.hlsli" />
     <None Include="Resources\Shaders\Model.hlsli" />
@@ -434,6 +426,14 @@
     <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OutlinePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OutlineVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\PhongPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

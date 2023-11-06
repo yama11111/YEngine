@@ -40,8 +40,14 @@ void CoinDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
-	SetShaderTag("ModelToon");
+	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
+	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Coin_O", cbOutline_.get());
+
+	SetShaderTag("ModelToon");
+	SetShaderTag("Coin_O", "ModelOutline");
 
 	// 立ちアニメーション用
 	idlePosEas_.Initialize({ 0.0f, +0.1f, 0.0f, -0.1f, 0.0f }, 1.0f);
@@ -57,6 +63,7 @@ void CoinDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 void CoinDrawer::InitializeObjects()
 {
 	InsertObject("Coin", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Coin_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
 }
 
 void CoinDrawer::InitializeTimers()

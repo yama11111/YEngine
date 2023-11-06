@@ -2,6 +2,7 @@
 #include "BaseDrawer.h"
 #include "SlimeActor.h"
 #include "HitActor.h"
+#include "CBOutline.h"
 
 namespace YGame
 {
@@ -67,6 +68,8 @@ namespace YGame
 		~HorseDrawer() = default;
 
 	private:
+
+		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
 		// スライム
 		SlimeActor slimeActor_;

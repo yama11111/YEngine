@@ -2,6 +2,7 @@
 #include "DrawObjectForModel.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
+#include "ColorConfig.h"
 #include "Def.h"
 #include <cmath>
 
@@ -46,7 +47,14 @@ void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
+	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.range = 0.2f;
+	
+	InsertConstBuffer("Body_O", cbOutline_.get());
+
 	SetShaderTag("ModelToon");
+	SetShaderTag("Body_O", "ModelOutline");
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
@@ -55,6 +63,7 @@ void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 void HorseDrawer::InitializeObjects()
 {
 	InsertObject("Body", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Body_O", DrawObjectForModel::Create({}, spVP_, pModel));
 }
 
 void HorseDrawer::InitializeTimers()

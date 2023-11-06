@@ -19,16 +19,7 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="attribute"> : 属性</param>
-		/// <param name="mask"> : マスク</param>
-		/// <param name="isSlip"> : すり抜けフラグ</param>
-		/// <param name="isClear"> : リストをクリアするか</param>
-		void Initialize(
-			Transform* pParent, 
-			const AttributeType attribute, const AttributeType mask, 
-			const bool isSlip = false,
-			const bool isClear = false);
+		void Initialize();
 
 		/// <summary>
 		/// 衝突判定
@@ -39,47 +30,19 @@ namespace YGame
 		/// <summary>
 		/// コライダー挿入
 		/// </summary>
+		/// <param name="attribute"> : 属性</param>
+		/// <param name="mask"> : マスク</param>
 		/// <param name="collider">コライダー (動的インスタンス)</param>
-		void PushBack(YMath::BasePrimitiveCollider* collider);
+		void PushBack(
+			const AttributeType attribute, const AttributeType mask,
+			YMath::BasePrimitiveCollider* collider);
 
 		/// <summary>
 		/// デバッグテキスト本文
 		/// </summary>
 		virtual void DrawDebugTextContent() override;
-
-	public:
-
-		/// <summary>
-		/// コライダーリスト取得
-		/// </summary>
-		/// <returns>コライダーリスト</returns>
-		inline const std::list<std::unique_ptr<YMath::BasePrimitiveCollider>>& Colliders() const { return colliders_; }
-
-		/// <summary>
-		/// 属性取得
-		/// </summary>
-		/// <returns>属性</returns>
-		inline AttributeType Attribute() const { return attribute_; }
-
-		/// <summary>
-		/// マスク取得
-		/// </summary>
-		/// <returns>マスク</returns>
-		inline AttributeType Mask() const { return mask_; }
-
-		/// <summary>
-		/// すり抜けフラグ取得
-		/// </summary>
-		/// <returns>すり抜けフラグ</returns>
-		inline  bool IsSlip() const { return isSlip_; }
 	
 	public:
-
-		/// <summary>
-		/// 親ポインタ設定
-		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		inline void SetParent(Transform* pParent) { pParent_ = pParent; }
 
 		/// <summary>
 		/// すり抜けフラグ設定
@@ -88,38 +51,48 @@ namespace YGame
 		inline void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
 
 	public:
+		
+		/// <summary>
+		/// すり抜けフラグ取得
+		/// </summary>
+		/// <returns>すり抜けフラグ</returns>
+		inline  bool IsSlip() const { return isSlip_; }
+
+	public:
 
 		GameCollider() = default;
-
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="attribute"> : 属性</param>
-		/// <param name="mask"> : マスク</param>
-		/// <param name="isSlip"> : すり抜けフラグ</param>
-		GameCollider(
-			Transform* pParent, 
-			const AttributeType attribute, const AttributeType mask,
-			const bool isSlip = false);
 
 		virtual ~GameCollider() = default;
 
 	private:
+	
+		// コライダーセット
+		struct ColliderSet
+		{			
+			// 属性
+			AttributeType attribute = AttributeType::eAll;
 
-		// 親ポインタ
-		Transform* pParent_ = nullptr;
+			// マスク
+			AttributeType mask = AttributeType::eAll;
 
-		// 属性 (自分)
-		AttributeType attribute_ = AttributeType::eAll;
+			// プリミティブコライダー
+			std::unique_ptr<YMath::BasePrimitiveCollider> collider;
+		};
 
-		// マスク (相手)
-		AttributeType mask_ = AttributeType::eAll;
+	private:
 
 		// すり抜けフラグ
 		bool isSlip_ = false;
 
-		// プリミティブコライダーリスト
-		std::list<std::unique_ptr<YMath::BasePrimitiveCollider>> colliders_;
+		// コライダーリスト
+		std::list<std::unique_ptr<ColliderSet>> colliders_;
+
+	private:
+
+		/// <summary>
+		/// コライダーリスト取得
+		/// </summary>
+		/// <returns>コライダーリスト</returns>
+		inline const std::list<std::unique_ptr<ColliderSet>>& Colliders() const { return colliders_; }
 	};
 }

@@ -17,6 +17,7 @@
 #include <imgui.h>
 
 using YGame::Player;
+using YMath::Vector2;
 using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
@@ -31,12 +32,21 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		{ +1.0f, 0.0f, 0.0f}, // 右向き
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
-		new GameCollider(transform_.get(), AttributeType::ePlayer, AttributeType::eAll),
 		PlayerDrawer::Create(nullptr, 1));
 
 	transform_->Initialize();
 
-	collider_->PushBack(new YMath::SphereCollider(Vector3(), PlayerConfig::kRadius));
+	{
+		attribute_ = AttributeType::ePlayer;
+
+		collider_->PushBack(
+			attribute_, AttributeType::eBlock,
+			new YMath::Box2DCollider(&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRectSize, {}, true));
+
+		collider_->PushBack(
+			attribute_, AttributeType::eAll,
+			new YMath::SphereCollider(&transform_->pos_, PlayerConfig::kRadius));
+	}
 
 	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PlayerConfig::kRadius, 1));
 
@@ -233,7 +243,7 @@ YGame::BaseCharacter::CollisionInfo Player::GetCollisionInfo()
 {
 	CollisionInfo result;
 
-	result.attribute = collider_->Attribute();
+	result.attribute = attribute_;
 	result.pos		 = transform_->pos_;
 	result.radius	 = PlayerConfig::kRadius;
 	result.pStatus	 = &status_;

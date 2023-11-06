@@ -104,7 +104,7 @@ void UIDrawer::Update()
 	buttonJump_->Update(isJump);
 	uiJump_->Update();
 
-	bool isAttack = (pKeys->IsDown(DIK_RETURN) || pPad->IsDown(PadButton::XIP_X));
+	bool isAttack = (pKeys->IsDown(DIK_V) || pPad->IsDown(PadButton::XIP_X));
 	buttonAttack_->Update(isAttack);
 	uiAttack_->Update();
 
@@ -120,13 +120,13 @@ void UIDrawer::PlayStartAnimation()
 
 void UIDrawer::Draw()
 {
-	letterBox_->Draw(kShaderTag, 2);
+	letterBox_->Draw(kShaderTag, 3);
 	
-	uiJump_->Draw(kShaderTag, 2);
-	buttonJump_->Draw(kShaderTag, 2);
+	uiJump_->Draw(kShaderTag, 3);
+	buttonJump_->Draw(kShaderTag, 3);
 
-	uiAttack_->Draw(kShaderTag, 2);
-	buttonAttack_->Draw(kShaderTag, 2);
+	uiAttack_->Draw(kShaderTag, 3);
+	buttonAttack_->Draw(kShaderTag, 3);
 
 	scoreDra_->Draw();
 }

@@ -8,9 +8,13 @@ namespace YGame
 
 	namespace PlayerConfig
 	{
+		static const YMath::Vector2 kRectSize = { 1.0f,1.0f };
+		
 		static const float kRadius = 1.0f;
+		
 		static const YMath::Vector3 kAcceleration = { 0.1f,1.25f,0.0f };
 		static const YMath::Vector3 kMaxSpeed = { 0.3f,2.0f,0.0f };
+		
 		static const uint16_t kMaxJumpCount = 2;
 		static const uint32_t kHP = 3;
 		static const uint32_t kAttack = 100;
@@ -19,6 +23,8 @@ namespace YGame
 
 	namespace PetConfig
 	{
+		static const YMath::Vector2 kRectSize = { 1.0f,1.0f };
+		
 		static const float kRadius = 1.0f;
 		
 		static const YMath::Vector3 kNormalAcceleration = { 0.1f,1.25f,0.0f };
@@ -37,9 +43,13 @@ namespace YGame
 
 	namespace SlimeConfig
 	{
+		static const YMath::Vector2 kRectSize = { 1.0f,1.0f };
+		
 		static const float kRadius = 1.0f;
+		
 		static const YMath::Vector3 kAcceleration = { 0.5f,0.5f,0.0f };
 		static const YMath::Vector3 kMaxSpeed = { 0.5f,0.5f,0.0f };
+		
 		static const uint32_t kHP = 100;
 		static const uint32_t kAttack = 1;
 		static const uint32_t kInvincibleTime = 20;
