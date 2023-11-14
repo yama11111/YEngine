@@ -11,16 +11,14 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		virtual void Update(const bool isUpdate);
+		virtual void UpdateBeforeCollision() override;
 
 		/// <summary>
-		/// 衝突判定
+		/// 衝突後更新
 		/// </summary>
-		/// <param name="info"> : 衝突時情報</param>
-		virtual void OnCollision(const CollisionInfo& info) override;
+		virtual void UpdateAfterCollision() override;
 
     public:
 
@@ -34,6 +32,12 @@ namespace YGame
 		YMath::Timer blowTim_;
 
     protected:
+
+		/// <summary>
+		/// 衝突時処理
+		/// </summary>
+		/// <param name="info"></param>
+		virtual void OnCollision(const CollisionInfo& info) override;
 	
 		/// <summary>
 		/// 被弾

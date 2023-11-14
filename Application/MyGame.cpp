@@ -42,6 +42,7 @@
 #include "SelectDrawer.h"
 #include "StageDrawer.h"
 #include "StageStatusDrawer.h"
+#include "BeginingDrawer.h"
 
 #include "UIDrawer.h"
 #include "ScoreDrawer.h"
@@ -75,8 +76,8 @@ bool MyGame::Initialize()
 
 	sceneMan_->SetSceneFactory(new YGameSceneFactory());
 
-	sceneMan_->Initialize(YGameSceneFactory::Title_);
-	//sceneMan_->Initialize(YGameSceneFactory::Select_);
+	//sceneMan_->Initialize(YGameSceneFactory::Title_);
+	sceneMan_->Initialize(YGameSceneFactory::Select_);
 	//sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
@@ -387,18 +388,6 @@ void MyGame::InitializeTransition()
 
 void MyGame::LoadMapData()
 {
-	MapChipManager::GetInstance()->Load("title.csv");
-	MapChipManager::GetInstance()->Load("stage1.csv");
-	MapChipManager::GetInstance()->Load("stage2.csv");
-	MapChipManager::GetInstance()->Load("stage3.csv");
-	MapChipManager::GetInstance()->Load("stage4.csv");
-	MapChipManager::GetInstance()->Load("stage5.csv");
-	MapChipManager::GetInstance()->Load("stage6.csv");
-	MapChipManager::GetInstance()->Load("stage7.csv");
-	MapChipManager::GetInstance()->Load("stage8.csv");
-	MapChipManager::GetInstance()->Load("stage9.csv");
-	MapChipManager::GetInstance()->Load("stage10.csv");
-
 	StageManager::GetInstance()->Load();
 	StageManager::GetInstance()->Initialize();
 }
@@ -452,6 +441,8 @@ void MyGame::LoadDrawer()
 		StageStatusDrawer::LoadResource();
 
 		SelectDrawer::LoadResource();
+
+		BeginingDrawer::LoadResource();
 	}
 }
 

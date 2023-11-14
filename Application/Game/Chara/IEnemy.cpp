@@ -1,10 +1,11 @@
 #include "IEnemy.h"
 #include "CharacterConfig.h"
+#include "CollisionInfoQueue.h"
 
 using YGame::IEnemy;
 using YMath::Vector3;
 
-void IEnemy::Update(const bool isUpdate)
+void IEnemy::UpdateBeforeCollision()
 {
 	blowTim_.Update();
 	if (blowTim_.IsAct())
@@ -12,7 +13,12 @@ void IEnemy::Update(const bool isUpdate)
 		moveDirection_ += Vector3(+1.0f, +1.0f, 0.0f);
 	}
 
-	BaseCharacter::Update(isUpdate);
+	BaseCharacter::UpdateBeforeCollision();
+}
+
+void IEnemy::UpdateAfterCollision()
+{
+	BaseCharacter::UpdateAfterCollision();
 }
 
 void IEnemy::OnCollision(const CollisionInfo& info)

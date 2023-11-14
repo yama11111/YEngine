@@ -3,11 +3,200 @@
     "objects": [
         {
             "type": "MESH",
-            "name": "core",
+            "name": "Block.001",
             "transform": {
                 "translation": [
                     0.0,
-                    100.29000091552734,
+                    10.0,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    60.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    115.0,
+                    -28.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    35.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.003",
+            "transform": {
+                "translation": [
+                    0.0,
+                    316.3144836425781,
+                    -35.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    40.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.004",
+            "transform": {
+                "translation": [
+                    0.0,
+                    231.31448364257812,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    39.87112045288086,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -22.0,
+                    -8.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -16.0,
+                    -8.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.003",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -10.0,
+                    -8.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.004",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -4.0,
+                    -8.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.005",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -1.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.006",
+            "transform": {
+                "translation": [
+                    0.0,
+                    1.0,
                     0.0
                 ],
                 "rotation": [
@@ -16,223 +205,452 @@
                     0.0
                 ],
                 "scaling": [
-                    50.0,
-                    50.0,
-                    50.0
+                    1.0,
+                    1.0,
+                    1.0
                 ]
-            },
-            "children": [
-                {
-                    "type": "MESH",
-                    "name": "Cloud.001",
-                    "transform": {
-                        "translation": [
-                            -3.309999704360962,
-                            2.819999933242798,
-                            0.3199999928474426
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.1899999976158142,
-                            0.5299999713897705,
-                            0.17999999225139618
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.002",
-                    "transform": {
-                        "translation": [
-                            -3.859999418258667,
-                            -2.9200003147125244,
-                            -1.2199997901916504
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.49999991059303284,
-                            0.7699999809265137,
-                            0.11999999731779099
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.003",
-                    "transform": {
-                        "translation": [
-                            -4.610000133514404,
-                            0.1700000762939453,
-                            0.5100000500679016
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.4100000262260437,
-                            0.2600000202655792,
-                            0.12999999523162842
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.004",
-                    "transform": {
-                        "translation": [
-                            -3.429999589920044,
-                            1.3900001049041748,
-                            1.1299999952316284
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.32999998331069946,
-                            0.44999998807907104,
-                            0.1599999964237213
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.005",
-                    "transform": {
-                        "translation": [
-                            -3.919999599456787,
-                            2.4099996089935303,
-                            0.9799999594688416
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.32999998331069946,
-                            0.6000000238418579,
-                            0.12999999523162842
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.006",
-                    "transform": {
-                        "translation": [
-                            -3.299999952316284,
-                            -0.610000491142273,
-                            -0.5300003290176392
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.5099999904632568,
-                            0.4399999976158142,
-                            0.07000000774860382
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.007",
-                    "transform": {
-                        "translation": [
-                            -4.259999752044678,
-                            1.4999995231628418,
-                            -1.589999794960022
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.25999999046325684,
-                            0.5699999928474426,
-                            0.15000000596046448
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.008",
-                    "transform": {
-                        "translation": [
-                            -2.169999122619629,
-                            3.6300008296966553,
-                            -0.3999999463558197
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.3100000023841858,
-                            0.32999998331069946,
-                            0.14000000059604645
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Cloud.009",
-                    "transform": {
-                        "translation": [
-                            -4.199999809265137,
-                            -1.2200000286102295,
-                            0.9300000071525574
-                        ],
-                        "rotation": [
-                            0.0,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            0.1599999964237213,
-                            0.320000022649765,
-                            0.08999999612569809
-                        ]
-                    }
-                },
-                {
-                    "type": "MESH",
-                    "name": "Skydome.",
-                    "transform": {
-                        "translation": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "rotation": [
-                            90.00000762939453,
-                            -0.0,
-                            0.0
-                        ],
-                        "scaling": [
-                            6.0,
-                            6.0,
-                            6.0
-                        ]
-                    }
-                }
-            ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.007",
+            "transform": {
+                "translation": [
+                    0.0,
+                    3.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.008",
+            "transform": {
+                "translation": [
+                    0.0,
+                    14.0,
+                    2.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.009",
+            "transform": {
+                "translation": [
+                    0.0,
+                    18.0,
+                    2.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.010",
+            "transform": {
+                "translation": [
+                    0.0,
+                    16.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.011",
+            "transform": {
+                "translation": [
+                    0.0,
+                    31.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.012",
+            "transform": {
+                "translation": [
+                    0.0,
+                    33.0,
+                    4.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.013",
+            "transform": {
+                "translation": [
+                    0.0,
+                    29.0,
+                    4.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.014",
+            "transform": {
+                "translation": [
+                    0.0,
+                    44.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.015",
+            "transform": {
+                "translation": [
+                    0.0,
+                    46.947509765625,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.016",
+            "transform": {
+                "translation": [
+                    0.0,
+                    44.0,
+                    6.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.017",
+            "transform": {
+                "translation": [
+                    0.0,
+                    47.0,
+                    6.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.018",
+            "transform": {
+                "translation": [
+                    0.0,
+                    41.0,
+                    6.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.019",
+            "transform": {
+                "translation": [
+                    0.0,
+                    41.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.020",
+            "transform": {
+                "translation": [
+                    0.0,
+                    69.0,
+                    2.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.021",
+            "transform": {
+                "translation": [
+                    0.0,
+                    66.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.022",
+            "transform": {
+                "translation": [
+                    0.0,
+                    75.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.023",
+            "transform": {
+                "translation": [
+                    0.0,
+                    69.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.024",
+            "transform": {
+                "translation": [
+                    0.0,
+                    72.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Coin.025",
+            "transform": {
+                "translation": [
+                    0.0,
+                    72.0,
+                    2.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Slime.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    13.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Slime.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    28.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
         }
     ]
 }

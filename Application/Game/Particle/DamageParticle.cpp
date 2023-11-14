@@ -117,7 +117,7 @@ namespace YGame
 				// 次のタイマーを始める
 				if (i < animeTims_.size() - 1)
 				{
-					animeTims_[i].SetActive(true);
+					animeTims_[i + 1].SetActive(true);
 				}
 				// 最後なら終わる
 				else

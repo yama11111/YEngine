@@ -166,6 +166,12 @@ namespace YGame
 		virtual void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) = 0;
 
 		/// <summary>
+		/// 親ポインタ設定
+		/// </summary>
+		/// <param name="pParent"> : 親ポインタ</param>
+		virtual void SetParent(YMath::Matrix4* pParent) = 0;
+
+		/// <summary>
 		/// ビュープロジェクション設定
 		/// </summary>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>

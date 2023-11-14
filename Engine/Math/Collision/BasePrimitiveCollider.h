@@ -21,7 +21,7 @@ namespace YMath
 		/// </summary>
 		/// <param name="other"> : 相手</param>
 		/// <returns>衝突したか</returns>
-		virtual bool CheckCollision(const BasePrimitiveCollider& other) const = 0;
+		virtual bool CheckCollision(const BasePrimitiveCollider& other) = 0;
 
 	public:
 
@@ -31,6 +31,7 @@ namespace YMath
 		virtual bool CheckConcreteCollision(const TriangleCollider& other) const;
 		virtual bool CheckConcreteCollision(const SphereCollider& other) const;
 		virtual bool CheckConcreteCollision(const Box2DCollider& other) const;
+		virtual bool CheckConcreteCollisionAndPushBack(Box2DCollider& other) const;
 
 	public:
 
@@ -38,33 +39,57 @@ namespace YMath
 		/// 追従点設定
 		/// </summary>
 		/// <param name="pFollowPoint"> : 追従点</param>
-		inline void SetFollowPoint(YMath::Vector3* pFollowPoint) { pFollowPoint_ = pFollowPoint; }
+		void SetFollowPoint(YMath::Vector3* pFollowPoint) { pFollowPoint_ = pFollowPoint; }
 
 		/// <summary>
 		/// 進行方向設定
 		/// </summary>
 		/// <param name="pVelocity"> : 進行方向</param>
-		inline void SetVelocity(YMath::Vector3* pVelocity) { pVelocity_ = pVelocity; }
+		void SetVelocity(YMath::Vector3* pVelocity) { pVelocity_ = pVelocity; }
 
 		/// <summary>
 		// ずれ設定
 		/// </summary>
 		/// <param name="offset"> : ずれ</param>
-		inline void SetOffset(const Vector3& offset) { offset_ = offset; }
+		void SetOffset(const Vector3& offset) { offset_ = offset; }
 
 		/// <summary>
 		/// 押し戻しフラグ設定
 		/// </summary>
 		/// <returns>押し戻しフラグ</returns>
-		inline void IsPushBack(const bool isPushBack) { isPushBack_ = isPushBack; }
+		void SetIsPushBack(const bool isPushBack) { isPushBack_ = isPushBack; }
 
 		/// <summary>
 		/// すり抜けフラグ設定
 		/// </summary>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		inline void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
+		void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
 
 	public:
+
+		/// <summary>
+		/// 追従点取得
+		/// </summary>
+		/// <returns>追従点</returns>
+		Vector3 FollowPoint() const { return *pFollowPoint_; }
+
+		/// <summary>
+		/// 追従点ポインタ取得
+		/// </summary>
+		/// <returns>追従点ポインタ</returns>
+		Vector3* FollowPointPtr() { return pFollowPoint_; }
+
+		/// <summary>
+		/// 速度取得
+		/// </summary>
+		/// <returns>速度</returns>
+		Vector3 Velocity() const;
+
+		/// <summary>
+		/// 速度ポインタ取得
+		/// </summary>
+		/// <returns>速度ポインタ</returns>
+		Vector3* VelocityPtr() { return pVelocity_; }
 
 		/// <summary>
 		/// 押し戻しフラグ取得
@@ -76,7 +101,7 @@ namespace YMath
 		/// すり抜けフラグ取得
 		/// </summary>
 		/// <returns>すり抜けフラグ</returns>
-		inline bool IsSlip() const { return isSlip_; }
+		bool IsSlip() const { return isSlip_; }
 	
 	public:
 		

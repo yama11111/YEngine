@@ -11,16 +11,16 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		void Update(const bool isUpdate) override;
+		virtual void UpdateBeforeCollision() override;
 
 		/// <summary>
-		/// 衝突判定
+		/// 衝突後更新
 		/// </summary>
-		/// <param name="info"> : 衝突時情報</param>
-		virtual void OnCollision(const CollisionInfo& info) override;
+		virtual void UpdateAfterCollision() override;
+	
+	public:
 
 		/// <summary>
 		/// 攻撃
@@ -34,12 +34,6 @@ namespace YGame
 		virtual void Jump(const bool isJumpCount = true);
 
 		/// <summary>
-		/// 乗る位置の高さ取得
-		/// </summary>
-		/// <returns>乗る位置の高さ</returns>
-		virtual YMath::Vector3 RidingPosHeight() = 0;
-
-		/// <summary>
 		/// 乗られる
 		/// </summary>
 		virtual void Rideen();
@@ -48,6 +42,14 @@ namespace YGame
 		/// 降りられる
 		/// </summary>
 		virtual void GotOff();
+		
+	public:
+
+		/// <summary>
+		/// 乗る位置の高さ取得
+		/// </summary>
+		/// <returns>乗る位置の高さ</returns>
+		virtual YMath::Vector3 RidingPosHeight() = 0;
 		
 		/// <summary>
 		/// 当たったか取得
@@ -87,6 +89,12 @@ namespace YGame
 		static ScrollCamera* spScrollCamera_;
 	
 	protected:
+
+		/// <summary>
+		/// 衝突時処理
+		/// </summary>
+		/// <param name="info"></param>
+		virtual void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
 		/// 衝突時処理

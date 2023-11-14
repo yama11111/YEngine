@@ -4,6 +4,16 @@
 using YMath::BasePrimitiveCollider;
 using YMath::Vector3;
 
+Vector3 BasePrimitiveCollider::Velocity() const
+{
+	if (pVelocity_)
+	{
+		return *pVelocity_;
+	}
+
+	return Vector3();
+}
+
 BasePrimitiveCollider::BasePrimitiveCollider(Vector3* pFollowPoint, const Vector3& offset, const bool isSlip) :
 	pFollowPoint_(pFollowPoint), pVelocity_(nullptr), offset_(offset), isPushBack_(false), isSlip_(isSlip)
 {
@@ -63,6 +73,12 @@ bool BasePrimitiveCollider::CheckConcreteCollision(const SphereCollider& other) 
 	return false;
 }
 bool BasePrimitiveCollider::CheckConcreteCollision(const Box2DCollider& other) const
+{
+	other;
+	return false;
+}
+
+bool BasePrimitiveCollider::CheckConcreteCollisionAndPushBack(Box2DCollider& other) const
 {
 	other;
 	return false;

@@ -202,7 +202,7 @@ void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 		speedRef.x_ = 0.0f;
 	}
 
-	// Y軸判定ならs
+	// Y軸判定なら
 	if (isCollY)
 	{
 		// ビット更新

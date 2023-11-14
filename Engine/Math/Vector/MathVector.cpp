@@ -3,6 +3,7 @@
 #include "Def.h"
 #include <cmath>
 
+using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
 using YMath::Matrix4;
@@ -249,6 +250,11 @@ Matrix4 YMath::MatBillboard(const bool isXAxisBillboard, const bool isYAxisBillb
 Vector3 YMath::ConvertToVector3(const Vector2& v)
 {
 	return Vector3(v.x_, v.y_, 0.0f);
+}
+
+Vector2 YMath::ConvertToVector2(const Vector3& v)
+{
+	return Vector2(v.x_, v.y_);
 }
 
 Vector3 YMath::MultAtComponent(const Vector3& v1, const Vector3& v2)

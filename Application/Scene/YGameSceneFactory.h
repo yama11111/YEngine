@@ -17,6 +17,9 @@ namespace YGame
 		// プレイ
 		static const std::string Play_;
 
+		// リザルト
+		static const std::string Result_;
+
 		// テスト
 		//static const std::string Test_;
 

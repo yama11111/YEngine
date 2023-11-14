@@ -63,6 +63,9 @@ namespace YGame
 		YMath::Ease<float> earnPosEas_;
 		YMath::Ease<float> earnRotaEas_;
 
+		YMath::Timer emitTimer_;
+		uint32_t emitCounter_ = 0;
+
 		SlimeActor slimeActor_;
 
 	private:

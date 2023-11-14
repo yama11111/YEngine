@@ -57,13 +57,17 @@ namespace YMath
 	// アタリ判定 (球×球)
 	bool CollisionSphereSphere(
 		const Vector3& sphereCenter1, const float sphereRad1,
-		const Vector3& sphereCenter2, const float sphereRad2
-	);
+		const Vector3& sphereCenter2, const float sphereRad2);
+
 
 	// アタリ判定 (四角形×四角形) [2D]
 	bool CollisionBoxBox2D(
 		const Vector2& boxCenter1, const Vector2& boxRadSize1,
-		const Vector2& boxCenter2, const Vector2& boxRadSize2
-	);
+		const Vector2& boxCenter2, const Vector2& boxRadSize2);
+
+	// アタリ判定 (四角形×四角形) [2D]
+	bool CollisionAndPushBackBoxBox2D(
+		const Vector3& followPoint1, const Vector3& velocity1, const Vector2& boxRadSize1,
+		Vector3* pFollowPoint2, Vector3* pVelocity2, const Vector2& boxRadSize2);
 }
 

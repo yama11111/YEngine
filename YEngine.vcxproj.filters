@@ -211,6 +211,21 @@
     <Filter Include="Application\Game\Drawer\UI">
       <UniqueIdentifier>{917ed4d4-32fd-4186-a28d-53500bf1aeb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Drawer\Scene\Play">
+      <UniqueIdentifier>{1794ce31-12d4-455a-8a63-f84769e3a415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math\Collision\Primitive">
+      <UniqueIdentifier>{9a9239c1-911a-4dd3-a5f7-128b8e1dbc5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Object">
+      <UniqueIdentifier>{3d1308f1-247c-4171-8eee-b26f55b90a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Object">
+      <UniqueIdentifier>{200bf91d-1086-4c51-83d2-c489219e02a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Collision">
+      <UniqueIdentifier>{f9a04ef1-7f1c-4478-82a5-b6e84741a5e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -324,13 +339,7 @@
     <ClCompile Include="Engine\DebugText\DebugTextAttacher.cpp">
       <Filter>Engine\DebugText</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Chara\GameObject.cpp">
-      <Filter>Application\Game\Chara</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Chara\BaseCharacter.cpp">
-      <Filter>Application\Game\Chara</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Chara\CharacterManager.cpp">
       <Filter>Application\Game\Chara</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Chara\CharacterStatus.cpp">
@@ -369,11 +378,8 @@
     <ClCompile Include="Engine\Math\Collision\CollisionDetection.cpp">
       <Filter>Engine\Math\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Collision\PrimitiveCollider.cpp">
+    <ClCompile Include="Engine\Math\Collision\PrimitiveCollisionDetection.cpp">
       <Filter>Engine\Math\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Collision\GameCollider.cpp">
-      <Filter>Application\Game\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Math\Collision\BasePrimitiveCollider.cpp">
       <Filter>Engine\Math\Collision</Filter>
@@ -555,9 +561,6 @@
     <ClCompile Include="Engine\Draw\Graphic\BaseGraphic.cpp">
       <Filter>Engine\Draw\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\Animation.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Drawer\HorseDrawer.cpp">
       <Filter>Application\Game\Drawer\Pet</Filter>
     </ClCompile>
@@ -593,6 +596,42 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Particle\DamageParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\BeginingDrawer.cpp">
+      <Filter>Application\Game\Drawer\Scene\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Collision\Box2DCollider.cpp">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Collision\PlaneCollider.cpp">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Collision\RayCollider.cpp">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Collision\SphereCollider.cpp">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Collision\TriangleCollider.cpp">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\GameObject.cpp">
+      <Filter>Engine\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\GameObjectManager.cpp">
+      <Filter>Engine\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Collision\GameCollider.cpp">
+      <Filter>Engine\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Collision\CollisionInfoQueue.cpp">
+      <Filter>Engine\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\Block.cpp">
+      <Filter>Application\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\Goal.cpp">
+      <Filter>Application\Game\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -707,13 +746,7 @@
     <ClInclude Include="Engine\DebugText\DebugTextAttacher.h">
       <Filter>Engine\DebugText</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Chara\GameObject.h">
-      <Filter>Application\Game\Chara</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Chara\BaseCharacter.h">
-      <Filter>Application\Game\Chara</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Chara\CharacterManager.h">
       <Filter>Application\Game\Chara</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Chara\CharacterStatus.h">
@@ -758,13 +791,10 @@
     <ClInclude Include="Engine\Math\Collision\CollisionDetection.h">
       <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Collision\PrimitiveCollider.h">
+    <ClInclude Include="Engine\Math\Collision\PrimitiveCollisionDetection.h">
       <Filter>Engine\Math\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Collision\AttributeType.h">
-      <Filter>Application\Game\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Collision\GameCollider.h">
       <Filter>Application\Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Math\Collision\BasePrimitiveCollider.h">
@@ -1007,9 +1037,6 @@
     <ClInclude Include="Engine\Draw\Graphic\GraphicType.h">
       <Filter>Engine\Draw\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\Animation.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Drawer\CloudDrawer.h">
       <Filter>Application\Game\Drawer\etc</Filter>
     </ClInclude>
@@ -1048,6 +1075,45 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Particle\DamageParticle.h">
       <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\BeginingDrawer.h">
+      <Filter>Application\Game\Drawer\Scene\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Collision\Box2DCollider.h">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Collision\PlaneCollider.h">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Collision\RayCollider.h">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Collision\SphereCollider.h">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Collision\TriangleCollider.h">
+      <Filter>Engine\Math\Collision\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Collision\CollisionInfo.h">
+      <Filter>Application\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\GameObject.h">
+      <Filter>Engine\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\GameObjectManager.h">
+      <Filter>Engine\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Collision\GameCollider.h">
+      <Filter>Engine\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Collision\CollisionInfoQueue.h">
+      <Filter>Engine\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\Goal.h">
+      <Filter>Application\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\Block.h">
+      <Filter>Application\Game\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

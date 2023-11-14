@@ -12,8 +12,8 @@ namespace YGame
 		
 		static const float kRadius = 1.0f;
 		
-		static const YMath::Vector3 kAcceleration = { 0.1f,1.25f,0.0f };
-		static const YMath::Vector3 kMaxSpeed = { 0.3f,2.0f,0.0f };
+		static const YMath::Vector3 kAcceleration = { 0.1f,1.5f,0.0f };
+		static const YMath::Vector3 kMaxSpeed = { 0.4f,1.5f,0.0f };
 		
 		static const uint16_t kMaxJumpCount = 2;
 		static const uint32_t kHP = 3;
@@ -27,11 +27,8 @@ namespace YGame
 		
 		static const float kRadius = 1.0f;
 		
-		static const YMath::Vector3 kNormalAcceleration = { 0.1f,1.25f,0.0f };
-		static const YMath::Vector3 kNormalMaxSpeed = { 0.3f,2.0f,0.0f };
-		
-		static const YMath::Vector3 kRunAcceleration = { 0.3f,1.25f,0.0f };
-		static const YMath::Vector3 kRunMaxSpeed = { 0.6f,2.0f,0.0f };
+		static const YMath::Vector3 kNormalAcceleration = { 0.1f,1.5f,0.0f };
+		static const YMath::Vector3 kNormalMaxSpeed = { 0.4f,1.5f,0.0f };
 		
 		static const uint16_t kMaxJumpCount = 2;
 		static const uint32_t kHP = 1;
@@ -84,6 +81,6 @@ namespace YGame
 
 	namespace CoinConfig
 	{
-		static const float kRadius = 2.0f;
+		static const float kRadius = 2.5f;
 	}
 }

@@ -4,8 +4,11 @@
 #include "AnimationConfig.h"
 
 #include "CollisionDrawer.h"
-#include "PrimitiveCollider.h"
+#include "SphereCollider.h"
+#include "Box2DCollider.h"
+#include "CollisionInfo.h"
 #include "MapChipCollisionBitConfig.h"
+
 #include "ScoreManager.h"
 
 #include "Def.h"
@@ -35,10 +38,12 @@ void Slime::Initialize(const Transform::Status& status)
 
 		collider_->PushBack(
 			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, SlimeConfig::kRadius));
+			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRadius, {}, false));
+
+		collider_->SetPriority(1);
 	}
 
-	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
+	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
 
 	blowTim_.Initialize(SlimeConfig::kBlowTime);
 
@@ -46,28 +51,32 @@ void Slime::Initialize(const Transform::Status& status)
 	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
 }
 
-void Slime::Update(const bool isUpdate)
+void Slime::UpdateBeforeCollision()
 {
-	IEnemy::Update(isUpdate);
-	
-	// 着地した瞬間
-	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
-		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
-	{
-		// 着地アニメーション
-		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding), true);
-	}
+	IEnemy::UpdateBeforeCollision();
 }
 
-YGame::BaseCharacter::CollisionInfo Slime::GetCollisionInfo()
+void Slime::UpdateAfterCollision()
+{	
+	IEnemy::UpdateAfterCollision();
+	
+	// 着地した瞬間
+	//if ()
+	//{
+	//	// 着地アニメーション
+	//	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding), true);
+	//}
+}
+
+YGame::CollisionInfo Slime::GetCollisionInfo()
 {
 	CollisionInfo result;
 
 	result.attribute = attribute_;
-	result.pos		 = transform_->pos_;
-	result.radius	 = SlimeConfig::kRadius;
-	result.pStatus	 = &status_;
-	result.pSelf	 = this;
+	result.pos = transform_->pos_;
+	result.radius = SlimeConfig::kRadius;
+	result.pStatus = &status_;
+	result.pSelf = this;
 
 	return result;
 }

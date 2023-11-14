@@ -6,6 +6,11 @@
 #include <fstream>
 #include <sstream>
 
+#include "GameObjectManager.h"
+#include "Player.h"
+#include "Slime.h"
+#include "Coin.h"
+#include "Block.h"
 #include "PlayerDrawer.h"
 #include "CloudDrawer.h"
 #include "SkydomeDrawer.h"
@@ -19,7 +24,6 @@ using std::list;
 using std::unique_ptr;
 using YGame::Level;
 using YGame::GameObject;
-using YGame::Model;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::Vector4;
@@ -32,9 +36,6 @@ list<unique_ptr<Level>> Level::sLevelDatas_;
 
 #pragma endregion
 
-void Level::LoadAsset()
-{
-}
 
 Level* Level::LoadJson(const std::string& fileName)
 {
@@ -99,14 +100,8 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 	// MESH
 	if (type.compare("MESH") == 0)
 	{
-		// オブジェクト
-		std::unique_ptr<GameObject> newObj;
-
 		// 名前
 		std::string name;
-
-		// オブジェクト生成
-		newObj = std::make_unique<GameObject>();
 
 		// ファイル名
 		if (object.contains("name"))
@@ -137,8 +132,35 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		status.scale_.y_ = static_cast<float>(transform["scaling"][2]);
 		status.scale_.z_ = static_cast<float>(transform["scaling"][0]);
 
+		// オブジェクト
+		GameObject* newObj = nullptr;
+		bool isSaveColl = false;
+
 		// 初期化
-		newObj->Initialize(name, status, pParent);
+		if (name == "Slime.")
+		{
+			newObj = new Slime();
+			static_cast<Slime*>(newObj)->Initialize(status);
+			isSaveColl = true;
+		}
+		else if (name == "Coin.")
+		{
+			newObj = new Coin();
+			static_cast<Coin*>(newObj)->Initialize(status);
+			isSaveColl = true;
+		}
+		else if (name == "Block.")
+		{
+			newObj = new Block();
+			static_cast<Block*>(newObj)->Initialize(status, pParent);
+		}
+		else
+		{
+			newObj = new GameObject();
+			newObj->Initialize(name, status, pParent);
+		}
+		
+
 		if (name == "Cloud.")
 		{
 			newObj->SetDrawer(CloudDrawer::Create(nullptr, 1));
@@ -155,12 +177,12 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			for (size_t i = 0; i < object["children"].size(); i++)
 			{
 				// 子オブジェクト読み込み
-				LoadData(object["children"][i], newObj.get());
+				LoadData(object["children"][i], newObj);
 			}
 		}
 
 		// リストに挿入
-		objs_.push_back(std::move(newObj));
+		GameObjectManager::GetInstance()->PushBack(newObj, 0, isSaveColl);
 	}
 	//// CAMERA
 	//else if (type.compare("CAMERA") == 0)
@@ -220,29 +242,5 @@ void Level::ClearAllData()
 	{
 		// クリア
 		sLevelDatas_.clear();
-	}
-}
-
-void Level::Initialize()
-{
-}
-
-void Level::Update()
-{
-	// 全モデル
-	for (std::unique_ptr<GameObject>& obj : objs_)
-	{
-		// 行列更新
-		obj->Update();
-	}
-}
-
-void Level::Draw()
-{
-	// 全モデル
-	for (std::unique_ptr<GameObject>& obj : objs_)
-	{
-		// 描画
-		obj->Draw();
 	}
 }

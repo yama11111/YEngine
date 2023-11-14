@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseDrawer.h"
+#include "CBOutline.h"
 
 namespace YGame
 {
@@ -38,6 +39,8 @@ namespace YGame
 		~BlockDrawer() = default;
 
 	private:
+		
+		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
 	private:
 

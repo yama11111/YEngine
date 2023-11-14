@@ -74,6 +74,9 @@ namespace YGame
 		// オフセット設定
 		void SetOffset(const YMath::Vector3& offset) override;
 
+		// 親ポインタ設定
+		void SetParent(YMath::Matrix4* pParent) override;
+
 		// ビュープロジェクション設定
 		void SetViewProjection(ViewProjection* pVP) override;
 
@@ -240,6 +243,11 @@ namespace YGame
 	void impl_UIDigit::SetOffset(const YMath::Vector3& offset)
 	{
 		offset_ = offset;
+	}
+
+	void impl_UIDigit::SetParent(YMath::Matrix4* pParent)
+	{
+		objs_[type_]->SetParent(pParent);
 	}
 	
 	void impl_UIDigit::SetViewProjection(ViewProjection* pVP)

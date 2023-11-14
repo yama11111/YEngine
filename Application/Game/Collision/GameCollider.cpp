@@ -1,11 +1,8 @@
 #include "GameCollider.h"
-#include "PrimitiveCollider.h"
 #include <cassert>
 
 using YGame::GameCollider;
 using YMath::BasePrimitiveCollider;
-using YMath::SphereCollider;
-using YMath::Box2DCollider;
 using YMath::Vector3;
 
 void GameCollider::Initialize()

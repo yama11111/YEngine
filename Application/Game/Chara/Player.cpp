@@ -1,12 +1,15 @@
 #include "Player.h"
 #include "PlayerDrawer.h"
 #include "CharacterConfig.h"
-#include "CharacterManager.h"
+
+#include "GameObjectManager.h"
 #include "NeedleAttack.h"
 
-#include "PrimitiveCollider.h"
-#include "MapChipCollisionBitConfig.h"
 #include "CollisionDrawer.h"
+#include "SphereCollider.h"
+#include "Box2DCollider.h"
+#include "CollisionInfo.h"
+#include "MapChipCollisionBitConfig.h"
 
 #include "StageManager.h"
 
@@ -24,6 +27,13 @@ using YInput::Pad;
 
 YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
 
+void Player::StaticInitialize(ScrollCamera* pScrollCamera)
+{
+	assert(pScrollCamera);
+
+	spScrollCamera_ = pScrollCamera;
+}
+
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
 {
 	BaseCharacter::Initialize(
@@ -34,8 +44,6 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
 		PlayerDrawer::Create(nullptr, 1));
 
-	transform_->Initialize();
-
 	{
 		attribute_ = AttributeType::ePlayer;
 
@@ -45,10 +53,12 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 		collider_->PushBack(
 			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, PlayerConfig::kRadius));
+			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRadius, {}, false));
+
+		collider_->SetPriority(1);
 	}
 
-	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PlayerConfig::kRadius, 1));
+	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PlayerConfig::kRadius, 1));
 
 	jumpCounter_ = 0;
 
@@ -66,6 +76,79 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
+}
+
+void Player::UpdateBeforeCollision()
+{
+	// ペットが被弾したら降りる
+	if (pPet_)
+	{
+		if (pPet_->IsHit())
+		{
+			GetOffPet();
+		}
+	}
+
+
+	if (isUpdate_)
+	{
+		if (pPet_ == nullptr)
+		{
+			// 自動で前に進む
+			moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+			direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+		}
+		else
+		{
+			direction_ = Vector3(-1.0f, 0.0f, 0.0f);
+		}
+
+		// SPACE キー or A ボタン
+		if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
+			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
+		{
+			Jump();
+		}
+
+		// V キー or X ボタン
+		if (Keys::GetInstance()->IsTrigger(DIK_V) ||
+			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
+		{
+			Attack();
+		}
+	}
+
+	BaseCharacter::UpdateBeforeCollision();
+}
+
+void Player::UpdateAfterCollision()
+{
+	BaseCharacter::UpdateAfterCollision();
+
+	//// 着地しているなら
+	//if ()
+	//{
+	//	// ジャンプ回数初期化
+	//	jumpCounter_ = 0;
+
+	//	// 瞬間
+	//	if ()
+	//	{
+	//		// 着地アニメーション
+	//		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding), true);
+
+	//		// 移動アニメーション
+	//		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), false);
+	//	}
+	//}
+	//// 離陸した瞬間
+	//else if ()
+	//{
+	//	// 移動アニメーションをやめる
+	//	drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
+	//}
+
+	jumpCounter_ = 0;
 }
 
 void Player::RideOnPet(IPet* pPet)
@@ -102,7 +185,7 @@ void Player::GetOffPet()
 {
 	pPet_->GotOff();
 
-	transform_->pos_ += pPet_->PosRef();
+	transform_->pos_ += pPet_->TransformPtr()->pos_;
 	transform_->UpdateMatrix();
 
 	pPet_ = nullptr;
@@ -127,127 +210,15 @@ void Player::GetOffPet()
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), true);
 }
 
-void Player::Update(const bool isUpdate)
-{
-	// ペットが被弾したら降りる
-	if(pPet_)
-	{
-		if (pPet_->IsHit())
-		{
-			//GetOffPet();
-		}
-	}
-	
-	if (isUpdate)
-	{
-		if (pPet_ == nullptr)
-		{
-			// 自動で前に進む
-			moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
-			direction_ = Vector3(+1.0f, 0.0f, 0.0f);
-		}
-		else
-		{
-			direction_ = Vector3(-1.0f, 0.0f, 0.0f);
-		}
-
-		// SPACE キー or A ボタン
-		if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
-			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
-		{
-			Jump();
-		}
-
-		// V キー or X ボタン
-		if (Keys::GetInstance()->IsTrigger(DIK_V) ||
-			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
-		{
-			Attack();
-		}
-	}
-
-	BaseCharacter::Update(isUpdate);
-
-	// 着地しているなら
-	if (MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom)
-	{
-		// ジャンプ回数初期化
-		jumpCounter_ = 0;
-
-		// 瞬間
-		if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
-		{
-			// 着地アニメーション
-			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding), true);
-
-			// 移動アニメーション
-			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), false);
-		}
-	}
-	// 離陸した瞬間
-	else if(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom)
-	{
-		// 移動アニメーションをやめる
-		drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
-	}
-}
-
-void Player::OnCollision(const CollisionInfo& info)
-{
-	// 敵
-	if (info.attribute  == AttributeType::eEnemy)
-	{
-		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
-		{
-			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
-
-			// ジャンプ
-			Jump(false);
-		}
-		// 自分 が 敵 より下 なら
-		else
-		{
-			// ダメージを受ける
-			status_.Damage(info.pStatus->Attack(), true);
-
-			if (status_.IsAlive() == false)
-			{
-				// 死亡アニメーション
-				drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead), true);
-
-				spScrollCamera_->SetFollowPoint(nullptr);
-				StageManager::GetInstance()->GameOver();
-			}
-
-			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
-
-			// 被弾アニメーション
-			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit), true);
-		}
-
-		return;
-	}
-
-	// ペット
-	if (info.attribute == AttributeType::ePet)
-	{
-		// 乗る
-		RideOnPet(static_cast<IPet*>(info.pSelf));
-
-		return;
-	}
-}
-
-YGame::BaseCharacter::CollisionInfo Player::GetCollisionInfo()
+YGame::CollisionInfo Player::GetCollisionInfo()
 {
 	CollisionInfo result;
 
 	result.attribute = attribute_;
-	result.pos		 = transform_->pos_;
-	result.radius	 = PlayerConfig::kRadius;
-	result.pStatus	 = &status_;
-	result.pSelf	 = this;
+	result.pos = transform_->pos_;
+	result.radius = PlayerConfig::kRadius;
+	result.pStatus = &status_;
+	result.pSelf = this;
 
 	return result;
 }
@@ -303,7 +274,7 @@ void Player::Attack()
 		NeedleAttackConfig::kPower
 	);
 	
-	CharacterManager::GetInstance()->PushBack(newAttack);
+	GameObjectManager::GetInstance()->PushBack(newAttack, 0, true);
 
 	// 攻撃アニメーション
 	drawer_->PlayAnimation(
@@ -315,14 +286,54 @@ void Player::OffScreenProcess()
 	StageManager::GetInstance()->GameOver();
 }
 
+void Player::OnCollision(const CollisionInfo& info)
+{
+	// 敵
+	if (info.attribute == AttributeType::eEnemy)
+	{
+		// 自分 が 敵 より上にいる なら
+		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
+		{
+			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
+
+			// ジャンプ
+			Jump(false);
+		}
+		// 自分 が 敵 より下 なら
+		else
+		{
+			// ダメージを受ける
+			status_.Damage(info.pStatus->Attack(), true);
+
+			if (status_.IsAlive() == false)
+			{
+				// 死亡アニメーション
+				drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead), true);
+
+				spScrollCamera_->SetFollowPoint(nullptr);
+				StageManager::GetInstance()->GameOver();
+			}
+
+			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
+
+			// 被弾アニメーション
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit), true);
+		}
+
+		return;
+	}
+
+	// ペット
+	if (info.attribute == AttributeType::ePet)
+	{
+		// 乗る
+		RideOnPet(static_cast<IPet*>(info.pSelf));
+
+		return;
+	}
+}
+
 void Player::DrawDebugTextContent()
 {
 	BaseCharacter::DrawDebugTextContent();
-}
-
-void Player::StaticInitialize(ScrollCamera* pScrollCamera)
-{
-	assert(pScrollCamera);
-	
-	spScrollCamera_ = pScrollCamera;
 }

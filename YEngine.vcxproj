@@ -114,9 +114,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
+    <ClCompile Include="Application\Game\Chara\Block.cpp" />
+    <ClCompile Include="Application\Game\Chara\Goal.cpp" />
     <ClCompile Include="Application\Game\Chara\NeedleAttack.cpp" />
-    <ClCompile Include="Application\Game\Drawer\Animation.cpp" />
+    <ClCompile Include="Application\Game\Collision\CollisionInfoQueue.cpp" />
     <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\BeginingDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\CloudDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\Coin.cpp" />
@@ -142,7 +145,7 @@
     <ClCompile Include="Application\Game\Drawer\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Game\Chara\CharacterStatus.cpp" />
-    <ClCompile Include="Application\Game\Chara\CharacterManager.cpp" />
+    <ClCompile Include="Application\Game\Chara\GameObjectManager.cpp" />
     <ClCompile Include="Application\Game\Chara\Horse.cpp" />
     <ClCompile Include="Application\Game\Chara\IAttack.cpp" />
     <ClCompile Include="Application\Game\Chara\IEnemy.cpp" />
@@ -198,9 +201,14 @@
     <ClCompile Include="Engine\Game\Camera\ScrollCamera.cpp" />
     <ClCompile Include="Engine\Game\Camera\ViewProjection.cpp" />
     <ClCompile Include="Engine\Math\Collision\BasePrimitiveCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\Box2DCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\PlaneCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\RayCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\SphereCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\TriangleCollider.cpp" />
     <ClCompile Include="Engine\Math\Lerp\BezierEase.cpp" />
     <ClCompile Include="Engine\Math\Lerp\Ease.cpp" />
-    <ClCompile Include="Engine\Math\Collision\PrimitiveCollider.cpp" />
+    <ClCompile Include="Engine\Math\Collision\PrimitiveCollisionDetection.cpp" />
     <ClCompile Include="Engine\Game\MapChip\IMapChip.cpp" />
     <ClCompile Include="Engine\Game\MapChip\MapChipCollider.cpp" />
     <ClCompile Include="Application\Game\MapChip\MapChipManager.cpp" />
@@ -244,10 +252,14 @@
   <ItemGroup>
     <ClInclude Include="Application\ConstBuffer\CBOutline.h" />
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
+    <ClInclude Include="Application\Game\Chara\Block.h" />
+    <ClInclude Include="Application\Game\Chara\Goal.h" />
     <ClInclude Include="Application\Game\Chara\NeedleAttack.h" />
+    <ClInclude Include="Application\Game\Collision\CollisionInfo.h" />
+    <ClInclude Include="Application\Game\Collision\CollisionInfoQueue.h" />
     <ClInclude Include="Application\Game\Drawer\AnimationConfig.h" />
-    <ClInclude Include="Application\Game\Drawer\Animation.h" />
     <ClInclude Include="Application\Game\Drawer\AxisDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\BeginingDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\BlockDrawer.h" />
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h" />
     <ClInclude Include="Application\Game\Drawer\CloudDrawer.h" />
@@ -276,7 +288,7 @@
     <ClInclude Include="Application\Game\Drawer\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\SlimeDrawer.h" />
     <ClInclude Include="Application\Game\Chara\CharacterStatus.h" />
-    <ClInclude Include="Application\Game\Chara\CharacterManager.h" />
+    <ClInclude Include="Application\Game\Chara\GameObjectManager.h" />
     <ClInclude Include="Application\Game\Chara\Horse.h" />
     <ClInclude Include="Application\Game\Chara\IAttack.h" />
     <ClInclude Include="Application\Game\Chara\IEnemy.h" />
@@ -349,9 +361,14 @@
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h" />
     <ClInclude Include="Application\Game\Collision\AttributeType.h" />
     <ClInclude Include="Engine\Math\Collision\BasePrimitiveCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\Box2DCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\PlaneCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\RayCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\SphereCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\TriangleCollider.h" />
     <ClInclude Include="Engine\Math\Lerp\BezierEase.h" />
     <ClInclude Include="Engine\Math\Lerp\Ease.h" />
-    <ClInclude Include="Engine\Math\Collision\PrimitiveCollider.h" />
+    <ClInclude Include="Engine\Math\Collision\PrimitiveCollisionDetection.h" />
     <ClInclude Include="Engine\Game\MapChip\IMapChip.h" />
     <ClInclude Include="Engine\Game\MapChip\MapChipCollider.h" />
     <ClInclude Include="Application\Game\MapChip\MapChipManager.h" />

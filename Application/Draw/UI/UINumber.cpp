@@ -84,6 +84,9 @@ namespace YGame
 		// アニメーション更新
 		void SetAnimationStatus(const size_t digitIndex, const Transform::Status& status) override;
 
+		// 親ポインタ設定
+		void SetParent(YMath::Matrix4* pParent) override;
+
 		// ビュープロジェクション設定
 		void SetViewProjection(ViewProjection* pVP) override;
 
@@ -339,6 +342,11 @@ namespace YGame
 		assert(0 <= digitIndex && digitIndex < digits_.size());
 
 		digits_[digitIndex].animeStatus = status;
+	}
+
+	void impl_UINumber::SetParent(YMath::Matrix4* pParent)
+	{
+		transform_.parent_ = pParent;
 	}
 
 	void impl_UINumber::SetViewProjection(ViewProjection* pVP)

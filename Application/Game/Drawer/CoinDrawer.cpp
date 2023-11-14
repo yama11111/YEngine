@@ -4,6 +4,8 @@
 #include "Lerp.h"
 #include "Def.h"
 
+#include "WaveParticle.h"
+
 using YGame::CoinDrawer;
 using YGame::Model;
 using YMath::Timer;
@@ -57,6 +59,9 @@ void CoinDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	earnPosEas_.Initialize(0.0f, +5.0f, 3.0f);
 	earnRotaEas_.Initialize(0.0f, +kPI * 6.0f, 3.0f);
 
+	emitTimer_.Initialize(0);
+	emitCounter_ = 0;
+
 	slimeActor_.Initialize(0, { {} }, 0);
 }
 
@@ -91,6 +96,9 @@ void CoinDrawer::GetReadyForAnimation(const uint32_t index)
 
 		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
 		slimeActor_.Wobble();
+
+		emitTimer_.Initialize(20, true);
+		emitCounter_ = 0;
 	}
 }
 
@@ -105,4 +113,17 @@ void CoinDrawer::UpdateAnimation()
 	animeStatus_.rota_.y_ += earnRotaEas_.In(animationTimers_[kEarnIndex].timer.Ratio());
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
+
+	emitTimer_.Update();
+	if (emitTimer_.IsEnd())
+	{
+		WaveParticle::Emit(
+			20,
+			pParent_->pos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
+			ColorConfig::skTurquoise[2], spVP_);
+		
+		emitCounter_++;
+		
+		emitTimer_.Initialize(10, (emitCounter_ < 2));
+	}
 }

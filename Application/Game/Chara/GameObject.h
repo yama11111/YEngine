@@ -17,14 +17,19 @@ namespace YGame
 		/// <param name="status"> : 初期化ステータス</param>
 		/// <param name="pParent"> : 親ポインタ</param>
 		void Initialize(
-			const std::string name, 
+			const std::string& name, 
 			const Transform::Status& status,
 			GameObject* pParent = nullptr);
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		void Update();
+		virtual void UpdateBeforeCollision();
+		
+		/// <summary>
+		/// 衝突後更新
+		/// </summary>
+		virtual void UpdateAfterCollision();
 
 		/// <summary>
 		/// 描画
@@ -32,9 +37,10 @@ namespace YGame
 		void Draw();
 
 		/// <summary>
-		/// 衝突判定
+		/// 衝突判定時処理
 		/// </summary>
-		virtual void OnCollision();
+		/// <param name="collIndex"> : 衝突番号</param>
+		virtual void SendCollisionInfo(const size_t collIndex);
 
 	public:
 
@@ -62,6 +68,18 @@ namespace YGame
 		/// <param name="tag"> : タグ</param>
 		/// <returns>描画クラスポインタ</returns>
 		inline BaseDrawer* SubDrawerPtr(const std::string& tag) { return subDrawer_[tag].get(); }
+
+		/// <summary>
+		/// 衝突判定番号取得
+		/// </summary>
+		/// <returns>衝突判定番号</returns>
+		inline size_t CollisionIndex() const { return collIndex_; }
+
+		/// <summary>
+		/// 存在フラグ取得
+		/// </summary>
+		/// <returns>存在フラグ</returns>
+		inline bool IsExist() const { return isExist_; }
 	
 	public:
 		
@@ -90,6 +108,18 @@ namespace YGame
 		/// <param name="drawer"> : 描画インスタンス (動的)</param>
 		void InsertSubDrawer(const std::string& tag, BaseDrawer* drawer);
 
+		/// <summary>
+		/// 衝突判定番号設定
+		/// </summary>
+		/// <param name="collIndex"> : 衝突番号</param>
+		void SetCollisionIndex(const size_t collIndex);
+
+		/// <summary>
+		/// 更新フラグ設定
+		/// </summary>
+		/// <param name="isUpdate"> : 更新フラグ</param>
+		void SetIsUpdate(const bool isUpdate);
+
 	public:
 
 		GameObject() = default;
@@ -112,6 +142,15 @@ namespace YGame
 
 		// 親ポインタ
 		GameObject* pParent_ = nullptr;
+
+		// 衝突判定番号
+		size_t collIndex_ = 0;
+
+		// 更新フラグ
+		bool isUpdate_ = true;
+
+		// 存在フラグ
+		bool isExist_ = true;
 
 	protected:
 

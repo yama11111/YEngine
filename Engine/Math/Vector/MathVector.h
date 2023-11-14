@@ -63,6 +63,9 @@ namespace YMath
 	// 3次元ベクトルに変換
 	Vector3 ConvertToVector3(const Vector2& v);
 
+	// 2次元ベクトルに変換
+	Vector2 ConvertToVector2(const Vector3& v);
+
 	// ベクトルの成分同士で掛け算
 	Vector3 MultAtComponent(const Vector3& v1, const Vector3& v2);
 	// ベクトルの成分同士で割り算

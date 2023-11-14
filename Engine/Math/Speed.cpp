@@ -34,7 +34,7 @@ void Speed::Update(const Vector3& power)
 	
 	if (isGravity_)
 	{
-		velocity_.y_ -= 0.1f;
+		velocity_.y_ -= 0.075f;
 	}
 
 	velocity_ = YMath::Clamp(velocity_, -max_, max_);

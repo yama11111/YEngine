@@ -27,17 +27,17 @@ namespace YGame
 			const uint32_t attackPower);
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		void Update(const bool isUpdate) override;
+		void UpdateBeforeCollision() override;
 
 		/// <summary>
-		/// 衝突判定
+		/// 衝突後更新
 		/// </summary>
-		/// <param name="info"> : 衝突時情報</param>
-		void OnCollision(const CollisionInfo& info) override;
+		void UpdateAfterCollision() override;
 
+	public:
+		
 		/// <summary>
 		/// 衝突時情報取得
 		/// </summary>
@@ -51,6 +51,12 @@ namespace YGame
 		~NeedleAttack() = default;
 
 	private:
+
+		/// <summary>
+		/// 衝突判定
+		/// </summary>
+		/// <param name="info"> : 衝突時情報</param>
+		void OnCollision(const CollisionInfo& info) override;
 
 		/// <summary>
 		/// デバッグテキスト本文

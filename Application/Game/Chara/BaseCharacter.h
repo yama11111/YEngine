@@ -6,9 +6,10 @@
 
 namespace YGame
 {
+	struct CollisionInfo;
+
 	class BaseCharacter :
-		public GameObject,
-		public MapChipCollider
+		public GameObject
 	{
 	
 	public:
@@ -34,37 +35,22 @@ namespace YGame
 			BaseDrawer* drawer);
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		virtual void Update(const bool isUpdate);
+		virtual void UpdateBeforeCollision() override;
+
+		/// <summary>
+		/// 衝突後更新
+		/// </summary>
+		virtual void UpdateAfterCollision() override;
 
 	public:
-
-		// 衝突時情報構造体
-		struct CollisionInfo
-		{
-			// 属性
-			AttributeType attribute = AttributeType::eNone;
-
-			// 位置
-			YMath::Vector3 pos;
-
-			// 半径
-			float radius = 0.0f;
-
-			// キャラステータスポインタ
-			CharacterStatus* pStatus = nullptr;
-
-			// ポインタ
-			BaseCharacter* pSelf = nullptr;
-		};
-		
+	
 		/// <summary>
-		/// 衝突判定
+		/// 衝突判定時処理
 		/// </summary>
-		/// <param name="info"> : 衝突時情報</param>
-		virtual void OnCollision(const CollisionInfo& info) = 0;
+		/// <param name="collIndex"> : 衝突番号</param>
+		void SendCollisionInfo(const size_t collIndex) override;
 
 		/// <summary>
 		/// 衝突時情報取得
@@ -87,23 +73,18 @@ namespace YGame
 		inline CharacterStatus Status() const { return status_; }
 
 		/// <summary>
-		/// 位置取得 (参照)
-		/// </summary>
-		/// <returns></returns>
-		inline YMath::Vector3& PosRef() override { return transform_->pos_; }
-		
-		/// <summary>
-		/// スピード取得 (参照)
-		/// </summary>
-		/// <returns></returns>
-		inline YMath::Vector3& SpeedRef() override { return speed_.VelocityRef(); }
-
-		/// <summary>
 		/// 属性取得
 		/// </summary>
 		/// <returns>属性</returns>
 		inline AttributeType Attribute() const { return attribute_; }
 
+	public:
+
+		/// <summary>
+		/// 静的初期化
+		/// </summary>
+		static void StaticInitialize();
+	
 	public:
 
 		BaseCharacter() = default;
@@ -130,13 +111,24 @@ namespace YGame
 	protected:
 
 		/// <summary>
-		/// デバッグテキスト本文
-		/// </summary>
-		virtual void DrawDebugTextContent() override;
-
-		/// <summary>
 		/// 画面外処理
 		/// </summary>
 		virtual void OffScreenProcess();
+		
+		/// <summary>
+		/// 衝突更新
+		/// </summary>
+		void UpdateCollision();
+		
+		/// <summary>
+		/// 衝突時処理
+		/// </summary>
+		/// <param name="info"></param>
+		virtual void OnCollision(const CollisionInfo& info);
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
 	};
 }

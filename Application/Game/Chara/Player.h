@@ -21,22 +21,16 @@ namespace YGame
 			IPet* pPet = nullptr);
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		void Update(const bool isUpdate) override;
+		void UpdateBeforeCollision() override;
 
 		/// <summary>
-		/// 衝突判定
+		/// 衝突後更新
 		/// </summary>
-		/// <param name="info"> : 衝突時情報</param>
-		void OnCollision(const CollisionInfo& info) override;
+		void UpdateAfterCollision() override;
 
-		/// <summary>
-		/// 衝突時情報取得
-		/// </summary>
-		/// <returns>衝突時情報</returns>
-		CollisionInfo GetCollisionInfo() override;
+	public:
 
 		/// <summary>
 		/// ペットに乗る
@@ -48,6 +42,14 @@ namespace YGame
 		/// ペットから降りる
 		/// </summary>
 		void GetOffPet();
+
+	public:
+
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		CollisionInfo GetCollisionInfo() override;
 
 	public:
 
@@ -99,6 +101,12 @@ namespace YGame
 		/// 画面外処理
 		/// </summary>
 		void OffScreenProcess() override;
+
+		/// <summary>
+		/// 衝突判定
+		/// </summary>
+		/// <param name="info"> : 衝突時情報</param>
+		void OnCollision(const CollisionInfo& info) override;
 		
 		/// <summary>
 		/// デバッグテキスト本文

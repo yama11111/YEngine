@@ -1,12 +1,25 @@
 #include "BaseCharacter.h"
+
 #include "MathVector.h"
 #include "MathUtil.h"
+
 #include "CharacterConfig.h"
-#include "MapChipManager.h"
+#include "CollisionInfoQueue.h"
+
 #include <imgui.h>
 
 using YGame::BaseCharacter;
 using YMath::Vector3;
+
+namespace 
+{
+	YGame::CollisionInfoQueue* pCollInfoQueue = nullptr;
+}
+
+void BaseCharacter::StaticInitialize()
+{
+	pCollInfoQueue = CollisionInfoQueue::GetInstance();
+}
 
 void BaseCharacter::Initialize(
 	const std::string& name,
@@ -27,29 +40,29 @@ void BaseCharacter::Initialize(
 	GameObject::SetCollider(new GameCollider());
 	
 	GameObject::SetDrawer(drawer);
-
-	// マップチップとのアタリ判定はスケールをそのまま使う
-	MapChipCollider::Initialize(status.scale_);
 }
 
-void BaseCharacter::Update(const bool isUpdate)
+void BaseCharacter::UpdateBeforeCollision()
 {
-	if (isUpdate == false) {}
-
-	speed_.Update(moveDirection_);
+	GameObject::UpdateBeforeCollision();
 	
+	speed_.Update(moveDirection_);
+
 	moveDirection_ = Vector3();
+}
 
-	// マップチップとのアタリ判定
-	MapChipManager::GetInstance()->CurrentMapPointer()->PerfectPixelCollision(*this);
-
+void BaseCharacter::UpdateAfterCollision()
+{
 	transform_->pos_ += speed_.Velocity();
 
 	// 向き調整
 	transform_->rota_ = YMath::AdjustAngle(direction_);
 
-	GameObject::Update();
+	GameObject::UpdateAfterCollision();
 
+	// 衝突処理
+	UpdateCollision();
+	
 	status_.Update();
 
 	// 画面外なら死ぬ
@@ -57,6 +70,37 @@ void BaseCharacter::Update(const bool isUpdate)
 	{
 		OffScreenProcess();
 	}
+	
+	isExist_ = IsAlive();
+}
+
+void BaseCharacter::SendCollisionInfo(const size_t collIndex)
+{
+	pCollInfoQueue->PushBack(collIndex, GetCollisionInfo());
+}
+
+void BaseCharacter::OffScreenProcess()
+{
+	status_.Damage(1000, false);
+}
+
+void BaseCharacter::UpdateCollision()
+{
+	// 衝突情報を1つ1つ処理
+	// 空なら終わり
+	while (true)
+	{
+		if (pCollInfoQueue->Empty(collIndex_)) { break; }
+
+		OnCollision(pCollInfoQueue->Front(collIndex_));
+
+		pCollInfoQueue->Pop(collIndex_);
+	}
+}
+
+void BaseCharacter::OnCollision(const CollisionInfo& info)
+{
+	info;
 }
 
 void BaseCharacter::DrawDebugTextContent()
@@ -64,9 +108,4 @@ void BaseCharacter::DrawDebugTextContent()
 	status_.DrawDebugTextContent();
 
 	GameObject::DrawDebugTextContent();
-}
-
-void BaseCharacter::OffScreenProcess()
-{
-	status_.Damage(1000, false);
 }

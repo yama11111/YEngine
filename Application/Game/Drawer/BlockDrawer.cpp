@@ -1,5 +1,6 @@
 #include "BlockDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ColorConfig.h"
 
 using YGame::BlockDrawer;
 using YGame::Model;
@@ -30,14 +31,23 @@ void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 	
-	SetShaderTag("ModelPhong");
-	
-	transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
+	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 
+	cbColor_->data_.baseColor = ColorConfig::skTurquoise[5];
 	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
+
+	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
+	cbOutline_->data_.color = ColorConfig::skTurquoise[3];
+	cbOutline_->data_.range = 0.1f;
+	
+	InsertConstBuffer("Block_O", cbOutline_.get());
+	
+	SetShaderTag("Block", "ModelToon");
+	SetShaderTag("Block_O", "ModelOutline");
 }
 
 void BlockDrawer::InitializeObjects()
 {
 	InsertObject("Block", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Block_O", DrawObjectForModel::Create({}, spVP_, pModel));
 }

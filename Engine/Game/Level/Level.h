@@ -1,7 +1,5 @@
 #pragma once
-#include "CharacterManager.h"
-#include "DrawObjectForModel.h"
-#include "MapChipManager.h"
+#include "GameObject.h"
 #include "Camera.h"
 #include <json.hpp>
 
@@ -11,8 +9,6 @@ namespace YGame
 	{
 
 	public:
-
-		static void LoadAsset();
 
 		/// <summary>
 		/// レベルデータ読み込み (.json)
@@ -27,27 +23,10 @@ namespace YGame
 		static void ClearAllData();
 
 	public:
-		
-		void Initialize();
-
-		/// <summary>
-		/// 更新
-		/// </summary>
-		void Update();
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		void Draw();
-
-	public:
 
 		Level() = default;
-
 		~Level() = default;
-
 		Level(const Level&) = delete;
-
 		const Level& operator=(const Level&) = delete;
 
 	private:
@@ -60,9 +39,6 @@ namespace YGame
 		void LoadData(nlohmann::json& object, GameObject* pParent = nullptr);
 	
 	private:
-
-		// 全オブジェクト
-		std::list<std::unique_ptr<GameObject>> objs_;
 
 		// ファイルパス
 		std::string fileName_;

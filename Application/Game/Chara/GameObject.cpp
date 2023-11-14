@@ -6,7 +6,7 @@
 
 using YGame::GameObject;
 
-void GameObject::Initialize(const std::string name, const Transform::Status& status, GameObject* pParent)
+void GameObject::Initialize(const std::string& name, const Transform::Status& status, GameObject* pParent)
 {
 	SetName(name);
 
@@ -19,19 +19,28 @@ void GameObject::Initialize(const std::string name, const Transform::Status& sta
 
 	// 行列更新
 	transform_->UpdateMatrix();
+
+	isUpdate_ = true;
+
+	isExist_ = true;
 }
 
-void GameObject::Update()
+void GameObject::UpdateBeforeCollision()
+{
+
+}
+
+void GameObject::UpdateAfterCollision()
 {
 	// 核更新
 	transform_->UpdateMatrix();
 
-	if (drawer_) 
+	if (drawer_)
 	{
-		drawer_->Update(); 
-	}	
+		drawer_->Update();
+	}
 
-	if (subDrawer_.empty() == false) 
+	if (subDrawer_.empty() == false)
 	{
 		for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
 		{
@@ -54,8 +63,9 @@ void GameObject::Draw()
 	}
 }
 
-void GameObject::OnCollision()
+void GameObject::SendCollisionInfo(const size_t collIndex)
 {
+	collIndex;
 }
 
 void GameObject::SetParent(GameObject* pParent)
@@ -103,6 +113,16 @@ void GameObject::InsertSubDrawer(const std::string& tag, BaseDrawer* drawer)
 
 	// マップに挿入
 	subDrawer_.insert({ tag, std::move(newDrawer) });
+}
+
+void GameObject::SetCollisionIndex(const size_t collIndex)
+{
+	collIndex_ = collIndex;
+}
+
+void GameObject::SetIsUpdate(const bool isUpdate)
+{
+	isUpdate_ = isUpdate;
 }
 
 void GameObject::DrawDebugTextContent()

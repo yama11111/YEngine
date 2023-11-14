@@ -1,11 +1,11 @@
 #pragma once
 #include "BaseScene.h"
-#include "MapChipManager.h"
-#include "CharacterManager.h"
+#include "GameObjectManager.h"
 #include "PauseManager.h"
 #include "ScrollCamera.h"
 #include "ScoreManager.h"
 #include "UIDrawer.h"
+#include "BeginingDrawer.h"
 
 #include "Level.h"
 
@@ -27,11 +27,8 @@ namespace YGame
 		// レベル
 		Level* pLevel_ = nullptr;
 
-		// キャラクターマネージャー
-		CharacterManager* pCharacterMan_ = nullptr;
-
-		// マップチップマネージャー
-		MapChipManager* pMapChipManager_ = nullptr;
+		// オブジェクトマネージャー
+		GameObjectManager* pObjectMan_ = nullptr;
 
 		// スクロールカメラ
 		ScrollCamera scrollCamera_;
@@ -44,6 +41,9 @@ namespace YGame
 
 		// UIマネージャー
 		UIDrawer uiDra_;
+
+		// 開始演出描画クラス
+		BeginingDrawer beginingDra_;
 		
 		// 開始フラグ
 		bool isStart_ = false;
@@ -57,7 +57,7 @@ namespace YGame
 		// 停止フラグ
 		bool isStop_ = false;
 
-		PauseManager pause_;
+		PauseManager pause_; 
 
 #pragma endregion
 

@@ -13,6 +13,12 @@ public:
 	void DrawDebugText(const bool isWindow);
 
 	/// <summary>
+	/// 名前取得
+	/// </summary>
+	/// <returns>名前</returns>
+	std::string Name() const { return name_; }
+
+	/// <summary>
 	/// 名前変更
 	/// </summary>
 	/// <param name="name"> : 名前</param>

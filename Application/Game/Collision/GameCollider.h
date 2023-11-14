@@ -45,18 +45,30 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 優先度設定
+		/// </summary>
+		/// <param name="priority"> : 優先度</param>
+		void SetPriority(const uint32_t priority) { priority_ = priority; }
+
+		/// <summary>
 		/// すり抜けフラグ設定
 		/// </summary>
 		/// <param name="isSlip"> : すり抜けフラグ</param>
-		inline void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
+		void SetIsSlip(const bool isSlip) { isSlip_ = isSlip; }
 
 	public:
+
+		/// <summary>
+		/// 優先度取得
+		/// </summary>
+		/// <returns>優先度</returns>
+		size_t Priority() const { return priority_; }
 		
 		/// <summary>
 		/// すり抜けフラグ取得
 		/// </summary>
 		/// <returns>すり抜けフラグ</returns>
-		inline  bool IsSlip() const { return isSlip_; }
+		bool IsSlip() const { return isSlip_; }
 
 	public:
 
@@ -81,11 +93,14 @@ namespace YGame
 
 	private:
 
-		// すり抜けフラグ
-		bool isSlip_ = false;
-
 		// コライダーリスト
 		std::list<std::unique_ptr<ColliderSet>> colliders_;
+
+		// 優先度
+		uint32_t priority_ = 0;
+
+		// すり抜けフラグ
+		bool isSlip_ = false;
 
 	private:
 

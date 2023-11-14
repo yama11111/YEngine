@@ -1,6 +1,8 @@
 #include "CollisionDetection.h"
+#include "MathVector.h"
 #include <cmath>
 
+using YMath::Vector2;
 using YMath::Vector3;
 
 static const float Epsilon = 1.0e-5f;
@@ -408,6 +410,72 @@ bool YMath::CollisionBoxBox2D(
 	bool yColl2 = boxCenter1.y_ + boxRadSize1.y_ >= boxCenter2.y_ - boxRadSize2.y_;
 
 	return  xColl1 && xColl2 && yColl1 && yColl2;
+}
+
+bool YMath::CollisionAndPushBackBoxBox2D(
+	const Vector3& followPoint1, const Vector3& velocity1, const Vector2& boxRadSize1,
+	Vector3* pFollowPoint2, Vector3* pVelocity2, const Vector2& boxRadSize2)
+{
+	// 現在地 + 移動量で正確な位置を出す
+	// 位置(1)
+	Vector2 pos1 = ConvertToVector2(followPoint1) + ConvertToVector2(velocity1);
+	// 位置(2)
+	Vector2 pos2X = ConvertToVector2(*pFollowPoint2) + Vector2(pVelocity2->x_, 0);
+	Vector2 pos2Y = ConvertToVector2(*pFollowPoint2) + Vector2(0, pVelocity2->y_);
+
+	// X,Y軸毎に判定
+	bool isCollX = CollisionBoxBox2D(pos1, boxRadSize1, pos2X, boxRadSize2);
+	bool isCollY = CollisionBoxBox2D(pos1, boxRadSize1, pos2Y, boxRadSize2);
+	
+	// ぶつかっていないなら弾く
+	if (isCollX == false && isCollY == false) { return false; }
+
+
+	// 近づく移動量
+	YMath::Vector3 approach = *pVelocity2 / 100.0f;
+
+	// 押し戻し処理
+	while (true)
+	{
+		// 位置(2)
+		Vector2 tempPos2X = ConvertToVector2(*pFollowPoint2) + Vector2(approach.x_, 0);
+		Vector2 tempPos2Y = ConvertToVector2(*pFollowPoint2) + Vector2(0, approach.y_);
+
+		// ぶつかっているか (仮移動)
+		bool isCollTempX = CollisionBoxBox2D(pos1, boxRadSize1, pos2X, boxRadSize2); // x
+		bool isCollTempY = CollisionBoxBox2D(pos1, boxRadSize1, pos2Y, boxRadSize2); // y
+
+		// ぶつかっているならループ抜ける
+		if (isCollTempX || isCollTempY) { break; }
+
+		// 少しづつ近づける
+		if (isCollX) { pFollowPoint2->x_ += approach.x_; }
+		if (isCollY) { pFollowPoint2->y_ += approach.y_; }
+	}
+
+	// X軸判定なら
+	if (isCollX)
+	{
+		// ビット更新
+		//if (pVelocity2->x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
+		//if (pVelocity2->x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
+
+		// 速度リセット
+		pVelocity2->x_ = 0.0f;
+	}
+
+	// Y軸判定なら
+	if (isCollY)
+	{
+		// ビット更新
+		//if (pVelocity2->y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
+		//if (pVelocity2->y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
+
+		// 速度リセット
+		pVelocity2->y_ = 0.0f;
+	}
+	
+	return true;
 }
 
 #pragma endregion

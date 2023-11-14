@@ -16,11 +16,17 @@ namespace YGame
 		void Initialize(const Transform::Status& status);
 
 		/// <summary>
-		/// 更新
+		/// 衝突前更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		void Update(const bool isUpdate) override;
+		void UpdateBeforeCollision() override;
 
+		/// <summary>
+		/// 衝突後更新
+		/// </summary>
+		void UpdateAfterCollision() override;
+
+	public:
+		
 		/// <summary>
 		/// ジャンプ
 		/// </summary>

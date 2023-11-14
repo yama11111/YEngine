@@ -3,7 +3,8 @@
 #include "CharacterConfig.h"
 
 #include "CollisionDrawer.h"
-#include "PrimitiveCollider.h"
+#include "SphereCollider.h"
+#include "CollisionInfo.h"
 
 using YGame::NeedleAttack;
 using YMath::Vector3;
@@ -34,13 +35,10 @@ void NeedleAttack::Initialize(
 
 		collider_->PushBack(
 			attribute_, AttributeType::eEnemy,
-			new YMath::SphereCollider(&transform_->pos_, radius));
+			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), radius, {}, false));
 	}
 
-	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), radius, 1));
-
-	// 跳ね返らない
-	MapChipCollider::SetIsBounce(false);
+	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), radius, 1));
 
 	// 生存時間初期化 + スタート
 	aliveTimer_.Initialize(aliveTimer);
@@ -51,16 +49,19 @@ void NeedleAttack::Initialize(
 	transform_->pos_ = emitPos;
 
 	// オブジェクト更新
-	GameObject::Update();
-
+	transform_->UpdateMatrix();
+	drawer_->Update();
 }
 
-void NeedleAttack::Update(const bool isUpdate)
+void NeedleAttack::UpdateBeforeCollision()
 {
 	moveDirection_ = Vector3(+1.0f, 0.0f, 0.0f);
+	BaseCharacter::UpdateBeforeCollision();
+}
 
-	// キャラクター更新
-	BaseCharacter::Update(isUpdate);
+void NeedleAttack::UpdateAfterCollision()
+{
+	BaseCharacter::UpdateAfterCollision();
 
 	aliveTimer_.Update();
 
@@ -77,11 +78,11 @@ void NeedleAttack::OnCollision(const CollisionInfo& info)
 	if (info.attribute == AttributeType::eEnemy)
 	{
 		// ダメージを与える
-		info.pStatus->Damage(status_.Attack(), true);
+		//info.pStatus->Damage(status_.Attack(), true);
 	}
 }
 
-YGame::BaseCharacter::CollisionInfo NeedleAttack::GetCollisionInfo()
+YGame::CollisionInfo NeedleAttack::GetCollisionInfo()
 {
 	CollisionInfo result;
 

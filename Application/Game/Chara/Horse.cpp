@@ -2,11 +2,13 @@
 #include "HorseDrawer.h"
 #include "CharacterConfig.h"
 #include "AnimationConfig.h"
-#include "CharacterManager.h"
+#include "GameObjectManager.h"
 #include "NeedleAttack.h"
 
 #include "CollisionDrawer.h"
-#include "PrimitiveCollider.h"
+#include "SphereCollider.h"
+#include "Box2DCollider.h"
+#include "CollisionInfo.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include <cassert>
@@ -25,8 +27,6 @@ void Horse::Initialize(const Transform::Status& status)
 		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
 		HorseDrawer::Create(nullptr, 1));
 
-	transform_->Initialize();
-
 	{
 		attribute_ = AttributeType::ePet;
 
@@ -36,10 +36,10 @@ void Horse::Initialize(const Transform::Status& status)
 
 		collider_->PushBack(
 			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, PetConfig::kRadius));
+			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), PetConfig::kRadius, {}, false));
 	}
 
-	InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PetConfig::kRadius, 1));
+	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PetConfig::kRadius, 1));
 
 	isHit_ = false;
 
@@ -54,28 +54,32 @@ void Horse::Initialize(const Transform::Status& status)
 	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eMove), true);
 }
 
-void Horse::Update(const bool isUpdate)
+void Horse::UpdateBeforeCollision()
 {
-	IPet::Update(isUpdate);
-
-	// 着地した瞬間
-	if ((MapChipCollider::CollisionBit() & ChipCollisionBit::kBottom) &&
-		(MapChipCollider::CollisionBit() & ChipCollisionBit::kElderBottom) == 0)
-	{
-		// 着地アニメーション
-		drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eLanding), true);
-	}
+	IPet::UpdateBeforeCollision();
 }
 
-YGame::BaseCharacter::CollisionInfo Horse::GetCollisionInfo()
+void Horse::UpdateAfterCollision()
+{
+	IPet::UpdateAfterCollision();
+
+	// 着地した瞬間
+	//if ()
+	//{
+	//	// 着地アニメーション
+	//	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eLanding), true);
+	//}
+}
+
+YGame::CollisionInfo Horse::GetCollisionInfo()
 {
 	CollisionInfo result;
 
 	result.attribute = attribute_;
-	result.pos		 = transform_->pos_;
-	result.radius	 = PetConfig::kRadius;
-	result.pStatus	 = &status_;
-	result.pSelf	 = this;
+	result.pos = transform_->pos_;
+	result.radius = PetConfig::kRadius;
+	result.pStatus = &status_;
+	result.pSelf = this;
 
 	return result;
 }
@@ -117,7 +121,7 @@ void Horse::Attack()
 		NeedleAttackConfig::kPower
 	);
 
-	CharacterManager::GetInstance()->PushBack(newAttack);
+	GameObjectManager::GetInstance()->PushBack(newAttack, 0, true);
 
 	// 攻撃アニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eAttack), true);

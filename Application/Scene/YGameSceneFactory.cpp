@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "SelectScene.h"
 #include "PlayScene.h"
+#include "ResultScene.h"
 
 //#include "TestScene.h"
 
@@ -11,6 +12,7 @@ using YGame::BaseScene;
 const std::string YGameSceneFactory::Title_		 = "TITLE";
 const std::string YGameSceneFactory::Select_	 = "SELECT";
 const std::string YGameSceneFactory::Play_		 = "PLAY";
+const std::string YGameSceneFactory::Result_	 = "RESULT";
 //const std::string YGameSceneFactory::Test_		 = "TEST";
 
 BaseScene* YGameSceneFactory::CreateScene(const std::string& sceneName)
@@ -21,6 +23,7 @@ BaseScene* YGameSceneFactory::CreateScene(const std::string& sceneName)
 	if (sceneName == Title_)	{ newScene = new TitleScene(); }
 	if (sceneName == Select_)	{ newScene = new SelectScene(); }
 	if (sceneName == Play_)		{ newScene = new PlayScene(); }
+	if (sceneName == Result_)	{ newScene = new ResultScene(); }
 
 	//if (sceneName == Test_)		{ newScene = new TestScene(); }
 
