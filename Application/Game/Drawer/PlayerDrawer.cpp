@@ -122,7 +122,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		// 伸びる
 		std::vector<Vector3> wobbleScaleValues;
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-		wobbleScaleValues.push_back(Vector3(-0.25f, +0.5f, -0.25f));
+		wobbleScaleValues.push_back(Vector3(-0.5f, +1.0f, -0.5f));
 		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
 
 		uint32_t wobbleFrame = frame;

@@ -65,7 +65,7 @@ namespace YGame
 	private:
 	
 		// 衝突キュー配列
-		std::array<std::queue<CollisionInfo>, 50> collQueues_;
+		std::array<std::queue<CollisionInfo>, 200> collQueues_;
 
 	};
 }

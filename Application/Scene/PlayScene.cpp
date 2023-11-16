@@ -58,31 +58,6 @@ void PlayScene::Initialize()
 
 	// ビュープロジェクション初期化
 	transferVP_.Initialize();
-
-	// キャラクター
-	{
-		// プレイヤー
-		{
-			// プレイヤー生成
-			Player* newPlayer = new Player();
-			
-			// ペット(ウマ)生成
-			Horse* newHorse = new Horse();
-
-			// ペット初期化
-			newHorse->Initialize({ {-45,0,0}, {}, {1.0f,1.0f,1.0f} });
-
-			// プレイヤー初期化
-			newPlayer->Initialize(
-				{ {-100.0f,-100.0f,-100.0f}, {}, {1.0f,1.0f,1.0f} },
-				newHorse
-			);
-
-			// 挿入
-			pObjectMan_->PushBack(newHorse, 1, true);
-			pObjectMan_->PushBack(newPlayer, 0, true);
-		}
-	}
 	
 	pLevel_ = Level::LoadJson("levelData.json");
 

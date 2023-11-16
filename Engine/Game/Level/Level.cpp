@@ -137,7 +137,13 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		bool isSaveColl = false;
 
 		// 初期化
-		if (name == "Slime.")
+		if (name == "Player.")
+		{
+			newObj = new Player();
+			static_cast<Player*>(newObj)->Initialize(status);
+			isSaveColl = true;
+		}
+		else if (name == "Slime.")
 		{
 			newObj = new Slime();
 			static_cast<Slime*>(newObj)->Initialize(status);
