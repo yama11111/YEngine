@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseCharacter.h"
-#include "ScrollCamera.h"
+#include "GameCamera.h"
 
 namespace YGame
 {
@@ -68,8 +68,12 @@ namespace YGame
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		/// <param name="pScrollCamera"> : スクロールカメラポインタ</param>
-		static void StaticInitialize(ScrollCamera* pScrollCamera);
+		/// <param name="pCamera"> : カメラポインタ</param>
+		static void StaticInitialize(GameCamera* pCamera);
+
+
+		static void StaticSetPetPointer(IPet* pPet);
+		static IPet* StaticGetPetPointer();
 
 	protected:
 
@@ -86,15 +90,20 @@ namespace YGame
 		uint16_t maxJumpCount_ = 0;
 
 		// 静的スクロールカメラポインタ
-		static ScrollCamera* spScrollCamera_;
+		static GameCamera* spCamera_;
 	
 	protected:
+
+		/// <summary>
+		/// 操縦更新
+		/// </summary>
+		virtual void UpdateControl() override;
 
 		/// <summary>
 		/// 衝突時処理
 		/// </summary>
 		/// <param name="info"></param>
-		virtual void OnCollision(const CollisionInfo& info) override;
+		virtual void OnCollision(const InfoOnCollision& info) override;
 
 		/// <summary>
 		/// 衝突時処理

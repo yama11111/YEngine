@@ -8,7 +8,7 @@ using YGame::Camera;
 using YMath::Vector3;
 using YMath::MultVec3Mat4;
 
-void Camera::Initialize(const Vector3 pos, const Vector3 rota)
+void Camera::Initialize(const Vector3& pos, const Vector3& rota)
 {
 	// 初期化 + 代入
 	shake_.Initialize();
@@ -24,7 +24,7 @@ void Camera::Initialize(const Vector3 pos, const Vector3 rota)
 	Update();
 }
 
-void Camera::Initialize(const Vector3 pos, Vector3* pFollowPoint, bool isFollow)
+void Camera::Initialize(const Vector3& pos, Vector3* pFollowPoint, bool isFollow)
 {
 	// 初期化 + 代入
 	shake_.Initialize();
@@ -80,7 +80,7 @@ void Camera::Update(const Transform::Status& status)
 	transform_.rota_ = rota_;
 	
 	// アフィン変換
-	transform_.UpdateMatrix(status);
+	transform_.UpdateMatrix(status_);
 	
 	// カメラシェイク更新
 	shake_.Update();
@@ -113,7 +113,7 @@ void Camera::Shaking(const float swing, const float dekey, const float place)
 	shake_.Activate(swing, dekey, place);
 }
 
-ViewProjection Camera::GetViewProjection()
+ViewProjection Camera::GetViewProjection() const
 {
 	// 戻り値用
 	ViewProjection result = vp_;

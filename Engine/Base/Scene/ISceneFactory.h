@@ -10,8 +10,12 @@ namespace YGame
 	
 	public:
 		
-		// シーン生成
-		virtual BaseScene* CreateScene(const std::string& sceneName) = 0;
+		/// <summary>
+		/// シーン生成
+		/// </summary>
+		/// <param name="sceneName"> : 名前</param>
+		/// <returns>シーン</returns>
+		virtual std::unique_ptr<BaseScene> CreateScene(const std::string& sceneName) = 0;
 	
 	public:
 		

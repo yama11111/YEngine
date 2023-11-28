@@ -8,7 +8,8 @@ void SceneManager::Initialize(const std::string& sceneName)
 {
 	assert(sceneFactory_);
 
-	scene_.reset(sceneFactory_->CreateScene(sceneName));
+	scene_.reset();
+	scene_ = std::move(sceneFactory_->CreateScene(sceneName));
 	assert(scene_);
 
 	scene_->Load();
@@ -51,7 +52,6 @@ void SceneManager::Transition(const std::string& sceneName, const std::string& t
 
 	if (transitions_.contains(transitionName))
 	{
-		//  J ڊJ n
 		transitions_[transitionName]->Reset();
 		transitions_[transitionName]->Activate(60, 5);
 	}
@@ -61,7 +61,6 @@ void SceneManager::UpdateTransition()
 {
 	if (isTransition_)
 	{
-		//  J ڂ          炷   V [   ؂ ւ 
 		if (transitions_.contains(transitionName_) == false)
 		{
 			Change();
@@ -70,7 +69,6 @@ void SceneManager::UpdateTransition()
 
 		transitions_[transitionName_]->Update();
 
-		//  r   Ȃ e  
 		if (transitions_[transitionName_]->IsFalling()) { return; }
 
 		if (transitions_[transitionName_]->IsChangeMoment())
@@ -96,12 +94,15 @@ void SceneManager::Update()
 
 void SceneManager::Change()
 {
+	assert(sceneFactory_);
+	
 	scene_->Finalize();
 	scene_.reset();
 
 	pDescHeap_->ClearMutableCount();
 
-	scene_.reset(sceneFactory_->CreateScene(nextSceneName_));
+	scene_.reset();
+	scene_ = std::move(sceneFactory_->CreateScene(nextSceneName_));
 	assert(scene_);
 
 	scene_->Load();
@@ -118,10 +119,10 @@ void SceneManager::Draw()
 	}
 }
 
-void SceneManager::SetSceneFactory(ISceneFactory* sceneFactory)
+void SceneManager::SetSceneFactory(std::unique_ptr<ISceneFactory>&& sceneFactory)
 {
 	assert(sceneFactory);
-	sceneFactory_.reset(sceneFactory);
+	sceneFactory_ = std::move(sceneFactory);
 }
 
 void SceneManager::InsertTransition(const std::string& transitionName, BaseTransition* transition)
@@ -129,7 +130,6 @@ void SceneManager::InsertTransition(const std::string& transitionName, BaseTrans
 	assert(transition);
 	assert(transitions_.contains(transitionName) == false);
 
-	//  X } [ g | C   ^ ɕύX
 	std::unique_ptr<BaseTransition> newTransition;
 	newTransition.reset(transition);
 

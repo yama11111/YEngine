@@ -28,13 +28,13 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead);
 }
 
-PlayerDrawer* PlayerDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	PlayerDrawer* newDrawer = new PlayerDrawer();
+	std::unique_ptr<PlayerDrawer> newDrawer = std::make_unique<PlayerDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void PlayerDrawer::LoadResource()
@@ -74,9 +74,9 @@ void PlayerDrawer::InitializeObjects()
 	InsertObject("Leg_L",	 DrawObjectForModel::Create({}, spVP_, pModels[1]));
 	InsertObject("Leg_R",	 DrawObjectForModel::Create({}, spVP_, pModels[2]));
 
-	InsertObject("Body_O", DrawObjectForModel::Create({}, spVP_, pModels[0]));
-	InsertObject("Leg_L_O", DrawObjectForModel::Create({}, spVP_, pModels[1]));
-	InsertObject("Leg_R_O", DrawObjectForModel::Create({}, spVP_, pModels[2]));
+	InsertObject("Body_O",	 DrawObjectForModel::Create({}, spVP_, pModels[0]));
+	InsertObject("Leg_L_O",	 DrawObjectForModel::Create({}, spVP_, pModels[1]));
+	InsertObject("Leg_R_O",	 DrawObjectForModel::Create({}, spVP_, pModels[2]));
 }
 
 void PlayerDrawer::InitializeTimers()

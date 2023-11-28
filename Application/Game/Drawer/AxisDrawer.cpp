@@ -11,14 +11,14 @@ namespace
 	Model* pModel = nullptr;
 }
 
-AxisDrawer* AxisDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<AxisDrawer> AxisDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	AxisDrawer* newDrawer = new AxisDrawer();
+	std::unique_ptr<AxisDrawer> newDrawer = std::make_unique<AxisDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 	newDrawer->SetIsVisible(false);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void AxisDrawer::LoadResource()

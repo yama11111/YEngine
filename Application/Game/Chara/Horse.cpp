@@ -8,7 +8,6 @@
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
 #include "Box2DCollider.h"
-#include "CollisionInfo.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include <cassert>
@@ -17,35 +16,71 @@ using YGame::Horse;
 using YMath::Vector2;
 using YMath::Vector3;
 
+std::unique_ptr<Horse> Horse::Create(const Transform::Status& status)
+{
+	std::unique_ptr<Horse> newObj = std::make_unique<Horse>();
+
+	newObj->Initialize(status);
+
+	return std::move(newObj);
+}
+
 void Horse::Initialize(const Transform::Status& status)
 {
 	BaseCharacter::Initialize(
 		"Horse",
 		status,
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
-		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed,
-		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime,
-		HorseDrawer::Create(nullptr, 1));
+		PetConfig::kNormalAcceleration, PetConfig::kNormalMaxSpeed, true,
+		PetConfig::kHP, PetConfig::kAttack, PetConfig::kInvincibleTime);
 
+	Attribute attribute{};
+	attribute.Add(AttributeType::ePet);
+	
+	SetCollider(GameCollider::Create(attribute));
+	
 	{
-		attribute_ = AttributeType::ePet;
+		Attribute mask{};
+		mask.Add(AttributeType::eBlock);
 
-		collider_->PushBack(
-			attribute_, AttributeType::eBlock,
-			new YMath::Box2DCollider(&transform_->pos_, speed_.VelocityPtr(), PetConfig::kRectSize, {}, true));
-
-		collider_->PushBack(
-			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), PetConfig::kRadius, {}, false));
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), PetConfig::kRectSize, Vector3(), true, false),
+			mask);
 	}
 
-	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PetConfig::kRadius, 1));
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::eGoal);
+
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, PetConfig::kRectSize),
+			mask);
+	}
+	
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::ePlayer);
+		mask.Add(AttributeType::eEnemy);
+		mask.Add(AttributeType::eCoin);
+		mask.Add(AttributeType::eItem);
+		
+		collider_->PushBackCollider(
+			std::make_unique<YMath::SphereCollider>(
+				&transform_->pos_, PetConfig::kRadius), 
+			mask);
+	}
+
+	collider_->SetPriority(1);
 
 	isHit_ = false;
 
 	jumpCounter_ = 0;
 
 	maxJumpCount_ = PetConfig::kMaxJumpCount;
+	
+	SetDrawer(HorseDrawer::Create(nullptr, 1));
 
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eIdle), true);
@@ -71,15 +106,12 @@ void Horse::UpdateAfterCollision()
 	//}
 }
 
-YGame::CollisionInfo Horse::GetCollisionInfo()
+YGame::InfoOnCollision Horse::GetInfoOnCollision()
 {
-	CollisionInfo result;
+	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
 
-	result.attribute = attribute_;
-	result.pos = transform_->pos_;
+	result.attribute = AttributeType::ePet;
 	result.radius = PetConfig::kRadius;
-	result.pStatus = &status_;
-	result.pSelf = this;
 
 	return result;
 }
@@ -109,19 +141,14 @@ void Horse::Jump(const bool isJumpCount)
 
 void Horse::Attack()
 {
-	// 攻撃新規生成
-	NeedleAttack* newAttack = new NeedleAttack();
-
-	newAttack->Initialize(
-		NeedleAttackConfig::kAliveTime,
-		transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
-		NeedleAttackConfig::kAcceleration,
-		NeedleAttackConfig::kMaxSpeed,
-		NeedleAttackConfig::kRadius,
-		NeedleAttackConfig::kPower
-	);
-
-	GameObjectManager::GetInstance()->PushBack(newAttack, 0, true);
+	GameObjectManager::GetInstance()->PushBack(
+		NeedleAttack::Create(
+			NeedleAttackConfig::kAliveTime,
+			transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
+			NeedleAttackConfig::kAcceleration,
+			NeedleAttackConfig::kMaxSpeed,
+			NeedleAttackConfig::kRadius,
+			NeedleAttackConfig::kPower), 0, true, true);
 
 	// 攻撃アニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(HorseDrawer::AnimationType::eAttack), true);

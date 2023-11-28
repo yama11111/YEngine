@@ -23,17 +23,17 @@ void GameObjectManager::Clear()
 	}
 }
 
-void GameObjectManager::Initialize()
+void GameObjectManager::Initialize(ViewProjection* pVP)
 {
-	pCollisionInfoQueue_ = CollisionInfoQueue::GetInstance();
+	assert(pVP);
 
 	Clear();
+
+	pVP_ = pVP;
 }
 
-void GameObjectManager::Update(const bool isUpdate)
+void GameObjectManager::Update(const bool isContorolUpdate)
 {
-	pCollisionInfoQueue_->Update();
-	
 	// オブジェクトが存在しないなら削除
 	objects_.remove_if([](GameObjectSet& object) { return object.obj->IsExist() == false; });
 	
@@ -42,13 +42,18 @@ void GameObjectManager::Update(const bool isUpdate)
 
 	for (GameObjectSet& object : objects_)
 	{
-		object.obj->SetIsUpdate(isUpdate);
-	}
+		object.obj->SetIsControlUpdate(isContorolUpdate);
 
-	for (GameObjectSet& object: objects_)
-	{
-		updateBeforeCollQueue.push({ &object });
-		updateAfterCollQueue.push({ &object });
+		if (object.isUpdateSkip)
+		{
+			object.isSkip = (InUpdateRange(object.obj.get()) == false);
+		}
+		
+		if (object.isSkip == false)
+		{
+			updateBeforeCollQueue.push({ &object });
+			updateAfterCollQueue.push({ &object });
+		}
 	}
 
 	// 前更新
@@ -111,11 +116,16 @@ void GameObjectManager::Draw()
 {
 	for (GameObjectSet& object : objects_)
 	{
+		if (object.isSkip) { continue; }
 		object.obj->Draw();
 	}
 }
 
-void GameObjectManager::PushBack(GameObject* object, const uint32_t updatePriority, const bool isSaveCollInfo)
+void GameObjectManager::PushBack(
+	std::unique_ptr<GameObject>&& object, 
+	const uint32_t updatePriority, 
+	const bool isUpdateSkip,
+	const bool isSaveCollInfo)
 {
 	assert(object);
 
@@ -124,29 +134,34 @@ void GameObjectManager::PushBack(GameObject* object, const uint32_t updatePriori
 	objects_.push_back({});
 	std::list<GameObjectSet>::iterator itr = objects_.end();
 	itr--;
-	itr->obj.reset(object);
+	itr->obj = std::move(object);
 	itr->updatePriority = updatePriority;
+	itr->isUpdateSkip = isUpdateSkip;
+	itr->isSkip = false;
 	itr->isSaveCollInfo = isSaveCollInfo;
+}
+
+bool GameObjectManager::InUpdateRange(GameObject* pObject)
+{
+	// 視点との距離
+	float distance = YMath::Vector3(pVP_->eye_ - pObject->TransformPtr()->pos_).Length();
+
+	// 更新範囲
+	static const float kUpdateRange = 250.0f;
+
+	return distance <= kUpdateRange;
 }
 
 void GameObjectManager::CheckAllCollision()
 {
-	size_t index = 0;
-	for (GameObjectSet& object : objects_)
-	{
-		if (object.isSaveCollInfo)
-		{
-			object.obj->SetCollisionIndex(index);
-			index++;
-		}
-	}
-
 	// Aの始めから
 	std::list<GameObjectSet>::iterator itrA = objects_.begin();
 
 	// Aの終わりまで
 	for (; itrA != objects_.end(); ++itrA)
 	{
+		if (itrA->isSkip) { continue; }
+		
 		GameObject* pObjA = itrA->obj.get();
 
 		// Bの初め(A + 1)から
@@ -156,6 +171,8 @@ void GameObjectManager::CheckAllCollision()
 		// Bの終わりまで
 		for (; itrB != objects_.end(); ++itrB)
 		{
+			if (itrB->isSkip) { continue; }
+			
 			GameObject* pObjB = itrB->obj.get();
 
 			// 判定チェック
@@ -168,24 +185,33 @@ void GameObjectManager::CheckCollisionCharacterPair(
 	GameObject* pObjectA, const bool isSaveA,
 	GameObject* pObjectB, const bool isSaveB)
 {
-	if (pObjectA->ColliderPtr() == nullptr || pObjectB->ColliderPtr() == nullptr) { return; }
+	GameCollider* pCollA = pObjectA->ColliderPtr();
+	GameCollider* pCollB = pObjectB->ColliderPtr();
+
+	if (pCollA == nullptr || pCollB == nullptr) { return; }
 
 	bool isColl = false;
-
-	if (pObjectA->ColliderPtr()->Priority() < pObjectB->ColliderPtr()->Priority())
+	
+	int a = 0;
+	if (pObjectA->Name() == "Horse" && pObjectB->Name() == "Slime")
 	{
-		isColl = pObjectB->ColliderPtr()->CheckCollision(pObjectA->ColliderPtr()); 
+		a = 12; 
+	}
+
+	if (pCollA->Priority() < pCollB->Priority())
+	{
+		isColl = pCollB->CheckCollision(pCollA); 
 	}
 	else 
 	{
-		isColl = pObjectA->ColliderPtr()->CheckCollision(pObjectB->ColliderPtr());
+		isColl = pCollA->CheckCollision(pCollB);
 	}
 
 	// 判定
 	if (isColl)
 	{
 		// お互いに衝突時判定
-		if (isSaveB) { pObjectA->SendCollisionInfo(pObjectB->CollisionIndex()); }
-		if (isSaveA) { pObjectB->SendCollisionInfo(pObjectA->CollisionIndex()); }
+		if (isSaveB) { pCollA->PushBackCollisionInfo(pObjectB->GetInfoOnCollision()); }
+		if (isSaveA) { pCollB->PushBackCollisionInfo(pObjectA->GetInfoOnCollision()); }
 	}
 }

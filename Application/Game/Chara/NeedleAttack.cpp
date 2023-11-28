@@ -4,11 +4,31 @@
 
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
-#include "CollisionInfo.h"
 
 using YGame::NeedleAttack;
 using YMath::Vector3;
 
+
+std::unique_ptr<NeedleAttack> NeedleAttack::Create(
+	const uint32_t aliveTimer, 
+	const Vector3& emitPos, 
+	const Vector3& acceleration, 
+	const Vector3& maxSpeed, 
+	const float radius, 
+	const uint32_t attackPower)
+{
+	std::unique_ptr<NeedleAttack> newObj = std::make_unique<NeedleAttack>();
+
+	newObj->Initialize(
+		aliveTimer,
+		emitPos,
+		acceleration,
+		maxSpeed,
+		radius,
+		attackPower);
+
+	return std::move(newObj);
+}
 
 void NeedleAttack::Initialize(
 	const uint32_t aliveTimer,
@@ -23,20 +43,28 @@ void NeedleAttack::Initialize(
 		"SnortAttack",
 		Transform::Status::Default(),
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
-		acceleration, maxSpeed,
-		1, attackPower, 0,
-		NeedleAttackDrawer::Create(nullptr, 3));
+		acceleration, maxSpeed, false,
+		1, attackPower, 0);
+
+	Attribute attribute{};
+	attribute.Add(AttributeType::ePlayerAttack);
+
+	SetCollider(GameCollider::Create(attribute));
+
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::eEnemy);
+
+		collider_->PushBackCollider(
+			std::make_unique<YMath::SphereCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), radius, Vector3(), false, false),
+			mask);
+	}
+
+	SetDrawer(NeedleAttackDrawer::Create(nullptr, 3));
 
 	transform_->scale_ = Vector3(radius, radius, radius);
 	transform_->Initialize();
-
-	{
-		attribute_ = AttributeType::ePlayerAttack;
-
-		collider_->PushBack(
-			attribute_, AttributeType::eEnemy,
-			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), radius, {}, false));
-	}
 
 	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), radius, 1));
 
@@ -72,7 +100,7 @@ void NeedleAttack::UpdateAfterCollision()
 	}
 }
 
-void NeedleAttack::OnCollision(const CollisionInfo& info)
+void NeedleAttack::OnCollision(const InfoOnCollision& info)
 {
 	// 敵
 	if (info.attribute == AttributeType::eEnemy)
@@ -82,15 +110,12 @@ void NeedleAttack::OnCollision(const CollisionInfo& info)
 	}
 }
 
-YGame::CollisionInfo NeedleAttack::GetCollisionInfo()
+YGame::InfoOnCollision NeedleAttack::GetInfoOnCollision()
 {
-	CollisionInfo result;
+	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
 
-	result.attribute = attribute_;
-	result.pos = transform_->pos_;
+	result.attribute = AttributeType::ePlayerAttack;
 	result.radius = transform_->scale_.x_;
-	result.pStatus = &status_;
-	result.pSelf = this;
 
 	return result;
 }

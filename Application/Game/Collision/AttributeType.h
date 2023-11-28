@@ -27,10 +27,16 @@ namespace YGame
 		// エネミー陣営攻撃
 		eEnemyAttack	 = 0b1 << 4,
 
+		// コイン
+		eCoin			 = 0b1 << 5,
+
 		// アイテム
-		eItem			 = 0b1 << 5,
+		eItem			 = 0b1 << 6,
 		
 		// ブロック
-		eBlock			 = 0b1 << 6,
+		eBlock			 = 0b1 << 7,
+
+		// ゴール
+		eGoal			 = 0b1 << 8,
 	};
 }

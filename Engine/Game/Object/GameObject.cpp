@@ -20,19 +20,26 @@ void GameObject::Initialize(const std::string& name, const Transform::Status& st
 	// 行列更新
 	transform_->UpdateMatrix();
 
-	isUpdate_ = true;
+	isControlUpdate_ = true;
 
 	isExist_ = true;
 }
 
 void GameObject::UpdateBeforeCollision()
 {
+	if (collider_) 
+	{
+		collider_->Update(); 
+	}
 
+	if (isControlUpdate_)
+	{
+		UpdateControl();
+	}
 }
 
 void GameObject::UpdateAfterCollision()
 {
-	// 核更新
 	transform_->UpdateMatrix();
 
 	if (drawer_)
@@ -47,6 +54,9 @@ void GameObject::UpdateAfterCollision()
 			itr->second->Update();
 		}
 	}
+
+	// 衝突処理
+	UpdateCollision();
 }
 
 void GameObject::Draw()
@@ -61,11 +71,6 @@ void GameObject::Draw()
 			itr->second->Draw();
 		}
 	}
-}
-
-void GameObject::SendCollisionInfo(const size_t collIndex)
-{
-	collIndex;
 }
 
 void GameObject::SetParent(GameObject* pParent)
@@ -83,15 +88,17 @@ void GameObject::SetParent(GameObject* pParent)
 	}
 }
 
-void GameObject::SetCollider(GameCollider* collider)
+void GameObject::SetCollider(std::unique_ptr<GameCollider>&& collider)
 {
-	collider_.reset(collider);
+	collider_.reset();
+	collider_ = std::move(collider);
 }
 
-void GameObject::SetDrawer(BaseDrawer* drawer)
+void GameObject::SetDrawer(std::unique_ptr<BaseDrawer>&& drawer)
 {
-	drawer_.reset(drawer);
-	
+	drawer_.reset();
+	drawer_ = std::move(drawer);
+
 	// null じゃないなら
 	if (drawer_)
 	{
@@ -100,29 +107,52 @@ void GameObject::SetDrawer(BaseDrawer* drawer)
 	}
 }
 
-void GameObject::InsertSubDrawer(const std::string& tag, BaseDrawer* drawer)
+void GameObject::InsertSubDrawer(const std::string& tag, std::unique_ptr<BaseDrawer>&& drawer)
 {
 	assert(drawer);
 	assert(subDrawer_.contains(tag) == false);
 
-	std::unique_ptr<BaseDrawer> newDrawer;
-	newDrawer.reset(drawer);
-	
 	// 描画クラス親ポインタ設定
-	newDrawer->SetParent(transform_.get());
+	drawer->SetParent(transform_.get());
 
 	// マップに挿入
-	subDrawer_.insert({ tag, std::move(newDrawer) });
+	subDrawer_.insert({ tag, std::move(drawer) });
 }
 
-void GameObject::SetCollisionIndex(const size_t collIndex)
+YGame::InfoOnCollision GameObject::GetInfoOnCollision()
 {
-	collIndex_ = collIndex;
+	InfoOnCollision info{};
+
+	info.pTrfm = transform_.get();
+
+	return info;
 }
 
-void GameObject::SetIsUpdate(const bool isUpdate)
+void GameObject::UpdateControl()
 {
-	isUpdate_ = isUpdate;
+}
+
+void GameObject::UpdateCollision()
+{
+	if (collider_ == nullptr) { return; }
+
+	std::queue<InfoOnCollision> queue = collider_->InfoOnCollisionQueue();
+
+	// 衝突情報を1つ1つ処理
+	// 空なら終わり
+	while (true)
+	{
+		if (queue.empty()) { break; }
+
+		OnCollision(queue.front());
+
+		queue.pop();
+	}
+}
+
+void GameObject::OnCollision(const InfoOnCollision& info)
+{
+	info;
 }
 
 void GameObject::DrawDebugTextContent()

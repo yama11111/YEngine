@@ -8,7 +8,6 @@
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
 #include "Box2DCollider.h"
-#include "CollisionInfo.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include "StageManager.h"
@@ -25,13 +24,22 @@ using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
 
-YGame::ScrollCamera* Player::spScrollCamera_ = nullptr;
+YGame::GameCamera* Player::spCamera_ = nullptr;
 
-void Player::StaticInitialize(ScrollCamera* pScrollCamera)
+void Player::StaticInitialize(GameCamera* pCamera)
 {
-	assert(pScrollCamera);
+	assert(pCamera);
 
-	spScrollCamera_ = pScrollCamera;
+	spCamera_ = pCamera;
+}
+
+std::unique_ptr<Player> Player::Create(const Transform::Status& status, IPet* pPet)
+{
+	std::unique_ptr<Player> newObj = std::make_unique<Player>();
+
+	newObj->Initialize(status, pPet);
+
+	return std::move(newObj);
 }
 
 void Player::Initialize(const Transform::Status& status, IPet* pPet)
@@ -39,26 +47,52 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	BaseCharacter::Initialize(
 		"Player",
 		status,
-		{ +1.0f, 0.0f, 0.0f}, // 右向き
-		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed,
-		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime,
-		PlayerDrawer::Create(nullptr, 1));
+		{ +1.0f, 0.0f, 0.0f }, // 右向き
+		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed, true,
+		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime);
+
+	Attribute attribute{};
+	attribute.Add(AttributeType::ePlayer);
+
+	SetCollider(GameCollider::Create(attribute));
 
 	{
-		attribute_ = AttributeType::ePlayer;
+		Attribute mask{};
+		mask.Add(AttributeType::eBlock);
 
-		collider_->PushBack(
-			attribute_, AttributeType::eBlock,
-			new YMath::Box2DCollider(&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRectSize, {}, true));
-
-		collider_->PushBack(
-			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRadius, {}, false));
-
-		collider_->SetPriority(1);
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRectSize, Vector3(), true, false),
+			mask);
 	}
 
-	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), PlayerConfig::kRadius, 1));
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::eGoal);
+
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, PlayerConfig::kRectSize),
+			mask);
+	}
+	
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::ePet);
+		mask.Add(AttributeType::eEnemy);
+		mask.Add(AttributeType::eEnemyAttack);
+		mask.Add(AttributeType::eCoin);
+		mask.Add(AttributeType::eItem);
+		
+		collider_->PushBackCollider(
+			std::make_unique<YMath::SphereCollider>(
+				&transform_->pos_, PlayerConfig::kRadius), 
+			mask);
+	}
+
+	collider_->SetPriority(1);
+
+	SetDrawer(PlayerDrawer::Create(nullptr, 1));
 
 	jumpCounter_ = 0;
 
@@ -71,11 +105,37 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 	if (pPet_ == nullptr)
 	{
-		spScrollCamera_->SetFollowPoint(&transform_->pos_);
+		spCamera_->SetPlayerPosPtr(&transform_->pos_);
 	}
-
+	
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
+}
+
+void Player::UpdateControl()
+{
+	if (pPet_ == nullptr)
+	{
+		// 自動で前に進む
+		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+	}
+	else
+	{
+		direction_ = Vector3(-1.0f, 0.0f, 0.0f);
+	}
+
+	if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
+		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
+	{
+		Jump();
+	}
+
+	if (Keys::GetInstance()->IsTrigger(DIK_V) ||
+		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
+	{
+		Attack();
+	}
 }
 
 void Player::UpdateBeforeCollision()
@@ -86,35 +146,6 @@ void Player::UpdateBeforeCollision()
 		if (pPet_->IsHit())
 		{
 			GetOffPet();
-		}
-	}
-
-
-	if (isUpdate_)
-	{
-		if (pPet_ == nullptr)
-		{
-			// 自動で前に進む
-			moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
-			direction_ = Vector3(+1.0f, 0.0f, 0.0f);
-		}
-		else
-		{
-			direction_ = Vector3(-1.0f, 0.0f, 0.0f);
-		}
-
-		// SPACE キー or A ボタン
-		if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
-			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
-		{
-			Jump();
-		}
-
-		// V キー or X ボタン
-		if (Keys::GetInstance()->IsTrigger(DIK_V) ||
-			Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
-		{
-			Attack();
 		}
 	}
 
@@ -204,21 +235,18 @@ void Player::GetOffPet()
 	Jump(false);
 
 	// カメラを自分追従に
-	spScrollCamera_->SetFollowPoint(&transform_->pos_);
+	spCamera_->SetPlayerPosPtr(&transform_->pos_);
 
 	// 移動アニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), true);
 }
 
-YGame::CollisionInfo Player::GetCollisionInfo()
+YGame::InfoOnCollision Player::GetInfoOnCollision()
 {
-	CollisionInfo result;
+	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
 
-	result.attribute = attribute_;
-	result.pos = transform_->pos_;
+	result.attribute = AttributeType::ePlayer;
 	result.radius = PlayerConfig::kRadius;
-	result.pStatus = &status_;
-	result.pSelf = this;
 
 	return result;
 }
@@ -249,6 +277,8 @@ void Player::Jump(const bool isJumpCount)
 
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
+
+	spCamera_->MoveOnJump();
 }
 
 void Player::Attack()
@@ -258,23 +288,19 @@ void Player::Attack()
 	{
 		// ペットで攻撃
 		pPet_->Attack();
-		
+
 		return;
 	}
 
 	// 攻撃新規生成
-	NeedleAttack* newAttack = new NeedleAttack();
-
-	newAttack->Initialize(
-		NeedleAttackConfig::kAliveTime,
-		transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
-		NeedleAttackConfig::kAcceleration,
-		NeedleAttackConfig::kMaxSpeed,
-		NeedleAttackConfig::kRadius,
-		NeedleAttackConfig::kPower
-	);
-	
-	GameObjectManager::GetInstance()->PushBack(newAttack, 0, true);
+	GameObjectManager::GetInstance()->PushBack(
+		NeedleAttack::Create(
+			NeedleAttackConfig::kAliveTime,
+			transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
+			NeedleAttackConfig::kAcceleration,
+			NeedleAttackConfig::kMaxSpeed,
+			NeedleAttackConfig::kRadius,
+			NeedleAttackConfig::kPower), 0, true, true);
 
 	// 攻撃アニメーション
 	drawer_->PlayAnimation(
@@ -286,15 +312,15 @@ void Player::OffScreenProcess()
 	StageManager::GetInstance()->GameOver();
 }
 
-void Player::OnCollision(const CollisionInfo& info)
+void Player::OnCollision(const InfoOnCollision& info)
 {
 	// 敵
 	if (info.attribute == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
+		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pTrfm->pos_.y_ + (info.radius / 2.0f))
 		{
-			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
+			spCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
 			// ジャンプ
 			Jump(false);
@@ -310,26 +336,26 @@ void Player::OnCollision(const CollisionInfo& info)
 				// 死亡アニメーション
 				drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead), true);
 
-				spScrollCamera_->SetFollowPoint(nullptr);
+				spCamera_->SetPlayerPosPtr(nullptr);
 				StageManager::GetInstance()->GameOver();
 			}
 
-			spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
+			spCamera_->Shaking(2.0f, 0.2f, 100.0f);
 
 			// 被弾アニメーション
 			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit), true);
 		}
-
-		return;
 	}
-
 	// ペット
-	if (info.attribute == AttributeType::ePet)
+	else if (info.attribute == AttributeType::ePet)
 	{
 		// 乗る
-		RideOnPet(static_cast<IPet*>(info.pSelf));
-
-		return;
+		RideOnPet(IPet::StaticGetPetPointer());
+	}
+	// ゴール
+	else if (info.attribute == AttributeType::eGoal)
+	{
+		StageManager::GetInstance()->ClearStage();
 	}
 }
 

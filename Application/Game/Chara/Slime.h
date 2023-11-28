@@ -10,6 +10,15 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		/// <returns>動的インスタンス</returns>
+		static std::unique_ptr<Slime>Create(const Transform::Status& status);
+	
+	public:
+
+		/// <summary>
 		/// 初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
@@ -27,19 +36,17 @@ namespace YGame
 
 	public:
 
-		/// <summary>
-		/// 衝突時情報取得
-		/// </summary>
-		/// <returns>衝突時情報</returns>
-		CollisionInfo GetCollisionInfo() override;
-
-	public:
-
 		Slime() = default;
 
 		~Slime() = default;
 
 	private:
+
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		InfoOnCollision GetInfoOnCollision() override;
 
 		/// <summary>
 		/// 被弾

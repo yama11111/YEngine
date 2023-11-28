@@ -11,13 +11,13 @@ namespace
 	Model* pModel = nullptr;
 }
 
-GoalDrawer* GoalDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<GoalDrawer> GoalDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	GoalDrawer* newDrawer = new GoalDrawer();
+	std::unique_ptr<GoalDrawer> newDrawer = std::make_unique<GoalDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void GoalDrawer::LoadResource()
@@ -33,7 +33,7 @@ void GoalDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	SetShaderTag("ModelToon");
 	
-	transform_.scale_ = Vector3(1.0f, 1.0f, 15.0f);
+	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 	
 	cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 0.0f, 0.25f);
 }

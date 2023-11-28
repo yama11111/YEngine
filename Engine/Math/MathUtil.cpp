@@ -73,6 +73,24 @@ bool YMath::InRange(const Vector3& num, const Vector3& lower, const Vector3& upp
 }
 
 template<typename T>
+bool YMath::InRange(const T& num, const T& lower, const T& upper, bool& isOverLower, bool& isOverUpper)
+{
+	isOverLower = num < lower;
+	isOverUpper = upper < num;
+
+	return (isOverLower || isOverUpper) == false;
+}
+
+template<>
+bool YMath::InRange(const float& num, const float& lower, const float& upper, bool& isOverLower, bool& isOverUpper)
+{
+	isOverLower = num < lower;
+	isOverUpper = upper < num;
+
+	return (isOverLower || isOverUpper) == false;
+}
+
+template<typename T>
 T YMath::Clamp(const T& num, const T& lower, const T& upper)
 {
 	return std::min(std::max(num, lower), upper);

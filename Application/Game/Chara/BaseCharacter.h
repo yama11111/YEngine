@@ -6,8 +6,6 @@
 
 namespace YGame
 {
-	struct CollisionInfo;
-
 	class BaseCharacter :
 		public GameObject
 	{
@@ -22,17 +20,18 @@ namespace YGame
 		/// <param name="direction"> : 向き</param>
 		/// <param name="acceleration"> : 加速度</param>
 		/// <param name="maxSpeed"> : 最大速度</param>
+		/// <param name="isGravity"> : 重力フラグ</param>
 		/// <param name="hp"> : HP</param>
 		/// <param name="attack"> : 攻撃力</param>
 		/// <param name="invincibleTime"> : 無敵時間</param>
+		/// <param name="collider"> : コライダークラス</param>
 		/// <param name="drawer"> : 描画クラス</param>
 		void Initialize(
 			const std::string& name,
 			const Transform::Status& status,
 			const YMath::Vector3& direction,
-			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed,
-			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime,
-			BaseDrawer* drawer);
+			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed, const bool isGravity, 
+			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime);
 
 		/// <summary>
 		/// 衝突前更新
@@ -44,20 +43,6 @@ namespace YGame
 		/// </summary>
 		virtual void UpdateAfterCollision() override;
 
-	public:
-	
-		/// <summary>
-		/// 衝突判定時処理
-		/// </summary>
-		/// <param name="collIndex"> : 衝突番号</param>
-		void SendCollisionInfo(const size_t collIndex) override;
-
-		/// <summary>
-		/// 衝突時情報取得
-		/// </summary>
-		/// <returns>衝突時情報</returns>
-		virtual CollisionInfo GetCollisionInfo() = 0;
-	
 	public:
 
 		/// <summary>
@@ -76,15 +61,14 @@ namespace YGame
 		/// 属性取得
 		/// </summary>
 		/// <returns>属性</returns>
-		inline AttributeType Attribute() const { return attribute_; }
-
-	public:
-
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		static void StaticInitialize();
+		inline AttributeType GetAttributeType() const { return attributeType_; }
 	
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		virtual InfoOnCollision GetInfoOnCollision() override;
+
 	public:
 
 		BaseCharacter() = default;
@@ -106,7 +90,7 @@ namespace YGame
 		CharacterStatus status_;
 
 		// 属性
-		AttributeType attribute_ = AttributeType::eNone;
+		AttributeType attributeType_ = AttributeType::eNone;
 
 	protected:
 
@@ -114,17 +98,6 @@ namespace YGame
 		/// 画面外処理
 		/// </summary>
 		virtual void OffScreenProcess();
-		
-		/// <summary>
-		/// 衝突更新
-		/// </summary>
-		void UpdateCollision();
-		
-		/// <summary>
-		/// 衝突時処理
-		/// </summary>
-		/// <param name="info"></param>
-		virtual void OnCollision(const CollisionInfo& info);
 
 		/// <summary>
 		/// デバッグテキスト本文

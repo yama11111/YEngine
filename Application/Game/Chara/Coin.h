@@ -6,7 +6,16 @@ namespace YGame
 	class Coin final : 
 		public IItem
 	{
-	
+
+	public:
+
+		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		/// <returns>動的インスタンス</returns>
+		static std::unique_ptr<Coin>Create(const Transform::Status& status);
+
 	public:
 		
 		/// <summary>
@@ -27,14 +36,6 @@ namespace YGame
 
 	public:
 
-		/// <summary>
-		/// 衝突時情報取得
-		/// </summary>
-		/// <returns>衝突時情報</returns>
-		CollisionInfo GetCollisionInfo() override;
-
-	public:
-
 		Coin() = default;
 
 		~Coin() = default;
@@ -42,9 +43,15 @@ namespace YGame
 	private:
 
 		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		InfoOnCollision GetInfoOnCollision() override;
+
+		/// <summary>
 		/// 衝突判定
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
-		void OnCollision(const CollisionInfo & info) override;
+		void OnCollision(const InfoOnCollision & info) override;
 	};
 }

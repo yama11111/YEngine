@@ -19,7 +19,6 @@ namespace YGame
 		/// </summary>
 		/// <param name="num"> : 数</param>
 		/// <param name="pos"> : 位置</param>
-		/// <param name="powerDirection"> : 力のかかる向き</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
 			const size_t num,

@@ -30,17 +30,8 @@
     <Filter Include="Engine\Game">
       <UniqueIdentifier>{b7e1ea2a-a1ae-47a4-8e59-6798e60a7a6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Game\Camera">
-      <UniqueIdentifier>{2efd8218-5be8-4f58-a619-d3d296efd583}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Game\MapChip">
-      <UniqueIdentifier>{18d033b2-cb29-495e-ae8b-c1bf43090687}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game">
       <UniqueIdentifier>{e3fc16ed-1190-4275-bc3b-57861fa94768}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Game\MapChip">
-      <UniqueIdentifier>{f44abf95-46f4-47da-b0b9-7729309f20e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\Game\Chara">
       <UniqueIdentifier>{15f69323-8672-45d3-a98b-5c51b73b7b91}</UniqueIdentifier>
@@ -78,18 +69,12 @@
     <Filter Include="Application\Game\Drawer\Pet">
       <UniqueIdentifier>{c1bb83d5-5a96-46d7-8353-fb27465b0a04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Drawer\etc">
-      <UniqueIdentifier>{7f9f146c-3789-4ed2-8432-98245287f8b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Collision">
       <UniqueIdentifier>{175bcd83-a684-4976-b833-84069862044b}</UniqueIdentifier>
     </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Engine\Game\Particle">
-      <UniqueIdentifier>{bb4dabc7-ee27-47c5-b886-28303885caef}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\Shader">
       <UniqueIdentifier>{d74e1238-5f57-4c80-9919-fe324f5700dc}</UniqueIdentifier>
@@ -190,9 +175,6 @@
     <Filter Include="Engine\Math\Physics">
       <UniqueIdentifier>{d3539f7d-9dfb-4a15-8ea8-6ebd914ff078}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Drawer\Debug">
-      <UniqueIdentifier>{0a04e373-d08c-4ed8-842d-aef6b82e02d5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Drawer\Scene">
       <UniqueIdentifier>{5b2a3675-1363-475a-94d4-c42fc74a0baf}</UniqueIdentifier>
     </Filter>
@@ -217,14 +199,35 @@
     <Filter Include="Engine\Math\Collision\Primitive">
       <UniqueIdentifier>{9a9239c1-911a-4dd3-a5f7-128b8e1dbc5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Game\Object">
-      <UniqueIdentifier>{3d1308f1-247c-4171-8eee-b26f55b90a7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Object">
       <UniqueIdentifier>{200bf91d-1086-4c51-83d2-c489219e02a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Game\Camera">
+      <UniqueIdentifier>{2efd8218-5be8-4f58-a619-d3d296efd583}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine\Game\Collision">
       <UniqueIdentifier>{f9a04ef1-7f1c-4478-82a5-b6e84741a5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\MapChip">
+      <UniqueIdentifier>{18d033b2-cb29-495e-ae8b-c1bf43090687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Particle">
+      <UniqueIdentifier>{bb4dabc7-ee27-47c5-b886-28303885caef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Object">
+      <UniqueIdentifier>{3d1308f1-247c-4171-8eee-b26f55b90a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Drawer">
+      <UniqueIdentifier>{df1c4e27-2d64-4f47-bb6b-ff46fb4e1c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Drawer\Stage">
+      <UniqueIdentifier>{7f9f146c-3789-4ed2-8432-98245287f8b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Game\Camera">
+      <UniqueIdentifier>{4472a94c-04cf-4a6b-959e-b1450e6df0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Game\Drawer\Util">
+      <UniqueIdentifier>{2e736664-21cf-4dec-be66-c8b2c990c79b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -315,12 +318,6 @@
     <ClCompile Include="Engine\Game\Particle\ParticleManager.cpp">
       <Filter>Engine\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\MapChip\MapChipManager.cpp">
-      <Filter>Application\Game\MapChip</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\MapChip\MapChip.cpp">
-      <Filter>Application\Game\MapChip</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Chara\IEnemy.cpp">
       <Filter>Application\Game\Chara\Enemy</Filter>
     </ClCompile>
@@ -348,29 +345,23 @@
     <ClCompile Include="Application\Game\Chara\IAttack.cpp">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\BaseDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Chara\IItem.cpp">
       <Filter>Application\Game\Chara\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp">
-      <Filter>Application\Game\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\PlayerDrawer.cpp">
       <Filter>Application\Game\Drawer\Player</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\SkydomeDrawer.cpp">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\CloudDrawer.cpp">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\BlockDrawer.cpp">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\GoalDrawer.cpp">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Drawer\SlimeDrawer.cpp">
       <Filter>Application\Game\Drawer\Enemy</Filter>
@@ -419,9 +410,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp">
       <Filter>Engine\Draw\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Game\Audio.cpp">
-      <Filter>Engine\Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Draw\CB\DefaultConstBuffer.cpp">
       <Filter>Engine\Draw\ConstBuffer</Filter>
@@ -488,12 +476,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Math\Velocity.cpp">
       <Filter>Engine\Math\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp">
-      <Filter>Application\Game\Drawer\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp">
-      <Filter>Application\Game\Drawer\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\UI\PauseManager.cpp">
       <Filter>Application\Game\UI</Filter>
@@ -615,16 +597,13 @@
     <ClCompile Include="Engine\Math\Collision\TriangleCollider.cpp">
       <Filter>Engine\Math\Collision\Primitive</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Chara\GameObject.cpp">
+    <ClCompile Include="Engine\Game\Object\GameObject.cpp">
       <Filter>Engine\Game\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Chara\GameObjectManager.cpp">
+    <ClCompile Include="Engine\Game\Object\GameObjectManager.cpp">
       <Filter>Engine\Game\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Collision\GameCollider.cpp">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Collision\CollisionInfoQueue.cpp">
+    <ClCompile Include="Engine\Game\Collision\GameCollider.cpp">
       <Filter>Engine\Game\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Chara\Block.cpp">
@@ -632,6 +611,45 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Chara\Goal.cpp">
       <Filter>Application\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\Magnet.cpp">
+      <Filter>Application\Game\Chara\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Collision\Attribute.cpp">
+      <Filter>Engine\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Audio.cpp">
+      <Filter>Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\YGameDrawerFactory.cpp">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\AxisDrawer.cpp">
+      <Filter>Engine\Game\Drawer\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\CollisionDrawer.cpp">
+      <Filter>Engine\Game\Drawer\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\DefaultDrawer.cpp">
+      <Filter>Engine\Game\Drawer\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game\Drawer\BaseDrawer.cpp">
+      <Filter>Engine\Game\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Camera\GameCamera.cpp">
+      <Filter>Application\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\Life.cpp">
+      <Filter>Application\Game\Chara\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\LifeDrawer.cpp">
+      <Filter>Application\Game\Drawer\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\MagnetDrawer.cpp">
+      <Filter>Application\Game\Drawer\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -722,12 +740,6 @@
     <ClInclude Include="Engine\Game\Particle\ParticleManager.h">
       <Filter>Engine\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\MapChip\MapChipManager.h">
-      <Filter>Application\Game\MapChip</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\MapChip\MapChip.h">
-      <Filter>Application\Game\MapChip</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Chara\IEnemy.h">
       <Filter>Application\Game\Chara\Enemy</Filter>
     </ClInclude>
@@ -755,17 +767,11 @@
     <ClInclude Include="Application\Game\Chara\IAttack.h">
       <Filter>Application\Game\Chara\Attack</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\BaseDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h">
       <Filter>Engine\Game\MapChip</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Chara\IItem.h">
       <Filter>Application\Game\Chara\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h">
-      <Filter>Application\Game\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Chara\CharacterConfig.h">
       <Filter>Application\Game\Chara</Filter>
@@ -774,13 +780,13 @@
       <Filter>Application\Game\Drawer\Player</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\SkydomeDrawer.h">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\BlockDrawer.h">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\GoalDrawer.h">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\HorseDrawer.h">
       <Filter>Application\Game\Drawer\Pet</Filter>
@@ -844,9 +850,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h">
       <Filter>Engine\Draw\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Game\Audio.h">
-      <Filter>Engine\Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Draw\CB\ConstBufferObject.h">
       <Filter>Engine\Draw\ConstBuffer</Filter>
@@ -956,12 +959,6 @@
     <ClInclude Include="Engine\Math\Velocity.h">
       <Filter>Engine\Math\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\AxisDrawer.h">
-      <Filter>Application\Game\Drawer\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Drawer\CollisionDrawer.h">
-      <Filter>Application\Game\Drawer\Debug</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\UI\PauseManager.h">
       <Filter>Application\Game\UI</Filter>
     </ClInclude>
@@ -1038,7 +1035,7 @@
       <Filter>Engine\Draw\Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\CloudDrawer.h">
-      <Filter>Application\Game\Drawer\etc</Filter>
+      <Filter>Application\Game\Drawer\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Application\Draw\UI\UIButton.h">
       <Filter>Application\Draw\UI</Filter>
@@ -1094,26 +1091,65 @@
     <ClInclude Include="Engine\Math\Collision\TriangleCollider.h">
       <Filter>Engine\Math\Collision\Primitive</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Collision\CollisionInfo.h">
+    <ClInclude Include="Application\Game\Collision\InfoOnCollision.h">
       <Filter>Application\Game\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Chara\GameObject.h">
+    <ClInclude Include="Engine\Game\Object\GameObject.h">
       <Filter>Engine\Game\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Chara\GameObjectManager.h">
+    <ClInclude Include="Engine\Game\Object\GameObjectManager.h">
       <Filter>Engine\Game\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Collision\GameCollider.h">
+    <ClInclude Include="Engine\Game\Collision\GameCollider.h">
       <Filter>Engine\Game\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Collision\CollisionInfoQueue.h">
-      <Filter>Engine\Game\Collision</Filter>
+    <ClInclude Include="Application\Game\Chara\Block.h">
+      <Filter>Application\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Chara\Goal.h">
       <Filter>Application\Game\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Chara\Block.h">
-      <Filter>Application\Game\Object</Filter>
+    <ClInclude Include="Application\Game\Chara\Magnet.h">
+      <Filter>Application\Game\Chara\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Collision\Attribute.h">
+      <Filter>Engine\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Audio.h">
+      <Filter>Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Drawer\IDrawerFactory.h">
+      <Filter>Engine\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\YGameDrawerFactory.h">
+      <Filter>Application\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\AxisDrawer.h">
+      <Filter>Engine\Game\Drawer\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\CollisionDrawer.h">
+      <Filter>Engine\Game\Drawer\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\DefaultDrawer.h">
+      <Filter>Engine\Game\Drawer\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Drawer\BaseDrawer.h">
+      <Filter>Engine\Game\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Camera\GameCamera.h">
+      <Filter>Application\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\Life.h">
+      <Filter>Application\Game\Chara\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\LifeDrawer.h">
+      <Filter>Application\Game\Drawer\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Particle\RecoveryParticle.h">
+      <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\MagnetDrawer.h">
+      <Filter>Application\Game\Drawer\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

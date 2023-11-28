@@ -15,17 +15,15 @@ const std::string YGameSceneFactory::Play_		 = "PLAY";
 const std::string YGameSceneFactory::Result_	 = "RESULT";
 //const std::string YGameSceneFactory::Test_		 = "TEST";
 
-BaseScene* YGameSceneFactory::CreateScene(const std::string& sceneName)
+std::unique_ptr<BaseScene> YGameSceneFactory::CreateScene(const std::string& sceneName)
 {
 	// 次のシーンを生成
-	BaseScene* newScene = nullptr;
+	std::unique_ptr<BaseScene> newScene;
 
-	if (sceneName == Title_)	{ newScene = new TitleScene(); }
-	if (sceneName == Select_)	{ newScene = new SelectScene(); }
-	if (sceneName == Play_)		{ newScene = new PlayScene(); }
-	if (sceneName == Result_)	{ newScene = new ResultScene(); }
+	if (sceneName == Title_)	{ newScene = std::make_unique<TitleScene>(); }
+	if (sceneName == Select_)	{ newScene = std::make_unique<SelectScene>(); }
+	if (sceneName == Play_)		{ newScene = std::make_unique<PlayScene>(); }
+	if (sceneName == Result_)	{ newScene = std::make_unique<ResultScene>(); }
 
-	//if (sceneName == Test_)		{ newScene = new TestScene(); }
-
-	return newScene;
+	return std::move(newScene);
 }

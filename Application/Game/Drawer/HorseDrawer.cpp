@@ -27,13 +27,13 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(HorseDrawer::AnimationType::eDead);
 }
 
-HorseDrawer* HorseDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<HorseDrawer> HorseDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	HorseDrawer* newDrawer = new HorseDrawer();
+	std::unique_ptr<HorseDrawer> newDrawer = std::make_unique<HorseDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void HorseDrawer::LoadResource()

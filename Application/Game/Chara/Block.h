@@ -3,9 +3,20 @@
 
 namespace YGame
 {
-	class Block : 
+	class Block final: 
 		public GameObject
 	{
+
+	public:
+
+		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		/// <returns>動的インスタンス</returns>
+		static std::unique_ptr<Block>Create(
+			const Transform::Status& status, 
+			GameObject* pParent = nullptr);
 	
 	public:
 

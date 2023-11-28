@@ -109,8 +109,6 @@ void BaseDrawer::UpdateAnimationTimer()
 			}
 			else
 			{
-				timer.Reset();
-
 				// フラグをおろす
 				animationBitFlag_ &= ~itr->first;
 			}
@@ -228,7 +226,6 @@ void BaseDrawer::SetShaderTag(const std::string& shaderTag)
 		itr->second->SetShaderTag(shaderTag);
 	}
 }
-
 void BaseDrawer::SetShaderTag(const std::string& objTag, const std::string& shaderTag)
 {
 	assert(objs_.contains(objTag));

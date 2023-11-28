@@ -9,13 +9,13 @@ namespace
 	Model* pModel = nullptr;
 }
 
-DefaultDrawer* DefaultDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<DefaultDrawer> DefaultDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	DefaultDrawer* newDrawer = new DefaultDrawer();
+	std::unique_ptr<DefaultDrawer> newDrawer = std::make_unique<DefaultDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void DefaultDrawer::LoadResource()

@@ -37,7 +37,7 @@ namespace YGame
 		/// 衝突時処理
 		/// </summary>
 		/// <param name="info"></param>
-		virtual void OnCollision(const CollisionInfo& info) override;
+		virtual void OnCollision(const InfoOnCollision& info) override;
 	
 		/// <summary>
 		/// 被弾

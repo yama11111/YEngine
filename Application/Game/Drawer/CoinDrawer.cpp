@@ -22,13 +22,13 @@ namespace
 	const uint32_t kEarnIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn);
 }
 
-CoinDrawer* CoinDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<CoinDrawer> CoinDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	CoinDrawer* newDrawer = new CoinDrawer();
+	std::unique_ptr<CoinDrawer> newDrawer = std::make_unique<CoinDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void CoinDrawer::LoadResource()

@@ -11,14 +11,14 @@ namespace
 	Model* pModel = nullptr;
 }
 
-CollisionDrawer* CollisionDrawer::Create(Transform* pParent, const float radius, const size_t drawPriority)
+std::unique_ptr<CollisionDrawer> CollisionDrawer::Create(Transform* pParent, const float radius, const size_t drawPriority)
 {
-	CollisionDrawer* newDrawer = new CollisionDrawer();
+	std::unique_ptr<CollisionDrawer> newDrawer = std::make_unique<CollisionDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 	newDrawer->SetRadius(radius);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void CollisionDrawer::LoadResource()

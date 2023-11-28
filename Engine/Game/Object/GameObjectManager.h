@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "CollisionInfoQueue.h"
 #include <queue>
 
 namespace YGame
@@ -13,13 +12,14 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		void Initialize();
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		void Initialize(ViewProjection* pVP);
 
 		/// <summary>
 		/// 更新
 		/// </summary>
-		/// <param name="isUpdate"> : 更新するか</param>
-		void Update(const bool isUpdate);
+		/// <param name="isContorolUpdate"> : 操作更新するか</param>
+		void Update(const bool isContorolUpdate);
 		
 		/// <summary>
 		/// デバッグ描画
@@ -43,8 +43,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="object"> : オブジェクト (動的)</param>
 		/// <param name="updatePriority"> : 更新優先度</param>
+		/// <param name="isUpdateSkip"> : 更新スキップをするか</param>
 		/// <param name="isSaveCollInfo"> : 衝突情報を保存するか</param>
-		void PushBack(GameObject* object, const uint32_t updatePriority, const bool isSaveCollInfo);
+		void PushBack(
+			std::unique_ptr<GameObject>&& object, 
+			const uint32_t updatePriority, 
+			const bool isUpdateSkip, 
+			const bool isSaveCollInfo);
 
 	public:
 
@@ -65,8 +70,14 @@ namespace YGame
 			// 優先度
 			uint32_t updatePriority;
 
+			// 更新スキップをするか
+			bool isUpdateSkip = false;
+
+			// 処理を飛ばすか
+			bool isSkip = false;
+
 			// 衝突情報を保存するか
-			bool isSaveCollInfo;
+			bool isSaveCollInfo = false;
 		};
 
 	private:
@@ -80,8 +91,8 @@ namespace YGame
 		// アタリ判定描画フラグ
 		bool isDrawCollision_ = false;
 
-		// 衝突情報キューポインタ
-		CollisionInfoQueue* pCollisionInfoQueue_ = nullptr;
+		// ビュープロジェクションポインタ
+		ViewProjection* pVP_ = nullptr;
 
 	private:
 
@@ -91,6 +102,13 @@ namespace YGame
 		const GameObjectManager& operator=(const GameObjectManager&) = delete;
 
 	private:
+
+		/// <summary>
+		/// 更新範囲内か
+		/// </summary>
+		/// <param name="pObject"> : オブジェクトポインタ</param>
+		/// <returns>更新範囲内か</returns>
+		bool InUpdateRange(GameObject* pObject);
 
 		/// <summary>
 		/// アタリ判定全チェック

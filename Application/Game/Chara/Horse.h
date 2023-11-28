@@ -10,6 +10,15 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		/// <returns>動的インスタンス</returns>
+		static std::unique_ptr<Horse>Create(const Transform::Status& status);
+
+	public:
+
+		/// <summary>
 		/// 初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
@@ -51,12 +60,6 @@ namespace YGame
 	public:
 
 		/// <summary>
-		/// 衝突時情報取得
-		/// </summary>
-		/// <returns>衝突時情報</returns>
-		CollisionInfo GetCollisionInfo() override;
-
-		/// <summary>
 		/// 乗る位置の高さ取得
 		/// </summary>
 		/// <returns>乗る位置の高さ</returns>
@@ -68,7 +71,13 @@ namespace YGame
 
 		~Horse() = default;
 
-	protected:
+	private:
+
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		InfoOnCollision GetInfoOnCollision() override;
 
 		/// <summary>
 		/// 衝突時処理

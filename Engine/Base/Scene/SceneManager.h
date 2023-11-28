@@ -52,7 +52,7 @@ namespace YGame
 		/// シーンファクトリー設定
 		/// </summary>
 		/// <param name="sceneFactory"> : シーンファクトリー</param>
-		void SetSceneFactory(ISceneFactory* sceneFactory);
+		void SetSceneFactory(std::unique_ptr<ISceneFactory>&& sceneFactory);
 
 		/// <summary>
 		/// シーン遷移挿入

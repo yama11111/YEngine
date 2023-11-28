@@ -82,5 +82,13 @@ namespace YGame
 	namespace CoinConfig
 	{
 		static const float kRadius = 2.5f;
+		static const YMath::Vector3 kAcceleration = { 0.2f,0.2f,0.0f };
+		static const YMath::Vector3 kMaxSpeed = { 0.5f,0.5f,0.0f };
+	}
+
+	namespace MagnetConfig
+	{
+		static const float kCollRadius = 2.5f;
+		static const float kSuctionRadius = 12.0f;
 	}
 }

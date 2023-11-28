@@ -5,10 +5,18 @@
 
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
-#include "CollisionInfo.h"
 
 using YGame::Coin;
 using YMath::Vector3;
+
+std::unique_ptr<Coin> Coin::Create(const Transform::Status& status)
+{
+	std::unique_ptr<Coin> newObj = std::make_unique<Coin>();
+
+	newObj->Initialize(status);
+
+	return std::move(newObj);
+}
 
 void Coin::Initialize(const Transform::Status& status)
 {
@@ -16,22 +24,29 @@ void Coin::Initialize(const Transform::Status& status)
 		"Coin",
 		status,
 		{ 0.0f, 0.0f, +1.0f }, // 右向き
-		{}, {}, 
-		1, 0, 0,
-		CoinDrawer::Create(nullptr, 1));
+		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false, 
+		1, 0, 0);
 
-	{
-		attribute_ = AttributeType::eItem;
+	Attribute attribute{};
+	attribute.Add(AttributeType::eCoin);
 
-		collider_->PushBack(
-			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), CoinConfig::kRadius, {}, false));
-	}
+	SetCollider(GameCollider::Create(attribute));
 	
-	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), CoinConfig::kRadius, 1));
-	drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::ePlayer);
+		mask.Add(AttributeType::ePet);
+		mask.Add(AttributeType::eItem);
 
-	drawer_->SetParent(transform_.get());
+		collider_->PushBackCollider(
+			std::make_unique<YMath::SphereCollider>(
+				&transform_->pos_, CoinConfig::kRadius), 
+			mask);
+	}
+
+	SetDrawer(CoinDrawer::Create(nullptr, 1));
+	
+	drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
 }
 
 void Coin::UpdateBeforeCollision()
@@ -43,27 +58,24 @@ void Coin::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
 
-	if (status_.IsInvincible() && 
-		drawer_->IsActAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn)) == false)
+	// 演出終了 → 消滅
+	if (drawer_->IsEndTimer(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn)))
 	{
-		status_.SetHP(0);
+		isExist_ = false;
 	}
 }
 
-YGame::CollisionInfo Coin::GetCollisionInfo()
+YGame::InfoOnCollision Coin::GetInfoOnCollision()
 {
-	CollisionInfo result;
+	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
 
-	result.attribute = attribute_;
-	result.pos = transform_->pos_;
+	result.attribute = AttributeType::eCoin;
 	result.radius = 0.0f;
-	result.pStatus = &status_;
-	result.pSelf = this;
 
 	return result;
 }
 
-void Coin::OnCollision(const CollisionInfo& info)
+void Coin::OnCollision(const InfoOnCollision& info)
 {
 	if (status_.IsInvincible()) { return; }
 	
@@ -74,5 +86,9 @@ void Coin::OnCollision(const CollisionInfo& info)
 		
   		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn), true);
 		status_.SetInvincible(true);
+	}
+	else if (info.attribute == AttributeType::eItem)
+	{
+
 	}
 }

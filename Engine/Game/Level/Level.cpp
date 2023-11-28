@@ -8,9 +8,13 @@
 
 #include "GameObjectManager.h"
 #include "Player.h"
+#include "Horse.h"
 #include "Slime.h"
 #include "Coin.h"
+#include "Life.h"
+#include "Magnet.h"
 #include "Block.h"
+#include "Goal.h"
 #include "PlayerDrawer.h"
 #include "CloudDrawer.h"
 #include "SkydomeDrawer.h"
@@ -133,36 +137,57 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		status.scale_.z_ = static_cast<float>(transform["scaling"][0]);
 
 		// オブジェクト
-		GameObject* newObj = nullptr;
+		std::unique_ptr<GameObject> newObj = nullptr;
+		bool isUpdateSkip = true;
 		bool isSaveColl = false;
 
 		// 初期化
 		if (name == "Player.")
 		{
-			newObj = new Player();
-			static_cast<Player*>(newObj)->Initialize(status);
+			isUpdateSkip = false;
 			isSaveColl = true;
+
+			std::unique_ptr<Horse> newPet = Horse::Create(status);
+			
+			IPet::StaticSetPetPointer(newPet.get());
+
+			newObj = Player::Create(Transform::Status::Default(), newPet.get());
+
+			// リストに挿入
+			GameObjectManager::GetInstance()->PushBack(std::move(newPet), 1, isUpdateSkip, isSaveColl);
 		}
 		else if (name == "Slime.")
 		{
-			newObj = new Slime();
-			static_cast<Slime*>(newObj)->Initialize(status);
+			newObj = Slime::Create(status);
 			isSaveColl = true;
 		}
 		else if (name == "Coin.")
 		{
-			newObj = new Coin();
-			static_cast<Coin*>(newObj)->Initialize(status);
+			newObj = Coin::Create(status);
+			isSaveColl = true;
+		}
+		else if (name == "Life.")
+		{
+			newObj = Life::Create(status);
+			isSaveColl = true;
+		}
+		else if (name == "Magnet.")
+		{
+			newObj = Magnet::Create(status);
 			isSaveColl = true;
 		}
 		else if (name == "Block.")
 		{
-			newObj = new Block();
-			static_cast<Block*>(newObj)->Initialize(status, pParent);
+			newObj = Block::Create(status, pParent);
+		}
+		else if (name == "Goal.")
+		{
+			newObj = Goal::Create(status, pParent);
+			isSaveColl = true;
 		}
 		else
 		{
-			newObj = new GameObject();
+			newObj = std::make_unique<GameObject>();
 			newObj->Initialize(name, status, pParent);
 		}
 		
@@ -183,56 +208,13 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			for (size_t i = 0; i < object["children"].size(); i++)
 			{
 				// 子オブジェクト読み込み
-				LoadData(object["children"][i], newObj);
+				LoadData(object["children"][i], newObj.get());
 			}
 		}
 
 		// リストに挿入
-		GameObjectManager::GetInstance()->PushBack(newObj, 0, isSaveColl);
+		GameObjectManager::GetInstance()->PushBack(std::move(newObj), 0, isUpdateSkip, isSaveColl);
 	}
-	//// CAMERA
-	//else if (type.compare("CAMERA") == 0)
-	//{
-	//	// オブジェクト
-	//	std::unique_ptr<Camera> newCamera;
-
-	//	// 名前
-	//	std::string name;
-
-	//	// オブジェクト生成
-	//	newCamera= std::make_unique<Camera>();
-
-	//	// ファイル名
-	//	if (object.contains("file_name"))
-	//	{
-	//		name = object["file_name"];
-	//	}
-
-	//	// トランスフォームのパラメータ読み込み
-	//	nlohmann::json& transform = object["transform"];
-
-	//	// 初期化用
-	//	YGame::Transform::Status status{};
-
-	//	// 位置
-	//	status.pos_.x_ = +static_cast<float>(transform["translation"][1]);
-	//	status.pos_.y_ = +static_cast<float>(transform["translation"][2]);
-	//	status.pos_.z_ = -static_cast<float>(transform["translation"][0]);
-
-	//	// 回転
-	//	status.rota_.x_ = -static_cast<float>(transform["rotation"][2]);
-	//	status.rota_.y_ = +static_cast<float>(transform["rotation"][0]);
-	//	status.rota_.z_ = -static_cast<float>(transform["rotation"][1]);
-	//	status.rota_ = YMath::ConvertFromDegreeToRadian(status.rota_);
-	//	
-	//	// 初期化
-	//	newCamera->Initialize(status.pos_, status.rota_);
-	//	//newCamera->Initialize({0,0,-10}, {});
-
-	//	// リストに挿入
-	//	cameras_.push_back(std::move(newCamera));
-
-	//}
 	// それ以外なら弾く
 	else
 	{

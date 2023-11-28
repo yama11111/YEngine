@@ -17,13 +17,13 @@ namespace
 	Model* pModel = nullptr;
 }
 
-NeedleAttackDrawer* NeedleAttackDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<NeedleAttackDrawer> NeedleAttackDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	NeedleAttackDrawer* newDrawer = new NeedleAttackDrawer();
+	std::unique_ptr<NeedleAttackDrawer> newDrawer = std::make_unique<NeedleAttackDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void NeedleAttackDrawer::LoadResource()

@@ -6,7 +6,6 @@
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
 #include "Box2DCollider.h"
-#include "CollisionInfo.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include "ScoreManager.h"
@@ -18,6 +17,15 @@ using YGame::Slime;
 using YMath::Vector2;
 using YMath::Vector3;
 
+std::unique_ptr<Slime> Slime::Create(const Transform::Status& status)
+{
+	std::unique_ptr<Slime> newObj = std::make_unique<Slime>();
+
+	newObj->Initialize(status);
+
+	return std::move(newObj);
+}
+
 void Slime::Initialize(const Transform::Status& status)
 {
 	// ゲームキャラクター初期化
@@ -25,25 +33,38 @@ void Slime::Initialize(const Transform::Status& status)
 		"Slime",
 		status,
 		{ -1.0f, 0.0f, 0.0f }, // 左向き
-		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed,
-		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime,
-		SlimeDrawer::Create(nullptr, 1));
+		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed, true,
+		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime);
 
+	Attribute attribute{};
+	attribute.Add(AttributeType::eEnemy);
+
+	SetCollider(GameCollider::Create(attribute));
+	
 	{
-		attribute_ = AttributeType::eEnemy;
+		Attribute mask{};
+		mask.Add(AttributeType::eBlock);
 
-		collider_->PushBack(
-			attribute_, AttributeType::eBlock,
-			new YMath::Box2DCollider(&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, {}, true));
-
-		collider_->PushBack(
-			attribute_, AttributeType::eAll,
-			new YMath::SphereCollider(&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRadius, {}, false));
-
-		collider_->SetPriority(1);
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), true, false),
+			mask);
 	}
 
-	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), SlimeConfig::kRadius, 1));
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::ePlayer);
+		mask.Add(AttributeType::ePet);
+
+		collider_->PushBackCollider(
+			std::make_unique<YMath::SphereCollider>(
+				&transform_->pos_, SlimeConfig::kRadius),
+			mask);
+	}
+
+	collider_->SetPriority(1);
+
+	SetDrawer(SlimeDrawer::Create(nullptr, 1));
 
 	blowTim_.Initialize(SlimeConfig::kBlowTime);
 
@@ -68,15 +89,12 @@ void Slime::UpdateAfterCollision()
 	//}
 }
 
-YGame::CollisionInfo Slime::GetCollisionInfo()
+YGame::InfoOnCollision Slime::GetInfoOnCollision()
 {
-	CollisionInfo result;
+	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
 
-	result.attribute = attribute_;
-	result.pos = transform_->pos_;
+	result.attribute = AttributeType::eEnemy;
 	result.radius = SlimeConfig::kRadius;
-	result.pStatus = &status_;
-	result.pSelf = this;
 
 	return result;
 }

@@ -1,7 +1,8 @@
 #include "MyGame.h"
 #include "Def.h"
 #include "YGameSceneFactory.h"
-#include "MapChipManager.h"
+
+#include "GameObject.h"
 
 #include "CBModelTransform.h"
 #include "CBSprite2DTransform.h"
@@ -17,6 +18,7 @@
 #include "DustParticle.h"
 #include "DebriParticle.h"
 #include "WaveParticle.h"
+#include "RecoveryParticle.h"
 #include "DamageParticle.h"
 
 #include "BlackoutTransition.h"
@@ -30,6 +32,8 @@
 #include "HorseDrawer.h"
 #include "SlimeDrawer.h"
 #include "CoinDrawer.h"
+#include "LifeDrawer.h"
+#include "MagnetDrawer.h"
 #include "NeedleAttackDrawer.h"
 #include "BlockDrawer.h"
 #include "GoalDrawer.h"
@@ -74,11 +78,11 @@ bool MyGame::Initialize()
 
 	InitializeTransition();
 
-	sceneMan_->SetSceneFactory(new YGameSceneFactory());
+	sceneMan_->SetSceneFactory(std::move(std::make_unique<YGameSceneFactory>()));
 
 	//sceneMan_->Initialize(YGameSceneFactory::Title_);
-	sceneMan_->Initialize(YGameSceneFactory::Select_);
-	//sceneMan_->Initialize(YGameSceneFactory::Play_);
+	//sceneMan_->Initialize(YGameSceneFactory::Select_);
+	sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
@@ -370,6 +374,8 @@ void MyGame::InitializeParticles()
 	
 	WaveParticle::StaticInitialize();
 
+	RecoveryParticle::StaticInitialize();
+	
 	DamageParticle::StaticInitialize();
 }
 
@@ -418,6 +424,10 @@ void MyGame::LoadDrawer()
 		NeedleAttackDrawer::LoadResource();
 
 		CoinDrawer::LoadResource();
+		
+		LifeDrawer::LoadResource();
+		
+		MagnetDrawer::LoadResource();
 
 		BlockDrawer::LoadResource();
 

@@ -20,6 +20,9 @@ namespace YMath
 	template<typename T>
 	bool InRange(const T& num, const T& lower, const T& upper);
 
+	template<typename T>
+	bool InRange(const T& num, const T& lower, const T& upper,  bool& isOverLower, bool& isOverUpper);
+
 	// 範囲制限
 	template<typename T>
 	T Clamp(const T& num, const T& lower, const T& upper);

@@ -2,7 +2,7 @@
 #include "BaseScene.h"
 #include "GameObjectManager.h"
 #include "PauseManager.h"
-#include "ScrollCamera.h"
+#include "GameCamera.h"
 #include "ScoreManager.h"
 #include "UIDrawer.h"
 #include "BeginingDrawer.h"
@@ -30,8 +30,8 @@ namespace YGame
 		// オブジェクトマネージャー
 		GameObjectManager* pObjectMan_ = nullptr;
 
-		// スクロールカメラ
-		ScrollCamera scrollCamera_;
+		// カメラ
+		GameCamera camera_;
 
 		// 転送用ビュープロジェクション
 		ViewProjection transferVP_;

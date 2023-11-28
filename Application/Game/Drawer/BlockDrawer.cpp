@@ -12,13 +12,13 @@ namespace
 	Model* pModel = nullptr;
 }
 
-BlockDrawer* BlockDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<BlockDrawer> BlockDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	BlockDrawer* newDrawer = new BlockDrawer();
+	std::unique_ptr<BlockDrawer> newDrawer = std::make_unique<BlockDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void BlockDrawer::LoadResource()

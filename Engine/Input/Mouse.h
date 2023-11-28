@@ -1,4 +1,5 @@
 #pragma once
+#define DIRECTINPUT_HEADER_VERSION  0x0800
 #include <dinput.h>
 #include <wrl.h>
 #include <memory>

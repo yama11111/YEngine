@@ -36,12 +36,6 @@ namespace YGame
 		/// </summary>
 		void Draw();
 
-		/// <summary>
-		/// 衝突判定時処理
-		/// </summary>
-		/// <param name="collIndex"> : 衝突番号</param>
-		virtual void SendCollisionInfo(const size_t collIndex);
-
 	public:
 
 		/// <summary>
@@ -70,10 +64,10 @@ namespace YGame
 		inline BaseDrawer* SubDrawerPtr(const std::string& tag) { return subDrawer_[tag].get(); }
 
 		/// <summary>
-		/// 衝突判定番号取得
+		/// 衝突時情報取得
 		/// </summary>
-		/// <returns>衝突判定番号</returns>
-		inline size_t CollisionIndex() const { return collIndex_; }
+		/// <returns>衝突時情報</returns>
+		virtual InfoOnCollision GetInfoOnCollision();
 
 		/// <summary>
 		/// 存在フラグ取得
@@ -93,33 +87,27 @@ namespace YGame
 		/// コライダー設定
 		/// </summary>
 		/// <param name="collider"> : コライダーインスタンス (動的)</param>
-		void SetCollider(GameCollider* collider);
+		void SetCollider(std::unique_ptr<GameCollider>&& collider);
 
 		/// <summary>
 		/// 描画クラス設定
 		/// </summary>
 		/// <param name="drawer"> : 描画インスタンス (動的)</param>
-		void SetDrawer(BaseDrawer* drawer);
+		void SetDrawer(std::unique_ptr<BaseDrawer>&& drawer);
 
 		/// <summary>
-		/// 補助描画クラス設定
+		/// その他の描画クラス設定
 		/// </summary>
 		/// <param name="tag"> : タグ</param>
 		/// <param name="drawer"> : 描画インスタンス (動的)</param>
-		void InsertSubDrawer(const std::string& tag, BaseDrawer* drawer);
-
-		/// <summary>
-		/// 衝突判定番号設定
-		/// </summary>
-		/// <param name="collIndex"> : 衝突番号</param>
-		void SetCollisionIndex(const size_t collIndex);
+		void InsertSubDrawer(const std::string& tag, std::unique_ptr<BaseDrawer>&& drawer);
 
 		/// <summary>
 		/// 更新フラグ設定
 		/// </summary>
 		/// <param name="isUpdate"> : 更新フラグ</param>
-		void SetIsUpdate(const bool isUpdate);
-
+		inline void SetIsControlUpdate(const bool isControlUpdate) { isControlUpdate_ = isControlUpdate; }
+	
 	public:
 
 		GameObject() = default;
@@ -143,16 +131,29 @@ namespace YGame
 		// 親ポインタ
 		GameObject* pParent_ = nullptr;
 
-		// 衝突判定番号
-		size_t collIndex_ = 0;
-
-		// 更新フラグ
-		bool isUpdate_ = true;
-
 		// 存在フラグ
 		bool isExist_ = true;
 
+		// 操縦更新フラグ
+		bool isControlUpdate_ = true;
+
 	protected:
+
+		/// <summary>
+		/// 操縦更新
+		/// </summary>
+		virtual void UpdateControl();
+
+		/// <summary>
+		/// 衝突更新
+		/// </summary>
+		void UpdateCollision();
+
+		/// <summary>
+		/// 衝突時処理
+		/// </summary>
+		/// <param name="info"> : 衝突情報</param>
+		virtual void OnCollision(const InfoOnCollision& info);
 
 		/// <summary>
 		/// デバッグテキスト本文

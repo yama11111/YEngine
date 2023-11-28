@@ -12,6 +12,18 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 生成
+		/// </summary>
+		/// <param name="status"> : トランスフォーム情報</param>
+		/// <param name="pPet"> : ペットポインタ</param>
+		/// <returns>動的インスタンス</returns>
+		static std::unique_ptr<Player>Create(
+			const Transform::Status& status, 
+			IPet* pPet = nullptr);
+
+	public:
+
+		/// <summary>
 		/// 初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
@@ -49,15 +61,15 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		CollisionInfo GetCollisionInfo() override;
-
+		InfoOnCollision GetInfoOnCollision() override;
+	
 	public:
 
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		/// <param name="pScrollCamera"> : スクロールカメラポインタ</param>
-		static void StaticInitialize(ScrollCamera* pScrollCamera);
+		/// <param name="pCamera"> : カメラポインタ</param>
+		static void StaticInitialize(GameCamera* pCamera);
 
 	public:
 
@@ -82,9 +94,14 @@ namespace YGame
 	private:
 
 		// 静的スクロールカメラポインタ
-		static ScrollCamera* spScrollCamera_;
+		static GameCamera* spCamera_;
 
 	private:
+
+		/// <summary>
+		/// 操縦更新
+		/// </summary>
+		void UpdateControl() override;
 		
 		/// <summary>
 		/// ジャンプ
@@ -106,7 +123,7 @@ namespace YGame
 		/// 衝突判定
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
-		void OnCollision(const CollisionInfo& info) override;
+		void OnCollision(const InfoOnCollision & info) override;
 		
 		/// <summary>
 		/// デバッグテキスト本文

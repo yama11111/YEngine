@@ -9,13 +9,13 @@ namespace
 	Model* pModel = nullptr;
 }
 
-CloudDrawer* CloudDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<CloudDrawer> CloudDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	CloudDrawer* newDrawer = new CloudDrawer();
+	std::unique_ptr<CloudDrawer> newDrawer = std::make_unique<CloudDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void CloudDrawer::LoadResource()

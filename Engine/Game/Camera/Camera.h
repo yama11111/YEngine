@@ -54,7 +54,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="pos"> : 位置</param>
 		/// <param name="rota"> : 回転</param>
-		void Initialize(const YMath::Vector3 pos, const YMath::Vector3 rota);
+		void Initialize(const YMath::Vector3& pos, const YMath::Vector3& rota);
 		
 		/// <summary>
 		/// 初期化 (追従ver)
@@ -62,7 +62,7 @@ namespace YGame
 		/// <param name="pos"> : 位置</param>
 		/// <param name="pFollowPoint"> : 追従点ポインタ</param>
 		/// <param name="isFollow"> : 追従するか</param>
-		void Initialize(const YMath::Vector3 pos, YMath::Vector3* pFollowPoint, bool isFollow);
+		void Initialize(const YMath::Vector3& pos, YMath::Vector3* pFollowPoint, bool isFollow);
 
 		/// <summary>
 		/// 更新
@@ -71,22 +71,32 @@ namespace YGame
 		void Update(const Transform::Status& status = {});
 	
 	public:
+		
 		// 滑らかに移動
 		void SmoothMoving(const unsigned int frame, const YMath::Vector3& pos, const float exponent);
+		
 		// カメラシェイク
 		virtual void Shaking(const float swing, const float dekey, const float place);
+		
 		// ビュープロジェクション
-		virtual ViewProjection GetViewProjection();
+		virtual ViewProjection GetViewProjection() const;
+		
 		// カメラ向き
 		virtual YMath::Vector3 Direction();
+		
 		// 追従点設定
 		virtual void SetFollowPoint(YMath::Vector3* pFollowPoint);
+		
 		// 追従設定
 		virtual void SetIsFollow(const bool isFollow);
+	
 	private:
+		
 		// 注視点更新
 		void UpdateTarget();
+	
 	public:
+		
 		Camera() = default;
 		~Camera() = default;
 	};

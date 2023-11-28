@@ -35,7 +35,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		/// <param name="isTimerReset"> : タイマーを始めからやり直すか</param>
-		void PlayAnimation(const uint32_t index, const bool isTimerReset);
+		void PlayAnimation(const uint32_t index, const bool isTimerReset = true);
 
 		/// <summary>
 		/// アニメーション停止

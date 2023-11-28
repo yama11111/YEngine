@@ -14,13 +14,13 @@ namespace
 	Model* pModel = nullptr;
 }
 
-SkydomeDrawer* SkydomeDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<SkydomeDrawer> SkydomeDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	SkydomeDrawer* newDrawer = new SkydomeDrawer();
+	std::unique_ptr<SkydomeDrawer> newDrawer = std::make_unique<SkydomeDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void SkydomeDrawer::LoadResource()

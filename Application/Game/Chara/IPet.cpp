@@ -1,10 +1,10 @@
 #include "IPet.h"
 #include "CharacterConfig.h"
 
-#include "CollisionInfo.h"
 #include "MapChipCollisionBitConfig.h"
 
 #include "SceneManager.h"
+#include "StageManager.h"
 
 #include <cassert>
 
@@ -13,24 +13,30 @@ using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
 
-YGame::ScrollCamera* IPet::spScrollCamera_ = nullptr;
+YGame::GameCamera* IPet::spCamera_ = nullptr;
 
-void IPet::StaticInitialize(ScrollCamera* pScrollCamera)
+namespace
 {
-	assert(pScrollCamera);
+	IPet* spPet = nullptr;
+}
+void IPet::StaticSetPetPointer(IPet* pPet)
+{
+	spPet = pPet;
+}
+IPet* IPet::StaticGetPetPointer()
+{
+	return spPet;
+}
 
-	spScrollCamera_ = pScrollCamera;
+void IPet::StaticInitialize(GameCamera* pCamera)
+{
+	assert(pCamera);
+
+	spCamera_ = pCamera;
 }
 
 void IPet::UpdateBeforeCollision()
 {
-	if (isUpdate_)
-	{
-		// 自動で前に進む
-		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
-		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
-	}
-
 	BaseCharacter::UpdateBeforeCollision();
 }
 
@@ -62,6 +68,8 @@ void IPet::Jump(const bool isJumpCount)
 	speed_.VelocityRef().y_ = 0.0f;
 
 	moveDirection_.y_ = 1.0f;
+
+	spCamera_->MoveOnJump();
 }
 
 void IPet::Rideen()
@@ -70,7 +78,7 @@ void IPet::Rideen()
 	
 	isHit_ = false;
 
-	spScrollCamera_->SetFollowPoint(&transform_->pos_);
+	spCamera_->SetPlayerPosPtr(&transform_->pos_);
 
 	speed_.SetAcceleration(PetConfig::kNormalAcceleration);
 	speed_.SetMax(PetConfig::kNormalMaxSpeed);
@@ -84,7 +92,14 @@ void IPet::GotOff()
 	//speed_.SetMax(PetConfig::kRunMaxSpeed);
 }
 
-void IPet::OnCollision(const CollisionInfo& info)
+void IPet::UpdateControl()
+{
+	// 自動で前に進む
+	moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+	direction_ = Vector3(+1.0f, 0.0f, 0.0f);
+}
+
+void IPet::OnCollision(const InfoOnCollision& info)
 {
 	if (isRidden_ == false) { return; }
 
@@ -92,9 +107,9 @@ void IPet::OnCollision(const CollisionInfo& info)
 	if (info.attribute == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pos.y_ + (info.radius / 2.0f))
+		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pTrfm->pos_.y_ + (info.radius / 2.0f))
 		{
-			spScrollCamera_->Shaking(1.0f, 0.2f, 100.0f);
+			spCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
 			// ジャンプ
 			Jump(false);
@@ -104,8 +119,11 @@ void IPet::OnCollision(const CollisionInfo& info)
 		{
 			Hit();
 		}
-
-		return;
+	}
+	// ゴール
+	else if (info.attribute == AttributeType::eGoal)
+	{
+		StageManager::GetInstance()->ClearStage();
 	}
 }
 
@@ -113,7 +131,7 @@ void IPet::Hit()
 {
 	isHit_ = true;
 
-	spScrollCamera_->Shaking(2.0f, 0.2f, 100.0f);
+	spCamera_->Shaking(2.0f, 0.2f, 100.0f);
 }
 
 void IPet::OffScreenProcess()

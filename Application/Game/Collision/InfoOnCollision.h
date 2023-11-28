@@ -1,26 +1,26 @@
 #pragma once
 #include "AttributeType.h"
+#include "Transform.h"
 #include "Vector3.h"
 #include "CharacterStatus.h"
-#include "BaseCharacter.h"
 
 namespace YGame
 {
-	struct CollisionInfo
+	struct InfoOnCollision
 	{
 		// 属性
 		AttributeType attribute = AttributeType::eNone;
 
-		// 位置
-		YMath::Vector3 pos;
+		// トランスフォームポインタ
+		Transform* pTrfm = nullptr;
 
 		// 半径
 		float radius = 0.0f;
 
+		// 移動方向
+		YMath::Vector3* pMoveDirection_ = nullptr;
+
 		// キャラステータスポインタ
 		CharacterStatus* pStatus = nullptr;
-
-		// 自身
-		BaseCharacter* pSelf = nullptr;
 	};
 }

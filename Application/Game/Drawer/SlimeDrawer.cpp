@@ -28,13 +28,13 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead);
 }
 
-SlimeDrawer* SlimeDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(Transform* pParent, const size_t drawPriority)
 {
-	SlimeDrawer* newDrawer = new SlimeDrawer();
+	std::unique_ptr<SlimeDrawer> newDrawer = std::make_unique<SlimeDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
 
-	return newDrawer;
+	return std::move(newDrawer);
 }
 
 void SlimeDrawer::LoadResource()
@@ -48,7 +48,7 @@ void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
-	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.color = YMath::GetColor(143, 13, 48, 255);
 	cbOutline_->data_.range = 0.2f;
 
 	InsertConstBuffer("Body_O", cbOutline_.get());

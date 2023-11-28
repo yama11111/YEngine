@@ -34,13 +34,11 @@ void PlayScene::Load()
 	// 描画クラス
 	BaseDrawer::StaticInitialize(&transferVP_);
 	
-	BaseCharacter::StaticInitialize();
-	
 	// プレイヤー
-	Player::StaticInitialize(&scrollCamera_);
+	Player::StaticInitialize(&camera_);
 	
 	// ペット
-	IPet::StaticInitialize(&scrollCamera_);
+	IPet::StaticInitialize(&camera_);
 }
 #pragma endregion
 
@@ -51,10 +49,10 @@ void PlayScene::Initialize()
 	StageManager::GetInstance()->Reset();
 
 	// ゲームキャラクターマネージャー初期化
-	pObjectMan_->Initialize();
+	pObjectMan_->Initialize(&transferVP_);
 
 	// カメラ初期化
-	scrollCamera_.Initialize(Vector3(-15.0f, +10.0f, -30.0f), nullptr, Vector3());
+	camera_.Initialize();
 
 	// ビュープロジェクション初期化
 	transferVP_.Initialize();
@@ -133,8 +131,8 @@ void PlayScene::Update()
 		// 開始演出中更新しない
 		pObjectMan_->Update(isStart_);
 
-		scrollCamera_.Update({ cameraOffset_.InOut(startTimer_.Ratio(), 0.4f) });
-		transferVP_ = scrollCamera_.GetViewProjection();
+		camera_.Update();
+		transferVP_ = camera_.GetViewProjection();
 	}
 
 	transferVP_.UpdateMatrix();
