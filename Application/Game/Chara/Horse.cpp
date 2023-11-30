@@ -58,11 +58,21 @@ void Horse::Initialize(const Transform::Status& status)
 				&transform_->pos_, PetConfig::kRectSize),
 			mask);
 	}
+
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::eEnemy);
+		mask.Add(AttributeType::eEnemyAttack);
+
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), PetConfig::kRectSize, Vector3(), false, false),
+			mask);
+	}
 	
 	{
 		Attribute mask{};
 		mask.Add(AttributeType::ePlayer);
-		mask.Add(AttributeType::eEnemy);
 		mask.Add(AttributeType::eCoin);
 		mask.Add(AttributeType::eItem);
 		

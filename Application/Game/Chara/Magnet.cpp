@@ -55,7 +55,7 @@ void Magnet::Initialize(const Transform::Status& status)
 	SetDrawer(MagnetDrawer::Create(nullptr, 1));
 
 	isAct_ = false;
-	actTimer_.Initialize(600);
+	actTimer_.Initialize(480);
 
 	drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eIdle));
 }
@@ -73,6 +73,7 @@ void Magnet::UpdateBeforeCollision()
 	{
 		isAct_ = false;
 		actTimer_.Reset();
+		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eDead));
 	}
 
 	if (pPlayerTrfm_ && actTimer_.IsAct())

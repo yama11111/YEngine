@@ -192,12 +192,6 @@ void GameObjectManager::CheckCollisionCharacterPair(
 
 	bool isColl = false;
 	
-	int a = 0;
-	if (pObjectA->Name() == "Horse" && pObjectB->Name() == "Slime")
-	{
-		a = 12; 
-	}
-
 	if (pCollA->Priority() < pCollB->Priority())
 	{
 		isColl = pCollB->CheckCollision(pCollA); 

@@ -62,28 +62,11 @@ namespace YGame
 		static const uint32_t kPower = 50;
 	}
 
-	namespace SlashAttackConfig
-	{
-		static const uint32_t kAliveTime = 5;
-		static const YMath::Vector3 kOffset = { +3.0f,+1.0f,0.0f };
-		static const float kRadius = 3.0f;
-		static const uint32_t kPower = 20;
-	}
-
-	namespace SnortAttackConfig
-	{
-		static const uint32_t kAliveTime = 20;
-		static const YMath::Vector3 kAcceleration = { 0.3f,0.0f,0.0f };
-		static const YMath::Vector3 kMaxSpeed = { 0.6f,0.0f,0.0f };
-		static const float kRadius = 2.0f;
-		static const uint32_t kPower = 20;
-	}
-
 	namespace CoinConfig
 	{
 		static const float kRadius = 2.5f;
 		static const YMath::Vector3 kAcceleration = { 0.2f,0.2f,0.0f };
-		static const YMath::Vector3 kMaxSpeed = { 0.5f,0.5f,0.0f };
+		static const YMath::Vector3 kMaxSpeed = { 0.6f,0.6f,0.0f };
 	}
 
 	namespace MagnetConfig

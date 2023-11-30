@@ -107,7 +107,7 @@ void IPet::OnCollision(const InfoOnCollision& info)
 	if (info.attribute == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PetConfig::kRadius / 2.0f) >= info.pTrfm->pos_.y_ + (info.radius / 2.0f))
+		if (transform_->pos_.y_ - (PetConfig::kRadius / 4.0f) >= info.pTrfm->pos_.y_ + (info.radius / 4.0f))
 		{
 			spCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
@@ -130,6 +130,8 @@ void IPet::OnCollision(const InfoOnCollision& info)
 void IPet::Hit()
 {
 	isHit_ = true;
+
+	status_.Damage(0, true);
 
 	spCamera_->Shaking(2.0f, 0.2f, 100.0f);
 }

@@ -54,11 +54,12 @@ void Slime::Initialize(const Transform::Status& status)
 	{
 		Attribute mask{};
 		mask.Add(AttributeType::ePlayer);
+		mask.Add(AttributeType::ePlayerAttack);
 		mask.Add(AttributeType::ePet);
 
 		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, SlimeConfig::kRadius),
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), false, false),
 			mask);
 	}
 

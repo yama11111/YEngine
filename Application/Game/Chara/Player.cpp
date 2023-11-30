@@ -75,12 +75,21 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 				&transform_->pos_, PlayerConfig::kRectSize),
 			mask);
 	}
+
+	{
+		Attribute mask{};
+		mask.Add(AttributeType::eEnemy);
+		mask.Add(AttributeType::eEnemyAttack);
+
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRectSize, Vector3(), false, false),
+			mask);
+	}
 	
 	{
 		Attribute mask{};
 		mask.Add(AttributeType::ePet);
-		mask.Add(AttributeType::eEnemy);
-		mask.Add(AttributeType::eEnemyAttack);
 		mask.Add(AttributeType::eCoin);
 		mask.Add(AttributeType::eItem);
 		
@@ -318,7 +327,7 @@ void Player::OnCollision(const InfoOnCollision& info)
 	if (info.attribute == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 2.0f) >= info.pTrfm->pos_.y_ + (info.radius / 2.0f))
+		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 4.0f) >= info.pTrfm->pos_.y_ + (info.radius / 4.0f))
 		{
 			spCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
@@ -349,6 +358,8 @@ void Player::OnCollision(const InfoOnCollision& info)
 	// ペット
 	else if (info.attribute == AttributeType::ePet)
 	{
+		if(info.pStatus->IsInvincible()) { return; }
+
 		// 乗る
 		RideOnPet(IPet::StaticGetPetPointer());
 	}

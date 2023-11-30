@@ -3,9 +3,10 @@
 #include "CharacterConfig.h"
 
 #include "CollisionDrawer.h"
-#include "SphereCollider.h"
+#include "Box2DCollider.h"
 
 using YGame::NeedleAttack;
+using YMath::Vector2;
 using YMath::Vector3;
 
 
@@ -40,7 +41,7 @@ void NeedleAttack::Initialize(
 {
 	// ゲームキャラクター初期化
 	BaseCharacter::Initialize(
-		"SnortAttack",
+		"NeedleAttack",
 		Transform::Status::Default(),
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
 		acceleration, maxSpeed, false,
@@ -56,8 +57,8 @@ void NeedleAttack::Initialize(
 		mask.Add(AttributeType::eEnemy);
 
 		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), radius, Vector3(), false, false),
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, speed_.VelocityPtr(), Vector2(radius, radius), Vector3(), false, false),
 			mask);
 	}
 
