@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Transition;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Drawer;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Object;$(ProjectDir)Application\Game\Object\Player;$(ProjectDir)Application\Game\Object\Pet;$(ProjectDir)Application\Game\Object\Enemy;$(ProjectDir)Application\Game\Object\Attack;$(ProjectDir)Application\Game\Object\Item;$(ProjectDir)Application\Game\Object\Stage;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Camera;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Scene\Transition;$(ProjectDir)Application\ConstBuffer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Math\Physics;$(ProjectDir)Engine\Math\Game;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Transition;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Drawer;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Object;$(ProjectDir)Application\Game\Object\Player;$(ProjectDir)Application\Game\Object\Pet;$(ProjectDir)Application\Game\Object\Enemy;$(ProjectDir)Application\Game\Object\Attack;$(ProjectDir)Application\Game\Object\Item;$(ProjectDir)Application\Game\Object\Stage;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Camera;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Scene\Transition;$(ProjectDir)Application\ConstBuffer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Transition;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Drawer;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Object;$(ProjectDir)Application\Game\Object\Player;$(ProjectDir)Application\Game\Object\Pet;$(ProjectDir)Application\Game\Object\Enemy;$(ProjectDir)Application\Game\Object\Attack;$(ProjectDir)Application\Game\Object\Item;$(ProjectDir)Application\Game\Object\Stage;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Camera;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Scene\Transition;$(ProjectDir)Application\ConstBuffer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Engine;$(ProjectDir)Engine\Base;$(ProjectDir)Engine\Base\DX;$(ProjectDir)Engine\Math;$(ProjectDir)Engine\Math\Collision;$(ProjectDir)Engine\Math\Lerp;$(ProjectDir)Engine\Math\Vector;$(ProjectDir)Engine\Math\Physics;$(ProjectDir)Engine\Math\Game;$(ProjectDir)Engine\Scene;$(ProjectDir)Engine\Scene\Transition;$(ProjectDir)Engine\Input;$(ProjectDir)Engine\File;$(ProjectDir)Engine\DebugText;$(ProjectDir)Engine\Draw;$(ProjectDir)Engine\Draw\Object;$(ProjectDir)Engine\Draw\CB;$(ProjectDir)Engine\Draw\Graphic;$(ProjectDir)Engine\Draw\Pipeline;$(ProjectDir)Engine\Game;$(ProjectDir)Engine\Game\Object;$(ProjectDir)Engine\Game\Object\Drawer;$(ProjectDir)Engine\Game\Camera;$(ProjectDir)Engine\Game\Collision;$(ProjectDir)Engine\Game\Particle;$(ProjectDir)Engine\Game\Scene;$(ProjectDir)Engine\Game\MapChip;$(ProjectDir)Engine\Game\Level;$(ProjectDir)Application;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Object;$(ProjectDir)Application\Game\Object\Player;$(ProjectDir)Application\Game\Object\Pet;$(ProjectDir)Application\Game\Object\Enemy;$(ProjectDir)Application\Game\Object\Attack;$(ProjectDir)Application\Game\Object\Item;$(ProjectDir)Application\Game\Object\Stage;$(ProjectDir)Application\Game\Collision;$(ProjectDir)Application\Game\Camera;$(ProjectDir)Application\Game\Particle;$(ProjectDir)Application\Game\UI;$(ProjectDir)Application\Draw\Actor;$(ProjectDir)Application\Draw\UI;$(ProjectDir)Application\Scene;$(ProjectDir)Application\Scene\Transition;$(ProjectDir)Application\ConstBuffer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -127,7 +127,7 @@
     <ClCompile Include="Application\Game\Object\Item\MagnetDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
-    <ClCompile Include="Engine\Game\Collision\Attribute.cpp" />
+    <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\BeginingDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\BlockDrawer.cpp" />
@@ -240,12 +240,12 @@
     <ClCompile Include="Engine\Math\Lerp\Lerp.cpp" />
     <ClCompile Include="Engine\Math\Vector\Matrix4.cpp" />
     <ClCompile Include="Engine\Math\MathUtil.cpp" />
-    <ClCompile Include="Engine\Math\Physics.cpp" />
-    <ClCompile Include="Engine\Math\Power.cpp" />
-    <ClCompile Include="Engine\Math\Shake.cpp" />
-    <ClCompile Include="Engine\Math\Speed.cpp" />
+    <ClCompile Include="Engine\Math\Physics\Physics.cpp" />
+    <ClCompile Include="Engine\Math\Game\Power.cpp" />
+    <ClCompile Include="Engine\Math\Game\Shake.cpp" />
+    <ClCompile Include="Engine\Math\Game\Speed.cpp" />
     <ClCompile Include="Engine\Math\Lerp\SplineEase.cpp" />
-    <ClCompile Include="Engine\Math\Timer.cpp" />
+    <ClCompile Include="Engine\Math\Game\Timer.cpp" />
     <ClCompile Include="Engine\Math\Vector\Vector2.cpp" />
     <ClCompile Include="Engine\Math\Vector\Vector3.cpp" />
     <ClCompile Include="Engine\Math\Vector\Vector4.cpp" />
@@ -254,7 +254,7 @@
     <ClCompile Include="Engine\Draw\Pipeline\PipelineManager.cpp" />
     <ClCompile Include="Engine\Draw\Pipeline\ShaderSet.cpp" />
     <ClCompile Include="Application\Game\Particle\ExplosionParticle.cpp" />
-    <ClCompile Include="Engine\Math\Velocity.cpp" />
+    <ClCompile Include="Engine\Math\Physics\Velocity.cpp" />
     <ClCompile Include="Application\Game\UI\ScoreDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -273,9 +273,9 @@
     <ClInclude Include="Application\Game\Object\Item\MagnetDrawer.h" />
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
-    <ClInclude Include="Engine\Game\Collision\Attribute.h" />
     <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />
     <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
+    <ClInclude Include="Engine\Math\Game\BitFrag.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\AxisDrawer.h" />
     <ClInclude Include="Application\Game\UI\BeginingDrawer.h" />
     <ClInclude Include="Application\Game\Object\Stage\BlockDrawer.h" />
@@ -408,12 +408,12 @@
     <ClInclude Include="Engine\Math\Lerp\Lerp.h" />
     <ClInclude Include="Engine\Math\Vector\Matrix4.h" />
     <ClInclude Include="Engine\Math\MathUtil.h" />
-    <ClInclude Include="Engine\Math\Physics.h" />
-    <ClInclude Include="Engine\Math\Power.h" />
-    <ClInclude Include="Engine\Math\Shake.h" />
-    <ClInclude Include="Engine\Math\Speed.h" />
+    <ClInclude Include="Engine\Math\Physics\Physics.h" />
+    <ClInclude Include="Engine\Math\Game\Power.h" />
+    <ClInclude Include="Engine\Math\Game\Shake.h" />
+    <ClInclude Include="Engine\Math\Game\Speed.h" />
     <ClInclude Include="Engine\Math\Lerp\SplineEase.h" />
-    <ClInclude Include="Engine\Math\Timer.h" />
+    <ClInclude Include="Engine\Math\Game\Timer.h" />
     <ClInclude Include="Engine\Math\Vector\Vector2.h" />
     <ClInclude Include="Engine\Math\Vector\Vector3.h" />
     <ClInclude Include="Engine\Math\Vector\Vector4.h" />
@@ -424,7 +424,7 @@
     <ClInclude Include="Engine\Draw\Pipeline\PipelineManager.h" />
     <ClInclude Include="Engine\Draw\Pipeline\ShaderSet.h" />
     <ClInclude Include="Application\Game\Particle\ExplosionParticle.h" />
-    <ClInclude Include="Engine\Math\Velocity.h" />
+    <ClInclude Include="Engine\Math\Physics\Velocity.h" />
     <ClInclude Include="Application\Draw\UI\UINumber.h" />
     <ClInclude Include="Application\Game\UI\ScoreDrawer.h" />
   </ItemGroup>

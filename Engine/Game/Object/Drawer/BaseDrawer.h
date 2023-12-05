@@ -31,6 +31,18 @@ namespace YGame
 		virtual void Update();
 
 		/// <summary>
+		/// 描画
+		/// </summary>
+		virtual void Draw();
+
+		/// <summary>
+		/// デバッグテキスト本文
+		/// </summary>
+		virtual void DrawDebugTextContent() override;
+
+	public:
+
+		/// <summary>
 		/// アニメーション再生
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
@@ -42,16 +54,6 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : アニメーション番号</param>
 		void StopAnimation(const uint32_t index);
-
-		/// <summary>
-		/// 描画
-		/// </summary>
-		virtual void Draw();
-
-		/// <summary>
-		/// デバッグテキスト本文
-		/// </summary>
-		virtual void DrawDebugTextContent() override;
 
 	public:
 		

@@ -8,6 +8,7 @@
 
 using YGame::Coin;
 using YMath::Vector3;
+using YMath::BitFrag;
 
 std::unique_ptr<Coin> Coin::Create(const Transform::Status& status)
 {
@@ -27,16 +28,16 @@ void Coin::Initialize(const Transform::Status& status)
 		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false, 
 		1, 0, 0);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::eCoin);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::eCoin);
 
 	SetCollider(GameCollider::Create(attribute));
 	
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::ePlayer);
-		mask.Add(AttributeType::ePet);
-		mask.Add(AttributeType::eItem);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::ePlayer);
+		mask.SetFragTrue(AttributeType::ePet);
+		mask.SetFragTrue(AttributeType::eItem);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(

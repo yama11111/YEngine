@@ -5,11 +5,12 @@ using YGame::GameCollider;
 using YGame::InfoOnCollision;
 using YMath::BasePrimitiveCollider;
 using YMath::Vector3;
+using YMath::BitFrag;
 
-std::unique_ptr<GameCollider> GameCollider::Create(const Attribute& attribute)
+std::unique_ptr<GameCollider> GameCollider::Create(const BitFrag& attribute)
 {
 	std::unique_ptr<GameCollider> newCollider = std::make_unique<GameCollider>();
-	
+
 	newCollider->Initialize(attribute);
 
 	return std::move(newCollider);
@@ -26,7 +27,7 @@ void GameCollider::ClearCollisionInfoQueue()
 	}
 }
 
-void GameCollider::Initialize(const Attribute& attribute)
+void GameCollider::Initialize(const BitFrag& attribute)
 {
 	if (partColliders_.empty() == false)
 	{
@@ -46,7 +47,7 @@ void GameCollider::Update()
 bool GameCollider::CheckCollision(GameCollider* pOther)
 {
 	if (pOther == nullptr) { return false; }
-	
+
 	if (isSlip_ || pOther->IsSlip()) { return false; }
 
 	// 当たった回数をカウント → 1以上ならアタリ
@@ -58,7 +59,7 @@ bool GameCollider::CheckCollision(GameCollider* pOther)
 		for (const PartCollider& colliderB : pOther->partColliders_)
 		{
 			// 属性とマスク一致しないなら弾く
-			if (colliderA.mask_.AND(pOther->attribute_) == false || 
+			if (colliderA.mask_.AND(pOther->attribute_) == false ||
 				colliderB.mask_.AND(attribute_) == false)
 			{
 				continue;
@@ -75,7 +76,7 @@ bool GameCollider::CheckCollision(GameCollider* pOther)
 }
 
 void GameCollider::PushBackCollider(
-	std::unique_ptr<BasePrimitiveCollider>&& collider, const Attribute& mask)
+	std::unique_ptr<BasePrimitiveCollider>&& collider, const BitFrag& mask)
 {
 	assert(collider);
 	partColliders_.push_back({});

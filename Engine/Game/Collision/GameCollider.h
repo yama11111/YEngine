@@ -1,5 +1,5 @@
 #pragma once
-#include "Attribute.h"
+#include "BitFrag.h"
 #include "BasePrimitiveCollider.h"
 #include "DebugTextAttacher.h"
 #include "InfoOnCollision.h"
@@ -21,15 +21,15 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="attribute"> : 属性</param>
-		static std::unique_ptr<GameCollider> Create(const Attribute& attribute);
-	
+		static std::unique_ptr<GameCollider> Create(const YMath::BitFrag& attribute);
+
 	public:
-		
+
 		/// <summary>
 		/// 初期化
 		/// </summary>
 		/// <param name="attribute"> : 属性</param>
-		void Initialize(const Attribute& attribute);
+		void Initialize(const YMath::BitFrag& attribute);
 
 		/// <summary>
 		/// 更新
@@ -48,7 +48,7 @@ namespace YGame
 		/// <param name="collider">コライダー (動的インスタンス)</param>
 		/// <param name="mask"> : マスク</param>
 		void PushBackCollider(
-			std::unique_ptr<YMath::BasePrimitiveCollider>&& collider, const Attribute& mask);
+			std::unique_ptr<YMath::BasePrimitiveCollider>&& collider, const YMath::BitFrag& mask);
 	
 		/// <summary>
 		/// 衝突情報積む
@@ -81,7 +81,7 @@ namespace YGame
 		/// 属性取得
 		/// </summary>
 		/// <returns> : 属性</returns>
-		Attribute GetAttribute() const { return attribute_; }
+		YMath::BitFrag GetAttribute() const { return attribute_; }
 
 		/// <summary>
 		/// 優先度取得
@@ -116,7 +116,7 @@ namespace YGame
 			std::unique_ptr<YMath::BasePrimitiveCollider> primitive_;
 			
 			// マスク
-			Attribute mask_;
+			YMath::BitFrag mask_;
 		};
 
 	private:
@@ -125,7 +125,7 @@ namespace YGame
 		std::list<PartCollider> partColliders_;
 
 		// 属性
-		Attribute attribute_;
+		YMath::BitFrag attribute_{};
 
 		// 優先度
 		uint32_t priority_ = 0;

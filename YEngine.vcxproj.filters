@@ -226,6 +226,9 @@
     <Filter Include="Engine\Scene\Transition">
       <UniqueIdentifier>{4ba839e1-bf41-4040-83bf-37c857e1dfd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Math\Game">
+      <UniqueIdentifier>{344d6a0e-f03a-469e-aba4-052a79aebdc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -282,14 +285,8 @@
     <ClCompile Include="Engine\Math\MathUtil.cpp">
       <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Shake.cpp">
-      <Filter>Engine\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Math\Lerp\Lerp.cpp">
       <Filter>Engine\Math\Lerp</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Math\Speed.cpp">
-      <Filter>Engine\Math</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Camera\ViewProjection.cpp">
       <Filter>Engine\Game\Camera</Filter>
@@ -426,12 +423,6 @@
     <ClCompile Include="Application\Game\Particle\ExplosionParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Power.cpp">
-      <Filter>Engine\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Math\Timer.cpp">
-      <Filter>Engine\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Math\Lerp\Ease.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
@@ -441,10 +432,10 @@
     <ClCompile Include="Engine\Math\Lerp\SplineEase.cpp">
       <Filter>Engine\Math\Lerp</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Physics.cpp">
+    <ClCompile Include="Engine\Math\Physics\Physics.cpp">
       <Filter>Engine\Math\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\Velocity.cpp">
+    <ClCompile Include="Engine\Math\Physics\Velocity.cpp">
       <Filter>Engine\Math\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\UI\PauseManager.cpp">
@@ -552,9 +543,6 @@
     <ClCompile Include="Application\Game\Object\Item\Magnet.cpp">
       <Filter>Application\Game\Object\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Game\Collision\Attribute.cpp">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Audio.cpp">
       <Filter>Engine\Game</Filter>
     </ClCompile>
@@ -657,6 +645,21 @@
     <ClCompile Include="Engine\Scene\Transition\BaseTransition.cpp">
       <Filter>Engine\Scene\Transition</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Math\Game\Power.cpp">
+      <Filter>Engine\Math\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Game\Shake.cpp">
+      <Filter>Engine\Math\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Game\Speed.cpp">
+      <Filter>Engine\Math\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Game\Timer.cpp">
+      <Filter>Engine\Math\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Game\BitFrag.cpp">
+      <Filter>Engine\Math\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -713,14 +716,8 @@
     <ClInclude Include="Engine\Math\MathUtil.h">
       <Filter>Engine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Shake.h">
-      <Filter>Engine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Math\Lerp\Lerp.h">
       <Filter>Engine\Math\Lerp</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Math\Speed.h">
-      <Filter>Engine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Camera\ViewProjection.h">
       <Filter>Engine\Game\Camera</Filter>
@@ -911,12 +908,6 @@
     <ClInclude Include="Application\Game\Particle\ExplosionParticle.h">
       <Filter>Application\Game\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Power.h">
-      <Filter>Engine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Math\Timer.h">
-      <Filter>Engine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Math\Lerp\Ease.h">
       <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
@@ -926,10 +917,10 @@
     <ClInclude Include="Engine\Math\Lerp\SplineEase.h">
       <Filter>Engine\Math\Lerp</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Physics.h">
+    <ClInclude Include="Engine\Math\Physics\Physics.h">
       <Filter>Engine\Math\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Math\Velocity.h">
+    <ClInclude Include="Engine\Math\Physics\Velocity.h">
       <Filter>Engine\Math\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\UI\PauseManager.h">
@@ -1052,9 +1043,6 @@
     <ClInclude Include="Application\Game\Object\Item\Magnet.h">
       <Filter>Application\Game\Object\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Game\Collision\Attribute.h">
-      <Filter>Engine\Game\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Audio.h">
       <Filter>Engine\Game</Filter>
     </ClInclude>
@@ -1165,6 +1153,21 @@
     </ClInclude>
     <ClInclude Include="Engine\Scene\Transition\BaseTransition.h">
       <Filter>Engine\Scene\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Game\Power.h">
+      <Filter>Engine\Math\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Game\Shake.h">
+      <Filter>Engine\Math\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Game\Speed.h">
+      <Filter>Engine\Math\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Game\Timer.h">
+      <Filter>Engine\Math\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Game\BitFrag.h">
+      <Filter>Engine\Math\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

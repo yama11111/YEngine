@@ -9,6 +9,18 @@ namespace YGame
 
 	public:
 
+		// アニメーション
+		enum class AnimationType : uint32_t
+		{
+			// 立ち
+			eIdle = 0b1,
+
+			// 通過
+			ePass = 0b1 << 1,
+		};
+
+	public:
+
 		/// <summary>
 		/// 生成
 		/// </summary>
@@ -45,5 +57,22 @@ namespace YGame
 		/// オブジェクト初期化
 		/// </summary>
 		void InitializeObjects() override;
+
+		/// <summary>
+		/// タイマー初期化
+		/// </summary>
+		void InitializeTimers() override;
+
+		/// <summary>
+		/// アニメーション準備
+		/// </summary>
+		/// <param name="index"> : アニメーション番号</param>
+		/// <param name="frame"> : 再生フレーム</param>
+		void GetReadyForAnimation(const uint32_t index) override;
+
+		/// <summary>
+		/// アニメーション更新
+		/// </summary>
+		void UpdateAnimation() override;
 	};
 }

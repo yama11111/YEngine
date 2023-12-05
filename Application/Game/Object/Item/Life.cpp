@@ -7,6 +7,7 @@
 
 using YGame::Life;
 using YMath::Vector3;
+using YMath::BitFrag;
 
 std::unique_ptr<Life> Life::Create(const Transform::Status& status)
 {
@@ -26,15 +27,15 @@ void Life::Initialize(const Transform::Status& status)
 		{}, {}, false,
 		1, 0, 0);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::eItem);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::eItem);
 	
 	SetCollider(GameCollider::Create(attribute));
 
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::ePlayer);
-		mask.Add(AttributeType::ePet);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::ePlayer);
+		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(

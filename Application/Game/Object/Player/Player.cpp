@@ -21,6 +21,7 @@
 using YGame::Player;
 using YMath::Vector2;
 using YMath::Vector3;
+using YMath::BitFrag;
 using YInput::Keys;
 using YInput::Pad;
 
@@ -51,14 +52,14 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed, true,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::ePlayer);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::ePlayer);
 
 	SetCollider(GameCollider::Create(attribute));
 
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::eBlock);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::eBlock);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
@@ -67,9 +68,9 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	}
 
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::eGate);
-		mask.Add(AttributeType::eGoal);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::eGate);
+		mask.SetFragTrue(AttributeType::eGoal);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
@@ -78,9 +79,9 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	}
 
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::eEnemy);
-		mask.Add(AttributeType::eEnemyAttack);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::eEnemy);
+		mask.SetFragTrue(AttributeType::eEnemyAttack);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
@@ -89,10 +90,10 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	}
 	
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::ePet);
-		mask.Add(AttributeType::eCoin);
-		mask.Add(AttributeType::eItem);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::ePet);
+		mask.SetFragTrue(AttributeType::eCoin);
+		mask.SetFragTrue(AttributeType::eItem);
 		
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(

@@ -4,6 +4,7 @@
 #include "MathVector.h"
 
 using YGame::SpeedGate;
+using YMath::BitFrag;
 
 std::unique_ptr<SpeedGate> SpeedGate::Create(const Transform::Status& status, GameObject* pParent)
 {
@@ -18,14 +19,14 @@ void SpeedGate::Initialize(const Transform::Status& status, GameObject* pParent)
 {
 	GameObject::Initialize("SpeedGate", status, pParent);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::eGate);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::eGate);
 
 	SetCollider(GameCollider::Create(attribute));
 
-	Attribute mask{};
-	mask.Add(AttributeType::ePlayer);
-	mask.Add(AttributeType::ePet);
+	BitFrag mask{};
+	mask.SetFragTrue(AttributeType::ePlayer);
+	mask.SetFragTrue(AttributeType::ePet);
 
 	collider_->PushBackCollider(
 		std::make_unique<YMath::Box2DCollider>(

@@ -16,6 +16,7 @@
 using YGame::Slime;
 using YMath::Vector2;
 using YMath::Vector3;
+using YMath::BitFrag;
 
 std::unique_ptr<Slime> Slime::Create(const Transform::Status& status)
 {
@@ -36,14 +37,14 @@ void Slime::Initialize(const Transform::Status& status)
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed, true,
 		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::eEnemy);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::eEnemy);
 
 	SetCollider(GameCollider::Create(attribute));
 	
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::eBlock);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::eBlock);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
@@ -52,10 +53,10 @@ void Slime::Initialize(const Transform::Status& status)
 	}
 
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::ePlayer);
-		mask.Add(AttributeType::ePlayerAttack);
-		mask.Add(AttributeType::ePet);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::ePlayer);
+		mask.SetFragTrue(AttributeType::ePlayerAttack);
+		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(

@@ -5,7 +5,7 @@
 #include "MathVector.h"
 
 using YGame::Goal;
-using YMath::BasePrimitiveCollider;
+using YMath::BitFrag;
 
 std::unique_ptr<Goal> Goal::Create(const Transform::Status& status, GameObject* pParent)
 {
@@ -20,15 +20,15 @@ void Goal::Initialize(const Transform::Status& status, GameObject* pParent)
 {
 	GameObject::Initialize("Goal", status, pParent);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::eGoal);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::eGoal);
 
 	SetCollider(GameCollider::Create(attribute));
 	
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::ePlayer);
-		mask.Add(AttributeType::ePet);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::ePlayer);
+		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(

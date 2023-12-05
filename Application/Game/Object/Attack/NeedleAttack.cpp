@@ -8,7 +8,7 @@
 using YGame::NeedleAttack;
 using YMath::Vector2;
 using YMath::Vector3;
-
+using YMath::BitFrag;
 
 std::unique_ptr<NeedleAttack> NeedleAttack::Create(
 	const uint32_t aliveTimer, 
@@ -47,14 +47,14 @@ void NeedleAttack::Initialize(
 		acceleration, maxSpeed, false,
 		1, attackPower, 0);
 
-	Attribute attribute{};
-	attribute.Add(AttributeType::ePlayerAttack);
+	BitFrag attribute{};
+	attribute.SetFragTrue(AttributeType::ePlayerAttack);
 
 	SetCollider(GameCollider::Create(attribute));
 
 	{
-		Attribute mask{};
-		mask.Add(AttributeType::eEnemy);
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::eEnemy);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
