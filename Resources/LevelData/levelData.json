@@ -381,6 +381,27 @@
         },
         {
             "type": "MESH",
+            "name": "Gate.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    699.0437622070312,
+                    -2.857677459716797
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    2.0,
+                    8.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
             "name": "Coin.001",
             "transform": {
                 "translation": [
@@ -3174,7 +3195,7 @@
         },
         {
             "type": "MESH",
-            "name": "Player.001",
+            "name": "_Player.001",
             "transform": {
                 "translation": [
                     0.0,
@@ -3200,6 +3221,27 @@
                 "translation": [
                     0.0,
                     308.6287536621094,
+                    -5.699104309082031
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Player.003",
+            "transform": {
+                "translation": [
+                    0.0,
+                    604.45703125,
                     -5.699104309082031
                 ],
                 "rotation": [

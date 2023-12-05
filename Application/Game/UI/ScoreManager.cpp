@@ -20,11 +20,15 @@ void ScoreManager::Initialize()
 	scores_.resize(3);
 
 	currentScore_ = 0;
+	coinCounter_ = 0;
+	speedLevel_ = 1;
 }
 
 void ScoreManager::StartScoreMeasurement()
 {
 	currentScore_ = 0;
+	coinCounter_ = 0;
+	speedLevel_ = 1;
 }
 
 void ScoreManager::EndScoreMeasurement()
@@ -49,6 +53,26 @@ uint32_t ScoreManager::Score(const size_t index)
 uint32_t ScoreManager::ScoreInCurrentStage()
 {
 	return currentScore_;
+}
+
+void ScoreManager::AddCoin(const uint32_t coinVal)
+{
+	coinCounter_ += coinVal;
+}
+
+uint32_t ScoreManager::Coin()
+{
+	return coinCounter_;
+}
+
+void ScoreManager::AddSpeedLevel()
+{
+	speedLevel_++;
+}
+
+uint32_t ScoreManager::SpeedLevel()
+{
+	return speedLevel_;
 }
 
 ScoreManager* ScoreManager::GetInstance()

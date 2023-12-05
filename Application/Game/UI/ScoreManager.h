@@ -57,6 +57,33 @@ namespace YGame
 		/// </summary>
 		/// <returns>スコア</returns>
 		uint32_t ScoreInCurrentStage();
+	
+	public:
+
+		/// <summary>
+		/// コイン数加算
+		/// </summary>
+		/// <param name="coinVal"> : コイン数</param>
+		void AddCoin(const uint32_t coinVal);
+
+		/// <summary>
+		/// コイン取得
+		/// </summary>
+		/// <returns>コイン</returns>
+		uint32_t Coin();
+
+	public:
+
+		/// <summary>
+		/// 速度レベル加算
+		/// </summary>
+		void AddSpeedLevel();
+
+		/// <summary>
+		/// 速度レベル取得
+		/// </summary>
+		/// <returns>速度レベル</returns>
+		uint32_t SpeedLevel();
 
 	public:
 
@@ -69,6 +96,12 @@ namespace YGame
 
 		// 現在スコア
 		uint32_t currentScore_ = 0;
+
+		// コインカウンター
+		uint32_t coinCounter_ = 0;
+		
+		// 速度レベル
+		uint32_t speedLevel_ = 0;
 
 	private:
 

@@ -120,8 +120,12 @@
     <ClCompile Include="Application\Game\Chara\Life.cpp" />
     <ClCompile Include="Application\Game\Chara\Magnet.cpp" />
     <ClCompile Include="Application\Game\Chara\NeedleAttack.cpp" />
+    <ClCompile Include="Application\Game\Chara\SpeedGate.cpp" />
+    <ClCompile Include="Application\Game\Drawer\CoinCountDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\GateDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\LifeDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\MagnetDrawer.cpp" />
+    <ClCompile Include="Application\Game\Drawer\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Drawer\YGameDrawerFactory.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
     <ClCompile Include="Engine\Game\Collision\Attribute.cpp" />
@@ -263,8 +267,12 @@
     <ClInclude Include="Application\Game\Chara\Life.h" />
     <ClInclude Include="Application\Game\Chara\Magnet.h" />
     <ClInclude Include="Application\Game\Chara\NeedleAttack.h" />
+    <ClInclude Include="Application\Game\Chara\SpeedGate.h" />
+    <ClInclude Include="Application\Game\Drawer\CoinCountDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\GateDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\LifeDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\MagnetDrawer.h" />
+    <ClInclude Include="Application\Game\Drawer\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Drawer\YGameDrawerFactory.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
     <ClInclude Include="Engine\Game\Collision\Attribute.h" />

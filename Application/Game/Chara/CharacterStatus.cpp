@@ -71,6 +71,15 @@ void CharacterStatus::Damage(const uint32_t attack, const bool isInvincible)
 	}
 }
 
+void CharacterStatus::ActivateInvincible()
+{
+	// 無敵タイマーリセット + スタート
+	invincibleTimer_.Reset(true);
+
+	// 無敵
+	isInvincible_ = true;
+}
+
 void CharacterStatus::DrawDebugTextContent()
 {
 	ImGui::SetNextItemOpen(true, ImGuiCond_Once);

@@ -2,6 +2,8 @@
 #include "UIButton.h"
 #include "UILetterBox.h"
 #include "ScoreDrawer.h"
+#include "SpeedLevelDrawer.h"
+#include "CoinCountDrawer.h"
 
 namespace YGame
 {
@@ -60,6 +62,14 @@ namespace YGame
 		// スコア
 		Transform scoreTrfm_;
 		std::unique_ptr<ScoreDrawer> scoreDra_;
+
+		// コイン
+		Transform coinTrfm_;
+		std::unique_ptr<CoinCountDrawer> coinDra_;
+
+		// スピードレベル
+		Transform speedTrfm_;
+		std::unique_ptr<SpeedLevelDrawer> speedDra_;
 
 	};
 }

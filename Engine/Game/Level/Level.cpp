@@ -14,6 +14,7 @@
 #include "Life.h"
 #include "Magnet.h"
 #include "Block.h"
+#include "SpeedGate.h"
 #include "Goal.h"
 #include "PlayerDrawer.h"
 #include "CloudDrawer.h"
@@ -179,6 +180,11 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		else if (name == "Block.")
 		{
 			newObj = Block::Create(status, pParent);
+		}
+		else if (name == "Gate.")
+		{
+			newObj = SpeedGate::Create(status, pParent);
+			isSaveColl = true;
 		}
 		else if (name == "Goal.")
 		{

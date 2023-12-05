@@ -18,7 +18,7 @@ namespace YGame
 		static const uint16_t kMaxJumpCount = 2;
 		static const uint32_t kHP = 3;
 		static const uint32_t kAttack = 100;
-		static const uint32_t kInvincibleTime = 20;
+		static const uint32_t kInvincibleTime = 40;
 	}
 
 	namespace PetConfig
@@ -33,7 +33,7 @@ namespace YGame
 		static const uint16_t kMaxJumpCount = 2;
 		static const uint32_t kHP = 1;
 		static const uint32_t kAttack = 100;
-		static const uint32_t kInvincibleTime = 10;
+		static const uint32_t kInvincibleTime = 40;
 
 		static const YMath::Vector3 kRiddenHeight = { 0.0f,1.25f,-0.5f };
 	}

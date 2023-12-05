@@ -36,7 +36,10 @@ namespace YGame
 		// ブロック
 		eBlock			 = 0b1 << 7,
 
+		// ゲート
+		eGate			 = 0b1 << 8,
+
 		// ゴール
-		eGoal			 = 0b1 << 8,
+		eGoal			 = 0b1 << 9,
 	};
 }

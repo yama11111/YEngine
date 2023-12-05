@@ -36,6 +36,7 @@
 #include "MagnetDrawer.h"
 #include "NeedleAttackDrawer.h"
 #include "BlockDrawer.h"
+#include "GateDrawer.h"
 #include "GoalDrawer.h"
 #include "CloudDrawer.h"
 #include "SkydomeDrawer.h"
@@ -50,6 +51,8 @@
 
 #include "UIDrawer.h"
 #include "ScoreDrawer.h"
+#include "CoinCountDrawer.h"
+#include "SpeedLevelDrawer.h"
 #include "PauseDrawer.h"
 
 #include "UILetterBox.h"
@@ -81,8 +84,8 @@ bool MyGame::Initialize()
 	sceneMan_->SetSceneFactory(std::move(std::make_unique<YGameSceneFactory>()));
 
 	//sceneMan_->Initialize(YGameSceneFactory::Title_);
-	sceneMan_->Initialize(YGameSceneFactory::Select_);
-	//sceneMan_->Initialize(YGameSceneFactory::Play_);
+	//sceneMan_->Initialize(YGameSceneFactory::Select_);
+	sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
@@ -409,6 +412,12 @@ void MyGame::LoadDrawer()
 		UIDrawer::LoadResource();
 
 		PauseDrawer::LoadResource();
+
+		ScoreDrawer::LoadResource();
+		
+		CoinCountDrawer::LoadResource();
+
+		SpeedLevelDrawer::LoadResource();
 	}
 
 	// Game
@@ -430,6 +439,8 @@ void MyGame::LoadDrawer()
 		MagnetDrawer::LoadResource();
 
 		BlockDrawer::LoadResource();
+		
+		GateDrawer::LoadResource();
 
 		GoalDrawer::LoadResource();
 

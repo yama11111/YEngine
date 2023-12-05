@@ -83,6 +83,7 @@ void Coin::OnCollision(const InfoOnCollision& info)
 		info.attribute == AttributeType::ePet)
 	{
 		ScoreManager::GetInstance()->AddScore(100);
+		ScoreManager::GetInstance()->AddCoin(1);
 		
   		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn), true);
 		status_.SetInvincible(true);

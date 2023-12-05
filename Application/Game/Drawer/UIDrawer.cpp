@@ -94,6 +94,26 @@ void UIDrawer::Initialize()
 		scoreTrfm_.Initialize(scoreStatus);
 		scoreDra_.reset(ScoreDrawer::Create(&scoreTrfm_.m_, kShaderTag, 2)); 
 	}
+
+	// コイン
+	{
+		Transform::Status coinStatus;
+		coinStatus.pos_ = { +144.0f, +72.0f, 0.0f };
+		coinStatus.scale_ = { 1.0f,1.0f,1.0f };
+
+		coinTrfm_.Initialize(coinStatus);
+		coinDra_.reset(CoinCountDrawer::Create(&coinTrfm_.m_, kShaderTag, 2));
+	}
+
+	// 速度
+	{
+		Transform::Status speedStatus;
+		speedStatus.pos_ = { +120.0f, +160.0f, 0.0f };
+		speedStatus.scale_ = { 1.0f,1.0f,1.0f };
+
+		speedTrfm_.Initialize(speedStatus);
+		speedDra_.reset(SpeedLevelDrawer::Create(&speedTrfm_.m_, kShaderTag, 2));
+	}
 }
 
 void UIDrawer::Update()
@@ -111,6 +131,14 @@ void UIDrawer::Update()
 	scoreTrfm_.UpdateMatrix();
 	scoreDra_->ChangeScoreAnimation(ScoreManager::GetInstance()->ScoreInCurrentStage());
 	scoreDra_->Update();
+
+	coinTrfm_.UpdateMatrix();
+	coinDra_->ChangeCoinAnimation(ScoreManager::GetInstance()->Coin());
+	coinDra_->Update();
+
+	speedTrfm_.UpdateMatrix();
+	speedDra_->ChangeSpeedAnimation(ScoreManager::GetInstance()->SpeedLevel());
+	speedDra_->Update();
 }
 
 void UIDrawer::PlayStartAnimation()
@@ -129,4 +157,6 @@ void UIDrawer::Draw()
 	buttonAttack_->Draw(kShaderTag, 3);
 
 	scoreDra_->Draw();
+	coinDra_->Draw();
+	speedDra_->Draw();
 }

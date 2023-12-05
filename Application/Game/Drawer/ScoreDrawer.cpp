@@ -49,7 +49,7 @@ void ScoreDrawer::Update()
 
 	reelTim_.Update();
 
-	// スコアをリール
+	// リールする
 	scoreForAnimation_ = static_cast<uint32_t>
 		(YMath::Lerp(static_cast<float>(elderScore_), static_cast<float>(currentScore_), reelTim_.Ratio()));
 	uiNum_->SetNumber(scoreForAnimation_);

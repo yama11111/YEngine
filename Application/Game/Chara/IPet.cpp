@@ -1,10 +1,10 @@
 #include "IPet.h"
 #include "CharacterConfig.h"
 
-#include "MapChipCollisionBitConfig.h"
-
 #include "SceneManager.h"
+
 #include "StageManager.h"
+#include "ScoreManager.h"
 
 #include <cassert>
 
@@ -119,6 +119,17 @@ void IPet::OnCollision(const InfoOnCollision& info)
 		{
 			Hit();
 		}
+	}
+	// ゲート
+	else if (info.attribute == AttributeType::eGate)
+	{
+		if (status_.IsInvincible()) { return; }
+
+		status_.ActivateInvincible();
+		
+		speed_.SetMax(speed_.Max() * 1.2f);
+
+		ScoreManager::GetInstance()->AddSpeedLevel();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

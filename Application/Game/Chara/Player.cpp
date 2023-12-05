@@ -8,9 +8,9 @@
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
 #include "Box2DCollider.h"
-#include "MapChipCollisionBitConfig.h"
 
 #include "StageManager.h"
+#include "ScoreManager.h"
 
 #include "Keys.h"
 #include "Pad.h"
@@ -68,6 +68,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 	{
 		Attribute mask{};
+		mask.Add(AttributeType::eGate);
 		mask.Add(AttributeType::eGoal);
 
 		collider_->PushBackCollider(
@@ -362,6 +363,17 @@ void Player::OnCollision(const InfoOnCollision& info)
 
 		// 乗る
 		RideOnPet(IPet::StaticGetPetPointer());
+	}
+	// ゲート
+	else if (info.attribute == AttributeType::eGate)
+	{
+		if (status_.IsInvincible()) { return; }
+
+		status_.ActivateInvincible();
+
+ 		speed_.SetMax(speed_.Max() * 1.2f);
+
+		ScoreManager::GetInstance()->AddSpeedLevel();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

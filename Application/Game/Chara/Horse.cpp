@@ -51,6 +51,7 @@ void Horse::Initialize(const Transform::Status& status)
 
 	{
 		Attribute mask{};
+		mask.Add(AttributeType::eGate);
 		mask.Add(AttributeType::eGoal);
 
 		collider_->PushBackCollider(

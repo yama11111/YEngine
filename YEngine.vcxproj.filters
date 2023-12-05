@@ -507,9 +507,6 @@
     <ClCompile Include="Application\Transition\WindBlocks.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UI\ScoreManager.cpp">
-      <Filter>Application\Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Transition\WaveTransition.cpp">
       <Filter>Application\Scene\Transition</Filter>
     </ClCompile>
@@ -650,6 +647,21 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\ScoreManager.cpp">
+      <Filter>Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\CoinCountDrawer.cpp">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Chara\SpeedGate.cpp">
+      <Filter>Application\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\GateDrawer.cpp">
+      <Filter>Application\Game\Drawer\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Drawer\SpeedLevelDrawer.cpp">
+      <Filter>Application\Game\Drawer\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -992,9 +1004,6 @@
     <ClInclude Include="Application\Transition\WindBlocks.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UI\ScoreManager.h">
-      <Filter>Application\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Transition\WaveTransition.h">
       <Filter>Application\Scene\Transition</Filter>
     </ClInclude>
@@ -1150,6 +1159,21 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Drawer\MagnetDrawer.h">
       <Filter>Application\Game\Drawer\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\ScoreManager.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\CoinCountDrawer.h">
+      <Filter>Application\Game\Drawer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Chara\SpeedGate.h">
+      <Filter>Application\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\GateDrawer.h">
+      <Filter>Application\Game\Drawer\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Drawer\SpeedLevelDrawer.h">
+      <Filter>Application\Game\Drawer\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

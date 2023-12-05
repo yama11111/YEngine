@@ -31,6 +31,11 @@ namespace YGame
 		void Damage(const uint32_t attack, const bool isInvincible);
 
 		/// <summary>
+		/// 無敵にする
+		/// </summary>
+		void ActivateInvincible();
+
+		/// <summary>
 		/// デバッグテキスト本文
 		/// </summary>
 		void DrawDebugTextContent() override;
