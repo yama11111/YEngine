@@ -137,6 +137,8 @@ void MyGame::InitializePipelines()
 {
 	pPipelineMan_->Clear();
 
+#pragma region Model
+
 	// ModelDefault
 	{
 		ShaderSet shader;
@@ -272,6 +274,10 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("ModelToon", newPipeline);
 	}
 
+#pragma endregion
+
+#pragma region Sprite2D
+
 	// Sprite2DDefault
 	{
 		ShaderSet shader;
@@ -297,6 +303,9 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("Sprite2DDefault", newPipeline);
 	}
 
+#pragma endregion
+
+#pragma region Sprite3D
 
 	// Sprite3DDefault
 	{
@@ -324,6 +333,9 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("Sprite3DDefault", newPipeline);
 	}
 
+#pragma endregion
+
+#pragma region PostEffect
 
 	// PostEffectDefault
 	{
@@ -350,6 +362,32 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
 
+	// PostEffectWorld_0
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PostEffectPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+				);
+
+		pPipelineMan_->Insert("World_0", newPipeline);
+	}
+
+#pragma endregion
 
 	// 描画順序設定
 	pPipelineMan_->SetDrawOrder(
@@ -365,6 +403,7 @@ void MyGame::InitializePipelines()
 			"Sprite2DDefault",
 
 			"PostEffectDefault",
+			"World_0",
 		}
 	);
 }

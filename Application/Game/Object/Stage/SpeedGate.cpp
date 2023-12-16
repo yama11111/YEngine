@@ -56,3 +56,14 @@ YGame::InfoOnCollision SpeedGate::GetInfoOnCollision()
 
 	return result;
 }
+
+void SpeedGate::OnCollision(const InfoOnCollision& info)
+{
+	if (drawer_->IsActAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass))) { return; }
+
+	if (info.attribute == AttributeType::ePlayer ||
+		info.attribute == AttributeType::ePet)
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass));
+	}
+}

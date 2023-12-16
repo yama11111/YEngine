@@ -21,15 +21,15 @@ std::unique_ptr<Life> Life::Create(const Transform::Status& status)
 void Life::Initialize(const Transform::Status& status)
 {
 	BaseCharacter::Initialize(
-		"Life",
+		"Coin",
 		status,
 		{ 0.0f, 0.0f, +1.0f }, // 右向き
-		{}, {}, false,
+		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false,
 		1, 0, 0);
 
 	BitFrag attribute{};
 	attribute.SetFragTrue(AttributeType::eItem);
-	
+
 	SetCollider(GameCollider::Create(attribute));
 
 	{
@@ -39,16 +39,13 @@ void Life::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), CoinConfig::kRadius, Vector3(), false, false), 
-		mask);
+				&transform_->pos_, CoinConfig::kRadius),
+			mask);
 	}
 
 	SetDrawer(LifeDrawer::Create(nullptr, 1));
 
-	//InsertSubDrawer(CollisionDrawer::Name(), CollisionDrawer::Create(transform_.get(), CoinConfig::kRadius, 1));
 	drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle), true);
-
-	drawer_->SetParent(transform_.get());
 }
 
 void Life::UpdateBeforeCollision()
@@ -61,7 +58,7 @@ void Life::UpdateAfterCollision()
 	BaseCharacter::UpdateAfterCollision();
 
 	// 演出終了 → 消滅
-	if (drawer_->IsEndTimer(static_cast<uint32_t>(LifeDrawer::AnimationType::eEarn)) == false)
+	if (drawer_->IsEndTimer(static_cast<uint32_t>(LifeDrawer::AnimationType::eEarn)))
 	{
 		isExist_ = false;
 	}

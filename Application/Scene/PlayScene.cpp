@@ -57,7 +57,15 @@ void PlayScene::Initialize()
 	// ビュープロジェクション初期化
 	transferVP_.Initialize();
 	
-	pLevel_ = Level::LoadJson("levelData.json");
+	uint32_t stageIndex = StageManager::GetInstance()->CurrentStageIndex();
+	if (stageIndex == 0)
+	{
+		pLevel_ = Level::LoadJson("levelData.json");
+	}
+	else //if (stageIndex == 1)
+	{
+		pLevel_ = Level::LoadJson("levelData_2.json");
+	}
 
 	pScoreManager_ = ScoreManager::GetInstance();
 	pScoreManager_->Initialize();
@@ -80,6 +88,11 @@ void PlayScene::Initialize()
 
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
+
+
+	pPostEffect_ = PostEffect::Create({ "Texture0" });
+	objPE_.reset(DrawObjectForPostEffect::Create(Transform::Status::Default(), pPostEffect_));
+	objPE_->SetShaderTag("World_0");
 }
 #pragma endregion
 
@@ -146,6 +159,8 @@ void PlayScene::Update()
 	}
 
 	StageManager::GetInstance()->Update();
+
+	objPE_->Update();
 }
 #pragma endregion
 
@@ -160,5 +175,8 @@ void PlayScene::Draw()
 	beginingDra_.Draw();
 
 	pause_.Draw();
+
+	//PipelineManager::GetInstance()->RenderToPostEffect({ pPostEffect_ });
+	//objPE_->Draw();
 }
 #pragma endregion

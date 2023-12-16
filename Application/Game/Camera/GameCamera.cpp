@@ -15,6 +15,9 @@ void GameCamera::Initialize()
 	target_ = Vector3(+32.0f, -12.0f, +64.0f);
 	distance_ = Vector3(-6.0f, +4.0f ,-40.0f);
 
+	//target_ = Vector3(+1.0f, 0.0f, +0.0f);
+	//distance_ = Vector3(-0.0f, +0.0f, -0.0f);
+
 	elderPlayerPos_ = {};
 
 	moveOnJumpSets_.clear();

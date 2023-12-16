@@ -115,9 +115,9 @@
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
+    <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Block.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Goal.cpp" />
-    <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Magnet.cpp" />
     <ClCompile Include="Application\Game\Object\Attack\NeedleAttack.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\SpeedGate.cpp" />
@@ -125,8 +125,10 @@
     <ClCompile Include="Application\Game\Object\Stage\GateDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\LifeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\MagnetDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
+    <ClCompile Include="Engine\Draw\Graphic\TextureConverter.cpp" />
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\BeginingDrawer.cpp" />
@@ -261,9 +263,9 @@
     <ClInclude Include="Application\ConstBuffer\CBOutline.h" />
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Game\Camera\GameCamera.h" />
+    <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\Stage\Block.h" />
     <ClInclude Include="Application\Game\Object\Stage\Goal.h" />
-    <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\Item\Magnet.h" />
     <ClInclude Include="Application\Game\Object\Attack\NeedleAttack.h" />
     <ClInclude Include="Application\Game\Object\Stage\SpeedGate.h" />
@@ -271,10 +273,12 @@
     <ClInclude Include="Application\Game\Object\Stage\GateDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\LifeDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\MagnetDrawer.h" />
+    <ClInclude Include="Application\Game\UI\DistanceDrawer.h" />
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
     <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />
     <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
+    <ClInclude Include="Engine\Draw\Graphic\TextureConverter.h" />
     <ClInclude Include="Engine\Math\Game\BitFrag.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\AxisDrawer.h" />
     <ClInclude Include="Application\Game\UI\BeginingDrawer.h" />

@@ -3,9 +3,9 @@
 
 namespace YGame
 {
-    class Life :
-        public IItem
-    {
+	class Life final:
+		public IItem
+	{
 
 	public:
 
@@ -53,5 +53,5 @@ namespace YGame
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
 		void OnCollision(const InfoOnCollision& info) override;
-    };
+	};
 }

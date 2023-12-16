@@ -12,11 +12,17 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<BlockDrawer> BlockDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<BlockDrawer> BlockDrawer::Create(
+	Transform* pParent, const bool isBackground, const size_t drawPriority)
 {
 	std::unique_ptr<BlockDrawer> newDrawer = std::make_unique<BlockDrawer>();
 
 	newDrawer->Initialize(pParent, drawPriority);
+
+	if (isBackground)
+	{
+		newDrawer->cbOutline_->data_.color.a_ = 0.0f;
+	}
 
 	return std::move(newDrawer);
 }

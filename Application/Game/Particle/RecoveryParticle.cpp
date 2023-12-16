@@ -185,10 +185,10 @@ void RecoveryParticle::Emit(
 	// 固有設定
 	static const uint32_t kAliveFrame = 60;
 
-	static const float kScaleVal = 0.25f;
+	static const float kScaleVal = 1.5f;
 
-	static const YMath::Vector3 kMinAccelVal = { 0.1f, 0.05f, 0.1f };
-	static const YMath::Vector3 kMaxAccelVal = { 0.2f, 0.10f, 0.2f };
+	static const YMath::Vector3 kMinAccelVal = { -0.1f, 0.1f, -0.1f };
+	static const YMath::Vector3 kMaxAccelVal = { +0.1f, 0.2f, +0.1f };
 
 	static const float kMaxSpeedVal = 0.5f;
 
@@ -203,12 +203,12 @@ void RecoveryParticle::Emit(
 		if (pParticle == nullptr) { return; }
 
 		Vector3 powerDirection =
-			YMath::GetRand(Vector3(-1.0f, -1.0f, -1.0f), Vector3(+1.0f, +1.0f, +1.0f), 100.0f);
+			YMath::GetRand(Vector3(0.0f, 0.0f, 0.0f), Vector3(+1.0f, +1.0f, +1.0f), 100.0f);
 
 		// ランダムな加速度で個々の動きを変化
 		Vector3 accel = YMath::GetRand(kMinAccelVal, kMaxAccelVal, 100.0f);
 
-		Vector3 maxSpeed = { kMaxSpeedVal, kMaxSpeedVal , kMaxSpeedVal };
+		Vector3 maxSpeed = { kMaxSpeedVal, kMaxSpeedVal ,kMaxSpeedVal };
 
 		pParticle->Initialize(kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, 
 			{ 1.0f,1.0f,1.0f,1.0f }, kExponent, pVP);

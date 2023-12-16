@@ -16,7 +16,8 @@ namespace YGame
 		/// <param name="pParent"> : 親ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<BlockDrawer> Create(Transform* pParent, const size_t drawPriority);
+		static std::unique_ptr<BlockDrawer> Create(
+			Transform* pParent, const bool isBackground, const size_t drawPriority);
 
 		/// <summary>
 		/// 静的初期化

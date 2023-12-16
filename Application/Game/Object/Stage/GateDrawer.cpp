@@ -1,16 +1,18 @@
 #include "GateDrawer.h"
-#include "DrawObjectForModel.h"
+#include "DrawObjectForSprite3D.h"
 #include "ColorConfig.h"
+#include "MathVector.h"
+#include "Def.h"
 
 using YGame::GateDrawer;
-using YGame::Model;
+using YGame::Sprite3D;
 using YMath::Vector3;
 using YMath::Vector4;
 using YMath::Timer;
 
 namespace
 {
-	Model* pModel = nullptr;
+	Sprite3D* pSpr = nullptr;
 
 	// アニメーション番号
 	const uint32_t kIdleIndex = static_cast<uint32_t>(GateDrawer::AnimationType::eIdle);
@@ -28,7 +30,7 @@ std::unique_ptr<GateDrawer> GateDrawer::Create(Transform* pParent, const size_t 
 
 void GateDrawer::LoadResource()
 {
-	pModel = Model::CreateCube({ {"Texture0", Texture::Load("white1x1.png", false)} });
+	pSpr = Sprite3D::Create({ {"Texture0", Texture::Load("play/gate.png", false)} });
 }
 
 void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -36,17 +38,22 @@ void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	transform_.rota_ = YMath::AdjustAngle(Vector3(1.0f, 0.0f, 0.0f));
 	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 
 	cbColor_->data_.baseColor = ColorConfig::skYellow;
-	cbColor_->data_.baseColor.a_ = 0.4f;
+	//cbColor_->data_.baseColor.a_ = 0.4f;
 	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
-	SetShaderTag("Gate", "ModelToon");
+	SetShaderTag("Sprite3DDefault");
+
+	passRotaEas_.Initialize(0.0f, 4.0f * kPI, 3.0f);
+	passScaleEas_.Initialize(0.0f, 15.0f, 2.0f);
 }
 
 void GateDrawer::InitializeObjects()
 {
-	InsertObject("Gate", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Gate_F", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
+	InsertObject("Gate_B", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
 }
 
 void GateDrawer::InitializeTimers()
@@ -69,4 +76,14 @@ void GateDrawer::GetReadyForAnimation(const uint32_t index)
 
 void GateDrawer::UpdateAnimation()
 {
+	float ratio = animationTimers_[kPassIndex].timer.Ratio();
+	
+	float rota = passRotaEas_.Out(ratio);
+	float scale = passScaleEas_.Out(ratio);
+
+	animeStatus_.scale_.x_ += scale;
+	animeStatus_.scale_.y_ += scale;
+
+	objs_["Gate_F"]->transform_.rota_.z_ += 0.01f + rota;
+	objs_["Gate_B"]->transform_.rota_.z_ -= 0.01f + rota;
 }

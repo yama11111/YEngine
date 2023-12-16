@@ -18,7 +18,6 @@ cbuffer cbuff2 : register(b2)
 	float2 texOffset_; // オフセット
 }
 
-
 // 頂点シェーダーの入力構造体
 struct VSInput
 {

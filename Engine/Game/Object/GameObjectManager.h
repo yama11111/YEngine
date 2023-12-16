@@ -51,6 +51,13 @@ namespace YGame
 			const bool isUpdateSkip, 
 			const bool isSaveCollInfo);
 
+		/// <summary>
+		/// 挿入
+		/// </summary>
+		/// <param name="object"> : オブジェクト (動的)</param>
+		/// <param name="updatePriority"> : 更新優先度</param>
+		void PushBackForBackObject(std::unique_ptr<GameObject>&& object);
+
 	public:
 
 		/// <summary>
@@ -79,11 +86,24 @@ namespace YGame
 			// 衝突情報を保存するか
 			bool isSaveCollInfo = false;
 		};
+		
+		// オブジェクト構造体
+		struct GameObjectSetForBack
+		{
+			// 本体
+			std::unique_ptr<GameObject> obj;
+			
+			// 処理を飛ばすか
+			bool isSkip = false;
+		};
 
 	private:
 
 		// オブジェクトリスト
 		std::list<GameObjectSet> objects_;
+		
+		// 背景オブジェクトリスト
+		std::list<GameObjectSetForBack> backObjects_;
 
 		// 軸描画フラグ
 		bool isDrawAxis_ = false;
@@ -104,11 +124,28 @@ namespace YGame
 	private:
 
 		/// <summary>
+		/// オブジェクト更新
+		/// </summary>
+		void UpdateObjects(const bool isContorolUpdate);
+		
+		/// <summary>
+		/// 背景オブジェクト更新
+		/// </summary>
+		void UpdateObjectsForBack();
+
+		/// <summary>
 		/// 更新範囲内か
 		/// </summary>
 		/// <param name="pObject"> : オブジェクトポインタ</param>
 		/// <returns>更新範囲内か</returns>
 		bool InUpdateRange(GameObject* pObject);
+
+		/// <summary>
+		/// 更新範囲内か
+		/// </summary>
+		/// <param name="pObject"> : オブジェクトポインタ</param>
+		/// <returns>更新範囲内か</returns>
+		bool InUpdateRangeForBack(GameObject* pObject);
 
 		/// <summary>
 		/// アタリ判定全チェック

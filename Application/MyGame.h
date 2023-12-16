@@ -3,7 +3,8 @@
 
 namespace YBase
 {
-	class MyGame : public YFramework
+	class MyGame final : 
+		public YFramework
 	{
 
 	public:

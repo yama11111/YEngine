@@ -132,12 +132,12 @@ void BaseDrawer::VisibleUpdate()
 
 	// 視点との距離の比率でアルファ値変化(遠いほど薄く)
 	float distanceRate = 1.0f - distance / kRange;
-	if (distanceRate >= 0.8f) { distanceRate = 1.0f; }
+	if (distanceRate >= 1.0f) { distanceRate = 1.0f; }
 
 	cbColor_->data_.texColorRate.a_ = distanceRate;
 
 	// 一定値以下は描画切る
-	SetIsVisible((distanceRate >= 0.25f));
+	SetIsVisible((distanceRate >= 0.01f));
 }
 
 void BaseDrawer::Update()

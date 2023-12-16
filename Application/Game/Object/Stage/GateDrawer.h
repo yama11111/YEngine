@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseDrawer.h"
+#include "Ease.h"
+#include "Timer.h"
 
 namespace YGame
 {
@@ -50,6 +52,9 @@ namespace YGame
 		~GateDrawer() = default;
 
 	private:
+
+		YMath::Ease<float> passRotaEas_;
+		YMath::Ease<float> passScaleEas_;
 
 	private:
 

@@ -229,6 +229,9 @@
     <Filter Include="Engine\Math\Game">
       <UniqueIdentifier>{344d6a0e-f03a-469e-aba4-052a79aebdc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Draw\Graphic\Texture">
+      <UniqueIdentifier>{167d6e79-9d67-432b-95a1-5f4a7981e9f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -389,9 +392,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Draw\CB\ConstBufferPtrSet.cpp">
       <Filter>Engine\Draw\ConstBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Draw\Graphic\Texture.cpp">
-      <Filter>Engine\Draw\Graphic</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Draw\Object\BaseDrawObject.cpp">
       <Filter>Engine\Draw\Object</Filter>
@@ -561,9 +561,6 @@
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp">
       <Filter>Application\Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\Item\Life.cpp">
-      <Filter>Application\Game\Object\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
     </ClCompile>
@@ -659,6 +656,18 @@
     </ClCompile>
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp">
       <Filter>Engine\Math\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Graphic\Texture.cpp">
+      <Filter>Engine\Draw\Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Draw\Graphic\TextureConverter.cpp">
+      <Filter>Engine\Draw\Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\Item\Life.cpp">
+      <Filter>Application\Game\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -850,9 +859,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Draw\CB\CBLightGroup.h">
       <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Draw\Graphic\Texture.h">
-      <Filter>Engine\Draw\Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h">
       <Filter>Engine\Draw\Object</Filter>
@@ -1064,9 +1070,6 @@
     <ClInclude Include="Application\Game\Camera\GameCamera.h">
       <Filter>Application\Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\Item\Life.h">
-      <Filter>Application\Game\Object\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h">
       <Filter>Application\Game\Particle</Filter>
     </ClInclude>
@@ -1168,6 +1171,18 @@
     </ClInclude>
     <ClInclude Include="Engine\Math\Game\BitFrag.h">
       <Filter>Engine\Math\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Graphic\Texture.h">
+      <Filter>Engine\Draw\Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Draw\Graphic\TextureConverter.h">
+      <Filter>Engine\Draw\Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\Item\Life.h">
+      <Filter>Application\Game\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\DistanceDrawer.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

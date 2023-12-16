@@ -16,8 +16,8 @@
 #include "Block.h"
 #include "SpeedGate.h"
 #include "Goal.h"
-#include "PlayerDrawer.h"
-#include "CloudDrawer.h"
+
+#include "BlockDrawer.h"
 #include "SkydomeDrawer.h"
 #include "DefaultDrawer.h"
 
@@ -141,6 +141,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		std::unique_ptr<GameObject> newObj = nullptr;
 		bool isUpdateSkip = true;
 		bool isSaveColl = false;
+		bool isBackground = false;
 
 		// 初期化
 		if (name == "Player.")
@@ -198,12 +199,14 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		}
 		
 
-		if (name == "Cloud.")
+		if (name == "Block_B.")
 		{
-			newObj->SetDrawer(CloudDrawer::Create(nullptr, 1));
+			isBackground = true;
+			newObj->SetDrawer(BlockDrawer::Create(nullptr, true, 1));
 		}
 		else if (name == "Skydome.")
 		{
+			isBackground = true;
 			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, 4));
 		}
 
@@ -219,7 +222,14 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		}
 
 		// リストに挿入
-		GameObjectManager::GetInstance()->PushBack(std::move(newObj), 0, isUpdateSkip, isSaveColl);
+		if (isBackground == false)
+		{
+			GameObjectManager::GetInstance()->PushBack(std::move(newObj), 0, isUpdateSkip, isSaveColl);
+		}
+		else
+		{
+			GameObjectManager::GetInstance()->PushBackForBackObject(std::move(newObj));
+		}
 	}
 	// それ以外なら弾く
 	else

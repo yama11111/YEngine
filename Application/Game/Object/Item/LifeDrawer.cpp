@@ -35,7 +35,7 @@ std::unique_ptr<LifeDrawer> LifeDrawer::Create(Transform* pParent, const size_t 
 void LifeDrawer::LoadResource()
 {
 	// モデル設定
-	pModel = Model::CreateCube({ {"Texture0", Texture::Load("play/recovery.png")} });
+	pModel = Model::LoadObj("life", true);
 }
 
 void LifeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -44,13 +44,13 @@ void LifeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
-	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.color = ColorConfig::skYellow;
 	cbOutline_->data_.range = 0.2f;
 
-	InsertConstBuffer("Coin_O", cbOutline_.get());
+	InsertConstBuffer("Life_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
-	SetShaderTag("Coin_O", "ModelOutline");
+	SetShaderTag("Life_O", "ModelOutline");
 
 	// 立ちアニメーション用
 	idlePosEas_.Initialize({ 0.0f, +0.1f, 0.0f, -0.1f, 0.0f }, 1.0f);
@@ -63,8 +63,8 @@ void LifeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 void LifeDrawer::InitializeObjects()
 {
-	InsertObject("Coin", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
-	InsertObject("Coin_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Life", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Life_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
 }
 
 void LifeDrawer::InitializeTimers()
@@ -114,7 +114,7 @@ void LifeDrawer::PlayRecoveryAnimation()
 		pParent_->pos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
 		ColorConfig::skTurquoise[2], spVP_);
 
-	RecoveryParticle::Emit(5, pParent_->pos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), spVP_);
+	RecoveryParticle::Emit(5, pParent_->pos_, spVP_);
 
 	PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eEarn), true);
 }

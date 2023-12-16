@@ -33,7 +33,7 @@ void Block::Initialize(const Transform::Status& status, GameObject* pParent)
 		std::make_unique<YMath::Box2DCollider>(
 			&transform_->pos_, YMath::ConvertToVector2(transform_->scale_)), mask);
 
-	SetDrawer(BlockDrawer::Create(nullptr, 2));
+	SetDrawer(BlockDrawer::Create(nullptr, false, 2));
 }
 
 void Block::UpdateBeforeCollision()

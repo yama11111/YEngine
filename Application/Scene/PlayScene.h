@@ -9,6 +9,8 @@
 
 #include "Level.h"
 
+#include "DrawObjectForPostEffect.h"
+
 namespace YGame
 {
 	// ゲームシーン
@@ -58,6 +60,9 @@ namespace YGame
 		bool isStop_ = false;
 
 		PauseManager pause_; 
+
+		PostEffect* pPostEffect_;
+		std::unique_ptr<DrawObjectForPostEffect> objPE_;
 
 #pragma endregion
 

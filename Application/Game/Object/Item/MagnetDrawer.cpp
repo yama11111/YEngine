@@ -36,7 +36,7 @@ std::unique_ptr<MagnetDrawer> MagnetDrawer::Create(Transform* pParent, const siz
 void MagnetDrawer::LoadResource()
 {
 	// モデル設定
-	pModel = Model::CreateCube({ {"Texture0", Texture::Load("play/magnet.png")} });
+	pModel = Model::LoadObj("magnet", true);
 }
 
 void MagnetDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -45,13 +45,13 @@ void MagnetDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	BaseDrawer::Initialize(pParent, drawPriority);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
-	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	cbOutline_->data_.color = ColorConfig::skYellow;
 	cbOutline_->data_.range = 0.2f;
 
-	InsertConstBuffer("Coin_O", cbOutline_.get());
+	InsertConstBuffer("Magnet_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
-	SetShaderTag("Coin_O", "ModelOutline");
+	SetShaderTag("Magnet_O", "ModelOutline");
 
 	// 立ちアニメーション用
 	idlePosEas_.Initialize({ 0.0f, +0.1f, 0.0f, -0.1f, 0.0f }, 1.0f);
@@ -69,8 +69,8 @@ void MagnetDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 void MagnetDrawer::InitializeObjects()
 {
-	InsertObject("Coin", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
-	InsertObject("Coin_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Magnet", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Magnet_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
 }
 
 void MagnetDrawer::InitializeTimers()
