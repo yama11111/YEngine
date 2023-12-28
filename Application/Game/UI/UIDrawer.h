@@ -2,6 +2,7 @@
 #include "UIButton.h"
 #include "UILetterBox.h"
 #include "ScoreDrawer.h"
+#include "HPGaugeDrawer.h"
 #include "SpeedLevelDrawer.h"
 #include "CoinCountDrawer.h"
 
@@ -66,6 +67,10 @@ namespace YGame
 		// コイン
 		Transform coinTrfm_;
 		std::unique_ptr<CoinCountDrawer> coinDra_;
+
+		// HP
+		Transform hpTrfm_;
+		std::unique_ptr<HPGaugeDrawer> hpDra_;
 
 		// スピードレベル
 		Transform speedTrfm_;

@@ -34,7 +34,7 @@ void PipelineManager::Insert(const std::string& key, Pipeline* pipeline)
 	drawOrder_.push_back(key);
 }
 
-void PipelineManager::SetDrawOrder(const std::vector<std::string> pipelineKeys)
+void PipelineManager::SetDrawOrder(const std::vector<std::string>& pipelineKeys)
 {
 	drawOrder_ = pipelineKeys;
 }
@@ -46,7 +46,7 @@ void PipelineManager::EnqueueDrawSet(const std::string& key, const size_t priori
 	pipelines_[key]->EnqueueDrawSet(priority, drawSet);
 }
 
-void PipelineManager::RenderToPostEffect(std::vector<PostEffect*> pPostEffects)
+void PipelineManager::RenderToPostEffect(std::vector<PostEffect*>& pPostEffects)
 {
 	for (size_t i = 0; i < pPostEffects.size(); i++)
 	{

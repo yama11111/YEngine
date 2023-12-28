@@ -130,6 +130,8 @@ void IPet::OnCollision(const InfoOnCollision& info)
 		speed_.SetMax(speed_.Max() * 1.2f);
 
 		ScoreManager::GetInstance()->AddSpeedLevel();
+
+		spCamera_->MoveOnAccel();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

@@ -149,14 +149,14 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			isUpdateSkip = false;
 			isSaveColl = true;
 
-			std::unique_ptr<Horse> newPet = Horse::Create(status);
-			
-			IPet::StaticSetPetPointer(newPet.get());
+			//std::unique_ptr<Horse> newPet = Horse::Create(status);
+			//
+			//IPet::StaticSetPetPointer(newPet.get());
 
-			newObj = Player::Create(Transform::Status::Default(), newPet.get());
+			newObj = Player::Create(Transform::Status::Default(), nullptr);
 
-			// リストに挿入
-			GameObjectManager::GetInstance()->PushBack(std::move(newPet), 1, isUpdateSkip, isSaveColl);
+			//// リストに挿入
+			//GameObjectManager::GetInstance()->PushBack(std::move(newPet), 1, isUpdateSkip, isSaveColl);
 		}
 		else if (name == "Slime.")
 		{

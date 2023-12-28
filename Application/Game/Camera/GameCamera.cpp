@@ -6,79 +6,80 @@
 using YGame::GameCamera;
 using YMath::Vector3;
 using YMath::Power;
-using YMath::Lerp;
+
+namespace
+{
+	const Vector3 kTarget = Vector3(+32.0f, -12.0f, +64.0f);
+	const Vector3 kDistance = Vector3(-6.0f, +12.0f, -40.0f);
+
+	const Vector3 kMaxRange = Vector3(+2.0f, +50.0f, +100000.0f);
+	const Vector3 kMinRange = Vector3(-2.0f, -50.0f, -100000.0f);
+
+	const Vector3 kSpeed = Vector3(0.5f, 0.5f, 0.0f);
+
+	const Vector3 kAccelEndPos = (kDistance - kTarget) * 0.1f;
+}
 
 void GameCamera::Initialize()
 {
 	camera_.Initialize({}, {});
 
-	target_ = Vector3(+32.0f, -12.0f, +64.0f);
-	distance_ = Vector3(-6.0f, +4.0f ,-40.0f);
-
-	//target_ = Vector3(+1.0f, 0.0f, +0.0f);
-	//distance_ = Vector3(-0.0f, +0.0f, -0.0f);
+	target_ = kTarget;
+	distance_ = kDistance;
 
 	elderPlayerPos_ = {};
 
-	moveOnJumpSets_.clear();
+	movePower_.Initialize(60);
+
+	accelPower_.Initialize(30);
+	isActAccelPower_ = false;
+
+	camera_.pos_ = distance_;
+	camera_.rota_ = AdjustAngle(target_.Normalized());
+
+	camera_.Update();
 }
 
 void GameCamera::Update()
 {
 	if (pPlayerPos_ == nullptr) { return; }
 	
-	// 終了していたら削除
-	moveOnJumpSets_.remove_if([](MoveOnJumpSet& set) { return set.isAlive == false; });
+	UpdatePos();
 
-	// 積まれたジャンプ時移動を加算していく
-	float moveYVal = 0.0f;
-	for (MoveOnJumpSet& set : moveOnJumpSets_)
-	{
-		set.power.Update(set.isActPower);
-		
-		if (set.isActPower)
-		{
-			moveYVal += YMath::EaseOut<float>(0.0f, 10.0f, set.power.Ratio(), 3.0f);
-		}
-		else
-		{
-			moveYVal += YMath::EaseOut<float>(0.0f, 10.0f, set.power.Ratio(), 1.2f);
-		}
+	accelPower_.Update(isActAccelPower_);
+	if (accelPower_.IsMax()) { isActAccelPower_ = false; }
+	Vector3 animePos = YMath::EaseOut(Vector3(), kAccelEndPos, accelPower_.Ratio(), 3.0f);
 
-		// 最大値になったら折り返す
-		if (set.power.IsMax())
-		{
-			if (pPlayerPos_->y_ <= elderPlayerPos_.y_)
-			{
-				set.isActPower = false;
-			}
-		}
-		// 終了処理
-		if (set.power.IsZero() && set.isActPower == false)
-		{
-			set.isAlive = false;
-		}
-	}
-
-	camera_.pos_ = Vector3(pPlayerPos_->x_, 0, 0) + distance_ + Vector3(0, moveYVal, 0);
 	camera_.rota_ = YMath::AdjustAngle(target_.Normalized());
-
-	camera_.Update();
+	camera_.Update({ animePos });
 
 	elderPlayerPos_ = *pPlayerPos_;
 }
 
+void GameCamera::UpdatePos()
+{
+	Vector3 base = *pPlayerPos_ + distance_;
+	if (YMath::InRange(camera_.pos_, base + kMinRange, base + kMaxRange)) { return; }
+
+	Vector3 vectorCameraToBase = base - camera_.pos_;
+	Vector3 direction = vectorCameraToBase.Normalized();
+
+	Vector3 lengthRatio = vectorCameraToBase / 1.0f;
+	lengthRatio = YMath::Abs(lengthRatio);
+	lengthRatio = YMath::Clamp(lengthRatio, Vector3(), Vector3(1.0f, 1.0f, 1.0f));
+	
+	Vector3 speed = YMath::MultAtComponent(kSpeed, lengthRatio);
+
+	camera_.pos_ += YMath::MultAtComponent(direction, speed);
+}
+
 void GameCamera::MoveOnJump()
 {
-	if (pPlayerPos_->y_ < -6.0f) { return; }
+}
 
-	MoveOnJumpSet newSet;
-
-	newSet.isAlive = true;
-	newSet.isActPower = true;
-	newSet.power.Initialize(24);
-
-	moveOnJumpSets_.push_back(newSet);
+void GameCamera::MoveOnAccel()
+{
+	isActAccelPower_ = true;
 }
 
 void GameCamera::Shaking(const float swing, const float dekey, const float place)
@@ -95,31 +96,3 @@ YGame::ViewProjection GameCamera::GetViewProjection() const
 {
 	return camera_.GetViewProjection();
 }
-
-//void GameCamera::UpdateCenter()  
-//{
-//	if (pPlayerPos_ == nullptr) { return; }
-//
-//	float moveYVal = pPlayerPos_->y_ - elderPlayerPos_.y_;
-//
-//	// カメラでとらえる範囲の中にいるか
-//	bool isOverLower, isOverUpper;
-//	YMath::InRange<float>(pPlayerPos_->y_, center_.y_ - 6.0f, center_.y_ + 6.0f, isOverLower, isOverUpper);
-//	
-//	// いないなら調整スピードの速度を上げる
-//	overLowerPower_.Update(isOverLower);
-//	overUpperPower_.Update(isOverUpper);
-//	float downSpeed	 = YMath::EaseInOut<float>(0.0f, -0.8f, overLowerPower_.Ratio(), 1.6f);
-//	float upSpeed	 = YMath::EaseInOut<float>(0.0f, +0.8f, overUpperPower_.Ratio(), 1.6f);
-//	float adjustSpeed = upSpeed + downSpeed;
-//
-//	// どれだけ離れているかでさらに速度上げる
-//	//float distanceRatio = std::abs(pFollowPoint_->y_ - (center_.y_ - 2.0f)) * 0.01f;
-//	//distanceRatio = YMath::Clamp<float>(distanceRatio, 0.0f, 1.0f);
-//	//adjustSpeed *= YMath::Lerp<float>(1.0f, 2.0f, distanceRatio);
-//
-//	center_.x_ = pPlayerPos_->x_ + 10.0f;
-//	center_.y_ += adjustSpeed;
-//	
-//	elderPlayerPos_ = *pPlayerPos_;
-//}

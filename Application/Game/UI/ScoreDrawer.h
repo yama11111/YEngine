@@ -23,7 +23,10 @@ namespace YGame
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		/// <returns>スコア描画クラスポインタ (動的インスタンス)</returns>
-		static ScoreDrawer* Create(YMath::Matrix4* pParent, const std::string& shaderTag, const size_t drawPriority);
+		static ScoreDrawer* Create(
+			YMath::Matrix4* pParent, 
+			const std::string& shaderTag, 
+			const size_t drawPriority);
 
 		/// <summary>
 		/// 静的初期化

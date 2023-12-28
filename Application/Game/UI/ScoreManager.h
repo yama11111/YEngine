@@ -50,13 +50,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="index"> : インデックス</param>
 		/// <returns>スコア</returns>
-		uint32_t Score(const size_t index);
+		const uint32_t Score(const size_t index) const;
 
 		/// <summary>
 		/// スコア取得 (現在)
 		/// </summary>
 		/// <returns>スコア</returns>
-		uint32_t ScoreInCurrentStage();
+		const uint32_t ScoreInCurrentStage() const;
 	
 	public:
 
@@ -70,7 +70,33 @@ namespace YGame
 		/// コイン取得
 		/// </summary>
 		/// <returns>コイン</returns>
-		uint32_t Coin();
+		const uint32_t Coin() const;
+
+	public:
+		
+		/// <summary>
+		/// HP設定
+		/// </summary>
+		/// <param name="hp"> : HP</param>
+		void SetHP(const uint32_t hp);
+
+		/// <summary>
+		/// 最大HP設定
+		/// </summary>
+		/// <param name="maxHP"> : 最大HP</param>
+		void SetMaxHP(const uint32_t maxHP);
+
+		/// <summary>
+		/// HP取得
+		/// </summary>
+		/// <returns>HP</returns>
+		const uint32_t HP() const;
+
+		/// <summary>
+		/// 最大HP取得
+		/// </summary>
+		/// <returns>最大HP</returns>
+		const uint32_t MaxHP() const;
 
 	public:
 
@@ -83,8 +109,8 @@ namespace YGame
 		/// 速度レベル取得
 		/// </summary>
 		/// <returns>速度レベル</returns>
-		uint32_t SpeedLevel();
-
+		const uint32_t SpeedLevel() const;
+	
 	public:
 
 		static ScoreManager* GetInstance();
@@ -99,6 +125,12 @@ namespace YGame
 
 		// コインカウンター
 		uint32_t coinCounter_ = 0;
+
+		// HP
+		uint32_t hp_ = 0;
+		
+		// 最大HP
+		uint32_t maxHP_ = 0;
 		
 		// 速度レベル
 		uint32_t speedLevel_ = 0;

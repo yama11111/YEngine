@@ -24,7 +24,7 @@ namespace YGame
 		void Update(const bool isDown) override;
 
 		// 描画
-		void Draw(const std::string& shaderTag, const uint16_t priority) override;
+		void Draw(const std::string& shaderTag, const size_t priority) override;
 	
 	public:
 		
@@ -84,7 +84,7 @@ namespace YGame
 		obj_->Update(animeStatus_);
 	}
 	
-	void impl_UIButton::Draw(const std::string& shaderTag, const uint16_t priority)
+	void impl_UIButton::Draw(const std::string& shaderTag, const size_t priority)
 	{
 		obj_->Draw(shaderTag, priority);
 	}

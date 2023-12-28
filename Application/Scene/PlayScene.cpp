@@ -58,7 +58,7 @@ void PlayScene::Initialize()
 	transferVP_.Initialize();
 	
 	uint32_t stageIndex = StageManager::GetInstance()->CurrentStageIndex();
-	if (stageIndex == 0)
+	if (stageIndex == 0 || stageIndex == 1)
 	{
 		pLevel_ = Level::LoadJson("levelData.json");
 	}

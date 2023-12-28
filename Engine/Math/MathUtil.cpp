@@ -62,7 +62,6 @@ bool YMath::InRange(const T& num, const T& lower, const T& upper)
 {
 	return (lower < num && num < upper);
 }
-
 template<>
 bool YMath::InRange(const Vector3& num, const Vector3& lower, const Vector3& upper)
 {
@@ -71,7 +70,6 @@ bool YMath::InRange(const Vector3& num, const Vector3& lower, const Vector3& upp
 		InRange(num.y_, lower.y_, upper.y_) &&
 		InRange(num.z_, lower.z_, upper.z_));
 }
-
 template<typename T>
 bool YMath::InRange(const T& num, const T& lower, const T& upper, bool& isOverLower, bool& isOverUpper)
 {
@@ -80,7 +78,6 @@ bool YMath::InRange(const T& num, const T& lower, const T& upper, bool& isOverLo
 
 	return (isOverLower || isOverUpper) == false;
 }
-
 template<>
 bool YMath::InRange(const float& num, const float& lower, const float& upper, bool& isOverLower, bool& isOverUpper)
 {
@@ -88,6 +85,25 @@ bool YMath::InRange(const float& num, const float& lower, const float& upper, bo
 	isOverUpper = upper < num;
 
 	return (isOverLower || isOverUpper) == false;
+}
+
+template<typename T>
+T YMath::Abs(const T& num)
+{
+	return std::abs(num);
+}
+template<>
+float YMath::Abs(const float& num)
+{
+	return std::fabs(num);
+}
+template<>
+Vector3 YMath::Abs(const Vector3& num)
+{
+	return YMath::Vector3(
+		std::fabs(num.x_),
+		std::fabs(num.y_),
+		std::fabs(num.z_));
 }
 
 template<typename T>

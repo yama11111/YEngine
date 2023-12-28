@@ -52,6 +52,9 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed, true,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime);
 
+	ScoreManager::GetInstance()->SetMaxHP(PlayerConfig::kHP);
+	ScoreManager::GetInstance()->SetHP(PlayerConfig::kHP);
+
 	BitFrag attribute{};
 	attribute.SetFragTrue(AttributeType::ePlayer);
 
@@ -191,6 +194,8 @@ void Player::UpdateAfterCollision()
 	//}
 
 	jumpCounter_ = 0;
+
+	ScoreManager::GetInstance()->SetHP(status_.HP());
 }
 
 void Player::RideOnPet(IPet* pPet)
@@ -375,6 +380,8 @@ void Player::OnCollision(const InfoOnCollision& info)
  		speed_.SetMax(speed_.Max() * 1.2f);
 
 		ScoreManager::GetInstance()->AddSpeedLevel();
+		
+		spCamera_->MoveOnAccel();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

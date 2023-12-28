@@ -33,7 +33,7 @@ namespace YGame
 		/// パイプラインの描画順
 		/// </summary>
 		/// <param name="pipelineKeys">パイプラインキーvector配列</param>
-		void SetDrawOrder(const std::vector<std::string> pipelineKeys);
+		void SetDrawOrder(const std::vector<std::string>& pipelineKeys);
 
 		/// <summary>
 		/// 描画情報をキューに積む
@@ -50,7 +50,7 @@ namespace YGame
 		/// ポストエフェクトに書き込む
 		/// </summary>
 		/// <param name="pPostEffect"> : ポストエフェクトポインタvector配列</param>
-		void RenderToPostEffect(std::vector<PostEffect*> pPostEffects);
+		void RenderToPostEffect(std::vector<PostEffect*>& pPostEffects);
 		
 		/// <summary>
 		/// 描画

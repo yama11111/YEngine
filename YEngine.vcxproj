@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
+    <ClCompile Include="Application\Draw\UI\UIGauge.cpp" />
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Block.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Application\Game\Object\Item\LifeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\MagnetDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\TextureConverter.cpp" />
@@ -262,6 +264,7 @@
   <ItemGroup>
     <ClInclude Include="Application\ConstBuffer\CBOutline.h" />
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
+    <ClInclude Include="Application\Draw\UI\UIGauge.h" />
     <ClInclude Include="Application\Game\Camera\GameCamera.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\Stage\Block.h" />
@@ -274,6 +277,7 @@
     <ClInclude Include="Application\Game\Object\Item\LifeDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\MagnetDrawer.h" />
     <ClInclude Include="Application\Game\UI\DistanceDrawer.h" />
+    <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h" />
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
     <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />

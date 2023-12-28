@@ -178,7 +178,7 @@ void PostEffect::StartRender()
 	// RTVのハンドルを取得
 	std::vector<D3D12_CPU_DESCRIPTOR_HANDLE> rtvHandles;
 
-	for (size_t i = 0; i < rtvHandles.size(); i++)
+	for (size_t i = 0; i < pTexs_.size(); i++)
 	{
 		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle =
 			CD3DX12_CPU_DESCRIPTOR_HANDLE(

@@ -29,6 +29,11 @@ namespace YGame
 		void MoveOnJump();
 
 		/// <summary>
+		/// 加速時移動
+		/// </summary>
+		void MoveOnAccel();
+
+		/// <summary>
 		/// カメラシェイク
 		/// </summary>
 		/// <param name="swing"></param>
@@ -54,34 +59,31 @@ namespace YGame
 
 	private:
 
-		// ジャンプ時移動用構造体
-		struct MoveOnJumpSet 
-		{
-			bool isAlive = false;
-			bool isActPower = false;
-			YMath::Power power;
-		};
-	
-	private:
-
 		// カメラ
 		Camera camera_;
-
 		// 注視点
 		YMath::Vector3 target_;
-		
 		// 距離
 		YMath::Vector3 distance_;
 
-
 		// プレイヤー位置ポインタ
 		YMath::Vector3* pPlayerPos_ = nullptr;
-		
 		// 1F前のプレイヤー位置
 		YMath::Vector3 elderPlayerPos_;
-
 		
-		// ジャンプ時移動配列
-		std::list<MoveOnJumpSet> moveOnJumpSets_;
+		// 移動
+		YMath::Power movePower_;
+
+		// 加速時移動
+		YMath::Power accelPower_;
+		bool isActAccelPower_ = false;
+	
+	private:
+	
+		/// <summary>
+		/// 位置更新
+		/// </summary>
+		void UpdatePos();
+
 	};
 }

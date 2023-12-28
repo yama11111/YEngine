@@ -43,14 +43,14 @@ void ScoreManager::AddScore(const uint32_t scoreVal)
 	currentScore_ += scoreVal;
 }
 
-uint32_t ScoreManager::Score(const size_t index)
+const uint32_t ScoreManager::Score(const size_t index) const
 {
 	assert(0 <= index || index < scores_.size());
 
 	return scores_[index];
 }
 
-uint32_t ScoreManager::ScoreInCurrentStage()
+const uint32_t ScoreManager::ScoreInCurrentStage() const
 {
 	return currentScore_;
 }
@@ -60,9 +60,29 @@ void ScoreManager::AddCoin(const uint32_t coinVal)
 	coinCounter_ += coinVal;
 }
 
-uint32_t ScoreManager::Coin()
+const uint32_t ScoreManager::Coin() const
 {
 	return coinCounter_;
+}
+
+void ScoreManager::SetHP(const uint32_t hp)
+{
+	hp_ = hp;
+}
+
+void ScoreManager::SetMaxHP(const uint32_t maxHP)
+{
+	maxHP_ = maxHP;
+}
+
+const uint32_t ScoreManager::HP() const
+{
+	return hp_;
+}
+
+const uint32_t ScoreManager::MaxHP() const
+{
+	return maxHP_;
 }
 
 void ScoreManager::AddSpeedLevel()
@@ -70,7 +90,7 @@ void ScoreManager::AddSpeedLevel()
 	speedLevel_++;
 }
 
-uint32_t ScoreManager::SpeedLevel()
+const uint32_t ScoreManager::SpeedLevel() const
 {
 	return speedLevel_;
 }

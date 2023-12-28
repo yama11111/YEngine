@@ -52,6 +52,7 @@
 #include "UIDrawer.h"
 #include "ScoreDrawer.h"
 #include "CoinCountDrawer.h"
+#include "HPGaugeDrawer.h"
 #include "SpeedLevelDrawer.h"
 #include "PauseDrawer.h"
 
@@ -121,12 +122,12 @@ void MyGame::Draw()
 
 	pPipelineMan_->Draw();
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	// デバッグテキスト描画
 	imguiMan_.Draw();
 
-//#endif // DEBUG
+#endif // DEBUG
 
 	dx_.PostDraw();
 	
@@ -456,6 +457,8 @@ void MyGame::LoadDrawer()
 		
 		CoinCountDrawer::LoadResource();
 
+		HPGaugeDrawer::LoadResource();
+		
 		SpeedLevelDrawer::LoadResource();
 	}
 

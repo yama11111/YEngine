@@ -666,8 +666,14 @@
     <ClCompile Include="Application\Game\Object\Item\Life.cpp">
       <Filter>Application\Game\Object\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Draw\UI\UIGauge.cpp">
+      <Filter>Application\Draw\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer</Filter>
+    </ClCompile>
     <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Application\Game\UI\Drawer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1181,8 +1187,14 @@
     <ClInclude Include="Application\Game\Object\Item\Life.h">
       <Filter>Application\Game\Object\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Draw\UI\UIGauge.h">
+      <Filter>Application\Draw\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h">
+      <Filter>Application\Game\UI\Drawer</Filter>
+    </ClInclude>
     <ClInclude Include="Application\Game\UI\DistanceDrawer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Application\Game\UI\Drawer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

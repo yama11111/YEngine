@@ -114,6 +114,16 @@ void UIDrawer::Initialize()
 		speedTrfm_.Initialize(speedStatus);
 		speedDra_.reset(SpeedLevelDrawer::Create(&speedTrfm_.m_, kShaderTag, 2));
 	}
+	
+	// HP
+	{
+		Transform::Status hpStatus;
+		hpStatus.pos_ = { +120.0f, +240.0f, 0.0f };
+		hpStatus.scale_ = { 1.0f,1.0f,1.0f };
+
+		hpTrfm_.Initialize(hpStatus);
+		hpDra_.reset(HPGaugeDrawer::Create(&hpTrfm_.m_, kShaderTag, 2));
+	}
 }
 
 void UIDrawer::Update()
@@ -135,6 +145,10 @@ void UIDrawer::Update()
 	coinTrfm_.UpdateMatrix();
 	coinDra_->ChangeCoinAnimation(ScoreManager::GetInstance()->Coin());
 	coinDra_->Update();
+
+	hpTrfm_.UpdateMatrix();
+	hpDra_->ChangeHPAnimation(ScoreManager::GetInstance()->HP(), ScoreManager::GetInstance()->MaxHP());
+	hpDra_->Update();
 
 	speedTrfm_.UpdateMatrix();
 	speedDra_->ChangeSpeedAnimation(ScoreManager::GetInstance()->SpeedLevel());
@@ -158,5 +172,6 @@ void UIDrawer::Draw()
 
 	scoreDra_->Draw();
 	coinDra_->Draw();
+	hpDra_->Draw();
 	speedDra_->Draw();
 }
