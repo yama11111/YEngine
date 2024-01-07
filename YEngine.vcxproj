@@ -128,8 +128,10 @@
     <ClCompile Include="Application\Game\Object\Item\MagnetDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp" />
+    <ClCompile Include="Application\Game\UI\InstructionsDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
+    <ClCompile Include="Application\Game\UI\StatusDrawer.cpp" />
     <ClCompile Include="Engine\Draw\Graphic\TextureConverter.cpp" />
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
@@ -278,10 +280,12 @@
     <ClInclude Include="Application\Game\Object\Item\MagnetDrawer.h" />
     <ClInclude Include="Application\Game\UI\DistanceDrawer.h" />
     <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h" />
+    <ClInclude Include="Application\Game\UI\InstructionsDrawer.h" />
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
     <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />
     <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
+    <ClInclude Include="Application\Game\UI\StatusDrawer.h" />
     <ClInclude Include="Engine\Draw\Graphic\TextureConverter.h" />
     <ClInclude Include="Engine\Math\Game\BitFrag.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\AxisDrawer.h" />

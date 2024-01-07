@@ -1,46 +1,75 @@
 #include "ScoreDrawer.h"
+#include "DrawObjectForSprite3D.h"
 #include "Lerp.h"
 
 using YGame::ScoreDrawer;
-using YGame::Sprite2D;
+using YGame::Sprite3D;
+using YMath::Vector3;
 
 namespace
 {
-	//Sprite2D* pSpr = nullptr;
-}
+	Sprite3D* pLogoSpr = nullptr;
 
-ScoreDrawer* ScoreDrawer::Create(YMath::Matrix4* pParent, const std::string& shaderTag, const size_t drawPriority)
-{
-	ScoreDrawer* newDrawer = new ScoreDrawer();
+	const Vector3 kGaugePos = { 0.0f, -0.6f, 0.0f };
+	const Vector3 kGaugeScale = Vector3(30.0f, 1.0f, 0.0f) / 6.0f;
 
-	newDrawer->Initialize(pParent, shaderTag, drawPriority);
+	const Vector3 kMissionPos = { 0.0f, -0.6f, 0.0f };
+	const Vector3 kMissionScale = { 0.2f, 0.2f, 0.0f };
 
-	return newDrawer;
+	const Vector3 kLogoPos = { -2.2f, +0.6f, 0.0f };
+	const Vector3 kLogoScale = { 1.2f, 0.3f, 0.0f };
+
+	const uint32_t kReelFrame = 20;
+
+	const std::string kShaderTag = "Sprite3DUI";
 }
 
 void ScoreDrawer::LoadResource()
 {
-
+	pLogoSpr = Sprite3D::Create({ {"Texture0", Texture::Load("UI/play/score.png")}});
 }
 
-void ScoreDrawer::Initialize(YMath::Matrix4* pParent, const std::string& shaderTag, const size_t drawPriority)
+ScoreDrawer* ScoreDrawer::Create(YMath::Matrix4* pParent, ViewProjection* pVP)
+{
+	ScoreDrawer* newDrawer = new ScoreDrawer();
+
+	newDrawer->Initialize(pParent, pVP);
+
+	return newDrawer;
+}
+
+void ScoreDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 {
 	currentScore_ = elderScore_ = scoreForAnimation_ = 0;
 
 	transform_.Initialize();
 	transform_.parent_ = pParent;
 
-	uiNum_.reset(UINumber::Create2D(0, digitAnimeStatuses_.size(), 80.0f, true, false, &transform_.m_));
+	// 数
+	if (uiNum_ == nullptr)
+	{
+		uiNum_.reset(UINumber::Create3D(
+			0, digitAnimeStatuses_.size(), 0.8f, true, false,
+			&transform_.m_, false, false, pVP));
+	}
 	for (size_t i = 0; i < uiColors_.size(); i++)
 	{
-		uiColors_[i].reset(ConstBufferObject<CBColor>::Create());
-		uiNum_->InsertConstBuffer(i, uiColors_[i].get());
+		if (uiColors_[i] == nullptr)
+		{
+			uiColors_[i].reset(ConstBufferObject<CBColor>::Create());
+			uiNum_->InsertConstBuffer(i, uiColors_[i].get());
+		}
 	}
 
-	shaderTag_ = shaderTag;
-	drawPriority_ = drawPriority;
-	
-	reelTim_.Initialize(20);
+	// ロゴ
+	if (logo_ == nullptr)
+	{
+		logo_.reset(DrawObjectForSprite3D::Create(
+			{ kLogoPos, {}, kLogoScale }, false, false, pVP, pLogoSpr));
+		logo_->transform_.parent_ = &transform_.m_;
+	}
+
+	reelTim_.Initialize(kReelFrame);
 }
 
 void ScoreDrawer::Update()
@@ -63,27 +92,14 @@ void ScoreDrawer::Update()
 	}
 	uiNum_->Update();
 
+	logo_->Update();
+
 	if (reelTim_.IsEnd())
 	{
 		elderScore_ = currentScore_;
 	}
 
 	UpdateDigitColor();
-}
-
-void ScoreDrawer::Draw()
-{
-	uiNum_->Draw(shaderTag_, drawPriority_);
-}
-
-void ScoreDrawer::ChangeScoreAnimation(const uint32_t score)
-{
-	if (currentScore_ != score)
-	{
-		reelTim_.Reset(true);
-	}
-
-	currentScore_ = score;
 }
 
 void ScoreDrawer::UpdateDigitColor()
@@ -103,4 +119,20 @@ void ScoreDrawer::UpdateDigitColor()
 		
 		num /= 10;
 	}
+}
+
+void ScoreDrawer::Draw()
+{
+	logo_->Draw(kShaderTag, 0);
+	uiNum_->Draw(kShaderTag, 0);
+}
+
+void ScoreDrawer::ChangeScoreAnimation(const uint32_t score)
+{
+	if (currentScore_ != score)
+	{
+		reelTim_.Reset(true);
+	}
+
+	currentScore_ = score;
 }

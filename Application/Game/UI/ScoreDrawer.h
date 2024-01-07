@@ -1,6 +1,14 @@
+/**
+ * @file InstructionsDrawer.h
+ * @brief スコアのUIを表示するクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/06
+ */
+
 #pragma once
-#include "DrawObjectForSprite2D.h"
 #include "UINumber.h"
+#include "UIGauge.h"
+#include "BaseDrawObject.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
 #include "Ease.h"
@@ -20,13 +28,9 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="shaderTag"> : シェーダータグ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		/// <returns>スコア描画クラスポインタ (動的インスタンス)</returns>
-		static ScoreDrawer* Create(
-			YMath::Matrix4* pParent, 
-			const std::string& shaderTag, 
-			const size_t drawPriority);
+		static ScoreDrawer* Create(YMath::Matrix4* pParent, ViewProjection* pVP);
 
 		/// <summary>
 		/// 静的初期化
@@ -39,9 +43,8 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="shaderTag"> : シェーダータグ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(YMath::Matrix4* pParent, const std::string& shaderTag, const size_t drawPriority);
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		void Initialize(YMath::Matrix4* pParent, ViewProjection* pVP);
 
 		/// <summary>
 		/// 更新
@@ -60,35 +63,32 @@ namespace YGame
 		/// </summary>
 		/// <param name="score"> : スコア</param>
 		void ChangeScoreAnimation(const uint32_t score);
+	
+	private:
 
+		static const size_t kMaxDigit = 6;
+	
 	private:
 
 		// 現在スコア
 		uint32_t currentScore_ = 0;
-		
 		// 過去スコア
 		uint32_t elderScore_ = 0;
-		
 		// アニメーション用スコア
 		uint32_t scoreForAnimation_ = 0;
-
 
 		// トランスフォーム
 		Transform transform_;
 
-		// UI
+		// 数値
 		std::unique_ptr<UINumber> uiNum_;
-		std::array<std::unique_ptr<ConstBufferObject<CBColor>>, 6> uiColors_;
-		
+		std::array<std::unique_ptr<ConstBufferObject<CBColor>>, kMaxDigit> uiColors_;
+
 		// アニメーション用
-		std::array<Transform::Status, 6> digitAnimeStatuses_;
-
-		// 描画優先度
-		size_t drawPriority_ = 0;
-
-		// シェーダータグ
-		std::string shaderTag_;
-
+		std::array<Transform::Status, kMaxDigit> digitAnimeStatuses_;
+		
+		// ロゴ
+		std::unique_ptr<BaseDrawObject> logo_;
 
 		// リールタイマー
 		YMath::Timer reelTim_;
@@ -99,6 +99,5 @@ namespace YGame
 		/// 桁ごとの色更新
 		/// </summary>
 		void UpdateDigitColor();
-
 	};
 }

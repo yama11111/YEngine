@@ -13,7 +13,7 @@ Vector3::Vector3(float x, float y, float z) :
 
 float Vector3::Length() const
 {
-	return (float)sqrt(LengthSquare());
+	return static_cast<float>(sqrt(LengthSquare()));
 }
 
 constexpr float Vector3::LengthSquare() const
@@ -23,7 +23,7 @@ constexpr float Vector3::LengthSquare() const
 
 Vector3 Vector3::Normalized() const
 {
-	if (!IsZero()) return *this / Length();
+	if (!IsZero()) { return *this / Length(); }
 	return *this;
 }
 

@@ -87,7 +87,7 @@ void Camera::Update(const Transform::Status& status)
 
 
 	// 視点更新
-	vp_.eye_ = transform_.pos_;
+	vp_.eye_ = transform_.pos_ + status_.pos_;
 	// 注視点更新
 	UpdateTarget();
 	// 上方向ベクトル更新

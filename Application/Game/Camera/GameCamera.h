@@ -21,6 +21,8 @@ namespace YGame
 		/// </summary>
 		void Update();
 
+		void DrawDebugText();
+
 	public:
 
 		/// <summary>
@@ -68,16 +70,11 @@ namespace YGame
 
 		// プレイヤー位置ポインタ
 		YMath::Vector3* pPlayerPos_ = nullptr;
-		// 1F前のプレイヤー位置
-		YMath::Vector3 elderPlayerPos_;
-		
-		// 移動
-		YMath::Power movePower_;
 
 		// 加速時移動
 		YMath::Power accelPower_;
 		bool isActAccelPower_ = false;
-	
+
 	private:
 	
 		/// <summary>
@@ -85,5 +82,9 @@ namespace YGame
 		/// </summary>
 		void UpdatePos();
 
+		/// <summary>
+		/// 注視点更新
+		/// </summary>
+		void UpdateTarget();
 	};
 }

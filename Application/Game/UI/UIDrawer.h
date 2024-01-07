@@ -1,15 +1,27 @@
+/**
+ * @file UIDrawer.h
+ * @brief インゲームのUIを表示するクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/05
+ */
+
 #pragma once
-#include "UIButton.h"
 #include "UILetterBox.h"
 #include "ScoreDrawer.h"
-#include "HPGaugeDrawer.h"
-#include "SpeedLevelDrawer.h"
-#include "CoinCountDrawer.h"
+#include "InstructionsDrawer.h"
+#include "StatusDrawer.h"
 
 namespace YGame
 {
 	class UIDrawer final
 	{
+	
+	public:
+
+		/// <summary>
+		/// 読み込み
+		/// </summary>
+		static void LoadResource();
 
 	public:
 
@@ -32,50 +44,26 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		void Draw();
-	
-	public:
-
-		/// <summary>
-		/// 読み込み
-		/// </summary>
-		static void LoadResource();
 
 	private:
 		
 		// レターボックス
 		std::unique_ptr<UILetterBox> letterBox_;
 
+		// 操作説明
+		Transform instTrfm_;
+		std::unique_ptr<InstructionsDrawer> instDra_;
 
-		// ジャンプボタン
-		std::unique_ptr<UIButton> buttonJump_;
-		
-		// ジャンプUI
-		std::unique_ptr<BaseDrawObject> uiJump_;
-		
-
-		// 攻撃ボタン
-		std::unique_ptr<UIButton> buttonAttack_;
-
-		// 攻撃UI
-		std::unique_ptr<BaseDrawObject> uiAttack_;
-		
+		// ステータス
+		Transform statusTrfm_;
+		std::unique_ptr<StatusDrawer> statusDra_;
 
 		// スコア
 		Transform scoreTrfm_;
 		std::unique_ptr<ScoreDrawer> scoreDra_;
 
-		// コイン
-		Transform coinTrfm_;
-		std::unique_ptr<CoinCountDrawer> coinDra_;
-
-		// HP
-		Transform hpTrfm_;
-		std::unique_ptr<HPGaugeDrawer> hpDra_;
-
-		// スピードレベル
-		Transform speedTrfm_;
-		std::unique_ptr<SpeedLevelDrawer> speedDra_;
-
+		// ポーズ
+		std::unique_ptr<UIButton> pauseButton_;
 	};
 }
 

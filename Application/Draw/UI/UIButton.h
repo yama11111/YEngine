@@ -1,3 +1,10 @@
+/**
+ * @file UIButton.h
+ * @brief UI用のボタンの機能を持ったクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/05
+ */
+
 #pragma once
 #include "BaseDrawObject.h"
 
@@ -37,6 +44,14 @@ namespace YGame
 		/// <param name="shaderTag"> : シェーダータグ</param>
 		/// <param name="priority"> : 描画優先度</param>
 		virtual void Draw(const std::string& shaderTag, const size_t priority) = 0;
+	
+	public:
+
+		/// <summary>
+		/// 親ポインタ設定
+		/// </summary>
+		/// <param name="pParent"> : 親ポインタ</param>
+		virtual void SetParent(YMath::Matrix4* pParent) = 0;
 	
 	public:
 

@@ -29,7 +29,7 @@ void TitleDrawer::LoadResource()
 	
 	spStartSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/title_start.png")} });
 
-	spButtonSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png")} });
+	spButtonSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("white1x1.png")} });
 
 	spCircleSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("title/circle.png")} });
 	

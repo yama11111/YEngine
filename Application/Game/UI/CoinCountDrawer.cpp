@@ -21,7 +21,7 @@ CoinCountDrawer* CoinCountDrawer::Create(YMath::Matrix4* pParent, const std::str
 
 void CoinCountDrawer::LoadResource()
 {
-	pSpr = Sprite2D::Create({ {"Texture0", Texture::Load("play/crystalUI.png")} });
+	pSpr = Sprite2D::Create({ {"Texture0", Texture::Load("white1x1.png")} });
 }
 
 void CoinCountDrawer::Initialize(YMath::Matrix4* pParent, const std::string& shaderTag, const size_t drawPriority)

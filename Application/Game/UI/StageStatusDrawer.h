@@ -22,6 +22,7 @@ namespace YGame
 		void Initialize(
 			const uint32_t number,
 			const bool isTutorial,
+			const std::array<uint32_t, 3>& score,
 			const std::array<bool, 3>& isMissionClear);
 
 		/// <summary>
@@ -76,7 +77,11 @@ namespace YGame
 
 			std::unique_ptr<DrawObjectForSprite2D> star;
 			std::unique_ptr<DrawObjectForSprite2D> starFrame;
+			
+			Transform scoreTrfm;
+			std::unique_ptr<UINumber> score;
 			std::unique_ptr<DrawObjectForSprite2D> mission;
+			
 			std::unique_ptr<ConstBufferObject<CBColor>> color;
 
 			bool isAct = false;
@@ -112,19 +117,6 @@ namespace YGame
 		YMath::Ease<float> missionPosEas_;
 
 		YMath::Power alphaPow_;
-
-	private:
-
-		static Sprite2D* spStageLogoSpr_;
-		static Sprite2D* spBandSpr_;
-
-		static Sprite2D* spStarSpr_;
-		static Sprite2D* spStarFrameSpr_;
-
-		static Sprite2D* spMissionSpr_;
-
-		static Sprite2D* spTutorialLogoSpr_;
-		static Sprite2D* spTutorialMarkSpr_;
 
 	private:
 

@@ -7,18 +7,19 @@
 #include <cassert>
 
 using YGame::BeginingDrawer;
+using YGame::Sprite2D;
 using YMath::Vector3;
 
 namespace
 {
-	static YGame::Sprite2D* pRectSpr = nullptr;
-	static YGame::Sprite2D* pTutorialSpr = nullptr;
+	static Sprite2D* pRectSpr = nullptr;
+	static Sprite2D* pTutorialSpr = nullptr;
 	
-	static YGame::Sprite2D* pStarSpr = nullptr;
-	static YGame::Sprite2D* pStarFrameSpr = nullptr;
-	static YGame::Sprite2D* pMissionSpr = nullptr;
+	static Sprite2D* pStarSpr = nullptr;
+	static Sprite2D* pStarFrameSpr = nullptr;
+	static Sprite2D* pMissionSpr = nullptr;
 	
-	static YGame::Sprite2D* pBandSpr = nullptr;
+	static Sprite2D* pBandSpr = nullptr;
 }
 
 void BeginingDrawer::LoadResource()
@@ -117,6 +118,15 @@ void BeginingDrawer::Initialize()
 				missionUIs_[i].starFrame.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pStarFrameSpr));
 			}
 			missionUIs_[i].starFrame->SetParent(&missionUIs_[i].trfm.m_);
+
+			missionUIs_[i].scoreTrfm.Initialize();
+			missionUIs_[i].scoreTrfm.parent_ = &missionUIs_[i].trfm.m_;
+			if (missionUIs_[i].score == nullptr)
+			{
+				missionUIs_[i].score.reset(UINumber::Create2D(
+					StageManager::GetInstance()->Status(StageManager::GetInstance()->CurrentStageIndex()).mission[i],
+					7, 80.0f, false, true, &missionUIs_[i].scoreTrfm.m_));
+			}
 			if (missionUIs_[i].mission == nullptr)
 			{
 				missionUIs_[i].mission.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pMissionSpr));
@@ -129,6 +139,7 @@ void BeginingDrawer::Initialize()
 			}
 			missionUIs_[i].star->InsertConstBuffer(missionUIs_[i].color.get());
 			missionUIs_[i].starFrame->InsertConstBuffer(missionUIs_[i].color.get());
+			missionUIs_[i].score->InsertConstBuffer(missionUIs_[i].color.get());
 			missionUIs_[i].mission->InsertConstBuffer(missionUIs_[i].color.get());
 
 			missionUIs_[i].isClear =
@@ -210,17 +221,26 @@ void BeginingDrawer::Reset()
 			missionUIs_[i].trfm.scale_ = Vector3(0.25f, 0.25f, 0.25f);
 
 			missionUIs_[i].star->transform_.Initialize();
-			missionUIs_[i].star->transform_.pos_ = Vector3(-480.0f, 0, 0);
+			missionUIs_[i].star->transform_.pos_ = Vector3(-540.0f, 0, 0);
 			missionUIs_[i].starFrame->transform_.Initialize();
-			missionUIs_[i].starFrame->transform_.pos_ = Vector3(-480.0f, 0, 0);
+			missionUIs_[i].starFrame->transform_.pos_ = Vector3(-540.0f, 0, 0);
+
+			missionUIs_[i].scoreTrfm.Initialize();
+			missionUIs_[i].scoreTrfm.pos_ = Vector3(0.0f, 0.0f, 0.0f);
+			missionUIs_[i].scoreTrfm.scale_ = Vector3(2.0f, 2.0f, 0.0f);
 
 			missionUIs_[i].mission->transform_.Initialize();
-			missionUIs_[i].mission->transform_.pos_ = Vector3(+120.0f, 0, 0);
+			missionUIs_[i].mission->transform_.pos_ = Vector3(+640.0f, 0, 0);
 
 			missionUIs_[i].animeTim.Initialize(10);
 			float edgePos = 256.0f;
 			missionUIs_[i].animePosEass[0].Initialize(+edgePos, 0.0f, 5.0f);
 			missionUIs_[i].animePosEass[1].Initialize(0.0f, -edgePos, 5.0f);
+
+			if (missionUIs_[i].isClear == false)
+			{
+				missionUIs_[i].color->data_.baseColor = { 0.75f,0.75f,0.75f,0.0f };
+			}
 		}
 	}
 
@@ -317,6 +337,8 @@ void BeginingDrawer::Update()
 			missionUIs_[i].trfm.UpdateMatrix({ {posVal,0,0} });
 			missionUIs_[i].star->Update();
 			missionUIs_[i].starFrame->Update();
+			missionUIs_[i].scoreTrfm.UpdateMatrix();
+			missionUIs_[i].score->Update();
 			missionUIs_[i].mission->Update();
 
 			float alpha = 0.0f;
@@ -356,6 +378,7 @@ void BeginingDrawer::Draw()
 	{
 		missionUIs_[i].starFrame->Draw("Sprite2DDefault", 2);
 		if (missionUIs_[i].isClear) { missionUIs_[i].star->Draw("Sprite2DDefault", 2); }
+		missionUIs_[i].score->Draw("Sprite2DDefault", 2);
 		missionUIs_[i].mission->Draw("Sprite2DDefault", 2);
 	}
 

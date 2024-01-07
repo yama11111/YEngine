@@ -151,6 +151,7 @@ void PlayScene::Update()
 	transferVP_.UpdateMatrix();
 
 	pObjectMan_->DrawDebugText();
+	camera_.DrawDebugText();
 
 	// リセット
 	if (isReset || spKeys_->IsTrigger(DIK_R))

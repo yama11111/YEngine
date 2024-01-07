@@ -27,6 +27,11 @@ namespace YGame
 		void Draw(const std::string& shaderTag, const size_t priority) override;
 	
 	public:
+
+		// 親ポインタ設定
+		void SetParent(YMath::Matrix4* pParent) override;
+	
+	public:
 		
 		impl_UIButton() = default;
 		
@@ -81,12 +86,17 @@ namespace YGame
 		PressAnimation(isDown);
 
 		// ブヨブヨアニメーションを適応
-		obj_->Update(animeStatus_);
+		obj_->Update();
 	}
 	
 	void impl_UIButton::Draw(const std::string& shaderTag, const size_t priority)
 	{
 		obj_->Draw(shaderTag, priority);
+	}
+
+	void impl_UIButton::SetParent(YMath::Matrix4* pParent)
+	{
+		obj_->transform_.parent_ = pParent;
 	}
 	
 	void impl_UIButton::PressAnimation(const bool isDown)

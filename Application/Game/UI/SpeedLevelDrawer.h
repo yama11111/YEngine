@@ -1,13 +1,20 @@
+/**
+ * @file SpeedLevelDrawer.h
+ * @brief スピードレベルを表示するクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/05
+ */
+
 #pragma once
-#include "DrawObjectForSprite2D.h"
-#include "UINumber.h"
+#include "UIDigit.h"
+#include "BaseDrawObject.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
+#include "ViewProjection.h"
 #include "Ease.h"
 #include "Timer.h"
 #include "Power.h"
 #include <array>
-#include <memory>
 
 namespace YGame
 {
@@ -20,13 +27,9 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="shaderTag"> : シェーダータグ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		/// <returns>コインカウンタ描画クラスポインタ (動的インスタンス)</returns>
-		static SpeedLevelDrawer* Create(
-			YMath::Matrix4* pParent, 
-			const std::string& shaderTag, 
-			const size_t drawPriority);
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		/// <returns>スピードレベル描画クラスポインタ (動的インスタンス)</returns>
+		static SpeedLevelDrawer* Create(YMath::Matrix4* pParent, ViewProjection* pVP);
 
 		/// <summary>
 		/// 静的初期化
@@ -39,9 +42,8 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="shaderTag"> : シェーダータグ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(YMath::Matrix4* pParent, const std::string& shaderTag, const size_t drawPriority);
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
+		void Initialize(YMath::Matrix4* pParent, ViewProjection* pVP);
 
 		/// <summary>
 		/// 更新
@@ -60,52 +62,45 @@ namespace YGame
 		/// </summary>
 		/// <param name="speed"> : スピードレベル</param>
 		void ChangeSpeedAnimation(const uint32_t speed);
-
-	private:
-
-		// 現在スピード
-		uint32_t currentSpeed_ = 0;
-
-		// 過去スピード
-		uint32_t elderSpeed_ = 0;
-
-		// アニメーション用
-		uint32_t coinForAnimation_ = 0;
-
-
-		// 親トランスフォーム
-		Transform transform_;
-
-		// 数
-		Transform numTrfm_;
-
-		// UI
-		std::unique_ptr<UINumber> uiNum_;
-		std::array<std::unique_ptr<ConstBufferObject<CBColor>>, 2> uiColors_;
-
-		// アニメーション用
-		std::array<Transform::Status, 2> digitAnimeStatuses_;
-
-		// UI
-		std::unique_ptr<DrawObjectForSprite2D> uiSpeed_;
-
-
-		// 描画優先度
-		size_t drawPriority_ = 0;
-
-		// シェーダータグ
-		std::string shaderTag_;
-
-
-		// リールタイマー
-		YMath::Timer reelTim_;
-
+	
 	private:
 
 		/// <summary>
-		/// 桁ごとの色更新
+		/// スピードレベル矢印
 		/// </summary>
-		void UpdateDigitColor();
+		struct SpeedLevelDirection
+		{
+			// 描画用オブジェクト
+			std::unique_ptr<BaseDrawObject> obj_;
 
+			// アニメーション数値
+			Transform::Status animeStatus_;
+
+			// 移動イージング
+			YMath::Ease<float> moveEas_;
+
+			// 移動パワー
+			YMath::Power movePower_;
+		};
+
+		// 最大スピードレベル
+		static const size_t skMaxSpeedLevel_ = 9;
+
+	private:
+
+		// 親トランスフォーム
+		Transform transform_;
+		
+		// 数
+		Transform levelTrfm_;
+		// レベル
+		std::unique_ptr<UIDigit> level_;
+		std::unique_ptr<ConstBufferObject<CBColor>> levelColor_;
+
+		// スピードレベルUI
+		std::array<SpeedLevelDirection, skMaxSpeedLevel_> levelUIs_;
+
+		// 速度
+		uint32_t speedLevel_ = 0;
 	};
 }

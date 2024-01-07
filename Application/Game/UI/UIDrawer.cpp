@@ -1,38 +1,57 @@
 #include "UIDrawer.h"
+#include "DrawObjectForSprite3D.h"
 #include "ScoreManager.h"
+#include "StageManager.h"
 #include "ColorConfig.h"
 #include "Def.h"
 #include "Keys.h"
 #include "Pad.h"
 
 using YGame::UIDrawer;
-using YGame::Sprite2D;
+using YGame::Sprite3D;
 using YMath::Vector3;
 using YInput::Keys;
 using YInput::Pad;
-using YInput::PadButton;
-using YInput::PadStick;
 
 namespace
 {
-	Sprite2D* pButtonASpr_ = nullptr;
-	Sprite2D* pButtonXSpr_ = nullptr;
-	Sprite2D* pJumpSpr_ = nullptr;
-	Sprite2D* pAttackSpr_ = nullptr;
-	
-	Keys* pKeys = nullptr;
-	Pad * pPad = nullptr;
+	Sprite3D* pPauseSpr = nullptr;
 
-	const std::string kShaderTag = "Sprite2DDefault";
+	YGame::ViewProjection vp;
+
+	const Vector3 kInstPos = { +47.0f,-27.0f,0.0f };
+	const Vector3 kInstRota = { 0.0f,+kPI / 6.0f,+kPI / 120.0f };
+	const Vector3 kInstScale = { 0.1f,0.1f,0.0f };
+	
+	const Vector3 kStatusPos = { -40.0f,+28.0f,0.0f };
+	const Vector3 kStatusRota = { 0.0f,-kPI / 6.0f,+kPI / 24.0f };
+	const Vector3 kStatusScale = { 0.1f,0.1f,0.0f };
+	
+	const Vector3 kScorePos	 = { +40.0f,+30.0f,0.0f };
+	const Vector3 kScoreRota = { 0.0f,+kPI / 6.0f,-kPI / 24.0f };
+	const Vector3 kScoreScale = { 10.0f,10.0f,0.0f };
+
+	const Vector3 kPausePos = { -60.0f,-32.0f,0.0f };
+	const Vector3 kPauseRota = { 0.0f,-kPI / 6.0f,+kPI / 120.0f };
+	const Vector3 kPauseScale = { 8.0f,8.0f,0.0f };
+
+	YGame::ScoreManager* pScoreMan = nullptr;
+	YGame::StageManager* pStageMan = nullptr;
+
+	Keys* pKeys = nullptr;
+	Pad* pPad = nullptr;
+
+	const std::string kShaderTag = "Sprite3DUI";
 }
 
 void UIDrawer::LoadResource()
 {
-	pButtonASpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_A.png") } });
-	pButtonXSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/key/button_X.png") } });
+	pPauseSpr = Sprite3D::Create({ {"Texture0", Texture::Load("UI/play/button_pause.png")} });
 
-	pJumpSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/jump.png") } });
-	pAttackSpr_ = Sprite2D::Create({ { "Texture0", Texture::Load("UI/attack.png") } });
+	vp.Initialize();
+
+	pScoreMan = ScoreManager::GetInstance();
+	pStageMan = StageManager::GetInstance();
 
 	pKeys = Keys::GetInstance();
 	pPad = Pad::GetInstance();
@@ -45,114 +64,79 @@ void UIDrawer::Initialize()
 	letterBox_->Initialize(WinSize, 96.0f, 96.0f);
 	letterBox_->SetColor(YMath::GetColor(2, 38, 32, 255));
 
-	// ジャンプ
+	// 操作説明
 	{
-		Transform::Status uiStatus;
+		Transform::Status instStatus;
+		instStatus.pos_ = kInstPos;
+		instStatus.rota_ = kInstRota;
+		instStatus.scale_ = kInstScale;
 
-		uiStatus.scale_ = { 1.0f,1.0f,1.0f };
-		uiStatus.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) + Vector3(-160.0f, -160.0f, 0.0f);
-
-		uiJump_.reset(DrawObjectForSprite2D::Create(uiStatus, pJumpSpr_));
-
-
-		Transform::Status buttonStatus;
-
-		buttonStatus.scale_ = uiStatus.scale_;
-
-		float height = 64.0f * uiStatus.scale_.y_ + 24.0f * buttonStatus.scale_.y_;
-		buttonStatus.pos_ = uiStatus.pos_ + Vector3(0.0f, +height, 0.0f);
-
-		buttonJump_.reset(UIButton::Create(DrawObjectForSprite2D::Create(buttonStatus, pButtonASpr_))); 
+		instTrfm_.Initialize(instStatus);
+		if(instDra_ == nullptr)
+		{
+			instDra_.reset(InstructionsDrawer::Create(&instTrfm_.m_, &vp));
+		}
 	}
 
-	// 攻撃
+	// ステータス
 	{
-		Transform::Status uiStatus;
+		Transform::Status statusStatus;
+		statusStatus.pos_ = kStatusPos;
+		statusStatus.rota_ = kStatusRota;
+		statusStatus.scale_ = kStatusScale;
 
-		uiStatus.scale_ = { 1.0f,1.0f,1.0f };
-		uiStatus.pos_ = Vector3(0.0f, WinSize.y_, 0.0f) + Vector3(+160.0f, -160.0f, 0.0f);
-
-		uiAttack_.reset(DrawObjectForSprite2D::Create(uiStatus, pAttackSpr_));
-
-
-		Transform::Status buttonStatus;
-
-		buttonStatus.scale_ = uiStatus.scale_;
-
-		float height = 64.0f * uiStatus.scale_.y_ + 24.0f * buttonStatus.scale_.y_;
-		buttonStatus.pos_ = uiStatus.pos_ + Vector3(0.0f, +height, 0.0f);
-
-		buttonAttack_.reset(UIButton::Create(DrawObjectForSprite2D::Create(buttonStatus, pButtonXSpr_)));
+		statusTrfm_.Initialize(statusStatus);
+		if (statusDra_ == nullptr)
+		{
+			statusDra_.reset(StatusDrawer::Create(&statusTrfm_.m_, &vp));
+		}
 	}
 
 	// スコア
 	{
 		Transform::Status scoreStatus;
-		scoreStatus.pos_ = { WinSize.x_ - 280.0f, +96.0f, 0.0f };
-		scoreStatus.scale_ = { 1.0f,1.0f,1.0f };
+		scoreStatus.pos_ = kScorePos;
+		scoreStatus.rota_ = kScoreRota;
+		scoreStatus.scale_ = kScoreScale;
 
 		scoreTrfm_.Initialize(scoreStatus);
-		scoreDra_.reset(ScoreDrawer::Create(&scoreTrfm_.m_, kShaderTag, 2)); 
+		if (scoreDra_ == nullptr)
+		{
+			scoreDra_.reset(ScoreDrawer::Create(&scoreTrfm_.m_, &vp));
+		}
+		
+		scoreDra_->SetMissionScore(pStageMan->Status(pStageMan->CurrentStageIndex()).mission);
 	}
 
-	// コイン
+	// ポーズ
 	{
-		Transform::Status coinStatus;
-		coinStatus.pos_ = { +144.0f, +72.0f, 0.0f };
-		coinStatus.scale_ = { 1.0f,1.0f,1.0f };
-
-		coinTrfm_.Initialize(coinStatus);
-		coinDra_.reset(CoinCountDrawer::Create(&coinTrfm_.m_, kShaderTag, 2));
-	}
-
-	// 速度
-	{
-		Transform::Status speedStatus;
-		speedStatus.pos_ = { +120.0f, +160.0f, 0.0f };
-		speedStatus.scale_ = { 1.0f,1.0f,1.0f };
-
-		speedTrfm_.Initialize(speedStatus);
-		speedDra_.reset(SpeedLevelDrawer::Create(&speedTrfm_.m_, kShaderTag, 2));
-	}
-	
-	// HP
-	{
-		Transform::Status hpStatus;
-		hpStatus.pos_ = { +120.0f, +240.0f, 0.0f };
-		hpStatus.scale_ = { 1.0f,1.0f,1.0f };
-
-		hpTrfm_.Initialize(hpStatus);
-		hpDra_.reset(HPGaugeDrawer::Create(&hpTrfm_.m_, kShaderTag, 2));
+		if (pauseButton_ == nullptr)
+		{
+			pauseButton_.reset(UIButton::Create(
+				DrawObjectForSprite3D::Create(
+					{ kPausePos, kPauseRota, kPauseScale }, false, false, &vp, pPauseSpr)));
+		}
 	}
 }
 
 void UIDrawer::Update()
 {
 	letterBox_->Update();
-	
-	bool isJump = (pKeys->IsDown(DIK_SPACE) || pPad->IsDown(PadButton::XIP_A));
-	buttonJump_->Update(isJump);
-	uiJump_->Update();
 
-	bool isAttack = (pKeys->IsDown(DIK_V) || pPad->IsDown(PadButton::XIP_X));
-	buttonAttack_->Update(isAttack);
-	uiAttack_->Update();
+	instTrfm_.UpdateMatrix();
+	instDra_->Update();
+
+	statusTrfm_.UpdateMatrix();
+	statusDra_->Update(
+		pScoreMan->HP(), 
+		pScoreMan->MaxHP(), 
+		pScoreMan->SpeedLevel());
 
 	scoreTrfm_.UpdateMatrix();
-	scoreDra_->ChangeScoreAnimation(ScoreManager::GetInstance()->ScoreInCurrentStage());
+	scoreDra_->ChangeScoreAnimation(pScoreMan->ScoreInCurrentStage());
 	scoreDra_->Update();
 
-	coinTrfm_.UpdateMatrix();
-	coinDra_->ChangeCoinAnimation(ScoreManager::GetInstance()->Coin());
-	coinDra_->Update();
-
-	hpTrfm_.UpdateMatrix();
-	hpDra_->ChangeHPAnimation(ScoreManager::GetInstance()->HP(), ScoreManager::GetInstance()->MaxHP());
-	hpDra_->Update();
-
-	speedTrfm_.UpdateMatrix();
-	speedDra_->ChangeSpeedAnimation(ScoreManager::GetInstance()->SpeedLevel());
-	speedDra_->Update();
+	pauseButton_->Update(pKeys->IsDown(DIK_ESCAPE) || pPad->IsDown(YInput::PadButton::XIP_MENU));
 }
 
 void UIDrawer::PlayStartAnimation()
@@ -162,16 +146,10 @@ void UIDrawer::PlayStartAnimation()
 
 void UIDrawer::Draw()
 {
-	letterBox_->Draw(kShaderTag, 3);
+	//letterBox_->Draw("Sprite2DDefault", 3);
 	
-	uiJump_->Draw(kShaderTag, 3);
-	buttonJump_->Draw(kShaderTag, 3);
-
-	uiAttack_->Draw(kShaderTag, 3);
-	buttonAttack_->Draw(kShaderTag, 3);
-
+	instDra_->Draw();
+	statusDra_->Draw();
 	scoreDra_->Draw();
-	coinDra_->Draw();
-	hpDra_->Draw();
-	speedDra_->Draw();
+	pauseButton_->Draw(kShaderTag, 0);
 }

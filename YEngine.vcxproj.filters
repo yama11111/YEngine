@@ -624,21 +624,6 @@
     <ClCompile Include="Application\Game\Object\Attack\NeedleAttackDrawer.cpp">
       <Filter>Application\Game\Object\Attack\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\PauseDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\ScoreDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\UI\UIDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Scene\Transition\BaseTransition.cpp">
       <Filter>Engine\Scene\Transition</Filter>
     </ClCompile>
@@ -669,11 +654,32 @@
     <ClCompile Include="Application\Draw\UI\UIGauge.cpp">
       <Filter>Application\Draw\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
+    <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer</Filter>
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\InstructionsDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\PauseDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\ScoreDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\UIDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\UI\StatusDrawer.cpp">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1145,21 +1151,6 @@
     <ClInclude Include="Application\Game\Object\Attack\NeedleAttackDrawer.h">
       <Filter>Application\Game\Object\Attack\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UI\CoinCountDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\PauseDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\ScoreDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\UI\UIDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Scene\Transition\BaseTransition.h">
       <Filter>Engine\Scene\Transition</Filter>
     </ClInclude>
@@ -1190,11 +1181,32 @@
     <ClInclude Include="Application\Draw\UI\UIGauge.h">
       <Filter>Application\Draw\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
+    <ClInclude Include="Application\Game\UI\CoinCountDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\UI\DistanceDrawer.h">
-      <Filter>Application\Game\UI\Drawer</Filter>
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\InstructionsDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\PauseDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\ScoreDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\UIDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\UI\StatusDrawer.h">
+      <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

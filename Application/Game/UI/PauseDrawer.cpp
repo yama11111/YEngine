@@ -24,11 +24,11 @@ namespace
 
 void PauseDrawer::LoadResource()
 {
-	spPauseLogo_ = Sprite2D::Create({ {"Texture0", Texture::Load("pause/pause.png")} });
+	spPauseLogo_ = Sprite2D::Create({ {"Texture0", Texture::Load("UI/pause/pause.png")} });
 
-	spSelectionSprites_[kResumeIndex] = Sprite2D::Create({ {"Texture0", Texture::Load("pause/restart.png")} });
-	spSelectionSprites_[kReStartIndex] = Sprite2D::Create({ {"Texture0", Texture::Load("pause/reset.png")} });
-	spSelectionSprites_[kChangeIndex] = Sprite2D::Create({ {"Texture0", Texture::Load("pause/select.png")} });
+	spSelectionSprites_[kResumeIndex] = Sprite2D::Create({ {"Texture0", Texture::Load("UI/pause/restart.png")} });
+	spSelectionSprites_[kReStartIndex] = Sprite2D::Create({ {"Texture0", Texture::Load("UI/pause/reset.png")} });
+	spSelectionSprites_[kChangeIndex] = Sprite2D::Create({ {"Texture0", Texture::Load("UI/pause/select.png")} });
 	
 	spBorder_ = Sprite2D::Create({ {"Texture0", Texture::Load("white1x1.png")} });
 

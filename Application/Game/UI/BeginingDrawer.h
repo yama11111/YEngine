@@ -108,7 +108,11 @@ namespace YGame
 
 			std::unique_ptr<DrawObjectForSprite2D> star;
 			std::unique_ptr<DrawObjectForSprite2D> starFrame;
+			
+			Transform scoreTrfm;
+			std::unique_ptr<UINumber> score;
 			std::unique_ptr<DrawObjectForSprite2D> mission;
+			
 			std::unique_ptr<ConstBufferObject<CBColor>> color;
 			
 			bool isClear = false;

@@ -14,6 +14,7 @@ namespace YGame
 		struct StageStatus
 		{
 			bool isTutorial = false;
+			std::array<uint32_t, 3> mission;
 			std::array<bool, 3> isMissionClear;
 		};
 	

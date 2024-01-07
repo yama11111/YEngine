@@ -50,10 +50,12 @@
 #include "BeginingDrawer.h"
 
 #include "UIDrawer.h"
-#include "ScoreDrawer.h"
-#include "CoinCountDrawer.h"
+#include "InstructionsDrawer.h"
+#include "StatusDrawer.h"
 #include "HPGaugeDrawer.h"
 #include "SpeedLevelDrawer.h"
+#include "ScoreDrawer.h"
+#include "CoinCountDrawer.h"
 #include "PauseDrawer.h"
 
 #include "UILetterBox.h"
@@ -334,6 +336,32 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("Sprite3DDefault", newPipeline);
 	}
 
+	// Sprite3DUI
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
+		shader.LoadShader("Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBSprite3DTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, Sprite3D::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 2
+				);
+
+		pPipelineMan_->Insert("Sprite3DUI", newPipeline);
+	}
+
 #pragma endregion
 
 #pragma region PostEffect
@@ -400,6 +428,7 @@ void MyGame::InitializePipelines()
 			"ModelToon",
 
 			"Sprite3DDefault",
+			"Sprite3DUI",
 
 			"Sprite2DDefault",
 
@@ -453,13 +482,17 @@ void MyGame::LoadDrawer()
 
 		PauseDrawer::LoadResource();
 
-		ScoreDrawer::LoadResource();
-		
-		CoinCountDrawer::LoadResource();
+		InstructionsDrawer::LoadResource();
 
+		StatusDrawer::LoadResource();
+		
 		HPGaugeDrawer::LoadResource();
 		
 		SpeedLevelDrawer::LoadResource();
+		
+		ScoreDrawer::LoadResource();
+		
+		CoinCountDrawer::LoadResource();
 	}
 
 	// Game
