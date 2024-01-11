@@ -20,6 +20,9 @@ namespace
 	static Sprite2D* pMissionSpr = nullptr;
 	
 	static Sprite2D* pBandSpr = nullptr;
+	
+	static Sprite2D* pReadySpr = nullptr;
+	static Sprite2D* pGoSpr = nullptr;
 }
 
 void BeginingDrawer::LoadResource()
@@ -32,6 +35,9 @@ void BeginingDrawer::LoadResource()
 	pMissionSpr		 = Sprite2D::Create({ {"Texture0", Texture::Load("select/mission_logo.png") } });
 
 	pBandSpr		 = Sprite2D::Create({ {"Texture0", Texture::Load("white1x1.png") } });
+
+	pReadySpr		 = Sprite2D::Create({ {"Texture0", Texture::Load("UI/play/ready.png") } });
+	pGoSpr			 = Sprite2D::Create({ {"Texture0", Texture::Load("UI/play/go.png") } });
 }
 
 void BeginingDrawer::Initialize()
@@ -43,7 +49,7 @@ void BeginingDrawer::Initialize()
 			ui_.num.reset(UINumber::Create2D(0, 2, 32.0f, false, true, &ui_.trfm.m_));
 		}
 		ui_.num->SetParent(&ui_.trfm.m_);
-		ui_.num->SetNumber(StageManager::GetInstance()->CurrentStageIndex());
+		ui_.num->SetNumber(StageManager::GetInstance()->CurrentStageIndex() + 1);
 		if (ui_.tutorial == nullptr)
 		{
 			ui_.tutorial.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTutorialSpr));
@@ -147,6 +153,30 @@ void BeginingDrawer::Initialize()
 		}
 	}
 
+	// スタートUI
+	{
+		if (startUI_.ready_ == nullptr)
+		{
+			startUI_.ready_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pReadySpr));
+		}
+		if (startUI_.go_ == nullptr)
+		{
+			startUI_.go_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pGoSpr));
+		}
+
+		if (startUI_.readyColor_ == nullptr)
+		{
+			startUI_.readyColor_.reset(ConstBufferObject<CBColor>::Create());
+		}
+		startUI_.ready_->InsertConstBuffer(startUI_.readyColor_.get());
+		if (startUI_.goColor_ == nullptr)
+		{
+			startUI_.goColor_.reset(ConstBufferObject<CBColor>::Create());
+		}
+		startUI_.go_->InsertConstBuffer(startUI_.goColor_.get());
+	}
+
+
 	Reset();
 }
 
@@ -244,11 +274,27 @@ void BeginingDrawer::Reset()
 		}
 	}
 
+	// スタートUI
+	{
+		startUI_.ready_->transform_.Initialize();
+		startUI_.ready_->transform_.pos_ = winHalfSize;
+		startUI_.go_->transform_.Initialize();
+		startUI_.go_->transform_.pos_ = winHalfSize;
+
+		startUI_.readyPow_.Initialize(10);
+		startUI_.goPow_.Initialize(10);
+
+		startUI_.remainTim_.Initialize(60);
+
+		startUI_.goColor_->data_.baseColor = ColorConfig::skYellow;
+	}
+
 	isAct_ = false;
 	isPop_ = false;
 	isVanish_ = false;
 
 	remainTim_.Initialize(60);
+	startTim_.Initialize(120);
 }
 
 void BeginingDrawer::Update()
@@ -348,6 +394,30 @@ void BeginingDrawer::Update()
 		}
 	}
 
+	// スタートUI
+	{
+		startUI_.readyPow_.Update(startTim_.IsAct());
+		startUI_.goPow_.Update(startUI_.remainTim_.IsAct());
+
+		startUI_.remainTim_.Update();
+		if (startUI_.remainTim_.IsEnd())
+		{
+			startUI_.remainTim_.Reset();
+		}
+
+		float readySca = YMath::EaseInOut(-1.0f, 0.0f, startUI_.readyPow_.Ratio(), 2.0f);
+		float goSca = YMath::EaseInOut(-1.0f, 0.0f, startUI_.goPow_.Ratio(), 2.0f);
+
+		startUI_.ready_->Update({ {}, {}, {readySca,readySca,0.0f} });
+		startUI_.go_->Update({ {}, {}, {goSca,goSca,0.0f} });
+
+		float readyAlpha = YMath::EaseInOut(0.0f, 0.8f, startUI_.readyPow_.Ratio(), 2.0f);
+		float goAlpha = YMath::EaseInOut(0.0f, 0.8f, startUI_.goPow_.Ratio(), 2.0f);
+
+		startUI_.readyColor_->data_.baseColor.a_ = readyAlpha;
+		startUI_.goColor_->data_.baseColor.a_ = goAlpha;
+	}
+
 	remainTim_.Update();
 	if (remainTim_.IsEnd())
 	{
@@ -368,7 +438,17 @@ void BeginingDrawer::Update()
 
 		remainTim_.Reset();
 
+		startTim_.Reset(true);
+	}
+	
+	startTim_.Update();
+	if (startTim_.IsEnd())
+	{
+		startTim_.Reset();
+		
 		isAct_ = false;
+		
+		startUI_.remainTim_.Reset(true);
 	}
 }
 
@@ -393,6 +473,9 @@ void BeginingDrawer::Draw()
 
 	if (ui_.isTutorial) { ui_.tutorial->Draw("Sprite2DDefault", 2); }
 	else { ui_.num->Draw("Sprite2DDefault", 2); }
+
+	startUI_.ready_->Draw("Sprite2DDefault", 2);
+	startUI_.go_->Draw("Sprite2DDefault", 2);
 }
 
 void BeginingDrawer::PlayAnimation()
@@ -404,19 +487,7 @@ void BeginingDrawer::PlayAnimation()
 	isAct_ = true;
 }
 
-bool BeginingDrawer::IsAct()
+bool BeginingDrawer::IsAct() const
 {
 	return isAct_;
-
-	//bool result = false;
-
-	//for (size_t i = 0; i < missions_.size(); i++)
-	//{
-	//	result = result || missions_[i].isAct;
-	//}
-
-	//result = result || isPop_;
-	//result = result || isVanish_;
-
-	//return result;
 }

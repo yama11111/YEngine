@@ -102,5 +102,16 @@ namespace YGame
 
 		// 速度
 		uint32_t speedLevel_ = 0;
+
+
+		// レベルアップしたか
+		bool isLevelUpAnimation_ = 0;
+
+		// レベル上昇
+		std::unique_ptr<BaseDrawObject> up_;
+		std::unique_ptr<ConstBufferObject<CBColor>> upColor_;
+		YMath::Power upPow_;
+		YMath::Timer upRemainTim_;
+
 	};
 }

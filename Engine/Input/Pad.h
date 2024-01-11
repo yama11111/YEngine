@@ -100,13 +100,13 @@ namespace YInput
 		bool IsRelease(const PadButton& button);
 	public:
 		// 左
-		bool IsLeft(const PadStick& stick);
+		bool IsLeft(const PadStick& stick, const bool isTrigger = false);
 		// 右
-		bool IsRight(const PadStick& stick);
+		bool IsRight(const PadStick& stick, const bool isTrigger = false);
 		// 上
-		bool IsUp(const PadStick& stick);
+		bool IsUp(const PadStick& stick, const bool isTrigger = false);
 		// 下
-		bool IsUnder(const PadStick& stick);
+		bool IsUnder(const PadStick& stick, const bool isTrigger = false);
 		// 左(-1) 右(+1)
 		int Horizontal(const PadStick& stick);
 		// 上(-1) 下(+1)

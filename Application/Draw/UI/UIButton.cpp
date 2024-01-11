@@ -101,8 +101,6 @@ namespace YGame
 	
 	void impl_UIButton::PressAnimation(const bool isDown)
 	{
-		// ブヨブヨアニメーション
-
 		if (isDown)
 		{
 			// 潰れる (イーズイン)

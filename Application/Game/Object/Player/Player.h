@@ -85,8 +85,9 @@ namespace YGame
 		// 最大ジャンプ回数
 		uint16_t maxJumpCount_ = 0;
 
-		// 鎧を着ているか
-		bool isArmed_ = false;
+		// 着地フラグ
+		bool isLanding_ = false;
+		bool isElderLanding_ = false;
 
 		// ペットポインタ
 		IPet* pPet_ = nullptr;

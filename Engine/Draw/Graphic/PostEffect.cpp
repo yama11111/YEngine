@@ -88,7 +88,6 @@ void PostEffect::CreateRTV()
 
 	
 	INT count = 0;
-	
 	for (auto itr = pTexs_.begin(); itr != pTexs_.end(); ++itr)
 	{
 		// レンダーターゲットビュー生成
@@ -169,7 +168,7 @@ void PostEffect::StartRender()
 		D3D12_RESOURCE_BARRIER barrierDesc{};
 		barrierDesc.Transition.pResource = itr->second->Buffer(); // テクスチャを指定
 		barrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE; // シェーダーリソース 状態から
-		barrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;  // 描画 状態へ
+		barrierDesc.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET; // 描画 状態へ
 
 		// リソースバリアを変更
 		spCmdList_->ResourceBarrier(1, &barrierDesc);
@@ -192,7 +191,7 @@ void PostEffect::StartRender()
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvHeap_->GetCPUDescriptorHandleForHeapStart();
 
 	// レンダーターゲットをセット
-	spCmdList_->OMSetRenderTargets(2, rtvHandles.data(), true, &dsvHandle);
+	spCmdList_->OMSetRenderTargets(static_cast<UINT>(rtvHandles.size()), rtvHandles.data(), true, &dsvHandle);
 
 	// スクリーン設定の描画コマンド
 	screenDesc_.SetDrawCommand();
@@ -200,7 +199,7 @@ void PostEffect::StartRender()
 	for (size_t i = 0; i < rtvHandles.size(); i++)
 	{
 		// 画面クリア
-		//FLOAT clear[] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,ClearColor.a_ };
+		//FLOAT clear[4] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,0.0f };
 		FLOAT clear[] = { 0.25f, 0.5f ,0.1f, 0.0f };
 		spCmdList_->ClearRenderTargetView(rtvHandles[i], clear, 0, nullptr); // 青っぽい色
 	}

@@ -47,6 +47,13 @@ namespace YGame
 		
 		~Block() = default;
 
+	private:
+
+		/// <summary>
+		/// 衝突時情報取得
+		/// </summary>
+		/// <returns>衝突時情報</returns>
+		InfoOnCollision GetInfoOnCollision() override;
 	};
 }
 

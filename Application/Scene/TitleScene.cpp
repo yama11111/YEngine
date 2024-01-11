@@ -55,7 +55,7 @@ void TitleScene::Update()
 {
 	if (spKeys_->IsTrigger(DIK_O) || spPad_->IsTrigger(PadButton::XIP_Y))
 	{
-		titleDra_.OpeningAnimation();
+		//titleDra_.OpeningAnimation();
 	}
 	titleDra_.Update();
 

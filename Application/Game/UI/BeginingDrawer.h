@@ -47,7 +47,7 @@ namespace YGame
 		/// 動作フラグ取得
 		/// </summary>
 		/// <returns>動作フラグ</returns>
-		bool IsAct();
+		bool IsAct() const;
 
 	public:
 
@@ -120,6 +120,20 @@ namespace YGame
 			YMath::Timer animeTim;
 			std::array<YMath::Ease<float>, 2> animePosEass;
 		};
+
+		struct StartUI
+		{
+			std::unique_ptr<DrawObjectForSprite2D> ready_;
+			std::unique_ptr<DrawObjectForSprite2D> go_;
+
+			std::unique_ptr<ConstBufferObject<CBColor>> readyColor_;
+			std::unique_ptr<ConstBufferObject<CBColor>> goColor_;
+
+			YMath::Power readyPow_;
+			YMath::Power goPow_;
+
+			YMath::Timer remainTim_;
+		};
 	
 	private:
 		
@@ -138,6 +152,9 @@ namespace YGame
 		// ミッション
 		std::array<MissionUI, 3> missionUIs_;
 
+		// スタートUI
+		StartUI startUI_;
+
 		bool isAct_ = false;
 
 		// 生成フラグ
@@ -148,5 +165,8 @@ namespace YGame
 
 		// 残存タイマー
 		YMath::Timer remainTim_;
+
+		// 開始タイマー
+		YMath::Timer startTim_;
 	};
 }

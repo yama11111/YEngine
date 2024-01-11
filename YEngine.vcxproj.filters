@@ -657,9 +657,6 @@
     <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp">
-      <Filter>Application\Game\UI\Drawer\Play</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClCompile>
@@ -1184,9 +1181,6 @@
     <ClInclude Include="Application\Game\UI\CoinCountDrawer.h">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\UI\DistanceDrawer.h">
-      <Filter>Application\Game\UI\Drawer\Play</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClInclude>
@@ -1291,17 +1285,14 @@
     <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
       <Filter>Application\Shader\Model</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\Primitive3DVS.hlsl">
-      <Filter>Application\Shader\Sprite3D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Primitive3DPS.hlsl">
-      <Filter>Application\Shader\Sprite3D</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shaders\OutlineVS.hlsl">
       <Filter>Application\Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\OutlinePS.hlsl">
       <Filter>Application\Shader\Model</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\DeleteMagentaColorPS.hlsl">
+      <Filter>Application\Shader\PostEffect</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

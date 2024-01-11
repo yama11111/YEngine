@@ -47,9 +47,10 @@ void SelectDrawer::Initialize()
 		bool isTutotial = status.isTutorial;
 		std::array<uint32_t, 3> score = status.mission;
 		std::array<bool, 3> mission = status.isMissionClear;
+		uint32_t stageNum = static_cast<uint32_t>(i + 1);
 		
-		stages_[i].stage.Initialize(&stages_[i].trfm.m_, static_cast<uint32_t>(i), isTutotial, mission);
-		stages_[i].status.Initialize(static_cast<uint32_t>(i), isTutotial, score, mission);
+		stages_[i].stage.Initialize(&stages_[i].trfm.m_, stageNum, isTutotial, mission);
+		stages_[i].status.Initialize(stageNum, isTutotial, score, mission);
 
 		stages_[i].followPointPow_.Initialize(20);
 	}

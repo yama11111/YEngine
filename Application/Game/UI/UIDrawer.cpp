@@ -104,8 +104,6 @@ void UIDrawer::Initialize()
 		{
 			scoreDra_.reset(ScoreDrawer::Create(&scoreTrfm_.m_, &vp));
 		}
-		
-		scoreDra_->SetMissionScore(pStageMan->Status(pStageMan->CurrentStageIndex()).mission);
 	}
 
 	// ポーズ

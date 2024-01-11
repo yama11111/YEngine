@@ -45,3 +45,15 @@ void Block::UpdateAfterCollision()
 {
 	GameObject::UpdateAfterCollision();
 }
+
+YGame::InfoOnCollision Block::GetInfoOnCollision()
+{
+	InfoOnCollision result;
+
+	result.attribute = AttributeType::eBlock;
+	result.pTrfm = transform_.get();
+	result.radius = 0.0f;
+	result.pStatus = nullptr;
+
+	return result;
+}

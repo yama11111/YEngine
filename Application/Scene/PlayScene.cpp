@@ -58,11 +58,11 @@ void PlayScene::Initialize()
 	transferVP_.Initialize();
 	
 	uint32_t stageIndex = StageManager::GetInstance()->CurrentStageIndex();
-	if (stageIndex == 0 || stageIndex == 1)
+	if (stageIndex == 0)
 	{
 		pLevel_ = Level::LoadJson("levelData.json");
 	}
-	else //if (stageIndex == 1)
+	else if (stageIndex == 1)
 	{
 		pLevel_ = Level::LoadJson("levelData_2.json");
 	}
@@ -76,9 +76,6 @@ void PlayScene::Initialize()
 	// 開始演出描画クラス
 	beginingDra_.Initialize();
 	beginingDra_.PlayAnimation();
-	
-	// 開始演出タイマー
-	startTimer_.Initialize(120, true);
 
 	isStart_ = false;
 
@@ -128,14 +125,6 @@ void PlayScene::Update()
 
 		if (beginingDra_.IsAct() == false)
 		{
-			startTimer_.Update();
-		}
-
-		// 開始演出終了時
-		if (startTimer_.IsEnd() && isStart_ == false)
-		{
-			uiDra_.PlayStartAnimation();
-
 			isStart_ = true;
 		}
 
@@ -170,14 +159,11 @@ void PlayScene::Update()
 void PlayScene::Draw()
 {
 	pObjectMan_->Draw();
-
-	uiDra_.Draw();
-
+	
 	beginingDra_.Draw();
-
+	
 	pause_.Draw();
-
-	//PipelineManager::GetInstance()->RenderToPostEffect({ pPostEffect_ });
-	//objPE_->Draw();
+	
+	uiDra_.Draw();
 }
 #pragma endregion

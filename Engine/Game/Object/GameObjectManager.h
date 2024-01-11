@@ -136,16 +136,10 @@ namespace YGame
 		/// <summary>
 		/// 更新範囲内か
 		/// </summary>
-		/// <param name="pObject"> : オブジェクトポインタ</param>
+		/// <param name="pObject"> : トランスフォームポインタ</param>
+		/// <param name="range"> : 範囲</param>
 		/// <returns>更新範囲内か</returns>
-		bool InUpdateRange(GameObject* pObject);
-
-		/// <summary>
-		/// 更新範囲内か
-		/// </summary>
-		/// <param name="pObject"> : オブジェクトポインタ</param>
-		/// <returns>更新範囲内か</returns>
-		bool InUpdateRangeForBack(GameObject* pObject);
+		bool InUpdateRange(Transform* pTrfm, const float range);
 
 		/// <summary>
 		/// アタリ判定全チェック

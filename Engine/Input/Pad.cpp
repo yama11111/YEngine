@@ -135,36 +135,68 @@ bool Pad::IsRelease(const PadButton& button)
 			(elderPad_->state_.Gamepad.wButtons & static_cast<int>(button));
 }
 
-bool Pad::IsLeft(const PadStick& stick)
+bool Pad::IsLeft(const PadStick& stick, const bool isTrigger)
 {
 	bool result = false;
 	size_t idx = static_cast<size_t>(stick);
-	if (stick == PadStick::LStick) { result = (pad_->state_.Gamepad.sThumbLX <= -dZone_[idx]); }
-	if (stick == PadStick::RStick) { result = (pad_->state_.Gamepad.sThumbRX <= -dZone_[idx]); }
+	if (stick == PadStick::LStick)
+	{
+		result = (pad_->state_.Gamepad.sThumbLX <= -dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbLX <= -dZone_[idx]) && isTrigger);
+	}
+	if (stick == PadStick::RStick) 
+	{
+		result = (pad_->state_.Gamepad.sThumbRX <= -dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbRX <= -dZone_[idx]) && isTrigger);
+	}
 	return result;
 }
-bool Pad::IsRight(const PadStick& stick)
+bool Pad::IsRight(const PadStick& stick, const bool isTrigger)
 {
 	bool result = false;
 	size_t idx = static_cast<size_t>(stick);
-	if (stick == PadStick::LStick) { result = (pad_->state_.Gamepad.sThumbLX >= dZone_[idx]); }
-	if (stick == PadStick::RStick) { result = (pad_->state_.Gamepad.sThumbRX >= dZone_[idx]); }
+	if (stick == PadStick::LStick) 
+	{ 
+		result = (pad_->state_.Gamepad.sThumbLX >= dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbLX >= dZone_[idx]) && isTrigger);
+	}
+	if (stick == PadStick::RStick) 
+	{
+		result = (pad_->state_.Gamepad.sThumbRX >= dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbRX >= dZone_[idx]) && isTrigger);
+	}
 	return result;
 }
-bool Pad::IsUp(const PadStick& stick)
+bool Pad::IsUp(const PadStick& stick, const bool isTrigger)
 {
 	bool result = false;
 	size_t idx = static_cast<size_t>(stick);
-	if (stick == PadStick::LStick) { result = (pad_->state_.Gamepad.sThumbLY >= dZone_[idx]); }
-	if (stick == PadStick::RStick) { result = (pad_->state_.Gamepad.sThumbRY >= dZone_[idx]); }
+	if (stick == PadStick::LStick) 
+	{
+		result = (pad_->state_.Gamepad.sThumbLY >= dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbLY >= dZone_[idx]) && isTrigger);
+	}
+	if (stick == PadStick::RStick) 
+	{
+		result = (pad_->state_.Gamepad.sThumbRY >= dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbRY >= dZone_[idx]) && isTrigger);
+	}
 	return result;
 }
-bool Pad::IsUnder(const PadStick& stick)
+bool Pad::IsUnder(const PadStick& stick, const bool isTrigger)
 {
 	bool result = false;
 	size_t idx = static_cast<size_t>(stick);
-	if (stick == PadStick::LStick) { result = (pad_->state_.Gamepad.sThumbLY <= -dZone_[idx]); }
-	if (stick == PadStick::RStick) { result = (pad_->state_.Gamepad.sThumbRY <= -dZone_[idx]); }
+	if (stick == PadStick::LStick) 
+	{
+		result = (pad_->state_.Gamepad.sThumbLY <= -dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbLY <= -dZone_[idx]) && isTrigger);
+	}
+	if (stick == PadStick::RStick) 
+	{
+		result = (pad_->state_.Gamepad.sThumbRY <= -dZone_[idx]) && 
+				 (!(elderPad_->state_.Gamepad.sThumbRY <= -dZone_[idx]) && isTrigger);
+	}
 	return result;
 }
 

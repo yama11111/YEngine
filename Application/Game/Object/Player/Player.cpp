@@ -112,9 +112,9 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 	maxJumpCount_ = PlayerConfig::kMaxJumpCount;
 
-	// 開始時は武装する
-	isArmed_ = true;
-
+	isLanding_ = false;
+	isElderLanding_ = false;
+	
 	RideOnPet(pPet);
 
 	if (pPet_ == nullptr)
@@ -170,30 +170,30 @@ void Player::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
 
-	//// 着地しているなら
-	//if ()
-	//{
-	//	// ジャンプ回数初期化
-	//	jumpCounter_ = 0;
+	// 着地しているなら
+	if (isLanding_)
+	{
+		// ジャンプ回数初期化
+		jumpCounter_ = 0;
 
-	//	// 瞬間
-	//	if ()
-	//	{
-	//		// 着地アニメーション
-	//		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding), true);
+		// 瞬間
+		if (isElderLanding_ == false)
+		{
+			// 着地アニメーション
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eLanding), true);
 
-	//		// 移動アニメーション
-	//		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), false);
-	//	}
-	//}
-	//// 離陸した瞬間
-	//else if ()
-	//{
-	//	// 移動アニメーションをやめる
-	//	drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
-	//}
+			// 移動アニメーション
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), false);
+		}
+	}
+	// 離陸した瞬間
+	else if (isElderLanding_)
+	{
+		// 移動アニメーションをやめる
+		drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
+	}
 
-	jumpCounter_ = 0;
+	isElderLanding_ = isLanding_;
 
 	ScoreManager::GetInstance()->SetHP(status_.HP());
 }
@@ -285,6 +285,8 @@ void Player::Jump(const bool isJumpCount)
 		if (jumpCounter_ >= maxJumpCount_) { return; }
 
 		jumpCounter_++;
+
+		isLanding_ = false;
 	}
 
 	speed_.VelocityRef().y_ = 0.0f;
@@ -369,6 +371,14 @@ void Player::OnCollision(const InfoOnCollision& info)
 
 		// 乗る
 		RideOnPet(IPet::StaticGetPetPointer());
+	}
+	// ブロック
+	else if (info.attribute == AttributeType::eBlock)
+	{
+		if (transform_->pos_.y_ <= info.pTrfm->pos_.y_) { return; }
+
+		// 着地
+		isLanding_ = true;
 	}
 	// ゲート
 	else if (info.attribute == AttributeType::eGate)

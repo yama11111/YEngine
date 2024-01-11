@@ -149,16 +149,9 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			isUpdateSkip = false;
 			isSaveColl = true;
 
-			//std::unique_ptr<Horse> newPet = Horse::Create(status);
-			//
-			//IPet::StaticSetPetPointer(newPet.get());
-
-			newObj = Player::Create(Transform::Status::Default(), nullptr);
-
-			//// リストに挿入
-			//GameObjectManager::GetInstance()->PushBack(std::move(newPet), 1, isUpdateSkip, isSaveColl);
+			newObj = Player::Create(status, nullptr);
 		}
-		else if (name == "Slime.")
+		else if (name == "Slime." || name == "Flog." || name == "Bird."|| name == "Ogre." || name == "Goblin.")
 		{
 			newObj = Slime::Create(status);
 			isSaveColl = true;
@@ -181,6 +174,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		else if (name == "Block.")
 		{
 			newObj = Block::Create(status, pParent);
+			isSaveColl = true;
 		}
 		else if (name == "Gate.")
 		{

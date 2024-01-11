@@ -4,9 +4,17 @@
 #include "CollisionDrawer.h"
 
 #include <cassert>
+#include <cmath>
 #include <imgui.h>
 
 using YGame::GameObjectManager;
+
+namespace 
+{
+	// 更新範囲
+	const float kUpdateRange = 100.0f;
+	const float kUpdateRangeForBack = 500.0f;
+}
 
 GameObjectManager* GameObjectManager::GetInstance()
 {
@@ -91,7 +99,7 @@ void GameObjectManager::UpdateObjects(const bool isContorolUpdate)
 
 		if (object.isUpdateSkip)
 		{
-			object.isSkip = (InUpdateRange(object.obj.get()) == false);
+			object.isSkip = (InUpdateRange(object.obj->TransformPtr(), kUpdateRange) == false);
 		}
 
 		if (object.isSkip == false)
@@ -133,7 +141,7 @@ void GameObjectManager::UpdateObjectsForBack()
 {
 	for (GameObjectSetForBack& object : backObjects_)
 	{
-		object.isSkip = (InUpdateRangeForBack(object.obj.get()) == false);
+		object.isSkip = (InUpdateRange(object.obj->TransformPtr(), kUpdateRangeForBack) == false);
 
 		if (object.isSkip == false)
 		{
@@ -143,26 +151,17 @@ void GameObjectManager::UpdateObjectsForBack()
 	}
 }
 
-bool GameObjectManager::InUpdateRange(GameObject* pObject)
+bool GameObjectManager::InUpdateRange(Transform* pTrfm, const float range)
 {
+	// カメラに近いオブジェクト端の位置を求める
+	float sign = -1.0f;
+	if (pTrfm->pos_.x_ <= pVP_->eye_.x_) { sign = 1.0f; }
+	float basePos = pTrfm->pos_.x_ + sign * (pTrfm->scale_.x_ / 2.0f);
+
 	// 視点との距離
-	float distance = YMath::Vector3(pVP_->eye_ - pObject->TransformPtr()->pos_).Length();
+	float distance = std::abs(pVP_->eye_.x_ - basePos);
 
-	// 更新範囲
-	static const float kUpdateRange = 250.0f;
-
-	return distance <= kUpdateRange;
-}
-
-bool GameObjectManager::InUpdateRangeForBack(GameObject* pObject)
-{
-	// 視点との距離
-	float distance = YMath::Vector3(pVP_->eye_ - pObject->TransformPtr()->pos_).Length();
-
-	// 更新範囲
-	static const float kUpdateRange = 500.0f;
-
-	return distance <= kUpdateRange;
+	return distance <= range;
 }
 
 void GameObjectManager::CheckAllCollision()
@@ -204,6 +203,7 @@ void GameObjectManager::CheckCollisionCharacterPair(
 	if (pCollA == nullptr || pCollB == nullptr) { return; }
 
 	bool isColl = false;
+
 	
 	if (pCollA->Priority() < pCollB->Priority())
 	{
@@ -212,6 +212,12 @@ void GameObjectManager::CheckCollisionCharacterPair(
 	else 
 	{
 		isColl = pCollA->CheckCollision(pCollB);
+	}
+
+	if(pObjectB->Name() == "Player" && pObjectA->Name() == "Block" && isColl)
+	{
+		int a  = 0;
+		a = 1;
 	}
 
 	// 判定

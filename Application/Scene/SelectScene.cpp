@@ -26,6 +26,9 @@ using namespace YMath;
 #pragma region 読み込み
 void SelectScene::Load()
 {
+	StageManager::GetInstance()->Load();
+	StageManager::GetInstance()->Initialize();
+
 	BaseDrawer::StaticInitialize(&transferVP_);
 
 	SelectDrawer::SetViewProjection(&transferVP_);
@@ -71,15 +74,15 @@ void SelectScene::Update()
 	{
 		if (spKeys_->IsTrigger(DIK_LEFT) || spKeys_->IsTrigger(DIK_A) ||
 			spKeys_->IsTrigger(DIK_DOWN) || spKeys_->IsTrigger(DIK_S) ||
-			spPad_->IsTrigger(PadButton::XIP_LEFT)/* || spPad_->IsLeft(PadStick::LStick)*/ ||
-			spPad_->IsTrigger(PadButton::XIP_DOWN)/* || spPad_->IsUnder(PadStick::LStick)*/)
+			spPad_->IsTrigger(PadButton::XIP_LEFT) || spPad_->IsLeft(PadStick::LStick, true)||
+			spPad_->IsTrigger(PadButton::XIP_DOWN))
 		{
 			stageIndex_--;
 		}
 		if (spKeys_->IsTrigger(DIK_RIGHT) || spKeys_->IsTrigger(DIK_D) ||
 			spKeys_->IsTrigger(DIK_UP) || spKeys_->IsTrigger(DIK_W) ||
-			spPad_->IsTrigger(PadButton::XIP_RIGHT)/* || spPad_->IsRight(PadStick::LStick)*/ ||
-			spPad_->IsTrigger(PadButton::XIP_UP)/* || spPad_->IsUp(PadStick::LStick)*/)
+			spPad_->IsTrigger(PadButton::XIP_RIGHT) || spPad_->IsRight(PadStick::LStick, true) ||
+			spPad_->IsTrigger(PadButton::XIP_UP))
 		{
 			stageIndex_++;
 		}

@@ -126,7 +126,6 @@
     <ClCompile Include="Application\Game\Object\Stage\GateDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\LifeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\MagnetDrawer.cpp" />
-    <ClCompile Include="Application\Game\UI\DistanceDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\HPGaugeDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\InstructionsDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
@@ -278,7 +277,6 @@
     <ClInclude Include="Application\Game\Object\Stage\GateDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\LifeDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\MagnetDrawer.h" />
-    <ClInclude Include="Application\Game\UI\DistanceDrawer.h" />
     <ClInclude Include="Application\Game\UI\HPGaugeDrawer.h" />
     <ClInclude Include="Application\Game\UI\InstructionsDrawer.h" />
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
@@ -459,6 +457,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Resources\Shaders\DeleteMagentaColorPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Resources\Shaders\DissolvePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
@@ -488,14 +490,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Primitive3DPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Primitive3DVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>

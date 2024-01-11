@@ -49,12 +49,6 @@ namespace YGame
 		
 		// 開始フラグ
 		bool isStart_ = false;
-
-		// 開始演出用タイマー
-		YMath::Timer startTimer_;
-
-		// 開始演出用カメラオフセット
-		YMath::Ease<YMath::Vector3> cameraOffset_;
 		
 		// 停止フラグ
 		bool isStop_ = false;

@@ -391,12 +391,12 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
 
-	// PostEffectWorld_0
+	// World_0
 	{
 		ShaderSet shader;
 
 		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("PostEffectPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("DeleteMagentaColorPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -421,19 +421,20 @@ void MyGame::InitializePipelines()
 	// 描画順序設定
 	pPipelineMan_->SetDrawOrder(
 		{
+			"PostEffectDefault",
+			"World_0",
+			
 			"ModelDefault",
 			"ModelOutline",
 			"ModelSingleColor",
 			"ModelPhong",
 			"ModelToon",
-
+			
 			"Sprite3DDefault",
 			"Sprite3DUI",
 
 			"Sprite2DDefault",
 
-			"PostEffectDefault",
-			"World_0",
 		}
 	);
 }
