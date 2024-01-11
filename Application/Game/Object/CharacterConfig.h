@@ -58,7 +58,7 @@ namespace YGame
 		static const uint32_t kAliveTime = 30;
 		static const YMath::Vector3 kAcceleration = { 0.3f,0.0f,0.0f };
 		static const YMath::Vector3 kMaxSpeed = { 1.0f,0.0f,0.0f };
-		static const float kRadius = 2.0f;
+		static const float kRadius = 4.0f;
 		static const uint32_t kPower = 50;
 	}
 

@@ -69,20 +69,20 @@ void NeedleAttackDrawer::InitializeTimers()
 void NeedleAttackDrawer::GetReadyForAnimation(const uint32_t index)
 {
 	// 時間
-	const uint32_t frame = animationTimers_[index].timer.EndFrame();
+	//const uint32_t frame = animationTimers_[index].timer.EndFrame();
 
 	if (index & static_cast<uint32_t>(AnimationType::eAttack))
 	{
 		// ブヨブヨアニメ
-		std::vector<Vector3> wobbleScaleValues;
-		wobbleScaleValues.push_back(Vector3(-1.0f, -1.0f, -1.0f));
-		wobbleScaleValues.push_back(Vector3(+0.1f, +0.1f, +0.1f));
-		wobbleScaleValues.push_back(Vector3(+0.0f, +0.0f, +0.0f));
+		//std::vector<Vector3> wobbleScaleValues;
+		//wobbleScaleValues.push_back(Vector3(-1.0f, -1.0f, -1.0f));
+		//wobbleScaleValues.push_back(Vector3(+0.1f, +0.1f, +0.1f));
+		//wobbleScaleValues.push_back(Vector3(+0.0f, +0.0f, +0.0f));
 
-		uint32_t wobbleFrame = frame / 2;
+		//uint32_t wobbleFrame = frame / 2;
 
-		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
-		slimeActor_.Wobble();
+		//slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		//slimeActor_.Wobble();
 
 		popTimer_.Reset(true);
 		vanishTimer_.Reset();
@@ -113,14 +113,14 @@ void NeedleAttackDrawer::UpdateAnimation()
 	
 	if (popTimer_.IsAct())
 	{
-		//animeStatus_.scale_ += YMath::EaseOut<Vector3>(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f), popTimer_.Ratio(), 2.0f);
+		//animeStatus_.scale_ += YMath::EaseOut(Vector3(), Vector3(1.0f, 1.0f, 1.0f), popTimer_.Ratio(), 2.0f);
 		cbColor_->data_.baseColor.a_ = YMath::EaseOut<float>(0.0f, 1.0f, popTimer_.Ratio(), 2.0f);
 	}
 
 	if (vanishTimer_.IsAct())
 	{
+		//animeStatus_.scale_ += YMath::EaseIn(Vector3(1.0f, 1.0f, 1.0f), Vector3(), vanishTimer_.Ratio(), 2.0f);
 		cbColor_->data_.baseColor.a_ = YMath::EaseIn<float>(1.0f, 0.0f, vanishTimer_.Ratio(), 2.0f);
-		animeStatus_.scale_ += YMath::EaseIn<Vector3>(Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f), vanishTimer_.Ratio(), 2.0f);
 	}
 
 	wavePopTimer_.Update();
