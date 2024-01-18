@@ -1,3 +1,10 @@
+/**
+ * @file MyGame.h
+ * @brief ゲーム全体の動きを管理するクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "YFramework.h"
 
@@ -51,11 +58,6 @@ namespace YBase
 		/// マップデータ読み込み
 		/// </summary>
 		void LoadMapData();
-
-		/// <summary>
-		/// 描画クラス読み込み
-		/// </summary>
-		void LoadDrawer();
 
 	};
 }

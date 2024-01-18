@@ -1,3 +1,10 @@
+/**
+ * @file CBLightGroup.h
+ * @brief 光源の定数バッファ用構造体
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "CBDirectionalLight.h"
 #include "CBPointLight.h"
@@ -13,13 +20,13 @@ namespace YGame
 	public:
 
 		// 平行光源数
-		static const size_t DireLightNum_ = 3;
+		static const size_t kDireLightNum_ = 3;
 
 		// 点光源数
-		static const size_t PointLightNum_ = 3;
+		static const size_t kPointLightNum_ = 3;
 
 		// スポットライト光源数
-		static const size_t SpotLightNum_ = 1;
+		static const size_t kSpotLightNum_ = 1;
 
 	public:
 
@@ -32,13 +39,13 @@ namespace YGame
 			float pad;
 			
 			// 平行光源
-			std::array<CBDirectionalLight::Data, DireLightNum_> direLights;
+			std::array<CBDirectionalLight::Data, kDireLightNum_> direLights;
 			
 			// 点光源
-			std::array<CBPointLight::Data, PointLightNum_> pointLights;
+			std::array<CBPointLight::Data, kPointLightNum_> pointLights;
 			
 			// スポットライト光源
-			//std::array<CBSpotLight::Data, SpotLightNum_> spotLights;
+			std::array<CBSpotLight::Data, kSpotLightNum_> spotLights;
 		};
 
 	public:

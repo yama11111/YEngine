@@ -11,6 +11,7 @@
 
 #include "ScoreManager.h"
 #include "StageManager.h"
+#include "ParticleManager.h"
 
 #pragma region 名前空間宣言
 
@@ -85,11 +86,6 @@ void PlayScene::Initialize()
 
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
-
-
-	pPostEffect_ = PostEffect::Create({ "Texture0" });
-	objPE_.reset(DrawObjectForPostEffect::Create(Transform::Status::Default(), pPostEffect_));
-	objPE_->SetShaderTag("World_0");
 }
 #pragma endregion
 
@@ -135,6 +131,8 @@ void PlayScene::Update()
 
 		camera_.Update();
 		transferVP_ = camera_.GetViewProjection();
+
+		ParticleManager::GetInstance()->Update();
 	}
 
 	transferVP_.UpdateMatrix();
@@ -149,8 +147,6 @@ void PlayScene::Update()
 	}
 
 	StageManager::GetInstance()->Update();
-
-	objPE_->Update();
 }
 #pragma endregion
 
@@ -165,5 +161,7 @@ void PlayScene::Draw()
 	pause_.Draw();
 	
 	uiDra_.Draw();
+
+	ParticleManager::GetInstance()->Draw();
 }
 #pragma endregion

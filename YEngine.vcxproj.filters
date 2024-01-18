@@ -106,9 +106,6 @@
     <Filter Include="Engine\Draw\ConstBuffer\Data">
       <UniqueIdentifier>{e0c9ac8a-efba-4453-8f60-843fcd6305eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Draw\ConstBuffer\Data\Light">
-      <UniqueIdentifier>{5b70f341-d8f5-4135-afd2-639377aaf4e6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Particle">
       <UniqueIdentifier>{40db7bcb-4568-4930-beee-97a6f00882a5}</UniqueIdentifier>
     </Filter>
@@ -232,6 +229,57 @@
     <Filter Include="Engine\Draw\Graphic\Texture">
       <UniqueIdentifier>{167d6e79-9d67-432b-95a1-5f4a7981e9f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ConstBuffer\Light">
+      <UniqueIdentifier>{5b70f341-d8f5-4135-afd2-639377aaf4e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Model\Outline">
+      <UniqueIdentifier>{07b7bb6a-5848-43ec-86a1-009791e5ab0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Model\Dissolve">
+      <UniqueIdentifier>{1f859abc-4a17-49dd-b9ac-305000cf2919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Model\Default">
+      <UniqueIdentifier>{36cf7ebf-b1c2-48e1-b619-1e8533d5bf38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Model\SingleColor">
+      <UniqueIdentifier>{1e52b966-dcbe-45db-89aa-22d86f0f99a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Model\Phong">
+      <UniqueIdentifier>{2098ede8-5914-4888-9757-f3639c43175a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Model\Toon">
+      <UniqueIdentifier>{a25e714c-2e07-4420-aaf4-899727c7f0e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Sprite2D\Default">
+      <UniqueIdentifier>{f8ce5b25-dc76-42a3-8460-acea0f9624a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\Default">
+      <UniqueIdentifier>{b4dd2402-633a-4295-bc24-5e6203250ace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Sprite3D\Default">
+      <UniqueIdentifier>{f3015313-b886-4e0b-af71-411b7d7139cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\Sprite2D\TextureBlend">
+      <UniqueIdentifier>{526e2d68-6239-438a-9ee0-1b765d485cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\Bloom">
+      <UniqueIdentifier>{5c7817c2-9865-4bf9-a4b3-f987ef269e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\ColorInversion">
+      <UniqueIdentifier>{7c9c9c35-19ed-46d5-a72e-a693e3df1240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\DeleteMagentaColor">
+      <UniqueIdentifier>{053f6f9d-4ba8-4ab4-b078-c497160bb0c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\GaussianBlur">
+      <UniqueIdentifier>{f92539bd-d355-4118-94a2-e9ce3dc9238b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\UVShiftBlur">
+      <UniqueIdentifier>{0fe86db4-0f04-4a72-b9d5-c8f1be5a428e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Base">
+      <UniqueIdentifier>{8efa1f09-ec7e-4ffc-afe0-cb4c388e6105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -305,9 +353,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Game\Level\Level.cpp">
       <Filter>Application\Game\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\MyGame.cpp">
-      <Filter>Application</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Game\Particle\BaseParticle.cpp">
       <Filter>Engine\Game\Particle</Filter>
@@ -645,9 +690,6 @@
     <ClCompile Include="Engine\Draw\Graphic\Texture.cpp">
       <Filter>Engine\Draw\Graphic\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Draw\Graphic\TextureConverter.cpp">
-      <Filter>Engine\Draw\Graphic\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Object\Item\Life.cpp">
       <Filter>Application\Game\Object\Item</Filter>
     </ClCompile>
@@ -677,6 +719,12 @@
     </ClCompile>
     <ClCompile Include="Application\Game\UI\StatusDrawer.cpp">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Base\MyGame.cpp">
+      <Filter>Application\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Base\ResourceLoader.cpp">
+      <Filter>Application\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -751,9 +799,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Game\Level\Level.h">
       <Filter>Application\Game\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\MyGame.h">
-      <Filter>Application</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Particle\BaseParticle.h">
       <Filter>Engine\Game\Particle</Filter>
@@ -857,18 +902,6 @@
     <ClInclude Include="Engine\Draw\CB\ConstBufferPtrSet.h">
       <Filter>Engine\Draw\ConstBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Draw\CB\CBDirectionalLight.h">
-      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Draw\CB\CBSpotLight.h">
-      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Draw\CB\CBPointLight.h">
-      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Draw\CB\CBLightGroup.h">
-      <Filter>Engine\Draw\ConstBuffer\Data\Light</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Draw\Object\BaseDrawObject.h">
       <Filter>Engine\Draw\Object</Filter>
     </ClInclude>
@@ -906,9 +939,6 @@
       <Filter>Engine\Draw\ConstBuffer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Draw\CB\CBTexConfig.h">
-      <Filter>Engine\Draw\ConstBuffer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Draw\CB\CBTime.h">
       <Filter>Engine\Draw\ConstBuffer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Draw\Graphic\DefaultGraphic.h">
@@ -1169,9 +1199,6 @@
     <ClInclude Include="Engine\Draw\Graphic\Texture.h">
       <Filter>Engine\Draw\Graphic\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Draw\Graphic\TextureConverter.h">
-      <Filter>Engine\Draw\Graphic\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Object\Item\Life.h">
       <Filter>Application\Game\Object\Item</Filter>
     </ClInclude>
@@ -1202,97 +1229,142 @@
     <ClInclude Include="Application\Game\UI\StatusDrawer.h">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBCircleShadow.h">
+      <Filter>Application\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBTime.h">
+      <Filter>Application\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBDirectionalLight.h">
+      <Filter>Application\ConstBuffer\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBLightGroup.h">
+      <Filter>Application\ConstBuffer\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBPointLight.h">
+      <Filter>Application\ConstBuffer\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBSpotLight.h">
+      <Filter>Application\ConstBuffer\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Base\MyGame.h">
+      <Filter>Application\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Base\ResourceLoader.h">
+      <Filter>Application\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaders\Sprite3D.hlsli">
-      <Filter>Application\Shader\Sprite3D</Filter>
-    </None>
-    <None Include="Resources\Shaders\Model.hlsli">
-      <Filter>Application\Shader\Model</Filter>
-    </None>
-    <None Include="Resources\Shaders\Sprite2D.hlsli">
-      <Filter>Application\Shader\Sprite2D</Filter>
-    </None>
-    <None Include="Resources\Shaders\PostEffect.hlsli">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </None>
     <None Include="Resources\Shaders\Light.hlsli">
       <Filter>Application\Shader\Model</Filter>
     </None>
-    <None Include="Resources\Shaders\Dissolve.hlsli">
+    <None Include=".editorconfig" />
+    <None Include="Resources\Shaders\CircleShadow.hlsli">
       <Filter>Application\Shader\Model</Filter>
     </None>
-    <None Include=".editorconfig" />
+    <None Include="Resources\Shaders\Dissolve.hlsli">
+      <Filter>Application\Shader\Model\Dissolve</Filter>
+    </None>
+    <None Include="Resources\Shaders\Model.hlsli">
+      <Filter>Application\Shader\Model\Default</Filter>
+    </None>
     <None Include="Resources\Shaders\Outline.hlsli">
-      <Filter>Application\Shader\Model</Filter>
+      <Filter>Application\Shader\Model\Outline</Filter>
+    </None>
+    <None Include="Resources\Shaders\Phong.hlsli">
+      <Filter>Application\Shader\Model\Phong</Filter>
+    </None>
+    <None Include="Resources\Shaders\SingleColor.hlsli">
+      <Filter>Application\Shader\Model\SingleColor</Filter>
+    </None>
+    <None Include="Resources\Shaders\Toon.hlsli">
+      <Filter>Application\Shader\Model\Toon</Filter>
+    </None>
+    <None Include="Resources\Shaders\Sprite3D.hlsli">
+      <Filter>Application\Shader\Sprite3D\Default</Filter>
+    </None>
+    <None Include="Resources\Shaders\Sprite2D.hlsli">
+      <Filter>Application\Shader\Sprite2D\Default</Filter>
+    </None>
+    <None Include="Resources\Shaders\PostEffect.hlsli">
+      <Filter>Application\Shader\PostEffect\Default</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
-      <Filter>Application\Shader\Sprite3D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite3DPS.hlsl">
-      <Filter>Application\Shader\Sprite3D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite3DVS.hlsl">
-      <Filter>Application\Shader\Sprite3D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite2DPS.hlsl">
-      <Filter>Application\Shader\Sprite2D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite2DVS.hlsl">
-      <Filter>Application\Shader\Sprite2D</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\ToonPS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\PhongPS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\PostEffectPS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\BloomPS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\UVShiftBlurPS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\TextureBlendPS.hlsl">
-      <Filter>Application\Shader\Sprite2D</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shaders\DissolvePS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
+      <Filter>Application\Shader\Model\Dissolve</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\DissolveVS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
+      <Filter>Application\Shader\Model\Dissolve</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
+    <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
+      <Filter>Application\Shader\Model\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\OutlineVS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
+    <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
+      <Filter>Application\Shader\Model\Default</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\OutlinePS.hlsl">
-      <Filter>Application\Shader\Model</Filter>
+      <Filter>Application\Shader\Model\Outline</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\OutlineVS.hlsl">
+      <Filter>Application\Shader\Model\Outline</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
+      <Filter>Application\Shader\Model\SingleColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\PhongPS.hlsl">
+      <Filter>Application\Shader\Model\Phong</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ToonPS.hlsl">
+      <Filter>Application\Shader\Model\Toon</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\PhongVS.hlsl">
+      <Filter>Application\Shader\Model\Phong</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\SingleColorVS.hlsl">
+      <Filter>Application\Shader\Model\SingleColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ToonVS.hlsl">
+      <Filter>Application\Shader\Model\Toon</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
+      <Filter>Application\Shader\Sprite3D\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Sprite3DPS.hlsl">
+      <Filter>Application\Shader\Sprite3D\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Sprite3DVS.hlsl">
+      <Filter>Application\Shader\Sprite3D\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Sprite2DPS.hlsl">
+      <Filter>Application\Shader\Sprite2D\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Sprite2DVS.hlsl">
+      <Filter>Application\Shader\Sprite2D\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\TextureBlendPS.hlsl">
+      <Filter>Application\Shader\Sprite2D\TextureBlend</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\PostEffectPS.hlsl">
+      <Filter>Application\Shader\PostEffect\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
+      <Filter>Application\Shader\PostEffect\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\BloomPS.hlsl">
+      <Filter>Application\Shader\PostEffect\Bloom</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
+      <Filter>Application\Shader\PostEffect\ColorInversion</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\DeleteMagentaColorPS.hlsl">
-      <Filter>Application\Shader\PostEffect</Filter>
+      <Filter>Application\Shader\PostEffect\DeleteMagentaColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
+      <Filter>Application\Shader\PostEffect\GaussianBlur</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\UVShiftBlurPS.hlsl">
+      <Filter>Application\Shader\PostEffect\UVShiftBlur</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

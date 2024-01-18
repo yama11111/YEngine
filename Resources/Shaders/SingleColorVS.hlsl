@@ -1,4 +1,4 @@
-#include "Dissolve.hlsli"
+#include "SingleColor.hlsli"
 
 PSInput main(VSInput input)
 {

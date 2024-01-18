@@ -1,6 +1,7 @@
 #pragma once
 #include "GPUResource.h"
 #include "DescriptorHeap.h"
+#include "Vector2.h"
 #include "Vector4.h"
 #include <vector>
 #include <string>
@@ -11,25 +12,6 @@ namespace YGame
 	// テクスチャ
 	class Texture
 	{
-		
-	private:
-		
-		// テクスチャバッファ
-		YDX::GPUResource buff_;
-		
-		// SRVハンドル (CPU)
-		D3D12_CPU_DESCRIPTOR_HANDLE srvCpuHandle_{};
-		
-		// SRVハンドル (GPU)
-		D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle_{};
-	
-		// テクスチャファイル名
-		std::string fileName_;
-
-	private:
-		
-		// 静的テクスチャ格納用vector配列
-		static std::vector<std::unique_ptr<Texture>> sTexs_;
 
 	public:
 		
@@ -44,7 +26,7 @@ namespace YGame
 		/// レンダーテクスチャ生成
 		/// </summary>
 		/// <returns>テクスチャポインタ</returns>
-		static Texture* CreateRender();
+		static Texture* CreateRender(const YMath::Vector2& size, const YMath::Vector4& clearColor);
 
 		/// <summary>
 		/// テクスチャ読み込み
@@ -123,6 +105,25 @@ namespace YGame
 		Texture() = default;
 
 		~Texture() = default;
+
+	private:
+
+		// テクスチャバッファ
+		YDX::GPUResource buff_;
+
+		// SRVハンドル (CPU)
+		D3D12_CPU_DESCRIPTOR_HANDLE srvCpuHandle_{};
+
+		// SRVハンドル (GPU)
+		D3D12_GPU_DESCRIPTOR_HANDLE srvGpuHandle_{};
+
+		// テクスチャファイル名
+		std::string fileName_;
+
+	private:
+
+		// 静的テクスチャ格納用vector配列
+		static std::vector<std::unique_ptr<Texture>> sTexs_;
 	};
 }
 

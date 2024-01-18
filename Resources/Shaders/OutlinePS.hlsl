@@ -7,7 +7,7 @@ PSOutput main(PSInput input)
 {
 	PSOutput output;
 
-	output.target_ = color_;
+	output.target = color_;
 
 	return output;
 }

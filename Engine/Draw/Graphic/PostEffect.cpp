@@ -43,7 +43,7 @@ PostEffect* PostEffect::Create(const std::vector<std::string>& rtvTags)
 	// レンダーテクスチャ生成
 	for (size_t i = 0; i < rtvTags.size(); i++)
 	{
-		Texture* pTex = Texture::CreateRender();
+		Texture* pTex = Texture::CreateRender(WinSize, ClearColor);
 
 		newPostEffect->pTexs_.insert({ rtvTags[i], pTex });
 	}
@@ -199,8 +199,7 @@ void PostEffect::StartRender()
 	for (size_t i = 0; i < rtvHandles.size(); i++)
 	{
 		// 画面クリア
-		//FLOAT clear[4] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,0.0f };
-		FLOAT clear[] = { 0.25f, 0.5f ,0.1f, 0.0f };
+		FLOAT clear[4] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,ClearColor.a_ };
 		spCmdList_->ClearRenderTargetView(rtvHandles[i], clear, 0, nullptr); // 青っぽい色
 	}
 

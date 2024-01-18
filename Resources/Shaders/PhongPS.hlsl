@@ -1,4 +1,4 @@
-#include "Model.hlsli"
+#include "Phong.hlsli"
 
 Texture2D<float4> tex : register(t0); // 0番スロットに設定されたテクスチャ
 SamplerState smp : register(s0);      // 0番スロットに設定されたサンプラー
@@ -8,7 +8,7 @@ PSOutput main(PSInput input)
 	PSOutput output;
 
 	// テクスチャマッピング
-	float4 texColor = tex.Sample(smp, input.uv_ * texTiling_ + texOffset_) * texColorRate_;
+	float4 texColor = tex.Sample(smp, input.uv * texTiling_ + texOffset_) * texColorRate_;
 
 	// 色
 	float4 color = texColor * baseColor_;
@@ -26,25 +26,25 @@ PSOutput main(PSInput input)
 	
 
 	// ライトに向かうベクトルと法線の計算
-	float3 dotLightNormal = dot(direLightVec, input.normal_);
+	float3 dotLightNormal = dot(direLightVec, input.normal);
 
 
 	// 環境反射光
-	float3 ambient = color.rgb * mAmbient_;
+	float3 ambient = color.rgb * ambient_;
 
 
 	// ライトに向かうベクトルと法線の内積をクランプ
 	float3 intensity = saturate(dotLightNormal);
 
 	// 拡散反射光
-	float3 diffuse =  intensity * color.rgb * mDiffuse_;
+	float3 diffuse =  intensity * color.rgb * diffuse_;
 
 
 	// 反射光ベクトル
-	float3 reflectDir = normalize(-direLightVec + (2.0f * dotLightNormal * input.normal_));
+	float3 reflectDir = normalize(-direLightVec + (2.0f * dotLightNormal * input.normal));
 
 	// 鏡面反射光
-	float3 specular = pow(saturate(dot(reflectDir, input.eyeDir_)), shininess) * mSpecular_;
+	float3 specular = pow(saturate(dot(reflectDir, input.eyeDir)), shininess) * specular_;
 
 
 	// 全て加算
@@ -52,7 +52,7 @@ PSOutput main(PSInput input)
 
 
 	// 計算した色で描画
-	output.target_ = float4(shaderColor, color.a * mAlpha_);
+	output.target = float4(shaderColor, color.a * alpha_);
 
 	return output;
 }

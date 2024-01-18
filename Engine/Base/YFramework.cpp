@@ -6,7 +6,7 @@
 #include "BaseConstBuffer.h"
 #include "DefaultConstBuffer.h"
 #include "DefaultGraphic.h"
-#include "PipelineManager.h"
+#include "ParticleManager.h"
 
 #pragma region 名前空間宣言
 
@@ -90,8 +90,7 @@ bool YFramework::Initialize()
 	pPipelineMan_ = PipelineManager::GetInstance();
 	pPipelineMan_->Clear();
 
-	pParticleMan_ = ParticleManager::GetInstance();
-	pParticleMan_->Clear();
+	ParticleManager::GetInstance()->Clear();
 
 	isEnd_ = false;
 
@@ -135,9 +134,6 @@ void YFramework::Update()
 
 	// シーン更新処理
 	sceneMan_->Update();
-
-	// パーティクル更新
-	pParticleMan_->Update();
 
 	// デスクリプタカウント表示
 	descHeap_.ShowCount();

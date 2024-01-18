@@ -12,60 +12,68 @@
 #include "CBPostEffectTransform.h"
 #include "CBColor.h"
 #include "CBMaterial.h"
-#include "CBLightGroup.h"
 #include "CBTexConfig.h"
-#include "CBTime.h"
 
 
 using YGame::BaseConstBuffer;
 using YGame::DefaultConstBuffer;
 using YGame::ConstBufferObject;
 
-static std::unordered_map<std::string, BaseConstBuffer*> sDefCBs;
+namespace
+{
+	std::unordered_map<std::string, BaseConstBuffer*> defCBs;
 
-static std::unique_ptr<ConstBufferObject<YGame::CBModelTransform>> sDefCBModelTransform;
-static std::unique_ptr<ConstBufferObject<YGame::CBSprite2DTransform>> sDefCBSprite2DTransform;
-static std::unique_ptr<ConstBufferObject<YGame::CBSprite3DTransform>> sDefCBSprite3DTransform;
-static std::unique_ptr<ConstBufferObject<YGame::CBPostEffectTransform>> sDefCBPostEffectTransform;
-static std::unique_ptr<ConstBufferObject<YGame::CBColor>> sDefCBColor;
-static std::unique_ptr<ConstBufferObject<YGame::CBMaterial>> sDefCBMaterial;
-static std::unique_ptr<ConstBufferObject<YGame::CBLightGroup>> sDefCBLightGroup;
-static std::unique_ptr<ConstBufferObject<YGame::CBTexConfig>> sDefCBTexConfig;
-static std::unique_ptr<ConstBufferObject<YGame::CBTime>> sDefCBTime;
+	std::unique_ptr<ConstBufferObject<YGame::CBModelTransform>> defCBModelTransform;
+	std::unique_ptr<ConstBufferObject<YGame::CBSprite2DTransform>> defCBSprite2DTransform;
+	std::unique_ptr<ConstBufferObject<YGame::CBSprite3DTransform>> defCBSprite3DTransform;
+	std::unique_ptr<ConstBufferObject<YGame::CBPostEffectTransform>> defCBPostEffectTransform;
+	std::unique_ptr<ConstBufferObject<YGame::CBColor>> defCBColor;
+	std::unique_ptr<ConstBufferObject<YGame::CBMaterial>> defCBMaterial;
+	std::unique_ptr<ConstBufferObject<YGame::CBTexConfig>> defCBTexConfig;
+}
 
 void DefaultConstBuffer::StaticInitialize()
 {
-	sDefCBModelTransform.reset(ConstBufferObject<CBModelTransform>::Create(false));
-	sDefCBs.insert({ CBModelTransform::Tag(), sDefCBModelTransform.get() });
-
-	sDefCBSprite2DTransform.reset(ConstBufferObject<CBSprite2DTransform>::Create(false));
-	sDefCBs.insert({ CBSprite2DTransform::Tag(), sDefCBSprite2DTransform.get() });
-
-	sDefCBSprite3DTransform.reset(ConstBufferObject<CBSprite3DTransform>::Create(false));
-	sDefCBs.insert({ CBSprite3DTransform::Tag(), sDefCBSprite3DTransform.get() });
-
-	sDefCBPostEffectTransform.reset(ConstBufferObject<CBPostEffectTransform>::Create(false));
-	sDefCBs.insert({ CBPostEffectTransform::Tag(), sDefCBPostEffectTransform.get() });
-
-	sDefCBColor.reset(ConstBufferObject<CBColor>::Create(false));
-	sDefCBs.insert({ CBColor::Tag(), sDefCBColor.get() });
-
-	sDefCBMaterial.reset(ConstBufferObject<CBMaterial>::Create(false));
-	sDefCBs.insert({ CBMaterial::Tag(), sDefCBMaterial.get() });
-
-	sDefCBLightGroup.reset(ConstBufferObject<CBLightGroup>::Create(false));
-	sDefCBs.insert({ CBLightGroup::Tag(), sDefCBLightGroup.get() });
-
-	sDefCBTexConfig.reset(ConstBufferObject<CBTexConfig>::Create(false));
-	sDefCBs.insert({ CBTexConfig::Tag(), sDefCBTexConfig.get() });
-
-	sDefCBTime.reset(ConstBufferObject<CBTime>::Create(false));
-	sDefCBs.insert({ CBTime::Tag(), sDefCBTime.get() });
+	if (defCBModelTransform == nullptr)
+	{
+		defCBModelTransform.reset(ConstBufferObject<CBModelTransform>::Create(false));
+		defCBs.insert({ CBModelTransform::Tag(), defCBModelTransform.get() });
+	}
+	if (defCBSprite2DTransform == nullptr)
+	{
+		defCBSprite2DTransform.reset(ConstBufferObject<CBSprite2DTransform>::Create(false));
+		defCBs.insert({ CBSprite2DTransform::Tag(), defCBSprite2DTransform.get() });
+	}
+	if (defCBSprite3DTransform == nullptr)
+	{
+		defCBSprite3DTransform.reset(ConstBufferObject<CBSprite3DTransform>::Create(false));
+		defCBs.insert({ CBSprite3DTransform::Tag(), defCBSprite3DTransform.get() });
+	}
+	if (defCBPostEffectTransform == nullptr)
+	{
+		defCBPostEffectTransform.reset(ConstBufferObject<CBPostEffectTransform>::Create(false));
+		defCBs.insert({ CBPostEffectTransform::Tag(), defCBPostEffectTransform.get() });
+	}
+	if (defCBColor == nullptr)
+	{
+		defCBColor.reset(ConstBufferObject<CBColor>::Create(false));
+		defCBs.insert({ CBColor::Tag(), defCBColor.get() });
+	}
+	if (defCBMaterial == nullptr)
+	{
+		defCBMaterial.reset(ConstBufferObject<CBMaterial>::Create(false));
+		defCBs.insert({ CBMaterial::Tag(), defCBMaterial.get() });
+	}
+	if (defCBTexConfig == nullptr)
+	{
+		defCBTexConfig.reset(ConstBufferObject<CBTexConfig>::Create(false));
+		defCBs.insert({ CBTexConfig::Tag(), defCBTexConfig.get() });
+	}
 }
 
 BaseConstBuffer* YGame::DefaultConstBuffer::Ptr(const std::string& tag)
 {
-	assert(sDefCBs.contains(tag));
+	assert(defCBs.contains(tag));
 
-	return sDefCBs[tag];
+	return defCBs[tag];
 }

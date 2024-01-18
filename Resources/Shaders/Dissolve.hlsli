@@ -30,37 +30,32 @@ cbuffer cbuff3 : register(b3)
 struct VSInput
 {
 	// 頂点座標
-	float4 pos_ : POSITION;
+	float4 pos : POSITION;
 	// 法線ベクトル
-	float3 normal_ : NORMAL;
+	float3 normal : NORMAL;
 	// uv値
-	float2 uv_ : TEXCOORD;
-	//// 接空間
-	//float3 tangent_ : TANGENT;
-	//// 頂点色
-	//float4 color_ : COLOR;
+	float2 uv : TEXCOORD;
 };
 
 // ピクセルシェーダーの入力構造体 
 struct PSInput
 {
-	// システム様頂点座標
-	float4 svPos_ : SV_POSITION;
+	// システム用頂点座標
+	float4 svPos : SV_POSITION;
 	// ワールド座標
-	float4 worldPos_ : POSITION;
+	float4 worldPos : POSITION;
 	// 法線ベクトル
-	float3 normal_ : NORMAL;
+	float3 normal : NORMAL;
 	// uv値
-	float2 uv_ : TEXCOORD;
-
+	float2 uv : TEXCOORD;
 	// 視線ベクトル
-	float3 eyeDir_ : EYE_DIRECTION;
+	float3 eyeDir : EYE_DIRECTION;
 };
 
 // ピクセルシェーダーの出力構造体
 struct PSOutput
 {
 	// 描画
-	float4 target_ : SV_TARGET;
+	float4 target : SV_TARGET;
 };
 

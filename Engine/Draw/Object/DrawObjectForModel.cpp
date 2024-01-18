@@ -46,7 +46,6 @@ void DrawObjectForModel::Initialize(const Transform::Status& status, const bool 
 
 	// デフォルトで設定
 	InsertDefaultConstBuffer(CBColor::Tag());
-	InsertDefaultConstBuffer(CBLightGroup::Tag());
 	InsertDefaultConstBuffer(CBMaterial::Tag());
 	InsertDefaultConstBuffer(CBTexConfig::Tag());
 

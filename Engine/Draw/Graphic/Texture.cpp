@@ -106,15 +106,15 @@ Texture* Texture::Create(const Vector4& color)
 	return newTexPtr;
 }
 
-Texture* Texture::CreateRender()
+Texture* Texture::CreateRender(const YMath::Vector2& size, const YMath::Vector4& clearColor)
 {
 	// テクスチャ生成
 	unique_ptr<Texture> newTex = std::make_unique<Texture>();
 
 	// 横方向ピクセル数
-	static const size_t textureWidth = static_cast<size_t>(WinSize.x_);
+	static const size_t textureWidth = static_cast<size_t>(size.x_);
 	// 縦方向ピクセル数
-	static const size_t textureHeight = static_cast<size_t>(WinSize.y_);
+	static const size_t textureHeight = static_cast<size_t>(size.y_);
 	// 配列の要素数
 	static const size_t imageDataCount = textureWidth * textureHeight;
 
@@ -150,14 +150,10 @@ Texture* Texture::CreateRender()
 	// クリア設定
 	D3D12_CLEAR_VALUE clearValue{};
 	clearValue.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-	//clearValue.Color[0] = ClearColor.r_;
-	//clearValue.Color[1] = ClearColor.g_;
-	//clearValue.Color[2] = ClearColor.b_;
-	//clearValue.Color[3] = ClearColor.a_;
-	clearValue.Color[0] = 0.25f;
-	clearValue.Color[1] = 0.5f;
-	clearValue.Color[2] = 0.1f;
-	clearValue.Color[3] = 0.0f;
+	clearValue.Color[0] = clearColor.r_;
+	clearValue.Color[1] = clearColor.g_;
+	clearValue.Color[2] = clearColor.b_;
+	clearValue.Color[3] = clearColor.a_;
 
 	// テクスチャバッファ生成
 	newTex->buff_.Create(&heapProp, &resDesc, resState, &clearValue);
@@ -241,6 +237,11 @@ Texture* Texture::Load(const std::string& directoryPath, const std::string texFi
 		// WICテクスチャのロード
 		Result(LoadFromWICFile(fileName, DirectX::WIC_FLAGS_NONE, &metadata, scratchImg));
 	}
+	else if (ext == "dds") // dds → DDS
+	{
+		// DDSテクスチャのロード
+		Result(LoadFromDDSFile(fileName, DirectX::DDS_FLAGS_NONE, &metadata, scratchImg));
+	}
 	else if (ext == "tga") // tga → TGA
 	{
 		// TGAテクスチャのロード
@@ -249,7 +250,7 @@ Texture* Texture::Load(const std::string& directoryPath, const std::string texFi
 
 	DirectX::ScratchImage mipChain{};
 	// ミップマップ生成
-	if (mipMap && (metadata.width > 1 && metadata.height > 1))
+	if (ext != "dds" && mipMap && (metadata.width > 1 && metadata.height > 1))
 	{
 		if (Result(GenerateMipMaps(
 			scratchImg.GetImages(),

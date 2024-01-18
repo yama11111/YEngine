@@ -1,3 +1,10 @@
+/**
+ * @file PlayScene.h
+ * @brief ゲームプレイシーンクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseScene.h"
 #include "GameObjectManager.h"
@@ -14,17 +21,11 @@
 namespace YGame
 {
 	// ゲームシーン
-	class PlayScene : public BaseScene
+	class PlayScene final : 
+		public BaseScene
 	{
 
 	public:
-
-#pragma region リソース
-
-
-#pragma endregion
-
-#pragma region ゲームオブジェクト
 
 		// レベル
 		Level* pLevel_ = nullptr;
@@ -53,12 +54,8 @@ namespace YGame
 		// 停止フラグ
 		bool isStop_ = false;
 
-		PauseManager pause_; 
-
-		PostEffect* pPostEffect_;
-		std::unique_ptr<DrawObjectForPostEffect> objPE_;
-
-#pragma endregion
+		// ポーズ
+		PauseManager pause_;
 
 	public:
 

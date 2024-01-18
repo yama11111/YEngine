@@ -1,3 +1,10 @@
+/**
+ * @file ParticleManager.h
+ * @brief パーティクルを管理するクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseParticle.h"
 #include <array>
@@ -5,7 +12,7 @@
 namespace YGame
 {
 	// パーティクルマネージャー
-	class ParticleManager
+	class ParticleManager final
 	{
 
 	public:
@@ -50,11 +57,8 @@ namespace YGame
 	private:
 
 		ParticleManager() = default;
-
 		~ParticleManager() = default;
-
 		ParticleManager(const ParticleManager&) = delete;
-
 		const ParticleManager& operator=(const ParticleManager&) = delete;
 	};
 }

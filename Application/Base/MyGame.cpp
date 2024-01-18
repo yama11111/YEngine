@@ -27,39 +27,7 @@
 
 #include "StageManager.h"
 
-#include "DefaultDrawer.h"
-#include "PlayerDrawer.h"
-#include "HorseDrawer.h"
-#include "SlimeDrawer.h"
-#include "CoinDrawer.h"
-#include "LifeDrawer.h"
-#include "MagnetDrawer.h"
-#include "NeedleAttackDrawer.h"
-#include "BlockDrawer.h"
-#include "GateDrawer.h"
-#include "GoalDrawer.h"
-#include "CloudDrawer.h"
-#include "SkydomeDrawer.h"
-#include "AxisDrawer.h"
-#include "CollisionDrawer.h"
-
-#include "TitleDrawer.h"
-#include "SelectDrawer.h"
-#include "StageDrawer.h"
-#include "StageStatusDrawer.h"
-#include "BeginingDrawer.h"
-
-#include "UIDrawer.h"
-#include "InstructionsDrawer.h"
-#include "StatusDrawer.h"
-#include "HPGaugeDrawer.h"
-#include "SpeedLevelDrawer.h"
-#include "ScoreDrawer.h"
-#include "CoinCountDrawer.h"
-#include "PauseDrawer.h"
-
-#include "UILetterBox.h"
-#include "UIDigit.h"
+#include "ResourceLoader.h"
 
 #pragma region 名前空間宣言
 using YBase::MyGame;
@@ -76,7 +44,7 @@ bool MyGame::Initialize()
 
 	LoadMapData();
 
-	LoadDrawer();
+	ResourceLoader::Load();
 
 	InitializePipelines();
 
@@ -108,13 +76,8 @@ void MyGame::Draw()
 	// デスクリプターヒープ設定
 	descHeap_.SetDrawCommand();
 
-	// ----- 描画を積む ----- //
-	
+	// 描画を積む
 	sceneMan_->Draw();
-
-	pParticleMan_->Draw();
-
-	// ---------------------- //
 
 	// ----- 描画処理 ----- //
 	
@@ -200,7 +163,7 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("SingleColorVS.hlsl", ShaderSet::ShaderType::eVertex);
 		shader.LoadShader("SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
@@ -227,7 +190,7 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PhongVS.hlsl", ShaderSet::ShaderType::eVertex);
 		shader.LoadShader("PhongPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
@@ -237,7 +200,6 @@ void MyGame::InitializePipelines()
 					CBModelTransform::Tag(),
 					CBColor::Tag(),
 					CBMaterial::Tag(),
-					CBLightGroup::Tag(),
 					CBTexConfig::Tag(),
 				},
 				{
@@ -254,7 +216,7 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("ToonVS.hlsl", ShaderSet::ShaderType::eVertex);
 		shader.LoadShader("ToonPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
@@ -264,7 +226,6 @@ void MyGame::InitializePipelines()
 					CBModelTransform::Tag(),
 					CBColor::Tag(),
 					CBMaterial::Tag(),
-					CBLightGroup::Tag(),
 					CBTexConfig::Tag(),
 				},
 				{
@@ -424,7 +385,6 @@ void MyGame::InitializePipelines()
 			"PostEffectDefault",
 			"World_0",
 			
-			"ModelDefault",
 			"ModelOutline",
 			"ModelSingleColor",
 			"ModelPhong",
@@ -454,13 +414,10 @@ void MyGame::InitializeParticles()
 
 void MyGame::InitializeTransition()
 {
-	BlackoutTransition::LoadResource();
 	sceneMan_->InsertTransition("BLACKOUT", new BlackoutTransition());
 
-	WindBlocks::LoadResource();
 	sceneMan_->InsertTransition("WIND", new WindBlocks());
 
-	WaveTransition::LoadResource();
 	sceneMan_->InsertTransition("WAVE", new WaveTransition(false));
 	sceneMan_->InsertTransition("WAVE_REV", new WaveTransition(true));
 }
@@ -469,77 +426,5 @@ void MyGame::LoadMapData()
 {
 	StageManager::GetInstance()->Load();
 	StageManager::GetInstance()->Initialize();
-}
-
-void MyGame::LoadDrawer()
-{
-	// UI
-	{
-		UILetterBox::LoadResource();
-
-		UIDigit::LoadResource();
-
-		UIDrawer::LoadResource();
-
-		PauseDrawer::LoadResource();
-
-		InstructionsDrawer::LoadResource();
-
-		StatusDrawer::LoadResource();
-		
-		HPGaugeDrawer::LoadResource();
-		
-		SpeedLevelDrawer::LoadResource();
-		
-		ScoreDrawer::LoadResource();
-		
-		CoinCountDrawer::LoadResource();
-	}
-
-	// Game
-	{
-		DefaultDrawer::LoadResource();
-
-		PlayerDrawer::LoadResource();
-
-		HorseDrawer::LoadResource();
-
-		SlimeDrawer::LoadResource();
-
-		NeedleAttackDrawer::LoadResource();
-
-		CoinDrawer::LoadResource();
-		
-		LifeDrawer::LoadResource();
-		
-		MagnetDrawer::LoadResource();
-
-		BlockDrawer::LoadResource();
-		
-		GateDrawer::LoadResource();
-
-		GoalDrawer::LoadResource();
-
-		SkydomeDrawer::LoadResource();
-
-		CloudDrawer::LoadResource();
-
-		AxisDrawer::LoadResource();
-
-		CollisionDrawer::LoadResource();
-	}
-
-	// Scene
-	{
-		TitleDrawer::LoadResource();
-
-		StageDrawer::LoadResource();
-
-		StageStatusDrawer::LoadResource();
-
-		SelectDrawer::LoadResource();
-
-		BeginingDrawer::LoadResource();
-	}
 }
 

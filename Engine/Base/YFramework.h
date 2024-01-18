@@ -4,7 +4,6 @@
 #include "YDirectX.h"
 #include "ScreenDesc.h"
 #include "PipelineManager.h"
-#include "ParticleManager.h"
 #include "ImGuiManager.h"
 #include <memory>
 
@@ -69,9 +68,6 @@ namespace YBase
 
 		// パイプラインマネージャー
 		YGame::PipelineManager* pPipelineMan_ = nullptr;
-		
-		// パーティクルマネージャー
-		YGame::ParticleManager* pParticleMan_ = nullptr;
 		
 		// シーンマネージャー
 		YGame::SceneManager* sceneMan_ = nullptr;
