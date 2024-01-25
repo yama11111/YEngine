@@ -1,6 +1,8 @@
 #include "GoalDrawer.h"
 #include "DrawObjectForModel.h"
 
+#include "CircleShadowManager.h"
+
 using YGame::GoalDrawer;
 using YGame::Model;
 using YMath::Vector3;
@@ -31,6 +33,8 @@ void GoalDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	InsertConstBuffer("Goal", CircleShadowManager::GetInstance()->CBPtr(2));
+	
 	SetShaderTag("ModelToon");
 	
 	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);

@@ -7,6 +7,8 @@
 #include "Def.h"
 #include <cmath>
 
+#include "CircleShadowManager.h"
+
 #include "DamageParticle.h"
 #include "WaveParticle.h"
 
@@ -51,6 +53,7 @@ void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbOutline_->data_.color = YMath::GetColor(143, 13, 48, 255);
 	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Body", CircleShadowManager::GetInstance()->CBPtr(0));
 	InsertConstBuffer("Body_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
@@ -142,6 +145,9 @@ void SlimeDrawer::UpdateAnimation()
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
+
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(1, pParent_->pos_ - Vector3(0, 1.0f, 0));
 }
 
 void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)

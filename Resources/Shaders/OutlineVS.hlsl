@@ -2,24 +2,19 @@
 
 PSInput main(VSInput input)
 {
-	// range分拡大
-	matrix matW = mul(matWorld_, matrix(
-		1.0f + range_, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f + range_, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f + range_, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f));
-
 	// 法線にワールド行列によるスケーリング、回転を適用
-	float4 wNormal = normalize(mul(matW, float4(input.normal, 0)));
-	float4 wPos = mul(matW, input.pos);
-
+    float4 wNormal = normalize(mul(matWorld_, float4(input.normal, 0)));	
+    float4 wPos = mul(matWorld_, input.pos);
 
 	// ピクセルシェーダーに渡す値
 	PSInput output;
 
+	// 法線方向に拡張した座標を計算
+    float4 extendPos = input.pos;
+    extendPos += float4(input.normal * range_, 0.0f);
 
 	// システム頂点
-	output.svPos = mul(mul(matViewProj_, matW), input.pos);
+    output.svPos = mul(mul(matViewProj_, matWorld_), extendPos);
 
 	// ワールド座標
 	output.worldPos = wPos;

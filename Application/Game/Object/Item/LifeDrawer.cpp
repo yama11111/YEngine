@@ -4,6 +4,8 @@
 #include "Lerp.h"
 #include "Def.h"
 
+#include "CircleShadowManager.h"
+
 #include "WaveParticle.h"
 #include "RecoveryParticle.h"
 
@@ -47,6 +49,7 @@ void LifeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbOutline_->data_.color = ColorConfig::skYellow;
 	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Life", CircleShadowManager::GetInstance()->CBPtr(1));
 	InsertConstBuffer("Life_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
@@ -104,6 +107,8 @@ void LifeDrawer::UpdateAnimation()
 	animeStatus_.pos_.y_ += earnPosEas_.Out(animationTimers_[kEarnIndex].timer.Ratio());
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
+
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
 
 }
 

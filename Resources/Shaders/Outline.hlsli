@@ -7,7 +7,7 @@ cbuffer cbuff0 : register(b0)
 }
 
 // アウトライン
-cbuffer cbuff1 : register(b1)
+cbuffer cbOutline : register(b1)
 {
 	float4 color_; // 色(RGBA)
 	float range_; // 範囲

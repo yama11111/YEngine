@@ -7,6 +7,8 @@
 #include "Def.h"
 #include <cmath>
 
+#include "CircleShadowManager.h"
+
 using YGame::PlayerDrawer;
 using YGame::Model;
 using YMath::Vector3;
@@ -54,6 +56,10 @@ void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
 	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Body", CircleShadowManager::GetInstance()->CBPtr(0));
+	InsertConstBuffer("Leg_L", CircleShadowManager::GetInstance()->CBPtr(0));
+	InsertConstBuffer("Leg_R", CircleShadowManager::GetInstance()->CBPtr(0));
+	
 	InsertConstBuffer("Body_O", cbOutline_.get());
 	InsertConstBuffer("Leg_L_O", cbOutline_.get());
 	InsertConstBuffer("Leg_R_O", cbOutline_.get());
@@ -207,4 +213,7 @@ void PlayerDrawer::UpdateAnimation()
 
 	//Transform::Status status = animeStatus_;
 	//outlineObj_->Update(status);
+
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(1, pParent_->pos_ - Vector3(0, 1.0f, 0));
 }

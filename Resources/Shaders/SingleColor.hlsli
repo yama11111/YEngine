@@ -1,6 +1,5 @@
-
 // トランスフォーム
-cbuffer cbuff0 : register(b0)
+cbuffer cbTransform : register(b0)
 {
     matrix matWorld_; // ワールド行列
     matrix matViewProj_; // ビュープロジェクション行列
@@ -8,7 +7,7 @@ cbuffer cbuff0 : register(b0)
 }
 
 // 色
-cbuffer cbuff1 : register(b1)
+cbuffer cbColor : register(b1)
 {
     float4 baseColor_; // 色(RGBA)
     float4 texColorRate_; // 元の色の割合

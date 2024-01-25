@@ -117,6 +117,7 @@
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Draw\UI\UIGauge.cpp" />
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
+    <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Block.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Goal.cpp" />
@@ -266,9 +267,11 @@
     <ClInclude Include="Application\Base\ResourceLoader.h" />
     <ClInclude Include="Application\ConstBuffer\CBCircleShadow.h" />
     <ClInclude Include="Application\ConstBuffer\CBOutline.h" />
+    <ClInclude Include="Application\ConstBuffer\CBShadowGroup.h" />
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Draw\UI\UIGauge.h" />
     <ClInclude Include="Application\Game\Camera\GameCamera.h" />
+    <ClInclude Include="Application\Game\Object\CircleShadowManager.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\Stage\Block.h" />
     <ClInclude Include="Application\Game\Object\Stage\Goal.h" />

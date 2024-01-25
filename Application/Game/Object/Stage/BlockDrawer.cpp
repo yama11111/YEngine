@@ -1,6 +1,7 @@
 #include "BlockDrawer.h"
 #include "DrawObjectForModel.h"
 #include "ColorConfig.h"
+#include "CircleShadowManager.h"
 
 using YGame::BlockDrawer;
 using YGame::Model;
@@ -44,8 +45,9 @@ void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skTurquoise[3];
-	cbOutline_->data_.range = 0.01f;
+	cbOutline_->data_.range = 0.02f;
 	
+	InsertConstBuffer("Block", CircleShadowManager::GetInstance()->CBPtr(0));
 	InsertConstBuffer("Block_O", cbOutline_.get());
 	
 	SetShaderTag("Block", "ModelToon");

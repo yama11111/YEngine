@@ -4,6 +4,8 @@
 #include "Lerp.h"
 #include "Def.h"
 
+#include "CircleShadowManager.h"
+
 #include "WaveParticle.h"
 
 using YGame::MagnetDrawer;
@@ -48,6 +50,7 @@ void MagnetDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbOutline_->data_.color = ColorConfig::skYellow;
 	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Magnet", CircleShadowManager::GetInstance()->CBPtr(1));
 	InsertConstBuffer("Magnet_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
@@ -60,6 +63,8 @@ void MagnetDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// 獲得アニメーション用
 	earnPosEas_.Initialize(0.0f, +5.0f, 3.0f);
 	earnRotaEas_.Initialize(0.0f, +kPI * 6.0f, 3.0f);
+	
+	isEarn_ = false;
 
 	emitTimer_.Initialize(0);
 	emitCounter_ = 0;
@@ -103,6 +108,8 @@ void MagnetDrawer::GetReadyForAnimation(const uint32_t index)
 
 		emitTimer_.Initialize(20, true);
 		emitCounter_ = 0;
+
+		isEarn_ = true;
 	}
 }
 
@@ -130,4 +137,10 @@ void MagnetDrawer::UpdateAnimation()
 		
 		emitTimer_.Initialize(10, (emitCounter_ < 2));
 	}
+
+	if (isEarn_ == false)
+	{
+		CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
+	}
+
 }

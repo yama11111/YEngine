@@ -12,6 +12,9 @@ PSOutput main(PSInput input)
 
 	// 色
 	float4 color = texColor * baseColor_;
+	
+	// 最終的な色
+    float3 shaderColor = 0.0f;
 
 
 	// 光沢度
@@ -57,10 +60,13 @@ PSOutput main(PSInput input)
 
 	// 鏡面反射光にスムースステップを適応
 	specular = smoothstep(thresholdStart, thresholdEnd, specular);
-
-
+	
 	// 全て加算
-	float3 shaderColor = (ambient + diffuse + specular) * direLightColor;
+    shaderColor += (ambient + diffuse + specular) * direLightColor;
+	
+	// 丸影の影色値を加算する
+    shaderColor += CalcCircleShadowColor(circleShadows_, input.worldPos.xyz);
+	
 
 	// 計算した色で描画
 	output.target = float4(shaderColor, color.a * alpha_);

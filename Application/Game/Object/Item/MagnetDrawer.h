@@ -69,6 +69,8 @@ namespace YGame
 		YMath::Ease<float> earnPosEas_;
 		YMath::Ease<float> earnRotaEas_;
 
+		bool isEarn_ = false;
+
 		YMath::Timer emitTimer_;
 		uint32_t emitCounter_ = 0;
 

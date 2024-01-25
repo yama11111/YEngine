@@ -33,19 +33,19 @@ namespace YGame
 			float distanceFromCasterToShadow = 100.0f;
 
 			// 距離減衰係数
-			YMath::Vector3 shadowAtten = { 0.5f,0.5f,0.5f };
-
-			float pad2;
+			YMath::Vector3 shadowAtten = { 0.5f,0.6f,0.0f };
 
 			// 減衰開始角度
-			float shadowStartFactorAngleCos = 0.5f;
+			float shadowStartFactorAngleCos = 0.0f;
 
 			// 減衰終了角度
-			float shadowEndFactorAngleCos = 0.2f;
+			float shadowEndFactorAngleCos = 0.5f;
 
 			// 動作フラグ
 			float active = 0.0f;
 
+			float pad2;
+			
 			float pad3;
 		};
 

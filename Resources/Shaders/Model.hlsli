@@ -1,7 +1,7 @@
 #include "Light.hlsli"
 
 // トランスフォーム
-cbuffer cbuff0 : register(b0)
+cbuffer cbTransform : register(b0)
 {
 	matrix matWorld_; // ワールド行列
 	matrix matViewProj_; // ビュープロジェクション行列
@@ -9,14 +9,14 @@ cbuffer cbuff0 : register(b0)
 }
 
 // 色
-cbuffer cbuff1 : register(b1)
+cbuffer cbColor : register(b1)
 {
 	float4 baseColor_; // 色(RGBA)
 	float4 texColorRate_; // 元の色の割合
 }
 
 // マテリアル
-cbuffer cbuff2 : register(b2)
+cbuffer cbMaterial : register(b2)
 {
 	float3 ambient_  : packoffset(c0); // アンビエント係数
 	float3 diffuse_  : packoffset(c1); // ディフューズ係数
@@ -25,7 +25,7 @@ cbuffer cbuff2 : register(b2)
 }
 
 // 光
-cbuffer cbuff3 : register(b3)
+cbuffer cbLightGroup : register(b3)
 {
 	float3 ambientColor_; // 環境光色
 	DireLight direLights_[DireLightNum]; // 平行光源
@@ -34,7 +34,7 @@ cbuffer cbuff3 : register(b3)
 }
 
 // テクスチャ設定
-cbuffer cbuff4 : register(b4)
+cbuffer cbTexConfig : register(b4)
 {
 	float2 texTiling_; // タイリング
 	float2 texOffset_; // オフセット

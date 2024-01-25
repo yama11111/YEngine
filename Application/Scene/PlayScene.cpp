@@ -12,6 +12,7 @@
 #include "ScoreManager.h"
 #include "StageManager.h"
 #include "ParticleManager.h"
+#include "CircleShadowManager.h"
 
 #pragma region 名前空間宣言
 
@@ -48,6 +49,8 @@ void PlayScene::Load()
 void PlayScene::Initialize()
 {
 	StageManager::GetInstance()->Reset();
+
+	CircleShadowManager::GetInstance()->Intialize();
 
 	// ゲームキャラクターマネージャー初期化
 	pObjectMan_->Initialize(&transferVP_);
@@ -126,6 +129,8 @@ void PlayScene::Update()
 
 		uiDra_.Update();
 
+		CircleShadowManager::GetInstance()->Reset();
+
 		// 開始演出中更新しない
 		pObjectMan_->Update(isStart_);
 
@@ -134,7 +139,7 @@ void PlayScene::Update()
 
 		ParticleManager::GetInstance()->Update();
 	}
-
+	
 	transferVP_.UpdateMatrix();
 
 	pObjectMan_->DrawDebugText();

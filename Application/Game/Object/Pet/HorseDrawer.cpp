@@ -6,6 +6,8 @@
 #include "Def.h"
 #include <cmath>
 
+#include "CircleShadowManager.h"
+
 using YGame::HorseDrawer;
 using YGame::Model;
 using YMath::Vector3;
@@ -51,6 +53,7 @@ void HorseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
 	cbOutline_->data_.range = 0.2f;
 	
+	InsertConstBuffer("Body", CircleShadowManager::GetInstance()->CBPtr(0));
 	InsertConstBuffer("Body_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");

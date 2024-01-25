@@ -5,6 +5,7 @@
 #include "CharacterConfig.h"
 #include "ColorConfig.h"
 #include "Def.h"
+#include "CircleShadowManager.h"
 
 using YGame::NeedleAttackDrawer;
 using YGame::Model;
@@ -40,6 +41,7 @@ void NeedleAttackDrawer::Initialize(Transform* pParent, const size_t drawPriorit
 	cbOutline_->data_.color = ColorConfig::skTurquoise[0];
 	cbOutline_->data_.range = 0.2f;
 
+	InsertConstBuffer("Attack", CircleShadowManager::GetInstance()->CBPtr(1));
 	InsertConstBuffer("Attack_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
@@ -129,4 +131,6 @@ void NeedleAttackDrawer::UpdateAnimation()
 		wavePopTimer_.Reset(true);
 		WaveParticle::Emit(10, pParent_->pos_, {0.0f, kPI / 2.0f, 0.0f}, 3.0f, ColorConfig::skTurquoise[0], spVP_);
 	}
+
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
 }

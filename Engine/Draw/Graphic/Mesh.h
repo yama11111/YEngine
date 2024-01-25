@@ -2,11 +2,10 @@
 #include "Vertices.h"
 #include "Texture.h"
 #include "Node.h"
-#include "Vector2.h"
-#include "Vector4.h"
 #include <fbxsdk.h>
 #include <unordered_map>
 #include <memory>
+#include <cstdint>
 
 namespace YGame
 {
@@ -21,8 +20,6 @@ namespace YGame
 			YMath::Vector3 pos_;	 // xyz座標
 			YMath::Vector3 normal_;	 // 法線ベクトル
 			YMath::Vector2 uv_;		 // uv座標
-			//YMath::Vector3 tangent_; // 接空間
-			//YMath::Vector4 color_;	 // 頂点色
 		};
 
 	private:
@@ -31,7 +28,7 @@ namespace YGame
 		YDX::VertexIndex<VData> vtIdx_;
 
 		// 頂点法線スムーシング用データ
-		std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData_;
+		std::unordered_map<uint16_t, std::vector<uint16_t>> smoothData_;
 
 		// ノード
 		Node node_;
@@ -89,7 +86,7 @@ namespace YGame
 		/// <param name="vertices"> : 頂点配列</param>
 		/// <param name="smoothData"> : 保存用スムースデータ</param>
 		static void CalculateSmoothedVertexNormals(std::vector<VData>& vertices,
-			std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData);
+			std::unordered_map<uint16_t, std::vector<uint16_t>>& smoothData);
 		
 		/// <summary>
 		/// マテリアル(テクスチャ)読み込み

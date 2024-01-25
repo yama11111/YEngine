@@ -280,6 +280,9 @@
     <Filter Include="Application\Base">
       <UniqueIdentifier>{8efa1f09-ec7e-4ffc-afe0-cb4c388e6105}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\ConstBuffer\Shadow">
+      <UniqueIdentifier>{44c6e525-4579-41b0-aa17-4edfd7509c36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -725,6 +728,9 @@
     </ClCompile>
     <ClCompile Include="Application\Base\ResourceLoader.cpp">
       <Filter>Application\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp">
+      <Filter>Application\Game\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1229,9 +1235,6 @@
     <ClInclude Include="Application\Game\UI\StatusDrawer.h">
       <Filter>Application\Game\UI\Drawer\Play</Filter>
     </ClInclude>
-    <ClInclude Include="Application\ConstBuffer\CBCircleShadow.h">
-      <Filter>Application\ConstBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\ConstBuffer\CBTime.h">
       <Filter>Application\ConstBuffer</Filter>
     </ClInclude>
@@ -1252,6 +1255,15 @@
     </ClInclude>
     <ClInclude Include="Application\Base\ResourceLoader.h">
       <Filter>Application\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBCircleShadow.h">
+      <Filter>Application\ConstBuffer\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBShadowGroup.h">
+      <Filter>Application\ConstBuffer\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\CircleShadowManager.h">
+      <Filter>Application\Game\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

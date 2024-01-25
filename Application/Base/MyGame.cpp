@@ -11,6 +11,8 @@
 #include "CBColor.h"
 #include "CBMaterial.h"
 #include "CBLightGroup.h"
+#include "CBCircleShadow.h"
+#include "CBShadowGroup.h"
 #include "CBTexConfig.h"
 #include "CBTime.h"
 #include "CBOutline.h"
@@ -227,6 +229,7 @@ void MyGame::InitializePipelines()
 					CBColor::Tag(),
 					CBMaterial::Tag(),
 					CBTexConfig::Tag(),
+					CBShadowGroup::Tag(),
 				},
 				{
 					"Texture0",
@@ -394,7 +397,6 @@ void MyGame::InitializePipelines()
 			"Sprite3DUI",
 
 			"Sprite2DDefault",
-
 		}
 	);
 }

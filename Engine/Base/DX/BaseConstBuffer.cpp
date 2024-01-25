@@ -26,7 +26,7 @@ void BaseConstBuffer::CreateBuffer(const size_t dataSize, void** map, const bool
 	D3D12_RESOURCE_DESC resDesc{};
 	resDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 	resDesc.Height = 1;
-	resDesc.Width = (dataSize * 0xff) & ~0xff;
+	resDesc.Width = (dataSize + 0xff) & ~0xff;
 	resDesc.DepthOrArraySize = 1;
 	resDesc.MipLevels = 1;
 	resDesc.SampleDesc.Count = 1;

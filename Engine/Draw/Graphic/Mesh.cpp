@@ -113,7 +113,7 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 	std::vector<uint16_t> i;
 
 	// 頂点法線スムーシング用データ
-	std::unordered_map<unsigned short, std::vector<unsigned short>> sd;
+	std::unordered_map<uint16_t, std::vector<uint16_t>> sd;
 
 	// テクスチャ
 	Texture* pTex = nullptr;
@@ -244,7 +244,7 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 				// 追加
 				if (isSmoothing)
 				{
-					sd[idPositon].emplace_back(static_cast<unsigned short>(v.size() - 1));
+					sd[idPositon].emplace_back(static_cast<uint16_t>(v.size() - 1));
 				}
 			}
 		}
@@ -291,7 +291,7 @@ Mesh* Mesh::LoadFbx(const std::string& folderPath, FbxNode* fbxNode, const bool 
 	std::vector<uint16_t> i;
 	
 	// 頂点法線スムーシング用データ
-	std::unordered_map<unsigned short, std::vector<unsigned short>> sd;
+	std::unordered_map<uint16_t, std::vector<uint16_t>> sd;
 	
 	// テクスチャ
 	Texture* pTex = nullptr;
@@ -339,9 +339,9 @@ void Mesh::CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t>& 
 	for (size_t i = 0; i < indices.size() / 3; i++)
 	{
 		// 三角形のインデックスを取り出す
-		unsigned short index0 = indices[i * 3 + 0];
-		unsigned short index1 = indices[i * 3 + 1];
-		unsigned short index2 = indices[i * 3 + 2];
+		uint16_t index0 = indices[i * 3 + 0];
+		uint16_t index1 = indices[i * 3 + 1];
+		uint16_t index2 = indices[i * 3 + 2];
 
 		// 三角形を構成する頂点座標ベクトルに代入
 		Vector3 p0 = v[index0].pos_;
@@ -366,27 +366,27 @@ void Mesh::CalculateNormals(std::vector<VData>& v, const std::vector<uint16_t>& 
 }
 
 void Mesh::CalculateSmoothedVertexNormals(std::vector<VData>& vertices, 
-	std::unordered_map<unsigned short, std::vector<unsigned short>>& smoothData)
+	std::unordered_map<uint16_t, std::vector<uint16_t>>& smoothData)
 {
 	// スムースデータの数だけ
 	auto itr = smoothData.begin();
 	for (; itr != smoothData.end(); ++itr)
 	{
 		// 次の要素を代入
-		std::vector<unsigned short>& v = itr->second;
+		std::vector<uint16_t>& v = itr->second;
 
 		// 法線
 		Vector3 normal = {};
 
 		// 計算
-		for (unsigned short index : v)
+		for (uint16_t index : v)
 		{
 			normal += vertices[index].normal_;
 		}
 		normal = (normal / (float)v.size()).Normalized();
 
 		// 代入
-		for (unsigned short index : v)
+		for (uint16_t index : v)
 		{
 			vertices[index].normal_ = normal;
 		}

@@ -1,7 +1,8 @@
 #include "Light.hlsli"
+#include "CircleShadow.hlsli"
 
 // トランスフォーム
-cbuffer cbuff0 : register(b0)
+cbuffer cbTransform : register(b0)
 {
     matrix matWorld_; // ワールド行列
     matrix matViewProj_; // ビュープロジェクション行列
@@ -9,14 +10,14 @@ cbuffer cbuff0 : register(b0)
 }
 
 // 色
-cbuffer cbuff1 : register(b1)
+cbuffer cbColor : register(b1)
 {
     float4 baseColor_; // 色(RGBA)
     float4 texColorRate_; // 元の色の割合
 }
 
 // マテリアル
-cbuffer cbuff2 : register(b2)
+cbuffer cbMaterial : register(b2)
 {
     float3 ambient_ : packoffset(c0); // アンビエント係数
     float3 diffuse_ : packoffset(c1); // ディフューズ係数
@@ -25,12 +26,17 @@ cbuffer cbuff2 : register(b2)
 }
 
 // テクスチャ設定
-cbuffer cbuff4 : register(b3)
+cbuffer cbTexConfig : register(b3)
 {
     float2 texTiling_; // タイリング
     float2 texOffset_; // オフセット
 }
 
+// 丸影
+cbuffer cbCircleShadow : register(b4)
+{
+    CircleShadow circleShadows_[CircleShadowNum]; // 丸影
+}
 
 // 頂点シェーダーの入力構造体 
 struct VSInput
