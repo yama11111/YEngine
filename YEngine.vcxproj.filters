@@ -732,6 +732,9 @@
     <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp">
       <Filter>Application\Game\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Scene\TestScene.cpp">
+      <Filter>Application\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -1264,6 +1267,9 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Object\CircleShadowManager.h">
       <Filter>Application\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Scene\TestScene.h">
+      <Filter>Application\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

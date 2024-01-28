@@ -133,6 +133,7 @@
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
     <ClCompile Include="Application\Game\UI\StatusDrawer.cpp" />
+    <ClCompile Include="Application\Scene\TestScene.cpp" />
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\BeginingDrawer.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />
     <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
     <ClInclude Include="Application\Game\UI\StatusDrawer.h" />
+    <ClInclude Include="Application\Scene\TestScene.h" />
     <ClInclude Include="Engine\Math\Game\BitFrag.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\AxisDrawer.h" />
     <ClInclude Include="Application\Game\UI\BeginingDrawer.h" />

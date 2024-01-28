@@ -21,7 +21,7 @@ namespace YGame
 		static const std::string Result_;
 
 		// テスト
-		//static const std::string Test_;
+		static const std::string Test_;
 
 	public:
 		

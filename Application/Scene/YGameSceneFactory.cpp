@@ -4,7 +4,7 @@
 #include "PlayScene.h"
 #include "ResultScene.h"
 
-//#include "TestScene.h"
+#include "TestScene.h"
 
 using YGame::YGameSceneFactory;
 using YGame::BaseScene;
@@ -13,7 +13,7 @@ const std::string YGameSceneFactory::Title_		 = "TITLE";
 const std::string YGameSceneFactory::Select_	 = "SELECT";
 const std::string YGameSceneFactory::Play_		 = "PLAY";
 const std::string YGameSceneFactory::Result_	 = "RESULT";
-//const std::string YGameSceneFactory::Test_		 = "TEST";
+const std::string YGameSceneFactory::Test_		 = "TEST";
 
 std::unique_ptr<BaseScene> YGameSceneFactory::CreateScene(const std::string& sceneName)
 {
@@ -24,6 +24,8 @@ std::unique_ptr<BaseScene> YGameSceneFactory::CreateScene(const std::string& sce
 	if (sceneName == Select_)	{ newScene = std::make_unique<SelectScene>(); }
 	if (sceneName == Play_)		{ newScene = std::make_unique<PlayScene>(); }
 	if (sceneName == Result_)	{ newScene = std::make_unique<ResultScene>(); }
+	
+	if (sceneName == Test_)		{ newScene = std::make_unique<TestScene>(); }
 
 	return std::move(newScene);
 }

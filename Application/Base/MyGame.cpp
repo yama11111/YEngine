@@ -56,9 +56,9 @@ bool MyGame::Initialize()
 
 	sceneMan_->SetSceneFactory(std::move(std::make_unique<YGameSceneFactory>()));
 
-	//sceneMan_->Initialize(YGameSceneFactory::Title_);
+	sceneMan_->Initialize(YGameSceneFactory::Title_);
 	//sceneMan_->Initialize(YGameSceneFactory::Select_);
-	sceneMan_->Initialize(YGameSceneFactory::Play_);
+	//sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
