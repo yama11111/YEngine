@@ -17,5 +17,11 @@ namespace YGame
 		/// 読み込み
 		/// </summary>
 		static void Load();
+
+		/// <summary>
+		/// デバッグ用描画
+		/// </summary>
+		static void RenderDebug();
+
 	};
 }

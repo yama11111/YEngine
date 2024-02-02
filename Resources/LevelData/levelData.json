@@ -3195,7 +3195,7 @@
         },
         {
             "type": "MESH",
-            "name": "Player.001",
+            "name": "_Player.001",
             "transform": {
                 "translation": [
                     0.0,
@@ -3237,12 +3237,12 @@
         },
         {
             "type": "MESH",
-            "name": "_Player.003",
+            "name": "Player.003",
             "transform": {
                 "translation": [
                     0.0,
                     604.45703125,
-                    -5.699104309082031
+                    4.300895690917969
                 ],
                 "rotation": [
                     0.0,

@@ -128,15 +128,9 @@ void YFramework::Update()
 {
 	// imgui受付開始
 	imguiMan_.Begin();
-	
-	// input更新
-	inputMan_->Update();
 
-	// シーン更新処理
-	sceneMan_->Update();
-
-	// デスクリプタカウント表示
-	descHeap_.ShowCount();
+	// 更新の中身
+	UpdateContent();
 
 	// imgui受付終了
 	imguiMan_.End();
@@ -150,6 +144,18 @@ void YFramework::Update()
 	if (sceneMan_->IsEnd()) { isEnd_ = true; }
 
 	// ------------------------------------------------ //
+}
+
+void YFramework::UpdateContent()
+{
+	// input更新
+	inputMan_->Update();
+
+	// シーン更新処理
+	sceneMan_->Update();
+
+	// デスクリプタカウント表示
+	descHeap_.ShowCount();
 }
 
 void YFramework::Run()

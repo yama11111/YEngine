@@ -89,6 +89,21 @@ void PlayScene::Initialize()
 
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
+
+
+	pFeverSpr_ = Sprite2D::Create({ {"Texture0", Texture::Load("aa.png")} });
+	feverSprObj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pFeverSpr_));
+	feverSprObj_->transform_.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f;
+
+	cbDiscardColor_.reset(ConstBufferObject<CBDiscardColor>::Create());
+	
+	pWorldPE_ = PostEffect::Create({ "Texture0" });
+	worldPEObj_.reset(DrawObjectForPostEffect::Create(Transform::Status::Default(), pWorldPE_));
+	worldPEObj_->InsertConstBuffer(cbDiscardColor_.get());
+
+	pFeverPE_ = PostEffect::Create({ "Texture0" });
+	feverPEObj_.reset(DrawObjectForPostEffect::Create(Transform::Status::Default(), pFeverPE_));
+	feverPEObj_->InsertConstBuffer(cbDiscardColor_.get());
 }
 #pragma endregion
 
@@ -140,6 +155,17 @@ void PlayScene::Update()
 		ParticleManager::GetInstance()->Update();
 	}
 	
+	feverSprObj_->Update();
+	feverPEObj_->Update();
+	worldPEObj_->Update();
+	
+	ImGui::Begin("Discard");
+	ImGui::InputFloat("R", &cbDiscardColor_->data_.discardColor.x_);
+	ImGui::InputFloat("G", &cbDiscardColor_->data_.discardColor.y_);
+	ImGui::InputFloat("B", &cbDiscardColor_->data_.discardColor.z_);
+	ImGui::InputFloat("threshold", &cbDiscardColor_->data_.threshold);
+	ImGui::End();
+	
 	transferVP_.UpdateMatrix();
 
 	pObjectMan_->DrawDebugText();
@@ -159,7 +185,22 @@ void PlayScene::Update()
 #pragma region 描画
 void PlayScene::Draw()
 {
+	feverSprObj_->Draw("Sprite2DDefault", 0);
+
+	{
+		std::vector<PostEffect*> pes = { pFeverPE_ };
+		PipelineManager::GetInstance()->RenderToPostEffect(pes);
+	}
+
 	pObjectMan_->Draw();
+
+	{
+		std::vector<PostEffect*> pes = { pWorldPE_ };
+		PipelineManager::GetInstance()->RenderToPostEffect(pes);
+	}
+
+	feverPEObj_->Draw("World_Fever", 0);
+	worldPEObj_->Draw("World_0", 0);
 	
 	beginingDra_.Draw();
 	

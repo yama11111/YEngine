@@ -1,3 +1,10 @@
+/**
+ * @file CBOutline.h
+ * @brief アウトラインの定数バッファ用構造体
+ * @author Yamanaka Rui
+ * @date 2024/02/03
+ */
+
 #pragma once
 #include "Vector4.h"
 #include <string>

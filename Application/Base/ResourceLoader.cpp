@@ -37,6 +37,7 @@
 #include "StageDrawer.h"
 #include "StageStatusDrawer.h"
 #include "BeginingDrawer.h"
+#include <imgui.h>
 
 using YGame::ResourceLoader;
 
@@ -94,4 +95,16 @@ void ResourceLoader::Load()
 		SelectDrawer::LoadResource();
 		BeginingDrawer::LoadResource();
 	}
+}
+
+void ResourceLoader::RenderDebug()
+{
+	ImGui::Begin("Resource");
+	
+	if (ImGui::Button("Load")) 
+	{
+		Load(); 
+	}
+
+	ImGui::End();
 }

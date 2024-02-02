@@ -1,3 +1,10 @@
+/**
+ * @file CBTime.h
+ * @brief 時間の定数バッファ用構造体
+ * @author Yamanaka Rui
+ * @date 2024/02/03
+ */
+
 #pragma once
 #include <string>
 

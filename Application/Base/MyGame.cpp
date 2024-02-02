@@ -16,6 +16,7 @@
 #include "CBTexConfig.h"
 #include "CBTime.h"
 #include "CBOutline.h"
+#include "CBDiscardColor.h"
 
 #include "DustParticle.h"
 #include "DebriParticle.h"
@@ -56,9 +57,9 @@ bool MyGame::Initialize()
 
 	sceneMan_->SetSceneFactory(std::move(std::make_unique<YGameSceneFactory>()));
 
-	sceneMan_->Initialize(YGameSceneFactory::Title_);
+	//sceneMan_->Initialize(YGameSceneFactory::Title_);
 	//sceneMan_->Initialize(YGameSceneFactory::Select_);
-	//sceneMan_->Initialize(YGameSceneFactory::Play_);
+	sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
@@ -68,9 +69,11 @@ void MyGame::Finalize()
 	YFramework::Finalize();
 }
 
-void MyGame::Update()
+void MyGame::UpdateContent()
 {
-	YFramework::Update();
+	YFramework::UpdateContent();
+
+	ResourceLoader::RenderDebug();
 }
 
 void MyGame::Draw()
@@ -111,8 +114,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("ModelPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Model/ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/ModelPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -128,7 +131,7 @@ void MyGame::InitializePipelines()
 					"Texture0" ,
 				},
 				1, Model::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("ModelDefault", newPipeline);
@@ -138,8 +141,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("OutlineVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("OutlinePS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Model/OutlineVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/OutlinePS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		PipelineSetting setting = Model::GetPipelineSetting();
 		setting.cullMode = D3D12_CULL_MODE_FRONT;
@@ -155,7 +158,7 @@ void MyGame::InitializePipelines()
 					"Texture0",
 				},
 				1, setting,
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("ModelOutline", newPipeline);
@@ -165,8 +168,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("SingleColorVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Model/SingleColorVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -182,7 +185,7 @@ void MyGame::InitializePipelines()
 					"Texture0",
 				},
 				1, Model::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("ModelSingleColor", newPipeline);
@@ -192,8 +195,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("PhongVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("PhongPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Model/PhongVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/PhongPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -208,7 +211,7 @@ void MyGame::InitializePipelines()
 					"Texture0",
 				},
 				1, Model::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("ModelPhong", newPipeline);
@@ -218,8 +221,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("ToonVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("ToonPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Model/ToonVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/ToonPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -235,7 +238,7 @@ void MyGame::InitializePipelines()
 					"Texture0",
 				},
 				1, Model::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("ModelToon", newPipeline);
@@ -249,8 +252,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("Sprite2DVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("Sprite2DPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Sprite2D/Sprite2DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite2D/Sprite2DPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -278,9 +281,9 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
-		shader.LoadShader("Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Sprite3D/Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite3D/Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
+		shader.LoadShader("Sprite3D/Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -294,7 +297,7 @@ void MyGame::InitializePipelines()
 					"Texture0",
 				},
 				1, Sprite3D::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("Sprite3DDefault", newPipeline);
@@ -304,9 +307,9 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
-		shader.LoadShader("Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Sprite3D/Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite3D/Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
+		shader.LoadShader("Sprite3D/Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -320,7 +323,7 @@ void MyGame::InitializePipelines()
 					"Texture0",
 				},
 				1, Sprite3D::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 2
+				Pipeline::BlendState::Alpha, 1
 				);
 
 		pPipelineMan_->Insert("Sprite3DUI", newPipeline);
@@ -334,8 +337,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("PostEffectPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("PostEffect/PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PostEffect/PostEffectPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -355,12 +358,12 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
 
-	// World_0
+	// World_Fever
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("PostEffectVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("DeleteMagentaColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("PostEffect/DiscardColorVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PostEffect/DiscardColorPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -369,6 +372,33 @@ void MyGame::InitializePipelines()
 					CBPostEffectTransform::Tag(),
 					CBColor::Tag(),
 					CBTexConfig::Tag(),
+					CBDiscardColor::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, PostEffect::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+				);
+
+		pPipelineMan_->Insert("World_Fever", newPipeline);
+	}
+
+	// World_0
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("PostEffect/DiscardColorVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("PostEffect/DiscardColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBPostEffectTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
+					CBDiscardColor::Tag(),
 				},
 				{
 					"Texture0",
@@ -386,6 +416,7 @@ void MyGame::InitializePipelines()
 	pPipelineMan_->SetDrawOrder(
 		{
 			"PostEffectDefault",
+			"World_Fever",
 			"World_0",
 			
 			"ModelOutline",

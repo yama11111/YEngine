@@ -26,9 +26,9 @@ namespace YBase
 		virtual void Finalize();
 
 		/// <summary>
-		/// 更新
+		/// 更新の中身
 		/// </summary>
-		virtual void Update();
+		virtual void UpdateContent();
 		
 		/// <summary>
 		/// 描画
@@ -75,5 +75,12 @@ namespace YBase
 		// 終了フラグ
 		bool isEnd_ = false;
 	
+	private:
+
+		/// <summary>
+		/// 更新
+		/// </summary>
+		void Update();
+		
 	};
 }

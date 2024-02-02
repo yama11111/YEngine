@@ -53,7 +53,7 @@ void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 void GateDrawer::InitializeObjects()
 {
 	InsertObject("Gate_F", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
-	InsertObject("Gate_B", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
+	//InsertObject("Gate_B", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
 }
 
 void GateDrawer::InitializeTimers()
@@ -85,5 +85,5 @@ void GateDrawer::UpdateAnimation()
 	animeStatus_.scale_.y_ += scale;
 
 	objs_["Gate_F"]->transform_.rota_.z_ += 0.01f + rota;
-	objs_["Gate_B"]->transform_.rota_.z_ -= 0.01f + rota;
+	//objs_["Gate_B"]->transform_.rota_.z_ -= 0.01f + rota;
 }

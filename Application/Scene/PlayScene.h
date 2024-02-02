@@ -17,6 +17,7 @@
 #include "Level.h"
 
 #include "DrawObjectForPostEffect.h"
+#include "CBDiscardColor.h"
 
 namespace YGame
 {
@@ -56,6 +57,16 @@ namespace YGame
 
 		// ポーズ
 		PauseManager pause_;
+
+		PostEffect* pWorldPE_ = nullptr;
+		std::unique_ptr<DrawObjectForPostEffect> worldPEObj_;
+		std::unique_ptr<ConstBufferObject<CBDiscardColor>> cbDiscardColor_;
+
+		Sprite2D* pFeverSpr_ = nullptr;
+		std::unique_ptr<DrawObjectForSprite2D> feverSprObj_;
+
+		PostEffect* pFeverPE_ = nullptr;
+		std::unique_ptr<DrawObjectForPostEffect> feverPEObj_;
 
 	public:
 

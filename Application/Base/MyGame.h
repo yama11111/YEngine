@@ -28,9 +28,9 @@ namespace YBase
 		void Finalize() override;
 		
 		/// <summary>
-		/// 更新
+		/// 更新の中身
 		/// </summary>
-		void Update() override;
+		void UpdateContent() override;
 
 		/// <summary>
 		/// 描画

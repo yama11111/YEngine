@@ -268,9 +268,6 @@
     <Filter Include="Application\Shader\PostEffect\ColorInversion">
       <UniqueIdentifier>{7c9c9c35-19ed-46d5-a72e-a693e3df1240}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Shader\PostEffect\DeleteMagentaColor">
-      <UniqueIdentifier>{053f6f9d-4ba8-4ab4-b078-c497160bb0c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Shader\PostEffect\GaussianBlur">
       <UniqueIdentifier>{f92539bd-d355-4118-94a2-e9ce3dc9238b}</UniqueIdentifier>
     </Filter>
@@ -282,6 +279,9 @@
     </Filter>
     <Filter Include="Application\ConstBuffer\Shadow">
       <UniqueIdentifier>{44c6e525-4579-41b0-aa17-4edfd7509c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Shader\PostEffect\DiscardColor">
+      <UniqueIdentifier>{75cec6ab-56f1-46f3-93d7-e90285db9b91}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1271,118 +1271,127 @@
     <ClInclude Include="Application\Scene\TestScene.h">
       <Filter>Application\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Application\ConstBuffer\CBDiscardColor.h">
+      <Filter>Application\ConstBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaders\Light.hlsli">
+    <None Include="Resources\Shaders\Model\Light.hlsli">
       <Filter>Application\Shader\Model</Filter>
     </None>
     <None Include=".editorconfig" />
-    <None Include="Resources\Shaders\CircleShadow.hlsli">
+    <None Include="Resources\Shaders\Model\CircleShadow.hlsli">
       <Filter>Application\Shader\Model</Filter>
     </None>
-    <None Include="Resources\Shaders\Dissolve.hlsli">
+    <None Include="Resources\Shaders\Model\Dissolve.hlsli">
       <Filter>Application\Shader\Model\Dissolve</Filter>
     </None>
-    <None Include="Resources\Shaders\Model.hlsli">
+    <None Include="Resources\Shaders\Model\Model.hlsli">
       <Filter>Application\Shader\Model\Default</Filter>
     </None>
-    <None Include="Resources\Shaders\Outline.hlsli">
+    <None Include="Resources\Shaders\Model\Outline.hlsli">
       <Filter>Application\Shader\Model\Outline</Filter>
     </None>
-    <None Include="Resources\Shaders\Phong.hlsli">
+    <None Include="Resources\Shaders\Model\Phong.hlsli">
       <Filter>Application\Shader\Model\Phong</Filter>
     </None>
-    <None Include="Resources\Shaders\SingleColor.hlsli">
+    <None Include="Resources\Shaders\Model\SingleColor.hlsli">
       <Filter>Application\Shader\Model\SingleColor</Filter>
     </None>
-    <None Include="Resources\Shaders\Toon.hlsli">
+    <None Include="Resources\Shaders\Model\Toon.hlsli">
       <Filter>Application\Shader\Model\Toon</Filter>
     </None>
-    <None Include="Resources\Shaders\Sprite3D.hlsli">
+    <None Include="Resources\Shaders\Sprite3D\Sprite3D.hlsli">
       <Filter>Application\Shader\Sprite3D\Default</Filter>
     </None>
-    <None Include="Resources\Shaders\Sprite2D.hlsli">
+    <None Include="Resources\Shaders\Sprite2D\Sprite2D.hlsli">
       <Filter>Application\Shader\Sprite2D\Default</Filter>
     </None>
-    <None Include="Resources\Shaders\PostEffect.hlsli">
+    <None Include="Resources\Shaders\PostEffect\PostEffect.hlsli">
       <Filter>Application\Shader\PostEffect\Default</Filter>
+    </None>
+    <None Include="Resources\Shaders\PostEffect\DiscardColor.hlsli">
+      <Filter>Application\Shader\PostEffect\DiscardColor</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shaders\DissolvePS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\DissolvePS.hlsl">
       <Filter>Application\Shader\Model\Dissolve</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\DissolveVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\DissolveVS.hlsl">
       <Filter>Application\Shader\Model\Dissolve</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ModelPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\ModelPS.hlsl">
       <Filter>Application\Shader\Model\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ModelVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\ModelVS.hlsl">
       <Filter>Application\Shader\Model\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\OutlinePS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\OutlinePS.hlsl">
       <Filter>Application\Shader\Model\Outline</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\OutlineVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\OutlineVS.hlsl">
       <Filter>Application\Shader\Model\Outline</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SingleColorPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\SingleColorPS.hlsl">
       <Filter>Application\Shader\Model\SingleColor</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\PhongPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\PhongPS.hlsl">
       <Filter>Application\Shader\Model\Phong</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ToonPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\ToonPS.hlsl">
       <Filter>Application\Shader\Model\Toon</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\PhongVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\PhongVS.hlsl">
       <Filter>Application\Shader\Model\Phong</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\SingleColorVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\SingleColorVS.hlsl">
       <Filter>Application\Shader\Model\SingleColor</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ToonVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Model\ToonVS.hlsl">
       <Filter>Application\Shader\Model\Toon</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite3DGS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite3D\Sprite3DGS.hlsl">
       <Filter>Application\Shader\Sprite3D\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite3DPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite3D\Sprite3DPS.hlsl">
       <Filter>Application\Shader\Sprite3D\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite3DVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite3D\Sprite3DVS.hlsl">
       <Filter>Application\Shader\Sprite3D\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite2DPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite2D\Sprite2DPS.hlsl">
       <Filter>Application\Shader\Sprite2D\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\Sprite2DVS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite2D\Sprite2DVS.hlsl">
       <Filter>Application\Shader\Sprite2D\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\TextureBlendPS.hlsl">
+    <FxCompile Include="Resources\Shaders\Sprite2D\TextureBlendPS.hlsl">
       <Filter>Application\Shader\Sprite2D\TextureBlend</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\PostEffectPS.hlsl">
+    <FxCompile Include="Resources\Shaders\PostEffect\PostEffectPS.hlsl">
       <Filter>Application\Shader\PostEffect\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\PostEffectVS.hlsl">
+    <FxCompile Include="Resources\Shaders\PostEffect\PostEffectVS.hlsl">
       <Filter>Application\Shader\PostEffect\Default</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\BloomPS.hlsl">
+    <FxCompile Include="Resources\Shaders\PostEffect\BloomPS.hlsl">
       <Filter>Application\Shader\PostEffect\Bloom</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ColorInversionPS.hlsl">
+    <FxCompile Include="Resources\Shaders\PostEffect\ColorInversionPS.hlsl">
       <Filter>Application\Shader\PostEffect\ColorInversion</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\DeleteMagentaColorPS.hlsl">
-      <Filter>Application\Shader\PostEffect\DeleteMagentaColor</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\GaussianBlurPS.hlsl">
+    <FxCompile Include="Resources\Shaders\PostEffect\GaussianBlurPS.hlsl">
       <Filter>Application\Shader\PostEffect\GaussianBlur</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\UVShiftBlurPS.hlsl">
+    <FxCompile Include="Resources\Shaders\PostEffect\UVShiftBlurPS.hlsl">
       <Filter>Application\Shader\PostEffect\UVShiftBlur</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\PostEffect\DiscardColorPS.hlsl">
+      <Filter>Application\Shader\PostEffect\DiscardColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\PostEffect\DiscardColorVS.hlsl">
+      <Filter>Application\Shader\PostEffect\DiscardColor</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
