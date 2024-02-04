@@ -46,6 +46,6 @@ struct PSInput
 // ピクセルシェーダーの出力構造体
 struct PSOutput
 {
-	// 描画 
+	// 描画
 	float4 target_ : SV_TARGET;
 };

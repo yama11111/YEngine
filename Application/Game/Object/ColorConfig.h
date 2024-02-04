@@ -17,5 +17,7 @@ namespace YGame
 		};
 		
 		static const YMath::Vector4 skYellow = YMath::GetColor(255, 217, 67, 255);
+		
+		static const YMath::Vector4 skMagenta = { 1.0f,0.0f,1.0f,1.0f };
 	}
 }

@@ -254,14 +254,14 @@ void GameObjectManager::Draw()
 		object.obj->Draw();
 	}
 
-	int a = 0;
 	for (GameObjectSet& object : objects_)
 	{
-		if(object.obj->Name() == "Life")
-		{
-			a++;
-		}
 		if (object.isSkip) { continue; }
 		object.obj->Draw();
 	}
+}
+
+void GameObjectManager::Draw(const std::vector<std::string>& drawKeys)
+{
+	drawKeys;
 }

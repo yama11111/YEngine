@@ -28,7 +28,6 @@ void Goal::Initialize(const Transform::Status& status, GameObject* pParent)
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);
-		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(

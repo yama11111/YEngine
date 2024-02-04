@@ -33,7 +33,7 @@ namespace
 void InstructionsDrawer::LoadResource()
 {
 	pButtonASpr = Sprite3D::Create({ { "Texture0", Texture::Load("UI/play/button_jump.png") } });
-	pButtonXSpr = Sprite3D::Create({ { "Texture0", Texture::Load("UI/play/button_attack.png") } });
+	pButtonXSpr = Sprite3D::Create({ { "Texture0", Texture::Load("UI/play/button_drop.png") } });
 
 	pKeys = Keys::GetInstance();
 	pPad = Pad::GetInstance();
@@ -81,7 +81,7 @@ void InstructionsDrawer::Update()
 	transform_.UpdateMatrix();
 	
 	buttonJump_->Update(pKeys->IsDown(DIK_SPACE) || pPad->IsDown(PadButton::XIP_A));
-	buttonAttack_->Update(pKeys->IsDown(DIK_X) || pPad->IsDown(PadButton::XIP_X));
+	buttonAttack_->Update(pKeys->IsDown(DIK_V) || pPad->IsDown(PadButton::XIP_X));
 }
 
 void InstructionsDrawer::Draw()

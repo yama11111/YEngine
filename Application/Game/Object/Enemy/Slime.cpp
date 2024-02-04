@@ -56,7 +56,6 @@ void Slime::Initialize(const Transform::Status& status)
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);
 		mask.SetFragTrue(AttributeType::ePlayerAttack);
-		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(

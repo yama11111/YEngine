@@ -5,7 +5,6 @@
 #include <imgui.h>
 
 #include "Player.h"
-#include "Horse.h"
 #include "Slime.h"
 #include "Coin.h"
 
@@ -38,9 +37,6 @@ void PlayScene::Load()
 	
 	// プレイヤー
 	Player::StaticInitialize(&camera_);
-	
-	// ペット
-	IPet::StaticInitialize(&camera_);
 }
 #pragma endregion
 
@@ -90,10 +86,6 @@ void PlayScene::Initialize()
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
 
-
-	pFeverSpr_ = Sprite2D::Create({ {"Texture0", Texture::Load("aa.png")} });
-	feverSprObj_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pFeverSpr_));
-	feverSprObj_->transform_.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f;
 
 	cbDiscardColor_.reset(ConstBufferObject<CBDiscardColor>::Create());
 	
@@ -155,7 +147,6 @@ void PlayScene::Update()
 		ParticleManager::GetInstance()->Update();
 	}
 	
-	feverSprObj_->Update();
 	feverPEObj_->Update();
 	worldPEObj_->Update();
 	
@@ -185,8 +176,6 @@ void PlayScene::Update()
 #pragma region 描画
 void PlayScene::Draw()
 {
-	feverSprObj_->Draw("Sprite2DDefault", 0);
-
 	{
 		std::vector<PostEffect*> pes = { pFeverPE_ };
 		PipelineManager::GetInstance()->RenderToPostEffect(pes);

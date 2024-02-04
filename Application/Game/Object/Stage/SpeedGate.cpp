@@ -26,7 +26,6 @@ void SpeedGate::Initialize(const Transform::Status& status, GameObject* pParent)
 
 	BitFrag mask{};
 	mask.SetFragTrue(AttributeType::ePlayer);
-	mask.SetFragTrue(AttributeType::ePet);
 
 	collider_->PushBackCollider(
 		std::make_unique<YMath::Box2DCollider>(
@@ -61,8 +60,7 @@ void SpeedGate::OnCollision(const InfoOnCollision& info)
 {
 	if (drawer_->IsActAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass))) { return; }
 
-	if (info.attribute == AttributeType::ePlayer ||
-		info.attribute == AttributeType::ePet)
+	if (info.attribute == AttributeType::ePlayer)
 	{
 		drawer_->PlayAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass));
 	}

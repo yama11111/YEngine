@@ -34,16 +34,16 @@ void Player::StaticInitialize(GameCamera* pCamera)
 	spCamera_ = pCamera;
 }
 
-std::unique_ptr<Player> Player::Create(const Transform::Status& status, IPet* pPet)
+std::unique_ptr<Player> Player::Create(const Transform::Status& status)
 {
 	std::unique_ptr<Player> newObj = std::make_unique<Player>();
 
-	newObj->Initialize(status, pPet);
+	newObj->Initialize(status);
 
 	return std::move(newObj);
 }
 
-void Player::Initialize(const Transform::Status& status, IPet* pPet)
+void Player::Initialize(const Transform::Status& status)
 {
 	BaseCharacter::Initialize(
 		"Player",
@@ -94,7 +94,6 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	
 	{
 		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePet);
 		mask.SetFragTrue(AttributeType::eCoin);
 		mask.SetFragTrue(AttributeType::eItem);
 		
@@ -115,12 +114,7 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 	isLanding_ = false;
 	isElderLanding_ = false;
 	
-	RideOnPet(pPet);
-
-	if (pPet_ == nullptr)
-	{
-		spCamera_->SetPlayerPosPtr(&transform_->pos_);
-	}
+	spCamera_->SetPlayerPosPtr(&transform_->pos_);
 	
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
@@ -128,16 +122,9 @@ void Player::Initialize(const Transform::Status& status, IPet* pPet)
 
 void Player::UpdateControl()
 {
-	if (pPet_ == nullptr)
-	{
-		// 自動で前に進む
-		moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
-		direction_ = Vector3(+1.0f, 0.0f, 0.0f);
-	}
-	else
-	{
-		direction_ = Vector3(-1.0f, 0.0f, 0.0f);
-	}
+	// 自動で前に進む
+	moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+	direction_ = Vector3(+1.0f, 0.0f, 0.0f);
 
 	if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
 		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_A))
@@ -145,24 +132,15 @@ void Player::UpdateControl()
 		Jump();
 	}
 
-	if (Keys::GetInstance()->IsTrigger(DIK_V) ||
-		Pad::GetInstance()->IsTrigger(YInput::PadButton::XIP_X))
+	if (Keys::GetInstance()->IsDown(DIK_V) ||
+		Pad::GetInstance()->IsDown(YInput::PadButton::XIP_X))
 	{
-		Attack();
+		Drop();
 	}
 }
 
 void Player::UpdateBeforeCollision()
 {
-	// ペットが被弾したら降りる
-	if (pPet_)
-	{
-		if (pPet_->IsHit())
-		{
-			GetOffPet();
-		}
-	}
-
 	BaseCharacter::UpdateBeforeCollision();
 }
 
@@ -198,65 +176,6 @@ void Player::UpdateAfterCollision()
 	ScoreManager::GetInstance()->SetHP(status_.HP());
 }
 
-void Player::RideOnPet(IPet* pPet)
-{
-	pPet_ = pPet;
-
-	if (pPet_)
-	{
-		// 親子関係
-		SetParent(pPet_);
-
-		// 乗る位置分 上に移動
-		transform_->pos_ = pPet_->RidingPosHeight();
-		transform_->UpdateMatrix();
-
-		speed_.SetIsGravity(false);
-
-		speed_.Reset();
-
-		collider_->SetIsSlip(true);
-
-		drawer_->SetParent(pPet_->DrawerPtr()->TransformPtr());
-		drawer_->SetOffset(pPet_->RidingPosHeight());
-		drawer_->SetIsVisibleUpdate(false);
-
-		pPet_->Rideen();
-
-		// 移動アニメーションをやめる
-		drawer_->StopAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove));
-	}
-}
-
-void Player::GetOffPet()
-{
-	pPet_->GotOff();
-
-	transform_->pos_ += pPet_->TransformPtr()->pos_;
-	transform_->UpdateMatrix();
-
-	pPet_ = nullptr;
-	
-	SetParent(nullptr);
-	
-	speed_.SetIsGravity(true);
-
-	collider_->SetIsSlip(false);
-
-	drawer_->SetParent(transform_.get());
-	drawer_->SetOffset(Vector3(0.0f, 0.0f, 0.0f));
-	drawer_->SetIsVisibleUpdate(true);
-	
-	// 飛び降りる
-	Jump(false);
-
-	// カメラを自分追従に
-	spCamera_->SetPlayerPosPtr(&transform_->pos_);
-
-	// 移動アニメーション
-	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eMove), true);
-}
-
 YGame::InfoOnCollision Player::GetInfoOnCollision()
 {
 	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
@@ -269,15 +188,6 @@ YGame::InfoOnCollision Player::GetInfoOnCollision()
 
 void Player::Jump(const bool isJumpCount)
 {
-	// ペットいるなら
-	if (pPet_)
-	{
-		// ペットでジャンプ
-		pPet_->Jump();
-
-		return;
-	}
-
 	// ジャンプカウントするなら
 	if (isJumpCount)
 	{
@@ -289,9 +199,19 @@ void Player::Jump(const bool isJumpCount)
 		isLanding_ = false;
 	}
 
-	speed_.VelocityRef().y_ = 0.0f;
+	speed_.VelocityRef().y_ = PlayerConfig::kJumpSpeed;
 
-	moveDirection_.y_ = 1.0f;
+	// ジャンプアニメーション
+	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
+
+	spCamera_->MoveOnJump();
+}
+
+void Player::Drop()
+{
+	if (isLanding_) { return; }
+
+	moveDirection_.y_ = -1.0f;
 
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
@@ -301,15 +221,6 @@ void Player::Jump(const bool isJumpCount)
 
 void Player::Attack()
 {
-	// ペットいるなら
-	if (pPet_)
-	{
-		// ペットで攻撃
-		pPet_->Attack();
-
-		return;
-	}
-
 	// 攻撃新規生成
 	GameObjectManager::GetInstance()->PushBack(
 		NeedleAttack::Create(
@@ -363,14 +274,6 @@ void Player::OnCollision(const InfoOnCollision& info)
 			// 被弾アニメーション
 			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit), true);
 		}
-	}
-	// ペット
-	else if (info.attribute == AttributeType::ePet)
-	{
-		if(info.pStatus->IsInvincible()) { return; }
-
-		// 乗る
-		RideOnPet(IPet::StaticGetPetPointer());
 	}
 	// ブロック
 	else if (info.attribute == AttributeType::eBlock)

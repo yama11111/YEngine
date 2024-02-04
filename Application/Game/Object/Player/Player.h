@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseCharacter.h"
-#include "IPet.h"
+#include "GameCamera.h"
 
 namespace YGame
 {
@@ -15,11 +15,8 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
-		/// <param name="pPet"> : ペットポインタ</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Player>Create(
-			const Transform::Status& status, 
-			IPet* pPet = nullptr);
+		static std::unique_ptr<Player>Create(const Transform::Status& status);
 
 	public:
 
@@ -27,10 +24,7 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
-		/// <param name="pPet"> : ペットポインタ</param>
-		void Initialize(
-			const Transform::Status& status, 
-			IPet* pPet = nullptr);
+		void Initialize(const Transform::Status& status);
 
 		/// <summary>
 		/// 衝突前更新
@@ -41,19 +35,6 @@ namespace YGame
 		/// 衝突後更新
 		/// </summary>
 		void UpdateAfterCollision() override;
-
-	public:
-
-		/// <summary>
-		/// ペットに乗る
-		/// </summary>
-		/// <param name="pPet"> : ペットポインタ</param>
-		void RideOnPet(IPet* pPet);
-		
-		/// <summary>
-		/// ペットから降りる
-		/// </summary>
-		void GetOffPet();
 
 	public:
 
@@ -89,9 +70,6 @@ namespace YGame
 		bool isLanding_ = false;
 		bool isElderLanding_ = false;
 
-		// ペットポインタ
-		IPet* pPet_ = nullptr;
-
 	private:
 
 		// 静的スクロールカメラポインタ
@@ -109,6 +87,11 @@ namespace YGame
 		/// </summary>
 		/// <param name="isJumpCount"> : カウントするか</param>
 		void Jump(const bool isJumpCount = true);
+
+		/// <summary>
+		/// ヒップドロップ
+		/// </summary>
+		void Drop();
 
 		/// <summary>
 		/// 攻撃

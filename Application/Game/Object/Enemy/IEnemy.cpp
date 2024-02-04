@@ -27,9 +27,8 @@ void IEnemy::OnCollision(const InfoOnCollision& info)
 	// 自身の情報
 	InfoOnCollision self = GetInfoOnCollision();
 	
-	// プレイヤー or ペット
-	if (info.attribute == AttributeType::ePlayer || 
-		info.attribute == AttributeType::ePet)
+	// プレイヤー
+	if (info.attribute == AttributeType::ePlayer)
 	{
 		// 自分 が 下側 なら
 		if (self.pTrfm->pos_.y_ + (self.radius / 4.0f) < info.pTrfm->pos_.y_ - (info.radius / 4.0f))

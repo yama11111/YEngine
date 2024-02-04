@@ -178,9 +178,6 @@
     <Filter Include="Application\Game\Object\Item">
       <UniqueIdentifier>{e13fc05c-b636-435f-9f3c-30fd32b9d714}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Object\Pet">
-      <UniqueIdentifier>{c726d973-737b-43fb-996e-7ebbceb701ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Object\Player">
       <UniqueIdentifier>{7f427dfb-24a5-4964-b8a2-1f56cdcd4c3d}</UniqueIdentifier>
     </Filter>
@@ -189,9 +186,6 @@
     </Filter>
     <Filter Include="Application\Game\Object\Player\Drawer">
       <UniqueIdentifier>{6077f1b5-5c93-47dd-9a5c-e0fa8c569f7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Game\Object\Pet\Drawer">
-      <UniqueIdentifier>{0c542c42-8be2-41df-91cf-a7d4b341fc8d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application\Game\Object\Item\Drawer">
       <UniqueIdentifier>{8e182020-c29a-4097-972e-d748c307385b}</UniqueIdentifier>
@@ -366,14 +360,8 @@
     <ClCompile Include="Application\Game\Object\Enemy\IEnemy.cpp">
       <Filter>Application\Game\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\Pet\IPet.cpp">
-      <Filter>Application\Game\Object\Pet</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Object\Enemy\Slime.cpp">
       <Filter>Application\Game\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Object\Pet\Horse.cpp">
-      <Filter>Application\Game\Object\Pet</Filter>
     </ClCompile>
     <ClCompile Include="Engine\DebugText\DebugTextAttacher.cpp">
       <Filter>Engine\DebugText</Filter>
@@ -654,9 +642,6 @@
     <ClCompile Include="Application\Game\Object\Player\PlayerDrawer.cpp">
       <Filter>Application\Game\Object\Player\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\Pet\HorseDrawer.cpp">
-      <Filter>Application\Game\Object\Pet\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Object\Item\CoinDrawer.cpp">
       <Filter>Application\Game\Object\Item\Drawer</Filter>
     </ClCompile>
@@ -818,14 +803,8 @@
     <ClInclude Include="Application\Game\Object\Enemy\IEnemy.h">
       <Filter>Application\Game\Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\Pet\IPet.h">
-      <Filter>Application\Game\Object\Pet</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Object\Enemy\Slime.h">
       <Filter>Application\Game\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Object\Pet\Horse.h">
-      <Filter>Application\Game\Object\Pet</Filter>
     </ClInclude>
     <ClInclude Include="Engine\DebugText\DebugTextAttacher.h">
       <Filter>Engine\DebugText</Filter>
@@ -1168,9 +1147,6 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Object\Player\PlayerDrawer.h">
       <Filter>Application\Game\Object\Player\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Object\Pet\HorseDrawer.h">
-      <Filter>Application\Game\Object\Pet\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Object\Item\CoinDrawer.h">
       <Filter>Application\Game\Object\Item\Drawer</Filter>

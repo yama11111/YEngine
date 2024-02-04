@@ -14,32 +14,29 @@ namespace YGame
 
 		// プレイヤー
 		ePlayer			 = 0b1 << 0,
-		
-		// ペット
-		ePet			 = 0b1 << 1,
 
 		// プレイヤー陣営攻撃
-		ePlayerAttack	 = 0b1 << 2,
+		ePlayerAttack	 = 0b1 << 1,
 
 		// エネミー
-		eEnemy			 = 0b1 << 3,
+		eEnemy			 = 0b1 << 2,
 		
 		// エネミー陣営攻撃
-		eEnemyAttack	 = 0b1 << 4,
+		eEnemyAttack	 = 0b1 << 3,
 
 		// コイン
-		eCoin			 = 0b1 << 5,
+		eCoin			 = 0b1 << 4,
 
 		// アイテム
-		eItem			 = 0b1 << 6,
+		eItem			 = 0b1 << 5,
 		
 		// ブロック
-		eBlock			 = 0b1 << 7,
+		eBlock			 = 0b1 << 6,
 
 		// ゲート
-		eGate			 = 0b1 << 8,
+		eGate			 = 0b1 << 7,
 
 		// ゴール
-		eGoal			 = 0b1 << 9,
+		eGoal			 = 0b1 << 8,
 	};
 }

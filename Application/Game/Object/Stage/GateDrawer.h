@@ -53,6 +53,8 @@ namespace YGame
 
 	private:
 
+		std::unique_ptr<ConstBufferObject<CBColor>> cbInsideColor_;
+
 		YMath::Ease<float> passRotaEas_;
 		YMath::Ease<float> passScaleEas_;
 

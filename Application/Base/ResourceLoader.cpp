@@ -18,7 +18,6 @@
 
 #include "DefaultDrawer.h"
 #include "PlayerDrawer.h"
-#include "HorseDrawer.h"
 #include "SlimeDrawer.h"
 #include "CoinDrawer.h"
 #include "LifeDrawer.h"
@@ -72,7 +71,6 @@ void ResourceLoader::Load()
 	{
 		DefaultDrawer::LoadResource();
 		PlayerDrawer::LoadResource();
-		HorseDrawer::LoadResource();
 		SlimeDrawer::LoadResource();
 		NeedleAttackDrawer::LoadResource();
 		CoinDrawer::LoadResource();

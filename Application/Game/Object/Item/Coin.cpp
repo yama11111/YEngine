@@ -36,7 +36,6 @@ void Coin::Initialize(const Transform::Status& status)
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);
-		mask.SetFragTrue(AttributeType::ePet);
 		mask.SetFragTrue(AttributeType::eItem);
 
 		collider_->PushBackCollider(
@@ -80,8 +79,7 @@ void Coin::OnCollision(const InfoOnCollision& info)
 {
 	if (status_.IsInvincible()) { return; }
 	
-	if (info.attribute == AttributeType::ePlayer || 
-		info.attribute == AttributeType::ePet)
+	if (info.attribute == AttributeType::ePlayer)
 	{
 		ScoreManager::GetInstance()->AddScore(100);
 		ScoreManager::GetInstance()->AddCoin(1);

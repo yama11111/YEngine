@@ -12,7 +12,8 @@ using YMath::Timer;
 
 namespace
 {
-	Sprite3D* pSpr = nullptr;
+	Sprite3D* pFrameSpr = nullptr;
+	Sprite3D* pInsideSpr = nullptr;
 
 	// アニメーション番号
 	const uint32_t kIdleIndex = static_cast<uint32_t>(GateDrawer::AnimationType::eIdle);
@@ -30,7 +31,8 @@ std::unique_ptr<GateDrawer> GateDrawer::Create(Transform* pParent, const size_t 
 
 void GateDrawer::LoadResource()
 {
-	pSpr = Sprite3D::Create({ {"Texture0", Texture::Load("play/gate.png", false)} });
+	pFrameSpr = Sprite3D::Create({ {"Texture0", Texture::Load("play/gate_frame.png", false)} });
+	pInsideSpr = Sprite3D::Create({ {"Texture0", Texture::Load("play/gate_inside.png", false)} });
 }
 
 void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
@@ -38,12 +40,18 @@ void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(pParent, drawPriority);
 
+	if (cbInsideColor_ == nullptr)
+	{
+		cbInsideColor_.reset(ConstBufferObject<CBColor>::Create());
+		InsertConstBuffer("Gate_Inside", cbInsideColor_.get());
+	}
+
 	transform_.rota_ = YMath::AdjustAngle(Vector3(1.0f, 0.0f, 0.0f));
 	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 
 	cbColor_->data_.baseColor = ColorConfig::skYellow;
-	//cbColor_->data_.baseColor.a_ = 0.4f;
-	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
+	cbInsideColor_->data_.baseColor = ColorConfig::skMagenta;
+	
 	SetShaderTag("Sprite3DDefault");
 
 	passRotaEas_.Initialize(0.0f, 4.0f * kPI, 3.0f);
@@ -52,8 +60,8 @@ void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 
 void GateDrawer::InitializeObjects()
 {
-	InsertObject("Gate_F", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
-	//InsertObject("Gate_B", DrawObjectForSprite3D::Create({}, false, false, spVP_, pSpr));
+	InsertObject("Gate_Frame", DrawObjectForSprite3D::Create({}, false, false, spVP_, pFrameSpr));
+	InsertObject("Gate_Inside", DrawObjectForSprite3D::Create({}, false, false, spVP_, pInsideSpr));
 }
 
 void GateDrawer::InitializeTimers()
@@ -84,6 +92,6 @@ void GateDrawer::UpdateAnimation()
 	animeStatus_.scale_.x_ += scale;
 	animeStatus_.scale_.y_ += scale;
 
-	objs_["Gate_F"]->transform_.rota_.z_ += 0.01f + rota;
-	//objs_["Gate_B"]->transform_.rota_.z_ -= 0.01f + rota;
+	objs_["Gate_Frame"]->transform_.rota_.z_ += 0.01f + rota;
+	objs_["Gate_Inside"]->transform_.rota_.z_ += 0.01f + rota;
 }

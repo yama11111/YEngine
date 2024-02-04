@@ -151,7 +151,6 @@
     <ClCompile Include="Application\Game\Particle\DustParticle.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\DefaultDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\GoalDrawer.cpp" />
-    <ClCompile Include="Application\Game\Object\Pet\HorseDrawer.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\BaseDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\IItem.cpp" />
     <ClCompile Include="Application\Game\UI\PauseDrawer.cpp" />
@@ -163,12 +162,10 @@
     <ClCompile Include="Application\Game\Object\Enemy\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\CharacterStatus.cpp" />
     <ClCompile Include="Engine\Game\Object\GameObjectManager.cpp" />
-    <ClCompile Include="Application\Game\Object\Pet\Horse.cpp" />
     <ClCompile Include="Application\Game\Object\Attack\IAttack.cpp" />
     <ClCompile Include="Application\Game\Object\Enemy\IEnemy.cpp" />
     <ClCompile Include="Application\Game\Object\BaseCharacter.cpp" />
     <ClCompile Include="Engine\Game\Object\GameObject.cpp" />
-    <ClCompile Include="Application\Game\Object\Pet\IPet.cpp" />
     <ClCompile Include="Application\Game\Object\Player\Player.cpp" />
     <ClCompile Include="Application\Game\Object\Enemy\Slime.cpp" />
     <ClCompile Include="Engine\Game\Collision\GameCollider.cpp" />
@@ -311,7 +308,6 @@
     <ClInclude Include="Application\Game\Particle\DustParticle.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\DefaultDrawer.h" />
     <ClInclude Include="Application\Game\Object\Stage\GoalDrawer.h" />
-    <ClInclude Include="Application\Game\Object\Pet\HorseDrawer.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\BaseDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\IItem.h" />
     <ClInclude Include="Application\Game\UI\PauseDrawer.h" />
@@ -325,12 +321,10 @@
     <ClInclude Include="Application\Game\Object\CharacterStatus.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\IDrawerFactory.h" />
     <ClInclude Include="Engine\Game\Object\GameObjectManager.h" />
-    <ClInclude Include="Application\Game\Object\Pet\Horse.h" />
     <ClInclude Include="Application\Game\Object\Attack\IAttack.h" />
     <ClInclude Include="Application\Game\Object\Enemy\IEnemy.h" />
     <ClInclude Include="Application\Game\Object\BaseCharacter.h" />
     <ClInclude Include="Engine\Game\Object\GameObject.h" />
-    <ClInclude Include="Application\Game\Object\Pet\IPet.h" />
     <ClInclude Include="Application\Game\Object\Player\Player.h" />
     <ClInclude Include="Application\Game\Object\Enemy\Slime.h" />
     <ClInclude Include="Engine\Game\Collision\GameCollider.h" />

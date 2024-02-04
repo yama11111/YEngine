@@ -35,7 +35,6 @@ void Life::Initialize(const Transform::Status& status)
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);
-		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
@@ -78,8 +77,7 @@ void Life::OnCollision(const InfoOnCollision& info)
 {
 	if (status_.IsInvincible()) { return; }
 
-	if (info.attribute == AttributeType::ePlayer ||
-		info.attribute == AttributeType::ePet)
+	if (info.attribute == AttributeType::ePlayer)
 	{
 		info.pStatus->SetHP(info.pStatus->HP() + 1);
 		static_cast<LifeDrawer*>(drawer_.get())->PlayRecoveryAnimation();

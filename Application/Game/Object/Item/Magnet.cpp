@@ -35,7 +35,6 @@ void Magnet::Initialize(const Transform::Status& status)
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);
-		mask.SetFragTrue(AttributeType::ePet);
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
@@ -107,8 +106,7 @@ YGame::InfoOnCollision Magnet::GetInfoOnCollision()
 
 void Magnet::OnCollision(const InfoOnCollision& info)
 {
-	if (info.attribute == AttributeType::ePlayer ||
-		info.attribute == AttributeType::ePet)
+	if (info.attribute == AttributeType::ePlayer)
 	{
 		if (isAct_) { return; }
 		

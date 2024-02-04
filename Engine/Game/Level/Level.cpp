@@ -8,7 +8,6 @@
 
 #include "GameObjectManager.h"
 #include "Player.h"
-#include "Horse.h"
 #include "Slime.h"
 #include "Coin.h"
 #include "Life.h"
@@ -149,7 +148,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			isUpdateSkip = false;
 			isSaveColl = true;
 
-			newObj = Player::Create(status, nullptr);
+			newObj = Player::Create(status);
 		}
 		else if (name == "Slime." || name == "Flog." || name == "Bird."|| name == "Ogre." || name == "Goblin.")
 		{

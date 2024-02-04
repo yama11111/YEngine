@@ -26,7 +26,6 @@ void Block::Initialize(const Transform::Status& status, GameObject* pParent)
 
 	BitFrag mask{};
 	mask.SetFragTrue(AttributeType::ePlayer);
-	mask.SetFragTrue(AttributeType::ePet);
 	mask.SetFragTrue(AttributeType::eEnemy);
 
 	collider_->PushBackCollider(

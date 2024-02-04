@@ -1,6 +1,14 @@
+/**
+ * @file GameObjectManager.h
+ * @brief ゲームオブジェクト管理クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "GameObject.h"
 #include <queue>
+#include <functional>
 
 namespace YGame
 {
@@ -30,6 +38,12 @@ namespace YGame
 		/// 描画
 		/// </summary>
 		void Draw();
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		/// <param name="drawKeys"> : 描画キューのキー</param>
+		void Draw(const std::vector<std::string>& drawKeys);
 
 	public:
 
@@ -74,6 +88,9 @@ namespace YGame
 			// 本体
 			std::unique_ptr<GameObject> obj;
 
+			// 描画キー
+			std::vector<std::string> drawKeys;
+
 			// 優先度
 			uint32_t updatePriority;
 
@@ -92,7 +109,10 @@ namespace YGame
 		{
 			// 本体
 			std::unique_ptr<GameObject> obj;
-			
+
+			// 描画キー
+			std::vector<std::string> drawKeys;
+
 			// 処理を飛ばすか
 			bool isSkip = false;
 		};
@@ -105,11 +125,8 @@ namespace YGame
 		// 背景オブジェクトリスト
 		std::list<GameObjectSetForBack> backObjects_;
 
-		// 軸描画フラグ
-		bool isDrawAxis_ = false;
-
-		// アタリ判定描画フラグ
-		bool isDrawCollision_ = false;
+		// 描画関数キュー
+		std::unordered_map<std::string, std::queue<std::function<void()>>> drawQueues_;
 
 		// ビュープロジェクションポインタ
 		ViewProjection* pVP_ = nullptr;
