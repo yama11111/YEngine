@@ -24,13 +24,17 @@ void Block::Initialize(const Transform::Status& status, GameObject* pParent)
 
 	SetCollider(GameCollider::Create(attribute));
 
-	BitFrag mask{};
-	mask.SetFragTrue(AttributeType::ePlayer);
-	mask.SetFragTrue(AttributeType::eEnemy);
+	SetIsSaveColl(true);
+	
+	{
+		BitFrag mask{};
+		mask.SetFragTrue(AttributeType::ePlayer);
+		mask.SetFragTrue(AttributeType::eEnemy);
 
-	collider_->PushBackCollider(
-		std::make_unique<YMath::Box2DCollider>(
-			&transform_->pos_, YMath::ConvertToVector2(transform_->scale_)), mask);
+		collider_->PushBackCollider(
+			std::make_unique<YMath::Box2DCollider>(
+				&transform_->pos_, YMath::ConvertToVector2(transform_->scale_)), mask);
+	}
 
 	SetDrawer(BlockDrawer::Create(nullptr, false, 2));
 }

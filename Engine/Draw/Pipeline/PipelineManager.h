@@ -1,3 +1,10 @@
+/**
+ * @file PipelineManager.h
+ * @brief パイプライン管理クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "Pipeline.h"
 #include "PostEffect.h"
@@ -70,11 +77,8 @@ namespace YGame
 	private:
 
 		PipelineManager() = default;
-
 		~PipelineManager() = default;
-
 		PipelineManager(const PipelineManager&) = delete;
-
 		const PipelineManager& operator=(const PipelineManager&) = delete;
 
 	};

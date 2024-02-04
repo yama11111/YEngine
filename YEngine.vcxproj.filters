@@ -169,9 +169,6 @@
     <Filter Include="Application\Game\Object\Stage">
       <UniqueIdentifier>{460d11be-5d05-4ed4-821a-70c0b6c64ad6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Game\Object\Attack">
-      <UniqueIdentifier>{9af674af-be5a-4352-a07d-2207a56bd8d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game\Object\Enemy">
       <UniqueIdentifier>{a822410d-4324-459f-83d2-237ed272e10c}</UniqueIdentifier>
     </Filter>
@@ -192,9 +189,6 @@
     </Filter>
     <Filter Include="Application\Game\Object\Enemy\Drawer">
       <UniqueIdentifier>{0781f0a6-f4fd-4f12-a864-a3a837d46a5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Game\Object\Attack\Drawer">
-      <UniqueIdentifier>{0f6a90d2-1a2b-4ee4-90ab-2747483b3798}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Game\Object\Drawer">
       <UniqueIdentifier>{df1c4e27-2d64-4f47-bb6b-ff46fb4e1c29}</UniqueIdentifier>
@@ -365,9 +359,6 @@
     </ClCompile>
     <ClCompile Include="Engine\DebugText\DebugTextAttacher.cpp">
       <Filter>Engine\DebugText</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Object\Attack\IAttack.cpp">
-      <Filter>Application\Game\Object\Attack</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Object\Item\IItem.cpp">
       <Filter>Application\Game\Object\Item</Filter>
@@ -540,9 +531,6 @@
     <ClCompile Include="Application\Draw\UI\UINumber.cpp">
       <Filter>Application\Draw\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\Attack\NeedleAttack.cpp">
-      <Filter>Application\Game\Object\Attack</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Particle\WaveParticle.cpp">
       <Filter>Application\Game\Particle</Filter>
     </ClCompile>
@@ -653,9 +641,6 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Object\Enemy\SlimeDrawer.cpp">
       <Filter>Application\Game\Object\Enemy\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Object\Attack\NeedleAttackDrawer.cpp">
-      <Filter>Application\Game\Object\Attack\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Transition\BaseTransition.cpp">
       <Filter>Engine\Scene\Transition</Filter>
@@ -808,9 +793,6 @@
     </ClInclude>
     <ClInclude Include="Engine\DebugText\DebugTextAttacher.h">
       <Filter>Engine\DebugText</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Object\Attack\IAttack.h">
-      <Filter>Application\Game\Object\Attack</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\MapChip\MapChipCollisionBitConfig.h">
       <Filter>Engine\Game\MapChip</Filter>
@@ -1031,9 +1013,6 @@
     <ClInclude Include="Application\Draw\UI\UINumber.h">
       <Filter>Application\Draw\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\Attack\NeedleAttack.h">
-      <Filter>Application\Game\Object\Attack</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Particle\WaveParticle.h">
       <Filter>Application\Game\Particle</Filter>
     </ClInclude>
@@ -1159,9 +1138,6 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Object\Enemy\SlimeDrawer.h">
       <Filter>Application\Game\Object\Enemy\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Object\Attack\NeedleAttackDrawer.h">
-      <Filter>Application\Game\Object\Attack\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Transition\BaseTransition.h">
       <Filter>Engine\Scene\Transition</Filter>

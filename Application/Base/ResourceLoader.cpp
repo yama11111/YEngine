@@ -22,7 +22,6 @@
 #include "CoinDrawer.h"
 #include "LifeDrawer.h"
 #include "MagnetDrawer.h"
-#include "NeedleAttackDrawer.h"
 #include "BlockDrawer.h"
 #include "GateDrawer.h"
 #include "GoalDrawer.h"
@@ -72,7 +71,6 @@ void ResourceLoader::Load()
 		DefaultDrawer::LoadResource();
 		PlayerDrawer::LoadResource();
 		SlimeDrawer::LoadResource();
-		NeedleAttackDrawer::LoadResource();
 		CoinDrawer::LoadResource();
 		LifeDrawer::LoadResource();
 		MagnetDrawer::LoadResource();

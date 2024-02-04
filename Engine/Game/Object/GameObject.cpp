@@ -20,9 +20,11 @@ void GameObject::Initialize(const std::string& name, const Transform::Status& st
 	// 行列更新
 	transform_->UpdateMatrix();
 
+	isExist_ = true;
+
 	isControlUpdate_ = true;
 
-	isExist_ = true;
+	isSaveColl_ = false;
 }
 
 void GameObject::UpdateBeforeCollision()

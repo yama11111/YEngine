@@ -1,3 +1,10 @@
+/**
+ * @file Pipeline.h
+ * @brief パイプラインクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "ConstBufferPtrSet.h"
 #include "BaseGraphic.h"

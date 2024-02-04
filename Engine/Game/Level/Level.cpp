@@ -139,51 +139,42 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		// オブジェクト
 		std::unique_ptr<GameObject> newObj = nullptr;
 		bool isUpdateSkip = true;
-		bool isSaveColl = false;
 		bool isBackground = false;
 
 		// 初期化
 		if (name == "Player.")
 		{
 			isUpdateSkip = false;
-			isSaveColl = true;
 
 			newObj = Player::Create(status);
 		}
 		else if (name == "Slime." || name == "Flog." || name == "Bird."|| name == "Ogre." || name == "Goblin.")
 		{
 			newObj = Slime::Create(status);
-			isSaveColl = true;
 		}
 		else if (name == "Coin.")
 		{
 			newObj = Coin::Create(status);
-			isSaveColl = true;
 		}
 		else if (name == "Life.")
 		{
 			newObj = Life::Create(status);
-			isSaveColl = true;
 		}
 		else if (name == "Magnet.")
 		{
 			newObj = Magnet::Create(status);
-			isSaveColl = true;
 		}
 		else if (name == "Block.")
 		{
 			newObj = Block::Create(status, pParent);
-			isSaveColl = true;
 		}
 		else if (name == "Gate.")
 		{
 			newObj = SpeedGate::Create(status, pParent);
-			isSaveColl = true;
 		}
 		else if (name == "Goal.")
 		{
 			newObj = Goal::Create(status, pParent);
-			isSaveColl = true;
 		}
 		else
 		{
@@ -217,7 +208,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		// リストに挿入
 		if (isBackground == false)
 		{
-			GameObjectManager::GetInstance()->PushBack(std::move(newObj), 0, isUpdateSkip, isSaveColl);
+			GameObjectManager::GetInstance()->PushBack(std::move(newObj), isUpdateSkip);
 		}
 		else
 		{

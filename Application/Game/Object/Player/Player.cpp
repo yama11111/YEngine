@@ -3,7 +3,6 @@
 #include "CharacterConfig.h"
 
 #include "GameObjectManager.h"
-#include "NeedleAttack.h"
 
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
@@ -59,6 +58,8 @@ void Player::Initialize(const Transform::Status& status)
 	attribute.SetFragTrue(AttributeType::ePlayer);
 
 	SetCollider(GameCollider::Create(attribute));
+	
+	SetIsSaveColl(true);
 
 	{
 		BitFrag mask{};
@@ -66,7 +67,7 @@ void Player::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRectSize, Vector3(), true, false),
+				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kPhysicsRect, Vector3(), true, false),
 			mask);
 	}
 
@@ -77,7 +78,7 @@ void Player::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, PlayerConfig::kRectSize),
+				&transform_->pos_, PlayerConfig::kPhysicsRect),
 			mask);
 	}
 
@@ -88,7 +89,7 @@ void Player::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kRectSize, Vector3(), false, false),
+				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kCollRect, Vector3(), false, false),
 			mask);
 	}
 	
@@ -104,6 +105,7 @@ void Player::Initialize(const Transform::Status& status)
 	}
 
 	collider_->SetPriority(1);
+
 
 	SetDrawer(PlayerDrawer::Create(nullptr, 1));
 
@@ -123,7 +125,7 @@ void Player::Initialize(const Transform::Status& status)
 void Player::UpdateControl()
 {
 	// 自動で前に進む
-	moveDirection_ += Vector3(+1.0f, 0.0f, 0.0f);
+	moveDirection_.x = +1.0f;
 	direction_ = Vector3(+1.0f, 0.0f, 0.0f);
 
 	if (Keys::GetInstance()->IsTrigger(DIK_SPACE) ||
@@ -199,6 +201,7 @@ void Player::Jump(const bool isJumpCount)
 		isLanding_ = false;
 	}
 
+	moveDirection_.y = 0.0f;
 	speed_.VelocityRef().y = PlayerConfig::kJumpSpeed;
 
 	// ジャンプアニメーション
@@ -217,23 +220,6 @@ void Player::Drop()
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
 
 	spCamera_->MoveOnJump();
-}
-
-void Player::Attack()
-{
-	// 攻撃新規生成
-	GameObjectManager::GetInstance()->PushBack(
-		NeedleAttack::Create(
-			NeedleAttackConfig::kAliveTime,
-			transform_->pos_ + Vector3(+5.0f, 0.0f, 0.0f),
-			NeedleAttackConfig::kAcceleration,
-			NeedleAttackConfig::kMaxSpeed,
-			NeedleAttackConfig::kRadius,
-			NeedleAttackConfig::kPower), 0, true, true);
-
-	// 攻撃アニメーション
-	drawer_->PlayAnimation(
-		static_cast<uint32_t>(PlayerDrawer::AnimationType::eAttack), true);
 }
 
 void Player::OffScreenProcess()

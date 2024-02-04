@@ -25,6 +25,8 @@ void Goal::Initialize(const Transform::Status& status, GameObject* pParent)
 
 	SetCollider(GameCollider::Create(attribute));
 	
+	SetIsSaveColl(true);
+
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);

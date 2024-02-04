@@ -8,7 +8,8 @@ namespace YGame
 
 	namespace PlayerConfig
 	{
-		static const YMath::Vector2 kRectSize = { 1.5f,1.5f };
+		static const YMath::Vector2 kPhysicsRect = { 1.0f,1.0f };
+		static const YMath::Vector2 kCollRect = { 1.5f,1.5f };
 		
 		static const float kRadius = 1.0f;
 		
@@ -17,7 +18,7 @@ namespace YGame
 		static const float kJumpSpeed = 1.5f;
 		
 		static const uint16_t kMaxJumpCount = 2;
-		static const uint32_t kHP = 3;
+		static const uint32_t kHP = 100;
 		static const uint32_t kAttack = 100;
 		static const uint32_t kInvincibleTime = 40;
 	}
@@ -32,7 +33,7 @@ namespace YGame
 		static const YMath::Vector3 kMaxSpeed = { 0.5f,0.5f,0.0f };
 		
 		static const uint32_t kHP = 100;
-		static const uint32_t kAttack = 1;
+		static const uint32_t kAttack = 20;
 		static const uint32_t kInvincibleTime = 20;
 		static const uint32_t kBlowTime = 2;
 	}

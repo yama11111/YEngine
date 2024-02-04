@@ -46,11 +46,9 @@ void GameObjectManager::Initialize(ViewProjection* pVP)
 	pVP_ = pVP;
 }
 
-void GameObjectManager::PushBack(
-	std::unique_ptr<GameObject>&& object, 
-	const uint32_t updatePriority, 
-	const bool isUpdateSkip,
-	const bool isSaveCollInfo)
+
+
+void GameObjectManager::PushBack(std::unique_ptr<GameObject>&& object, const bool isUpdateSkip)
 {
 	assert(object);
 
@@ -60,10 +58,8 @@ void GameObjectManager::PushBack(
 	std::list<GameObjectSet>::iterator itr = objects_.end();
 	itr--;
 	itr->obj = std::move(object);
-	itr->updatePriority = updatePriority;
 	itr->isUpdateSkip = isUpdateSkip;
 	itr->isSkip = false;
-	itr->isSaveCollInfo = isSaveCollInfo;
 }
 
 void GameObjectManager::PushBackForBackObject(std::unique_ptr<GameObject>&& object)

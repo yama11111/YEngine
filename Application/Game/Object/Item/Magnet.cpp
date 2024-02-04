@@ -32,6 +32,8 @@ void Magnet::Initialize(const Transform::Status& status)
 	
 	SetCollider(GameCollider::Create(attribute));
 
+	SetIsSaveColl(true);
+
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);

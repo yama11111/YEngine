@@ -211,9 +211,6 @@ void PlayerDrawer::UpdateAnimation()
 	
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 
-	//Transform::Status status = animeStatus_;
-	//outlineObj_->Update(status);
-
 	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
 	CircleShadowManager::GetInstance()->ActivateCircleShadow(1, pParent_->pos_ - Vector3(0, 1.0f, 0));
 }

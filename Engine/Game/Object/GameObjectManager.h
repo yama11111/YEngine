@@ -58,12 +58,7 @@ namespace YGame
 		/// <param name="object"> : オブジェクト (動的)</param>
 		/// <param name="updatePriority"> : 更新優先度</param>
 		/// <param name="isUpdateSkip"> : 更新スキップをするか</param>
-		/// <param name="isSaveCollInfo"> : 衝突情報を保存するか</param>
-		void PushBack(
-			std::unique_ptr<GameObject>&& object, 
-			const uint32_t updatePriority, 
-			const bool isUpdateSkip, 
-			const bool isSaveCollInfo);
+		void PushBack(std::unique_ptr<GameObject>&& object, const bool isUpdateSkip);
 
 		/// <summary>
 		/// 挿入

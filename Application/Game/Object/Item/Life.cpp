@@ -32,6 +32,8 @@ void Life::Initialize(const Transform::Status& status)
 
 	SetCollider(GameCollider::Create(attribute));
 
+	SetIsSaveColl(true);
+
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::ePlayer);
@@ -79,7 +81,7 @@ void Life::OnCollision(const InfoOnCollision& info)
 
 	if (info.attribute == AttributeType::ePlayer)
 	{
-		info.pStatus->SetHP(info.pStatus->HP() + 1);
+		info.pStatus->SetHP(info.pStatus->HP() + 20);
 		static_cast<LifeDrawer*>(drawer_.get())->PlayRecoveryAnimation();
 		
 		status_.SetInvincible(true);

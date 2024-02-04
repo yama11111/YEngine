@@ -122,7 +122,6 @@
     <ClCompile Include="Application\Game\Object\Stage\Block.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Goal.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Magnet.cpp" />
-    <ClCompile Include="Application\Game\Object\Attack\NeedleAttack.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\SpeedGate.cpp" />
     <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\GateDrawer.cpp" />
@@ -142,7 +141,6 @@
     <ClCompile Include="Application\Game\Object\Item\Coin.cpp" />
     <ClCompile Include="Application\Game\Object\Item\CoinDrawer.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\CollisionDrawer.cpp" />
-    <ClCompile Include="Application\Game\Object\Attack\NeedleAttackDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\SelectDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\StageDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\StageStatusDrawer.cpp" />
@@ -162,7 +160,6 @@
     <ClCompile Include="Application\Game\Object\Enemy\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\CharacterStatus.cpp" />
     <ClCompile Include="Engine\Game\Object\GameObjectManager.cpp" />
-    <ClCompile Include="Application\Game\Object\Attack\IAttack.cpp" />
     <ClCompile Include="Application\Game\Object\Enemy\IEnemy.cpp" />
     <ClCompile Include="Application\Game\Object\BaseCharacter.cpp" />
     <ClCompile Include="Engine\Game\Object\GameObject.cpp" />
@@ -275,7 +272,6 @@
     <ClInclude Include="Application\Game\Object\Stage\Block.h" />
     <ClInclude Include="Application\Game\Object\Stage\Goal.h" />
     <ClInclude Include="Application\Game\Object\Item\Magnet.h" />
-    <ClInclude Include="Application\Game\Object\Attack\NeedleAttack.h" />
     <ClInclude Include="Application\Game\Object\Stage\SpeedGate.h" />
     <ClInclude Include="Application\Game\UI\CoinCountDrawer.h" />
     <ClInclude Include="Application\Game\Object\Stage\GateDrawer.h" />
@@ -299,7 +295,6 @@
     <ClInclude Include="Application\Game\Object\Item\CoinDrawer.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\CollisionDrawer.h" />
     <ClInclude Include="Application\Game\Object\ColorConfig.h" />
-    <ClInclude Include="Application\Game\Object\Attack\NeedleAttackDrawer.h" />
     <ClInclude Include="Application\Game\UI\SelectDrawer.h" />
     <ClInclude Include="Application\Game\UI\StageDrawer.h" />
     <ClInclude Include="Application\Game\UI\StageStatusDrawer.h" />
@@ -321,7 +316,6 @@
     <ClInclude Include="Application\Game\Object\CharacterStatus.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\IDrawerFactory.h" />
     <ClInclude Include="Engine\Game\Object\GameObjectManager.h" />
-    <ClInclude Include="Application\Game\Object\Attack\IAttack.h" />
     <ClInclude Include="Application\Game\Object\Enemy\IEnemy.h" />
     <ClInclude Include="Application\Game\Object\BaseCharacter.h" />
     <ClInclude Include="Engine\Game\Object\GameObject.h" />

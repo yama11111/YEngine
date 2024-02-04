@@ -1,3 +1,10 @@
+/**
+ * @file GameObject.h
+ * @brief ゲームオブジェクトクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseDrawer.h"
 #include "GameCollider.h"
@@ -74,6 +81,24 @@ namespace YGame
 		/// </summary>
 		/// <returns>存在フラグ</returns>
 		inline bool IsExist() const { return isExist_; }
+
+		/// <summary>
+		/// 衝突情報保存フラグ取得
+		/// </summary>
+		/// <returns>衝突情報保存フラグ</returns>
+		inline bool IsSaveColl() const { return isSaveColl_; }
+		
+		/// <summary>
+		/// 更新キー取得
+		/// </summary>
+		/// <returns>更新キー</returns>
+		inline std::string UpdateKey() const { return updateKey_; }
+		
+		/// <summary>
+		/// 描画キー取得
+		/// </summary>
+		/// <returns>描画キー</returns>
+		inline std::vector<std::string> DrawKeys() const { return drawKeys_; }
 	
 	public:
 		
@@ -107,6 +132,24 @@ namespace YGame
 		/// </summary>
 		/// <param name="isUpdate"> : 更新フラグ</param>
 		inline void SetIsControlUpdate(const bool isControlUpdate) { isControlUpdate_ = isControlUpdate; }
+
+		/// <summary>
+		/// 衝突情報保存フラグ設定
+		/// </summary>
+		/// <param name="isUpdate"> : 衝突情報保存フラグ</param>
+		inline void SetIsSaveColl(const bool isSaveColl) { isSaveColl_ = isSaveColl; }
+
+		/// <summary>
+		/// 更新キー取得
+		/// </summary>
+		/// <returns>更新キー</returns>
+		inline void SetUpdateKey(const std::string& updateKey) { updateKey_ = updateKey; }
+		
+		/// <summary>
+		/// 描画キー取得
+		/// </summary>
+		/// <returns>描画キー</returns>
+		inline void SetDrawKeys(const std::vector<std::string>& drawKey) { drawKeys_ = drawKey; }
 	
 	public:
 
@@ -130,12 +173,21 @@ namespace YGame
 
 		// 親ポインタ
 		GameObject* pParent_ = nullptr;
-
+		
 		// 存在フラグ
 		bool isExist_ = true;
 
 		// 操縦更新フラグ
 		bool isControlUpdate_ = true;
+
+		// 衝突情報を保存するか
+		bool isSaveColl_ = false;
+
+		// 更新キー
+		std::string updateKey_;
+		
+		// 描画キー
+		std::vector<std::string> drawKeys_;
 
 	protected:
 
