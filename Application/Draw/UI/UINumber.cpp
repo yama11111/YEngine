@@ -175,7 +175,7 @@ namespace YGame
 			for (size_t i = 0; i < maxDigits; i++)
 			{
 				digits_.emplace_back();
-				digits_[i].ui.reset(UIDigit::Create2D(0, &transform_.m_, {}, isClearWhenTransition));
+				digits_[i].ui.reset(UIDigit::Create2D(0, &transform_.m, {}, isClearWhenTransition));
 				digits_[i].animeStatus = {};
 			}
 		}
@@ -183,7 +183,7 @@ namespace YGame
 		{
 			for (size_t i = 0; i < digits_.size(); i++)
 			{
-				digits_[i].ui->Initialize2D(0, &transform_.m_, {}, isClearWhenTransition);;
+				digits_[i].ui->Initialize2D(0, &transform_.m, {}, isClearWhenTransition);;
 				digits_[i].animeStatus = {};
 			}
 		}
@@ -220,7 +220,7 @@ namespace YGame
 			{
 				digits_.emplace_back();
 				digits_[i].ui.reset(UIDigit::Create3D(
-					0, &transform_.m_, false, false, pVP, {}, isClearWhenTransition));
+					0, &transform_.m, false, false, pVP, {}, isClearWhenTransition));
 				digits_[i].animeStatus = {};
 			}
 		}
@@ -229,7 +229,7 @@ namespace YGame
 			for (size_t i = 0; i < digits_.size(); i++)
 			{
 				digits_[i].ui->Initialize3D(
-					0, &transform_.m_, false, false, pVP, {}, isClearWhenTransition);
+					0, &transform_.m, false, false, pVP, {}, isClearWhenTransition);
 				digits_[i].animeStatus = {};
 			}
 		}

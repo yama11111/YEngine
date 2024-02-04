@@ -171,9 +171,9 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 			// 頂点座標
 			Vector3 pos;
 			// 読み込み
-			lineStream >> pos.x_;
-			lineStream >> pos.y_;
-			lineStream >> pos.z_;
+			lineStream >> pos.x;
+			lineStream >> pos.y;
+			lineStream >> pos.z;
 			// 追加
 			positions.push_back(pos);
 		}
@@ -183,10 +183,10 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 			// UV座標
 			Vector2 uv;
 			// 読み込み
-			lineStream >> uv.x_;
-			lineStream >> uv.y_;
+			lineStream >> uv.x;
+			lineStream >> uv.y;
 			// v反転
-			uv.y_ = 1.0f - uv.y_;
+			uv.y = 1.0f - uv.y;
 			// 追加
 			uvs.push_back(uv);
 		}
@@ -196,9 +196,9 @@ Mesh* Mesh::LoadObj(const std::string& directoryPath, const std::string& objFile
 			// 法線
 			Vector3 normal;
 			// 読み込み
-			lineStream >> normal.x_;
-			lineStream >> normal.y_;
-			lineStream >> normal.z_;
+			lineStream >> normal.x;
+			lineStream >> normal.y;
+			lineStream >> normal.z;
 			// 追加
 			normals.push_back(normal);
 		}
@@ -429,25 +429,25 @@ Texture* Mesh::LoadMaterial(const std::string& directoryPath, const std::string&
 		//if (key == "Ka")
 		//{
 		//	// 読み込み
-		//	lineStream >> m.ambient_.x_;
-		//	lineStream >> m.ambient_.y_;
-		//	lineStream >> m.ambient_.z_;
+		//	lineStream >> m.ambient_.x;
+		//	lineStream >> m.ambient_.y;
+		//	lineStream >> m.ambient_.z;
 		//}
 		//// 先頭文字列が "Kd" ならディフューズ色
 		//if (key == "Kd")
 		//{
 		//	// 読み込み
-		//	lineStream >> m.diffuse_.x_;
-		//	lineStream >> m.diffuse_.y_;
-		//	lineStream >> m.diffuse_.z_;
+		//	lineStream >> m.diffuse_.x;
+		//	lineStream >> m.diffuse_.y;
+		//	lineStream >> m.diffuse_.z;
 		//}
 		//// 先頭文字列が "vn" ならスペキュラー色
 		//if (key == "Ks")
 		//{
 		//	// 読み込み
-		//	lineStream >> m.specular_.x_;
-		//	lineStream >> m.specular_.y_;
-		//	lineStream >> m.specular_.z_;
+		//	lineStream >> m.specular_.x;
+		//	lineStream >> m.specular_.y;
+		//	lineStream >> m.specular_.z;
 		//}
 
 		// 先頭文字列が "map_Kd" ならテクスチャファイル名
@@ -510,9 +510,9 @@ void Mesh::FbxLoader::ParseMeshVertices(std::vector<VData>& vertices, FbxMesh* f
 		VData& refVertex = vertices[i];
 
 		// 座標コピー
-		refVertex.pos_.x_ = static_cast<float>(pCoord[i][0]);
-		refVertex.pos_.y_ = static_cast<float>(pCoord[i][1]);
-		refVertex.pos_.z_ = static_cast<float>(pCoord[i][2]);
+		refVertex.pos_.x = static_cast<float>(pCoord[i][0]);
+		refVertex.pos_.y = static_cast<float>(pCoord[i][1]);
+		refVertex.pos_.z = static_cast<float>(pCoord[i][2]);
 	}
 }
 
@@ -558,9 +558,9 @@ void Mesh::FbxLoader::ParseMeshFaces(std::vector<VData>& vertices, std::vector<u
 			if (fbxMesh->GetPolygonVertexNormal(i, j, normal))
 			{
 				// 代入
-				refVertex.normal_.x_ = static_cast<float>(normal[0]);
-				refVertex.normal_.y_ = static_cast<float>(normal[1]);
-				refVertex.normal_.z_ = static_cast<float>(normal[2]);
+				refVertex.normal_.x = static_cast<float>(normal[0]);
+				refVertex.normal_.y = static_cast<float>(normal[1]);
+				refVertex.normal_.z = static_cast<float>(normal[2]);
 			}
 
 			// テクスチャUV読み込み
@@ -572,8 +572,8 @@ void Mesh::FbxLoader::ParseMeshFaces(std::vector<VData>& vertices, std::vector<u
 				// 0番決め打ちで読み込み
 				if (fbxMesh->GetPolygonVertexUV(i, j, uvNames[0], uvs, lUnmapedUV))
 				{
-					refVertex.uv_.x_ = static_cast<float>(uvs[0]);
-					refVertex.uv_.y_ = static_cast<float>(uvs[1]);
+					refVertex.uv_.x = static_cast<float>(uvs[0]);
+					refVertex.uv_.y = static_cast<float>(uvs[1]);
 				}
 
 				// インデックス配列に頂点インデックス追加
@@ -625,15 +625,15 @@ void Mesh::FbxLoader::ParseMaterial(const std::string& folderPath, Texture*& ref
 
 				//// 環境光係数
 				//FbxPropertyT<FbxDouble3> ambient = pLambert->Ambient;
-				//pModel->ambient.x_ = static_cast<float>(ambient.Get()[0]);
-				//pModel->ambient.y_ = static_cast<float>(ambient.Get()[1]);
-				//pModel->ambient.z_ = static_cast<float>(ambient.Get()[2]);
+				//pModel->ambient.x = static_cast<float>(ambient.Get()[0]);
+				//pModel->ambient.y = static_cast<float>(ambient.Get()[1]);
+				//pModel->ambient.z = static_cast<float>(ambient.Get()[2]);
 
 				//// 拡散反射光係数
 				//FbxPropertyT<FbxDouble3> diffuse = pLambert->Diffuse;
-				//pModel->diffuse.x_ = static_cast<float>(diffuse.Get()[0]);
-				//pModel->diffuse.y_ = static_cast<float>(diffuse.Get()[1]);
-				//pModel->diffuse.z_ = static_cast<float>(diffuse.Get()[2]);
+				//pModel->diffuse.x = static_cast<float>(diffuse.Get()[0]);
+				//pModel->diffuse.y = static_cast<float>(diffuse.Get()[1]);
+				//pModel->diffuse.z = static_cast<float>(diffuse.Get()[2]);
 			}
 
 			// ディフューズテクスチャを取り出す
@@ -680,7 +680,7 @@ Matrix4 Mesh::FbxLoader::ConvertFromFbxAMatrixToMatrix4(const FbxAMatrix& fbxMat
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			result.m_[i][j] = static_cast<float>(fbxMat.Get(i, j));
+			result.m[i][j] = static_cast<float>(fbxMat.Get(i, j));
 		}
 	}
 

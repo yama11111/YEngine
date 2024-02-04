@@ -36,7 +36,7 @@ void StageDrawer::Initialize(
 	{
 		centerFrame_.reset(DrawObjectForSprite3D::Create(Transform::Status::Default(), false, false, spVP_, spFrameSpr_));
 	}
-	centerFrame_->SetParent(&trfm_.m_);
+	centerFrame_->SetParent(&trfm_.m);
 	if (color_ == nullptr)
 	{
 		color_.reset(ConstBufferObject<CBColor>::Create());
@@ -44,18 +44,18 @@ void StageDrawer::Initialize(
 	centerFrame_->InsertConstBuffer(color_.get());
 	
 	uiTrfm_.Initialize();
-	uiTrfm_.parent_ = &trfm_.m_;
+	uiTrfm_.parent_ = &trfm_.m;
 	
 	if (uiNum_ == nullptr)
 	{
-		uiNum_.reset(UINumber::Create3D(number, 3, 0.5f, false, true, &uiTrfm_.m_, false, false, spVP_));
+		uiNum_.reset(UINumber::Create3D(number, 3, 0.5f, false, true, &uiTrfm_.m, false, false, spVP_));
 	}
 	uiNum_->SetNumber(number);
 	if (uiTutorial_ == nullptr)
 	{
 		uiTutorial_.reset(DrawObjectForSprite3D::Create(Transform::Status::Default(), false, false, spVP_, spTutorialSpr_));
 	}
-	uiTutorial_->SetParent(&uiTrfm_.m_);
+	uiTutorial_->SetParent(&uiTrfm_.m);
 	isTutorial_ = isTutorial;
 
 	popScalePow_.Initialize(20);
@@ -73,7 +73,7 @@ void StageDrawer::Initialize(
 			missionFrames_[i].frame.reset(
 				DrawObjectForSprite3D::Create(Transform::Status::Default(), false, false, spVP_, spFrameSpr_));
 		}
-		missionFrames_[i].frame->SetParent(&trfm_.m_);
+		missionFrames_[i].frame->SetParent(&trfm_.m);
 
 		if (missionFrames_[i].color == nullptr)
 		{
@@ -97,7 +97,7 @@ void StageDrawer::Reset()
 	
 	centerFrame_->transform_.Initialize();
 	centerFrame_->transform_.scale_ = {};
-	centerFrame_->transform_.rota_.z_ = kPI / 4.0f;
+	centerFrame_->transform_.rota_.z = kPI / 4.0f;
 	color_->data_.baseColor = ColorConfig::skTurquoise[4];
 	
 	uiTrfm_.Initialize();
@@ -114,7 +114,7 @@ void StageDrawer::Reset()
 	{
 		missionFrames_[i].frame->transform_.Initialize();
 		missionFrames_[i].frame->transform_.scale_ = {};
-		missionFrames_[i].frame->transform_.rota_.z_ = kPI / 4.0f;
+		missionFrames_[i].frame->transform_.rota_.z = kPI / 4.0f;
 		
 		missionFrames_[i].isSelect = false;
 		missionFrames_[i].selectScalePow.Reset();

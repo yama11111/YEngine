@@ -33,12 +33,12 @@ void UILetterBox::Initialize(const YMath::Vector2& winSize, const float topHeigh
 	}
 
 	// ウィンドウの横幅と指定された高さに
-	objs_[kTopIndex]	->transform_.scale_ = { winSize.x_, topHeight, 0.0f };
-	objs_[kBottomIndex]	->transform_.scale_ = { winSize.x_, bottomHeight, 0.0f };
+	objs_[kTopIndex]	->transform_.scale_ = { winSize.x, topHeight, 0.0f };
+	objs_[kBottomIndex]	->transform_.scale_ = { winSize.x, bottomHeight, 0.0f };
 
 	// ウィンドウの上と下に隣接するように
-	objs_[kTopIndex]	->transform_.pos_ = { winSize.x_ / 2.0f, +topHeight / 2.0f, 0.0f };
-	objs_[kBottomIndex]	->transform_.pos_ = { winSize.x_ / 2.0f, winSize.y_ - bottomHeight / 2.0f, 0.0f };
+	objs_[kTopIndex]	->transform_.pos_ = { winSize.x / 2.0f, +topHeight / 2.0f, 0.0f };
+	objs_[kBottomIndex]	->transform_.pos_ = { winSize.x / 2.0f, winSize.y - bottomHeight / 2.0f, 0.0f };
 
 	heightEasTimer_.Initialize(0);
 

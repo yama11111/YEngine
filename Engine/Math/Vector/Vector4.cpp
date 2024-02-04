@@ -3,11 +3,11 @@
 using YMath::Vector4;
 
 Vector4::Vector4() :
-	r_(0.0f), g_(0.0f), b_(0.0f), a_(0.0f)
+	x(0.0f), y(0.0f), z(0.0f), w(0.0f)
 {}
 
 Vector4::Vector4(float r, float g, float b, float a) :
-	r_(r), g_(g), b_(b), a_(a)
+	x(r), y(g), z(b), w(a)
 {}
 
 Vector4 Vector4::operator+() const
@@ -16,48 +16,48 @@ Vector4 Vector4::operator+() const
 }
 Vector4 Vector4::operator-() const
 {
-	return { -r_, -g_, -b_, -a_ };
+	return { -x, -y, -z, -w };
 }
 
 Vector4& Vector4::operator+=(const Vector4& v)
 {
-	r_ += v.r_;
-	g_ += v.g_;
-	b_ += v.b_;
-	a_ += v.a_;
+	x += v.x;
+	y += v.y;
+	z += v.z;
+	w += v.w;
 	return *this;
 }
 Vector4& Vector4::operator-=(const Vector4& v)
 {
-	r_ -= v.r_;
-	g_ -= v.g_;
-	b_ -= v.b_;
-	a_ -= v.a_;
+	x -= v.x;
+	y -= v.y;
+	z -= v.z;
+	w -= v.w;
 	return *this;
 }
 Vector4& Vector4::operator*=(float s)
 {
-	r_ *= s;
-	g_ *= s;
-	b_ *= s;
-	a_ *= s;
+	x *= s;
+	y *= s;
+	z *= s;
+	w *= s;
 	return *this;
 }
 Vector4& Vector4::operator/=(float s)
 {
-	r_ /= s;
-	g_ /= s;
-	b_ /= s;
-	a_ /= s;
+	x /= s;
+	y /= s;
+	z /= s;
+	w /= s;
 	return *this;
 }
 
 bool Vector4::operator==(const Vector4& v)
 {
-	return  (r_ == v.r_ && g_ == v.g_ && b_ == v.b_ && a_ == v.a_);
+	return  (x == v.x && y == v.y && z == v.z && w == v.w);
 }
 
 bool Vector4::operator!=(const Vector4& v)
 {
-	return !(r_ == v.r_ && g_ == v.g_ && b_ == v.b_ && a_ == v.a_);
+	return !(x == v.x && y == v.y && z == v.z && w == v.w);
 }

@@ -46,15 +46,15 @@ void BeginingDrawer::Initialize()
 	{
 		if (ui_.num == nullptr)
 		{
-			ui_.num.reset(UINumber::Create2D(0, 2, 32.0f, false, true, &ui_.trfm.m_));
+			ui_.num.reset(UINumber::Create2D(0, 2, 32.0f, false, true, &ui_.trfm.m));
 		}
-		ui_.num->SetParent(&ui_.trfm.m_);
+		ui_.num->SetParent(&ui_.trfm.m);
 		ui_.num->SetNumber(StageManager::GetInstance()->CurrentStageIndex() + 1);
 		if (ui_.tutorial == nullptr)
 		{
 			ui_.tutorial.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTutorialSpr));
 		}
-		ui_.tutorial->SetParent(&ui_.trfm.m_);
+		ui_.tutorial->SetParent(&ui_.trfm.m);
 		if (ui_.color == nullptr)
 		{
 			ui_.color.reset(ConstBufferObject<CBColor>::Create());
@@ -72,7 +72,7 @@ void BeginingDrawer::Initialize()
 		{
 			center_.rect.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pRectSpr));
 		}
-		center_.rect->SetParent(&rectTrfm_.m_);
+		center_.rect->SetParent(&rectTrfm_.m);
 		if (center_.color == nullptr)
 		{
 			center_.color.reset(ConstBufferObject<CBColor>::Create());
@@ -85,7 +85,7 @@ void BeginingDrawer::Initialize()
 			{
 				missions_[i].rect.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pRectSpr));
 			}
-			missions_[i].rect->SetParent(&rectTrfm_.m_);
+			missions_[i].rect->SetParent(&rectTrfm_.m);
 			if (missions_[i].color == nullptr)
 			{
 				missions_[i].color.reset(ConstBufferObject<CBColor>::Create());
@@ -118,26 +118,26 @@ void BeginingDrawer::Initialize()
 			{
 				missionUIs_[i].star.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pStarSpr));
 			}
-			missionUIs_[i].star->SetParent(&missionUIs_[i].trfm.m_);
+			missionUIs_[i].star->SetParent(&missionUIs_[i].trfm.m);
 			if (missionUIs_[i].starFrame == nullptr)
 			{
 				missionUIs_[i].starFrame.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pStarFrameSpr));
 			}
-			missionUIs_[i].starFrame->SetParent(&missionUIs_[i].trfm.m_);
+			missionUIs_[i].starFrame->SetParent(&missionUIs_[i].trfm.m);
 
 			missionUIs_[i].scoreTrfm.Initialize();
-			missionUIs_[i].scoreTrfm.parent_ = &missionUIs_[i].trfm.m_;
+			missionUIs_[i].scoreTrfm.parent_ = &missionUIs_[i].trfm.m;
 			if (missionUIs_[i].score == nullptr)
 			{
 				missionUIs_[i].score.reset(UINumber::Create2D(
 					StageManager::GetInstance()->Status(StageManager::GetInstance()->CurrentStageIndex()).mission[i],
-					7, 80.0f, false, true, &missionUIs_[i].scoreTrfm.m_));
+					7, 80.0f, false, true, &missionUIs_[i].scoreTrfm.m));
 			}
 			if (missionUIs_[i].mission == nullptr)
 			{
 				missionUIs_[i].mission.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pMissionSpr));
 			}
-			missionUIs_[i].mission->SetParent(&missionUIs_[i].trfm.m_);
+			missionUIs_[i].mission->SetParent(&missionUIs_[i].trfm.m);
 
 			if (missionUIs_[i].color == nullptr)
 			{
@@ -203,7 +203,7 @@ void BeginingDrawer::Reset()
 	{
 		rectTrfm_.Initialize();
 		rectTrfm_.pos_ = titlePos;
-		rectTrfm_.rota_.z_ = kPI / 4.0f;
+		rectTrfm_.rota_.z = kPI / 4.0f;
 		rectTrfm_.scale_ = Vector3(1.0f, 1.0f, 0.0f);
 
 		center_.rect->transform_.Initialize();
@@ -235,11 +235,11 @@ void BeginingDrawer::Reset()
 	{
 		band_.band->transform_.Initialize();
 		band_.band->transform_.pos_ = titlePos;
-		band_.band->transform_.scale_ = Vector3(WinSize.x_, 96.0f, 0);
+		band_.band->transform_.scale_ = Vector3(WinSize.x, 96.0f, 0);
 		band_.color->data_.baseColor = ColorConfig::skTurquoise[5];
 
 		band_.heightPow.Initialize(20);
-		band_.heightEas.Initialize(-band_.band->transform_.scale_.y_, 0.0f, 5.0f);
+		band_.heightEas.Initialize(-band_.band->transform_.scale_.y, 0.0f, 5.0f);
 	}
 
 	// ミッション
@@ -390,7 +390,7 @@ void BeginingDrawer::Update()
 			float alpha = 0.0f;
 			if (isPop_)		{ alpha = YMath::EaseOut<float>(0.0f, 1.0f, missionUIs_[i].animeTim.Ratio(), 3.0f); }
 			if (isVanish_) { alpha = YMath::EaseIn <float>(1.0f, 0.0f, missionUIs_[i].animeTim.Ratio(), 3.0f); }
-			missionUIs_[i].color->data_.baseColor.a_ = alpha;
+			missionUIs_[i].color->data_.baseColor.w = alpha;
 		}
 	}
 
@@ -414,8 +414,8 @@ void BeginingDrawer::Update()
 		float readyAlpha = YMath::EaseInOut(0.0f, 0.8f, startUI_.readyPow_.Ratio(), 2.0f);
 		float goAlpha = YMath::EaseInOut(0.0f, 0.8f, startUI_.goPow_.Ratio(), 2.0f);
 
-		startUI_.readyColor_->data_.baseColor.a_ = readyAlpha;
-		startUI_.goColor_->data_.baseColor.a_ = goAlpha;
+		startUI_.readyColor_->data_.baseColor.w = readyAlpha;
+		startUI_.goColor_->data_.baseColor.w = goAlpha;
 	}
 
 	remainTim_.Update();

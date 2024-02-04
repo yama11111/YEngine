@@ -171,7 +171,7 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 		slimeActor_.Wobble();
 
 		Vector3 pos = pParent_->pos_;
-		pos.y_ += pParent_->scale_.y_;
+		pos.y += pParent_->scale_.y;
 
 		WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, spVP_);
 	}

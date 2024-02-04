@@ -22,7 +22,7 @@ std::unique_ptr<BlockDrawer> BlockDrawer::Create(
 
 	if (isBackground)
 	{
-		newDrawer->cbOutline_->data_.color.a_ = 0.0f;
+		newDrawer->cbOutline_->data_.color.w = 0.0f;
 	}
 
 	return std::move(newDrawer);

@@ -118,7 +118,7 @@ namespace YGame
 			cbColor_->data_.baseColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);			
 		}
 		
-		animeStatus_.pos_ += Vector3(0.0f, -animeStatus_.scale_.y_, 0.0f) * 32.0f;
+		animeStatus_.pos_ += Vector3(0.0f, -animeStatus_.scale_.y, 0.0f) * 32.0f;
 		
 		slimeActor_.Update(isDown);
 	}

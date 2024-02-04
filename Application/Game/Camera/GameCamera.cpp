@@ -56,8 +56,8 @@ void GameCamera::DrawDebugText()
 
 	ImGui::Begin(windowName.c_str());
 
-	ImGui::Text("pos    : %f, %f, %f", camera_.pos_.x_, camera_.pos_.y_, camera_.pos_.z_);
-	ImGui::Text("target : %f, %f, %f", target_.x_, target_.y_, target_.z_);
+	ImGui::Text("pos    : %f, %f, %f", camera_.pos_.x, camera_.pos_.y, camera_.pos_.z);
+	ImGui::Text("target : %f, %f, %f", target_.x, target_.y, target_.z);
 
 	ImGui::End();
 }

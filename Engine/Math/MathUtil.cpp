@@ -36,9 +36,9 @@ float YMath::GetRand(const float start, const float end, const float place)
 Vector3 YMath::GetRand(const Vector3& start, const Vector3& end, const float place)
 {
 	return Vector3(
-		GetRand(start.x_, end.x_, place),
-		GetRand(start.y_, end.y_, place),
-		GetRand(start.z_, end.z_, place)
+		GetRand(start.x, end.x, place),
+		GetRand(start.y, end.y, place),
+		GetRand(start.z, end.z, place)
 	);
 }
 
@@ -66,9 +66,9 @@ template<>
 bool YMath::InRange(const Vector3& num, const Vector3& lower, const Vector3& upper)
 {
 	return bool(
-		InRange(num.x_, lower.x_, upper.x_) &&
-		InRange(num.y_, lower.y_, upper.y_) &&
-		InRange(num.z_, lower.z_, upper.z_));
+		InRange(num.x, lower.x, upper.x) &&
+		InRange(num.y, lower.y, upper.y) &&
+		InRange(num.z, lower.z, upper.z));
 }
 template<typename T>
 bool YMath::InRange(const T& num, const T& lower, const T& upper, bool& isOverLower, bool& isOverUpper)
@@ -101,9 +101,9 @@ template<>
 Vector3 YMath::Abs(const Vector3& num)
 {
 	return YMath::Vector3(
-		std::fabs(num.x_),
-		std::fabs(num.y_),
-		std::fabs(num.z_));
+		std::fabs(num.x),
+		std::fabs(num.y),
+		std::fabs(num.z));
 }
 
 template<typename T>
@@ -131,9 +131,9 @@ YMath::Vector3 YMath::Clamp(const YMath::Vector3& num, const YMath::Vector3& low
 {
 	Vector3 result;
 
-	result.x_ = std::fminf(std::fmaxf(num.x_, lower.x_), upper.x_);
-	result.y_ = std::fminf(std::fmaxf(num.y_, lower.y_), upper.y_);
-	result.z_ = std::fminf(std::fmaxf(num.z_, lower.z_), upper.z_);
+	result.x = std::fminf(std::fmaxf(num.x, lower.x), upper.x);
+	result.y = std::fminf(std::fmaxf(num.y, lower.y), upper.y);
+	result.z = std::fminf(std::fmaxf(num.z, lower.z), upper.z);
 
 	return result;
 }
@@ -147,10 +147,10 @@ YMath::Vector4 YMath::GetColor(const int R, const int G, const int B, const int 
 		static_cast<float>(Clamp(A, 0, 255))
 	);
 	
-	result.r_ /= 255.0f;
-	result.g_ /= 255.0f;
-	result.b_ /= 255.0f;
-	result.a_ /= 255.0f;
+	result.x /= 255.0f;
+	result.y /= 255.0f;
+	result.z /= 255.0f;
+	result.w /= 255.0f;
 
 	return result;
 }
@@ -163,8 +163,8 @@ float YMath::ConvertFromDegreeToRadian(const float degree)
 Vector3 YMath::ConvertFromDegreeToRadian(const Vector3& degree)
 {
 	return Vector3(
-		ConvertFromDegreeToRadian(degree.x_), 
-		ConvertFromDegreeToRadian(degree.y_),
-		ConvertFromDegreeToRadian(degree.z_));
+		ConvertFromDegreeToRadian(degree.x), 
+		ConvertFromDegreeToRadian(degree.y),
+		ConvertFromDegreeToRadian(degree.z));
 }
 

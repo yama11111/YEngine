@@ -15,7 +15,7 @@ YGame::Sprite2D* WindBlocks::spBlockSpr_ = nullptr;
 namespace
 {
 	const size_t kBlockNum_ = 8;
-	const float kBlockHeight_ = WinSize.y_ / static_cast<float>(kBlockNum_);
+	const float kBlockHeight_ = WinSize.y / static_cast<float>(kBlockNum_);
 }
 
 void WindBlocks::LoadResource()
@@ -47,16 +47,16 @@ void WindBlocks::Initialize()
 	// 初期化
 	for (size_t i = 0; i < blocks_.size(); i++)
 	{
-		Vector2 p = { 0.0f, WinSize.y_ - kBlockHeight_ * i };
+		Vector2 p = { 0.0f, WinSize.y - kBlockHeight_ * i };
 
-		blocks_[i]->obj_->transform_.pos_ = { p.x_, p.y_ - (kBlockHeight_ / 2.0f), 0.0f };
-		blocks_[i]->obj_->transform_.scale_ = { WinSize.x_, kBlockHeight_, 0.0f };
+		blocks_[i]->obj_->transform_.pos_ = { p.x, p.y - (kBlockHeight_ / 2.0f), 0.0f };
+		blocks_[i]->obj_->transform_.scale_ = { WinSize.x, kBlockHeight_, 0.0f };
 		blocks_[i]->cbColor_->data_.baseColor = { 1.0f,1.0f,1.0f,0.0f };
 		blocks_[i]->cbColor_->data_.texColorRate = { 1.0f,1.0f,1.0f,1.0f };
 	}
 
-	posXEas_[0].Initialize(0.0f, WinSize.x_ / 2.0f, 3.0f);
-	posXEas_[1].Initialize(WinSize.x_ / 2.0f, WinSize.x_, 3.0f);
+	posXEas_[0].Initialize(0.0f, WinSize.x / 2.0f, 3.0f);
+	posXEas_[1].Initialize(WinSize.x / 2.0f, WinSize.x, 3.0f);
 
 	colorEas_.Initialize(YMath::GetColor(75, 17, 10, 0), YMath::GetColor(134, 34, 9, 255), 2.0f);
 
@@ -187,7 +187,7 @@ void WindBlocks::UpdateBlock()
 			PropagateBlock(i + 1, blocks_[i]->isActColorPow_);
 		}
 
-		anime.pos_.x_ = posXEas_[stepIndex].Out(blocks_[i]->actTim_.Ratio());
+		anime.pos_.x = posXEas_[stepIndex].Out(blocks_[i]->actTim_.Ratio());
 		blocks_[i]->obj_->Update(anime);
 
 		blocks_[i]->colorPow_.Update(blocks_[i]->isActColorPow_);

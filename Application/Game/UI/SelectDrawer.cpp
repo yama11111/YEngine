@@ -49,7 +49,7 @@ void SelectDrawer::Initialize()
 		std::array<bool, 3> mission = status.isMissionClear;
 		uint32_t stageNum = static_cast<uint32_t>(i + 1);
 		
-		stages_[i].stage.Initialize(&stages_[i].trfm.m_, stageNum, isTutotial, mission);
+		stages_[i].stage.Initialize(&stages_[i].trfm.m, stageNum, isTutotial, mission);
 		stages_[i].status.Initialize(stageNum, isTutotial, score, mission);
 
 		stages_[i].followPointPow_.Initialize(20);
@@ -85,7 +85,7 @@ void SelectDrawer::Reset()
 	{
 		stages_[i].trfm.Initialize();
 		stages_[i].trfm.pos_ = Vector3(-3.0f, -5.0f, 0.0f) + Vector3(2.0f * i, 0.0f, 3.5f * i);
-		stages_[i].trfm.rota_.x_ = kPI / 2.0f;
+		stages_[i].trfm.rota_.x = kPI / 2.0f;
 		stages_[i].stage.Reset();
 
 		stages_[i].status.Reset();
@@ -183,7 +183,7 @@ void SelectDrawer::Update()
 		offsetTimer_.Update();
 	}
 
-	offset.x_ += YMath::Lerp(0.0f, 1.0f, offsetTimer_.Ratio());
+	offset.x += YMath::Lerp(0.0f, 1.0f, offsetTimer_.Ratio());
 	
 	for (size_t i = 0; i < stages_.size(); i++)
 	{

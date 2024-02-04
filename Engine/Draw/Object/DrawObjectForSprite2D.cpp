@@ -52,7 +52,7 @@ void DrawObjectForSprite2D::Update(const Transform::Status& status)
 
 	transform_.UpdateMatrix(status);
 
-	cbTransform_->data_.matWorld = transform_.m_ * YMath::MatOrthoGraphic();
+	cbTransform_->data_.matWorld = transform_.m * YMath::MatOrthoGraphic();
 }
 
 void DrawObjectForSprite2D::SetSprite2D(Sprite2D* pSprite2D)

@@ -5,10 +5,10 @@ namespace YMath
 	struct Vector4
 	{
 	public:
-		float r_;
-		float g_;
-		float b_;
-		float a_;
+		float x;
+		float y;
+		float z;
+		float w;
 	public:
 		// コンストラクタ(零ベクトル)
 		Vector4();
@@ -30,23 +30,23 @@ namespace YMath
 	// 二項演算子
 	inline Vector4 operator+(const Vector4& v1, const Vector4& v2)
 	{
-		return { v1.r_ + v2.r_, v1.g_ + v2.g_, v1.b_ + v2.b_, v1.a_ + v2.a_ };
+		return { v1.x + v2.x, v1.y + v2.y, v1.z + v2.z, v1.w + v2.w };
 	}
 	inline Vector4 operator-(const Vector4& v1, const Vector4& v2)
 	{
-		return { v1.r_ - v2.r_, v1.g_ - v2.g_, v1.b_ - v2.b_, v1.a_ - v2.a_ };
+		return { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z, v1.w - v2.w };
 	}
 	inline Vector4 operator*(const Vector4& v, float s)
 	{
-		return { v.r_ * s, v.g_ * s, v.b_ * s, v.a_ * s };
+		return { v.x * s, v.y * s, v.z * s, v.w * s };
 	}
 	inline Vector4 operator*(float s, const Vector4& v)
 	{
-		return { s * v.r_, s * v.g_, s * v.b_, s * v.a_ };
+		return { s * v.x, s * v.y, s * v.z, s * v.w };
 	}
 	inline Vector4 operator/(const Vector4& v, float s)
 	{
-		return { v.r_ / s, v.g_ / s, v.b_ / s, v.a_ / s };
+		return { v.x / s, v.y / s, v.z / s, v.w / s };
 	}
 
 	using Vec4 = Vector4;

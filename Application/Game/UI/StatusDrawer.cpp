@@ -41,15 +41,15 @@ void StatusDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 		status.scale_ = kStatusScale;
 
 		statusUI_.reset(DrawObjectForSprite3D::Create(status, false, false, pVP, pSpr));
-		statusUI_->transform_.parent_ = &transform_.m_;
+		statusUI_->transform_.parent_ = &transform_.m;
 	}
 	if (hpGauge_ == nullptr)
 	{
-		hpGauge_.reset(HPGaugeDrawer::Create(&transform_.m_, pVP));
+		hpGauge_.reset(HPGaugeDrawer::Create(&transform_.m, pVP));
 	}
 	if (speedLev_ == nullptr)
 	{
-		speedLev_.reset(SpeedLevelDrawer::Create(&transform_.m_, pVP));
+		speedLev_.reset(SpeedLevelDrawer::Create(&transform_.m, pVP));
 	}
 }
 

@@ -129,14 +129,14 @@ namespace YGame
 
 		Transform::Status animeStatus;
 
-		animeStatus.pos_.y_ += upEas_.Out(animeTims_[kPopIdx].Ratio());
+		animeStatus.pos_.y += upEas_.Out(animeTims_[kPopIdx].Ratio());
 
 		float sca = popScaEas_.Out(animeTims_[kPopIdx].Ratio());
 		animeStatus.scale_ += { sca, sca, sca };
 
 		uiNum_->Update(animeStatus);
 
-		cbColor_->data_.baseColor.a_ = vanishAlphaEas_.In(animeTims_[kVanishIdx].Ratio());
+		cbColor_->data_.baseColor.w = vanishAlphaEas_.In(animeTims_[kVanishIdx].Ratio());
 	}
 
 	void impl_DamageParticle::Draw()

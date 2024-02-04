@@ -60,7 +60,7 @@ void DrawObjectForModel::Update(const Transform::Status& status)
 
 	transform_.UpdateMatrix(status);
 
-	cbTransform_->data_.matWorld = transform_.m_;
+	cbTransform_->data_.matWorld = transform_.m;
 	cbTransform_->data_.matViewProj = pVP_->view_ * pVP_->pro_;
 	cbTransform_->data_.cameraPos = pVP_->eye_;
 }

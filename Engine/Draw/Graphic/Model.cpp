@@ -294,15 +294,15 @@ void Model::FbxLoader::ParseNodeRecursive(Model* pModel, FbxNode* fbxNode, const
 	Vector3 scale = { static_cast<float>(fbxScale[0]), static_cast<float>(fbxScale[1]), static_cast<float>(fbxScale[2]) };
 
 	// 回転角を Degree -> Radianに
-	rot.x_ = YMath::ConvertFromDegreeToRadian(rot.x_);
-	rot.y_ = YMath::ConvertFromDegreeToRadian(rot.y_);
-	rot.z_ = YMath::ConvertFromDegreeToRadian(rot.z_);
+	rot.x = YMath::ConvertFromDegreeToRadian(rot.x);
+	rot.y = YMath::ConvertFromDegreeToRadian(rot.y);
+	rot.z = YMath::ConvertFromDegreeToRadian(rot.z);
 
 	// ローカルトランスフォーム初期化
 	newNode->local_.Initialize({ pos, rot, scale });
 
 	// グローバル変形行列の計算
-	newNode->globalMat_ = newNode->local_.m_;
+	newNode->globalMat_ = newNode->local_.m;
 
 	// 親があるなら
 	if (parent)

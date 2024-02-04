@@ -89,9 +89,9 @@ void GateDrawer::UpdateAnimation()
 	float rota = passRotaEas_.Out(ratio);
 	float scale = passScaleEas_.Out(ratio);
 
-	animeStatus_.scale_.x_ += scale;
-	animeStatus_.scale_.y_ += scale;
+	animeStatus_.scale_.x += scale;
+	animeStatus_.scale_.y += scale;
 
-	objs_["Gate_Frame"]->transform_.rota_.z_ += 0.01f + rota;
-	objs_["Gate_Inside"]->transform_.rota_.z_ += 0.01f + rota;
+	objs_["Gate_Frame"]->transform_.rota_.z += 0.01f + rota;
+	objs_["Gate_Inside"]->transform_.rota_.z += 0.01f + rota;
 }

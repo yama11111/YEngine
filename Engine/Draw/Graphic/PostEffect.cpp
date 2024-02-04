@@ -34,10 +34,10 @@ PostEffect* PostEffect::Create(const std::vector<std::string>& rtvTags)
 	// 頂点バッファ生成
 	newPostEffect->vt_.Initialize(
 		{
-			{ Vector3(0.0f,        +WinSize.y_, 0.0f), Vector2(0.0f, 1.0f) }, // 左下
+			{ Vector3(0.0f,        +WinSize.y, 0.0f), Vector2(0.0f, 1.0f) }, // 左下
 			{ Vector3(0.0f,               0.0f, 0.0f), Vector2(0.0f, 0.0f) }, // 左上
-			{ Vector3(+WinSize.x_, +WinSize.y_, 0.0f), Vector2(1.0f, 1.0f) }, // 右下
-			{ Vector3(+WinSize.x_,        0.0f, 0.0f), Vector2(1.0f, 0.0f) }, // 右上
+			{ Vector3(+WinSize.x, +WinSize.y, 0.0f), Vector2(1.0f, 1.0f) }, // 右下
+			{ Vector3(+WinSize.x,        0.0f, 0.0f), Vector2(1.0f, 0.0f) }, // 右上
 		});
 
 	// レンダーテクスチャ生成
@@ -105,8 +105,8 @@ void PostEffect::CreateDepthBuff(const YMath::Vector2& size)
 	// リソース設定
 	D3D12_RESOURCE_DESC depthResDesc{};
 	depthResDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-	depthResDesc.Width = (UINT16)size.x_;
-	depthResDesc.Height = (UINT)size.y_;
+	depthResDesc.Width = (UINT16)size.x;
+	depthResDesc.Height = (UINT)size.y;
 	depthResDesc.DepthOrArraySize = 1;
 	depthResDesc.Format = DXGI_FORMAT_D32_FLOAT; // 深度値フォーマット
 	depthResDesc.SampleDesc.Count = 1;
@@ -199,7 +199,7 @@ void PostEffect::StartRender()
 	for (size_t i = 0; i < rtvHandles.size(); i++)
 	{
 		// 画面クリア
-		FLOAT clear[4] = { ClearColor.r_,ClearColor.g_,ClearColor.b_,ClearColor.a_ };
+		FLOAT clear[4] = { ClearColor.x,ClearColor.y,ClearColor.z,ClearColor.w };
 		spCmdList_->ClearRenderTargetView(rtvHandles[i], clear, 0, nullptr); // 青っぽい色
 	}
 

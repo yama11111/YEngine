@@ -139,8 +139,8 @@ void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 	collider.SetCollisionBit(collider.CollisionBit() << 4);
 
 	// ぶつかっているか
-	bool isCollX = CollisionTemporaryMap(posRef, scale, { speedRef.x_,0,0 }); // x
-	bool isCollY = CollisionTemporaryMap(posRef, scale, { 0,speedRef.y_,0 }); // y
+	bool isCollX = CollisionTemporaryMap(posRef, scale, { speedRef.x,0,0 }); // x
+	bool isCollY = CollisionTemporaryMap(posRef, scale, { 0,speedRef.y,0 }); // y
 
 	// ぶつかっていないならスキップ
 	if (isCollX == false && isCollY == false) { return; }
@@ -155,16 +155,16 @@ void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 		if (isCollX)
 		{
 			// ビット更新
-			if (speedRef.x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
-			if (speedRef.x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
+			if (speedRef.x >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
+			if (speedRef.x <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
 		}
 
 		// Y軸判定ならs
 		if (isCollY)
 		{
 			// ビット更新
-			if (speedRef.y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
-			if (speedRef.y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
+			if (speedRef.y >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
+			if (speedRef.y <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
 		}
 
 		// アタリ判定ビット 現在F を記録
@@ -180,37 +180,37 @@ void IMapChip::PerfectPixelCollision(MapChipCollider& collider)
 	while (true)
 	{
 		// ぶつかっているか (仮移動)
-		bool isCollTempX = CollisionTemporaryMap(posRef, scale, { approach.x_,0,0 }); // x
-		bool isCollTempY = CollisionTemporaryMap(posRef, scale, { 0,approach.y_,0 }); // y
+		bool isCollTempX = CollisionTemporaryMap(posRef, scale, { approach.x,0,0 }); // x
+		bool isCollTempY = CollisionTemporaryMap(posRef, scale, { 0,approach.y,0 }); // y
 
 		// ぶつかっているならループ抜ける
 		if (isCollTempX || isCollTempY) { break; }
 
 		// 少しづつ近づける
-		if (isCollX) { posRef.x_ += approach.x_; }
-		if (isCollY) { posRef.y_ += approach.y_; }
+		if (isCollX) { posRef.x += approach.x; }
+		if (isCollY) { posRef.y += approach.y; }
 	}
 
 	// X軸判定なら
 	if (isCollX)
 	{
 		// ビット更新
-		if (speedRef.x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
-		if (speedRef.x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
+		if (speedRef.x >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
+		if (speedRef.x <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
 
 		// 速度リセット
-		speedRef.x_ = 0.0f;
+		speedRef.x = 0.0f;
 	}
 
 	// Y軸判定なら
 	if (isCollY)
 	{
 		// ビット更新
-		if (speedRef.y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
-		if (speedRef.y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
+		if (speedRef.y >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
+		if (speedRef.y <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
 
 		// 速度リセット
-		speedRef.y_ = 0.0f;
+		speedRef.y = 0.0f;
 	}
 	
 	// アタリ判定ビット 現在F を記録
@@ -222,10 +222,10 @@ bool IMapChip::CollisionTemporaryMap(const Vector3& pos, const Vector3& scale, c
 	// 仮移動座標
 	Vector3 temporary = pos + spd - leftTop_;
 
-	float left   = +(temporary.x_ - scale.x_); // 左
-	float right  = +(temporary.x_ + scale.x_); // 右
-	float top    = -(temporary.y_ + scale.y_); // 上
-	float bottom = -(temporary.y_ - scale.y_); // 下
+	float left   = +(temporary.x - scale.x); // 左
+	float right  = +(temporary.x + scale.x); // 右
+	float top    = -(temporary.y + scale.y); // 上
+	float bottom = -(temporary.y - scale.y); // 下
 
 	// 仮移動座標でアタリ判定
 	return CollisionMap(left, right, top, bottom);
@@ -237,10 +237,10 @@ bool IMapChip::CollisionMap(const float left, const float right, const float top
 	Vector3 chipSize = chipScale_ * 2.0f;
 
 	// 上下左右のマップチップでの位置
-	int leftNum   = static_cast<int>(left   / chipSize.x_); // 左
-	int rightNum  = static_cast<int>(right  / chipSize.x_); // 右
-	int topNum    = static_cast<int>(top    / chipSize.y_); // 上
-	int bottomNum = static_cast<int>(bottom / chipSize.y_); // 下
+	int leftNum   = static_cast<int>(left   / chipSize.x); // 左
+	int rightNum  = static_cast<int>(right  / chipSize.x); // 右
+	int topNum    = static_cast<int>(top    / chipSize.y); // 上
+	int bottomNum = static_cast<int>(bottom / chipSize.y); // 下
 
 	// 上下左右範囲内にいるか
 	bool L = (0 <= leftNum   && leftNum   < pMapData_->chipNums_[0].size()); // 左
@@ -262,8 +262,8 @@ bool IMapChip::CollisionMap(const float left, const float right, const float top
 YMath::Vector2 IMapChip::Size()
 {
 	return Vector2(
-		chipScale_.x_ * pMapData_->chipNums_[0].size(), 
-		chipScale_.y_ * pMapData_->chipNums_.size()
+		chipScale_.x * pMapData_->chipNums_[0].size(), 
+		chipScale_.y * pMapData_->chipNums_.size()
 	);
 }
 

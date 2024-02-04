@@ -121,20 +121,20 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		YGame::Transform::Status status{};
 
 		// 位置
-		status.pos_.x_ = +static_cast<float>(transform["translation"][1]);
-		status.pos_.y_ = +static_cast<float>(transform["translation"][2]);
-		status.pos_.z_ = -static_cast<float>(transform["translation"][0]);
+		status.pos_.x = +static_cast<float>(transform["translation"][1]);
+		status.pos_.y = +static_cast<float>(transform["translation"][2]);
+		status.pos_.z = -static_cast<float>(transform["translation"][0]);
 
 		// 回転
-		status.rota_.x_ = -static_cast<float>(transform["rotation"][1]);
-		status.rota_.y_ = -static_cast<float>(transform["rotation"][2]);
-		status.rota_.z_ = +static_cast<float>(transform["rotation"][0]);
+		status.rota_.x = -static_cast<float>(transform["rotation"][1]);
+		status.rota_.y = -static_cast<float>(transform["rotation"][2]);
+		status.rota_.z = +static_cast<float>(transform["rotation"][0]);
 		status.rota_ = YMath::ConvertFromDegreeToRadian(status.rota_);
 
 		// 大きさ
-		status.scale_.x_ = static_cast<float>(transform["scaling"][1]);
-		status.scale_.y_ = static_cast<float>(transform["scaling"][2]);
-		status.scale_.z_ = static_cast<float>(transform["scaling"][0]);
+		status.scale_.x = static_cast<float>(transform["scaling"][1]);
+		status.scale_.y = static_cast<float>(transform["scaling"][2]);
+		status.scale_.z = static_cast<float>(transform["scaling"][0]);
 
 		// オブジェクト
 		std::unique_ptr<GameObject> newObj = nullptr;

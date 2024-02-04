@@ -74,7 +74,7 @@ void UIDrawer::Initialize()
 		instTrfm_.Initialize(instStatus);
 		if(instDra_ == nullptr)
 		{
-			instDra_.reset(InstructionsDrawer::Create(&instTrfm_.m_, &vp));
+			instDra_.reset(InstructionsDrawer::Create(&instTrfm_.m, &vp));
 		}
 	}
 
@@ -88,7 +88,7 @@ void UIDrawer::Initialize()
 		statusTrfm_.Initialize(statusStatus);
 		if (statusDra_ == nullptr)
 		{
-			statusDra_.reset(StatusDrawer::Create(&statusTrfm_.m_, &vp));
+			statusDra_.reset(StatusDrawer::Create(&statusTrfm_.m, &vp));
 		}
 	}
 
@@ -102,7 +102,7 @@ void UIDrawer::Initialize()
 		scoreTrfm_.Initialize(scoreStatus);
 		if (scoreDra_ == nullptr)
 		{
-			scoreDra_.reset(ScoreDrawer::Create(&scoreTrfm_.m_, &vp));
+			scoreDra_.reset(ScoreDrawer::Create(&scoreTrfm_.m, &vp));
 		}
 	}
 

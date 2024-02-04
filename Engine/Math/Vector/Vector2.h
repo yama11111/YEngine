@@ -5,8 +5,8 @@ namespace YMath
     struct Vector2
     {
     public:
-        float x_;
-        float y_;
+        float x;
+        float y;
     public:
         // コンストラクタ(零ベクトル)
         Vector2();
@@ -41,23 +41,23 @@ namespace YMath
     // 二項演算子
     inline Vector2 operator+(const Vector2& v1, const Vector2& v2)
     {
-        return{ v1.x_ + v2.x_, v1.y_ + v2.y_ };
+        return{ v1.x + v2.x, v1.y + v2.y };
     }
     inline Vector2 operator-(const Vector2& v1, const Vector2& v2)
     {
-        return{ v1.x_ - v2.x_, v1.y_ - v2.y_ };
+        return{ v1.x - v2.x, v1.y - v2.y };
     }
     inline Vector2 operator*(const Vector2& v, float s)
     {
-        return{ v.x_ * s, v.y_ * s };
+        return{ v.x * s, v.y * s };
     }
     inline Vector2 operator*(float s, const Vector2& v)
     {
-        return { s * v.x_, s * v.y_ };
+        return { s * v.x, s * v.y };
     }
     inline Vector2 operator/(const Vector2& v, float s)
     {
-        return{ v.x_ / s, v.y_ / s };
+        return{ v.x / s, v.y / s };
     }
 
     using Vec2 = Vector2;

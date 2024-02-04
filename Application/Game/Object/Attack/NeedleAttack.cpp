@@ -116,7 +116,7 @@ YGame::InfoOnCollision NeedleAttack::GetInfoOnCollision()
 	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
 
 	result.attribute = AttributeType::ePlayerAttack;
-	result.radius = transform_->scale_.x_;
+	result.radius = transform_->scale_.x;
 
 	return result;
 }

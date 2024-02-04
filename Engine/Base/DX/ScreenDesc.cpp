@@ -21,18 +21,18 @@ void ScreenDesc::Initialize(const Vector2& topLeft, const Vector2& bottomRight, 
 	for (size_t i = 0; i < descNum; i++)
 	{
 		// ビューポート設定
-		viewport_[i].Width = bottomRight.x_ - topLeft.x_; // 横幅
-		viewport_[i].Height = bottomRight.y_ - topLeft.y_; // 縦幅
-		viewport_[i].TopLeftX = topLeft.x_; // 左上 X
-		viewport_[i].TopLeftY = topLeft.y_; // 左上 Y
+		viewport_[i].Width = bottomRight.x - topLeft.x; // 横幅
+		viewport_[i].Height = bottomRight.y - topLeft.y; // 縦幅
+		viewport_[i].TopLeftX = topLeft.x; // 左上 X
+		viewport_[i].TopLeftY = topLeft.y; // 左上 Y
 		viewport_[i].MinDepth = 0; // 縮小深度 (0 でいい)
 		viewport_[i].MaxDepth = 1; // 拡大深度 (1 でいい)
 
 		// シザー矩形設定
-		scissorRect_[i].left = (LONG)topLeft.x_;     // 切り抜き座標 左
-		scissorRect_[i].top = (LONG)topLeft.y_;     // 切り抜き座標 上
-		scissorRect_[i].right = (LONG)bottomRight.x_; // 切り抜き座標 右
-		scissorRect_[i].bottom = (LONG)bottomRight.y_; // 切り抜き座標 下
+		scissorRect_[i].left = (LONG)topLeft.x;     // 切り抜き座標 左
+		scissorRect_[i].top = (LONG)topLeft.y;     // 切り抜き座標 上
+		scissorRect_[i].right = (LONG)bottomRight.x; // 切り抜き座標 右
+		scissorRect_[i].bottom = (LONG)bottomRight.y; // 切り抜き座標 下
 	}
 }
 

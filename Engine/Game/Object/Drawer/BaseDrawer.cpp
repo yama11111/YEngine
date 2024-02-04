@@ -134,7 +134,7 @@ void BaseDrawer::VisibleUpdate()
 	float distanceRate = 1.0f - distance / kRange;
 	if (distanceRate >= 1.0f) { distanceRate = 1.0f; }
 
-	cbColor_->data_.texColorRate.a_ = distanceRate;
+	cbColor_->data_.texColorRate.w = distanceRate;
 
 	// 一定値以下は描画切る
 	SetIsVisible((distanceRate >= 0.01f));
@@ -178,7 +178,7 @@ void BaseDrawer::SetParent(Transform* pParent)
 	
 	if (pParent)
 	{
-		transform_.parent_ = &pParent->m_;
+		transform_.parent_ = &pParent->m;
 	}
 	else
 	{
@@ -192,7 +192,7 @@ void BaseDrawer::InsertObject(const std::string& objTag, BaseDrawObject* pObj)
 
 	// 初期設定
 	pObj->Initialize();
-	pObj->SetParent(&transform_.m_);
+	pObj->SetParent(&transform_.m);
 	pObj->InsertConstBuffer(cbColor_.get());
 	pObj->InsertConstBuffer(cbMaterial_.get());
 

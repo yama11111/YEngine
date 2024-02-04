@@ -78,7 +78,7 @@ void TitleDrawer::Initialize()
 	if (startButton_ == nullptr)
 	{
 		DrawObjectForSprite2D* obj = DrawObjectForSprite2D::Create(Transform::Status::Default(), spButtonSpr_);
-		obj->SetParent(&startButtonTrfm_.m_);
+		obj->SetParent(&startButtonTrfm_.m);
 		startButton_.reset(UIButton::Create(obj));
 	}
 
@@ -113,16 +113,16 @@ void TitleDrawer::Initialize()
 
 void TitleDrawer::Reset()
 {
-	Vector3 pos = Vector3(WinSize.x_ / 2.0f, 256.0f, 0.0f);
+	Vector3 pos = Vector3(WinSize.x / 2.0f, 256.0f, 0.0f);
 
 	for (size_t i = 0; i < titleLogo_.size(); i++)
 	{
 		titleLogo_[i].chara->transform_.Initialize();
 		titleLogo_[i].chara->transform_.pos_ = pos;
 		float ratio = static_cast<float>(i) / static_cast<float>(titleLogo_.size() - 1);
-		titleLogo_[i].chara->transform_.pos_.x_ += YMath::Lerp(-320.0f, +320.0f, ratio);
+		titleLogo_[i].chara->transform_.pos_.x += YMath::Lerp(-320.0f, +320.0f, ratio);
 		
-		titleLogo_[i].color->data_.baseColor.a_ = 0.0f;
+		titleLogo_[i].color->data_.baseColor.w = 0.0f;
 
 		titleLogo_[i].animeTim.Initialize(40);
 		float startVal = -96.0f;
@@ -138,20 +138,20 @@ void TitleDrawer::Reset()
 		bands_[i].band->transform_.pos_ = pos;
 		bands_[i].band->transform_.scale_ = {};
 		
-		bands_[i].color->data_.baseColor.a_ = 1.0f;
+		bands_[i].color->data_.baseColor.w = 1.0f;
 		
 		bands_[i].scaleTim.Initialize(30);
-		bands_[i].scaleEas.Initialize({}, { WinSize.x_, 128.0f - (16.0f * i), 0.0f }, 3.0f);
+		bands_[i].scaleEas.Initialize({}, { WinSize.x, 128.0f - (16.0f * i), 0.0f }, 3.0f);
 	}
 
 	start_->transform_.Initialize();
-	start_->transform_.pos_ = { WinSize.x_ / 2.0f, 512.0f, 0.0f };
+	start_->transform_.pos_ = { WinSize.x / 2.0f, 512.0f, 0.0f };
 
 	startButtonTrfm_.Initialize();
-	startButtonTrfm_.pos_ = { WinSize.x_ / 2.0f, 640.0f, 0.0f };
+	startButtonTrfm_.pos_ = { WinSize.x / 2.0f, 640.0f, 0.0f };
 
 	circle_->transform_.Initialize();
-	circle_->transform_.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f;
+	circle_->transform_.pos_ = Vector3(WinSize.x, WinSize.y, 0.0f) / 2.0f;
 	circle_->transform_.scale_ = {};
 	circleColor_->data_.baseColor = ColorConfig::skTurquoise[1];
 	
@@ -159,8 +159,8 @@ void TitleDrawer::Reset()
 	circleScaleEas_.Initialize(0.0f, 16.0f, 2.0f);
 
 	curten_->transform_.Initialize();
-	curten_->transform_.pos_ = Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f;
-	curten_->transform_.scale_ = Vector3(WinSize.x_, WinSize.y_, 0.0f);
+	curten_->transform_.pos_ = Vector3(WinSize.x, WinSize.y, 0.0f) / 2.0f;
+	curten_->transform_.scale_ = Vector3(WinSize.x, WinSize.y, 0.0f);
 	curtenColor_->data_.baseColor = ColorConfig::skTurquoise[0];
 
 	curtenAlphaTim_.Initialize(30);
@@ -207,7 +207,7 @@ void TitleDrawer::Update()
 		titleLogo_[i].chara->Update({ {0.0f, posY, 0.0f} });
 
 		float alpha = YMath::EaseIn<float>(0.0f, 1.0f, titleLogo_[i].animeTim.Ratio(), 3.0f);
-		titleLogo_[i].color->data_.baseColor.a_ = alpha;
+		titleLogo_[i].color->data_.baseColor.w = alpha;
 	}
 
 	for (size_t i = 0; i < bands_.size(); i++)
@@ -230,7 +230,7 @@ void TitleDrawer::Update()
 	curten_->Update();
 	curtenAlphaTim_.Update();
 	float curtenAlpha = YMath::EaseIn<float>(1.0f, 0.0f, curtenAlphaTim_.Ratio(), 3.0f);
-	curtenColor_->data_.baseColor.a_ = curtenAlpha;
+	curtenColor_->data_.baseColor.w = curtenAlpha;
 
 	skydomeTrfm_.UpdateMatrix();
 	skydomeDra_->Update();

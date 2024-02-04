@@ -41,9 +41,9 @@ void TestScene::Initialize()
 	box_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pBoxSpr));
 	triangle_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTriangleSpr));
 
-	circle_->transform_.pos_	 = Vector3(+96.0f, WinSize.y_ / 2.0f, 0.0f);
-	box_->transform_.pos_		 = Vector3(WinSize.x_ / 2.0f, WinSize.y_ / 2.0f, 0.0f);
-	triangle_->transform_.pos_	 = Vector3(WinSize.x_ - 96.0f, WinSize.y_ / 2.0f, 0.0f);
+	circle_->transform_.pos_	 = Vector3(+96.0f, WinSize.y / 2.0f, 0.0f);
+	box_->transform_.pos_		 = Vector3(WinSize.x / 2.0f, WinSize.y / 2.0f, 0.0f);
+	triangle_->transform_.pos_	 = Vector3(WinSize.x - 96.0f, WinSize.y / 2.0f, 0.0f);
 }
 #pragma endregion
 

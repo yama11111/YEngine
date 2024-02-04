@@ -32,11 +32,11 @@ void CoinCountDrawer::Initialize(YMath::Matrix4* pParent, const std::string& sha
 	transform_.parent_ = pParent;
 
 	numTrfm_.Initialize();
-	numTrfm_.parent_ = &transform_.m_;
+	numTrfm_.parent_ = &transform_.m;
 	numTrfm_.pos_ = Vector3(+45.0f, 0.0f, 0.0f);
 	numTrfm_.scale_ = Vector3(0.5f, 0.5f, 0.0f);
 
-	uiNum_.reset(UINumber::Create2D(0, digitAnimeStatuses_.size(), 80.0f, true, false, &numTrfm_.m_));
+	uiNum_.reset(UINumber::Create2D(0, digitAnimeStatuses_.size(), 80.0f, true, false, &numTrfm_.m));
 	for (size_t i = 0; i < uiColors_.size(); i++)
 	{
 		uiColors_[i].reset(ConstBufferObject<CBColor>::Create());
@@ -46,7 +46,7 @@ void CoinCountDrawer::Initialize(YMath::Matrix4* pParent, const std::string& sha
 	uiCoin_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pSpr));
 	uiCoin_->transform_.pos_ = Vector3(-45.0f, 0.0f, 0.0f);
 	uiCoin_->transform_.scale_ = Vector3(0.5f, 0.5f, 0.0f);
-	uiCoin_->transform_.parent_ = &transform_.m_;
+	uiCoin_->transform_.parent_ = &transform_.m;
 
 	shaderTag_ = shaderTag;
 	drawPriority_ = drawPriority;

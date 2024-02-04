@@ -115,7 +115,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
 
 		// 正面と逆方向 かつ 上方向
-		float rad = pParent_->rota_.y_;
+		float rad = pParent_->rota_.y;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
 
@@ -142,7 +142,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
 
 		// 正面と逆方向 かつ 下方向
-		float rad = pParent_->rota_.y_;
+		float rad = pParent_->rota_.y;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
 

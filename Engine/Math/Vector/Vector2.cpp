@@ -4,11 +4,11 @@
 using YMath::Vector2;
 
 Vector2::Vector2() :
-	x_(0.0f), y_(0.0f)
+	x(0.0f), y(0.0f)
 {}
 
 Vector2::Vector2(float x, float y)
-	:x_(x), y_(y)
+	:x(x), y(y)
 {}
 
 float Vector2::Length() const
@@ -29,12 +29,12 @@ Vector2 Vector2::Normalized() const
 
 constexpr bool Vector2::IsZero() const
 {
-	return x_ == 0.0f && y_ == 0.0f;
+	return x == 0.0f && y == 0.0f;
 }
 
 constexpr float Vector2::Dot(const Vector2& v) const
 {
-	return x_ * v.x_ + y_ * v.y_;
+	return x * v.x + y * v.y;
 }
 
 float Vector2::Distance(const Vector2& v) const
@@ -48,40 +48,40 @@ Vector2 Vector2::operator+() const
 }
 Vector2 Vector2::operator-() const
 {
-	return { -x_,-y_ };
+	return { -x,-y };
 }
 
 Vector2& Vector2::operator+=(const Vector2& v)
 {
-	x_ += v.x_;
-	y_ += v.y_;
+	x += v.x;
+	y += v.y;
 	return *this;
 }
 Vector2& Vector2::operator-=(const Vector2& v)
 {
-	x_ -= v.x_;
-	y_ -= v.y_;
+	x -= v.x;
+	y -= v.y;
 	return *this;
 }
 Vector2& Vector2::operator*=(float s)
 {
-	x_ *= s;
-	y_ *= s;
+	x *= s;
+	y *= s;
 	return *this;
 }
 Vector2& Vector2::operator/=(float s)
 {
-	x_ /= s;
-	y_ /= s;
+	x /= s;
+	y /= s;
 	return *this;
 }
 
 bool Vector2::operator==(const Vector2& v)
 {
-	return  (x_ == v.x_ && y_ == v.y_);
+	return  (x == v.x && y == v.y);
 }
 
 bool Vector2::operator!=(const Vector2& v)
 {
-	return !(x_ == v.x_ && y_ == v.y_);
+	return !(x == v.x && y == v.y);
 }

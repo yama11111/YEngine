@@ -54,7 +54,7 @@ void HPGaugeDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 		DrawObjectForSprite3D* newGauge = 
 			DrawObjectForSprite3D::Create(
 				status, false, false, pVP, pSpr);
-		newGauge->transform_.parent_ = &transform_.m_;
+		newGauge->transform_.parent_ = &transform_.m;
 
 		gaugeColor_.reset(ConstBufferObject<CBColor>::Create());
 		gaugeColor_->data_.baseColor = kGaugeColor;
@@ -73,7 +73,7 @@ void HPGaugeDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 		DrawObjectForSprite3D* newGauge = 
 			DrawObjectForSprite3D::Create(
 				status, false, false, pVP, pSpr);
-		newGauge->transform_.parent_ = &transform_.m_;
+		newGauge->transform_.parent_ = &transform_.m;
 
 		gaugeMinusColor_.reset(ConstBufferObject<CBColor>::Create());
 		gaugeMinusColor_->data_.baseColor = kGaugePlusColor;
@@ -92,7 +92,7 @@ void HPGaugeDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 		DrawObjectForSprite3D* newGauge = 
 			DrawObjectForSprite3D::Create(
 				status, false, false, pVP, pSpr);
-		newGauge->transform_.parent_ = &transform_.m_;
+		newGauge->transform_.parent_ = &transform_.m;
 
 		gaugePlusColor_.reset(ConstBufferObject<CBColor>::Create());
 		gaugePlusColor_->data_.baseColor = kGaugeMinusColor;

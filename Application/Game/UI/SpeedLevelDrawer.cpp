@@ -59,13 +59,13 @@ void SpeedLevelDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 	transform_.parent_ = pParent;
 
 	levelTrfm_.Initialize();
-	levelTrfm_.parent_ = &transform_.m_;
+	levelTrfm_.parent_ = &transform_.m;
 	levelTrfm_.pos_ = kLevelPos;
 	levelTrfm_.scale_ = kLevelScale;
 
 	if (level_ == nullptr)
 	{
-		level_.reset(UIDigit::Create3D(0, &levelTrfm_.m_, false, false, pVP));
+		level_.reset(UIDigit::Create3D(0, &levelTrfm_.m, false, false, pVP));
 	}
 	if (levelColor_ == nullptr)
 	{
@@ -83,7 +83,7 @@ void SpeedLevelDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 				DrawObjectForSprite3D::Create(
 					{ kLevelUIPos, {}, kLevelUIScale }, false, false, pVP, pCounterSpr));
 		}
-		levelUIs_[i].obj_->transform_.parent_ = &transform_.m_;
+		levelUIs_[i].obj_->transform_.parent_ = &transform_.m;
 		levelUIs_[i].animeStatus_ = {};
 
 		levelUIs_[i].moveEas_.Initialize(0.0f, kMoveValue * i, kMoveExponent);
@@ -126,7 +126,7 @@ void SpeedLevelDrawer::Update()
 		levelUIs_[i].animeStatus_ = {};
 
 		levelUIs_[i].movePower_.Update(i < speedLevel_);
-		levelUIs_[i].animeStatus_.pos_.x_ = levelUIs_[i].moveEas_.Out(levelUIs_[i].movePower_.Ratio());
+		levelUIs_[i].animeStatus_.pos_.x = levelUIs_[i].moveEas_.Out(levelUIs_[i].movePower_.Ratio());
 
 		levelUIs_[i].obj_->Update(levelUIs_[i].animeStatus_);
 	}
@@ -146,7 +146,7 @@ void SpeedLevelDrawer::Update()
 		up_->Update({ {},{},{upScale, upScale, 0.0f} });
 
 		float upAlpha = YMath::EaseInOut(0.0f, kLevelUpMaxAlpha, upPow_.Ratio(), kLevelUpExponent);
-		upColor_->data_.baseColor.a_ = upAlpha; 
+		upColor_->data_.baseColor.w = upAlpha; 
 	}
 }
 

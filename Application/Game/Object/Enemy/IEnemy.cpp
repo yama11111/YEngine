@@ -31,7 +31,7 @@ void IEnemy::OnCollision(const InfoOnCollision& info)
 	if (info.attribute == AttributeType::ePlayer)
 	{
 		// 自分 が 下側 なら
-		if (self.pTrfm->pos_.y_ + (self.radius / 4.0f) < info.pTrfm->pos_.y_ - (info.radius / 4.0f))
+		if (self.pTrfm->pos_.y + (self.radius / 4.0f) < info.pTrfm->pos_.y - (info.radius / 4.0f))
 		{
 			// ダメージを受ける
 			status_.Damage(info.pStatus->Attack(), true);

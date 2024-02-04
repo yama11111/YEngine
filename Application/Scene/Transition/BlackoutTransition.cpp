@@ -48,8 +48,8 @@ void BlackoutTransition::Reset()
 
 	// 画面中央
 	Vector2 p = WinSize / 2.0f;
-	obj_->transform_.pos_ = { p.x_, p.y_, 0.0f };
-	obj_->transform_.scale_ = { WinSize.x_, WinSize.y_, 0.0f };
+	obj_->transform_.pos_ = { p.x, p.y, 0.0f };
+	obj_->transform_.scale_ = { WinSize.x, WinSize.y, 0.0f };
 	obj_->Update();
 	
 	cbColor_->data_.baseColor = { 0.0f,0.0f,0.0f,0.0f };

@@ -10,7 +10,7 @@ Box2DCollider::Box2DCollider(
 	const Vector2& rectSize,
 	const Vector3& offset, const bool isSlip) :
 	BasePrimitiveCollider(pFollowPoint, offset, isSlip),
-	rectSize_(Vector2(fabsf(rectSize.x_), fabsf(rectSize.y_)))
+	rectSize_(Vector2(fabsf(rectSize.x), fabsf(rectSize.y)))
 {
 }
 
@@ -19,7 +19,7 @@ Box2DCollider::Box2DCollider(
 	const Vector2& rectSize,
 	const Vector3& offset, const bool isPushBack, const bool isSlip) :
 	BasePrimitiveCollider(pFollowPoint, pVelocity, offset, isPushBack, isSlip),
-	rectSize_(Vector2(fabsf(rectSize.x_), fabsf(rectSize.y_)))
+	rectSize_(Vector2(fabsf(rectSize.x), fabsf(rectSize.y)))
 {
 }
 
@@ -29,7 +29,7 @@ void Box2DCollider::Initialize(
 	const Vector3& offset, const bool isSlip)
 {
 	BasePrimitiveCollider::Initialize(pFollowPoint, offset, isSlip);
-	rectSize_ = Vector2(fabsf(rectSize.x_), fabsf(rectSize.y_));
+	rectSize_ = Vector2(fabsf(rectSize.x), fabsf(rectSize.y));
 }
 
 void Box2DCollider::Initialize(
@@ -38,16 +38,16 @@ void Box2DCollider::Initialize(
 	const Vector3& offset, const bool isPushBack, const bool isSlip)
 {
 	BasePrimitiveCollider::Initialize(pFollowPoint, pVelocity, offset, isPushBack, isSlip);
-	rectSize_ = Vector2(fabsf(rectSize.x_), fabsf(rectSize.y_));
+	rectSize_ = Vector2(fabsf(rectSize.x), fabsf(rectSize.y));
 }
 
 Vector2 Box2DCollider::Center() const
 {
-	Vector2 result = Vector2(pFollowPoint_->x_, pFollowPoint_->y_) + Vector2(offset_.x_, offset_.y_);
+	Vector2 result = Vector2(pFollowPoint_->x, pFollowPoint_->y) + Vector2(offset_.x, offset_.y);
 
 	if (pVelocity_)
 	{
-		result += Vector2(pVelocity_->x_, pVelocity_->y_);
+		result += Vector2(pVelocity_->x, pVelocity_->y);
 	}
 
 	return result;

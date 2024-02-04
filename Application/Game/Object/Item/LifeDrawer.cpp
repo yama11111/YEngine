@@ -102,9 +102,9 @@ void LifeDrawer::UpdateAnimation()
 {
 	slimeActor_.Update();
 
-	animeStatus_.pos_.y_ += idlePosEas_.In(animationTimers_[kIdleIndex].timer.Ratio());
+	animeStatus_.pos_.y += idlePosEas_.In(animationTimers_[kIdleIndex].timer.Ratio());
 
-	animeStatus_.pos_.y_ += earnPosEas_.Out(animationTimers_[kEarnIndex].timer.Ratio());
+	animeStatus_.pos_.y += earnPosEas_.Out(animationTimers_[kEarnIndex].timer.Ratio());
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
 

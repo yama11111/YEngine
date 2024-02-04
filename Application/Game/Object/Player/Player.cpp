@@ -199,7 +199,7 @@ void Player::Jump(const bool isJumpCount)
 		isLanding_ = false;
 	}
 
-	speed_.VelocityRef().y_ = PlayerConfig::kJumpSpeed;
+	speed_.VelocityRef().y = PlayerConfig::kJumpSpeed;
 
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
@@ -211,7 +211,7 @@ void Player::Drop()
 {
 	if (isLanding_) { return; }
 
-	moveDirection_.y_ = -1.0f;
+	moveDirection_.y = -1.0f;
 
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
@@ -247,7 +247,7 @@ void Player::OnCollision(const InfoOnCollision& info)
 	if (info.attribute == AttributeType::eEnemy)
 	{
 		// 自分 が 敵 より上にいる なら
-		if (transform_->pos_.y_ - (PlayerConfig::kRadius / 4.0f) >= info.pTrfm->pos_.y_ + (info.radius / 4.0f))
+		if (transform_->pos_.y - (PlayerConfig::kRadius / 4.0f) >= info.pTrfm->pos_.y + (info.radius / 4.0f))
 		{
 			spCamera_->Shaking(1.0f, 0.2f, 100.0f);
 
@@ -278,7 +278,7 @@ void Player::OnCollision(const InfoOnCollision& info)
 	// ブロック
 	else if (info.attribute == AttributeType::eBlock)
 	{
-		if (transform_->pos_.y_ <= info.pTrfm->pos_.y_) { return; }
+		if (transform_->pos_.y <= info.pTrfm->pos_.y) { return; }
 
 		// 着地
 		isLanding_ = true;

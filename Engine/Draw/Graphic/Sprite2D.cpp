@@ -41,10 +41,10 @@ Sprite2D* Sprite2D::Create(
 	Vector2 size = Vector2(rscSizeX, rscSizeY);
 
 	// 左右上下のポイント設定 (0.0~1,0)
-	float left	 = (0.0f - anchor.x_) * size.x_ * flipX;
-	float right	 = (1.0f - anchor.x_) * size.x_ * flipX;
-	float top	 = (0.0f - anchor.y_) * size.y_ * flipY;
-	float bottom = (1.0f - anchor.y_) * size.y_ * flipY;
+	float left	 = (0.0f - anchor.x) * size.x * flipX;
+	float right	 = (1.0f - anchor.x) * size.x * flipX;
+	float top	 = (0.0f - anchor.y) * size.y * flipY;
+	float bottom = (1.0f - anchor.y) * size.y * flipY;
 
 	// ----- TexStatus ----- //
 
@@ -53,10 +53,10 @@ Sprite2D* Sprite2D::Create(
 	Vector2 texRB = Vector2(rscSizeX, rscSizeY);
 
 	// UV座標を計算
-	float texLeft	= texLT.x_ / rscSizeX;
-	float texRight	= texRB.x_ / rscSizeX;
-	float texTop	= texLT.y_ / rscSizeY;
-	float texBottom = texRB.y_ / rscSizeY;
+	float texLeft	= texLT.x / rscSizeX;
+	float texRight	= texRB.x / rscSizeX;
+	float texTop	= texLT.y / rscSizeY;
+	float texBottom = texRB.y / rscSizeY;
 
 	// インスタンス生成 (動的)
 	newSprite->vt_.Initialize(

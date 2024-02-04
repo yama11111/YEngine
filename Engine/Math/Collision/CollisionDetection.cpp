@@ -404,10 +404,10 @@ bool YMath::CollisionBoxBox2D(
 	const Vector2& boxCenter2, const Vector2& boxRadSize2)
 {
 	// お互いの両端で内外判定
-	bool xColl1 = boxCenter1.x_ - boxRadSize1.x_ <= boxCenter2.x_ + boxRadSize2.x_;
-	bool xColl2 = boxCenter1.x_ + boxRadSize1.x_ >= boxCenter2.x_ - boxRadSize2.x_;
-	bool yColl1 = boxCenter1.y_ - boxRadSize1.y_ <= boxCenter2.y_ + boxRadSize2.y_;
-	bool yColl2 = boxCenter1.y_ + boxRadSize1.y_ >= boxCenter2.y_ - boxRadSize2.y_;
+	bool xColl1 = boxCenter1.x - boxRadSize1.x <= boxCenter2.x + boxRadSize2.x;
+	bool xColl2 = boxCenter1.x + boxRadSize1.x >= boxCenter2.x - boxRadSize2.x;
+	bool yColl1 = boxCenter1.y - boxRadSize1.y <= boxCenter2.y + boxRadSize2.y;
+	bool yColl2 = boxCenter1.y + boxRadSize1.y >= boxCenter2.y - boxRadSize2.y;
 
 	return  xColl1 && xColl2 && yColl1 && yColl2;
 }
@@ -420,8 +420,8 @@ bool YMath::CollisionAndPushBackBoxBox2D(
 	// 位置(1)
 	Vector2 pos1 = ConvertToVector2(followPoint1) + ConvertToVector2(velocity1);
 	// 位置(2)
-	Vector2 pos2X = ConvertToVector2(*pFollowPoint2) + Vector2(pVelocity2->x_, 0);
-	Vector2 pos2Y = ConvertToVector2(*pFollowPoint2) + Vector2(0, pVelocity2->y_);
+	Vector2 pos2X = ConvertToVector2(*pFollowPoint2) + Vector2(pVelocity2->x, 0);
+	Vector2 pos2Y = ConvertToVector2(*pFollowPoint2) + Vector2(0, pVelocity2->y);
 
 	// X,Y軸毎に判定
 	bool isCollX = CollisionBoxBox2D(pos1, boxRadSize1, pos2X, boxRadSize2);
@@ -438,8 +438,8 @@ bool YMath::CollisionAndPushBackBoxBox2D(
 	while (true)
 	{
 		// 位置(2)
-		Vector2 tempPos2X = ConvertToVector2(*pFollowPoint2) + Vector2(approach.x_, 0);
-		Vector2 tempPos2Y = ConvertToVector2(*pFollowPoint2) + Vector2(0, approach.y_);
+		Vector2 tempPos2X = ConvertToVector2(*pFollowPoint2) + Vector2(approach.x, 0);
+		Vector2 tempPos2Y = ConvertToVector2(*pFollowPoint2) + Vector2(0, approach.y);
 
 		// ぶつかっているか (仮移動)
 		bool isCollTempX = CollisionBoxBox2D(pos1, boxRadSize1, pos2X, boxRadSize2); // x
@@ -449,30 +449,30 @@ bool YMath::CollisionAndPushBackBoxBox2D(
 		if (isCollTempX || isCollTempY) { break; }
 
 		// 少しづつ近づける
-		if (isCollX) { pFollowPoint2->x_ += approach.x_; }
-		if (isCollY) { pFollowPoint2->y_ += approach.y_; }
+		if (isCollX) { pFollowPoint2->x += approach.x; }
+		if (isCollY) { pFollowPoint2->y += approach.y; }
 	}
 
 	// X軸判定なら
 	if (isCollX)
 	{
 		// ビット更新
-		//if (pVelocity2->x_ >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
-		//if (pVelocity2->x_ <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
+		//if (pVelocity2->x >= 0.0f) { colBit |= ChipCollisionBit::kRight; }
+		//if (pVelocity2->x <= 0.0f) { colBit |= ChipCollisionBit::kLeft; }
 
 		// 速度リセット
-		pVelocity2->x_ = 0.0f;
+		pVelocity2->x = 0.0f;
 	}
 
 	// Y軸判定なら
 	if (isCollY)
 	{
 		// ビット更新
-		//if (pVelocity2->y_ >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
-		//if (pVelocity2->y_ <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
+		//if (pVelocity2->y >= 0.0f) { colBit |= ChipCollisionBit::kTop; }
+		//if (pVelocity2->y <= 0.0f) { colBit |= ChipCollisionBit::kBottom; }
 
 		// 速度リセット
-		pVelocity2->y_ = 0.0f;
+		pVelocity2->y = 0.0f;
 	}
 	
 	return true;

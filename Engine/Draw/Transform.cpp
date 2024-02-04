@@ -9,7 +9,7 @@ Transform::Transform() :
 	pos_(0.0f, 0.0f, 0.0f),
 	rota_(0.0f, 0.0f, 0.0f),
 	scale_(1.0f, 1.0f, 1.0f),
-	m_(Matrix4::Identity()),
+	m(Matrix4::Identity()),
 	parent_(nullptr)
 {
 	// 行列更新
@@ -20,7 +20,7 @@ Transform::Transform(const Status & status) :
 	pos_(status.pos_),
 	rota_(status.rota_),
 	scale_(status.scale_),
-	m_(Matrix4::Identity()),
+	m(Matrix4::Identity()),
 	parent_(nullptr)
 {
 	// 行列更新
@@ -55,9 +55,9 @@ void Transform::Initialize(const Status& status)
 void Transform::UpdateMatrix()
 {
 	// アフィン変換
-	m_ = Matrix4::Identity();
-	m_ *= MatScale(scale_) * MatRotation(rota_) * MatTranslation(pos_);
-	if (parent_) { m_ *= *parent_; }
+	m = Matrix4::Identity();
+	m *= MatScale(scale_) * MatRotation(rota_) * MatTranslation(pos_);
+	if (parent_) { m *= *parent_; }
 }
 
 void Transform::UpdateMatrix(const Status& status)
@@ -71,9 +71,9 @@ void Transform::UpdateMatrix(const Status& status)
 	s = scale_ + status.scale_;
 
 	// アフィン変換
-	m_ = Matrix4::Identity();
-	m_ *= MatScale(s) * MatRotation(r) * MatTranslation(p);
-	if (parent_) { m_ *= *parent_; }
+	m = Matrix4::Identity();
+	m *= MatScale(s) * MatRotation(r) * MatTranslation(p);
+	if (parent_) { m *= *parent_; }
 }
 
 void Transform::UpdateMatrix(const Status& status, const Matrix4& mat)
@@ -87,8 +87,8 @@ void Transform::UpdateMatrix(const Status& status, const Matrix4& mat)
 	s = scale_ + status.scale_;
 
 	// アフィン変換
-	m_ = Matrix4::Identity();
-	m_ *= mat;
-	m_ *= MatScale(s) * MatRotation(r) * MatTranslation(p);
-	if (parent_) { m_ *= *parent_; }
+	m = Matrix4::Identity();
+	m *= mat;
+	m *= MatScale(s) * MatRotation(r) * MatTranslation(p);
+	if (parent_) { m *= *parent_; }
 }

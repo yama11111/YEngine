@@ -50,7 +50,7 @@ void ScoreDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 	{
 		uiNum_.reset(UINumber::Create3D(
 			0, digitAnimeStatuses_.size(), 0.8f, true, false,
-			&transform_.m_, false, false, pVP));
+			&transform_.m, false, false, pVP));
 	}
 	for (size_t i = 0; i < uiColors_.size(); i++)
 	{
@@ -66,7 +66,7 @@ void ScoreDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP)
 	{
 		logo_.reset(DrawObjectForSprite3D::Create(
 			{ kLogoPos, {}, kLogoScale }, false, false, pVP, pLogoSpr));
-		logo_->transform_.parent_ = &transform_.m_;
+		logo_->transform_.parent_ = &transform_.m;
 	}
 
 	reelTim_.Initialize(kReelFrame);

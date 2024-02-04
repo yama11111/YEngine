@@ -117,11 +117,11 @@ void MagnetDrawer::UpdateAnimation()
 {
 	slimeActor_.Update();
 
-	animeStatus_.pos_.y_ += idlePosEas_.In(animationTimers_[kIdleIndex].timer.Ratio());
-	animeStatus_.rota_.y_ += idleRotaEas_.In(animationTimers_[kIdleIndex].timer.Ratio());
+	animeStatus_.pos_.y += idlePosEas_.In(animationTimers_[kIdleIndex].timer.Ratio());
+	animeStatus_.rota_.y += idleRotaEas_.In(animationTimers_[kIdleIndex].timer.Ratio());
 
-	animeStatus_.pos_.y_ += earnPosEas_.Out(animationTimers_[kEarnIndex].timer.Ratio());
-	animeStatus_.rota_.y_ += earnRotaEas_.In(animationTimers_[kEarnIndex].timer.Ratio());
+	animeStatus_.pos_.y += earnPosEas_.Out(animationTimers_[kEarnIndex].timer.Ratio());
+	animeStatus_.rota_.y += earnRotaEas_.In(animationTimers_[kEarnIndex].timer.Ratio());
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
 

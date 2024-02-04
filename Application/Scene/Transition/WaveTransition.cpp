@@ -42,16 +42,16 @@ void WaveTransition::Initialize()
 			waves_[i]->obj_->InsertConstBuffer(waves_[i]->cbColor_.get());
 		}
 
-		waves_[i]->obj_->transform_.pos_ = { 0.0f, +WinSize.y_ / 2.0f, 0.0f };
-		waves_[i]->obj_->transform_.scale_ = { 0.0f, WinSize.y_, 0.0f };
+		waves_[i]->obj_->transform_.pos_ = { 0.0f, +WinSize.y / 2.0f, 0.0f };
+		waves_[i]->obj_->transform_.scale_ = { 0.0f, WinSize.y, 0.0f };
 		waves_[i]->obj_->Update();
 	}
 	waves_[0]->cbColor_->data_.baseColor = ColorConfig::skTurquoise[4];
 	waves_[1]->cbColor_->data_.baseColor = ColorConfig::skTurquoise[3];
 	waves_[2]->cbColor_->data_.baseColor = ColorConfig::skTurquoise[1];
 
-	scaleXEas_[0].Initialize(0.0f, WinSize.x_, 3.0f);
-	scaleXEas_[1].Initialize(WinSize.x_, 0.0f, 3.0f);
+	scaleXEas_[0].Initialize(0.0f, WinSize.x, 3.0f);
+	scaleXEas_[1].Initialize(WinSize.x, 0.0f, 3.0f);
 
 	Reset();
 }
@@ -156,17 +156,17 @@ void WaveTransition::UpdateBlock()
 		if (stepIndex == 0) { scaleVal = scaleXEas_[stepIndex].InOut(waves_[i]->actTim_.Ratio(), 0.6f); }
 		else { scaleVal = scaleXEas_[stepIndex].InOut(waves_[i]->actTim_.Ratio(), 0.6f); }
 		
-		anime.scale_.x_ = scaleVal;
+		anime.scale_.x = scaleVal;
 
 		if (isReverce_ == false)
 		{
-			if (stepIndex == 0) { anime.pos_.x_ = scaleVal / 2.0f; }
-			else { anime.pos_.x_ = scaleXEas_[0].End() - (scaleVal / 2.0f); }
+			if (stepIndex == 0) { anime.pos_.x = scaleVal / 2.0f; }
+			else { anime.pos_.x = scaleXEas_[0].End() - (scaleVal / 2.0f); }
 		}
 		else
 		{
-			if (stepIndex == 0) { anime.pos_.x_ = scaleXEas_[0].End() - (scaleVal / 2.0f); }
-			else { anime.pos_.x_ = scaleVal / 2.0f; }
+			if (stepIndex == 0) { anime.pos_.x = scaleXEas_[0].End() - (scaleVal / 2.0f); }
+			else { anime.pos_.x = scaleVal / 2.0f; }
 		}
 
 		waves_[i]->obj_->Update(anime);

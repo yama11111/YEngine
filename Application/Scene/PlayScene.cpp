@@ -151,9 +151,9 @@ void PlayScene::Update()
 	worldPEObj_->Update();
 	
 	ImGui::Begin("Discard");
-	ImGui::InputFloat("R", &cbDiscardColor_->data_.discardColor.x_);
-	ImGui::InputFloat("G", &cbDiscardColor_->data_.discardColor.y_);
-	ImGui::InputFloat("B", &cbDiscardColor_->data_.discardColor.z_);
+	ImGui::InputFloat("R", &cbDiscardColor_->data_.discardColor.x);
+	ImGui::InputFloat("G", &cbDiscardColor_->data_.discardColor.y);
+	ImGui::InputFloat("B", &cbDiscardColor_->data_.discardColor.z);
 	ImGui::InputFloat("threshold", &cbDiscardColor_->data_.threshold);
 	ImGui::End();
 	

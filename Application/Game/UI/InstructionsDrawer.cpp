@@ -61,7 +61,7 @@ void InstructionsDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP
 		buttonStatus.scale_ = kJumpScale;
 
 		buttonJump_.reset(UIButton::Create(DrawObjectForSprite3D::Create(buttonStatus, false, false, pVP, pButtonASpr)));
-		buttonJump_->SetParent(&transform_.m_);
+		buttonJump_->SetParent(&transform_.m);
 	}
 
 	// attack
@@ -72,7 +72,7 @@ void InstructionsDrawer::Initialize(YMath::Matrix4* pParent, ViewProjection* pVP
 		buttonStatus.scale_ = kAttackScale;
 
 		buttonAttack_.reset(UIButton::Create(DrawObjectForSprite3D::Create(buttonStatus, false, false, pVP, pButtonXSpr)));
-		buttonAttack_->SetParent(&transform_.m_);
+		buttonAttack_->SetParent(&transform_.m);
 	}
 }
 

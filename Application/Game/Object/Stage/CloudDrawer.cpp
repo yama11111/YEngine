@@ -35,7 +35,7 @@ void CloudDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	
 	SetShaderTag("ModelToon");
 
-	cbColor_->data_.baseColor.a_ = 0.4f;
+	cbColor_->data_.baseColor.w = 0.4f;
 }
 
 void CloudDrawer::InitializeObjects()

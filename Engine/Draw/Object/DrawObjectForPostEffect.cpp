@@ -52,7 +52,7 @@ void DrawObjectForPostEffect::Update(const Transform::Status& status)
 
 	transform_.UpdateMatrix(status);
 
-	cbTransform_->data_.matWorld = transform_.m_ * YMath::MatOrthoGraphic();
+	cbTransform_->data_.matWorld = transform_.m * YMath::MatOrthoGraphic();
 }
 
 void DrawObjectForPostEffect::SetPostEffect(PostEffect* pPostEffect)

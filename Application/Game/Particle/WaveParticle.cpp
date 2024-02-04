@@ -102,7 +102,7 @@ namespace YGame
 		obj_->transform_.scale_ = Vector3(scaleVal, scaleVal, scaleVal);
 
 		// だんだん薄く
-		cbColor_->data_.baseColor.a_ = alphaEas_.In(ratio);
+		cbColor_->data_.baseColor.w = alphaEas_.In(ratio);
 
 		obj_->Update();
 

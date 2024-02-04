@@ -113,7 +113,7 @@ void PauseDrawer::Reset()
 	borderColor_->data_.baseColor = ColorConfig::skTurquoise[4];
 	borderScaleYEas_.Initialize(0.0f, 2048.0f, 3.0f);
 	
-	curten_->transform_.Initialize({ Vector3(WinSize.x_, WinSize.y_, 0.0f) / 2.0f, {}, { WinSize.x_, WinSize.y_, 0.0f } });
+	curten_->transform_.Initialize({ Vector3(WinSize.x, WinSize.y, 0.0f) / 2.0f, {}, { WinSize.x, WinSize.y, 0.0f } });
 	curten_->InsertConstBuffer(curtenColor_.get());
 	curtenAlphaPow_.Initialize(20);
 	curtenAlphaEas_.Initialize(0.0f, 0.6f, 3.0f);
@@ -161,7 +161,7 @@ void PauseDrawer::Update()
 			PropagateSelection(i - 1);
 		}
 		selectionObjs_[i].posXPow_.Update(selectionObjs_[i].isActPos_);
-		animeStatus.pos_.x_ = selectionObjs_[i].posXEas_.InOut(selectionObjs_[i].posXPow_.Ratio());
+		animeStatus.pos_.x = selectionObjs_[i].posXEas_.InOut(selectionObjs_[i].posXPow_.Ratio());
 		
 		bool isSelected = (selection_ == static_cast<Selection>(i));
 		selectionObjs_[i].scalePow_.Update(isSelected);

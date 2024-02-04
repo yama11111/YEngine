@@ -20,7 +20,7 @@ namespace YGame
 		YMath::Vector3 scale_;
 		
 		// 行列
-		YMath::Matrix4 m_;
+		YMath::Matrix4 m;
 		
 		// 親行列
 		YMath::Matrix4* parent_;

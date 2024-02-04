@@ -56,8 +56,8 @@ void Shake::Update()
 	if (isAct_)
 	{
 		// 範囲内の乱数生成
-		value_.x_ = GetRand(-swing_, swing_, place_);
-		value_.y_ = GetRand(-swing_, swing_, place_);
-		value_.z_ = GetRand(-swing_, swing_, place_);
+		value_.x = GetRand(-swing_, swing_, place_);
+		value_.y = GetRand(-swing_, swing_, place_);
+		value_.z = GetRand(-swing_, swing_, place_);
 	}
 }

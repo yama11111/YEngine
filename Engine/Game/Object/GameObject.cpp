@@ -80,7 +80,7 @@ void GameObject::SetParent(GameObject* pParent)
 	if (pParent_)
 	{
 		// 親行列に挿入
-		transform_->parent_ = &pParent_->transform_->m_;
+		transform_->parent_ = &pParent_->transform_->m;
 	}
 	else
 	{
@@ -163,25 +163,25 @@ void GameObject::DrawDebugTextContent()
 		ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 		if (ImGui::TreeNode("pos"))
 		{
-			ImGui::Text("x : %5f", transform_->pos_.x_);
-			ImGui::Text("y : %5f", transform_->pos_.y_);
-			ImGui::Text("z : %5f", transform_->pos_.z_);
+			ImGui::Text("x : %5f", transform_->pos_.x);
+			ImGui::Text("y : %5f", transform_->pos_.y);
+			ImGui::Text("z : %5f", transform_->pos_.z);
 			ImGui::TreePop();
 		}
 		ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 		if (ImGui::TreeNode("rotation"))
 		{
-			ImGui::Text("x : %5f", transform_->rota_.x_);
-			ImGui::Text("y : %5f", transform_->rota_.y_);
-			ImGui::Text("z : %5f", transform_->rota_.z_);
+			ImGui::Text("x : %5f", transform_->rota_.x);
+			ImGui::Text("y : %5f", transform_->rota_.y);
+			ImGui::Text("z : %5f", transform_->rota_.z);
 			ImGui::TreePop();
 		}
 		ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 		if (ImGui::TreeNode("scale"))
 		{
-			ImGui::Text("x : %5f", transform_->scale_.x_);
-			ImGui::Text("y : %5f", transform_->scale_.y_);
-			ImGui::Text("z : %5f", transform_->scale_.z_);
+			ImGui::Text("x : %5f", transform_->scale_.x);
+			ImGui::Text("y : %5f", transform_->scale_.y);
+			ImGui::Text("z : %5f", transform_->scale_.z);
 			ImGui::TreePop();
 		}
 		ImGui::TreePop();

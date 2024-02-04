@@ -62,24 +62,24 @@ void StageStatusDrawer::Initialize(const uint32_t number, const bool isTutorial,
 		{
 			logo_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pStageLogoSpr_));
 		}
-		logo_->SetParent(&titleTrfm_.m_);
+		logo_->SetParent(&titleTrfm_.m);
 		if (number_ == nullptr)
 		{
 			numberTrfm_.Initialize();
-			number_.reset(UINumber::Create2D(number, 3, 0.5f, false, true, &numberTrfm_.m_));
+			number_.reset(UINumber::Create2D(number, 3, 0.5f, false, true, &numberTrfm_.m));
 		}
-		numberTrfm_.parent_ = &titleTrfm_.m_;
+		numberTrfm_.parent_ = &titleTrfm_.m;
 
 		if (tutorialLogo_ == nullptr)
 		{
 			tutorialLogo_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTutorialLogoSpr_));
 		}
-		tutorialLogo_->SetParent(&titleTrfm_.m_);
+		tutorialLogo_->SetParent(&titleTrfm_.m);
 		if (tutorialMark_ == nullptr)
 		{
 			tutorialMark_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTutorialMarkSpr_));
 		}
-		tutorialMark_->SetParent(&titleTrfm_.m_);
+		tutorialMark_->SetParent(&titleTrfm_.m);
 
 		isTutorial_ = isTutorial;
 
@@ -101,24 +101,24 @@ void StageStatusDrawer::Initialize(const uint32_t number, const bool isTutorial,
 			if (missions_[i].star == nullptr)
 			{
 				missions_[i].star.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pStarSpr_));
-				missions_[i].star->SetParent(&missions_[i].trfm.m_);
+				missions_[i].star->SetParent(&missions_[i].trfm.m);
 			}
 			if (missions_[i].starFrame == nullptr)
 			{
 				missions_[i].starFrame.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pStarFrameSpr_));
-				missions_[i].starFrame->SetParent(&missions_[i].trfm.m_);
+				missions_[i].starFrame->SetParent(&missions_[i].trfm.m);
 			}
 
 			missions_[i].scoreTrfm.Initialize();
-			missions_[i].scoreTrfm.parent_ = &missions_[i].trfm.m_;
+			missions_[i].scoreTrfm.parent_ = &missions_[i].trfm.m;
 			if (missions_[i].score == nullptr)
 			{
-				missions_[i].score.reset(UINumber::Create2D(score[i], 7, 80.0f, false, true, &missions_[i].scoreTrfm.m_));
+				missions_[i].score.reset(UINumber::Create2D(score[i], 7, 80.0f, false, true, &missions_[i].scoreTrfm.m));
 			}
 			if (missions_[i].mission == nullptr)
 			{
 				missions_[i].mission.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pMissionSpr_));
-				missions_[i].mission->SetParent(&missions_[i].trfm.m_);
+				missions_[i].mission->SetParent(&missions_[i].trfm.m);
 			}
 
 			if (missions_[i].color == nullptr)
@@ -168,19 +168,19 @@ void StageStatusDrawer::Reset()
 		bands_[1].color->data_.baseColor = ColorConfig::skTurquoise[3];
 
 		logo_->transform_.Initialize();
-		logo_->transform_.pos_.x_ = -64.0f;
+		logo_->transform_.pos_.x = -64.0f;
 		logo_->transform_.scale_ = { 0.5f, 0.5f, 0.0f };
 
 		numberTrfm_.Initialize();
-		numberTrfm_.pos_.x_ = +160.0f;
+		numberTrfm_.pos_.x = +160.0f;
 		numberTrfm_.scale_ = { 1.0f, 1.0f, 0.0f };
 
 		tutorialLogo_->transform_.Initialize();
-		tutorialLogo_->transform_.pos_.x_ = -48.0f;
+		tutorialLogo_->transform_.pos_.x = -48.0f;
 		tutorialLogo_->transform_.scale_ = { 0.4f, 0.4f, 0.0f };
 
 		tutorialMark_->transform_.Initialize();
-		tutorialMark_->transform_.pos_.x_ = +192.0f;
+		tutorialMark_->transform_.pos_.x = +192.0f;
 		tutorialMark_->transform_.scale_ = { 1.0f, 1.0f, 0.0f };
 	}
 
@@ -259,7 +259,7 @@ void StageStatusDrawer::Update()
 
 	alphaPow_.Update(isAct_);
 	float alpha = YMath::EaseInOut(0.0f, 1.0f, alphaPow_.Ratio(), 3.0f);
-	color_->data_.baseColor.a_ = alpha;
+	color_->data_.baseColor.w = alpha;
 	
 	for (size_t i = 0; i < bands_.size(); i++)
 	{
@@ -267,7 +267,7 @@ void StageStatusDrawer::Update()
 		float bandPosX = bands_[i].posEas.InOut(bands_[i].posPow.Ratio());
 
 		bands_[i].band->Update({ {bandPosX, 0.0f, 0.0f} });
-		bands_[i].color->data_.baseColor.a_ = alpha;
+		bands_[i].color->data_.baseColor.w = alpha;
 	}
 
 	if (isTutorial_)
@@ -295,7 +295,7 @@ void StageStatusDrawer::Update()
 		missions_[i].score->Update();
 		missions_[i].mission->Update();
 
-		missions_[i].color->data_.baseColor.a_ = alpha;
+		missions_[i].color->data_.baseColor.w = alpha;
 	}
 }
 

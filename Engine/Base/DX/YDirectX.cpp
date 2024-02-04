@@ -170,8 +170,8 @@ bool YDirectX::Initialize(const HWND& hwnd, const YMath::Vector2& windowSize)
 	// ----- スワップチェーン生成 ----- //
 	
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{}; // 設定
-	swapChainDesc.Width = (UINT)windowSize.x_;
-	swapChainDesc.Height = (UINT)windowSize.y_;
+	swapChainDesc.Width = (UINT)windowSize.x;
+	swapChainDesc.Height = (UINT)windowSize.y;
 	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;		  // 色情報の書式
 	swapChainDesc.SampleDesc.Count = 1;						  // マルチサンプルしない
 	swapChainDesc.BufferUsage = DXGI_USAGE_BACK_BUFFER;		  // バックバッファ用
@@ -233,8 +233,8 @@ bool YDirectX::Initialize(const HWND& hwnd, const YMath::Vector2& windowSize)
 	// 深度バッファ設定
 	D3D12_RESOURCE_DESC dsvResDesc{};
 	dsvResDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-	dsvResDesc.Width = (UINT16)windowSize.x_; // レンダーターゲットに合わせる
-	dsvResDesc.Height = (UINT)windowSize.y_; // レンダーターゲットに合わせる
+	dsvResDesc.Width = (UINT16)windowSize.x; // レンダーターゲットに合わせる
+	dsvResDesc.Height = (UINT)windowSize.y; // レンダーターゲットに合わせる
 	dsvResDesc.DepthOrArraySize = 1;
 	dsvResDesc.Format = DXGI_FORMAT_D32_FLOAT; // 深度値フォーマット
 	dsvResDesc.SampleDesc.Count = 1;
@@ -307,7 +307,7 @@ void YDirectX::PreDraw(const YMath::Vector4& clearColor)
 	cmdList_->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
 
 	// 3.画面クリア {R, G, B, A}
-	FLOAT clear[] = { clearColor.r_,clearColor.g_,clearColor.b_,clearColor.a_ };
+	FLOAT clear[] = { clearColor.x,clearColor.y,clearColor.z,clearColor.w };
 	cmdList_->ClearRenderTargetView(rtvHandle, clear, 0, nullptr); // 青っぽい色
 	cmdList_->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 }

@@ -22,7 +22,7 @@ using namespace YGame;
 bool YFramework::Initialize()
 {
 	// Windows 初期化
-	window_.Create(WindowTitle, WinSize.x_, WinSize.y_);
+	window_.Create(WindowTitle, WinSize.x, WinSize.y);
 
 	// DirectX 初期化
 	YDirectX::SetFPS(FixFPS);

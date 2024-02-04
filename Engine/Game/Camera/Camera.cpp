@@ -56,7 +56,7 @@ void Camera::UpdateTarget()
 	else
 	{
 		// 自分の向いている方向を注視点とする
-		Vector3 forward = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
+		Vector3 forward = MultVec3Mat4(Vector3(0, 0, 1), transform_.m);
 		vp_.target_ = vp_.eye_ + forward;
 	}
 }
@@ -91,7 +91,7 @@ void Camera::Update(const Transform::Status& status)
 	// 注視点更新
 	UpdateTarget();
 	// 上方向ベクトル更新
-	vp_.up_ = MultVec3Mat4(Vector3(0, 1, 0), transform_.m_);
+	vp_.up_ = MultVec3Mat4(Vector3(0, 1, 0), transform_.m);
 
 	// ビュープロジェクション行列更新
 	vp_.UpdateMatrix();
@@ -133,7 +133,7 @@ ViewProjection Camera::GetViewProjection() const
 Vector3 Camera::Direction()
 {
 	// 向きを計算
-	Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), transform_.m_);
+	Vector3 vel = MultVec3Mat4(Vector3(0, 0, 1), transform_.m);
 	
 	return vel.Normalized();
 }

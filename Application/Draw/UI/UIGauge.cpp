@@ -84,7 +84,7 @@ namespace YGame
 
 		animeStatus_ = {};
 
-		maxWidth = obj_->transform_.scale_.x_;
+		maxWidth = obj_->transform_.scale_.x;
 
 		currentRatio_ = 1.0f;
 		ratioEase_.Initialize(0.0f, 0.0f, 0.0f);
@@ -118,10 +118,10 @@ namespace YGame
 		ratioTimer_.Update();
 		currentRatio_ = ratioEase_.InOut(ratioTimer_.Ratio());
 
-		animeStatus_.pos_.x_ = -(maxWidth * (1.0f - currentRatio_) / 2.0f);
-		animeStatus_.scale_.x_ = -maxWidth * (1.0f - currentRatio_);
+		animeStatus_.pos_.x = -(maxWidth * (1.0f - currentRatio_) / 2.0f);
+		animeStatus_.scale_.x = -maxWidth * (1.0f - currentRatio_);
 
-		cbTex_->data_.tiling.x_ = 1.0f - (1.0f - currentRatio_);
+		cbTex_->data_.tiling.x = 1.0f - (1.0f - currentRatio_);
 	}
 
 	void impl_UIGauge::Draw(const std::string& shaderTag, const size_t priority)

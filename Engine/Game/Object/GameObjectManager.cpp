@@ -155,11 +155,11 @@ bool GameObjectManager::InUpdateRange(Transform* pTrfm, const float range)
 {
 	// カメラに近いオブジェクト端の位置を求める
 	float sign = -1.0f;
-	if (pTrfm->pos_.x_ <= pVP_->eye_.x_) { sign = 1.0f; }
-	float basePos = pTrfm->pos_.x_ + sign * (pTrfm->scale_.x_ / 2.0f);
+	if (pTrfm->pos_.x <= pVP_->eye_.x) { sign = 1.0f; }
+	float basePos = pTrfm->pos_.x + sign * (pTrfm->scale_.x / 2.0f);
 
 	// 視点との距離
-	float distance = std::abs(pVP_->eye_.x_ - basePos);
+	float distance = std::abs(pVP_->eye_.x - basePos);
 
 	return distance <= range;
 }

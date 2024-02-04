@@ -99,7 +99,7 @@ void NeedleAttackDrawer::UpdateAnimation()
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
-	animeStatus_.rota_.z_ += rotaEas_.In(animationTimers_[static_cast<uint32_t>(AnimationType::eAttack)].timer.Ratio());
+	animeStatus_.rota_.z += rotaEas_.In(animationTimers_[static_cast<uint32_t>(AnimationType::eAttack)].timer.Ratio());
 
 	popTimer_.Update();
 	vanishTimer_.Update();
@@ -116,13 +116,13 @@ void NeedleAttackDrawer::UpdateAnimation()
 	if (popTimer_.IsAct())
 	{
 		//animeStatus_.scale_ += YMath::EaseOut(Vector3(), Vector3(1.0f, 1.0f, 1.0f), popTimer_.Ratio(), 2.0f);
-		cbColor_->data_.baseColor.a_ = YMath::EaseOut<float>(0.0f, 1.0f, popTimer_.Ratio(), 2.0f);
+		cbColor_->data_.baseColor.w = YMath::EaseOut<float>(0.0f, 1.0f, popTimer_.Ratio(), 2.0f);
 	}
 
 	if (vanishTimer_.IsAct())
 	{
 		//animeStatus_.scale_ += YMath::EaseIn(Vector3(1.0f, 1.0f, 1.0f), Vector3(), vanishTimer_.Ratio(), 2.0f);
-		cbColor_->data_.baseColor.a_ = YMath::EaseIn<float>(1.0f, 0.0f, vanishTimer_.Ratio(), 2.0f);
+		cbColor_->data_.baseColor.w = YMath::EaseIn<float>(1.0f, 0.0f, vanishTimer_.Ratio(), 2.0f);
 	}
 
 	wavePopTimer_.Update();

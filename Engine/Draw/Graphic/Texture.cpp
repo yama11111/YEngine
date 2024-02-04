@@ -42,10 +42,10 @@ Texture* Texture::Create(const Vector4& color)
 	// 全ピクセルの色を初期化
 	for (size_t i = 0; i < imageDataCount; i++)
 	{
-		imageData[i].r_ = color.r_; // R
-		imageData[i].g_ = color.g_; // G
-		imageData[i].b_ = color.b_; // B
-		imageData[i].a_ = color.a_; // A
+		imageData[i].x = color.x; // R
+		imageData[i].y = color.y; // G
+		imageData[i].z = color.z; // B
+		imageData[i].w = color.w; // A
 	}
 
 	// ヒープ設定
@@ -112,9 +112,9 @@ Texture* Texture::CreateRender(const YMath::Vector2& size, const YMath::Vector4&
 	unique_ptr<Texture> newTex = std::make_unique<Texture>();
 
 	// 横方向ピクセル数
-	static const size_t textureWidth = static_cast<size_t>(size.x_);
+	static const size_t textureWidth = static_cast<size_t>(size.x);
 	// 縦方向ピクセル数
-	static const size_t textureHeight = static_cast<size_t>(size.y_);
+	static const size_t textureHeight = static_cast<size_t>(size.y);
 	// 配列の要素数
 	static const size_t imageDataCount = textureWidth * textureHeight;
 
@@ -150,10 +150,10 @@ Texture* Texture::CreateRender(const YMath::Vector2& size, const YMath::Vector4&
 	// クリア設定
 	D3D12_CLEAR_VALUE clearValue{};
 	clearValue.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-	clearValue.Color[0] = clearColor.r_;
-	clearValue.Color[1] = clearColor.g_;
-	clearValue.Color[2] = clearColor.b_;
-	clearValue.Color[3] = clearColor.a_;
+	clearValue.Color[0] = clearColor.x;
+	clearValue.Color[1] = clearColor.y;
+	clearValue.Color[2] = clearColor.z;
+	clearValue.Color[3] = clearColor.w;
 
 	// テクスチャバッファ生成
 	newTex->buff_.Create(&heapProp, &resDesc, resState, &clearValue);
