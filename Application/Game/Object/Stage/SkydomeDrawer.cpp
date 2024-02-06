@@ -14,11 +14,12 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<SkydomeDrawer> SkydomeDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<SkydomeDrawer> SkydomeDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<SkydomeDrawer> newDrawer = std::make_unique<SkydomeDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -29,10 +30,10 @@ void SkydomeDrawer::LoadResource()
 	pModel = Model::LoadObj("sphere", true);
 }
 
-void SkydomeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void SkydomeDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
 
 	if (backTexConfig_ == nullptr)
 	{

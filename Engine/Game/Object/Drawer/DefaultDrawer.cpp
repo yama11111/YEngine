@@ -9,11 +9,12 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<DefaultDrawer> DefaultDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<DefaultDrawer> DefaultDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<DefaultDrawer> newDrawer = std::make_unique<DefaultDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -24,10 +25,11 @@ void DefaultDrawer::LoadResource()
 	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void DefaultDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void DefaultDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 
 	SetShaderTag("ModelDefault");
 }

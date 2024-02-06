@@ -10,11 +10,14 @@ using YGame::Coin;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Coin> Coin::Create(const Transform::Status& status)
+std::unique_ptr<Coin> Coin::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys)
 {
 	std::unique_ptr<Coin> newObj = std::make_unique<Coin>();
 
 	newObj->Initialize(status);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
@@ -42,11 +45,11 @@ void Coin::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, CoinConfig::kRadius), 
+				&worldPos_, CoinConfig::kRadius),
 			mask);
 	}
 
-	SetDrawer(CoinDrawer::Create(nullptr, 1));
+	SetDrawer(CoinDrawer::Create(nullptr, nullptr, 1));
 	
 	drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
 }

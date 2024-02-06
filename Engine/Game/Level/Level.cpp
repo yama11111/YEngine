@@ -13,7 +13,7 @@
 #include "Life.h"
 #include "Magnet.h"
 #include "Block.h"
-#include "SpeedGate.h"
+#include "Gate.h"
 #include "Goal.h"
 
 #include "BlockDrawer.h"
@@ -41,7 +41,7 @@ list<unique_ptr<Level>> Level::sLevelDatas_;
 #pragma endregion
 
 
-Level* Level::LoadJson(const std::string& fileName)
+Level* Level::LoadJson(const std::string& fileName, const std::string& key)
 {
 	// 動的レベルデータ生成
 	std::unique_ptr<Level> newLevel = std::make_unique<Level>();
@@ -80,7 +80,7 @@ Level* Level::LoadJson(const std::string& fileName)
 	for (nlohmann::json& object : deserialized["objects"])
 	{
 		// データ読み込み
-		newLevel->LoadData(object);
+		newLevel->LoadData(key, object);
 	}
 
 	// 返却用ポインタ
@@ -93,7 +93,7 @@ Level* Level::LoadJson(const std::string& fileName)
 	return pLevel;
 }
 
-void Level::LoadData(nlohmann::json& object, GameObject* pParent)
+void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject* pParent)
 {
 	// "type" 以外警告
 	assert(object.contains("type"));
@@ -146,35 +146,39 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		{
 			isUpdateSkip = false;
 
-			newObj = Player::Create(status);
+			newObj = Player::Create(status, { key });
 		}
-		else if (name == "Slime." || name == "Flog." || name == "Bird."|| name == "Ogre." || name == "Goblin.")
+		else if (name == "Slime." || name == "Flog." || name == "Bird." || name == "Ogre." || name == "Goblin.")
 		{
-			newObj = Slime::Create(status);
+			newObj = Slime::Create(status, { key });
 		}
 		else if (name == "Coin.")
 		{
-			newObj = Coin::Create(status);
+			newObj = Coin::Create(status, { key });
 		}
 		else if (name == "Life.")
 		{
-			newObj = Life::Create(status);
+			isUpdateSkip = false;
+
+			newObj = Life::Create(status, { key });
 		}
 		else if (name == "Magnet.")
 		{
-			newObj = Magnet::Create(status);
+			isUpdateSkip = false;
+
+			newObj = Magnet::Create(status, { key });
 		}
 		else if (name == "Block.")
 		{
-			newObj = Block::Create(status, pParent);
+			newObj = Block::Create(status, { key }, pParent);
 		}
 		else if (name == "Gate.")
 		{
-			newObj = SpeedGate::Create(status, pParent);
+			newObj = Gate::Create(status, { key }, pParent);
 		}
 		else if (name == "Goal.")
 		{
-			newObj = Goal::Create(status, pParent);
+			newObj = Goal::Create(status, { key }, pParent);
 		}
 		else
 		{
@@ -186,12 +190,14 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 		if (name == "Block_B.")
 		{
 			isBackground = true;
-			newObj->SetDrawer(BlockDrawer::Create(nullptr, true, 1));
+			newObj->SetDrawer(BlockDrawer::Create(nullptr, nullptr, true, 1));
+			newObj->SetDrawKeys({});
 		}
 		else if (name == "Skydome.")
 		{
 			isBackground = true;
-			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, 4));
+			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, nullptr, 4));
+			newObj->SetDrawKeys({});
 		}
 
 		// 子を読み込む
@@ -201,7 +207,7 @@ void Level::LoadData(nlohmann::json& object, GameObject* pParent)
 			for (size_t i = 0; i < object["children"].size(); i++)
 			{
 				// 子オブジェクト読み込み
-				LoadData(object["children"][i], newObj.get());
+				LoadData(key, object["children"][i], newObj.get());
 			}
 		}
 

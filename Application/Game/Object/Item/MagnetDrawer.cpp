@@ -26,11 +26,12 @@ namespace
 	const uint32_t kDeadIndex = static_cast<uint32_t>(MagnetDrawer::AnimationType::eDead);
 }
 
-std::unique_ptr<MagnetDrawer> MagnetDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<MagnetDrawer> MagnetDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<MagnetDrawer> newDrawer = std::make_unique<MagnetDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -41,10 +42,10 @@ void MagnetDrawer::LoadResource()
 	pModel = Model::LoadObj("magnet", true);
 }
 
-void MagnetDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void MagnetDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skYellow;
@@ -130,7 +131,7 @@ void MagnetDrawer::UpdateAnimation()
 	{
 		WaveParticle::Emit(
 			20,
-			pParent_->pos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
+			*pParentWorldPos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
 			ColorConfig::skTurquoise[2], spVP_);
 		
 		emitCounter_++;

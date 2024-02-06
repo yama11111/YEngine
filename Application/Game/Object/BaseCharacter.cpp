@@ -4,11 +4,18 @@
 #include "MathUtil.h"
 
 #include "CharacterConfig.h"
+#include "WorldManager.h"
 
 #include <imgui.h>
 
 using YGame::BaseCharacter;
+using YGame::WorldManager;
 using YMath::Vector3;
+
+namespace
+{
+	WorldManager* pWorldMan = WorldManager::GetInstance();
+}
 
 void BaseCharacter::Initialize(
 	const std::string& name,
@@ -37,7 +44,8 @@ void BaseCharacter::UpdateBeforeCollision()
 
 void BaseCharacter::UpdateAfterCollision()
 {
-	transform_->pos_ += speed_.Velocity();
+	// 位置更新
+	UpdatePos();
 
 	// 向き調整
 	transform_->rota_ = YMath::AdjustAngle(direction_);
@@ -46,11 +54,7 @@ void BaseCharacter::UpdateAfterCollision()
 	
 	status_.Update();
 
-	// 画面外なら死ぬ
-	if (YMath::InRange(transform_->pos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
-	{
-		OffScreenProcess();
-	}
+	OffScreenProcess();
 	
 	isExist_ = IsAlive();
 }
@@ -66,9 +70,27 @@ YGame::InfoOnCollision BaseCharacter::GetInfoOnCollision()
 	return result;
 }
 
+Vector3 BaseCharacter::WorldPos() const
+{
+	return worldPos_ - pWorldMan->CurrentMileage();
+}
+
+void BaseCharacter::UpdatePos()
+{
+	localPos_ += speed_.Velocity();
+
+	worldPos_ = initPos_ + localPos_;
+
+	transform_->pos_ = worldPos_ - pWorldMan->CurrentMileage();
+}
+
 void BaseCharacter::OffScreenProcess()
 {
-	status_.Damage(1000, false);
+	// 画面外なら死ぬ
+	if (YMath::InRange(transform_->pos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
+	{
+		status_.Damage(1000, false);
+	}
 }
 
 void BaseCharacter::DrawDebugTextContent()

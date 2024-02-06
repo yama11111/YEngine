@@ -11,11 +11,12 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<CloudDrawer> CloudDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<CloudDrawer> CloudDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<CloudDrawer> newDrawer = std::make_unique<CloudDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -26,10 +27,12 @@ void CloudDrawer::LoadResource()
 	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void CloudDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void CloudDrawer::Initialize(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 
 	InsertConstBuffer("Cloud", CircleShadowManager::GetInstance()->CBPtr(2));
 	

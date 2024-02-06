@@ -22,8 +22,12 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
+		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		virtual void Initialize(Transform* pParent, const size_t drawPriority);
+		virtual void Initialize(
+			Transform* pParent, 
+			YMath::Vector3* pParentWorldPos, 
+			const size_t drawPriority);
 
 		/// <summary>
 		/// 更新
@@ -62,6 +66,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="pParent"> : 親トランスフォームポインタ</param>
 		virtual void SetParent(Transform* pParent);
+
+		/// <summary>
+		/// 親ワールド座標設定
+		/// </summary>
+		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
+		virtual void SetParentWorldPos(YMath::Vector3* pParentWorldPos);
 
 		/// <summary>
 		/// オフセット設定
@@ -139,6 +149,9 @@ namespace YGame
 
 		// 親トランスフォームポインタ
 		Transform* pParent_ = nullptr;
+		
+		// 親ワールド座標ポインタ
+		YMath::Vector3* pParentWorldPos_ = nullptr;
 
 		// トランスフォーム
 		Transform transform_;

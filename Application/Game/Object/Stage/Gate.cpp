@@ -1,23 +1,34 @@
-#include "SpeedGate.h"
+#include "Gate.h"
 #include "GateDrawer.h"
 #include "Box2DCollider.h"
 #include "MathVector.h"
+#include "WorldManager.h"
 
-using YGame::SpeedGate;
+using YGame::Gate;
 using YMath::BitFrag;
+using YGame::WorldManager;
 
-std::unique_ptr<SpeedGate> SpeedGate::Create(const Transform::Status& status, GameObject* pParent)
+namespace
 {
-	std::unique_ptr<SpeedGate> newObj = std::make_unique<SpeedGate>();
+	WorldManager* pWorldMan = WorldManager::GetInstance();
+}
+
+std::unique_ptr<Gate> Gate::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys, 
+	GameObject* pParent)
+{
+	std::unique_ptr<Gate> newObj = std::make_unique<Gate>();
 
 	newObj->Initialize(status, pParent);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
 
-void SpeedGate::Initialize(const Transform::Status& status, GameObject* pParent)
+void Gate::Initialize(const Transform::Status& status, GameObject* pParent)
 {
-	GameObject::Initialize("SpeedGate", status, pParent);
+	GameObject::Initialize("Gate", status, pParent);
 
 	BitFrag attribute{};
 	attribute.SetFragTrue(AttributeType::eGate);
@@ -32,23 +43,25 @@ void SpeedGate::Initialize(const Transform::Status& status, GameObject* pParent)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, YMath::ConvertToVector2(transform_->scale_)), mask);
+				&worldPos_, YMath::ConvertToVector2(transform_->scale_)), mask);
 	}
 
-	SetDrawer(GateDrawer::Create(nullptr, 2));
+	SetDrawer(GateDrawer::Create(nullptr, nullptr, 2));
 }
 
-void SpeedGate::UpdateBeforeCollision()
+void Gate::UpdateBeforeCollision()
 {
 	GameObject::UpdateBeforeCollision();
 }
 
-void SpeedGate::UpdateAfterCollision()
+void Gate::UpdateAfterCollision()
 {
+	UpdatePos();
+
 	GameObject::UpdateAfterCollision();
 }
 
-YGame::InfoOnCollision SpeedGate::GetInfoOnCollision()
+YGame::InfoOnCollision Gate::GetInfoOnCollision()
 {
 	InfoOnCollision result;
 
@@ -60,7 +73,7 @@ YGame::InfoOnCollision SpeedGate::GetInfoOnCollision()
 	return result;
 }
 
-void SpeedGate::OnCollision(const InfoOnCollision& info)
+void Gate::OnCollision(const InfoOnCollision& info)
 {
 	if (drawer_->IsActAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass))) { return; }
 

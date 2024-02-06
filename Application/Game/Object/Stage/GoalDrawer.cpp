@@ -13,11 +13,12 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<GoalDrawer> GoalDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<GoalDrawer> GoalDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<GoalDrawer> newDrawer = std::make_unique<GoalDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -28,10 +29,10 @@ void GoalDrawer::LoadResource()
 	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void GoalDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void GoalDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
 
 	InsertConstBuffer("Goal", CircleShadowManager::GetInstance()->CBPtr(2));
 	

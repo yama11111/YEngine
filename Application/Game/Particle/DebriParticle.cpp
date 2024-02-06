@@ -8,9 +8,17 @@
 #include "Speed.h"
 #include <memory>
 
+#include "WorldManager.h"
+
 using YGame::DebriParticle;
+using YGame::WorldManager;
 using YMath::Vector3;
 using YMath::Vector4;
+
+namespace
+{
+	WorldManager* pWorldMan = WorldManager::GetInstance();
+}
 
 namespace YGame
 {
@@ -101,13 +109,14 @@ namespace YGame
 
 		// だんだん遅く
 		speed_.Update(movePowerEas_.Out(ratio));
-		obj_->transform_.pos_ += speed_.Velocity();
+		localPos_ += speed_.Velocity();
 
 		// だんだん小さく
 		float scaleVal = scaleEas_.In(ratio);
 		obj_->transform_.scale_ = Vector3(scaleVal, scaleVal, scaleVal);
 
-
+		worldPos_ = initPos_ + localPos_;
+		obj_->transform_.pos_ = worldPos_ - pWorldMan->CurrentMileage();
 		obj_->Update();
 
 		BaseParticle::UpdateLife();

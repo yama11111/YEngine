@@ -69,6 +69,12 @@ namespace YGame
 		/// <returns>衝突時情報</returns>
 		virtual InfoOnCollision GetInfoOnCollision() override;
 
+		/// <summary>
+		/// ワールド座標取得
+		/// </summary>
+		/// <returns>ワールド座標</returns>
+		YMath::Vector3 WorldPos() const override;
+
 	public:
 
 		BaseCharacter() = default;
@@ -93,6 +99,11 @@ namespace YGame
 		AttributeType attributeType_ = AttributeType::eNone;
 
 	protected:
+
+		/// <summary>
+		/// 位置更新
+		/// </summary>
+		virtual void UpdatePos();
 
 		/// <summary>
 		/// 画面外処理

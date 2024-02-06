@@ -14,11 +14,11 @@ namespace
 }
 
 std::unique_ptr<BlockDrawer> BlockDrawer::Create(
-	Transform* pParent, const bool isBackground, const size_t drawPriority)
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const bool isBackground, const size_t drawPriority)
 {
 	std::unique_ptr<BlockDrawer> newDrawer = std::make_unique<BlockDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	if (isBackground)
 	{
@@ -33,10 +33,11 @@ void BlockDrawer::LoadResource()
 	pModel = Model::LoadObj("soil", true);
 }
 
-void BlockDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void BlockDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 	
 	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 

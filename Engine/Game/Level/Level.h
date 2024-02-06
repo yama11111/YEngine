@@ -14,8 +14,9 @@ namespace YGame
 		/// レベルデータ読み込み (.json)
 		/// </summary>
 		/// <param name="fileName"> : ファイル名 (.json)</param>
+		/// <param name="key"> : キー</param>
 		/// <returns>レベルデータポインタ</returns>
-		static Level* LoadJson(const std::string& fileName);
+		static Level* LoadJson(const std::string& fileName, const std::string& key);
 
 		/// <summary>
 		/// 全データクリア
@@ -36,7 +37,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="object"> : オブジェクト(json)</param>
 		/// <param name="pParent"> : 親オブジェクトポインタ</param>
-		void LoadData(nlohmann::json& object, GameObject* pParent = nullptr);
+		void LoadData(const std::string& key, nlohmann::json& object, GameObject* pParent = nullptr);
 	
 	private:
 

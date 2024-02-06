@@ -9,11 +9,14 @@ using YGame::Life;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Life> Life::Create(const Transform::Status& status)
+std::unique_ptr<Life> Life::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys)
 {
 	std::unique_ptr<Life> newObj = std::make_unique<Life>();
 
 	newObj->Initialize(status);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
@@ -40,11 +43,11 @@ void Life::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, CoinConfig::kRadius),
+				&worldPos_, CoinConfig::kRadius),
 			mask);
 	}
 
-	SetDrawer(LifeDrawer::Create(nullptr, 1));
+	SetDrawer(LifeDrawer::Create(nullptr, nullptr, 1));
 
 	drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle), true);
 }

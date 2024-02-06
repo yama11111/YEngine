@@ -77,6 +77,12 @@ namespace YGame
 		virtual InfoOnCollision GetInfoOnCollision();
 
 		/// <summary>
+		/// ワールド座標取得
+		/// </summary>
+		/// <returns>ワールド座標</returns>
+		virtual YMath::Vector3 WorldPos() const { return worldPos_; }
+
+		/// <summary>
 		/// 存在フラグ取得
 		/// </summary>
 		/// <returns>存在フラグ</returns>
@@ -87,12 +93,6 @@ namespace YGame
 		/// </summary>
 		/// <returns>衝突情報保存フラグ</returns>
 		inline bool IsSaveColl() const { return isSaveColl_; }
-		
-		/// <summary>
-		/// 更新キー取得
-		/// </summary>
-		/// <returns>更新キー</returns>
-		inline std::string UpdateKey() const { return updateKey_; }
 		
 		/// <summary>
 		/// 描画キー取得
@@ -138,12 +138,6 @@ namespace YGame
 		/// </summary>
 		/// <param name="isUpdate"> : 衝突情報保存フラグ</param>
 		inline void SetIsSaveColl(const bool isSaveColl) { isSaveColl_ = isSaveColl; }
-
-		/// <summary>
-		/// 更新キー取得
-		/// </summary>
-		/// <returns>更新キー</returns>
-		inline void SetUpdateKey(const std::string& updateKey) { updateKey_ = updateKey; }
 		
 		/// <summary>
 		/// 描画キー取得
@@ -173,6 +167,15 @@ namespace YGame
 
 		// 親ポインタ
 		GameObject* pParent_ = nullptr;
+
+		// 初期座標
+		YMath::Vector3 initPos_;
+
+		// ローカル座標
+		YMath::Vector3 localPos_;
+		
+		// ワールド座標
+		YMath::Vector3 worldPos_;
 		
 		// 存在フラグ
 		bool isExist_ = true;
@@ -182,9 +185,6 @@ namespace YGame
 
 		// 衝突情報を保存するか
 		bool isSaveColl_ = false;
-
-		// 更新キー
-		std::string updateKey_;
 		
 		// 描画キー
 		std::vector<std::string> drawKeys_;

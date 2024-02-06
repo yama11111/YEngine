@@ -12,9 +12,14 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
+		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<GoalDrawer> Create(Transform* pParent, const size_t drawPriority);
+		static std::unique_ptr<GoalDrawer> Create(
+			Transform* pParent,
+			YMath::Vector3* pParentWorldPos,
+			const size_t drawPriority);
+
 
 		/// <summary>
 		/// 静的初期化
@@ -27,8 +32,12 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="pParent"> : 親ポインタ</param>
+		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
 		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(Transform* pParent, const size_t drawPriority) override;
+		void Initialize(
+			Transform* pParent,
+			YMath::Vector3* pParentWorldPos,
+			const size_t drawPriority) override;
 
 	public:
 

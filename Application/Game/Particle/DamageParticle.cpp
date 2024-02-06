@@ -8,8 +8,11 @@
 #include "MathUtil.h"
 #include <memory>
 
+#include "WorldManager.h"
+
 using YGame::DamageParticle;
 using YMath::Vector3;
+using YGame::WorldManager;
 
 namespace
 {
@@ -20,6 +23,8 @@ namespace
 	const size_t kPopIdx = 0;
 	const size_t kRemainIdx = 1;
 	const size_t kVanishIdx = 2;
+	
+	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
 namespace YGame
@@ -128,7 +133,8 @@ namespace YGame
 		}
 
 		Transform::Status animeStatus;
-
+		
+		animeStatus.pos_ = -pWorldMan->CurrentMileage();
 		animeStatus.pos_.y += upEas_.Out(animeTims_[kPopIdx].Ratio());
 
 		float sca = popScaEas_.Out(animeTims_[kPopIdx].Ratio());

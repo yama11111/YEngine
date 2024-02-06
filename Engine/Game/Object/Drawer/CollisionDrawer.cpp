@@ -11,11 +11,12 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<CollisionDrawer> CollisionDrawer::Create(Transform* pParent, const float radius, const size_t drawPriority)
+std::unique_ptr<CollisionDrawer> CollisionDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const float radius, const size_t drawPriority)
 {
 	std::unique_ptr<CollisionDrawer> newDrawer = std::make_unique<CollisionDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 	newDrawer->SetRadius(radius);
 
 	return std::move(newDrawer);
@@ -32,10 +33,11 @@ std::string CollisionDrawer::Name()
 	return "Collision";
 }
 
-void CollisionDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void CollisionDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 
 	isVisibleUpdate_ = false;
 

@@ -2,15 +2,26 @@
 #include "BlockDrawer.h"
 #include "Box2DCollider.h"
 #include "MathVector.h"
+#include "WorldManager.h"
 
+using YGame::WorldManager;
 using YGame::Block;
 using YMath::BitFrag;
 
-std::unique_ptr<Block> Block::Create(const Transform::Status& status, GameObject* pParent)
+namespace
+{
+	WorldManager* pWorldMan = WorldManager::GetInstance();
+}
+
+std::unique_ptr<Block> Block::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys, 
+	GameObject* pParent)
 {
 	std::unique_ptr<Block> newObj = std::make_unique<Block>();
 
 	newObj->Initialize(status, pParent);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
@@ -33,10 +44,10 @@ void Block::Initialize(const Transform::Status& status, GameObject* pParent)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, YMath::ConvertToVector2(transform_->scale_)), mask);
+				&worldPos_, YMath::ConvertToVector2(transform_->scale_)), mask);
 	}
 
-	SetDrawer(BlockDrawer::Create(nullptr, false, 2));
+	SetDrawer(BlockDrawer::Create(nullptr, nullptr, false, 2));
 }
 
 void Block::UpdateBeforeCollision()
@@ -46,6 +57,8 @@ void Block::UpdateBeforeCollision()
 
 void Block::UpdateAfterCollision()
 {
+	UpdatePos();
+
 	GameObject::UpdateAfterCollision();
 }
 

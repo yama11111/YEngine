@@ -1,10 +1,10 @@
 #pragma once
-#include "GameObject.h"
+#include "BaseStageObject.h"
 
 namespace YGame
 {
-	class SpeedGate final :
-		public GameObject
+	class Gate final :
+		public BaseStageObject
 	{
 
 	public:
@@ -13,9 +13,11 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
+		/// <param name="drawKeys"> : 描画キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<SpeedGate>Create(
+		static std::unique_ptr<Gate>Create(
 			const Transform::Status& status,
+			const std::vector<std::string>& drawKeys,
 			GameObject* pParent = nullptr);
 
 	public:
@@ -43,9 +45,9 @@ namespace YGame
 
 	public:
 
-		SpeedGate() = default;
+		Gate() = default;
 
-		~SpeedGate() = default;
+		~Gate() = default;
 
 	private:
 

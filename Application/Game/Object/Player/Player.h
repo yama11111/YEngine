@@ -15,8 +15,11 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
+		/// <param name="drawKeys"> : 描画キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Player>Create(const Transform::Status& status);
+		static std::unique_ptr<Player>Create(
+			const Transform::Status& status,
+			const std::vector<std::string>& drawKeys);
 
 	public:
 
@@ -49,8 +52,8 @@ namespace YGame
 		/// <summary>
 		/// 静的初期化
 		/// </summary>
-		/// <param name="pCamera"> : カメラポインタ</param>
-		static void StaticInitialize(GameCamera* pCamera);
+		/// <param name="pGameCamera"> : カメラポインタ</param>
+		static void StaticInitialize(GameCamera* pGameCamera);
 
 	public:
 
@@ -72,15 +75,15 @@ namespace YGame
 
 	private:
 
-		// 静的スクロールカメラポインタ
-		static GameCamera* spCamera_;
-
-	private:
-
 		/// <summary>
 		/// 操縦更新
 		/// </summary>
 		void UpdateControl() override;
+		
+		/// <summary>
+		/// 位置更新
+		/// </summary>
+		void UpdatePos() override;
 		
 		/// <summary>
 		/// ジャンプ

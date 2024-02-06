@@ -1,13 +1,14 @@
 #include "PlayScene.h"
 #include "SceneManager.h"
+#include "MathVector.h"
+#include "MathUtil.h"
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>
 
 #include "Player.h"
-#include "Slime.h"
-#include "Coin.h"
 
+#include "WorldManager.h"
 #include "ScoreManager.h"
 #include "StageManager.h"
 #include "ParticleManager.h"
@@ -44,10 +45,8 @@ void PlayScene::Load()
 #pragma region 初期化
 void PlayScene::Initialize()
 {
-	StageManager::GetInstance()->Reset();
-
 	CircleShadowManager::GetInstance()->Intialize();
-
+	
 	// ゲームキャラクターマネージャー初期化
 	pObjectMan_->Initialize(&transferVP_);
 
@@ -60,15 +59,19 @@ void PlayScene::Initialize()
 	uint32_t stageIndex = StageManager::GetInstance()->CurrentStageIndex();
 	if (stageIndex == 0)
 	{
-		pLevel_ = Level::LoadJson("levelData.json");
+		pLevel_ = Level::LoadJson(
+			"levelData_1.json",
+			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey));
 	}
 	else if (stageIndex == 1)
 	{
-		pLevel_ = Level::LoadJson("levelData_2.json");
+		pLevel_ = Level::LoadJson(
+			"levelData_2.json",
+			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey));
 	}
-
-	pScoreManager_ = ScoreManager::GetInstance();
-	pScoreManager_->Initialize();
+	//pLevel_ = Level::LoadJson(
+	//	"fever.json",
+	//	WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eFeverKey));
 
 	// UI
 	uiDra_.Initialize();
@@ -83,9 +86,12 @@ void PlayScene::Initialize()
 
 	pause_.Initialize();
 
+	StageManager::GetInstance()->Reset();
+
+	WorldManager::GetInstance()->Initialize(WorldManager::Key::eWorldKey);
+
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
-
 
 	cbDiscardColor_.reset(ConstBufferObject<CBDiscardColor>::Create());
 	

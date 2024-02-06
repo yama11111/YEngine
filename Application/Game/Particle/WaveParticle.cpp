@@ -7,12 +7,16 @@
 #include "MathUtil.h"
 #include <memory>
 
+#include "WorldManager.h"
+
 using YGame::WaveParticle;
+using YGame::WorldManager;
 using YMath::Vector3;
 
 namespace
 {
 	YGame::Sprite3D* pSpr = nullptr;
+	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
 namespace YGame
@@ -104,6 +108,8 @@ namespace YGame
 		// だんだん薄く
 		cbColor_->data_.baseColor.w = alphaEas_.In(ratio);
 
+		worldPos_ = initPos_ + localPos_;
+		obj_->transform_.pos_ = worldPos_ - pWorldMan->CurrentMileage();
 		obj_->Update();
 
 		BaseParticle::UpdateLife();

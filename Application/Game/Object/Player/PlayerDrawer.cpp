@@ -30,11 +30,12 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead);
 }
 
-std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<PlayerDrawer> newDrawer = std::make_unique<PlayerDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -47,10 +48,10 @@ void PlayerDrawer::LoadResource()
 	pModels[2] = Model::LoadObj("player/leg_R", true);
 }
 
-void PlayerDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void PlayerDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
@@ -119,7 +120,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
 
-		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
+		DustParticle::Emit(Anime::Move::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
 	}
 	// ジャンプ
 	else if (index & static_cast<uint32_t>(AnimationType::eJump))
@@ -146,7 +147,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
 
-		DustParticle::Emit(Anime::Move::kDustNum, pParent_->pos_, powerDirection, spVP_);
+		DustParticle::Emit(Anime::Move::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
 	}
 	// 着地
 	else if (index & static_cast<uint32_t>(AnimationType::eLanding))
@@ -177,7 +178,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.1f, 0.0f);
 
-			DustParticle::Emit(Anime::Landing::kDustNum, pParent_->pos_, powerDirection, spVP_);
+			DustParticle::Emit(Anime::Landing::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
 		}
 	}
 	// 攻撃
@@ -195,7 +196,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 	// 死亡
 	else if (index & static_cast<uint32_t>(AnimationType::eDead))
 	{
-		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
+		DebriParticle::Emit(Anime::Dead::kDebriNum, *pParentWorldPos_, spVP_);
 	}
 }
 

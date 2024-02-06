@@ -10,6 +10,10 @@
 
 #include "StageManager.h"
 #include "ScoreManager.h"
+#include "WorldManager.h"
+
+#include "MathVector.h"
+#include "MathUtil.h"
 
 #include "Keys.h"
 #include "Pad.h"
@@ -18,26 +22,35 @@
 #include <imgui.h>
 
 using YGame::Player;
+using YGame::WorldManager;
+using YGame::GameCamera;
 using YMath::Vector2;
 using YMath::Vector3;
 using YMath::BitFrag;
 using YInput::Keys;
 using YInput::Pad;
 
-YGame::GameCamera* Player::spCamera_ = nullptr;
-
-void Player::StaticInitialize(GameCamera* pCamera)
+namespace
 {
-	assert(pCamera);
-
-	spCamera_ = pCamera;
+	WorldManager* pWorldMan = WorldManager::GetInstance();
+	GameCamera* pCamera = nullptr;
 }
 
-std::unique_ptr<Player> Player::Create(const Transform::Status& status)
+void Player::StaticInitialize(GameCamera* pGameCamera)
+{
+	assert(pGameCamera);
+
+	pCamera = pGameCamera;
+}
+
+std::unique_ptr<Player> Player::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys)
 {
 	std::unique_ptr<Player> newObj = std::make_unique<Player>();
 
 	newObj->Initialize(status);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
@@ -67,7 +80,7 @@ void Player::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kPhysicsRect, Vector3(), true, false),
+				&worldPos_, speed_.VelocityPtr(), PlayerConfig::kPhysicsRect, Vector3(), true, false),
 			mask);
 	}
 
@@ -78,7 +91,7 @@ void Player::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, PlayerConfig::kPhysicsRect),
+				&worldPos_, PlayerConfig::kPhysicsRect),
 			mask);
 	}
 
@@ -89,25 +102,25 @@ void Player::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), PlayerConfig::kCollRect, Vector3(), false, false),
+				&worldPos_, speed_.VelocityPtr(), PlayerConfig::kCollRect, Vector3(), false, false),
 			mask);
 	}
-	
+
 	{
 		BitFrag mask{};
 		mask.SetFragTrue(AttributeType::eCoin);
 		mask.SetFragTrue(AttributeType::eItem);
-		
+
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, PlayerConfig::kRadius), 
+				&worldPos_, PlayerConfig::kRadius),
 			mask);
 	}
 
 	collider_->SetPriority(1);
 
 
-	SetDrawer(PlayerDrawer::Create(nullptr, 1));
+	SetDrawer(PlayerDrawer::Create(nullptr, nullptr, 1));
 
 	jumpCounter_ = 0;
 
@@ -116,11 +129,12 @@ void Player::Initialize(const Transform::Status& status)
 	isLanding_ = false;
 	isElderLanding_ = false;
 	
-	spCamera_->SetPlayerPosPtr(&transform_->pos_);
+	pCamera->SetPlayerPosPtr(&transform_->pos_);
 	
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
 }
+
 
 void Player::UpdateControl()
 {
@@ -139,6 +153,18 @@ void Player::UpdateControl()
 	{
 		Drop();
 	}
+}
+
+void Player::UpdatePos()
+{
+	localPos_ += speed_.Velocity();
+
+	worldPos_ = initPos_ + localPos_;
+	
+	//pWorldMan->SetMileage(pWorldMan->CurrentWorldKey(), localPos_);
+
+	//transform_->pos_ = initPos_;
+	transform_->pos_ = worldPos_;
 }
 
 void Player::UpdateBeforeCollision()
@@ -207,24 +233,26 @@ void Player::Jump(const bool isJumpCount)
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
 
-	spCamera_->MoveOnJump();
+	pCamera->MoveOnJump();
 }
 
 void Player::Drop()
 {
-	if (isLanding_) { return; }
-
 	moveDirection_.y = -1.0f;
 
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
 
-	spCamera_->MoveOnJump();
+	pCamera->MoveOnJump();
 }
 
 void Player::OffScreenProcess()
 {
-	StageManager::GetInstance()->GameOver();
+	// 画面外なら死ぬ
+	if (YMath::InRange(initPos_ + localPos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
+	{
+		StageManager::GetInstance()->GameOver();
+	}
 }
 
 void Player::OnCollision(const InfoOnCollision& info)
@@ -235,7 +263,7 @@ void Player::OnCollision(const InfoOnCollision& info)
 		// 自分 が 敵 より上にいる なら
 		if (transform_->pos_.y - (PlayerConfig::kRadius / 4.0f) >= info.pTrfm->pos_.y + (info.radius / 4.0f))
 		{
-			spCamera_->Shaking(1.0f, 0.2f, 100.0f);
+			pCamera->Shaking(1.0f, 0.2f, 100.0f);
 
 			// ジャンプ
 			Jump(false);
@@ -251,11 +279,11 @@ void Player::OnCollision(const InfoOnCollision& info)
 				// 死亡アニメーション
 				drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead), true);
 
-				spCamera_->SetPlayerPosPtr(nullptr);
+				pCamera->SetPlayerPosPtr(nullptr);
 				StageManager::GetInstance()->GameOver();
 			}
 
-			spCamera_->Shaking(2.0f, 0.2f, 100.0f);
+			pCamera->Shaking(2.0f, 0.2f, 100.0f);
 
 			// 被弾アニメーション
 			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit), true);
@@ -280,7 +308,7 @@ void Player::OnCollision(const InfoOnCollision& info)
 
 		ScoreManager::GetInstance()->AddSpeedLevel();
 		
-		spCamera_->MoveOnAccel();
+		pCamera->MoveOnAccel();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

@@ -83,20 +83,11 @@ namespace YGame
 			// 本体
 			std::unique_ptr<GameObject> obj;
 
-			// 描画キー
-			std::vector<std::string> drawKeys;
-
-			// 優先度
-			uint32_t updatePriority;
-
 			// 更新スキップをするか
 			bool isUpdateSkip = false;
 
 			// 処理を飛ばすか
 			bool isSkip = false;
-
-			// 衝突情報を保存するか
-			bool isSaveCollInfo = false;
 		};
 		
 		// オブジェクト構造体
@@ -104,9 +95,6 @@ namespace YGame
 		{
 			// 本体
 			std::unique_ptr<GameObject> obj;
-
-			// 描画キー
-			std::vector<std::string> drawKeys;
 
 			// 処理を飛ばすか
 			bool isSkip = false;
@@ -119,19 +107,12 @@ namespace YGame
 		
 		// 背景オブジェクトリスト
 		std::list<GameObjectSetForBack> backObjects_;
-
-		// 描画関数キュー
+		
+		// 描画処理関数キューマップ
 		std::unordered_map<std::string, std::queue<std::function<void()>>> drawQueues_;
 
 		// ビュープロジェクションポインタ
 		ViewProjection* pVP_ = nullptr;
-
-	private:
-
-		GameObjectManager() = default;
-		~GameObjectManager() = default;
-		GameObjectManager(const GameObjectManager&) = delete;
-		const GameObjectManager& operator=(const GameObjectManager&) = delete;
 
 	private:
 
@@ -148,10 +129,11 @@ namespace YGame
 		/// <summary>
 		/// 更新範囲内か
 		/// </summary>
-		/// <param name="pObject"> : トランスフォームポインタ</param>
+		/// <param name="pos"> : 座標</param>
+		/// <param name="scale"> : スケール</param>
 		/// <param name="range"> : 範囲</param>
 		/// <returns>更新範囲内か</returns>
-		bool InUpdateRange(Transform* pTrfm, const float range);
+		bool InUpdateRange(const YMath::Vector3& pos, const YMath::Vector3& scale, const float range);
 
 		/// <summary>
 		/// アタリ判定全チェック
@@ -165,17 +147,15 @@ namespace YGame
 		/// <param name="isSaveA"> : 保存フラグA</param>
 		/// <param name="pObjectB"> : オブジェクトB</param>
 		/// <param name="isSaveB"> : 保存フラグB</param>
-		static void CheckCollisionCharacterPair(
+		static void CheckCollisionObjectPair(
 			GameObject* pObjectA, const bool isSaveA,
 			GameObject* pObjectB, const bool isSaveB);
+
+	private:
+
+		GameObjectManager() = default;
+		~GameObjectManager() = default;
+		GameObjectManager(const GameObjectManager&) = delete;
+		const GameObjectManager& operator=(const GameObjectManager&) = delete;
 	};
-	
-	inline bool operator< (const GameObjectManager::GameObjectSet& objectSet1, const GameObjectManager::GameObjectSet& objectSet2)
-	{
-		return objectSet1.updatePriority < objectSet2.updatePriority;
-	}
-	inline bool operator> (const GameObjectManager::GameObjectSet& objectSet1, const GameObjectManager::GameObjectSet& objectSet2)
-	{
-		return objectSet1.updatePriority > objectSet2.updatePriority;
-	}
 }

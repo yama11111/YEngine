@@ -119,10 +119,11 @@
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
+    <ClCompile Include="Application\Game\Object\BaseStageObject.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Block.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Goal.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Magnet.cpp" />
-    <ClCompile Include="Application\Game\Object\Stage\SpeedGate.cpp" />
+    <ClCompile Include="Application\Game\Object\Stage\Gate.cpp" />
     <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\GateDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\LifeDrawer.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
     <ClCompile Include="Application\Game\UI\StatusDrawer.cpp" />
+    <ClCompile Include="Application\Game\WorldManager.cpp" />
     <ClCompile Include="Application\Scene\TestScene.cpp" />
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
@@ -269,10 +271,11 @@
     <ClInclude Include="Application\Game\Camera\GameCamera.h" />
     <ClInclude Include="Application\Game\Object\CircleShadowManager.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
+    <ClInclude Include="Application\Game\Object\BaseStageObject.h" />
     <ClInclude Include="Application\Game\Object\Stage\Block.h" />
     <ClInclude Include="Application\Game\Object\Stage\Goal.h" />
     <ClInclude Include="Application\Game\Object\Item\Magnet.h" />
-    <ClInclude Include="Application\Game\Object\Stage\SpeedGate.h" />
+    <ClInclude Include="Application\Game\Object\Stage\Gate.h" />
     <ClInclude Include="Application\Game\UI\CoinCountDrawer.h" />
     <ClInclude Include="Application\Game\Object\Stage\GateDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\LifeDrawer.h" />
@@ -284,6 +287,7 @@
     <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />
     <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
     <ClInclude Include="Application\Game\UI\StatusDrawer.h" />
+    <ClInclude Include="Application\Game\WorldManager.h" />
     <ClInclude Include="Application\Scene\TestScene.h" />
     <ClInclude Include="Engine\Math\Game\BitFrag.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\AxisDrawer.h" />

@@ -18,6 +18,12 @@ void BaseParticle::Initialize(
 		obj_->Initialize(status); 
 	}
 
+	initPos_ = status.pos_;
+
+	localPos_ = {};
+
+	worldPos_ = initPos_;
+
 	shaderTag_ = shaderTag;
 
 	drawPriority_ = drawPriority;

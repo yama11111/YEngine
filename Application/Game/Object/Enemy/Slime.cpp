@@ -18,11 +18,14 @@ using YMath::Vector2;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Slime> Slime::Create(const Transform::Status& status)
+std::unique_ptr<Slime> Slime::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys)
 {
 	std::unique_ptr<Slime> newObj = std::make_unique<Slime>();
 
 	newObj->Initialize(status);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
@@ -50,7 +53,7 @@ void Slime::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), true, false),
+				&worldPos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), true, false),
 			mask);
 	}
 
@@ -61,13 +64,13 @@ void Slime::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::Box2DCollider>(
-				&transform_->pos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), false, false),
+				&worldPos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), false, false),
 			mask);
 	}
 
 	collider_->SetPriority(1);
 
-	SetDrawer(SlimeDrawer::Create(nullptr, 1));
+	SetDrawer(SlimeDrawer::Create(nullptr, nullptr, 1));
 
 	blowTim_.Initialize(SlimeConfig::kBlowTime);
 

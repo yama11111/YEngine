@@ -30,11 +30,12 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead);
 }
 
-std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<SlimeDrawer> newDrawer = std::make_unique<SlimeDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -44,10 +45,11 @@ void SlimeDrawer::LoadResource()
 	pModel = Model::LoadObj("slime", true);
 }
 
-void SlimeDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void SlimeDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = YMath::GetColor(143, 13, 48, 255);
@@ -105,7 +107,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 		// 土煙を発生
 		// 自分の足元
 		float height = 0.5f;
-		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
+		Vector3 pos = *pParentWorldPos_ - Vector3(0.0f, height, 0.0f);
 
 		// 自分の周囲 かつ 上方向
 		for (size_t i = 0; i < Anime::Landing::kDirectionNum; i++)
@@ -116,7 +118,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);
 
-			DustParticle::Emit(Anime::Landing::kDustNum, pParent_->pos_, powerDirection, spVP_);
+			DustParticle::Emit(Anime::Landing::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
 		}
 	}
 	// 被弾
@@ -130,7 +132,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 	// 死亡
 	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead))
 	{
-		DebriParticle::Emit(Anime::Dead::kDebriNum, pParent_->pos_, spVP_);
+		DebriParticle::Emit(Anime::Dead::kDebriNum, *pParentWorldPos_, spVP_);
 	}
 }
 
@@ -154,7 +156,7 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 {
 	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
 
-	DamageParticle::Emit(damage, pParent_->pos_, spVP_);
+	DamageParticle::Emit(damage, *pParentWorldPos_, spVP_);
 
 	if (isStepOn)
 	{
@@ -170,7 +172,7 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
 		slimeActor_.Wobble();
 
-		Vector3 pos = pParent_->pos_;
+		Vector3 pos = *pParentWorldPos_;
 		pos.y += pParent_->scale_.y;
 
 		WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, spVP_);

@@ -11,11 +11,12 @@ namespace
 	Model* pModel = nullptr;
 }
 
-std::unique_ptr<AxisDrawer> AxisDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<AxisDrawer> AxisDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<AxisDrawer> newDrawer = std::make_unique<AxisDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 	newDrawer->SetIsVisible(false);
 
 	return std::move(newDrawer);
@@ -27,9 +28,11 @@ void AxisDrawer::LoadResource()
 	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png") } });
 }
 
-void AxisDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void AxisDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
-	BaseDrawer::Initialize(pParent, drawPriority);
+	// オブジェクト初期化
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 	
 	for (size_t i = 0; i < cbColors_.size(); i++)
 	{

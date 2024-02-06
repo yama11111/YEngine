@@ -20,11 +20,12 @@ namespace
 	const uint32_t kPassIndex = static_cast<uint32_t>(GateDrawer::AnimationType::ePass);
 }
 
-std::unique_ptr<GateDrawer> GateDrawer::Create(Transform* pParent, const size_t drawPriority)
+std::unique_ptr<GateDrawer> GateDrawer::Create(
+	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	std::unique_ptr<GateDrawer> newDrawer = std::make_unique<GateDrawer>();
 
-	newDrawer->Initialize(pParent, drawPriority);
+	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
 
 	return std::move(newDrawer);
 }
@@ -35,10 +36,11 @@ void GateDrawer::LoadResource()
 	pInsideSpr = Sprite3D::Create({ {"Texture0", Texture::Load("play/gate_inside.png", false)} });
 }
 
-void GateDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void GateDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, drawPriority);
+	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+
 
 	if (cbInsideColor_ == nullptr)
 	{

@@ -4,16 +4,26 @@
 
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
+#include "WorldManager.h"
 
 using YGame::Magnet;
+using YGame::WorldManager;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Magnet> Magnet::Create(const Transform::Status& status)
+namespace
+{
+	WorldManager* pWorldMan = WorldManager::GetInstance();
+}
+
+std::unique_ptr<Magnet> Magnet::Create(
+	const Transform::Status& status,
+	const std::vector<std::string>& drawKeys)
 {
 	std::unique_ptr<Magnet> newObj = std::make_unique<Magnet>();
 
 	newObj->Initialize(status);
+	newObj->SetDrawKeys(drawKeys);
 
 	return std::move(newObj);
 }
@@ -40,7 +50,7 @@ void Magnet::Initialize(const Transform::Status& status)
 
 		collider_->PushBackCollider(
 			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, MagnetConfig::kCollRadius),
+				&worldPos_, MagnetConfig::kCollRadius),
 			mask);
 	}
 	
@@ -54,7 +64,7 @@ void Magnet::Initialize(const Transform::Status& status)
 			mask);
 	}
 
-	SetDrawer(MagnetDrawer::Create(nullptr, 1));
+	SetDrawer(MagnetDrawer::Create(nullptr, nullptr, 1));
 
 	isAct_ = false;
 	actTimer_.Initialize(480);
@@ -73,14 +83,8 @@ void Magnet::UpdateBeforeCollision()
 	actTimer_.Update();
 	if (actTimer_.IsEnd())
 	{
-		isAct_ = false;
 		actTimer_.Reset();
 		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eDead));
-	}
-
-	if (pPlayerTrfm_ && actTimer_.IsAct())
-	{
-		transform_->pos_ = pPlayerTrfm_->pos_ + Vector3(0, 2, 0);
 	}
 
 	BaseCharacter::UpdateBeforeCollision();
@@ -93,6 +97,18 @@ void Magnet::UpdateAfterCollision()
 	if (drawer_->IsEndTimer(static_cast<uint32_t>(MagnetDrawer::AnimationType::eDead)))
 	{
 		isExist_ = false;
+	}
+}
+
+void Magnet::UpdatePos()
+{
+	if (pPlayerTrfm_ && actTimer_.IsAct())
+	{
+		transform_->pos_ = pPlayerTrfm_->pos_ + Vector3(0, 2, 0);
+	}
+	else
+	{
+		BaseCharacter::UpdatePos();
 	}
 }
 

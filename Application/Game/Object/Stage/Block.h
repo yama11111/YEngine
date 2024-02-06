@@ -1,10 +1,10 @@
 #pragma once
-#include "GameObject.h"
+#include "BaseStageObject.h"
 
 namespace YGame
 {
-	class Block final: 
-		public GameObject
+	class Block final :
+		public BaseStageObject
 	{
 
 	public:
@@ -13,9 +13,11 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
+		/// <param name="drawKeys"> : 描画キー</param>
 		/// <returns>動的インスタンス</returns>
 		static std::unique_ptr<Block>Create(
-			const Transform::Status& status, 
+			const Transform::Status& status,
+			const std::vector<std::string>& drawKeys, 
 			GameObject* pParent = nullptr);
 	
 	public:

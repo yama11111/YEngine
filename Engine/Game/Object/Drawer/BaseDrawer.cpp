@@ -12,7 +12,7 @@ void BaseDrawer::StaticInitialize(ViewProjection* pVP)
 	spVP_ = pVP;
 }
 
-void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
+void BaseDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
 {	
 	if (cbColor_ == nullptr)
 	{
@@ -33,6 +33,7 @@ void BaseDrawer::Initialize(Transform* pParent, const size_t drawPriority)
 	InsertConstBuffer(cbMaterial_.get());
 	
 	SetParent(pParent);
+	SetParentWorldPos(pParentWorldPos);
 
 	SetDrawPriority(drawPriority);
 
@@ -184,6 +185,11 @@ void BaseDrawer::SetParent(Transform* pParent)
 	{
 		transform_.parent_ = nullptr;
 	}
+}
+
+void BaseDrawer::SetParentWorldPos(YMath::Vector3* pParentWorldPos)
+{
+	pParentWorldPos_ = pParentWorldPos;
 }
 
 void BaseDrawer::InsertObject(const std::string& objTag, BaseDrawObject* pObj)

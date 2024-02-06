@@ -40,9 +40,6 @@ namespace YGame
 		// 転送用ビュープロジェクション
 		ViewProjection transferVP_;
 
-		// スコアマネージャー
-		ScoreManager* pScoreManager_ = nullptr;
-
 		// UIマネージャー
 		UIDrawer uiDra_;
 

@@ -12,9 +12,12 @@ namespace YGame
 		/// <summary>
 		/// 生成
 		/// </summary>
-		/// <param name="status"> : トランスフォーム情報</param>
+		/// <param name="status"> : トランスフォーム情報</param>		
+		/// <param name="drawKeys"> : 描画キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Magnet>Create(const Transform::Status& status);
+		static std::unique_ptr<Magnet>Create(
+			const Transform::Status& status,
+			const std::vector<std::string>& drawKeys);
 
 	public:
 
@@ -52,6 +55,11 @@ namespace YGame
 		Transform* pPlayerTrfm_ = nullptr;
 
 	private:
+
+		/// <summary>
+		/// 位置更新
+		/// </summary>
+		void UpdatePos() override;
 
 		/// <summary>
 		/// 衝突時情報取得

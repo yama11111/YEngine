@@ -105,7 +105,7 @@ void TitleDrawer::Initialize()
 	skydomeTrfm_.Initialize();
 	if (skydomeDra_ == nullptr)
 	{
-		skydomeDra_ = std::move(SkydomeDrawer::Create(&skydomeTrfm_, 2));
+		skydomeDra_ = std::move(SkydomeDrawer::Create(&skydomeTrfm_, nullptr, 2));
 	}	
 
 	Reset();

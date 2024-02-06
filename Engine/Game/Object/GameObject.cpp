@@ -2,8 +2,6 @@
 #include <cassert>
 #include <imgui.h>
 
-#include "AxisDrawer.h"
-
 using YGame::GameObject;
 
 void GameObject::Initialize(const std::string& name, const Transform::Status& status, GameObject* pParent)
@@ -15,10 +13,14 @@ void GameObject::Initialize(const std::string& name, const Transform::Status& st
 	
 	SetParent(pParent);
 
-	InsertSubDrawer(AxisDrawer::Name(), AxisDrawer::Create(transform_.get(), 1));
-
 	// 行列更新
 	transform_->UpdateMatrix();
+
+	initPos_ = status.pos_;
+
+	localPos_ = {};
+
+	worldPos_ = initPos_;
 
 	isExist_ = true;
 
@@ -41,7 +43,7 @@ void GameObject::UpdateBeforeCollision()
 }
 
 void GameObject::UpdateAfterCollision()
-{
+{	
 	transform_->UpdateMatrix();
 
 	if (drawer_)
@@ -106,6 +108,7 @@ void GameObject::SetDrawer(std::unique_ptr<BaseDrawer>&& drawer)
 	{
 		// 描画クラス親ポインタ設定
 		drawer_->SetParent(transform_.get());
+		drawer_->SetParentWorldPos(&worldPos_);
 	}
 }
 

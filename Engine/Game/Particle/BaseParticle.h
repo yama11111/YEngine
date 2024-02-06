@@ -43,6 +43,15 @@ namespace YGame
 		// 生存タイマー
 		YMath::Timer aliveTimer_;
 
+		// 初期座標
+		YMath::Vector3 initPos_;
+
+		// ローカル座標
+		YMath::Vector3 localPos_;
+
+		// ワールド座標
+		YMath::Vector3 worldPos_;
+
 		// オブジェクト
 		std::unique_ptr<BaseDrawObject> obj_;
 
