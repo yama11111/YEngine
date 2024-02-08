@@ -43,23 +43,28 @@ void Player::StaticInitialize(GameCamera* pGameCamera)
 	pCamera = pGameCamera;
 }
 
-std::unique_ptr<Player> Player::Create(
-	const Transform::Status& status,
-	const std::vector<std::string>& drawKeys)
+std::unique_ptr<Player> Player::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Player> newObj = std::make_unique<Player>();
 
-	newObj->Initialize(status);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
+
+	newObj->SetDrawKeys(
+		{
+			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eStartKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eFeverKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eGoalKey),
+		}
+	);
 
 	return std::move(newObj);
 }
 
-void Player::Initialize(const Transform::Status& status)
+void Player::Initialize(const Transform::Status& status, const std::string& key)
 {
 	BaseCharacter::Initialize(
-		"Player",
-		status,
+		"Player", key, status,
 		{ +1.0f, 0.0f, 0.0f }, // 右向き
 		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed, true,
 		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime);
@@ -120,7 +125,7 @@ void Player::Initialize(const Transform::Status& status)
 	collider_->SetPriority(1);
 
 
-	SetDrawer(PlayerDrawer::Create(nullptr, nullptr, 1));
+	SetDrawer(PlayerDrawer::Create({ nullptr, nullptr, key, 1 }));
 
 	jumpCounter_ = 0;
 
@@ -128,8 +133,6 @@ void Player::Initialize(const Transform::Status& status)
 
 	isLanding_ = false;
 	isElderLanding_ = false;
-	
-	pCamera->SetPlayerPosPtr(&transform_->pos_);
 	
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
@@ -161,14 +164,13 @@ void Player::UpdatePos()
 
 	worldPos_ = initPos_ + localPos_;
 	
-	//pWorldMan->SetMileage(pWorldMan->CurrentWorldKey(), localPos_);
-
-	//transform_->pos_ = initPos_;
 	transform_->pos_ = worldPos_;
 }
 
 void Player::UpdateBeforeCollision()
 {
+	pCamera->SetPlayerPosPtr(&transform_->pos_);
+
 	BaseCharacter::UpdateBeforeCollision();
 }
 
@@ -202,6 +204,8 @@ void Player::UpdateAfterCollision()
 	isElderLanding_ = isLanding_;
 
 	ScoreManager::GetInstance()->SetHP(status_.HP());
+	
+	SetWorldKey(WorldManager::GetInstance()->CurrentWorldKeyStr());
 }
 
 YGame::InfoOnCollision Player::GetInfoOnCollision()
@@ -212,6 +216,15 @@ YGame::InfoOnCollision Player::GetInfoOnCollision()
 	result.radius = PlayerConfig::kRadius;
 
 	return result;
+}
+
+void Player::SetWorldKey(const std::string& worldKey)
+{
+	worldKey_ = worldKey;
+
+	SetUpdateKey(worldKey);
+	
+	if (drawer_) { drawer_->SetVPkey(worldKey); }
 }
 
 void Player::Jump(const bool isJumpCount)
@@ -308,7 +321,8 @@ void Player::OnCollision(const InfoOnCollision& info)
 
 		ScoreManager::GetInstance()->AddSpeedLevel();
 		
-		pCamera->MoveOnAccel();
+		localPos_ = {};
+		initPos_ = WorldManager::GetInstance()->Pass();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

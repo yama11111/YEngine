@@ -20,6 +20,8 @@
 #include "SkydomeDrawer.h"
 #include "DefaultDrawer.h"
 
+#include "WorldManager.h"
+
 #pragma region 名前空間
 
 using std::array;
@@ -146,58 +148,67 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 		{
 			isUpdateSkip = false;
 
-			newObj = Player::Create(status, { key });
+			newObj = Player::Create(status, key);
 		}
 		else if (name == "Slime." || name == "Flog." || name == "Bird." || name == "Ogre." || name == "Goblin.")
 		{
-			newObj = Slime::Create(status, { key });
+			newObj = Slime::Create(status, key);
 		}
 		else if (name == "Coin.")
 		{
-			newObj = Coin::Create(status, { key });
+			newObj = Coin::Create(status, key);
 		}
 		else if (name == "Life.")
 		{
 			isUpdateSkip = false;
 
-			newObj = Life::Create(status, { key });
+			newObj = Life::Create(status, key);
 		}
 		else if (name == "Magnet.")
 		{
 			isUpdateSkip = false;
 
-			newObj = Magnet::Create(status, { key });
+			newObj = Magnet::Create(status, key);
 		}
 		else if (name == "Block.")
 		{
-			newObj = Block::Create(status, { key }, pParent);
+			newObj = Block::Create(status, key, false);
 		}
 		else if (name == "Gate.")
 		{
-			newObj = Gate::Create(status, { key }, pParent);
+			WorldManager::GetInstance()->SetGatePos(WorldManager::Key::eWorldKey, status.pos_);
+			newObj = Gate::Create(status, key);
+		}
+		else if (name == "Gate_S.")
+		{
+			WorldManager::GetInstance()->SetGatePos(WorldManager::Key::eFeverKey, status.pos_);
+			newObj = Gate::Create(status, key);
+		}
+		else if (name == "Gate_E.")
+		{
+			newObj = Gate::Create(status, key);
 		}
 		else if (name == "Goal.")
 		{
-			newObj = Goal::Create(status, { key }, pParent);
+			newObj = Goal::Create(status, key);
 		}
-		else
-		{
-			newObj = std::make_unique<GameObject>();
-			newObj->Initialize(name, status, pParent);
-		}
-		
-
-		if (name == "Block_B.")
+		else if (name == "Block_B.")
 		{
 			isBackground = true;
-			newObj->SetDrawer(BlockDrawer::Create(nullptr, nullptr, true, 1));
-			newObj->SetDrawKeys({});
+			newObj = Block::Create(status, key, true);
 		}
 		else if (name == "Skydome.")
 		{
 			isBackground = true;
-			newObj->SetDrawer(SkydomeDrawer::Create(nullptr, nullptr, 4));
-			newObj->SetDrawKeys({});
+			newObj = std::make_unique<GameObject>();
+			newObj->Initialize(name, status, pParent);
+			newObj->SetDrawer(SkydomeDrawer::Create({ nullptr, nullptr, key, 4 }));
+			newObj->SetUpdateKey(key);
+			newObj->SetDrawKeys({ key });
+		}
+		else
+		{
+			return;
 		}
 
 		// 子を読み込む

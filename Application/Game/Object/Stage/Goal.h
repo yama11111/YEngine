@@ -13,12 +13,9 @@ namespace YGame
 		/// 生成
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
-		/// <param name="drawKeys"> : 描画キー</param>
+		/// <param name="key"> : キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Goal>Create(
-			const Transform::Status& status,
-			const std::vector<std::string>& drawKeys, 
-			GameObject* pParent = nullptr);
+		static std::unique_ptr<Goal>Create(const Transform::Status& status, const std::string& key);
 
 	public:
 
@@ -26,22 +23,20 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
-		/// <param name="pParent"> : 親ポインタ</param>
-		void Initialize(
-			const Transform::Status& status,
-			GameObject* pParent = nullptr);
+		/// <param name="key"> : キー</param>
+		void Initialize(const Transform::Status& status, const std::string& key);
 
 	public:
 
 		/// <summary>
 		/// 衝突前更新
 		/// </summary>
-		virtual void UpdateBeforeCollision();
+		void UpdateBeforeCollision() override;
 
 		/// <summary>
 		/// 衝突後更新
 		/// </summary>
-		virtual void UpdateAfterCollision();
+		void UpdateAfterCollision() override;
 
 	public:
 

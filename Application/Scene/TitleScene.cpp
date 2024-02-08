@@ -1,9 +1,7 @@
 #include "TitleScene.h"
 #include "SceneManager.h"
 #include "MathVector.h"
-#include "BlockDrawer.h"
-#include "SkydomeDrawer.h"
-#include "CharacterConfig.h"
+#include "ViewProjectionManager.h"
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>
@@ -24,7 +22,8 @@ using namespace YMath;
 #pragma region 読み込み
 void TitleScene::Load()
 {
-	BaseDrawer::StaticInitialize(&transferVP_);
+	// 描画クラス
+	ViewProjectionManager::GetInstance()->Insert("World", &transferVP_);
 
 	TitleDrawer::LoadResource();
 }

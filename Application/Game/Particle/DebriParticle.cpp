@@ -116,7 +116,7 @@ namespace YGame
 		obj_->transform_.scale_ = Vector3(scaleVal, scaleVal, scaleVal);
 
 		worldPos_ = initPos_ + localPos_;
-		obj_->transform_.pos_ = worldPos_ - pWorldMan->CurrentMileage();
+		obj_->transform_.pos_ = worldPos_;
 		obj_->Update();
 
 		BaseParticle::UpdateLife();

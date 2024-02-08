@@ -18,23 +18,20 @@ using YMath::Vector2;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Slime> Slime::Create(
-	const Transform::Status& status,
-	const std::vector<std::string>& drawKeys)
+std::unique_ptr<Slime> Slime::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Slime> newObj = std::make_unique<Slime>();
 
-	newObj->Initialize(status);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
 
 	return std::move(newObj);
 }
 
-void Slime::Initialize(const Transform::Status& status)
+void Slime::Initialize(const Transform::Status& status, const std::string& key)
 {
 	// ゲームキャラクター初期化
 	BaseCharacter::Initialize(
-		"Slime",
+		"Slime", key, 
 		status,
 		{ -1.0f, 0.0f, 0.0f }, // 左向き
 		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed, true,
@@ -70,7 +67,7 @@ void Slime::Initialize(const Transform::Status& status)
 
 	collider_->SetPriority(1);
 
-	SetDrawer(SlimeDrawer::Create(nullptr, nullptr, 1));
+	SetDrawer(SlimeDrawer::Create({ nullptr, nullptr, key, 1 }));
 
 	blowTim_.Initialize(SlimeConfig::kBlowTime);
 

@@ -7,17 +7,12 @@
 
 #pragma once
 #include "BaseScene.h"
-#include "GameObjectManager.h"
 #include "PauseManager.h"
-#include "GameCamera.h"
 #include "ScoreManager.h"
 #include "UIDrawer.h"
 #include "BeginingDrawer.h"
 
 #include "Level.h"
-
-#include "DrawObjectForPostEffect.h"
-#include "CBDiscardColor.h"
 
 namespace YGame
 {
@@ -30,15 +25,6 @@ namespace YGame
 
 		// レベル
 		Level* pLevel_ = nullptr;
-
-		// オブジェクトマネージャー
-		GameObjectManager* pObjectMan_ = nullptr;
-
-		// カメラ
-		GameCamera camera_;
-
-		// 転送用ビュープロジェクション
-		ViewProjection transferVP_;
 
 		// UIマネージャー
 		UIDrawer uiDra_;
@@ -54,14 +40,6 @@ namespace YGame
 
 		// ポーズ
 		PauseManager pause_;
-
-		PostEffect* pWorldPE_ = nullptr;
-		std::unique_ptr<DrawObjectForPostEffect> worldPEObj_;
-
-		PostEffect* pFeverPE_ = nullptr;
-		std::unique_ptr<DrawObjectForPostEffect> feverPEObj_;
-		
-		std::unique_ptr<ConstBufferObject<CBDiscardColor>> cbDiscardColor_;
 
 	public:
 

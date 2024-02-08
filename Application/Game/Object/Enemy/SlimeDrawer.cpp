@@ -1,5 +1,6 @@
 #include "SlimeDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "DebriParticle.h"
@@ -14,6 +15,7 @@
 
 using YGame::SlimeDrawer;
 using YGame::Model;
+using YGame::ViewProjectionManager;
 using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::SlimeAnimationConfig;
@@ -22,6 +24,8 @@ namespace
 {
 	// モデルポインタ
 	Model* pModel = nullptr;
+	
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 
 	// アニメーション番号
 	const uint32_t kIdleIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle);
@@ -30,12 +34,11 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead);
 }
 
-std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<SlimeDrawer> newDrawer = std::make_unique<SlimeDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -45,10 +48,10 @@ void SlimeDrawer::LoadResource()
 	pModel = Model::LoadObj("slime", true);
 }
 
-void SlimeDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void SlimeDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
@@ -67,8 +70,8 @@ void SlimeDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos
 
 void SlimeDrawer::InitializeObjects()
 {
-	InsertObject("Body", DrawObjectForModel::Create({}, spVP_, pModel));
-	InsertObject("Body_O", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Body", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Body_O", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 void SlimeDrawer::InitializeTimers()
@@ -118,7 +121,8 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);
 
-			DustParticle::Emit(Anime::Landing::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
+			DustParticle::Emit(Anime::Landing::kDustNum, *pParentWorldPos_, powerDirection, 
+				pVPMan->ViewProjectionPtr(vpKey_));
 		}
 	}
 	// 被弾
@@ -132,7 +136,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 	// 死亡
 	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead))
 	{
-		DebriParticle::Emit(Anime::Dead::kDebriNum, *pParentWorldPos_, spVP_);
+		DebriParticle::Emit(Anime::Dead::kDebriNum, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 	}
 }
 
@@ -156,7 +160,7 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 {
 	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
 
-	DamageParticle::Emit(damage, *pParentWorldPos_, spVP_);
+	DamageParticle::Emit(damage, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 
 	if (isStepOn)
 	{
@@ -175,6 +179,7 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
 		Vector3 pos = *pParentWorldPos_;
 		pos.y += pParent_->scale_.y;
 
-		WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, spVP_);
+		WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, 
+			pVPMan->ViewProjectionPtr(vpKey_));
 	}
 }

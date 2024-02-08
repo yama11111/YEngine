@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseDrawObject.h"
 #include "ConstBufferObject.h"
-#include "ViewProjection.h"
+#include "DrawerInitSet.h"
 #include "DebugTextAttacher.h"
 #include "Timer.h"
 
@@ -21,13 +21,8 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		virtual void Initialize(
-			Transform* pParent, 
-			YMath::Vector3* pParentWorldPos, 
-			const size_t drawPriority);
+		/// <param name="init"> : 初期化セット</param>
+		virtual void Initialize(const DrawerInitSet& init);
 
 		/// <summary>
 		/// 更新
@@ -78,6 +73,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="offset"> : オフセット</param>
 		void SetOffset(const YMath::Vector3& offset) { offset_ = offset; }
+
+		/// <summary>
+		/// ビュープロジェクションキー設定
+		/// </summary>
+		/// <param name="vpKey"> : キー</param>
+		void SetVPkey(const std::string& vpKey);
 		
 		/// <summary>
 		/// 描画位置設定
@@ -125,14 +126,6 @@ namespace YGame
 
 		virtual ~BaseDrawer() = default;
 
-	public:
-
-		/// <summary>
-		/// 静的初期化
-		/// </summary>
-		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
-		static void StaticInitialize(ViewProjection* pVP);
-
 	protected:
 
 		// アニメーション用タイマー
@@ -171,6 +164,9 @@ namespace YGame
 		// 描画更新フラグ
 		bool isVisibleUpdate_ = true;
 
+		// ビュープロジェクションキー
+		std::string vpKey_;
+
 
 		// アニメーションビットフラグ
 		uint32_t animationBitFlag_ = 0;
@@ -180,11 +176,6 @@ namespace YGame
 
 		// アニメーション変動値
 		Transform::Status animeStatus_;
-
-	protected:
-
-		// ビュープロジェクションポインタ
-		static ViewProjection* spVP_;
 
 	protected:
 

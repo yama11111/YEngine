@@ -12,12 +12,10 @@ namespace YGame
 		/// <summary>
 		/// 生成
 		/// </summary>
-		/// <param name="status"> : トランスフォーム情報</param>		
-		/// <param name="drawKeys"> : 描画キー</param>
+		/// <param name="status"> : トランスフォーム情報</param>
+		/// <param name="key"> : キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Magnet>Create(
-			const Transform::Status& status,
-			const std::vector<std::string>& drawKeys);
+		static std::unique_ptr<Magnet>Create(const Transform::Status& status, const std::string& key);
 
 	public:
 
@@ -25,7 +23,8 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
-		void Initialize(const Transform::Status& status);
+		/// <param name="key"> : キー</param>
+		void Initialize(const Transform::Status& status, const std::string& key);
 
 		/// <summary>
 		/// 衝突前更新

@@ -3,27 +3,6 @@
     "objects": [
         {
             "type": "MESH",
-            "name": "Player.001",
-            "transform": {
-                "translation": [
-                    0.0,
-                    -46.13115310668945,
-                    -1.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
             "name": "Block.001",
             "transform": {
                 "translation": [
@@ -113,27 +92,6 @@
                 "translation": [
                     0.0,
                     210.0,
-                    -30.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    8.0,
-                    30.0,
-                    20.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "Block.006",
-            "transform": {
-                "translation": [
-                    0.0,
-                    270.0,
                     -30.0
                 ],
                 "rotation": [
@@ -2245,6 +2203,48 @@
                     1.0,
                     1.0,
                     1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Gate_S.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -50.0,
+                    13.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    12.0,
+                    2.0,
+                    12.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Gate_E.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    230.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    12.0,
+                    2.0,
+                    12.0
                 ]
             }
         }

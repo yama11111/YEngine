@@ -19,12 +19,15 @@ namespace
 
 void BaseCharacter::Initialize(
 	const std::string& name,
+	const std::string& worldKey,
 	const Transform::Status& status,
 	const Vector3& direction,
 	const Vector3& acceleration, const Vector3& maxSpeed, const bool isGravity,
 	const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime)
 {
 	GameObject::Initialize(name, status);
+
+	SetWorldKey(worldKey);
 
 	direction_ = direction;
 
@@ -72,7 +75,17 @@ YGame::InfoOnCollision BaseCharacter::GetInfoOnCollision()
 
 Vector3 BaseCharacter::WorldPos() const
 {
-	return worldPos_ - pWorldMan->CurrentMileage();
+	return worldPos_;
+}
+
+void BaseCharacter::SetWorldKey(const std::string& worldKey)
+{
+	worldKey_ = worldKey;
+
+	SetUpdateKey(worldKey);
+	SetDrawKeys({ worldKey });
+
+	if (drawer_) { drawer_->SetVPkey(worldKey); }
 }
 
 void BaseCharacter::UpdatePos()
@@ -81,7 +94,7 @@ void BaseCharacter::UpdatePos()
 
 	worldPos_ = initPos_ + localPos_;
 
-	transform_->pos_ = worldPos_ - pWorldMan->CurrentMileage();
+	transform_->pos_ = worldPos_;
 }
 
 void BaseCharacter::OffScreenProcess()

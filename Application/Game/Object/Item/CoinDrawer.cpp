@@ -1,5 +1,6 @@
 #include "CoinDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 #include "ColorConfig.h"
 #include "Lerp.h"
 #include "Def.h"
@@ -13,23 +14,25 @@ using YGame::Model;
 using YMath::Timer;
 using YMath::Vector3;
 using YMath::Vector4;
+using YGame::ViewProjectionManager;
 
 namespace
 {
 	// モデルポインタ
 	Model* pModel = nullptr;
+	
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 
 	// アニメーション番号
 	const uint32_t kIdleIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle);
 	const uint32_t kEarnIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn);
 }
 
-std::unique_ptr<CoinDrawer> CoinDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<CoinDrawer> CoinDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<CoinDrawer> newDrawer = std::make_unique<CoinDrawer>();
-	
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -40,10 +43,10 @@ void CoinDrawer::LoadResource()
 	pModel = Model::LoadObj("crystal", true);
 }
 
-void CoinDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void CoinDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
@@ -72,8 +75,10 @@ void CoinDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos,
 
 void CoinDrawer::InitializeObjects()
 {
-	InsertObject("Coin", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
-	InsertObject("Coin_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Coin", DrawObjectForModel::Create(Transform::Status::Default(), 
+		pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Coin_O", DrawObjectForModel::Create(Transform::Status::Default(), 
+		pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 void CoinDrawer::InitializeTimers()
@@ -125,7 +130,7 @@ void CoinDrawer::UpdateAnimation()
 		WaveParticle::Emit(
 			20,
 			*pParentWorldPos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
-			ColorConfig::skTurquoise[2], spVP_);
+			ColorConfig::skTurquoise[2], pVPMan->ViewProjectionPtr(vpKey_));
 
 		emitCounter_++;
 

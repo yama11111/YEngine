@@ -711,6 +711,9 @@
     <ClCompile Include="Application\Game\Object\BaseStageObject.cpp">
       <Filter>Application\Game\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Game\Camera\ViewProjectionManager.cpp">
+      <Filter>Engine\Game\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base\DX\ScreenDesc.h">
@@ -1237,6 +1240,12 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Object\BaseStageObject.h">
       <Filter>Application\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Camera\ViewProjectionManager.h">
+      <Filter>Engine\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Game\Object\Drawer\DrawerInitSet.h">
+      <Filter>Engine\Game\Object\Drawer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

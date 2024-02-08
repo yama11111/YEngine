@@ -14,10 +14,10 @@ void BaseStageObject::UpdatePos()
 {
 	worldPos_ = initPos_ + localPos_;
 
-	transform_->pos_ = worldPos_ - pWorldMan->CurrentMileage();
+	transform_->pos_ = worldPos_;
 }
 
 Vector3 BaseStageObject::WorldPos() const
 {
-	return worldPos_ - pWorldMan->CurrentMileage();
+	return worldPos_;
 }

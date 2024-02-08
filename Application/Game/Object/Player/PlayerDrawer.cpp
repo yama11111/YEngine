@@ -1,5 +1,6 @@
 #include "PlayerDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 #include "AnimationConfig.h"
 #include "DustParticle.h"
 #include "DebriParticle.h"
@@ -11,6 +12,7 @@
 
 using YGame::PlayerDrawer;
 using YGame::Model;
+using YGame::ViewProjectionManager;
 using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::PlayerAnimationConfig;
@@ -19,6 +21,8 @@ namespace
 {
 	// モデルポインタ
 	std::array<Model*, 3> pModels{};
+	
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 	
 	// アニメーション番号
 	const uint32_t kIdleIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle);
@@ -30,12 +34,11 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead);
 }
 
-std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<PlayerDrawer> newDrawer = std::make_unique<PlayerDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -48,10 +51,10 @@ void PlayerDrawer::LoadResource()
 	pModels[2] = Model::LoadObj("player/leg_R", true);
 }
 
-void PlayerDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void PlayerDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
@@ -77,13 +80,13 @@ void PlayerDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPo
 
 void PlayerDrawer::InitializeObjects()
 {
-	InsertObject("Body",	 DrawObjectForModel::Create({}, spVP_, pModels[0]));
-	InsertObject("Leg_L",	 DrawObjectForModel::Create({}, spVP_, pModels[1]));
-	InsertObject("Leg_R",	 DrawObjectForModel::Create({}, spVP_, pModels[2]));
+	InsertObject("Body",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModels[0]));
+	InsertObject("Leg_L",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModels[1]));
+	InsertObject("Leg_R",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModels[2]));
 
-	InsertObject("Body_O",	 DrawObjectForModel::Create({}, spVP_, pModels[0]));
-	InsertObject("Leg_L_O",	 DrawObjectForModel::Create({}, spVP_, pModels[1]));
-	InsertObject("Leg_R_O",	 DrawObjectForModel::Create({}, spVP_, pModels[2]));
+	InsertObject("Body_O",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModels[0]));
+	InsertObject("Leg_L_O",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModels[1]));
+	InsertObject("Leg_R_O",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModels[2]));
 }
 
 void PlayerDrawer::InitializeTimers()
@@ -120,7 +123,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
 
-		DustParticle::Emit(Anime::Move::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
+		DustParticle::Emit(Anime::Move::kDustNum, *pParentWorldPos_, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 	}
 	// ジャンプ
 	else if (index & static_cast<uint32_t>(AnimationType::eJump))
@@ -147,7 +150,8 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
 
-		DustParticle::Emit(Anime::Move::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
+		DustParticle::Emit(Anime::Move::kDustNum, *pParentWorldPos_, powerDirection, 
+			pVPMan->ViewProjectionPtr(vpKey_));
 	}
 	// 着地
 	else if (index & static_cast<uint32_t>(AnimationType::eLanding))
@@ -178,7 +182,8 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.1f, 0.0f);
 
-			DustParticle::Emit(Anime::Landing::kDustNum, *pParentWorldPos_, powerDirection, spVP_);
+			DustParticle::Emit(Anime::Landing::kDustNum, *pParentWorldPos_, powerDirection, 
+				pVPMan->ViewProjectionPtr(vpKey_));
 		}
 	}
 	// 攻撃
@@ -196,7 +201,8 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 	// 死亡
 	else if (index & static_cast<uint32_t>(AnimationType::eDead))
 	{
-		DebriParticle::Emit(Anime::Dead::kDebriNum, *pParentWorldPos_, spVP_);
+		DebriParticle::Emit(Anime::Dead::kDebriNum, *pParentWorldPos_, 
+			pVPMan->ViewProjectionPtr(vpKey_));
 	}
 }
 

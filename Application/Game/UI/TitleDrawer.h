@@ -1,7 +1,6 @@
 #pragma once
-#include "SkydomeDrawer.h"
-
 #include "DrawObjectForSprite2D.h"
+#include "CBColor.h"
 #include "UIButton.h"
 
 #include "Ease.h"
@@ -95,9 +94,6 @@ namespace YGame
 		std::unique_ptr<DrawObjectForSprite2D> curten_;
 		std::unique_ptr<ConstBufferObject<CBColor>> curtenColor_;
 		YMath::Timer curtenAlphaTim_;
-
-		Transform skydomeTrfm_;
-		std::unique_ptr<SkydomeDrawer> skydomeDra_;
 
 	private:
 

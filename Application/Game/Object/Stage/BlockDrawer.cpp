@@ -1,5 +1,6 @@
 #include "BlockDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 #include "ColorConfig.h"
 #include "CircleShadowManager.h"
 
@@ -7,18 +8,19 @@ using YGame::BlockDrawer;
 using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
+using YGame::ViewProjectionManager;
 
 namespace
 {
 	Model* pModel = nullptr;
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 }
 
-std::unique_ptr<BlockDrawer> BlockDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const bool isBackground, const size_t drawPriority)
+std::unique_ptr<BlockDrawer> BlockDrawer::Create(const DrawerInitSet& init, const bool isBackground)
 {
 	std::unique_ptr<BlockDrawer> newDrawer = std::make_unique<BlockDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 
 	if (isBackground)
 	{
@@ -33,11 +35,10 @@ void BlockDrawer::LoadResource()
 	pModel = Model::LoadObj("soil", true);
 }
 
-void BlockDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void BlockDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
-
+	BaseDrawer::Initialize(init);
 	
 	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 
@@ -57,6 +58,6 @@ void BlockDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos
 
 void BlockDrawer::InitializeObjects()
 {
-	InsertObject("Block", DrawObjectForModel::Create({}, spVP_, pModel));
-	InsertObject("Block_O", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Block", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Block_O", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }

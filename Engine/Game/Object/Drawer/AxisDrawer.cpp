@@ -1,22 +1,24 @@
 #include "AxisDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 
 using YGame::AxisDrawer;
 using YGame::Model;
+using YGame::ViewProjectionManager;
 using YMath::Vector3;
 using YMath::Vector4;
 
 namespace 
 {
 	Model* pModel = nullptr;
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 }
 
-std::unique_ptr<AxisDrawer> AxisDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<AxisDrawer> AxisDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<AxisDrawer> newDrawer = std::make_unique<AxisDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 	newDrawer->SetIsVisible(false);
 
 	return std::move(newDrawer);
@@ -28,10 +30,10 @@ void AxisDrawer::LoadResource()
 	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png") } });
 }
 
-void AxisDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void AxisDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 	
 	for (size_t i = 0; i < cbColors_.size(); i++)
@@ -45,8 +47,6 @@ void AxisDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos,
 	InsertConstBuffer("X", cbColors_[0].get());
 	InsertConstBuffer("Y", cbColors_[1].get());
 	InsertConstBuffer("Z", cbColors_[2].get());
-
-	SetDrawPriority(drawPriority);
 
 	SetIsVisible(true);
 	
@@ -71,9 +71,9 @@ void AxisDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos,
 
 void AxisDrawer::InitializeObjects()
 {
-	InsertObject("X", DrawObjectForModel::Create({}, spVP_, pModel));
-	InsertObject("Y", DrawObjectForModel::Create({}, spVP_, pModel));
-	InsertObject("Z", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("X", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Y", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Z", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 std::string AxisDrawer::Name()

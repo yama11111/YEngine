@@ -16,22 +16,19 @@ namespace
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
-std::unique_ptr<Magnet> Magnet::Create(
-	const Transform::Status& status,
-	const std::vector<std::string>& drawKeys)
+std::unique_ptr<Magnet> Magnet::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Magnet> newObj = std::make_unique<Magnet>();
 
-	newObj->Initialize(status);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
 
 	return std::move(newObj);
 }
 
-void Magnet::Initialize(const Transform::Status& status)
+void Magnet::Initialize(const Transform::Status& status, const std::string& key)
 {
 	BaseCharacter::Initialize(
-		"Magnet",
+		"Magnet", key,
 		status,
 		{ 0.0f, 0.0f, +1.0f }, // 右向き
 		{}, {}, false,
@@ -64,7 +61,7 @@ void Magnet::Initialize(const Transform::Status& status)
 			mask);
 	}
 
-	SetDrawer(MagnetDrawer::Create(nullptr, nullptr, 1));
+	SetDrawer(MagnetDrawer::Create({ nullptr, nullptr, key, 1 }));
 
 	isAct_ = false;
 	actTimer_.Initialize(480);

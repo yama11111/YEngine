@@ -125,7 +125,7 @@ namespace YGame
 		cbColor_->data_.baseColor.w = alphaEas_.In(ratio);
 
 		worldPos_ = initPos_ + localPos_;
-		obj_->transform_.pos_ = worldPos_ - pWorldMan->CurrentMileage();
+		obj_->transform_.pos_ = worldPos_;
 		obj_->Update();
 
 		BaseParticle::UpdateLife();

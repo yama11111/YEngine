@@ -134,7 +134,6 @@ namespace YGame
 
 		Transform::Status animeStatus;
 		
-		animeStatus.pos_ = -pWorldMan->CurrentMileage();
 		animeStatus.pos_.y += upEas_.Out(animeTims_[kPopIdx].Ratio());
 
 		float sca = popScaEas_.Out(animeTims_[kPopIdx].Ratio());

@@ -6,6 +6,7 @@
 #include "BaseConstBuffer.h"
 #include "DefaultConstBuffer.h"
 #include "DefaultGraphic.h"
+#include "ViewProjectionManager.h"
 #include "ParticleManager.h"
 
 #pragma region 名前空間宣言
@@ -90,6 +91,7 @@ bool YFramework::Initialize()
 	pPipelineMan_ = PipelineManager::GetInstance();
 	pPipelineMan_->Clear();
 
+	ViewProjectionManager::GetInstance()->Clear();
 	ParticleManager::GetInstance()->Clear();
 
 	isEnd_ = false;

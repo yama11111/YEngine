@@ -14,22 +14,21 @@ namespace
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
-std::unique_ptr<Goal> Goal::Create(
-	const Transform::Status& status, 
-	const std::vector<std::string>& drawKeys, 
-	GameObject* pParent)
+std::unique_ptr<Goal> Goal::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Goal> newObj = std::make_unique<Goal>();
 
-	newObj->Initialize(status, pParent);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
 
 	return std::move(newObj);
 }
 
-void Goal::Initialize(const Transform::Status& status, GameObject* pParent)
+void Goal::Initialize(const Transform::Status& status, const std::string& key)
 {
-	GameObject::Initialize("Goal", status, pParent);
+	GameObject::Initialize("Goal", status, nullptr);
+
+	SetUpdateKey(key);
+	SetDrawKeys({ key });
 
 	BitFrag attribute{};
 	attribute.SetFragTrue(AttributeType::eGoal);
@@ -48,7 +47,7 @@ void Goal::Initialize(const Transform::Status& status, GameObject* pParent)
 			mask);
 	}
 
-	SetDrawer(GoalDrawer::Create(nullptr, nullptr, 2));
+	SetDrawer(GoalDrawer::Create({ nullptr, nullptr, key, 2 }));
 }
 
 void Goal::UpdateBeforeCollision()

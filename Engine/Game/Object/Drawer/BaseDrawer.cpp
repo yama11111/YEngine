@@ -1,18 +1,10 @@
 #include "BaseDrawer.h"
+#include "ViewProjectionManager.h"
 #include <cassert>
 
 using YGame::BaseDrawer;
 
-YGame::ViewProjection* BaseDrawer::spVP_ = nullptr;
-
-void BaseDrawer::StaticInitialize(ViewProjection* pVP)
-{
-	assert(pVP);
-
-	spVP_ = pVP;
-}
-
-void BaseDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void BaseDrawer::Initialize(const DrawerInitSet& init)
 {	
 	if (cbColor_ == nullptr)
 	{
@@ -24,6 +16,12 @@ void BaseDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos,
 	}
 
 	transform_.Initialize();
+	
+	SetParent(init.pParent);
+	SetParentWorldPos(init.pParentWorldPos);
+
+	SetVPkey(init.vpKey);
+	SetDrawPriority(init.drawPriority);
 
 	InitializeObjects();
 
@@ -31,11 +29,6 @@ void BaseDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos,
 
 	InsertConstBuffer(cbColor_.get());
 	InsertConstBuffer(cbMaterial_.get());
-	
-	SetParent(pParent);
-	SetParentWorldPos(pParentWorldPos);
-
-	SetDrawPriority(drawPriority);
 
 	SetIsVisible(true);
 
@@ -126,7 +119,8 @@ void BaseDrawer::VisibleUpdate()
 	if (isVisibleUpdate_ == false) { return; }
 
 	// 視点との距離
-	float distance = YMath::Vector3(spVP_->eye_ - pParent_->pos_).Length();
+	float distance = YMath::Vector3(
+		ViewProjectionManager::GetInstance()->ViewProjectionPtr(vpKey_)->eye_ - pParent_->pos_).Length();
 
 	// 描画範囲
 	static const float kRange = 750.0f;
@@ -253,6 +247,11 @@ void BaseDrawer::SetIsVisible(const bool isVisible)
 	{
 		itr->second->SetIsVisible(isVisible);
 	}
+}
+
+void BaseDrawer::SetVPkey(const std::string& vpKey)
+{
+	vpKey_ = vpKey;
 }
 
 void BaseDrawer::InsertAnimationTimer(const uint32_t index, const AnimationTimer& timer)

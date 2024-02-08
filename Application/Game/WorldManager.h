@@ -10,6 +10,10 @@
 #include <string>
 #include <array>
 
+#include "DrawObjectForPostEffect.h"
+#include "CBDiscardColor.h"
+#include "GameCamera.h"
+
 namespace YGame
 {
 	class WorldManager
@@ -20,7 +24,7 @@ namespace YGame
 		// キー
 		enum class Key : size_t
 		{
-			eStartKey, eWorldKey, eFeverKey, eGoalKey, eNum,
+			eStartKey, eWorldKey, eFeverKey, eGoalKey, eKeyNum,
 		};
 	
 	public:
@@ -40,12 +44,28 @@ namespace YGame
 		void Initialize(const Key& key);
 
 		/// <summary>
-		/// 走行距離をリセットする
+		/// 更新
 		/// </summary>
-		/// <param name="key"> : キー</param>
-		void ResetMileage(const Key& key);
+		/// <param name="isControlUpdate"> : 操作更新フラグ</param>
+		void Update(const bool isControlUpdate);
+
+		/// <summary>
+		/// 描画
+		/// </summary>
+		void Draw();
+
+		/// <summary>
+		/// デバッグ描画
+		/// </summary>
+		void DrawDebug();
 	
 	public:
+
+		/// <summary>
+		/// 世界を移動する
+		/// </summary>
+		/// <returns>ゲート位置</returns>
+		YMath::Vector3 Pass();
 		
 		/// <summary>
 		/// キー設定
@@ -54,11 +74,11 @@ namespace YGame
 		void SetWorldKey(const Key& key);
 
 		/// <summary>
-		/// 走行距離をセットする
+		/// ゲート位置設定
 		/// </summary>
 		/// <param name="key"> : キー</param>
-		/// <param name="mileage"> : 走行距離</param>
-		void SetMileage(const Key& key, const YMath::Vector3 mileage);
+		/// <param name="pos"> : 位置</param>
+		void SetGatePos(const Key& key, const YMath::Vector3& pos);
 
 	public:
 
@@ -80,29 +100,53 @@ namespace YGame
 		/// </summary>
 		/// <returns>現在のキー</returns>
 		std::string CurrentWorldKeyStr() const;
-
-		/// <summary>
-		/// 走行距離取得
-		/// </summary>
-		/// <param name="key"> : キー</param>
-		YMath::Vector3 Mileage(const Key& key) const;
-
-		/// <summary>
-		/// 現在の走行距離取得
-		/// </summary>
-		/// <returns>現在の走行距離</returns>
-		YMath::Vector3 CurrentMileage() const;
 	
+	private:
+
+		// ポストエフェクトセット
+		struct PostEffectSet
+		{
+			// ポストエフェクト
+			PostEffect* pPE = nullptr;
+			
+			// オブジェクト
+			std::unique_ptr<DrawObjectForPostEffect> obj;
+			
+			// 定数バッファ
+			std::unique_ptr<ConstBufferObject<CBDiscardColor>> cbDiscardColor;
+			
+			// 優先度
+			size_t priority = 0;
+
+			// 描画フラグ
+			bool isDraw = true;
+		};
+
+		struct CameraSet
+		{
+			// カメラ
+			GameCamera camera;
+
+			// 転送用
+			ViewProjection transferVP;
+		};
+
 	private:
 
 		// 現在世界キー
 		Key currentWorldKey_{};
 
 		// キーの数
-		static const size_t kKeyNum = static_cast<size_t>(Key::eNum);
+		static const size_t kKeyNum = static_cast<size_t>(Key::eKeyNum);
+
+		// カメラ
+		std::array<CameraSet, kKeyNum> cameraSets_;
 		
-		// 世界ごとの走行距離
-		std::array<YMath::Vector3, kKeyNum> mileages_{};
+		// ゲート位置
+		std::array<YMath::Vector3, kKeyNum> gatePoss_{};
+
+		// ポストエフェクトセット
+		std::array<PostEffectSet, kKeyNum> postEffects_{};
 
 	private:
 

@@ -10,22 +10,19 @@ using YGame::Coin;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Coin> Coin::Create(
-	const Transform::Status& status,
-	const std::vector<std::string>& drawKeys)
+std::unique_ptr<Coin> Coin::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Coin> newObj = std::make_unique<Coin>();
 
-	newObj->Initialize(status);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
 
 	return std::move(newObj);
 }
 
-void Coin::Initialize(const Transform::Status& status)
+void Coin::Initialize(const Transform::Status& status, const std::string& key)
 {
 	BaseCharacter::Initialize(
-		"Coin",
+		"Coin", key,
 		status,
 		{ 0.0f, 0.0f, +1.0f }, // 右向き
 		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false, 
@@ -49,7 +46,7 @@ void Coin::Initialize(const Transform::Status& status)
 			mask);
 	}
 
-	SetDrawer(CoinDrawer::Create(nullptr, nullptr, 1));
+	SetDrawer(CoinDrawer::Create({ nullptr, nullptr, key, 1}));
 	
 	drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
 }

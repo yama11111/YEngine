@@ -7,6 +7,7 @@
 
 #pragma once
 #include "GameObject.h"
+#include "ViewProjection.h"
 #include <queue>
 #include <functional>
 
@@ -20,30 +21,29 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
-		void Initialize(ViewProjection* pVP);
+		void Initialize();
 
 		/// <summary>
 		/// 更新
 		/// </summary>
 		/// <param name="isContorolUpdate"> : 操作更新するか</param>
-		void Update(const bool isContorolUpdate);
-		
-		/// <summary>
-		/// デバッグ描画
-		/// </summary>
-		void DrawDebugText();
+		void Prepare(const bool isContorolUpdate);
 
 		/// <summary>
-		/// 描画
+		/// 更新
 		/// </summary>
-		void Draw();
+		void Update(const std::vector<std::string>& updateKeys);
 
 		/// <summary>
 		/// 描画
 		/// </summary>
 		/// <param name="drawKeys"> : 描画キューのキー</param>
 		void Draw(const std::vector<std::string>& drawKeys);
+		
+		/// <summary>
+		/// デバッグ描画
+		/// </summary>
+		void DrawDebugText();
 
 	public:
 
@@ -100,6 +100,19 @@ namespace YGame
 			bool isSkip = false;
 		};
 
+		// 関数
+		struct UpdateQueue
+		{
+			std::queue<std::function<void()>> before;
+			std::queue<std::function<void()>> after;
+		};
+
+		// 衝突判定セット
+		struct CollSet
+		{
+			GameObject* pObj;
+		};
+
 	private:
 
 		// オブジェクトリスト
@@ -107,24 +120,17 @@ namespace YGame
 		
 		// 背景オブジェクトリスト
 		std::list<GameObjectSetForBack> backObjects_;
+
+		// 更新処理用キューマップ
+		std::unordered_map<std::string, UpdateQueue> updateQueues_;
 		
+		// 判定リストマップ
+		std::unordered_map<std::string, std::list<CollSet>> collLists_;
+
 		// 描画処理関数キューマップ
 		std::unordered_map<std::string, std::queue<std::function<void()>>> drawQueues_;
 
-		// ビュープロジェクションポインタ
-		ViewProjection* pVP_ = nullptr;
-
 	private:
-
-		/// <summary>
-		/// オブジェクト更新
-		/// </summary>
-		void UpdateObjects(const bool isContorolUpdate);
-		
-		/// <summary>
-		/// 背景オブジェクト更新
-		/// </summary>
-		void UpdateObjectsForBack();
 
 		/// <summary>
 		/// 更新範囲内か
@@ -132,13 +138,19 @@ namespace YGame
 		/// <param name="pos"> : 座標</param>
 		/// <param name="scale"> : スケール</param>
 		/// <param name="range"> : 範囲</param>
+		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		/// <returns>更新範囲内か</returns>
-		bool InUpdateRange(const YMath::Vector3& pos, const YMath::Vector3& scale, const float range);
+		bool InUpdateRange(
+			const YMath::Vector3& pos, 
+			const YMath::Vector3& scale, 
+			const float range, 
+			const ViewProjection* pVP);
 
 		/// <summary>
 		/// アタリ判定全チェック
 		/// </summary>
-		void CheckAllCollision();
+		/// <param name="key"> : キー</param>
+		void CheckAllCollision(const std::string& key);
 
 		/// <summary>
 		/// ペアのアタリ判定チェック

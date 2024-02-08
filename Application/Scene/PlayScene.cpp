@@ -11,6 +11,7 @@
 #include "WorldManager.h"
 #include "ScoreManager.h"
 #include "StageManager.h"
+#include "ViewProjectionManager.h"
 #include "ParticleManager.h"
 #include "CircleShadowManager.h"
 
@@ -31,13 +32,6 @@ using namespace YGame;
 #pragma region 読み込み
 void PlayScene::Load()
 {
-	pObjectMan_ = GameObjectManager::GetInstance();
-	
-	// 描画クラス
-	BaseDrawer::StaticInitialize(&transferVP_);
-	
-	// プレイヤー
-	Player::StaticInitialize(&camera_);
 }
 #pragma endregion
 
@@ -46,15 +40,13 @@ void PlayScene::Load()
 void PlayScene::Initialize()
 {
 	CircleShadowManager::GetInstance()->Intialize();
+
+	WorldManager::GetInstance()->Initialize(WorldManager::Key::eWorldKey);
 	
-	// ゲームキャラクターマネージャー初期化
-	pObjectMan_->Initialize(&transferVP_);
+	StageManager::GetInstance()->Reset();
 
-	// カメラ初期化
-	camera_.Initialize();
-
-	// ビュープロジェクション初期化
-	transferVP_.Initialize();
+	ScoreManager::GetInstance()->Initialize();
+	ScoreManager::GetInstance()->StartScoreMeasurement();
 	
 	uint32_t stageIndex = StageManager::GetInstance()->CurrentStageIndex();
 	if (stageIndex == 0)
@@ -69,9 +61,9 @@ void PlayScene::Initialize()
 			"levelData_2.json",
 			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey));
 	}
-	//pLevel_ = Level::LoadJson(
-	//	"fever.json",
-	//	WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eFeverKey));
+	pLevel_ = Level::LoadJson(
+		"fever.json",
+		WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eFeverKey));
 
 	// UI
 	uiDra_.Initialize();
@@ -85,23 +77,6 @@ void PlayScene::Initialize()
 	isStop_ = false;
 
 	pause_.Initialize();
-
-	StageManager::GetInstance()->Reset();
-
-	WorldManager::GetInstance()->Initialize(WorldManager::Key::eWorldKey);
-
-	ScoreManager::GetInstance()->Initialize();
-	ScoreManager::GetInstance()->StartScoreMeasurement();
-
-	cbDiscardColor_.reset(ConstBufferObject<CBDiscardColor>::Create());
-	
-	pWorldPE_ = PostEffect::Create({ "Texture0" });
-	worldPEObj_.reset(DrawObjectForPostEffect::Create(Transform::Status::Default(), pWorldPE_));
-	worldPEObj_->InsertConstBuffer(cbDiscardColor_.get());
-
-	pFeverPE_ = PostEffect::Create({ "Texture0" });
-	feverPEObj_.reset(DrawObjectForPostEffect::Create(Transform::Status::Default(), pFeverPE_));
-	feverPEObj_->InsertConstBuffer(cbDiscardColor_.get());
 }
 #pragma endregion
 
@@ -139,34 +114,18 @@ void PlayScene::Update()
 		{
 			isStart_ = true;
 		}
-
-		uiDra_.Update();
-
-		CircleShadowManager::GetInstance()->Reset();
-
-		// 開始演出中更新しない
-		pObjectMan_->Update(isStart_);
-
-		camera_.Update();
-		transferVP_ = camera_.GetViewProjection();
-
-		ParticleManager::GetInstance()->Update();
 	}
-	
-	feverPEObj_->Update();
-	worldPEObj_->Update();
-	
-	ImGui::Begin("Discard");
-	ImGui::InputFloat("R", &cbDiscardColor_->data_.discardColor.x);
-	ImGui::InputFloat("G", &cbDiscardColor_->data_.discardColor.y);
-	ImGui::InputFloat("B", &cbDiscardColor_->data_.discardColor.z);
-	ImGui::InputFloat("threshold", &cbDiscardColor_->data_.threshold);
-	ImGui::End();
-	
-	transferVP_.UpdateMatrix();
 
-	pObjectMan_->DrawDebugText();
-	camera_.DrawDebugText();
+	uiDra_.Update();
+
+	CircleShadowManager::GetInstance()->Reset();
+
+	// 開始演出中更新しない
+	WorldManager::GetInstance()->Update(isStart_ && (isStop_ == false && pause_.IsPause() == false));
+
+	ParticleManager::GetInstance()->Update();
+	
+	WorldManager::GetInstance()->DrawDebug();
 
 	// リセット
 	if (isReset || spKeys_->IsTrigger(DIK_R))
@@ -182,20 +141,7 @@ void PlayScene::Update()
 #pragma region 描画
 void PlayScene::Draw()
 {
-	{
-		std::vector<PostEffect*> pes = { pFeverPE_ };
-		PipelineManager::GetInstance()->RenderToPostEffect(pes);
-	}
-
-	pObjectMan_->Draw();
-
-	{
-		std::vector<PostEffect*> pes = { pWorldPE_ };
-		PipelineManager::GetInstance()->RenderToPostEffect(pes);
-	}
-
-	feverPEObj_->Draw("World_Fever", 0);
-	worldPEObj_->Draw("World_0", 0);
+	WorldManager::GetInstance()->Draw();
 	
 	beginingDra_.Draw();
 	

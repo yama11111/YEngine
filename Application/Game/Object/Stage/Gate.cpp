@@ -13,22 +13,21 @@ namespace
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
-std::unique_ptr<Gate> Gate::Create(
-	const Transform::Status& status,
-	const std::vector<std::string>& drawKeys, 
-	GameObject* pParent)
+std::unique_ptr<Gate> Gate::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Gate> newObj = std::make_unique<Gate>();
 
-	newObj->Initialize(status, pParent);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
 
 	return std::move(newObj);
 }
 
-void Gate::Initialize(const Transform::Status& status, GameObject* pParent)
+void Gate::Initialize(const Transform::Status& status, const std::string& key)
 {
-	GameObject::Initialize("Gate", status, pParent);
+	GameObject::Initialize("Gate", status);
+
+	SetUpdateKey(key);
+	SetDrawKeys({ key });
 
 	BitFrag attribute{};
 	attribute.SetFragTrue(AttributeType::eGate);
@@ -46,7 +45,7 @@ void Gate::Initialize(const Transform::Status& status, GameObject* pParent)
 				&worldPos_, YMath::ConvertToVector2(transform_->scale_)), mask);
 	}
 
-	SetDrawer(GateDrawer::Create(nullptr, nullptr, 2));
+	SetDrawer(GateDrawer::Create({ nullptr, nullptr, key, 2 }));
 }
 
 void Gate::UpdateBeforeCollision()
@@ -75,10 +74,10 @@ YGame::InfoOnCollision Gate::GetInfoOnCollision()
 
 void Gate::OnCollision(const InfoOnCollision& info)
 {
-	if (drawer_->IsActAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass))) { return; }
+	if (drawer_->IsActAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::eExtend))) { return; }
 
 	if (info.attribute == AttributeType::ePlayer)
 	{
-		drawer_->PlayAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::ePass));
+		drawer_->PlayAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::eExtend));
 	}
 }

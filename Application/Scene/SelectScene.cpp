@@ -4,9 +4,7 @@
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>
-
-#include "BlockDrawer.h"
-#include "SkydomeDrawer.h"
+#include "ViewProjectionManager.h"
 
 #include "StageManager.h"
 
@@ -29,7 +27,7 @@ void SelectScene::Load()
 	StageManager::GetInstance()->Load();
 	StageManager::GetInstance()->Initialize();
 
-	BaseDrawer::StaticInitialize(&transferVP_);
+	ViewProjectionManager::GetInstance()->Insert("World", &transferVP_);
 
 	SelectDrawer::SetViewProjection(&transferVP_);
 }

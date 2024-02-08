@@ -1,5 +1,6 @@
 #include "MagnetDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 #include "ColorConfig.h"
 #include "Lerp.h"
 #include "Def.h"
@@ -13,11 +14,13 @@ using YGame::Model;
 using YMath::Timer;
 using YMath::Vector3;
 using YMath::Vector4;
+using YGame::ViewProjectionManager;
 
 namespace
 {
 	// モデルポインタ
 	Model* pModel = nullptr;
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 
 	// アニメーション番号
 	const uint32_t kIdleIndex = static_cast<uint32_t>(MagnetDrawer::AnimationType::eIdle);
@@ -26,12 +29,11 @@ namespace
 	const uint32_t kDeadIndex = static_cast<uint32_t>(MagnetDrawer::AnimationType::eDead);
 }
 
-std::unique_ptr<MagnetDrawer> MagnetDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<MagnetDrawer> MagnetDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<MagnetDrawer> newDrawer = std::make_unique<MagnetDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -42,10 +44,10 @@ void MagnetDrawer::LoadResource()
 	pModel = Model::LoadObj("magnet", true);
 }
 
-void MagnetDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void MagnetDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skYellow;
@@ -75,8 +77,8 @@ void MagnetDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPo
 
 void MagnetDrawer::InitializeObjects()
 {
-	InsertObject("Magnet", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
-	InsertObject("Magnet_O", DrawObjectForModel::Create(Transform::Status::Default(), spVP_, pModel));
+	InsertObject("Magnet", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Magnet_O", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 void MagnetDrawer::InitializeTimers()
@@ -132,7 +134,7 @@ void MagnetDrawer::UpdateAnimation()
 		WaveParticle::Emit(
 			20,
 			*pParentWorldPos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
-			ColorConfig::skTurquoise[2], spVP_);
+			ColorConfig::skTurquoise[2], pVPMan->ViewProjectionPtr(vpKey_));
 		
 		emitCounter_++;
 		

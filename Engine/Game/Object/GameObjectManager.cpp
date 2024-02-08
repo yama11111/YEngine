@@ -1,7 +1,5 @@
 #include "GameObjectManager.h"
-
-#include "AxisDrawer.h"
-#include "CollisionDrawer.h"
+#include "ViewProjectionManager.h"
 
 #include <cassert>
 #include <cmath>
@@ -24,26 +22,18 @@ GameObjectManager* GameObjectManager::GetInstance()
 
 void GameObjectManager::Clear()
 {
-	if (objects_.empty() == false)
-	{
-		// 全削除
-		objects_.clear();
-	}
+	// 全削除
+	objects_.clear();
+	backObjects_.clear();
 
-	if (backObjects_.empty() == false)
-	{
-		// 全削除
-		backObjects_.clear();
-	}
+	updateQueues_.clear();
+	collLists_.clear();
+	drawQueues_.clear();
 }
 
-void GameObjectManager::Initialize(ViewProjection* pVP)
+void GameObjectManager::Initialize()
 {
-	assert(pVP);
-
 	Clear();
-
-	pVP_ = pVP;
 }
 
 void GameObjectManager::PushBack(std::unique_ptr<GameObject>&& object, const bool isUpdateSkip)
@@ -64,91 +54,66 @@ void GameObjectManager::PushBackForBackObject(std::unique_ptr<GameObject>&& obje
 	backObjects_.push_back({ std::move(object) });
 }
 
-void GameObjectManager::Update(const bool isContorolUpdate)
+void GameObjectManager::Prepare(const bool isContorolUpdate)
 {
 	// オブジェクトが存在しないなら削除
 	objects_.remove_if([](GameObjectSet& object) { return object.obj->IsExist() == false; });
 	backObjects_.remove_if([](GameObjectSetForBack& object) { return object.obj->IsExist() == false; });
 	
+	// 更新キュー
+	for (auto itr = updateQueues_.begin(); itr != updateQueues_.end(); ++itr)
+	{
+		itr->second = UpdateQueue();
+	}
+	// 判定リスト
+	for (auto itr = collLists_.begin(); itr != collLists_.end(); ++itr)
+	{
+		itr->second = std::list<CollSet>();
+	}
 	// 描画キュー
 	for (auto itr = drawQueues_.begin(); itr != drawQueues_.end(); ++itr)
 	{
 		itr->second = std::queue<std::function<void()>>();
 	}
 
-	UpdateObjects(isContorolUpdate);
-	UpdateObjectsForBack();
-}
-
-void GameObjectManager::UpdateObjects(const bool isContorolUpdate)
-{
-	// 更新処理用キュー
-	std::queue<std::function<void()>> beforeQueue, afterQueue;
-
+	// オブジェクト
 	for (GameObjectSet& object : objects_)
 	{
 		object.obj->SetIsControlUpdate(isContorolUpdate);
 
 		if (object.isUpdateSkip)
 		{
-			object.isSkip = (InUpdateRange(
-				object.obj->WorldPos(), 
-				object.obj->TransformPtr()->scale_,
-				kUpdateRange) == false);
+			object.isSkip = !InUpdateRange(
+				object.obj->WorldPos(), object.obj->TransformPtr()->scale_, kUpdateRange,
+				ViewProjectionManager::GetInstance()->ViewProjectionPtr(object.obj->UpdateKey()));
 		}
-		
+
 		if (object.isSkip) { continue; }
 
-		// キューに詰める
-		beforeQueue.push([&]() { return object.obj->UpdateBeforeCollision(); });
-		afterQueue.push([&]() { return object.obj->UpdateAfterCollision(); });
+		// キュー、リストに詰める
+		updateQueues_[object.obj->UpdateKey()].before.push([&]() { return object.obj->UpdateBeforeCollision(); });
+		updateQueues_[object.obj->UpdateKey()].after.push([&]() { return object.obj->UpdateAfterCollision(); });
+		
+		collLists_[object.obj->UpdateKey()].push_back({ object.obj.get() });
+		
 		for (size_t i = 0; i < object.obj->DrawKeys().size(); i++)
 		{
 			drawQueues_[object.obj->DrawKeys()[i]].push([&]() { return object.obj->Draw(); });
 		}
 	}
 
-	// 前更新
-	while (true)
-	{
-		// 空になったら終了
-		if (beforeQueue.empty()) { break; }
-
-		// 上から順に更新
-		beforeQueue.front()();
-		beforeQueue.pop();
-	}
-
-	// 全キャラアタリ判定チェック
-	CheckAllCollision();
-
-	// 後更新
-	while (true)
-	{
-		// 空になったら終了
-		if (afterQueue.empty()) { break; }
-
-		// 上から順に更新
-		afterQueue.front()();
-		afterQueue.pop();
-	}
-}
-
-void GameObjectManager::UpdateObjectsForBack()
-{
+	// 背景オブジェクト
 	for (GameObjectSetForBack& object : backObjects_)
 	{
-		object.isSkip = (InUpdateRange(
-			object.obj->WorldPos(),
-			object.obj->TransformPtr()->scale_,
-			kUpdateRangeForBack) == false);
+		object.isSkip = !InUpdateRange(
+			object.obj->WorldPos(), object.obj->TransformPtr()->scale_, kUpdateRangeForBack,
+			ViewProjectionManager::GetInstance()->ViewProjectionPtr(object.obj->UpdateKey()));
 
 		if (object.isSkip) { continue; }
-		
-		object.obj->UpdateBeforeCollision();
-		object.obj->UpdateAfterCollision();
 
 		// キューに詰める
+		updateQueues_[object.obj->UpdateKey()].before.push([&]() { return object.obj->UpdateBeforeCollision(); });
+		updateQueues_[object.obj->UpdateKey()].after.push([&]() { return object.obj->UpdateAfterCollision(); });
 		for (size_t i = 0; i < object.obj->DrawKeys().size(); i++)
 		{
 			drawQueues_[object.obj->DrawKeys()[i]].push([&]() { return object.obj->Draw(); });
@@ -156,43 +121,71 @@ void GameObjectManager::UpdateObjectsForBack()
 	}
 }
 
-bool GameObjectManager::InUpdateRange(const YMath::Vector3& pos, const YMath::Vector3& scale, const float range)
+void GameObjectManager::Update(const std::vector<std::string>& updateKeys)
+{
+	for (size_t i = 0; i < updateKeys.size(); i++)
+	{
+		if (updateQueues_.contains(updateKeys[i]) == false) { continue; }
+
+		while (true)
+		{
+			// 空になったら終了
+			if (updateQueues_[updateKeys[i]].before.empty()) { break; }
+
+			// 上から順に更新
+			updateQueues_[updateKeys[i]].before.front()();
+			updateQueues_[updateKeys[i]].before.pop();
+		}
+
+		// 全キャラアタリ判定チェック
+		CheckAllCollision(updateKeys[i]);
+
+		while (true)
+		{
+			// 空になったら終了
+			if (updateQueues_[updateKeys[i]].after.empty()) { break; }
+
+			// 上から順に更新
+			updateQueues_[updateKeys[i]].after.front()();
+			updateQueues_[updateKeys[i]].after.pop();
+		}
+	}
+}
+
+bool GameObjectManager::InUpdateRange(
+	const YMath::Vector3& pos, const YMath::Vector3& scale, const float range, const ViewProjection* pVP)
 {
 	// カメラに近いオブジェクト端の位置を求める
 	float sign = -1.0f;
-	if (pos.x <= pVP_->eye_.x) { sign = 1.0f; }
+	if (pos.x <= pVP->eye_.x) { sign = 1.0f; }
 	float basePos = pos.x + sign * (scale.x / 2.0f);
 
 	// 視点との距離
-	float distance = std::abs(pVP_->eye_.x - basePos);
+	float distance = std::abs(pVP->eye_.x - basePos);
 
 	return distance <= range;
 }
 
-void GameObjectManager::CheckAllCollision()
+void GameObjectManager::CheckAllCollision(const std::string& key)
 {
 	// Aの始めから
-	std::list<GameObjectSet>::iterator itrA = objects_.begin();
+	std::list<CollSet>::iterator itrA = collLists_[key].begin();
 
 	// Aの終わりまで
-	for (; itrA != objects_.end(); ++itrA)
+	for (; itrA != collLists_[key].end(); ++itrA)
 	{
-		if (itrA->isSkip) { continue; }
-		
-		GameObject* pObjA = itrA->obj.get();
-		bool isSaveA = itrA->obj->IsSaveColl();
+		GameObject* pObjA = itrA->pObj;
+		bool isSaveA = itrA->pObj->IsSaveColl();
 
 		// Bの初め(A + 1)から
-		std::list<GameObjectSet>::iterator itrB = itrA;
+		std::list<CollSet>::iterator itrB = itrA;
 		itrB++;
 
 		// Bの終わりまで
-		for (; itrB != objects_.end(); ++itrB)
+		for (; itrB != collLists_[key].end(); ++itrB)
 		{
-			if (itrB->isSkip) { continue; }
-			
-			GameObject* pObjB = itrB->obj.get();
-			bool isSaveB = itrA->obj->IsSaveColl();
+			GameObject* pObjB = itrB->pObj;
+			bool isSaveB = itrA->pObj->IsSaveColl();
 
 			// 判定チェック
 			CheckCollisionObjectPair(pObjA, isSaveA, pObjB, isSaveB);
@@ -228,6 +221,24 @@ void GameObjectManager::CheckCollisionObjectPair(
 	if (isSaveA) { pCollB->PushBackCollisionInfo(pObjectA->GetInfoOnCollision()); }
 }
 
+
+void GameObjectManager::Draw(const std::vector<std::string>& drawKeys)
+{
+	for (size_t i = 0; i < drawKeys.size(); i++)
+	{
+		if (drawQueues_.contains(drawKeys[i]) == false) { continue; }
+
+		while (true)
+		{
+			// 空になったら終了
+			if (drawQueues_[drawKeys[i]].empty()) { break; }
+
+			drawQueues_[drawKeys[i]].front()();
+			drawQueues_[drawKeys[i]].pop();
+		}
+	}
+}
+
 void GameObjectManager::DrawDebugText()
 {
 	static const std::string windowName = "Character";
@@ -243,30 +254,4 @@ void GameObjectManager::DrawDebugText()
 	}
 
 	ImGui::End();
-}
-
-void GameObjectManager::Draw()
-{
-	for (GameObjectSetForBack& object : backObjects_)
-	{
-		if (object.isSkip) { continue; }
-		object.obj->Draw();
-	}
-
-	for (GameObjectSet& object : objects_)
-	{
-		if (object.isSkip) { continue; }
-		object.obj->Draw();
-	}
-}
-
-void GameObjectManager::Draw(const std::vector<std::string>& drawKeys)
-{
-	for (size_t i = 0; i < drawKeys.size(); i++)
-	{
-		if (drawQueues_.contains(drawKeys[i]) == false) { continue; }
-
-		drawQueues_[drawKeys[i]].front()();
-		drawQueues_[drawKeys[i]].pop();
-	}
 }

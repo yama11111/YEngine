@@ -95,6 +95,12 @@ namespace YGame
 		inline bool IsSaveColl() const { return isSaveColl_; }
 		
 		/// <summary>
+		/// 更新キー取得
+		/// </summary>
+		/// <returns>更新キー</returns>
+		inline std::string UpdateKey() const { return updateKey_; }
+
+		/// <summary>
 		/// 描画キー取得
 		/// </summary>
 		/// <returns>描画キー</returns>
@@ -140,10 +146,16 @@ namespace YGame
 		inline void SetIsSaveColl(const bool isSaveColl) { isSaveColl_ = isSaveColl; }
 		
 		/// <summary>
-		/// 描画キー取得
+		/// 更新キー設定
+		/// </summary>
+		/// <returns>更新キー</returns>
+		inline void SetUpdateKey(const std::string& updateKey) { updateKey_ = updateKey; }
+
+		/// <summary>
+		/// 描画キー設定
 		/// </summary>
 		/// <returns>描画キー</returns>
-		inline void SetDrawKeys(const std::vector<std::string>& drawKey) { drawKeys_ = drawKey; }
+		inline void SetDrawKeys(const std::vector<std::string>& drawKeys) { drawKeys_ = drawKeys; }
 	
 	public:
 
@@ -186,6 +198,9 @@ namespace YGame
 		// 衝突情報を保存するか
 		bool isSaveColl_ = false;
 		
+		// 更新キー
+		std::string updateKey_;
+
 		// 描画キー
 		std::vector<std::string> drawKeys_;
 

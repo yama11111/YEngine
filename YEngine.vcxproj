@@ -135,6 +135,7 @@
     <ClCompile Include="Application\Game\UI\StatusDrawer.cpp" />
     <ClCompile Include="Application\Game\WorldManager.cpp" />
     <ClCompile Include="Application\Scene\TestScene.cpp" />
+    <ClCompile Include="Engine\Game\Camera\ViewProjectionManager.cpp" />
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\BeginingDrawer.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="Application\Draw\UI\UIGauge.h" />
     <ClInclude Include="Application\Game\Camera\GameCamera.h" />
     <ClInclude Include="Application\Game\Object\CircleShadowManager.h" />
+    <ClInclude Include="Engine\Game\Object\Drawer\DrawerInitSet.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\BaseStageObject.h" />
     <ClInclude Include="Application\Game\Object\Stage\Block.h" />
@@ -289,6 +291,7 @@
     <ClInclude Include="Application\Game\UI\StatusDrawer.h" />
     <ClInclude Include="Application\Game\WorldManager.h" />
     <ClInclude Include="Application\Scene\TestScene.h" />
+    <ClInclude Include="Engine\Game\Camera\ViewProjectionManager.h" />
     <ClInclude Include="Engine\Math\Game\BitFrag.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\AxisDrawer.h" />
     <ClInclude Include="Application\Game\UI\BeginingDrawer.h" />

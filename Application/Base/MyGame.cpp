@@ -57,9 +57,9 @@ bool MyGame::Initialize()
 
 	sceneMan_->SetSceneFactory(std::move(std::make_unique<YGameSceneFactory>()));
 
-	//sceneMan_->Initialize(YGameSceneFactory::Title_);
+	sceneMan_->Initialize(YGameSceneFactory::Title_);
 	//sceneMan_->Initialize(YGameSceneFactory::Select_);
-	sceneMan_->Initialize(YGameSceneFactory::Play_);
+	//sceneMan_->Initialize(YGameSceneFactory::Play_);
 
 	return true;
 }
@@ -91,13 +91,13 @@ void MyGame::Draw()
 	screenDesc_.SetDrawCommand();
 
 	pPipelineMan_->Draw();
-
-#ifdef _DEBUG
+	
+//#ifdef _DEBUG
 
 	// デバッグテキスト描画
 	imguiMan_.Draw();
 
-#endif // DEBUG
+//#endif // DEBUG
 
 	dx_.PostDraw();
 	
@@ -358,7 +358,7 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("PostEffectDefault", newPipeline);
 	}
 
-	// World_Fever
+	// World
 	{
 		ShaderSet shader;
 
@@ -381,33 +381,7 @@ void MyGame::InitializePipelines()
 				Pipeline::BlendState::Alpha, 1
 				);
 
-		pPipelineMan_->Insert("World_Fever", newPipeline);
-	}
-
-	// World_0
-	{
-		ShaderSet shader;
-
-		shader.LoadShader("PostEffect/DiscardColorVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("PostEffect/DiscardColorPS.hlsl", ShaderSet::ShaderType::ePixel);
-
-		Pipeline* newPipeline =
-			Pipeline::Create(
-				shader,
-				{
-					CBPostEffectTransform::Tag(),
-					CBColor::Tag(),
-					CBTexConfig::Tag(),
-					CBDiscardColor::Tag(),
-				},
-				{
-					"Texture0",
-				},
-				1, PostEffect::GetPipelineSetting(),
-				Pipeline::BlendState::Alpha, 1
-				);
-
-		pPipelineMan_->Insert("World_0", newPipeline);
+		pPipelineMan_->Insert("World", newPipeline);
 	}
 
 #pragma endregion
@@ -416,8 +390,7 @@ void MyGame::InitializePipelines()
 	pPipelineMan_->SetDrawOrder(
 		{
 			"PostEffectDefault",
-			"World_Fever",
-			"World_0",
+			"World",
 			
 			"ModelOutline",
 			"ModelSingleColor",

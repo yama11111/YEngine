@@ -16,6 +16,7 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="name"> : 名前</param>
+		/// <param name="worldKey"> : 世界キー</param>
 		/// <param name="status"> : ステータス</param>
 		/// <param name="direction"> : 向き</param>
 		/// <param name="acceleration"> : 加速度</param>
@@ -28,6 +29,7 @@ namespace YGame
 		/// <param name="drawer"> : 描画クラス</param>
 		void Initialize(
 			const std::string& name,
+			const std::string& worldKey, 
 			const Transform::Status& status,
 			const YMath::Vector3& direction,
 			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed, const bool isGravity, 
@@ -77,11 +79,22 @@ namespace YGame
 
 	public:
 
+		/// <summary>
+		/// 世界キー設定
+		/// </summary>
+		/// <param name="worldKey"> : 世界キー</param>
+		virtual void SetWorldKey(const std::string& worldKey);
+
+	public:
+
 		BaseCharacter() = default;
 
 		virtual ~BaseCharacter() = default;
 
 	protected:
+
+		// 今どの世界にいるか
+		std::string worldKey_;
 
 		// 向き
 		YMath::Vector3 direction_;

@@ -3,6 +3,7 @@
 #include "Ease.h"
 #include "SlimeActor.h"
 #include "CBOutline.h"
+#include "CBOutline.h"
 
 namespace YGame
 {
@@ -26,14 +27,9 @@ namespace YGame
 		/// <summary>
 		/// 生成
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
+		/// <param name="init"> : 初期化セット</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<CoinDrawer> Create(
-			Transform* pParent,
-			YMath::Vector3* pParentWorldPos,
-			const size_t drawPriority);
+		static std::unique_ptr<CoinDrawer> Create(const DrawerInitSet& init);
 
 		/// <summary>
 		/// 静的初期化
@@ -45,13 +41,8 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(
-			Transform* pParent,
-			YMath::Vector3* pParentWorldPos,
-			const size_t drawPriority) override;
+		/// <param name="init"> : 初期化セット</param>
+		void Initialize(const DrawerInitSet& init) override;
 
 	public:
 

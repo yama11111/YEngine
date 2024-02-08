@@ -102,12 +102,6 @@ void TitleDrawer::Initialize()
 	}
 	curten_->InsertConstBuffer(curtenColor_.get());
 	
-	skydomeTrfm_.Initialize();
-	if (skydomeDra_ == nullptr)
-	{
-		skydomeDra_ = std::move(SkydomeDrawer::Create(&skydomeTrfm_, nullptr, 2));
-	}	
-
 	Reset();
 }
 
@@ -164,9 +158,6 @@ void TitleDrawer::Reset()
 	curtenColor_->data_.baseColor = ColorConfig::skTurquoise[0];
 
 	curtenAlphaTim_.Initialize(30);
-	
-	skydomeTrfm_.Initialize();
-	skydomeTrfm_.scale_ = { 100.0f,100.0f,100.0f };
 }
 
 void TitleDrawer::UpdateAnimeFlag()
@@ -231,15 +222,10 @@ void TitleDrawer::Update()
 	curtenAlphaTim_.Update();
 	float curtenAlpha = YMath::EaseIn<float>(1.0f, 0.0f, curtenAlphaTim_.Ratio(), 3.0f);
 	curtenColor_->data_.baseColor.w = curtenAlpha;
-
-	skydomeTrfm_.UpdateMatrix();
-	skydomeDra_->Update();
 }
 
 void TitleDrawer::Draw()
 {
-	skydomeDra_->Draw();
-	
 	start_->Draw("Sprite2DDefault", 3);
 	startButton_->Draw("Sprite2DDefault", 3);
 

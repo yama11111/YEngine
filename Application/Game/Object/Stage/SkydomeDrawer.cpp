@@ -1,10 +1,12 @@
 #include "SkydomeDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 #include "ColorConfig.h"
 #include "Lerp.h"
 #include "Def.h"
 
 using YGame::SkydomeDrawer;
+using YGame::ViewProjectionManager;
 using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
@@ -12,14 +14,14 @@ using YMath::Vector4;
 namespace
 {
 	Model* pModel = nullptr;
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 }
 
-std::unique_ptr<SkydomeDrawer> SkydomeDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<SkydomeDrawer> SkydomeDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<SkydomeDrawer> newDrawer = std::make_unique<SkydomeDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -30,10 +32,10 @@ void SkydomeDrawer::LoadResource()
 	pModel = Model::LoadObj("sphere", true);
 }
 
-void SkydomeDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void SkydomeDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 	if (backTexConfig_ == nullptr)
 	{
@@ -55,7 +57,7 @@ void SkydomeDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldP
 
 void SkydomeDrawer::InitializeObjects()
 {
-	InsertObject("Sphere", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Sphere", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 void SkydomeDrawer::InitializeTimers()

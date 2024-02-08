@@ -1,9 +1,11 @@
 #include "GoalDrawer.h"
 #include "DrawObjectForModel.h"
+#include "ViewProjectionManager.h"
 
 #include "CircleShadowManager.h"
 
 using YGame::GoalDrawer;
+using YGame::ViewProjectionManager;
 using YGame::Model;
 using YMath::Vector3;
 using YMath::Vector4;
@@ -11,14 +13,14 @@ using YMath::Vector4;
 namespace
 {
 	Model* pModel = nullptr;
+	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 }
 
-std::unique_ptr<GoalDrawer> GoalDrawer::Create(
-	Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+std::unique_ptr<GoalDrawer> GoalDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<GoalDrawer> newDrawer = std::make_unique<GoalDrawer>();
 
-	newDrawer->Initialize(pParent, pParentWorldPos, drawPriority);
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -29,10 +31,10 @@ void GoalDrawer::LoadResource()
 	pModel = Model::CreateCube({ { "Texture0", Texture::Load("white1x1.png")} });
 }
 
-void GoalDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos, const size_t drawPriority)
+void GoalDrawer::Initialize(const DrawerInitSet& init)
 {
 	// オブジェクト初期化
-	BaseDrawer::Initialize(pParent, pParentWorldPos, drawPriority);
+	BaseDrawer::Initialize(init);
 
 	InsertConstBuffer("Goal", CircleShadowManager::GetInstance()->CBPtr(2));
 	
@@ -45,5 +47,5 @@ void GoalDrawer::Initialize(Transform* pParent, YMath::Vector3* pParentWorldPos,
 
 void GoalDrawer::InitializeObjects()
 {
-	InsertObject("Goal", DrawObjectForModel::Create({}, spVP_, pModel));
+	InsertObject("Goal", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }

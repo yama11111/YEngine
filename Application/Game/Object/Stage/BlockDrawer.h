@@ -13,16 +13,10 @@ namespace YGame
 		/// <summary>
 		/// 生成
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
+		/// <param name="init"> : 初期化セット</param>
 		/// <param name="isBackground"> : 背景フラグ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<BlockDrawer> Create(
-			Transform* pParent,
-			YMath::Vector3* pParentWorldPos,
-			const bool isBackground,
-			const size_t drawPriority);
+		static std::unique_ptr<BlockDrawer> Create(const DrawerInitSet& init, const bool isBackground);
 
 		/// <summary>
 		/// 静的初期化
@@ -34,13 +28,8 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="pParent"> : 親ポインタ</param>
-		/// <param name="pParentWorldPos"> : 親ワールド座標ポインタ</param>
-		/// <param name="drawPriority"> : 描画優先度</param>
-		void Initialize(
-			Transform* pParent,
-			YMath::Vector3* pParentWorldPos,
-			const size_t drawPriority) override;
+		/// <param name="init"> : 初期化セット</param>
+		void Initialize(const DrawerInitSet& init) override;
 
 	public:
 

@@ -9,22 +9,19 @@ using YGame::Life;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Life> Life::Create(
-	const Transform::Status& status,
-	const std::vector<std::string>& drawKeys)
+std::unique_ptr<Life> Life::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Life> newObj = std::make_unique<Life>();
 
-	newObj->Initialize(status);
-	newObj->SetDrawKeys(drawKeys);
+	newObj->Initialize(status, key);
 
 	return std::move(newObj);
 }
 
-void Life::Initialize(const Transform::Status& status)
+void Life::Initialize(const Transform::Status& status, const std::string& key)
 {
 	BaseCharacter::Initialize(
-		"Coin",
+		"Coin", key,
 		status,
 		{ 0.0f, 0.0f, +1.0f }, // 右向き
 		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false,
@@ -47,7 +44,7 @@ void Life::Initialize(const Transform::Status& status)
 			mask);
 	}
 
-	SetDrawer(LifeDrawer::Create(nullptr, nullptr, 1));
+	SetDrawer(LifeDrawer::Create({ nullptr, nullptr, key, 1 }));
 
 	drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle), true);
 }
