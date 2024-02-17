@@ -88,5 +88,11 @@ namespace YGame
 
 			static const size_t kDebriNum = 16;
 		}
+
+		// フィーバー
+		namespace Fever
+		{
+			static const uint16_t kFrame = 280;
+		}
 	}
 }

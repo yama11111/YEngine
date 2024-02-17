@@ -1,5 +1,13 @@
+/**
+ * @file GoalDrawer.h
+ * @brief ゴール描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseDrawer.h"
+
 namespace YGame
 {
 	class GoalDrawer final :

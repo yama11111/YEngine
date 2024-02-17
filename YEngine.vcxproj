@@ -117,6 +117,8 @@
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Draw\UI\UIGauge.cpp" />
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
+    <ClCompile Include="Application\Game\Object\BaseCharacterDrawer.cpp" />
+    <ClCompile Include="Application\Game\Object\BaseStageDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\BaseStageObject.cpp" />
@@ -140,7 +142,6 @@
     <ClCompile Include="Engine\Game\Object\Drawer\AxisDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\BeginingDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\BlockDrawer.cpp" />
-    <ClCompile Include="Application\Game\Object\Stage\CloudDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Coin.cpp" />
     <ClCompile Include="Application\Game\Object\Item\CoinDrawer.cpp" />
     <ClCompile Include="Engine\Game\Object\Drawer\CollisionDrawer.cpp" />
@@ -159,7 +160,6 @@
     <ClCompile Include="Application\Game\UI\PauseManager.cpp" />
     <ClCompile Include="Application\Game\Object\Player\PlayerDrawer.cpp" />
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp" />
-    <ClCompile Include="Application\Game\Object\Stage\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Enemy\SlimeDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\CharacterStatus.cpp" />
     <ClCompile Include="Engine\Game\Object\GameObjectManager.cpp" />
@@ -270,7 +270,10 @@
     <ClInclude Include="Application\Draw\Actor\HitActor.h" />
     <ClInclude Include="Application\Draw\UI\UIGauge.h" />
     <ClInclude Include="Application\Game\Camera\GameCamera.h" />
+    <ClInclude Include="Application\Game\Object\BaseCharacterDrawer.h" />
+    <ClInclude Include="Application\Game\Object\BaseStageDrawer.h" />
     <ClInclude Include="Application\Game\Object\CircleShadowManager.h" />
+    <ClInclude Include="Application\Game\WorldKey.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\DrawerInitSet.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\BaseStageObject.h" />
@@ -286,7 +289,7 @@
     <ClInclude Include="Application\Game\UI\InstructionsDrawer.h" />
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
-    <ClInclude Include="Application\Game\Collision\InfoOnCollision.h" />
+    <ClInclude Include="Application\Game\Collision\ICollisionInfomation.h" />
     <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
     <ClInclude Include="Application\Game\UI\StatusDrawer.h" />
     <ClInclude Include="Application\Game\WorldManager.h" />
@@ -297,7 +300,6 @@
     <ClInclude Include="Application\Game\UI\BeginingDrawer.h" />
     <ClInclude Include="Application\Game\Object\Stage\BlockDrawer.h" />
     <ClInclude Include="Application\Game\Object\CharacterConfig.h" />
-    <ClInclude Include="Application\Game\Object\Stage\CloudDrawer.h" />
     <ClInclude Include="Application\Game\Object\Item\Coin.h" />
     <ClInclude Include="Application\Game\Object\Item\CoinDrawer.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\CollisionDrawer.h" />
@@ -318,7 +320,6 @@
     <ClInclude Include="Application\Game\UI\PauseSelection.h" />
     <ClInclude Include="Application\Game\Object\Player\PlayerDrawer.h" />
     <ClInclude Include="Application\Game\UI\ScoreManager.h" />
-    <ClInclude Include="Application\Game\Object\Stage\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\Object\Enemy\SlimeDrawer.h" />
     <ClInclude Include="Application\Game\Object\CharacterStatus.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\IDrawerFactory.h" />

@@ -1,3 +1,10 @@
+/**
+ * @file ColorConfig.h
+ * @brief 色設定
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "MathUtil.h"
 #include <array>
@@ -19,5 +26,16 @@ namespace YGame
 		static const YMath::Vector4 skYellow = YMath::GetColor(255, 217, 67, 255);
 		
 		static const YMath::Vector4 skMagenta = { 1.0f,0.0f,1.0f,1.0f };
+
+		static const std::array<YMath::Vector4, 7> skRainbow =
+		{
+			YMath::GetColor(255,   0,   0, 255), // 赤
+			YMath::GetColor(255, 255,   0, 255), // 黄
+			YMath::GetColor(  0, 255,   0, 255), // 緑
+			YMath::GetColor(  0, 255, 255, 255), // 水
+			YMath::GetColor(  0,   0, 255, 255), // 青
+			YMath::GetColor(255,   0, 255, 255), // 紫
+			YMath::GetColor(255,   0,   0, 255), // 赤
+		};
 	}
 }

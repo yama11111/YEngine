@@ -74,7 +74,7 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		virtual InfoOnCollision GetInfoOnCollision();
+		virtual ICollisionInfomation GetCollisionInfomation();
 
 		/// <summary>
 		/// ワールド座標取得
@@ -220,7 +220,7 @@ namespace YGame
 		/// 衝突時処理
 		/// </summary>
 		/// <param name="info"> : 衝突情報</param>
-		virtual void OnCollision(const InfoOnCollision& info);
+		virtual void OnCollision(const ICollisionInfomation& info);
 
 		/// <summary>
 		/// デバッグテキスト本文

@@ -65,9 +65,9 @@ void Life::UpdateAfterCollision()
 	}
 }
 
-YGame::InfoOnCollision Life::GetInfoOnCollision()
+YGame::ICollisionInfomation Life::GetCollisionInfomation()
 {
-	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
+	ICollisionInfomation result = BaseCharacter::GetCollisionInfomation();
 
 	result.attribute = AttributeType::eItem;
 	result.radius = 0.0f;
@@ -75,7 +75,7 @@ YGame::InfoOnCollision Life::GetInfoOnCollision()
 	return result;
 }
 
-void Life::OnCollision(const InfoOnCollision& info)
+void Life::OnCollision(const ICollisionInfomation& info)
 {
 	if (status_.IsInvincible()) { return; }
 

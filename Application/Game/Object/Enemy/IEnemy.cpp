@@ -20,12 +20,12 @@ void IEnemy::UpdateAfterCollision()
 	BaseCharacter::UpdateAfterCollision();
 }
 
-void IEnemy::OnCollision(const InfoOnCollision& info)
+void IEnemy::OnCollision(const ICollisionInfomation& info)
 {
 	if (status_.IsInvincible()) { return; }
 
 	// 自身の情報
-	InfoOnCollision self = GetInfoOnCollision();
+	ICollisionInfomation self = GetCollisionInfomation();
 	
 	// プレイヤー
 	if (info.attribute == AttributeType::ePlayer)
@@ -51,5 +51,13 @@ void IEnemy::OnCollision(const InfoOnCollision& info)
 
 		// 被弾
 		Hit(info.pStatus->Attack(), false);
+	}
+	// ブロック
+	else if (info.attribute == AttributeType::eBlock)
+	{
+		if (transform_->pos_.y <= info.pTrfm->pos_.y) { return; }
+
+		// 着地
+		isLanding_ = true;
 	}
 }

@@ -124,9 +124,9 @@ void GameObject::InsertSubDrawer(const std::string& tag, std::unique_ptr<BaseDra
 	subDrawer_.insert({ tag, std::move(drawer) });
 }
 
-YGame::InfoOnCollision GameObject::GetInfoOnCollision()
+YGame::ICollisionInfomation GameObject::GetCollisionInfomation()
 {
-	InfoOnCollision info{};
+	ICollisionInfomation info{};
 
 	info.pTrfm = transform_.get();
 
@@ -141,7 +141,7 @@ void GameObject::UpdateCollision()
 {
 	if (collider_ == nullptr) { return; }
 
-	std::queue<InfoOnCollision> queue = collider_->InfoOnCollisionQueue();
+	std::queue<ICollisionInfomation> queue = collider_->InfoOnCollisionQueue();
 
 	// 衝突情報を1つ1つ処理
 	// 空なら終わり
@@ -155,7 +155,7 @@ void GameObject::UpdateCollision()
 	}
 }
 
-void GameObject::OnCollision(const InfoOnCollision& info)
+void GameObject::OnCollision(const ICollisionInfomation& info)
 {
 	info;
 }

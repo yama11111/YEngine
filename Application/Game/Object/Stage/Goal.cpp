@@ -62,9 +62,9 @@ void Goal::UpdateAfterCollision()
 	GameObject::UpdateAfterCollision();
 }
 
-YGame::InfoOnCollision Goal::GetInfoOnCollision()
+YGame::ICollisionInfomation Goal::GetCollisionInfomation()
 {
-	InfoOnCollision result;
+	ICollisionInfomation result;
 
 	result.attribute = AttributeType::eGoal;
 	result.pTrfm = transform_.get();

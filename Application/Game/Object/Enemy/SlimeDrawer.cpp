@@ -19,6 +19,7 @@ using YGame::ViewProjectionManager;
 using YMath::Vector3;
 using YMath::Timer;
 namespace Anime = YGame::SlimeAnimationConfig;
+namespace Color = YGame::ColorConfig;
 
 namespace 
 {
@@ -32,6 +33,10 @@ namespace
 	const uint32_t kLandingIndex = static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding);
 	const uint32_t kHitIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eHit);
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead);
+	const uint32_t kFeverIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever);
+
+	const YMath::Vector4 kBodyColor = YMath::GetColor(245, 24, 83, 255);
+	const YMath::Vector4 kOutlineColor = YMath::GetColor(143, 13, 48, 255);
 }
 
 std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(const DrawerInitSet& init)
@@ -53,9 +58,10 @@ void SlimeDrawer::Initialize(const DrawerInitSet& init)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(init);
 
+	cbColor_->data_.baseColor = kBodyColor;
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
-	cbOutline_->data_.color = YMath::GetColor(143, 13, 48, 255);
+	cbOutline_->data_.color = kOutlineColor;
 	cbOutline_->data_.range = 0.2f;
 
 	InsertConstBuffer("Body", CircleShadowManager::GetInstance()->CBPtr(0));
@@ -63,6 +69,9 @@ void SlimeDrawer::Initialize(const DrawerInitSet& init)
 
 	SetShaderTag("ModelToon");
 	SetShaderTag("Body_O", "ModelOutline");
+
+	std::vector<YMath::Vector4> rainbow(std::begin(Color::skRainbow), std::end(Color::skRainbow));
+	rainbowEas_.Initialize(rainbow, 1.0f);
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
@@ -81,6 +90,7 @@ void SlimeDrawer::InitializeTimers()
 	InsertAnimationTimer(kLandingIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::Landing::kFrame), false));
 	InsertAnimationTimer(kHitIndex,		 AnimationTimer(Timer(SlimeAnimationConfig::Hit::kFrame), false));
 	InsertAnimationTimer(kDeadIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::Dead::kFrame), false));
+	InsertAnimationTimer(kFeverIndex,	 AnimationTimer(Timer(SlimeAnimationConfig::Fever::kFrame), true));
 }
 
 void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
@@ -149,6 +159,17 @@ void SlimeDrawer::UpdateAnimation()
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
+
+	if (IsActAnimation(kFeverIndex))
+	{
+		cbColor_->data_.baseColor = rainbowEas_.In(animationTimers_[kFeverIndex].timer.Ratio());
+		cbOutline_->data_.color = Color::skYellow;
+	}
+	else
+	{
+		cbColor_->data_.baseColor = kBodyColor;
+		cbOutline_->data_.color = kOutlineColor;
+	}
 
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 

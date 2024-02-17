@@ -41,7 +41,7 @@ void PlayScene::Initialize()
 {
 	CircleShadowManager::GetInstance()->Intialize();
 
-	WorldManager::GetInstance()->Initialize(WorldManager::Key::eWorldKey);
+	WorldManager::GetInstance()->Initialize(WorldKey::eWorldKey);
 	
 	StageManager::GetInstance()->Reset();
 
@@ -53,17 +53,17 @@ void PlayScene::Initialize()
 	{
 		pLevel_ = Level::LoadJson(
 			"levelData_1.json",
-			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey));
+			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eWorldKey));
 	}
 	else if (stageIndex == 1)
 	{
 		pLevel_ = Level::LoadJson(
 			"levelData_2.json",
-			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey));
+			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eWorldKey));
 	}
 	pLevel_ = Level::LoadJson(
 		"fever.json",
-		WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eFeverKey));
+		WorldManager::GetInstance()->WorldKeyStr(WorldKey::eFeverKey));
 
 	// UI
 	uiDra_.Initialize();

@@ -24,7 +24,7 @@ WorldManager* WorldManager::GetInstance()
 	return &instance;
 }
 
-void WorldManager::Initialize(const Key& key)
+void WorldManager::Initialize(const WorldKey& key)
 {
 	SetWorldKey(key);
 
@@ -111,36 +111,36 @@ void WorldManager::DrawDebug()
 
 Vector3 WorldManager::Pass()
 {
-	if(currentWorldKey_ == Key::eWorldKey)
+	if(currentWorldKey_ == WorldKey::eWorldKey)
 	{
-		currentWorldKey_ = Key::eFeverKey;
+		currentWorldKey_ = WorldKey::eFeverKey;
 	}
 	else
 	{
-		currentWorldKey_ = Key::eWorldKey;
+		currentWorldKey_ = WorldKey::eWorldKey;
 	}
 
 	return gatePoss_[static_cast<size_t>(currentWorldKey_)];
 }
 
-void WorldManager::SetWorldKey(const Key& key)
+void WorldManager::SetWorldKey(const WorldKey& key)
 {
 	currentWorldKey_ = key;
 }
 
-void WorldManager::SetGatePos(const Key& key, const Vector3& pos)
+void WorldManager::SetGatePos(const WorldKey& key, const Vector3& pos)
 {
 	gatePoss_[static_cast<size_t>(key)] = pos;
 }
 
-std::string WorldManager::WorldKeyStr(const Key& key) const
+std::string WorldManager::WorldKeyStr(const WorldKey& key) const
 {
 	size_t index = static_cast<size_t>(key);
 
 	return kKeyStrs[index];
 }
 
-WorldManager::Key WorldManager::CurrentWorldKey() const
+WorldKey WorldManager::CurrentWorldKey() const
 {
 	return currentWorldKey_;
 }

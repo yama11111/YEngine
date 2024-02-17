@@ -9,6 +9,7 @@
 #include "MapChipCollisionBitConfig.h"
 
 #include "ScoreManager.h"
+#include "WorldManager.h"
 
 #include "Def.h"
 #include <cassert>
@@ -73,6 +74,11 @@ void Slime::Initialize(const Transform::Status& status, const std::string& key)
 
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
+
+	if (key == WorldManager::GetInstance()->WorldKeyStr(WorldKey::eFeverKey))
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever), true);
+	}
 }
 
 void Slime::UpdateBeforeCollision()
@@ -84,17 +90,24 @@ void Slime::UpdateAfterCollision()
 {	
 	IEnemy::UpdateAfterCollision();
 	
-	// 着地した瞬間
-	//if ()
-	//{
-	//	// 着地アニメーション
-	//	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding), true);
-	//}
+	// 着地しているなら
+	if (isLanding_)
+	{
+		// 瞬間
+		if (isElderLanding_ == false)
+		{
+			// 着地アニメーション
+			drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding), true);
+
+		}
+	}
+	
+	isElderLanding_ = isLanding_;
 }
 
-YGame::InfoOnCollision Slime::GetInfoOnCollision()
+YGame::ICollisionInfomation Slime::GetCollisionInfomation()
 {
-	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
+	ICollisionInfomation result = BaseCharacter::GetCollisionInfomation();
 
 	result.attribute = AttributeType::eEnemy;
 	result.radius = SlimeConfig::kRadius;

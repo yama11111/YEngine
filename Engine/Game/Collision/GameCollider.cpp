@@ -2,7 +2,7 @@
 #include <cassert>
 
 using YGame::GameCollider;
-using YGame::InfoOnCollision;
+using YGame::ICollisionInfomation;
 using YMath::BasePrimitiveCollider;
 using YMath::Vector3;
 using YMath::BitFrag;
@@ -18,13 +18,7 @@ std::unique_ptr<GameCollider> GameCollider::Create(const BitFrag& attribute)
 
 void GameCollider::ClearCollisionInfoQueue()
 {
-	// 空になるまですべての中身を出す
-	while (true)
-	{
-		if (infoQueue_.empty()) { break; }
-
-		infoQueue_.pop();
-	}
+	infoQueue_ = std::queue<ICollisionInfomation>();
 }
 
 void GameCollider::Initialize(const BitFrag& attribute)
@@ -88,12 +82,12 @@ void GameCollider::PushBackCollider(
 	itr->primitive_ = std::move(collider);
 }
 
-void GameCollider::PushBackCollisionInfo(InfoOnCollision&& info)
+void GameCollider::PushBackCollisionInfo(ICollisionInfomation&& info)
 {
 	infoQueue_.push(info);
 }
 
-std::queue<InfoOnCollision> GameCollider::InfoOnCollisionQueue() const
+std::queue<ICollisionInfomation> GameCollider::InfoOnCollisionQueue() const
 {
 	return infoQueue_;
 }

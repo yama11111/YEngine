@@ -44,7 +44,7 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		InfoOnCollision GetInfoOnCollision() override;
+		ICollisionInfomation GetCollisionInfomation() override;
 
 		/// <summary>
 		/// 世界キー設定
@@ -110,7 +110,7 @@ namespace YGame
 		/// 衝突判定
 		/// </summary>
 		/// <param name="info"> : 衝突時情報</param>
-		void OnCollision(const InfoOnCollision & info) override;
+		void OnCollision(const ICollisionInfomation & info) override;
 		
 		/// <summary>
 		/// デバッグテキスト本文

@@ -10,6 +10,7 @@
 #include <string>
 #include <array>
 
+#include "WorldKey.h"
 #include "DrawObjectForPostEffect.h"
 #include "CBDiscardColor.h"
 #include "GameCamera.h"
@@ -18,14 +19,6 @@ namespace YGame
 {
 	class WorldManager
 	{
-
-	public:
-
-		// キー
-		enum class Key : size_t
-		{
-			eStartKey, eWorldKey, eFeverKey, eGoalKey, eKeyNum,
-		};
 	
 	public:
 
@@ -41,7 +34,7 @@ namespace YGame
 		/// 初期化
 		/// </summary>
 		/// <param name="key"> : キー</param>
-		void Initialize(const Key& key);
+		void Initialize(const WorldKey& key);
 
 		/// <summary>
 		/// 更新
@@ -71,14 +64,14 @@ namespace YGame
 		/// キー設定
 		/// </summary>
 		/// <param name="key"> : キー</param>
-		void SetWorldKey(const Key& key);
+		void SetWorldKey(const WorldKey& key);
 
 		/// <summary>
 		/// ゲート位置設定
 		/// </summary>
 		/// <param name="key"> : キー</param>
 		/// <param name="pos"> : 位置</param>
-		void SetGatePos(const Key& key, const YMath::Vector3& pos);
+		void SetGatePos(const WorldKey& key, const YMath::Vector3& pos);
 
 	public:
 
@@ -87,13 +80,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="key"> : キー</param>
 		/// <returns>キー(string型)</returns>
-		std::string WorldKeyStr(const Key& key) const;
+		std::string WorldKeyStr(const WorldKey& key) const;
 		
 		/// <summary>
 		/// 現在のキー取得
 		/// </summary>
 		/// <returns>現在のキー</returns>
-		Key CurrentWorldKey() const;
+		WorldKey CurrentWorldKey() const;
 
 		/// <summary>
 		/// 現在のキー取得
@@ -134,10 +127,10 @@ namespace YGame
 	private:
 
 		// 現在世界キー
-		Key currentWorldKey_{};
+		WorldKey currentWorldKey_{};
 
 		// キーの数
-		static const size_t kKeyNum = static_cast<size_t>(Key::eKeyNum);
+		static const size_t kKeyNum = static_cast<size_t>(WorldKey::eKeyNum);
 
 		// カメラ
 		std::array<CameraSet, kKeyNum> cameraSets_;

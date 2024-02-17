@@ -25,8 +25,6 @@
 #include "BlockDrawer.h"
 #include "GateDrawer.h"
 #include "GoalDrawer.h"
-#include "CloudDrawer.h"
-#include "SkydomeDrawer.h"
 #include "AxisDrawer.h"
 #include "CollisionDrawer.h"
 
@@ -77,8 +75,6 @@ void ResourceLoader::Load()
 		BlockDrawer::LoadResource();
 		GateDrawer::LoadResource();
 		GoalDrawer::LoadResource();
-		SkydomeDrawer::LoadResource();
-		CloudDrawer::LoadResource();
 		AxisDrawer::LoadResource();
 		CollisionDrawer::LoadResource();
 	}

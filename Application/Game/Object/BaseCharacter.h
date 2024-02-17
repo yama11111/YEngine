@@ -69,7 +69,7 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		virtual InfoOnCollision GetInfoOnCollision() override;
+		virtual ICollisionInfomation GetCollisionInfomation() override;
 
 		/// <summary>
 		/// ワールド座標取得

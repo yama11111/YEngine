@@ -51,10 +51,10 @@ std::unique_ptr<Player> Player::Create(const Transform::Status& status, const st
 
 	newObj->SetDrawKeys(
 		{
-			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eStartKey),
-			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eWorldKey),
-			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eFeverKey),
-			WorldManager::GetInstance()->WorldKeyStr(WorldManager::Key::eGoalKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eStartKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eWorldKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eFeverKey),
+			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eGoalKey),
 		}
 	);
 
@@ -208,9 +208,9 @@ void Player::UpdateAfterCollision()
 	SetWorldKey(WorldManager::GetInstance()->CurrentWorldKeyStr());
 }
 
-YGame::InfoOnCollision Player::GetInfoOnCollision()
+YGame::ICollisionInfomation Player::GetCollisionInfomation()
 {
-	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
+	ICollisionInfomation result = BaseCharacter::GetCollisionInfomation();
 
 	result.attribute = AttributeType::ePlayer;
 	result.radius = PlayerConfig::kRadius;
@@ -268,7 +268,7 @@ void Player::OffScreenProcess()
 	}
 }
 
-void Player::OnCollision(const InfoOnCollision& info)
+void Player::OnCollision(const ICollisionInfomation& info)
 {
 	// 敵
 	if (info.attribute == AttributeType::eEnemy)

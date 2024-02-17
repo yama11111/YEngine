@@ -14,9 +14,8 @@ namespace YGame
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
-		/// <param name="isBackground"> : 背景フラグ</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Gate>Create(const Transform::Status& status, const std::string& key);
+		static std::unique_ptr<Gate> Create(const Transform::Status& status, const std::string& key);
 
 	public:
 
@@ -25,7 +24,10 @@ namespace YGame
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
-		void Initialize(const Transform::Status& status, const std::string& key);
+		/// <param name="oppositeKey"> : 移動後のキー</param>
+		void Initialize(
+			const Transform::Status& status, 
+			const std::string& key);
 
 	public:
 
@@ -51,13 +53,13 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		InfoOnCollision GetInfoOnCollision() override;
+		ICollisionInfomation GetCollisionInfomation() override;
 
 		/// <summary>
 		/// 衝突時処理
 		/// </summary>
 		/// <param name="info"> : 衝突情報</param>
-		void OnCollision(const InfoOnCollision& info) override;
+		void OnCollision(const ICollisionInfomation& info) override;
 
 	};
 }

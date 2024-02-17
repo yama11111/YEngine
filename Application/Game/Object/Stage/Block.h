@@ -53,7 +53,7 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		InfoOnCollision GetInfoOnCollision() override;
+		ICollisionInfomation GetCollisionInfomation() override;
 	};
 }
 

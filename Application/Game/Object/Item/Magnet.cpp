@@ -109,9 +109,9 @@ void Magnet::UpdatePos()
 	}
 }
 
-YGame::InfoOnCollision Magnet::GetInfoOnCollision()
+YGame::ICollisionInfomation Magnet::GetCollisionInfomation()
 {
-	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
+	ICollisionInfomation result = BaseCharacter::GetCollisionInfomation();
 
 	result.attribute = AttributeType::eItem;
 	result.radius = 0.0f;
@@ -119,7 +119,7 @@ YGame::InfoOnCollision Magnet::GetInfoOnCollision()
 	return result;
 }
 
-void Magnet::OnCollision(const InfoOnCollision& info)
+void Magnet::OnCollision(const ICollisionInfomation& info)
 {
 	if (info.attribute == AttributeType::ePlayer)
 	{

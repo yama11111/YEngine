@@ -62,9 +62,9 @@ void BaseCharacter::UpdateAfterCollision()
 	isExist_ = IsAlive();
 }
 
-YGame::InfoOnCollision BaseCharacter::GetInfoOnCollision()
+YGame::ICollisionInfomation BaseCharacter::GetCollisionInfomation()
 {
-	InfoOnCollision result;
+	ICollisionInfomation result;
 
 	result.pTrfm = transform_.get();
 	result.pMoveDirection_ = &moveDirection_;

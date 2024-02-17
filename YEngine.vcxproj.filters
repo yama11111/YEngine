@@ -271,6 +271,9 @@
     <Filter Include="Application\Shader\PostEffect\DiscardColor">
       <UniqueIdentifier>{75cec6ab-56f1-46f3-93d7-e90285db9b91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Object\Base">
+      <UniqueIdentifier>{97ffecee-beaa-49db-8f3e-c491b858b264}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -597,9 +600,6 @@
     <ClCompile Include="Application\Game\Object\Stage\Gate.cpp">
       <Filter>Application\Game\Object\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\BaseCharacter.cpp">
-      <Filter>Application\Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Object\CharacterStatus.cpp">
       <Filter>Application\Game\Object</Filter>
     </ClCompile>
@@ -612,16 +612,10 @@
     <ClCompile Include="Application\Game\Object\Stage\GoalDrawer.cpp">
       <Filter>Application\Game\Object\Stage\Drawer</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\Stage\SkydomeDrawer.cpp">
-      <Filter>Application\Game\Object\Stage\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Game\Object\Stage\GateDrawer.cpp">
       <Filter>Application\Game\Object\Stage\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Object\Stage\BlockDrawer.cpp">
-      <Filter>Application\Game\Object\Stage\Drawer</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Game\Object\Stage\CloudDrawer.cpp">
       <Filter>Application\Game\Object\Stage\Drawer</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Object\Player\Player.cpp">
@@ -708,11 +702,20 @@
     <ClCompile Include="Application\Game\WorldManager.cpp">
       <Filter>Application\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\BaseStageObject.cpp">
-      <Filter>Application\Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Game\Camera\ViewProjectionManager.cpp">
       <Filter>Engine\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\BaseCharacter.cpp">
+      <Filter>Application\Game\Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\BaseStageObject.cpp">
+      <Filter>Application\Game\Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\BaseStageDrawer.cpp">
+      <Filter>Application\Game\Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\BaseCharacterDrawer.cpp">
+      <Filter>Application\Game\Object\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1049,7 +1052,7 @@
     <ClInclude Include="Engine\Math\Collision\TriangleCollider.h">
       <Filter>Engine\Math\Collision\Primitive</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Collision\InfoOnCollision.h">
+    <ClInclude Include="Application\Game\Collision\ICollisionInfomation.h">
       <Filter>Application\Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\GameObject.h">
@@ -1097,9 +1100,6 @@
     <ClInclude Include="Application\Game\Object\Stage\Gate.h">
       <Filter>Application\Game\Object\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\BaseCharacter.h">
-      <Filter>Application\Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Object\CharacterConfig.h">
       <Filter>Application\Game\Object</Filter>
     </ClInclude>
@@ -1118,16 +1118,10 @@
     <ClInclude Include="Application\Game\Object\Stage\GoalDrawer.h">
       <Filter>Application\Game\Object\Stage\Drawer</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\Stage\SkydomeDrawer.h">
-      <Filter>Application\Game\Object\Stage\Drawer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\Object\Stage\GateDrawer.h">
       <Filter>Application\Game\Object\Stage\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Object\Stage\BlockDrawer.h">
-      <Filter>Application\Game\Object\Stage\Drawer</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Game\Object\Stage\CloudDrawer.h">
       <Filter>Application\Game\Object\Stage\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Object\Player\Player.h">
@@ -1238,14 +1232,26 @@
     <ClInclude Include="Application\Game\WorldManager.h">
       <Filter>Application\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\BaseStageObject.h">
-      <Filter>Application\Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Game\Camera\ViewProjectionManager.h">
       <Filter>Engine\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Game\Object\Drawer\DrawerInitSet.h">
       <Filter>Engine\Game\Object\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\WorldKey.h">
+      <Filter>Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\BaseCharacter.h">
+      <Filter>Application\Game\Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\BaseStageObject.h">
+      <Filter>Application\Game\Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\BaseStageDrawer.h">
+      <Filter>Application\Game\Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\BaseCharacterDrawer.h">
+      <Filter>Application\Game\Object\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -71,9 +71,9 @@ void Block::UpdateAfterCollision()
 	GameObject::UpdateAfterCollision();
 }
 
-YGame::InfoOnCollision Block::GetInfoOnCollision()
+YGame::ICollisionInfomation Block::GetCollisionInfomation()
 {
-	InfoOnCollision result;
+	ICollisionInfomation result;
 
 	result.attribute = AttributeType::eBlock;
 	result.pTrfm = transform_.get();

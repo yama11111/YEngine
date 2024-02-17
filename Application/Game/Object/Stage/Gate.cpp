@@ -60,9 +60,9 @@ void Gate::UpdateAfterCollision()
 	GameObject::UpdateAfterCollision();
 }
 
-YGame::InfoOnCollision Gate::GetInfoOnCollision()
+YGame::ICollisionInfomation Gate::GetCollisionInfomation()
 {
-	InfoOnCollision result;
+	ICollisionInfomation result;
 
 	result.attribute = AttributeType::eGate;
 	result.pTrfm = transform_.get();
@@ -72,7 +72,7 @@ YGame::InfoOnCollision Gate::GetInfoOnCollision()
 	return result;
 }
 
-void Gate::OnCollision(const InfoOnCollision& info)
+void Gate::OnCollision(const ICollisionInfomation& info)
 {
 	if (drawer_->IsActAnimation(static_cast<uint32_t>(GateDrawer::AnimationType::eExtend))) { return; }
 

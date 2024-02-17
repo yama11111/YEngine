@@ -217,8 +217,8 @@ void GameObjectManager::CheckCollisionObjectPair(
 	if (isColl == false) { return; }
 	
 	// お互いに衝突時判定
-	if (isSaveB) { pCollA->PushBackCollisionInfo(pObjectB->GetInfoOnCollision()); }
-	if (isSaveA) { pCollB->PushBackCollisionInfo(pObjectA->GetInfoOnCollision()); }
+	if (isSaveB) { pCollA->PushBackCollisionInfo(pObjectB->GetCollisionInfomation()); }
+	if (isSaveA) { pCollB->PushBackCollisionInfo(pObjectA->GetCollisionInfomation()); }
 }
 
 

@@ -1,13 +1,18 @@
+/**
+ * @file CoinDrawer.h
+ * @brief コイン描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
-#include "BaseDrawer.h"
+#include "BaseCharacterDrawer.h"
 #include "Ease.h"
-#include "SlimeActor.h"
-#include "CBOutline.h"
-#include "CBOutline.h"
 
 namespace YGame
 {
-	class CoinDrawer : public BaseDrawer
+	class CoinDrawer final : 
+		public BaseCharacterDrawer
 	{
 
 	public:
@@ -52,8 +57,6 @@ namespace YGame
 
 	private:
 
-		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
-
 		// 立ちアニメーション用
 		YMath::SplineEase<float> idlePosEas_;
 		YMath::SplineEase<float> idleRotaEas_;
@@ -64,8 +67,6 @@ namespace YGame
 
 		YMath::Timer emitTimer_;
 		uint32_t emitCounter_ = 0;
-
-		SlimeActor slimeActor_;
 
 	private:
 

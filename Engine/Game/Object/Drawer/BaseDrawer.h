@@ -1,3 +1,10 @@
+/**
+ * @file BaseDrawer.h
+ * @brief 描画基底クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseDrawObject.h"
 #include "ConstBufferObject.h"

@@ -1,13 +1,17 @@
+/**
+ * @file SlimeDrawer.h
+ * @brief スライム描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
-#include "BaseDrawer.h"
-#include "SlimeActor.h"
-#include "HitActor.h"
-#include "CBOutline.h"
+#include "BaseCharacterDrawer.h"
 
 namespace YGame
 {
 	class SlimeDrawer final :
-		public BaseDrawer
+		public BaseCharacterDrawer
 	{
 
 	public:
@@ -26,6 +30,9 @@ namespace YGame
 
 			// 死亡
 			eDead	 = 0b1 << 4,
+			
+			// フィーバー
+			eFever	 = 0b1 << 5,
 		};
 
 	public:
@@ -65,13 +72,8 @@ namespace YGame
 
 	private:
 
-		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
-
-		// スライム
-		SlimeActor slimeActor_;
-
-		// 被弾
-		HitActor hitActor_;
+		// 虹
+		YMath::SplineEase<YMath::Vector4> rainbowEas_;
 
 	private:
 

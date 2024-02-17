@@ -2,7 +2,7 @@
 #include "BitFrag.h"
 #include "BasePrimitiveCollider.h"
 #include "DebugTextAttacher.h"
-#include "InfoOnCollision.h"
+#include "ICollisionInfomation.h"
 #include <cstdint>
 #include <memory>
 #include <list>
@@ -54,7 +54,7 @@ namespace YGame
 		/// 衝突情報積む
 		/// </summary>
 		/// <param name="info"> : 衝突情報</param>
-		void PushBackCollisionInfo(InfoOnCollision&& info);
+		void PushBackCollisionInfo(ICollisionInfomation&& info);
 
 		/// <summary>
 		/// デバッグテキスト本文
@@ -99,7 +99,7 @@ namespace YGame
 		/// 衝突情報キュー取得
 		/// </summary>
 		/// <returns>衝突情報キュー</returns>
-		std::queue<InfoOnCollision> InfoOnCollisionQueue() const;
+		std::queue<ICollisionInfomation> InfoOnCollisionQueue() const;
 
 	public:
 
@@ -134,7 +134,7 @@ namespace YGame
 		bool isSlip_ = false;
 
 		// 衝突情報キュー
-		std::queue<InfoOnCollision> infoQueue_;
+		std::queue<ICollisionInfomation> infoQueue_;
 
 	private:
 

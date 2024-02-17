@@ -1,12 +1,18 @@
+/**
+ * @file LifeDrawer.h
+ * @brief ライフ描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
-#include "BaseDrawer.h"
+#include "BaseCharacterDrawer.h"
 #include "Ease.h"
-#include "SlimeActor.h"
-#include "CBOutline.h"
 
 namespace YGame
 {
-	class LifeDrawer : public BaseDrawer
+	class LifeDrawer final : 
+		public BaseCharacterDrawer
 	{
 
 	public:
@@ -52,15 +58,11 @@ namespace YGame
 
 	private:
 
-		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
-
 		// 立ちアニメーション用
 		YMath::SplineEase<float> idlePosEas_;
 
 		// 獲得アニメーション用
 		YMath::Ease<float> earnPosEas_;
-
-		SlimeActor slimeActor_;
 
 	private:
 

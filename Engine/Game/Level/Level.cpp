@@ -17,7 +17,6 @@
 #include "Goal.h"
 
 #include "BlockDrawer.h"
-#include "SkydomeDrawer.h"
 #include "DefaultDrawer.h"
 
 #include "WorldManager.h"
@@ -176,12 +175,12 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 		}
 		else if (name == "Gate.")
 		{
-			WorldManager::GetInstance()->SetGatePos(WorldManager::Key::eWorldKey, status.pos_);
+			WorldManager::GetInstance()->SetGatePos(WorldKey::eWorldKey, status.pos_);
 			newObj = Gate::Create(status, key);
 		}
 		else if (name == "Gate_S.")
 		{
-			WorldManager::GetInstance()->SetGatePos(WorldManager::Key::eFeverKey, status.pos_);
+			WorldManager::GetInstance()->SetGatePos(WorldKey::eFeverKey, status.pos_);
 			newObj = Gate::Create(status, key);
 		}
 		else if (name == "Gate_E.")
@@ -202,7 +201,7 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 			isBackground = true;
 			newObj = std::make_unique<GameObject>();
 			newObj->Initialize(name, status, pParent);
-			newObj->SetDrawer(SkydomeDrawer::Create({ nullptr, nullptr, key, 4 }));
+			//newObj->SetDrawer(SkydomeDrawer::Create({ nullptr, nullptr, key, 4 }));
 			newObj->SetUpdateKey(key);
 			newObj->SetDrawKeys({ key });
 		}

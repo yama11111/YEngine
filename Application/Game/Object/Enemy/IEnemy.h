@@ -31,13 +31,17 @@ namespace YGame
 		// ぶっ飛びタイマー
 		YMath::Timer blowTim_;
 
+		// 着地フラグ
+		bool isLanding_ = false;
+		bool isElderLanding_ = false;
+
     protected:
 
 		/// <summary>
 		/// 衝突時処理
 		/// </summary>
 		/// <param name="info"></param>
-		virtual void OnCollision(const InfoOnCollision& info) override;
+		virtual void OnCollision(const ICollisionInfomation& info) override;
 	
 		/// <summary>
 		/// 被弾

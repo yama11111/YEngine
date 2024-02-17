@@ -3,10 +3,11 @@
 #include "Transform.h"
 #include "Vector3.h"
 #include "CharacterStatus.h"
+#include <string>
 
 namespace YGame
 {
-	struct InfoOnCollision
+	struct ICollisionInfomation
 	{
 		// 属性
 		AttributeType attribute = AttributeType::eNone;
@@ -22,5 +23,8 @@ namespace YGame
 
 		// キャラステータスポインタ
 		CharacterStatus* pStatus = nullptr;
+
+		// キー
+		std::string oppositeKey;
 	};
 }

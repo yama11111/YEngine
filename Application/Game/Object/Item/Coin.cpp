@@ -67,9 +67,9 @@ void Coin::UpdateAfterCollision()
 	}
 }
 
-YGame::InfoOnCollision Coin::GetInfoOnCollision()
+YGame::ICollisionInfomation Coin::GetCollisionInfomation()
 {
-	InfoOnCollision result = BaseCharacter::GetInfoOnCollision();
+	ICollisionInfomation result = BaseCharacter::GetCollisionInfomation();
 
 	result.attribute = AttributeType::eCoin;
 	result.radius = 0.0f;
@@ -77,7 +77,7 @@ YGame::InfoOnCollision Coin::GetInfoOnCollision()
 	return result;
 }
 
-void Coin::OnCollision(const InfoOnCollision& info)
+void Coin::OnCollision(const ICollisionInfomation& info)
 {
 	if (status_.IsInvincible()) { return; }
 	

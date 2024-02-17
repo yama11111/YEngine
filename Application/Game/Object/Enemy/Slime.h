@@ -1,3 +1,10 @@
+/**
+ * @file Slime.h
+ * @brief スライムクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "IEnemy.h"
 
@@ -48,7 +55,7 @@ namespace YGame
 		/// 衝突時情報取得
 		/// </summary>
 		/// <returns>衝突時情報</returns>
-		InfoOnCollision GetInfoOnCollision() override;
+		ICollisionInfomation GetCollisionInfomation() override;
 
 		/// <summary>
 		/// 被弾

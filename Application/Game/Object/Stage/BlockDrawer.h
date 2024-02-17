@@ -1,11 +1,17 @@
+/**
+ * @file BlockDrawer.h
+ * @brief ブロック描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
-#include "BaseDrawer.h"
-#include "CBOutline.h"
+#include "BaseStageDrawer.h"
 
 namespace YGame
 {
     class BlockDrawer final :
-		public BaseDrawer
+		public BaseStageDrawer
 	{
 
 	public:
@@ -39,7 +45,6 @@ namespace YGame
 
 	private:
 		
-		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
 	private:
 

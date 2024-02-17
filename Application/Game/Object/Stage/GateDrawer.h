@@ -1,12 +1,18 @@
+/**
+ * @file GateDrawer.h
+ * @brief ゴール描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
-#include "BaseDrawer.h"
+#include "BaseStageDrawer.h"
 #include "Ease.h"
-#include "Timer.h"
 
 namespace YGame
 {
 	class GateDrawer final :
-		public BaseDrawer
+		public BaseStageDrawer
 	{
 
 	public:
