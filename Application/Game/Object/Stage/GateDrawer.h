@@ -6,13 +6,13 @@
  */
 
 #pragma once
-#include "BaseStageDrawer.h"
+#include "BaseDrawer.h"
 #include "Ease.h"
 
 namespace YGame
 {
 	class GateDrawer final :
-		public BaseStageDrawer
+		public BaseDrawer
 	{
 
 	public:

@@ -136,11 +136,14 @@ namespace YGame
 	}
 }
 
-// パーティクル静的に用意
-static const size_t skParticleNum = 100;
-static std::array<std::unique_ptr<YGame::impl_RecoveryParticle>, skParticleNum> sParticles;
-static const std::string skTag = "RecoveryParticle";
-static bool sIsInit = false;
+namespace
+{
+	// パーティクル静的に用意
+	static const size_t skParticleNum = 100;
+	static std::array<std::unique_ptr<YGame::impl_RecoveryParticle>, skParticleNum> sParticles;
+	static const std::string skTag = "RecoveryParticle";
+	static bool sIsInit = false;
+}
 
 void RecoveryParticle::StaticInitialize()
 {

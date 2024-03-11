@@ -54,6 +54,12 @@ namespace YGame
 	public:
 		
 		/// <summary>
+		/// 位置取得
+		/// </summary>
+		/// <returns></returns>
+		YMath::Vector3 Pos() const;
+
+		/// <summary>
 		/// ビュープロジェクション取得
 		/// </summary>
 		/// <returns></returns>

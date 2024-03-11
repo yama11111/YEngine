@@ -3,7 +3,13 @@
 #include "GameObjectManager.h"
 #include "ViewProjectionManager.h"
 #include "Player.h"
+#include "SceneManager.h"
+#include "ScoreManager.h"
+#include "StageStatusManager.h"
 #include <cassert>
+
+#include "StarParticle.h"
+#include "MathUtil.h"
 
 using YGame::WorldManager;
 using YGame::GameObjectManager;
@@ -12,10 +18,13 @@ using YMath::Vector3;
 
 namespace
 {
-	const std::vector<std::string> kKeyStrs = 
-	{
-		"Start", "World", "Fever", "Goal",
-	};
+	YGame::Sprite2D* pSpr = nullptr;
+
+	const size_t kStarIdx = 4;
+	const size_t kEmitFrame = 10;
+	const float kDistance = 120.0f;
+	const Vector3 kMinRange = { - 10.0f,-40.0f,-20.0f };
+	const Vector3 kMaxRange = { +200.0f,+40.0f,+20.0f };
 }
 
 WorldManager* WorldManager::GetInstance()
@@ -28,99 +37,155 @@ void WorldManager::Initialize(const WorldKey& key)
 {
 	SetWorldKey(key);
 
-	for (size_t i = 0; i < kKeyNum; i++)
+	cameraSets_.clear();
+	postEffects_.clear();
+
+	std::vector<WorldKey> keys = WorldKeys();
+	for (size_t i = 0; i < keys.size(); i++)
 	{
-		ViewProjectionManager::GetInstance()->Insert(
-			kKeyStrs[i], &cameraSets_[static_cast<size_t>(currentWorldKey_)].transferVP);
+		cameraSets_.insert({ keys[i], CameraSet() });
+		postEffects_.insert({ keys[i], PostEffectSet() });
+	}
+
+	for (auto itr = cameraSets_.begin(); itr != cameraSets_.end(); ++itr)
+	{
+		itr->second.camera.Initialize();
+		itr->second.transferVP.Initialize();
+		
+		ViewProjectionManager::GetInstance()->
+			Insert(WorldKeyStr(itr->first), &itr->second.transferVP);
+	}
+
+	for (auto itr = postEffects_.begin(); itr != postEffects_.end(); ++itr)
+	{
+		if (itr->second.obj == nullptr)
+		{
+			itr->second.pPE = PostEffect::Create({ "Texture0" });
+			itr->second.obj.reset(
+				DrawObjectForPostEffect::Create(Transform::Status::Default(), itr->second.pPE));
+		}
+		if (itr->second.cbDiscardColor == nullptr)
+		{
+			itr->second.cbDiscardColor.reset(ConstBufferObject<CBDiscardColor>::Create());
+			itr->second.obj->InsertConstBuffer(itr->second.cbDiscardColor.get());
+		}
 	}
 	
-	Player::StaticInitialize(&cameraSets_[static_cast<size_t>(currentWorldKey_)].camera);
+	Player::StaticInitialize(&cameraSets_[currentWorldKey_].camera);
 	GameObjectManager::GetInstance()->Initialize();
-
-	for (size_t i = 0; i < cameraSets_.size(); i++)
-	{
-		cameraSets_[i].camera.Initialize();
-		cameraSets_[i].transferVP.Initialize();
-	}
 
 	for (size_t i = 0; i < gatePoss_.size(); i++)
 	{
 		gatePoss_[i] = {};
 	}
 
-	for (size_t i = 0; i < postEffects_.size(); i++)
+	drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey };
+
+	if (pSpr == nullptr)
 	{
-		if (postEffects_[i].obj == nullptr)
-		{
-			postEffects_[i].pPE = PostEffect::Create({ "Texture0" });
-			postEffects_[i].obj.reset(
-				DrawObjectForPostEffect::Create(
-					Transform::Status::Default(), 
-					postEffects_[i].pPE));
-		}
-		if (postEffects_[i].cbDiscardColor == nullptr)
-		{
-			postEffects_[i].cbDiscardColor.reset(ConstBufferObject<CBDiscardColor>::Create());
-			postEffects_[i].obj->InsertConstBuffer(postEffects_[i].cbDiscardColor.get());
-		}
+		pSpr = Sprite2D::Create({ {"Texture0", Texture::Load("play/fever_back.png")} }, { 0.0f, 0.0f });
+		feverBack_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pSpr));
 	}
+
+	feverBack_->Update();
+	feverEmitTimer_.Initialize(kEmitFrame, true);
 }
 
 void WorldManager::Update(const bool isControlUpdate)
 {
 	GameObjectManager::GetInstance()->Prepare(isControlUpdate);
-	GameObjectManager::GetInstance()->Update(kKeyStrs);
-	
-	Player::StaticInitialize(&cameraSets_[static_cast<size_t>(currentWorldKey_)].camera);
+	GameObjectManager::GetInstance()->Update(WorldKeyStrs());
 
-	for (size_t i = 0; i < cameraSets_.size(); i++)
+	CameraSet& currentCam = cameraSets_[currentWorldKey_];
+	
+	Player::StaticInitialize(&currentCam.camera);
+	UpdateFever();
+	
+	for (auto itr = cameraSets_.begin(); itr != cameraSets_.end(); ++itr)
 	{
-		cameraSets_[i].camera.Update();
-		cameraSets_[i].transferVP = cameraSets_[i].camera.GetViewProjection();
+		itr->second.camera.Update();
+		itr->second.transferVP = itr->second.camera.GetViewProjection();
 	}
 
-	for (size_t i = 0; i < postEffects_.size(); i++)
+	for (auto itr = postEffects_.begin(); itr != postEffects_.end(); ++itr)
 	{
-		postEffects_[i].obj->Update();
-		postEffects_[i].isDraw = (static_cast<size_t>(currentWorldKey_) == i);
+		itr->second.obj->Update();
 	}
 }
 
 void WorldManager::Draw()
 {
-	for (size_t i = 0; i < postEffects_.size(); i++)
+	for (size_t i = 0; i < drawKeys_.size(); i++)
 	{
-		if (postEffects_[i].isDraw == false) { continue; }
-		
-		GameObjectManager::GetInstance()->Draw({ kKeyStrs[i] });
-		std::vector<PostEffect*> pes = { postEffects_[i].pPE };
+		WorldKey key = drawKeys_[i];
+
+		if (postEffects_[key].isDraw == false) { continue; }
+		if (key == WorldKey::eFeverKey)
+		{
+			feverBack_->Draw("Sprite2DBack", 0);
+		}
+		GameObjectManager::GetInstance()->Draw({ WorldKeyStr(key) });
+		std::vector<PostEffect*> pes = { postEffects_[key].pPE };
 		PipelineManager::GetInstance()->RenderToPostEffect(pes);
-		
-		postEffects_[i].obj->Draw("World", postEffects_[i].priority);
+
+	}
+	
+	for (size_t i = 0; i < drawKeys_.size(); i++)
+	{
+		WorldKey key = drawKeys_[i];
+		postEffects_[key].obj->Draw("World", postEffects_[key].priority);
 	}
 }
 
 void WorldManager::DrawDebug()
 {
 	GameObjectManager::GetInstance()->DrawDebugText();
-	for (size_t i = 0; i < cameraSets_.size(); i++)
+	for (auto itr = cameraSets_.begin(); itr != cameraSets_.end(); ++itr)
 	{
-		cameraSets_[i].camera.DrawDebugText();
+		itr->second.camera.DrawDebugText();
 	}
 }
 
 Vector3 WorldManager::Pass()
 {
-	if(currentWorldKey_ == WorldKey::eWorldKey)
+	if (currentWorldKey_ == WorldKey::eWorldKey)
 	{
+		//currentWorldKey_ = WorldKey::eJourneyKey;
 		currentWorldKey_ = WorldKey::eFeverKey;
+		drawKeys_ = { WorldKey::eWorldKey, WorldKey::eFeverKey };
 	}
-	else
+	//else if (currentWorldKey_ == WorldKey::eJourneyKey)
+	//{
+	//	currentWorldKey_ = WorldKey::eFeverKey;
+	//}
+	else if (currentWorldKey_ == WorldKey::eFeverKey)
 	{
 		currentWorldKey_ = WorldKey::eWorldKey;
+		drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey };
 	}
 
 	return gatePoss_[static_cast<size_t>(currentWorldKey_)];
+}
+
+void WorldManager::GameOver()
+{
+	if (SceneManager::GetInstance()->IsTransition()) { return; }
+	
+	SceneManager::GetInstance()->Transition("PLAY", "BLACKOUT");
+}
+
+void WorldManager::ClearStage()
+{
+	if (SceneManager::GetInstance()->IsTransition()) { return; }
+
+	uint32_t score = ScoreManager::GetInstance()->ScoreInCurrentStage();
+	StageStatusManager::GetInstance()->SetCurrentStageStatus(score);
+	StageStatusManager::GetInstance()->Save();
+	
+	uint32_t stageIdx = StageStatusManager::GetInstance()->CurrentStageIndex();
+	StageStatusManager::GetInstance()->SetStageIndex(stageIdx);
+
+	SceneManager::GetInstance()->Transition("SELECT", "WAVE");
 }
 
 void WorldManager::SetWorldKey(const WorldKey& key)
@@ -133,11 +198,16 @@ void WorldManager::SetGatePos(const WorldKey& key, const Vector3& pos)
 	gatePoss_[static_cast<size_t>(key)] = pos;
 }
 
-std::string WorldManager::WorldKeyStr(const WorldKey& key) const
+void WorldManager::SetGatePos(const std::string& key, const YMath::Vector3& pos)
 {
-	size_t index = static_cast<size_t>(key);
-
-	return kKeyStrs[index];
+	for (size_t i = 0; i < kWorldKeyNum; i++)
+	{
+		if (WorldKeyStr(i) == key)
+		{
+			gatePoss_[i] = pos;
+			break;
+		}
+	}
 }
 
 WorldKey WorldManager::CurrentWorldKey() const
@@ -145,8 +215,22 @@ WorldKey WorldManager::CurrentWorldKey() const
 	return currentWorldKey_;
 }
 
-std::string WorldManager::CurrentWorldKeyStr() const
+void WorldManager::UpdateFever()
 {
-	return kKeyStrs[static_cast<size_t>(currentWorldKey_)];
+	if (currentWorldKey_ != WorldKey::eFeverKey) { return; }
+	
+	feverEmitTimer_.Update();
+	if (feverEmitTimer_.IsEnd() == false) { return; }
+
+	feverEmitTimer_.Reset(true);
+	CameraSet& camSet = cameraSets_[WorldKey::eFeverKey];
+	Vector3 camPos = camSet.camera.Pos();
+	camPos.z += kDistance;
+
+	for (size_t i = 0; i < kStarIdx; i++)
+	{
+		Vector3 pos = YMath::GetRand(camPos + kMinRange, camPos + kMaxRange, 100.0f);
+		StarParticle::Emit(pos, &camSet.transferVP);
+	}
 }
 

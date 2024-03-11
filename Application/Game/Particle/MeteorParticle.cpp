@@ -1,4 +1,4 @@
-#include "DebriParticle.h"
+#include "MeteorParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
 #include "DrawObjectForModel.h"
@@ -13,21 +13,21 @@
 #include <memory>
 #include <cmath>
 
-using YGame::DebriParticle;
+using YGame::MeteorParticle;
 using YMath::Vector3;
 using YMath::Vector4;
 
 namespace YGame
 {
-	class impl_DebriParticle final :
-		public DebriParticle,
+	class impl_MeteorParticle final :
+		public MeteorParticle,
 		public BaseParticle
 	{
 
 	public:
 
 		// 生成
-		static impl_DebriParticle* Create();
+		static impl_MeteorParticle* Create();
 
 		// 初期化
 		void Initialize(
@@ -50,14 +50,14 @@ namespace YGame
 
 		// 位置イージング
 		YMath::BezierEase<Vector3> posEas_;
-		
+
 		// スケールイージング
 		YMath::Ease<float> scaleEas_;
 	};
 
-	impl_DebriParticle* impl_DebriParticle::Create()
+	impl_MeteorParticle* impl_MeteorParticle::Create()
 	{
-		impl_DebriParticle* newParticle = new impl_DebriParticle();
+		impl_MeteorParticle* newParticle = new impl_MeteorParticle();
 
 		DrawObjectForModel* newObj = DrawObjectForModel::Create({}, nullptr, nullptr, false);
 
@@ -70,7 +70,7 @@ namespace YGame
 		return newParticle;
 	}
 
-	void impl_DebriParticle::Initialize(
+	void impl_MeteorParticle::Initialize(
 		const uint32_t aliveFrame,
 		const std::vector<Vector3>& pos,
 		const float startScale, const float endScale,
@@ -88,7 +88,7 @@ namespace YGame
 		scaleEas_.Initialize(startScale, endScale, exponent);
 	}
 
-	void impl_DebriParticle::Update()
+	void impl_MeteorParticle::Update()
 	{
 		if (isAlive_ == false) { return; }
 
@@ -110,19 +110,19 @@ namespace
 {
 	// パーティクル静的に用意
 	const size_t skParticleNum = 100;
-	std::array<std::unique_ptr<YGame::impl_DebriParticle>, skParticleNum> sParticles;
-	const std::string skTag = "DebriParticle";
+	std::array<std::unique_ptr<YGame::impl_MeteorParticle>, skParticleNum> sParticles;
+	const std::string skTag = "MeteorParticle";
 	bool sIsInit = false;
 }
 
-void DebriParticle::StaticInitialize()
+void MeteorParticle::StaticInitialize()
 {
 	if (sIsInit == false)
 	{
 		// 生成
 		for (size_t i = 0; i < sParticles.size(); i++)
 		{
-			sParticles[i].reset(impl_DebriParticle::Create());
+			sParticles[i].reset(impl_MeteorParticle::Create());
 		}
 
 		sIsInit = true;
@@ -139,7 +139,7 @@ void DebriParticle::StaticInitialize()
 	ParticleManager::GetInstance()->InsertParticles(skTag, particlePtrs);
 }
 
-static YGame::impl_DebriParticle* DeadParticlePtr()
+static YGame::impl_MeteorParticle* DeadParticlePtr()
 {
 	// 死んでいるパーティクルを返す
 	for (size_t i = 0; i < sParticles.size(); i++)
@@ -153,47 +153,47 @@ static YGame::impl_DebriParticle* DeadParticlePtr()
 	return nullptr;
 }
 
-void DebriParticle::Emit(
-	const size_t num,
+void MeteorParticle::Emit(
 	const Vector3& pos,
 	ViewProjection* pVP)
 {
-	// 固有設定
-	static const uint32_t kAliveFrame = 35;
-
-	static const float kDistance = 5.0f;
-	
-	static const float kStartScale = 0.25f;
-	static const float kEndScale = 0.1f;
-
-	static const float kExponent = 3.0f;
-
-	static const Vector4 kColor = ColorConfig::skYellow;
-	
-	for (size_t i = 0; i < num; i++)
-	{
-		// 死んでいるパーティクルを初期化 (無いなら弾く)
-		impl_DebriParticle* pParticle = DeadParticlePtr();
-		if (pParticle == nullptr) { return; }
-		
-		float angle1 = (kPI * 2.0f) / num * i;
-		Vector3 angleVec1 = Vector3(sinf(angle1), 0.0f, cosf(angle1));
-		float angle2 = (kPI * 2.0f) / num * i + 1;
-		Vector3 angleVec2 = Vector3(sinf(angle2), 0.0f, cosf(angle2));
-		
-		std::vector<Vector3> points =
-		{
-			pos,
-			pos + Vector3(kDistance * angleVec1),
-			pos + Vector3(kDistance * angleVec2),
-		};
+	pos;
+	pVP;
 
 
-		pParticle->Initialize(
-			kAliveFrame,
-			points,
-			kStartScale, kEndScale,
-			kColor,
-			kExponent, pVP);
-	}
+	//// 固有設定
+	//static const uint32_t kAliveFrame = 35;
+
+	//static const float kDistance = 5.0f;
+
+	//static const float kStartScale = 0.25f;
+	//static const float kEndScale = 0.1f;
+
+	//static const float kExponent = 3.0f;
+
+	//static const Vector4 kColor = ColorConfig::skYellow;
+
+	//// 死んでいるパーティクルを初期化 (無いなら弾く)
+	//impl_MeteorParticle* pParticle = DeadParticlePtr();
+	//if (pParticle == nullptr) { return; }
+
+	//float angle1 = (kPI * 2.0f) / num * i;
+	//Vector3 angleVec1 = Vector3(sinf(angle1), 0.0f, cosf(angle1));
+	//float angle2 = (kPI * 2.0f) / num * i + 1;
+	//Vector3 angleVec2 = Vector3(sinf(angle2), 0.0f, cosf(angle2));
+
+	//std::vector<Vector3> points =
+	//{
+	//	pos,
+	//	pos + Vector3(kDistance * angleVec1),
+	//	pos + Vector3(kDistance * angleVec2),
+	//};
+
+
+	//pParticle->Initialize(
+	//	kAliveFrame,
+	//	points,
+	//	kStartScale, kEndScale,
+	//	kColor,
+	//	kExponent, pVP);
 }

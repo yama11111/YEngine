@@ -19,5 +19,6 @@ namespace YGame
 		/// </summary>
 		/// <returns>ワールド座標</returns>
 		YMath::Vector3 WorldPos() const override;
+
 	};
 }

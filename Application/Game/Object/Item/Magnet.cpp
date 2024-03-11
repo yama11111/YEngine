@@ -1,10 +1,10 @@
 #include "Magnet.h"
-#include "CharacterConfig.h"
 #include "MagnetDrawer.h"
 
-#include "CollisionDrawer.h"
-#include "SphereCollider.h"
 #include "WorldManager.h"
+#include "CharacterConfig.h"
+
+#include "SphereCollider.h"
 
 using YGame::Magnet;
 using YGame::WorldManager;
@@ -90,6 +90,15 @@ void Magnet::UpdateBeforeCollision()
 void Magnet::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
+	
+	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eCircleShadow), true);
+	}
+	else
+	{
+		drawer_->StopAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eCircleShadow));
+	}
 
 	if (drawer_->IsEndTimer(static_cast<uint32_t>(MagnetDrawer::AnimationType::eDead)))
 	{

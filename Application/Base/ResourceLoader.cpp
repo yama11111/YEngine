@@ -24,6 +24,7 @@
 #include "MagnetDrawer.h"
 #include "BlockDrawer.h"
 #include "GateDrawer.h"
+#include "OutsideDrawer.h"
 #include "GoalDrawer.h"
 #include "AxisDrawer.h"
 #include "CollisionDrawer.h"
@@ -74,6 +75,7 @@ void ResourceLoader::Load()
 		MagnetDrawer::LoadResource();
 		BlockDrawer::LoadResource();
 		GateDrawer::LoadResource();
+		OutsideDrawer::LoadResource();
 		GoalDrawer::LoadResource();
 		AxisDrawer::LoadResource();
 		CollisionDrawer::LoadResource();

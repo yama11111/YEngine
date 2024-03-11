@@ -1,14 +1,16 @@
 #include "LifeDrawer.h"
 #include "DrawObjectForModel.h"
 #include "ViewProjectionManager.h"
-#include "ColorConfig.h"
-#include "Lerp.h"
-#include "Def.h"
 
+#include "WorldManager.h"
 #include "CircleShadowManager.h"
+#include "ColorConfig.h"
 
 #include "WaveParticle.h"
 #include "RecoveryParticle.h"
+
+#include "Lerp.h"
+#include "Def.h"
 
 using YGame::LifeDrawer;
 using YGame::Model;
@@ -16,6 +18,7 @@ using YMath::Timer;
 using YMath::Vector3;
 using YMath::Vector4;
 using YGame::ViewProjectionManager;
+using AnimeTimer = YGame::BaseDrawer::AnimationTimer;
 
 namespace
 {
@@ -27,6 +30,22 @@ namespace
 	// アニメーション番号
 	const uint32_t kIdleIndex = static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle);
 	const uint32_t kEarnIndex = static_cast<uint32_t>(LifeDrawer::AnimationType::eEarn);
+	const uint32_t kCircleShadowIndex = static_cast<uint32_t>(LifeDrawer::AnimationType::eCircleShadow);
+
+	// アニメーションタイマー
+	const AnimeTimer kIdleTimer = { Timer(120), true };
+	const AnimeTimer kEarnTimer = { Timer(30), false };
+	const AnimeTimer kCircleShadowTimer = { Timer(1), true };
+
+	// アニメーション値
+	const std::vector<Vector3> kEarnWobbleScaleValues =
+	{
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(-0.5f, +1.0f, -0.5f),
+		Vector3(0.0f, 0.0f, 0.0f),
+	};
+
+	const float kExponent = 3.0f;
 }
 
 std::unique_ptr<LifeDrawer> LifeDrawer::Create(const DrawerInitSet& init)
@@ -54,7 +73,7 @@ void LifeDrawer::Initialize(const DrawerInitSet& init)
 	cbOutline_->data_.color = ColorConfig::skYellow;
 	cbOutline_->data_.range = 0.2f;
 
-	InsertConstBuffer("Life", CircleShadowManager::GetInstance()->CBPtr(1));
+	InsertConstBuffer("Life", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_1));
 	InsertConstBuffer("Life_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
@@ -80,8 +99,9 @@ void LifeDrawer::InitializeObjects()
 void LifeDrawer::InitializeTimers()
 {
 	// アニメーションの数だけタイマー作成
-	InsertAnimationTimer(kIdleIndex, AnimationTimer(Timer(120), true));
-	InsertAnimationTimer(kEarnIndex, AnimationTimer(Timer(30), false));
+	InsertAnimationTimer(kIdleIndex, kIdleTimer);
+	InsertAnimationTimer(kEarnIndex, kEarnTimer);
+	InsertAnimationTimer(kCircleShadowIndex, kCircleShadowTimer);
 }
 
 void LifeDrawer::GetReadyForAnimation(const uint32_t index)
@@ -93,14 +113,9 @@ void LifeDrawer::GetReadyForAnimation(const uint32_t index)
 	else if (index & static_cast<uint32_t>(AnimationType::eEarn))
 	{
 		// ブヨブヨアニメ
-		std::vector<Vector3> wobbleScaleValues;
-		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-		wobbleScaleValues.push_back(Vector3(+0.25f, +0.25f, +0.25f));
-		wobbleScaleValues.push_back(Vector3(-1.0f, -1.0f, -1.0f));
-
 		uint32_t wobbleFrame = animationTimers_[index].timer.EndFrame();
 
-		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		slimeActor_.Initialize(wobbleFrame, kEarnWobbleScaleValues, kExponent);
 		slimeActor_.Wobble();
 	}
 }
@@ -115,8 +130,11 @@ void LifeDrawer::UpdateAnimation()
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eIn);
 
-	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
-
+	if (IsActAnimation(kCircleShadowIndex))
+	{
+		CircleShadowManager::Key shadowKey = CircleShadowManager::Key::eWorld_0;
+		CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey, pParent_->pos_ - Vector3(0, 1.0f, 0));
+	}
 }
 
 void LifeDrawer::PlayRecoveryAnimation()

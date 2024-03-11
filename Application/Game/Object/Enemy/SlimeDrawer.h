@@ -33,6 +33,9 @@ namespace YGame
 			
 			// フィーバー
 			eFever	 = 0b1 << 5,
+
+			// 丸影
+			eCircleShadow = 0b1 << 6,
 		};
 
 	public:

@@ -27,14 +27,14 @@ namespace YGame
 		
 		static const YMath::Vector4 skMagenta = { 1.0f,0.0f,1.0f,1.0f };
 
-		static const std::array<YMath::Vector4, 7> skRainbow =
+		static const std::array<YMath::Vector4, 6> skRainbow =
 		{
 			YMath::GetColor(255,   0,   0, 255), // 赤
 			YMath::GetColor(255, 255,   0, 255), // 黄
 			YMath::GetColor(  0, 255,   0, 255), // 緑
 			YMath::GetColor(  0, 255, 255, 255), // 水
 			YMath::GetColor(  0,   0, 255, 255), // 青
-			YMath::GetColor(255,   0, 255, 255), // 紫
+			//YMath::GetColor(255,   0, 255, 255), // 紫
 			YMath::GetColor(255,   0,   0, 255), // 赤
 		};
 	}

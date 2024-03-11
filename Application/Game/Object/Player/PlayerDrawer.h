@@ -1,13 +1,10 @@
 #pragma once
-#include "BaseDrawer.h"
-#include "SlimeActor.h"
-#include "HitActor.h"
-#include "CBOutline.h"
+#include "BaseCharacterDrawer.h"
 
 namespace YGame
 {
     class PlayerDrawer final :
-        public BaseDrawer
+        public BaseCharacterDrawer
     {
 
 	public:
@@ -35,6 +32,9 @@ namespace YGame
 			
 			// 死亡
 			eDead	 = 0b1 << 6,
+
+			// 丸影
+			eCircleShadow = 0b1 << 7,
 		};
 
 	public:
@@ -66,14 +66,6 @@ namespace YGame
 		~PlayerDrawer() = default;
 	
 	private:
-		
-		std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
-
-		// スライム
-		SlimeActor slimeActor_;
-		
-		// 被弾
-		HitActor hitActor_;
 
 	private:
 

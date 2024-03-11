@@ -1,19 +1,18 @@
-#include "StageManager.h"
-#include "ScoreManager.h"
-#include "SceneManager.h"
+#include "StageStatusManager.h"
 #include "MathUtil.h"
 #include <cassert>
+#include <string>
 #include <cstdio>
 #include <cstring>
 
-using YGame::StageManager;
+using YGame::StageStatusManager;
 
 namespace 
 {
 	const std::string kFileName = "Resources/StageData/stage_statuses.txt";
 }
 
-void StageManager::Load()
+void StageStatusManager::Load()
 {
 	statuses_.clear();
 
@@ -61,7 +60,7 @@ void StageManager::Load()
 	fclose(fp);
 }
 
-void StageManager::Save()
+void StageStatusManager::Save()
 {
 	FILE* fp = NULL;
 	errno_t err;
@@ -87,85 +86,48 @@ void StageManager::Save()
 	fclose(fp);
 }
 
-void StageManager::Initialize()
+void StageStatusManager::Clear()
 {
-	stageIndex = 0;
-
-	Reset();
+	statuses_.clear();
 }
 
-void StageManager::Reset()
-{
-	isGameOver_ = false;
-
-	isStageClear_ = false;
-}
-
-void StageManager::Update()
-{
-	stageIndex = YMath::Clamp<uint32_t>(stageIndex, 0, MaxStageNum());
-
-	if (SceneManager::GetInstance()->IsTransition() == false)
-	{
-		if (isGameOver_)
-		{
-			SceneManager::GetInstance()->Transition("PLAY", "BLACKOUT");
-		}
-
-		if (isStageClear_)
-		{
-			for (size_t i = 0; i < 3; i++)
-			{
-				StageStatus& status = statuses_[static_cast<size_t>(stageIndex)];
-
-				if (status.isMissionClear[i]) { continue; }
-				if (status.mission[i] <= ScoreManager::GetInstance()->ScoreInCurrentStage())
-				{
-					status.isMissionClear[i] = true;
-				}
-			}
-
-			Save();
-
-			SceneManager::GetInstance()->Transition("SELECT", "WAVE");
-		}
-	}
-}
-
-uint32_t StageManager::CurrentStageIndex() const
+uint32_t StageStatusManager::CurrentStageIndex() const
 {
 	return stageIndex;
 }
 
-uint32_t StageManager::MaxStageNum() const
+uint32_t StageStatusManager::MaxStageNum() const
 {
 	return static_cast<uint32_t>(statuses_.size());
 }
 
-StageManager::StageStatus StageManager::Status(const size_t index) const
+StageStatusManager::StageStatus StageStatusManager::Status(const size_t index) const
 {
 	assert(0 <= index && index < statuses_.size());
 
 	return statuses_[index];
 }
 
-void StageManager::SetStageIndex(const uint32_t index)
+void StageStatusManager::SetCurrentStageStatus(const uint32_t score)
 {
-	stageIndex = index;
+	StageStatus& status = statuses_[static_cast<size_t>(stageIndex)];
+	for (size_t i = 0; i < status.isMissionClear.size(); i++)
+	{
+		if (status.isMissionClear[i]) { continue; }
+		if (status.mission[i] <= score)
+		{
+			status.isMissionClear[i] = true;
+		}
+	}
 }
 
-void StageManager::GameOver()
+void StageStatusManager::SetStageIndex(const uint32_t index)
 {
-	isGameOver_ = true;
+	stageIndex = YMath::Clamp<uint32_t>(index, 0, MaxStageNum());
 }
 
-void StageManager::ClearStage()
+StageStatusManager* StageStatusManager::GetInstance()
 {
-	isStageClear_ = true;
-}
-
-StageManager* StageManager::GetInstance()
-{
-	static StageManager instance;
+	static StageStatusManager instance;
 	return &instance;
 }

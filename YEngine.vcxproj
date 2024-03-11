@@ -117,8 +117,6 @@
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Draw\UI\UIGauge.cpp" />
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
-    <ClCompile Include="Application\Game\Object\BaseCharacterDrawer.cpp" />
-    <ClCompile Include="Application\Game\Object\BaseStageDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\BaseStageObject.cpp" />
@@ -126,6 +124,10 @@
     <ClCompile Include="Application\Game\Object\Stage\Goal.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Magnet.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Gate.cpp" />
+    <ClCompile Include="Application\Game\Object\Stage\Outside.cpp" />
+    <ClCompile Include="Application\Game\Object\Stage\OutsideDrawer.cpp" />
+    <ClCompile Include="Application\Game\Particle\MeteorParticle.cpp" />
+    <ClCompile Include="Application\Game\Particle\StarParticle.cpp" />
     <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\GateDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\Item\LifeDrawer.cpp" />
@@ -135,6 +137,7 @@
     <ClCompile Include="Application\Game\UI\SpeedLevelDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\RecoveryParticle.cpp" />
     <ClCompile Include="Application\Game\UI\StatusDrawer.cpp" />
+    <ClCompile Include="Application\Game\WorldKey.cpp" />
     <ClCompile Include="Application\Game\WorldManager.cpp" />
     <ClCompile Include="Application\Scene\TestScene.cpp" />
     <ClCompile Include="Engine\Game\Camera\ViewProjectionManager.cpp" />
@@ -169,7 +172,7 @@
     <ClCompile Include="Application\Game\Object\Player\Player.cpp" />
     <ClCompile Include="Application\Game\Object\Enemy\Slime.cpp" />
     <ClCompile Include="Engine\Game\Collision\GameCollider.cpp" />
-    <ClCompile Include="Application\Game\StageManager.cpp" />
+    <ClCompile Include="Application\Game\StageStatusManager.cpp" />
     <ClCompile Include="Application\Game\UI\TitleDrawer.cpp" />
     <ClCompile Include="Application\Draw\UI\UILetterBox.cpp" />
     <ClCompile Include="Application\Game\UI\UIDrawer.cpp" />
@@ -273,6 +276,10 @@
     <ClInclude Include="Application\Game\Object\BaseCharacterDrawer.h" />
     <ClInclude Include="Application\Game\Object\BaseStageDrawer.h" />
     <ClInclude Include="Application\Game\Object\CircleShadowManager.h" />
+    <ClInclude Include="Application\Game\Object\Stage\Outside.h" />
+    <ClInclude Include="Application\Game\Object\Stage\OutsideDrawer.h" />
+    <ClInclude Include="Application\Game\Particle\MeteorParticle.h" />
+    <ClInclude Include="Application\Game\Particle\StarParticle.h" />
     <ClInclude Include="Application\Game\WorldKey.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\DrawerInitSet.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
@@ -290,7 +297,6 @@
     <ClInclude Include="Application\Game\UI\SpeedLevelDrawer.h" />
     <ClInclude Include="Application\Game\Particle\RecoveryParticle.h" />
     <ClInclude Include="Application\Game\Collision\ICollisionInfomation.h" />
-    <ClInclude Include="Application\Game\Object\AnimationConfig.h" />
     <ClInclude Include="Application\Game\UI\StatusDrawer.h" />
     <ClInclude Include="Application\Game\WorldManager.h" />
     <ClInclude Include="Application\Scene\TestScene.h" />
@@ -330,7 +336,7 @@
     <ClInclude Include="Application\Game\Object\Player\Player.h" />
     <ClInclude Include="Application\Game\Object\Enemy\Slime.h" />
     <ClInclude Include="Engine\Game\Collision\GameCollider.h" />
-    <ClInclude Include="Application\Game\StageManager.h" />
+    <ClInclude Include="Application\Game\StageStatusManager.h" />
     <ClInclude Include="Application\Game\UI\TitleDrawer.h" />
     <ClInclude Include="Application\Draw\UI\UILetterBox.h" />
     <ClInclude Include="Application\Game\UI\UIDrawer.h" />

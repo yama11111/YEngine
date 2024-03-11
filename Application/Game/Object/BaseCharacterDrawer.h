@@ -10,7 +10,6 @@
 #include "CBOutline.h"
 #include "HitActor.h"
 #include "SlimeActor.h"
-#include "WorldKey.h"
 
 namespace YGame
 {
@@ -34,8 +33,5 @@ namespace YGame
 
         // 被弾
         HitActor hitActor_;
-
-        // 世界キー
-        WorldKey worldKey_;
     };
 }

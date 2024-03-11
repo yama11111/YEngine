@@ -20,6 +20,8 @@
 
 #include "DustParticle.h"
 #include "DebriParticle.h"
+#include "StarParticle.h"
+#include "MeteorParticle.h"
 #include "WaveParticle.h"
 #include "RecoveryParticle.h"
 #include "DamageParticle.h"
@@ -28,7 +30,7 @@
 #include "WindBlocks.h"
 #include "WaveTransition.h"
 
-#include "StageManager.h"
+#include "StageStatusManager.h"
 
 #include "ResourceLoader.h"
 
@@ -244,6 +246,33 @@ void MyGame::InitializePipelines()
 		pPipelineMan_->Insert("ModelToon", newPipeline);
 	}
 
+	// ModelBack
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Model/ToonVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/ToonPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+					CBMaterial::Tag(),
+					CBTexConfig::Tag(),
+					CBShadowGroup::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, Model::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+				);
+
+		pPipelineMan_->Insert("ModelBack", newPipeline);
+	}
+
 #pragma endregion
 
 #pragma region Sprite2D
@@ -271,6 +300,31 @@ void MyGame::InitializePipelines()
 				);
 
 		pPipelineMan_->Insert("Sprite2DDefault", newPipeline);
+	}
+
+	// Sprite2DBack
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Sprite2D/Sprite2DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite2D/Sprite2DPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBSprite2DTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, Sprite2D::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+				);
+
+		pPipelineMan_->Insert("Sprite2DBack", newPipeline);
 	}
 
 #pragma endregion
@@ -301,6 +355,32 @@ void MyGame::InitializePipelines()
 				);
 
 		pPipelineMan_->Insert("Sprite3DDefault", newPipeline);
+	}
+
+	// Sprite3DBack
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Sprite3D/Sprite3DVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Sprite3D/Sprite3DGS.hlsl", ShaderSet::ShaderType::eGeometry);
+		shader.LoadShader("Sprite3D/Sprite3DPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBSprite3DTransform::Tag(),
+					CBColor::Tag(),
+					CBTexConfig::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, Sprite3D::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+				);
+
+		pPipelineMan_->Insert("Sprite3DBack", newPipeline);
 	}
 
 	// Sprite3DUI
@@ -392,6 +472,10 @@ void MyGame::InitializePipelines()
 			"PostEffectDefault",
 			"World",
 			
+			"ModelBack",
+			"Sprite2DBack",
+			"Sprite3DBack",
+
 			"ModelOutline",
 			"ModelSingleColor",
 			"ModelPhong",
@@ -410,6 +494,10 @@ void MyGame::InitializeParticles()
 	DustParticle::StaticInitialize();
 
 	DebriParticle::StaticInitialize();
+	
+	StarParticle::StaticInitialize();
+	
+	MeteorParticle::StaticInitialize();
 	
 	WaveParticle::StaticInitialize();
 
@@ -430,7 +518,7 @@ void MyGame::InitializeTransition()
 
 void MyGame::LoadMapData()
 {
-	StageManager::GetInstance()->Load();
-	StageManager::GetInstance()->Initialize();
+	StageStatusManager::GetInstance()->Clear();
+	StageStatusManager::GetInstance()->Load();
 }
 

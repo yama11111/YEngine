@@ -8,7 +8,6 @@
 #pragma once
 #include "BaseDrawer.h"
 #include "CBOutline.h"
-#include "WorldKey.h"
 
 namespace YGame
 {
@@ -27,7 +26,5 @@ namespace YGame
         // アウトライン定数バッファ
         std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;
 
-        // 世界キー
-        WorldKey worldKey_;
     };
 }

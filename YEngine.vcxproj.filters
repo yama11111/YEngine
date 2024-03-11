@@ -606,7 +606,7 @@
     <ClCompile Include="Application\Game\UI\ScoreManager.cpp">
       <Filter>Application\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\StageManager.cpp">
+    <ClCompile Include="Application\Game\StageStatusManager.cpp">
       <Filter>Application\Game</Filter>
     </ClCompile>
     <ClCompile Include="Application\Game\Object\Stage\GoalDrawer.cpp">
@@ -711,11 +711,20 @@
     <ClCompile Include="Application\Game\Object\BaseStageObject.cpp">
       <Filter>Application\Game\Object\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\BaseStageDrawer.cpp">
-      <Filter>Application\Game\Object\Base</Filter>
+    <ClCompile Include="Application\Game\Particle\StarParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Game\Object\BaseCharacterDrawer.cpp">
-      <Filter>Application\Game\Object\Base</Filter>
+    <ClCompile Include="Application\Game\Particle\MeteorParticle.cpp">
+      <Filter>Application\Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\Stage\OutsideDrawer.cpp">
+      <Filter>Application\Game\Object\Stage\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Object\Stage\Outside.cpp">
+      <Filter>Application\Game\Object\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\WorldKey.cpp">
+      <Filter>Application\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1106,13 +1115,10 @@
     <ClInclude Include="Application\Game\Object\CharacterStatus.h">
       <Filter>Application\Game\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\Object\AnimationConfig.h">
-      <Filter>Application\Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Game\UI\ScoreManager.h">
       <Filter>Application\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Game\StageManager.h">
+    <ClInclude Include="Application\Game\StageStatusManager.h">
       <Filter>Application\Game</Filter>
     </ClInclude>
     <ClInclude Include="Application\Game\Object\Stage\GoalDrawer.h">
@@ -1252,6 +1258,18 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Object\BaseCharacterDrawer.h">
       <Filter>Application\Game\Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Particle\StarParticle.h">
+      <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Particle\MeteorParticle.h">
+      <Filter>Application\Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\Stage\OutsideDrawer.h">
+      <Filter>Application\Game\Object\Stage\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Object\Stage\Outside.h">
+      <Filter>Application\Game\Object\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

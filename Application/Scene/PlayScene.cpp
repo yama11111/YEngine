@@ -10,7 +10,7 @@
 
 #include "WorldManager.h"
 #include "ScoreManager.h"
-#include "StageManager.h"
+#include "StageStatusManager.h"
 #include "ViewProjectionManager.h"
 #include "ParticleManager.h"
 #include "CircleShadowManager.h"
@@ -42,28 +42,21 @@ void PlayScene::Initialize()
 	CircleShadowManager::GetInstance()->Intialize();
 
 	WorldManager::GetInstance()->Initialize(WorldKey::eWorldKey);
-	
-	StageManager::GetInstance()->Reset();
 
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
 	
-	uint32_t stageIndex = StageManager::GetInstance()->CurrentStageIndex();
+	uint32_t stageIndex = StageStatusManager::GetInstance()->CurrentStageIndex();
 	if (stageIndex == 0)
 	{
-		pLevel_ = Level::LoadJson(
-			"levelData_1.json",
-			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eWorldKey));
+		Level::LoadJson("levelData_1.json", WorldKeyStr(WorldKey::eWorldKey));
 	}
 	else if (stageIndex == 1)
 	{
-		pLevel_ = Level::LoadJson(
-			"levelData_2.json",
-			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eWorldKey));
+		Level::LoadJson("levelData_2.json", WorldKeyStr(WorldKey::eWorldKey));
 	}
-	pLevel_ = Level::LoadJson(
-		"fever.json",
-		WorldManager::GetInstance()->WorldKeyStr(WorldKey::eFeverKey));
+	Level::LoadJson("journey.json", WorldKeyStr(WorldKey::eJourneyKey));
+	Level::LoadJson("fever.json", WorldKeyStr(WorldKey::eFeverKey));
 
 	// UI
 	uiDra_.Initialize();
@@ -132,8 +125,6 @@ void PlayScene::Update()
 	{
 		SceneManager::GetInstance()->Transition("PLAY", "WAVE_REV");
 	}
-
-	StageManager::GetInstance()->Update();
 }
 #pragma endregion
 

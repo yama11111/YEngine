@@ -1,6 +1,6 @@
 /**
- * @file DebriParticle.h
- * @brief 破片パーティクルクラス
+ * @file StarParticle.h
+ * @brief 星パーティクルクラス
  * @author Yamanaka Rui
  * @date 2024/01/18
  */
@@ -11,7 +11,7 @@
 
 namespace YGame
 {
-	class DebriParticle
+	class StarParticle
 	{
 
 	public:
@@ -24,11 +24,9 @@ namespace YGame
 		/// <summary>
 		/// 発生
 		/// </summary>
-		/// <param name="num"> : 数</param>
 		/// <param name="pos"> : 位置</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
-			const size_t num,
 			const YMath::Vector3& pos,
 			ViewProjection* pVP);
 

@@ -1,8 +1,8 @@
 /**
- * @file DebriParticle.h
- * @brief 破片パーティクルクラス
+ * @file MeteorParticle.h
+ * @brief 流星パーティクルクラス
  * @author Yamanaka Rui
- * @date 2024/01/18
+ * @date 2024/03/09
  */
 
 #pragma once
@@ -11,7 +11,7 @@
 
 namespace YGame
 {
-	class DebriParticle
+	class MeteorParticle
 	{
 
 	public:
@@ -24,11 +24,10 @@ namespace YGame
 		/// <summary>
 		/// 発生
 		/// </summary>
-		/// <param name="num"> : 数</param>
 		/// <param name="pos"> : 位置</param>
+		/// <param name="direction"> : 向き</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
-			const size_t num,
 			const YMath::Vector3& pos,
 			ViewProjection* pVP);
 

@@ -1,5 +1,5 @@
 #include "ScoreManager.h"
-#include "StageManager.h"
+#include "StageStatusManager.h"
 #include <cassert>
 
 using YGame::ScoreManager;
@@ -33,7 +33,7 @@ void ScoreManager::StartScoreMeasurement()
 
 void ScoreManager::EndScoreMeasurement()
 {
-	size_t index = static_cast<size_t>(StageManager::GetInstance()->CurrentStageIndex());
+	size_t index = static_cast<size_t>(StageStatusManager::GetInstance()->CurrentStageIndex());
 
 	scores_[index] = currentScore_;
 }

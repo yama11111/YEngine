@@ -8,12 +8,24 @@
 #pragma once
 #include "ConstBufferObject.h"
 #include "CBShadowGroup.h"
+#include <unordered_map>
 #include <memory>
 
 namespace YGame
 {
 	class CircleShadowManager
 	{
+	
+	public:
+
+		// キー
+		enum class Key
+		{
+			eWorld_0,
+			eWorld_1,
+			eWorld_2,
+			eKeyNum,
+		};
 	
 	public:
 
@@ -30,16 +42,16 @@ namespace YGame
 		/// <summary>
 		/// 丸影を適用する
 		/// </summary>
-		/// <param name="index"> : 番号</param>
+		/// <param name="Key"> : キー</param>
 		/// <param name="pos"> : 位置</param>
-		void ActivateCircleShadow(const size_t index, const YMath::Vector3& pos);
+		void ActivateCircleShadow(const Key key, const YMath::Vector3& pos);
 
 		/// <summary>
 		/// 定数バッファポインタ取得
 		/// </summary>
-		/// <param name="index"> : 番号</param>
+		/// <param name="key"> : キー</param>
 		/// <returns>定数バッファポインタ</returns>
-		BaseConstBuffer* CBPtr(const size_t index);
+		BaseConstBuffer* CBPtr(const Key key);
 
 	public:
 
@@ -51,11 +63,8 @@ namespace YGame
 
 	private:
 
-		// 影グループの数
-		static const size_t kShadowNum_ = 3;
-
 		// 影定数バッファ
-		std::array<std::unique_ptr<ConstBufferObject<CBShadowGroup>>, kShadowNum_> cbShadow_;
+		std::unordered_map<Key, std::unique_ptr<ConstBufferObject<CBShadowGroup>>> cbShadow_;
 	
 	private:
 

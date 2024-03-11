@@ -9,8 +9,10 @@
 #include "Vector3.h"
 #include <string>
 #include <array>
+#include <unordered_map>
 
 #include "WorldKey.h"
+#include "DrawObjectForSprite2D.h"
 #include "DrawObjectForPostEffect.h"
 #include "CBDiscardColor.h"
 #include "GameCamera.h"
@@ -59,7 +61,19 @@ namespace YGame
 		/// </summary>
 		/// <returns>ゲート位置</returns>
 		YMath::Vector3 Pass();
+
+		/// <summary>
+		/// ゲームオーバー
+		/// </summary>
+		void GameOver();
+
+		/// <summary>
+		/// ステージクリア
+		/// </summary>
+		void ClearStage();
 		
+	public:
+
 		/// <summary>
 		/// キー設定
 		/// </summary>
@@ -73,26 +87,20 @@ namespace YGame
 		/// <param name="pos"> : 位置</param>
 		void SetGatePos(const WorldKey& key, const YMath::Vector3& pos);
 
-	public:
-
 		/// <summary>
-		/// キー(string型)取得
+		/// ゲート位置設定
 		/// </summary>
 		/// <param name="key"> : キー</param>
-		/// <returns>キー(string型)</returns>
-		std::string WorldKeyStr(const WorldKey& key) const;
+		/// <param name="pos"> : 位置</param>
+		void SetGatePos(const std::string& key, const YMath::Vector3& pos);
+
+	public:
 		
 		/// <summary>
 		/// 現在のキー取得
 		/// </summary>
 		/// <returns>現在のキー</returns>
 		WorldKey CurrentWorldKey() const;
-
-		/// <summary>
-		/// 現在のキー取得
-		/// </summary>
-		/// <returns>現在のキー</returns>
-		std::string CurrentWorldKeyStr() const;
 	
 	private:
 
@@ -129,18 +137,32 @@ namespace YGame
 		// 現在世界キー
 		WorldKey currentWorldKey_{};
 
-		// キーの数
-		static const size_t kKeyNum = static_cast<size_t>(WorldKey::eKeyNum);
-
 		// カメラ
-		std::array<CameraSet, kKeyNum> cameraSets_;
+		std::unordered_map<WorldKey, CameraSet> cameraSets_;
 		
 		// ゲート位置
-		std::array<YMath::Vector3, kKeyNum> gatePoss_{};
+		std::array<YMath::Vector3, kWorldKeyNum> gatePoss_{};
 
 		// ポストエフェクトセット
-		std::array<PostEffectSet, kKeyNum> postEffects_{};
+		std::unordered_map<WorldKey, PostEffectSet> postEffects_{};
 
+		// 描画キー
+		std::vector<WorldKey> drawKeys_;
+
+
+		// オブジェクト
+		std::unique_ptr<DrawObjectForSprite2D> feverBack_;
+
+		// フィーバーパーティクル用タイマー
+		YMath::Timer feverEmitTimer_;
+
+	private:
+
+		/// <summary>
+		/// フィーバー更新
+		/// </summary>
+		void UpdateFever();
+	
 	private:
 
 		WorldManager() = default;

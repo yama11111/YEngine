@@ -34,7 +34,11 @@ void Block::Initialize(const Transform::Status& status, const std::string& key, 
 	}
 
 	SetUpdateKey(key);
-	SetDrawKeys({ key });
+	
+	if (key != WorldKeyStr(WorldKey::eJourneyKey))
+	{
+		SetDrawKeys({ key });
+	}
 	
 	if (isBackground == false)
 	{
@@ -56,7 +60,17 @@ void Block::Initialize(const Transform::Status& status, const std::string& key, 
 		}
 	}
 
-	SetDrawer(BlockDrawer::Create({ nullptr, nullptr, key, 2 }, isBackground));
+	BlockDrawer::Type type = BlockDrawer::Type::eGreen;
+	if (key == WorldKeyStr(WorldKey::eFeverKey))
+	{
+		type = BlockDrawer::Type::ePurple;
+	}
+	else if (key == WorldKeyStr(WorldKey::eJourneyKey))
+	{
+		type = BlockDrawer::Type::eColorless;
+	}
+
+	SetDrawer(BlockDrawer::Create({ nullptr, nullptr, key, 2 }, type, isBackground));
 }
 
 void Block::UpdateBeforeCollision()

@@ -211,7 +211,7 @@ Texture* Texture::Load(const std::string& directoryPath, const std::string texFi
 	for (size_t i = 0; i < sTexs_.size(); i++)
 	{
 		// ファイルパス が同じなら
-		if( directoryPath + texFileName == sTexs_[i]->fileName_)
+		if(directoryPath + texFileName == sTexs_[i]->fileName_)
 		{
 			// そのテクスチャポインタを返す
 			return sTexs_[i].get();

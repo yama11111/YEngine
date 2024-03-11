@@ -1,8 +1,9 @@
 #include "Life.h"
-#include "CharacterConfig.h"
 #include "LifeDrawer.h"
 
-#include "CollisionDrawer.h"
+#include "WorldManager.h"
+#include "CharacterConfig.h"
+
 #include "SphereCollider.h"
 
 using YGame::Life;
@@ -57,6 +58,15 @@ void Life::UpdateBeforeCollision()
 void Life::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
+
+	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eCircleShadow), true);
+	}
+	else
+	{
+		drawer_->StopAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eCircleShadow));
+	}
 
 	// 演出終了 → 消滅
 	if (drawer_->IsEndTimer(static_cast<uint32_t>(LifeDrawer::AnimationType::eEarn)))

@@ -1,6 +1,6 @@
 /**
- * @file BlockDrawer.h
- * @brief ブロック描画クラス
+ * @file OutsideDrawer.h
+ * @brief 外側描画クラス
  * @author Yamanaka Rui
  * @date 2024/01/18
  */
@@ -10,30 +10,18 @@
 
 namespace YGame
 {
-    class BlockDrawer final :
+	class OutsideDrawer final :
 		public BaseStageDrawer
 	{
 
-	public:
-
-		// 種類
-		enum class Type : size_t
-		{
-			eGreen, ePurple, eColorless, eNum
-		};
-	
 	public:
 
 		/// <summary>
 		/// 生成
 		/// </summary>
 		/// <param name="init"> : 初期化セット</param>
-		/// <param name="isBackground"> : 背景フラグ</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<BlockDrawer> Create(
-			const DrawerInitSet& init, 
-			const Type type,
-			const bool isBackground);
+		static std::unique_ptr<OutsideDrawer> Create(const DrawerInitSet& init);
 
 		/// <summary>
 		/// 静的初期化
@@ -50,18 +38,15 @@ namespace YGame
 
 	public:
 
-		BlockDrawer() = default;
+		OutsideDrawer() = default;
 
-		~BlockDrawer() = default;
+		~OutsideDrawer() = default;
 
 	private:
 		
-		// 種類
-		Type type_ = Type::eGreen;
-
-		// 背景フラグ
-		bool isBackground_ = false;
-
+		// 画像設定
+		std::unique_ptr<ConstBufferObject<CBTexConfig>> cbTexConfig_;
+	
 	private:
 
 		/// <summary>
@@ -73,5 +58,5 @@ namespace YGame
 		/// アニメーション更新
 		/// </summary>
 		void UpdateAnimation() override;
-    };
+	};
 }

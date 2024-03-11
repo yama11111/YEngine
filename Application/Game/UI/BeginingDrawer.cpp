@@ -1,5 +1,5 @@
 #include "BeginingDrawer.h"
-#include "StageManager.h"
+#include "StageStatusManager.h"
 #include "Lerp.h"
 #include "Def.h"
 #include "ColorConfig.h"
@@ -49,7 +49,7 @@ void BeginingDrawer::Initialize()
 			ui_.num.reset(UINumber::Create2D(0, 2, 32.0f, false, true, &ui_.trfm.m));
 		}
 		ui_.num->SetParent(&ui_.trfm.m);
-		ui_.num->SetNumber(StageManager::GetInstance()->CurrentStageIndex() + 1);
+		ui_.num->SetNumber(StageStatusManager::GetInstance()->CurrentStageIndex() + 1);
 		if (ui_.tutorial == nullptr)
 		{
 			ui_.tutorial.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTutorialSpr));
@@ -63,7 +63,8 @@ void BeginingDrawer::Initialize()
 		ui_.tutorial->InsertConstBuffer(ui_.color.get());
 
 		ui_.isTutorial =
-			StageManager::GetInstance()->Status(StageManager::GetInstance()->CurrentStageIndex()).isTutorial;
+			StageStatusManager::GetInstance()->
+				Status(StageStatusManager::GetInstance()->CurrentStageIndex()).isTutorial;
 	}
 
 	// 枠
@@ -93,7 +94,7 @@ void BeginingDrawer::Initialize()
 			missions_[i].rect->InsertConstBuffer(missions_[i].color.get());
 
 			missions_[i].isClear =
-				StageManager::GetInstance()->Status(StageManager::GetInstance()->CurrentStageIndex()).isMissionClear[i];
+				StageStatusManager::GetInstance()->Status(StageStatusManager::GetInstance()->CurrentStageIndex()).isMissionClear[i];
 		}
 	}
 
@@ -130,7 +131,7 @@ void BeginingDrawer::Initialize()
 			if (missionUIs_[i].score == nullptr)
 			{
 				missionUIs_[i].score.reset(UINumber::Create2D(
-					StageManager::GetInstance()->Status(StageManager::GetInstance()->CurrentStageIndex()).mission[i],
+					StageStatusManager::GetInstance()->Status(StageStatusManager::GetInstance()->CurrentStageIndex()).mission[i],
 					7, 80.0f, false, true, &missionUIs_[i].scoreTrfm.m));
 			}
 			if (missionUIs_[i].mission == nullptr)
@@ -149,7 +150,7 @@ void BeginingDrawer::Initialize()
 			missionUIs_[i].mission->InsertConstBuffer(missionUIs_[i].color.get());
 
 			missionUIs_[i].isClear =
-				StageManager::GetInstance()->Status(StageManager::GetInstance()->CurrentStageIndex()).isMissionClear[i];
+				StageStatusManager::GetInstance()->Status(StageStatusManager::GetInstance()->CurrentStageIndex()).isMissionClear[i];
 		}
 	}
 

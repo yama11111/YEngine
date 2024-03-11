@@ -36,7 +36,7 @@ void GoalDrawer::Initialize(const DrawerInitSet& init)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(init);
 
-	InsertConstBuffer("Goal", CircleShadowManager::GetInstance()->CBPtr(2));
+	InsertConstBuffer("Goal", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_2));
 	
 	SetShaderTag("ModelToon");
 	

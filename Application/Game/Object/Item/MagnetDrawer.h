@@ -31,6 +31,9 @@ namespace YGame
 
 			// 死亡
 			eDead = 0b1 << 3,
+
+			// 丸影
+			eCircleShadow = 0b1 << 4,
 		};
 
 	public:

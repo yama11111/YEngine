@@ -25,6 +25,18 @@ namespace YGame
 
 	public:
 
+		// アニメーション用タイマー
+		struct AnimationTimer
+		{
+			// タイマー
+			YMath::Timer timer;
+
+			// ループするか
+			bool isRoop = false;
+		};
+
+	public:
+
 		/// <summary>
 		/// 初期化
 		/// </summary>
@@ -132,18 +144,6 @@ namespace YGame
 		BaseDrawer() = default;
 
 		virtual ~BaseDrawer() = default;
-
-	protected:
-
-		// アニメーション用タイマー
-		struct AnimationTimer
-		{
-			// タイマー
-			YMath::Timer timer;
-
-			// ループするか
-			bool isRoop = false;
-		};
 	
 	protected:
 

@@ -101,6 +101,11 @@ void GameCamera::SetPlayerPosPtr(YMath::Vector3* pFollowPoint)
 	pPlayerPos_ = pFollowPoint;
 }
 
+Vector3 GameCamera::Pos() const
+{
+	return camera_.pos_;
+}
+
 YGame::ViewProjection GameCamera::GetViewProjection() const
 {
 	return camera_.GetViewProjection();

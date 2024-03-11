@@ -14,6 +14,7 @@
 #include "Magnet.h"
 #include "Block.h"
 #include "Gate.h"
+#include "Outside.h"
 #include "Goal.h"
 
 #include "BlockDrawer.h"
@@ -171,21 +172,24 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 		}
 		else if (name == "Block.")
 		{
+			isUpdateSkip = false;
+
 			newObj = Block::Create(status, key, false);
 		}
-		else if (name == "Gate.")
+		else if (name == "Gate_S." || name == "Gate.")
 		{
-			WorldManager::GetInstance()->SetGatePos(WorldKey::eWorldKey, status.pos_);
-			newObj = Gate::Create(status, key);
-		}
-		else if (name == "Gate_S.")
-		{
-			WorldManager::GetInstance()->SetGatePos(WorldKey::eFeverKey, status.pos_);
+			WorldManager::GetInstance()->SetGatePos(key, status.pos_);
 			newObj = Gate::Create(status, key);
 		}
 		else if (name == "Gate_E.")
 		{
 			newObj = Gate::Create(status, key);
+		}
+		else if (name == "Outside.")
+		{
+			isUpdateSkip = false;
+
+			newObj = Outside::Create(status, key);
 		}
 		else if (name == "Goal.")
 		{

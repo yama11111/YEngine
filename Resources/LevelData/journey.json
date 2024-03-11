@@ -1,0 +1,173 @@
+{
+    "name": "scene",
+    "objects": [
+        {
+            "type": "MESH",
+            "name": "Block.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -30.0,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    30.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    30.0,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    30.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.003",
+            "transform": {
+                "translation": [
+                    0.0,
+                    90.0,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    30.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.004",
+            "transform": {
+                "translation": [
+                    0.0,
+                    150.0,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    30.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Block.005",
+            "transform": {
+                "translation": [
+                    0.0,
+                    210.0,
+                    -30.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    8.0,
+                    30.0,
+                    20.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Gate_S.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -50.0,
+                    13.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    12.0,
+                    2.0,
+                    12.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Gate_E.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    44.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    75.0,
+                    2.0,
+                    75.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Outside.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    100.0,
+                    0.0
+                ],
+                "rotation": [
+                    -90.00000762939453,
+                    0.0,
+                    0.0
+                ],
+                "scaling": [
+                    75.0,
+                    75.0,
+                    200.0
+                ]
+            }
+        }
+    ]
+}

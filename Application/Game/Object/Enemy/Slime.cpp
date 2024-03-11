@@ -1,7 +1,6 @@
 #include "Slime.h"
 #include "SlimeDrawer.h"
 #include "CharacterConfig.h"
-#include "AnimationConfig.h"
 
 #include "CollisionDrawer.h"
 #include "SphereCollider.h"
@@ -75,7 +74,7 @@ void Slime::Initialize(const Transform::Status& status, const std::string& key)
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
 
-	if (key == WorldManager::GetInstance()->WorldKeyStr(WorldKey::eFeverKey))
+	if (key == WorldKeyStr(WorldKey::eFeverKey))
 	{
 		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever), true);
 	}
@@ -103,6 +102,21 @@ void Slime::UpdateAfterCollision()
 	}
 	
 	isElderLanding_ = isLanding_;
+
+	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eCircleShadow), true);
+	}
+	else
+	{
+		drawer_->StopAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eCircleShadow));
+	}
+
+	// 演出終了 → 消滅
+	if (drawer_->IsEndTimer(static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead)))
+	{
+		isExist_ = false;
+	}
 }
 
 YGame::ICollisionInfomation Slime::GetCollisionInfomation()

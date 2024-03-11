@@ -7,48 +7,6 @@
             "transform": {
                 "translation": [
                     0.0,
-                    -30.0,
-                    -30.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    8.0,
-                    30.0,
-                    20.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "Block.002",
-            "transform": {
-                "translation": [
-                    0.0,
-                    30.0,
-                    -30.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    8.0,
-                    30.0,
-                    20.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "Block.003",
-            "transform": {
-                "translation": [
-                    0.0,
                     90.0,
                     -30.0
                 ],
@@ -59,49 +17,7 @@
                 ],
                 "scaling": [
                     8.0,
-                    30.0,
-                    20.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "Block.004",
-            "transform": {
-                "translation": [
-                    0.0,
                     150.0,
-                    -30.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    8.0,
-                    30.0,
-                    20.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "Block.005",
-            "transform": {
-                "translation": [
-                    0.0,
-                    210.0,
-                    -30.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    8.0,
-                    30.0,
                     20.0
                 ]
             }

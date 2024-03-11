@@ -43,7 +43,7 @@ void GameObject::UpdateBeforeCollision()
 }
 
 void GameObject::UpdateAfterCollision()
-{	
+{
 	transform_->UpdateMatrix();
 
 	if (drawer_)
@@ -51,12 +51,9 @@ void GameObject::UpdateAfterCollision()
 		drawer_->Update();
 	}
 
-	if (subDrawer_.empty() == false)
+	for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
 	{
-		for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
-		{
-			itr->second->Update();
-		}
+		itr->second->Update();
 	}
 
 	// 衝突処理
@@ -67,13 +64,10 @@ void GameObject::Draw()
 {
 	// 描画
 	if (drawer_) { drawer_->Draw(); }
-
-	if (subDrawer_.empty() == false)
+	
+	for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
 	{
-		for (auto itr = subDrawer_.begin(); itr != subDrawer_.end(); ++itr)
-		{
-			itr->second->Draw();
-		}
+		itr->second->Draw();
 	}
 }
 

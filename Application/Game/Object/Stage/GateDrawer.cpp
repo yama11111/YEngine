@@ -57,6 +57,7 @@ void GateDrawer::Initialize(const DrawerInitSet& init)
 
 	cbColor_->data_.baseColor = ColorConfig::skYellow;
 	cbInsideColor_->data_.baseColor = ColorConfig::skMagenta;
+	//cbInsideColor_->data_.baseColor = {};
 	
 	SetShaderTag("Sprite3DDefault");
 

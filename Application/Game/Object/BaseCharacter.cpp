@@ -58,8 +58,6 @@ void BaseCharacter::UpdateAfterCollision()
 	status_.Update();
 
 	OffScreenProcess();
-	
-	isExist_ = IsAlive();
 }
 
 YGame::ICollisionInfomation BaseCharacter::GetCollisionInfomation()

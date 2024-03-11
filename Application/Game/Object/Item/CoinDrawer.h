@@ -25,6 +25,9 @@ namespace YGame
 
 			// 獲得
 			eEarn = 0b1 << 1,
+			
+			// 丸影
+			eCircleShadow = 0b1 << 2,
 		};
 
 	public:

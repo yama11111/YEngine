@@ -5,7 +5,7 @@
 
 namespace YGame
 {
-	class StageManager
+	class StageStatusManager
 	{
 	
 	public:
@@ -33,29 +33,7 @@ namespace YGame
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		void Initialize();
-
-		/// <summary>
-		/// リセット
-		/// </summary>
-		void Reset();
-
-		/// <summary>
-		/// 更新
-		/// </summary>
-		void Update();
-
-	public:
-
-		/// <summary>
-		/// ゲームオーバー
-		/// </summary>
-		void GameOver();
-
-		/// <summary>
-		/// ステージクリア
-		/// </summary>
-		void ClearStage();
+		void Clear();
 		
 	public:
 
@@ -78,6 +56,14 @@ namespace YGame
 		/// <returns>ステージステータス</returns>
 		StageStatus Status(const size_t index) const;
 
+	public:
+
+		/// <summary>
+		/// 現在のステージのステータスを保存
+		/// </summary>
+		/// <param name="score"> : スコア</param>
+		void SetCurrentStageStatus(const uint32_t score);
+		
 		/// <summary>
 		/// ステージ番号設定
 		/// </summary>
@@ -86,24 +72,19 @@ namespace YGame
 
 	public:
 		
-		static StageManager* GetInstance();
+		static StageStatusManager* GetInstance();
 	
 	private:
 
-		StageManager() = default;
-		~StageManager() = default;
-		StageManager(const StageManager&) = delete;
-		const StageManager& operator=(const StageManager&) = delete;
+		StageStatusManager() = default;
+		~StageStatusManager() = default;
+		StageStatusManager(const StageStatusManager&) = delete;
+		const StageStatusManager& operator=(const StageStatusManager&) = delete;
 	
 	private:
 
 		std::vector<StageStatus> statuses_;
 		
-		uint32_t stageIndex = 0;
-
-		bool isGameOver_ = false;
-
-		bool isStageClear_ = false;
-	
+		uint32_t stageIndex = 0;	
 	};
 }

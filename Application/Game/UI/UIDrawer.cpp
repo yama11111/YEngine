@@ -1,7 +1,6 @@
 #include "UIDrawer.h"
 #include "DrawObjectForSprite3D.h"
 #include "ScoreManager.h"
-#include "StageManager.h"
 #include "ColorConfig.h"
 #include "Def.h"
 #include "Keys.h"
@@ -36,7 +35,6 @@ namespace
 	const Vector3 kPauseScale = { 8.0f,8.0f,0.0f };
 
 	YGame::ScoreManager* pScoreMan = nullptr;
-	YGame::StageManager* pStageMan = nullptr;
 
 	Keys* pKeys = nullptr;
 	Pad* pPad = nullptr;
@@ -51,7 +49,6 @@ void UIDrawer::LoadResource()
 	vp.Initialize();
 
 	pScoreMan = ScoreManager::GetInstance();
-	pStageMan = StageManager::GetInstance();
 
 	pKeys = Keys::GetInstance();
 	pPad = Pad::GetInstance();

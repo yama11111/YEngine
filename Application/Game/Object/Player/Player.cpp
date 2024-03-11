@@ -8,7 +8,6 @@
 #include "SphereCollider.h"
 #include "Box2DCollider.h"
 
-#include "StageManager.h"
 #include "ScoreManager.h"
 #include "WorldManager.h"
 
@@ -49,14 +48,7 @@ std::unique_ptr<Player> Player::Create(const Transform::Status& status, const st
 
 	newObj->Initialize(status, key);
 
-	newObj->SetDrawKeys(
-		{
-			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eStartKey),
-			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eWorldKey),
-			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eFeverKey),
-			WorldManager::GetInstance()->WorldKeyStr(WorldKey::eGoalKey),
-		}
-	);
+	newObj->SetDrawKeys(WorldKeyStrs());
 
 	return std::move(newObj);
 }
@@ -136,6 +128,7 @@ void Player::Initialize(const Transform::Status& status, const std::string& key)
 	
 	// 立ちアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
+	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eCircleShadow), true);
 }
 
 
@@ -205,7 +198,7 @@ void Player::UpdateAfterCollision()
 
 	ScoreManager::GetInstance()->SetHP(status_.HP());
 	
-	SetWorldKey(WorldManager::GetInstance()->CurrentWorldKeyStr());
+	SetWorldKey(WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()));
 }
 
 YGame::ICollisionInfomation Player::GetCollisionInfomation()
@@ -264,7 +257,7 @@ void Player::OffScreenProcess()
 	// 画面外なら死ぬ
 	if (YMath::InRange(initPos_ + localPos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
 	{
-		StageManager::GetInstance()->GameOver();
+		WorldManager::GetInstance()->GameOver();
 	}
 }
 
@@ -293,7 +286,7 @@ void Player::OnCollision(const ICollisionInfomation& info)
 				drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead), true);
 
 				pCamera->SetPlayerPosPtr(nullptr);
-				StageManager::GetInstance()->GameOver();
+				WorldManager::GetInstance()->GameOver();
 			}
 
 			pCamera->Shaking(2.0f, 0.2f, 100.0f);
@@ -317,17 +310,17 @@ void Player::OnCollision(const ICollisionInfomation& info)
 
 		status_.ActivateInvincible();
 
- 		speed_.SetMax(speed_.Max() * 1.2f);
+		//speed_.SetMax(speed_.Max() * 1.2f);
 
 		ScoreManager::GetInstance()->AddSpeedLevel();
-		
+
 		localPos_ = {};
 		initPos_ = WorldManager::GetInstance()->Pass();
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)
 	{
-		StageManager::GetInstance()->ClearStage();
+		WorldManager::GetInstance()->ClearStage();
 	}
 }
 

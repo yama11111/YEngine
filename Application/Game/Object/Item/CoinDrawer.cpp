@@ -1,13 +1,14 @@
 #include "CoinDrawer.h"
 #include "DrawObjectForModel.h"
 #include "ViewProjectionManager.h"
-#include "ColorConfig.h"
-#include "Lerp.h"
-#include "Def.h"
 
 #include "CircleShadowManager.h"
-
+#include "WorldManager.h"
+#include "ColorConfig.h"
 #include "WaveParticle.h"
+
+#include "Lerp.h"
+#include "Def.h"
 
 using YGame::CoinDrawer;
 using YGame::Model;
@@ -15,6 +16,7 @@ using YMath::Timer;
 using YMath::Vector3;
 using YMath::Vector4;
 using YGame::ViewProjectionManager;
+using AnimeTimer = YGame::BaseDrawer::AnimationTimer;
 
 namespace
 {
@@ -26,6 +28,22 @@ namespace
 	// アニメーション番号
 	const uint32_t kIdleIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle);
 	const uint32_t kEarnIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn);
+	const uint32_t kCircleShadowIndex = static_cast<uint32_t>(CoinDrawer::AnimationType::eCircleShadow);
+
+	// アニメーションタイマー
+	const AnimeTimer kIdleTimer = { Timer(120), true };
+	const AnimeTimer kEarnTimer = { Timer(30), false };
+	const AnimeTimer kCircleShadowTimer = { Timer(1), true };
+
+	// アニメーション値
+	const std::vector<Vector3> kEarnWobbleScaleValues =
+	{
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(-0.5f, +1.0f, -0.5f),
+		Vector3(0.0f, 0.0f, 0.0f),
+	};
+
+	const float kExponent = 3.0f;
 }
 
 std::unique_ptr<CoinDrawer> CoinDrawer::Create(const DrawerInitSet& init)
@@ -48,12 +66,11 @@ void CoinDrawer::Initialize(const DrawerInitSet& init)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(init);
 
-
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
 	cbOutline_->data_.range = 0.2f;
 
-	InsertConstBuffer("Coin", CircleShadowManager::GetInstance()->CBPtr(1));
+	InsertConstBuffer("Coin", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_1));
 	InsertConstBuffer("Coin_O", cbOutline_.get());
 
 	SetShaderTag("ModelToon");
@@ -75,17 +92,16 @@ void CoinDrawer::Initialize(const DrawerInitSet& init)
 
 void CoinDrawer::InitializeObjects()
 {
-	InsertObject("Coin", DrawObjectForModel::Create(Transform::Status::Default(), 
-		pVPMan->ViewProjectionPtr(vpKey_), pModel));
-	InsertObject("Coin_O", DrawObjectForModel::Create(Transform::Status::Default(), 
-		pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Coin",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Coin_O",	 DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 void CoinDrawer::InitializeTimers()
 {
 	// アニメーションの数だけタイマー作成
-	InsertAnimationTimer(kIdleIndex, AnimationTimer(Timer(120), true));
-	InsertAnimationTimer(kEarnIndex, AnimationTimer(Timer( 30), false));
+	InsertAnimationTimer(kIdleIndex, kIdleTimer);
+	InsertAnimationTimer(kEarnIndex, kEarnTimer);
+	InsertAnimationTimer(kCircleShadowIndex, kCircleShadowTimer);
 }
 
 void CoinDrawer::GetReadyForAnimation(const uint32_t index)
@@ -97,18 +113,17 @@ void CoinDrawer::GetReadyForAnimation(const uint32_t index)
 	else if (index & static_cast<uint32_t>(AnimationType::eEarn))
 	{
 		// ブヨブヨアニメ
-		std::vector<Vector3> wobbleScaleValues;
-		wobbleScaleValues.push_back(Vector3(0.0f, 0.0f, 0.0f));
-		wobbleScaleValues.push_back(Vector3(+0.25f, +0.25f, +0.25f));
-		wobbleScaleValues.push_back(Vector3(-1.0f, -1.0f, -1.0f));
-
 		uint32_t wobbleFrame = animationTimers_[index].timer.EndFrame();
 
-		slimeActor_.Initialize(wobbleFrame, wobbleScaleValues, 3.0f);
+		slimeActor_.Initialize(wobbleFrame, kEarnWobbleScaleValues, kExponent);
 		slimeActor_.Wobble();
 
 		emitTimer_.Initialize(20, true);
 		emitCounter_ = 0;
+	}
+	else if (index & static_cast<uint32_t>(AnimationType::eCircleShadow))
+	{
+
 	}
 }
 
@@ -137,5 +152,9 @@ void CoinDrawer::UpdateAnimation()
 		emitTimer_.Initialize(10, (emitCounter_ < 2));
 	}
 
-	CircleShadowManager::GetInstance()->ActivateCircleShadow(0, pParent_->pos_ - Vector3(0, 1.0f, 0));
+	if (IsActAnimation(kCircleShadowIndex))
+	{
+		CircleShadowManager::Key shadowKey = CircleShadowManager::Key::eWorld_0;
+		CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey, pParent_->pos_ - Vector3(0, 1.0f, 0));
+	}
 }

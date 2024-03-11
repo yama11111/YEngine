@@ -21,6 +21,12 @@ void CharacterStatus::Initialize(const uint32_t hp, const uint32_t attack, const
 
 void CharacterStatus::Update()
 {
+	// 死んだら無敵
+	if (hp_ <= 0)
+	{
+		isInvincible_ = true;
+	}
+
 	// 無敵じゃないなら弾く
 	if (isInvincible_ == false) { return; }
 

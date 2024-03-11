@@ -6,7 +6,7 @@
 #include <imgui.h>
 #include "ViewProjectionManager.h"
 
-#include "StageManager.h"
+#include "StageStatusManager.h"
 
 #pragma region 名前空間宣言
 
@@ -24,8 +24,7 @@ using namespace YMath;
 #pragma region 読み込み
 void SelectScene::Load()
 {
-	StageManager::GetInstance()->Load();
-	StageManager::GetInstance()->Initialize();
+	StageStatusManager::GetInstance()->Load();
 
 	ViewProjectionManager::GetInstance()->Insert("World", &transferVP_);
 
@@ -41,7 +40,7 @@ void SelectScene::Initialize()
 	startTimer_.Initialize(30, true);
 	selectDra_.Initialize();
 
-	stageIndex_ = static_cast<int32_t>(StageManager::GetInstance()->CurrentStageIndex());
+	stageIndex_ = static_cast<int32_t>(StageStatusManager::GetInstance()->CurrentStageIndex());
 
 	transferVP_.Initialize();
 	camera_.Initialize({ 0.0f,+5.0f,0.0f }, { kPI / 2.0f,0.0f,0.0f });
@@ -85,7 +84,7 @@ void SelectScene::Update()
 			stageIndex_++;
 		}
 
-		int32_t stageSize = static_cast<int32_t>(StageManager::GetInstance()->MaxStageNum());
+		int32_t stageSize = static_cast<int32_t>(StageStatusManager::GetInstance()->MaxStageNum());
 
 		if (stageIndex_ < 0) { stageIndex_ = stageSize - 1; }
 		if (stageSize <= stageIndex_) { stageIndex_ = 0; }
@@ -106,7 +105,7 @@ void SelectScene::Update()
 	{
 		SceneManager::GetInstance()->Transition("PLAY", "WAVE");
 
-		StageManager::GetInstance()->SetStageIndex(stageIndex_);
+		StageStatusManager::GetInstance()->SetStageIndex(stageIndex_);
 	}
 
 	// ESC でタイトルに戻る

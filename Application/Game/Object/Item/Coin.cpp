@@ -1,10 +1,11 @@
 #include "Coin.h"
-#include "CharacterConfig.h"
-#include "ScoreManager.h"
 #include "CoinDrawer.h"
 
-#include "CollisionDrawer.h"
+#include "ScoreManager.h"
+#include "WorldManager.h"
 #include "SphereCollider.h"
+
+#include "CharacterConfig.h"
 
 using YGame::Coin;
 using YMath::Vector3;
@@ -59,6 +60,15 @@ void Coin::UpdateBeforeCollision()
 void Coin::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
+
+	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eCircleShadow), true);
+	}
+	else
+	{
+		drawer_->StopAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eCircleShadow));
+	}
 
 	// 演出終了 → 消滅
 	if (drawer_->IsEndTimer(static_cast<uint32_t>(CoinDrawer::AnimationType::eEarn)))

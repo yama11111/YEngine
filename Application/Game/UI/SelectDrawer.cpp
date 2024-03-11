@@ -1,5 +1,5 @@
 #include "SelectDrawer.h"
-#include "StageManager.h"
+#include "StageStatusManager.h"
 #include "Lerp.h"
 #include "Def.h"
 #include <cassert>
@@ -37,12 +37,12 @@ void SelectDrawer::Initialize()
 {
 	stageIndex_ = 0;
 
-	stages_.resize(StageManager::GetInstance()->MaxStageNum());
+	stages_.resize(StageStatusManager::GetInstance()->MaxStageNum());
 	for (size_t i = 0; i < stages_.size(); i++)
 	{
 		stages_[i].trfm.Initialize();
 		
-		StageManager::StageStatus status = StageManager::GetInstance()->Status(i);
+		StageStatusManager::StageStatus status = StageStatusManager::GetInstance()->Status(i);
 		
 		bool isTutotial = status.isTutorial;
 		std::array<uint32_t, 3> score = status.mission;
