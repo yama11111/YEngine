@@ -1,15 +1,18 @@
 #include "MeteorParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "DrawObjectForModel.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
 #include "Speed.h"
 #include "ColorConfig.h"
+
 #include "MathUtil.h"
 #include "MathVector.h"
-#include "SplineEase.h"
+#include "Lerp.h"
 #include "Def.h"
+
 #include <memory>
 #include <cmath>
 
@@ -32,8 +35,9 @@ namespace YGame
 		// 初期化
 		void Initialize(
 			const uint32_t aliveFrame,
-			const std::vector<Vector3>& pos,
-			const float startScale, const float endScale,
+			const Vector3& pos,
+			const Vector3& endSpeed,
+			const Vector3& endScale,
 			const Vector4& color,
 			const float exponent,
 			ViewProjection* pVP);
@@ -48,11 +52,11 @@ namespace YGame
 		// 色定数バッファ
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
 
-		// 位置イージング
-		YMath::BezierEase<Vector3> posEas_;
+		// スピードイージング
+		YMath::Ease<Vector3> speedEas_;
 
 		// スケールイージング
-		YMath::Ease<float> scaleEas_;
+		YMath::Ease<Vector3> scaleEas_;
 	};
 
 	impl_MeteorParticle* impl_MeteorParticle::Create()
@@ -72,20 +76,21 @@ namespace YGame
 
 	void impl_MeteorParticle::Initialize(
 		const uint32_t aliveFrame,
-		const std::vector<Vector3>& pos,
-		const float startScale, const float endScale,
+		const Vector3& pos,
+		const Vector3& endSpeed,
+		const Vector3& endScale,
 		const Vector4& color,
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos[0] }, "ModelPhong", 1);
+		BaseParticle::Initialize(aliveFrame, { pos }, "ModelSingleColor", 1);
 
 		cbColor_->data_.baseColor = color;
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 
-		posEas_.Initialize(pos, exponent);
-		scaleEas_.Initialize(startScale, endScale, exponent);
+		speedEas_.Initialize({}, endSpeed, exponent);
+		scaleEas_.Initialize({}, endScale, exponent);
 	}
 
 	void impl_MeteorParticle::Update()
@@ -95,11 +100,10 @@ namespace YGame
 		// タイマーの割合
 		float ratio = aliveTimer_.Ratio();
 
-		// だんだん小さく
-		float scaleVal = scaleEas_.In(ratio);
-		obj_->transform_.scale_ = Vector3(scaleVal, scaleVal, scaleVal);
-
-		obj_->transform_.pos_ = posEas_.Out(ratio);
+		obj_->transform_.pos_ += speedEas_.In(ratio);
+		obj_->transform_.scale_ = scaleEas_.In(ratio);
+		obj_->transform_.rota_ = YMath::AdjustAngle(speedEas_.End().Normalized());
+		
 		obj_->Update();
 
 		BaseParticle::UpdateLife();
@@ -155,45 +159,26 @@ static YGame::impl_MeteorParticle* DeadParticlePtr()
 
 void MeteorParticle::Emit(
 	const Vector3& pos,
+	const Vector3& speed,
+	const Vector4& color,
 	ViewProjection* pVP)
 {
-	pos;
-	pVP;
+	// 固有設定
+	static const uint32_t kAliveFrame = 120;
+	static const float kStartScale = 1.0f;
+	static const float kExponent = 3.0f;
 
+	// 死んでいるパーティクルを初期化 (無いなら弾く)
+	impl_MeteorParticle* pParticle = DeadParticlePtr();
+	if (pParticle == nullptr) { return; }
 
-	//// 固有設定
-	//static const uint32_t kAliveFrame = 35;
+	Vector3 scale = Vector3(kStartScale, kStartScale, kStartScale);
+	float ratio = YMath::Clamp(speed.Length() / 20.0f, 0.0f, 1.0f);
 
-	//static const float kDistance = 5.0f;
+	scale.z = YMath::Lerp(kStartScale, 10.0f, ratio);
 
-	//static const float kStartScale = 0.25f;
-	//static const float kEndScale = 0.1f;
-
-	//static const float kExponent = 3.0f;
-
-	//static const Vector4 kColor = ColorConfig::skYellow;
-
-	//// 死んでいるパーティクルを初期化 (無いなら弾く)
-	//impl_MeteorParticle* pParticle = DeadParticlePtr();
-	//if (pParticle == nullptr) { return; }
-
-	//float angle1 = (kPI * 2.0f) / num * i;
-	//Vector3 angleVec1 = Vector3(sinf(angle1), 0.0f, cosf(angle1));
-	//float angle2 = (kPI * 2.0f) / num * i + 1;
-	//Vector3 angleVec2 = Vector3(sinf(angle2), 0.0f, cosf(angle2));
-
-	//std::vector<Vector3> points =
-	//{
-	//	pos,
-	//	pos + Vector3(kDistance * angleVec1),
-	//	pos + Vector3(kDistance * angleVec2),
-	//};
-
-
-	//pParticle->Initialize(
-	//	kAliveFrame,
-	//	points,
-	//	kStartScale, kEndScale,
-	//	kColor,
-	//	kExponent, pVP);
+	pParticle->Initialize(
+		kAliveFrame,
+		pos, speed, scale, color, 
+		kExponent, pVP);
 }

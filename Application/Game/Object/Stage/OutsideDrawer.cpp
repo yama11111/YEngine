@@ -1,8 +1,8 @@
 #include "OutsideDrawer.h"
 #include "DrawObjectForModel.h"
 #include "ViewProjectionManager.h"
+
 #include "ColorConfig.h"
-#include "CircleShadowManager.h"
 
 using YGame::OutsideDrawer;
 using YGame::Model;
@@ -35,11 +35,8 @@ void OutsideDrawer::Initialize(const DrawerInitSet& init)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(init);
 
-	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
-
 	cbTexConfig_.reset(ConstBufferObject<CBTexConfig>::Create());
 
-	InsertConstBuffer("Outside", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_0));
 	InsertConstBuffer("Outside", cbTexConfig_.get());
 
 	SetShaderTag("Outside", "ModelBack");
@@ -52,6 +49,6 @@ void OutsideDrawer::InitializeObjects()
 
 void OutsideDrawer::UpdateAnimation()
 {
-	cbTexConfig_->data_.offset.x += 0.01f;
-	//objs_["Outside"]->transform_.rota_.z += 0.01f;
+	cbTexConfig_->data_.offset.x -= 0.005f;
+	cbTexConfig_->data_.offset.y -= 0.005f;
 }

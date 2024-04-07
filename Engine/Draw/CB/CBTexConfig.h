@@ -1,3 +1,10 @@
+/**
+ * @file CBTexConfig.h
+ * @brief テクスチャ設定用定数バッファクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "Vector2.h"
 #include <string>

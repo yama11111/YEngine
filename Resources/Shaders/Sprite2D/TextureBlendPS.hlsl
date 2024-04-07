@@ -10,9 +10,9 @@ PSOutput main(PSInput input)
 	PSOutput output;
 
 	// テクスチャマッピング
-	float4 tex0Color = tex0.Sample(smp, input.uv_ * texTiling_ + texOffset_) * texColorRate_;
-	float4 tex1Color = tex1.Sample(smp, input.uv_ * texTiling_ + texOffset_) * texColorRate_;
-	float4 maskColor = mask.Sample(smp, input.uv_ * texTiling_ + texOffset_) * texColorRate_;
+	float4 tex0Color = tex0.Sample(smp, input.uv_ * texTiling_ + texOffset_);
+	float4 tex1Color = tex1.Sample(smp, input.uv_ * texTiling_ + texOffset_);
+	float4 maskColor = mask.Sample(smp, input.uv_ * texTiling_ + texOffset_);
 
 	// 計算した色で描画
 	output.target_ = lerp(tex0Color, tex1Color, maskColor.r);

@@ -1,16 +1,12 @@
 #include "Outside.h"
 #include "OutsideDrawer.h"
-#include "Box2DCollider.h"
-#include "MathVector.h"
-#include "WorldManager.h"
 
 using YGame::Outside;
 using YMath::BitFrag;
-using YGame::WorldManager;
 
 namespace
 {
-	WorldManager* pWorldMan = WorldManager::GetInstance();
+
 }
 
 std::unique_ptr<Outside> Outside::Create(const Transform::Status& status, const std::string& key)
@@ -39,7 +35,5 @@ void Outside::UpdateBeforeCollision()
 
 void Outside::UpdateAfterCollision()
 {
-	UpdatePos();
-
 	GameObject::UpdateAfterCollision();
 }

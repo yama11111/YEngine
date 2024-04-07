@@ -1,6 +1,7 @@
 #include "MyGame.h"
 #include "Def.h"
 #include "YGameSceneFactory.h"
+#include "Keys.h"
 
 #include "GameObject.h"
 
@@ -20,6 +21,7 @@
 
 #include "DustParticle.h"
 #include "DebriParticle.h"
+#include "AfterimageParticle.h"
 #include "StarParticle.h"
 #include "MeteorParticle.h"
 #include "WaveParticle.h"
@@ -62,6 +64,15 @@ bool MyGame::Initialize()
 	//sceneMan_->Initialize(YGameSceneFactory::Title_);
 	//sceneMan_->Initialize(YGameSceneFactory::Select_);
 	sceneMan_->Initialize(YGameSceneFactory::Play_);
+	//sceneMan_->Initialize(YGameSceneFactory::Test_);
+
+	isDrawDebug_ = false;
+
+#ifdef DEBUG
+	
+	isDrawDebug_ = true;
+
+#endif // DEBUG
 
 	return true;
 }
@@ -73,6 +84,11 @@ void MyGame::Finalize()
 
 void MyGame::UpdateContent()
 {
+	if (Keys::GetInstance()->IsTrigger(DIK_0))
+	{
+		isDrawDebug_ = !isDrawDebug_;
+	}
+
 	YFramework::UpdateContent();
 
 	ResourceLoader::RenderDebug();
@@ -94,12 +110,11 @@ void MyGame::Draw()
 
 	pPipelineMan_->Draw();
 	
-//#ifdef _DEBUG
-
-	// デバッグテキスト描画
-	imguiMan_.Draw();
-
-//#endif // DEBUG
+	if (isDrawDebug_)
+	{
+		// デバッグテキスト描画
+		imguiMan_.Draw();
+	}
 
 	dx_.PostDraw();
 	
@@ -125,8 +140,6 @@ void MyGame::InitializePipelines()
 				{
 					CBModelTransform::Tag(),
 					CBColor::Tag(),
-					CBMaterial::Tag(),
-					CBLightGroup::Tag(),
 					CBTexConfig::Tag(),
 				},
 				{
@@ -179,9 +192,6 @@ void MyGame::InitializePipelines()
 				{
 					CBModelTransform::Tag(),
 					CBColor::Tag(),
-					CBMaterial::Tag(),
-					CBLightGroup::Tag(),
-					CBTexConfig::Tag(),
 				},
 				{
 					"Texture0",
@@ -250,8 +260,8 @@ void MyGame::InitializePipelines()
 	{
 		ShaderSet shader;
 
-		shader.LoadShader("Model/ToonVS.hlsl", ShaderSet::ShaderType::eVertex);
-		shader.LoadShader("Model/ToonPS.hlsl", ShaderSet::ShaderType::ePixel);
+		shader.LoadShader("Model/ModelVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/ModelPS.hlsl", ShaderSet::ShaderType::ePixel);
 
 		Pipeline* newPipeline =
 			Pipeline::Create(
@@ -259,9 +269,7 @@ void MyGame::InitializePipelines()
 				{
 					CBModelTransform::Tag(),
 					CBColor::Tag(),
-					CBMaterial::Tag(),
 					CBTexConfig::Tag(),
-					CBShadowGroup::Tag(),
 				},
 				{
 					"Texture0",
@@ -476,6 +484,7 @@ void MyGame::InitializePipelines()
 			"Sprite2DBack",
 			"Sprite3DBack",
 
+			
 			"ModelOutline",
 			"ModelSingleColor",
 			"ModelPhong",
@@ -494,6 +503,8 @@ void MyGame::InitializeParticles()
 	DustParticle::StaticInitialize();
 
 	DebriParticle::StaticInitialize();
+	
+	AfterimageParticle::StaticInitialize();
 	
 	StarParticle::StaticInitialize();
 	

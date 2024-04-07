@@ -2,6 +2,8 @@
 #include <unordered_map>
 #include <cassert>
 
+using YGame::WorldKey;
+
 namespace
 {
 	// 世界のキー(string型)
@@ -33,24 +35,24 @@ namespace
 	};
 }
 
-std::string WorldKeyStr(const WorldKey key)
+std::string YGame::WorldKeyStr(const WorldKey key)
 {
 	assert(worldKeyStrMap.contains(key));
 	return worldKeyStrMap[key];
 }
 
-std::string WorldKeyStr(const size_t keyIdx)
+std::string YGame::WorldKeyStr(const size_t keyIdx)
 {
 	assert(0 <= keyIdx && keyIdx < worldKeyStrVector.size());
 	return worldKeyStrVector[keyIdx];
 }
 
-std::vector<WorldKey> WorldKeys()
+std::vector<WorldKey> YGame::WorldKeys()
 {
 	return worldKeyVector;
 }
 
-std::vector<std::string> WorldKeyStrs()
+std::vector<std::string> YGame::WorldKeyStrs()
 {
 	return worldKeyStrVector;
 }

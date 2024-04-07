@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Vector3.h"
+#include "Vector4.h"
 #include "ViewProjection.h"
 
 namespace YGame
@@ -25,10 +26,13 @@ namespace YGame
 		/// 発生
 		/// </summary>
 		/// <param name="pos"> : 位置</param>
-		/// <param name="direction"> : 向き</param>
+		/// <param name="speed"> : 速さ</param>
+		/// <param name="color"> : 色</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
 			const YMath::Vector3& pos,
+			const YMath::Vector3& speed,
+			const YMath::Vector4& color,
 			ViewProjection* pVP);
 
 	};

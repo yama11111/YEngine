@@ -8,8 +8,12 @@ PSOutput main(PSInput input)
 	PSOutput output;
 
 	// テクスチャマッピング
-	float4 texColor = tex.Sample(smp, input.uv * texTiling_ + texOffset_) * texColorRate_;
+	float4 texColor = tex.Sample(smp, input.uv * texTiling_ + texOffset_);
 
+    clip(texColor.a - 0.1f);
+    
+    texColor *= texColorRate_;
+	
 	// 色
 	float4 color = texColor * baseColor_;
 	

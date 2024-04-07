@@ -9,8 +9,13 @@ PSOutput main(PSInput input)
 	PSOutput output;
 
 	// テクスチャマッピング
-	float4 texColor = tex.Sample(smp, input.uv * texTiling_ + texOffset_) * texColorRate_;
-	float4 maskColor = mask.Sample(smp, input.uv * texTiling_ + texOffset_) * texColorRate_;
+	float4 texColor = tex.Sample(smp, input.uv * texTiling_ + texOffset_);
+	
+    clip(texColor.a - 0.1f);
+    
+    texColor *= texColorRate_;
+	
+	float4 maskColor = mask.Sample(smp, input.uv * texTiling_ + texOffset_);
 
 	// (赤色値 - 時間) < 0 なら描画切る
 	clip(maskColor.r - time_);

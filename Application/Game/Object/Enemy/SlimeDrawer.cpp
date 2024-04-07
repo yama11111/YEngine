@@ -40,16 +40,23 @@ namespace
 	// アニメーションタイマー
 	const AnimeTimer kIdleTimer		 = { Timer(60), true };
 	const AnimeTimer kLandingTimer	 = { Timer(20), false };
-	const AnimeTimer kHitTimer		 = { Timer(4), false };
-	const AnimeTimer kDeadTimer		 = { Timer(10), false };
-	const AnimeTimer kFeverTimer	 = { Timer(10), false };
-	const AnimeTimer kCircleShadowTimer = { Timer(280), true };
+	const AnimeTimer kHitTimer		 = { Timer(20), false };
+	const AnimeTimer kDeadTimer		 = { Timer(20), false };
+	const AnimeTimer kFeverTimer	 = { Timer(280), true };
+	const AnimeTimer kCircleShadowTimer = { Timer(1), true };
 
 	// アニメーション値
 	const std::vector<Vector3> kLandingWobbleScaleValues =
 	{
 		Vector3(0.0f, 0.0f, 0.0f),
 		Vector3(+0.5f, -0.25f, +0.5f),
+		Vector3(0.0f, 0.0f, 0.0f),
+	};
+
+	const std::vector<Vector3> kHitWobbleScaleValues =
+	{
+		Vector3(0.0f, 0.0f, 0.0f),
+		Vector3(+0.75f, -0.5f, +0.75f),
 		Vector3(0.0f, 0.0f, 0.0f),
 	};
 
@@ -138,9 +145,12 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 	// 着地
 	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding))
 	{
-		// ブヨブヨアニメ (潰れる)
-		slimeActor_.Initialize(frame, kLandingWobbleScaleValues, kExponent);
-		slimeActor_.Wobble();
+		if (slimeActor_.IsAct() == false)
+		{
+			// ブヨブヨアニメ (潰れる)
+			slimeActor_.Initialize(frame, kLandingWobbleScaleValues, kExponent);
+			slimeActor_.Wobble();
+		}
 
 		// 自分の足元に土煙を発生
 		Vector3 pos = pParent_->pos_ - Vector3(0.0f, kHeight, 0.0f);
@@ -160,6 +170,10 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 	// 被弾
 	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eHit))
 	{
+		// ブヨブヨアニメ (潰れる)
+		slimeActor_.Initialize(frame, kHitWobbleScaleValues, kExponent);
+		slimeActor_.Wobble();
+		
 		hitActor_.Hit(kHitSwing, kHitSwing / static_cast<float>(frame), kHitPlace);
 	}
 	// 死亡
@@ -178,6 +192,7 @@ void SlimeDrawer::UpdateAnimation()
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
 
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
+	animeStatus_.pos_.y += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut).y;
 
 	if (IsActAnimation(kFeverIndex))
 	{
@@ -188,9 +203,9 @@ void SlimeDrawer::UpdateAnimation()
 	{
 		cbColor_->data_.baseColor = kBodyColor;
 		cbOutline_->data_.color = kOutlineColor;
+		
+		cbColor_->data_.texColorRate = hitActor_.ColorValue();
 	}
-
-	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 
 	if (IsActAnimation(kCircleShadowIndex))
 	{
@@ -202,22 +217,13 @@ void SlimeDrawer::UpdateAnimation()
 	}
 }
 
-void SlimeDrawer::PlayHitAnimation(const uint32_t damage, const bool isStepOn)
+void SlimeDrawer::PlayHitAnimation(const uint32_t damage)
 {
 	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
 
 	DamageParticle::Emit(damage, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 
-	if (isStepOn)
-	{
-		// ブヨブヨアニメ (潰れる)
-		uint32_t wobbleFrame = animationTimers_[kHitIndex].timer.EndFrame();;
-		slimeActor_.Initialize(wobbleFrame, kLandingWobbleScaleValues, kExponent);
-		slimeActor_.Wobble();
-
-		Vector3 pos = *pParentWorldPos_;
-		pos.y += pParent_->scale_.y;
-
-		WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, pVPMan->ViewProjectionPtr(vpKey_));
-	}
+	Vector3 pos = *pParentWorldPos_;
+	pos.y += pParent_->scale_.y;
+	WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, pVPMan->ViewProjectionPtr(vpKey_));
 }

@@ -23,7 +23,7 @@ namespace
 	const size_t kStarIdx = 4;
 	const size_t kEmitFrame = 10;
 	const float kDistance = 120.0f;
-	const Vector3 kMinRange = { - 10.0f,-40.0f,-20.0f };
+	const Vector3 kMinRange = { - 10.0f,-80.0f,-20.0f };
 	const Vector3 kMaxRange = { +200.0f,+40.0f,+20.0f };
 }
 
@@ -35,7 +35,8 @@ WorldManager* WorldManager::GetInstance()
 
 void WorldManager::Initialize(const WorldKey& key)
 {
-	SetWorldKey(key);
+	elderWorldKey_ = key;
+	currentWorldKey_ = key;
 
 	cameraSets_.clear();
 	postEffects_.clear();
@@ -79,15 +80,8 @@ void WorldManager::Initialize(const WorldKey& key)
 		gatePoss_[i] = {};
 	}
 
-	drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey };
+	drawKeys_ = { WorldKey::eJourneyKey, WorldKey::eWorldKey };
 
-	if (pSpr == nullptr)
-	{
-		pSpr = Sprite2D::Create({ {"Texture0", Texture::Load("play/fever_back.png")} }, { 0.0f, 0.0f });
-		feverBack_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pSpr));
-	}
-
-	feverBack_->Update();
 	feverEmitTimer_.Initialize(kEmitFrame, true);
 }
 
@@ -120,10 +114,6 @@ void WorldManager::Draw()
 		WorldKey key = drawKeys_[i];
 
 		if (postEffects_[key].isDraw == false) { continue; }
-		if (key == WorldKey::eFeverKey)
-		{
-			feverBack_->Draw("Sprite2DBack", 0);
-		}
 		GameObjectManager::GetInstance()->Draw({ WorldKeyStr(key) });
 		std::vector<PostEffect*> pes = { postEffects_[key].pPE };
 		PipelineManager::GetInstance()->RenderToPostEffect(pes);
@@ -150,18 +140,26 @@ Vector3 WorldManager::Pass()
 {
 	if (currentWorldKey_ == WorldKey::eWorldKey)
 	{
-		//currentWorldKey_ = WorldKey::eJourneyKey;
-		currentWorldKey_ = WorldKey::eFeverKey;
-		drawKeys_ = { WorldKey::eWorldKey, WorldKey::eFeverKey };
+		SetWorldKey(WorldKey::eJourneyKey);
+		drawKeys_ = { WorldKey::eFeverKey, WorldKey::eJourneyKey };
 	}
-	//else if (currentWorldKey_ == WorldKey::eJourneyKey)
-	//{
-	//	currentWorldKey_ = WorldKey::eFeverKey;
-	//}
 	else if (currentWorldKey_ == WorldKey::eFeverKey)
 	{
-		currentWorldKey_ = WorldKey::eWorldKey;
-		drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey };
+		SetWorldKey(WorldKey::eJourneyKey);
+		drawKeys_ = { WorldKey::eWorldKey, WorldKey::eJourneyKey };
+	}
+	else if (currentWorldKey_ == WorldKey::eJourneyKey)
+	{
+		if (elderWorldKey_ == WorldKey::eWorldKey)
+		{
+			SetWorldKey(WorldKey::eFeverKey);
+			drawKeys_ = { WorldKey::eWorldKey, WorldKey::eFeverKey };
+		}
+		else if (elderWorldKey_ == WorldKey::eFeverKey)
+		{
+			SetWorldKey(WorldKey::eWorldKey);
+			drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey };
+		}
 	}
 
 	return gatePoss_[static_cast<size_t>(currentWorldKey_)];
@@ -183,13 +181,14 @@ void WorldManager::ClearStage()
 	StageStatusManager::GetInstance()->Save();
 	
 	uint32_t stageIdx = StageStatusManager::GetInstance()->CurrentStageIndex();
-	StageStatusManager::GetInstance()->SetStageIndex(stageIdx);
+	StageStatusManager::GetInstance()->SetStageIndex(stageIdx + 1);
 
 	SceneManager::GetInstance()->Transition("SELECT", "WAVE");
 }
 
 void WorldManager::SetWorldKey(const WorldKey& key)
 {
+	elderWorldKey_ = currentWorldKey_;
 	currentWorldKey_ = key;
 }
 
@@ -210,7 +209,7 @@ void WorldManager::SetGatePos(const std::string& key, const YMath::Vector3& pos)
 	}
 }
 
-WorldKey WorldManager::CurrentWorldKey() const
+YGame::WorldKey WorldManager::CurrentWorldKey() const
 {
 	return currentWorldKey_;
 }
@@ -230,7 +229,7 @@ void WorldManager::UpdateFever()
 	for (size_t i = 0; i < kStarIdx; i++)
 	{
 		Vector3 pos = YMath::GetRand(camPos + kMinRange, camPos + kMaxRange, 100.0f);
-		StarParticle::Emit(pos, &camSet.transferVP);
+		StarParticle::Emit(pos, Vector3(-1.0f, -1.0f, 0.0f), &camSet.transferVP);
 	}
 }
 

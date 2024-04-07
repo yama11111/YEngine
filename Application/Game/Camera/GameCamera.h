@@ -1,13 +1,18 @@
 #pragma once
 #include "Camera.h"
-#include "Ease.h"
-#include "Power.h"
-#include <list>
 
 namespace YGame
 {
 	class GameCamera final
 	{
+
+	public:
+
+		enum class Type
+		{
+			eNormal,
+			ePass,
+		};
 
 	public:
 
@@ -21,19 +26,18 @@ namespace YGame
 		/// </summary>
 		void Update();
 
+		/// <summary>
+		/// デバッグ描画
+		/// </summary>
 		void DrawDebugText();
 
 	public:
 
 		/// <summary>
-		/// ジャンプ時移動
+		/// タイプ変更
 		/// </summary>
-		void MoveOnJump();
-
-		/// <summary>
-		/// 加速時移動
-		/// </summary>
-		void MoveOnAccel();
+		/// <param name="type"> : タイプ</param>
+		void ChangeType(const Type type);
 
 		/// <summary>
 		/// カメラシェイク
@@ -69,17 +73,15 @@ namespace YGame
 
 		// カメラ
 		Camera camera_;
+		
 		// 注視点
 		YMath::Vector3 target_;
-		// 距離
-		YMath::Vector3 distance_;
+
+		// 位置の種類
+		Type type_ = Type::eNormal;
 
 		// プレイヤー位置ポインタ
 		YMath::Vector3* pPlayerPos_ = nullptr;
-
-		// 加速時移動
-		YMath::Power accelPower_;
-		bool isActAccelPower_ = false;
 
 	private:
 	

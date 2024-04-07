@@ -32,6 +32,7 @@ using namespace YGame;
 #pragma region 読み込み
 void PlayScene::Load()
 {
+	
 }
 #pragma endregion
 

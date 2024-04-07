@@ -11,6 +11,7 @@ PSOutput main(PSInput input)
     float4 texColor0 = tex0.Sample(smp, input.uv_);
     
     output.target_ = texColor0;
+    output.target_.a = 1.0f;
     
     // 消去色と同じ色なら描画弾く
     // 色のベクトルの差の長さが0なら同じ色

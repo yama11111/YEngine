@@ -25,9 +25,11 @@ namespace YGame
 		/// 発生
 		/// </summary>
 		/// <param name="pos"> : 位置</param>
+		/// <param name="direction"> : 向き</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
 			const YMath::Vector3& pos,
+			const YMath::Vector3& direction,
 			ViewProjection* pVP);
 
 	};

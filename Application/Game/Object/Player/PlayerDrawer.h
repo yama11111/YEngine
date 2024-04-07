@@ -1,5 +1,14 @@
+/**
+ * @file PlayerDrawer.h
+ * @brief プレイヤー描画クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseCharacterDrawer.h"
+#include "SceneKey.h"
+#include "Ease.h"
 
 namespace YGame
 {
@@ -35,6 +44,12 @@ namespace YGame
 
 			// 丸影
 			eCircleShadow = 0b1 << 7,
+			
+			// 通常色
+			eNormalColor = 0b1 << 8,
+
+			// 単色
+			eSingleColor = 0b1 << 9,
 		};
 
 	public:
@@ -44,7 +59,8 @@ namespace YGame
 		/// </summary>
 		/// <param name="init"> : 初期化セット</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<PlayerDrawer> Create(const DrawerInitSet& init);
+		static std::unique_ptr<PlayerDrawer> Create(const DrawerInitSet& init, 
+			const SceneKey sceneKey = SceneKey::ePlayKey);
 
 		/// <summary>
 		/// 静的初期化
@@ -66,6 +82,8 @@ namespace YGame
 		~PlayerDrawer() = default;
 	
 	private:
+
+		bool isAttack_ = false;
 
 	private:
 

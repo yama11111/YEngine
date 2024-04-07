@@ -1,3 +1,10 @@
+/**
+ * @file Vertices.h
+ * @brief 頂点データクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "GPUResource.h"
 #include <vector>

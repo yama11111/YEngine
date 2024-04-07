@@ -7,6 +7,8 @@ PSOutput main(PSInput input)
 {
 	PSOutput output;
 	
+    clip(baseColor_.a - 0.1f);
+	
 	output.target = baseColor_;
 
 	return output;

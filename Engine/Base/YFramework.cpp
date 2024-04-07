@@ -91,7 +91,7 @@ bool YFramework::Initialize()
 	pPipelineMan_ = PipelineManager::GetInstance();
 	pPipelineMan_->Clear();
 
-	ViewProjectionManager::GetInstance()->Clear();
+	ViewProjectionManager::GetInstance()->Initialize();
 	ParticleManager::GetInstance()->Clear();
 
 	isEnd_ = false;

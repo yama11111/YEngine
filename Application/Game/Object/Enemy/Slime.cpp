@@ -129,10 +129,10 @@ YGame::ICollisionInfomation Slime::GetCollisionInfomation()
 	return result;
 }
 
-void Slime::Hit(const uint32_t damage, const bool isStepOn)
+void Slime::Hit(const uint32_t damage)
 {
 	// 被弾アニメーション
-	static_cast<SlimeDrawer*>(drawer_.get())->PlayHitAnimation(damage, isStepOn);
+	static_cast<SlimeDrawer*>(drawer_.get())->PlayHitAnimation(damage);
 
 	if (status_.IsAlive() == false)
 	{

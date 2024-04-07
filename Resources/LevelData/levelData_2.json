@@ -1011,7 +1011,7 @@
         },
         {
             "type": "MESH",
-            "name": "Gate.002",
+            "name": "Gate___.002",
             "transform": {
                 "translation": [
                     0.0,
@@ -6172,6 +6172,27 @@
                     1.0,
                     1.0,
                     1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Skydome.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    750.0,
+                    750.0,
+                    750.0
                 ]
             }
         },

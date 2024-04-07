@@ -10,6 +10,14 @@ ViewProjectionManager* ViewProjectionManager::GetInstance()
 	return &instance;
 }
 
+void ViewProjectionManager::Initialize()
+{
+	Clear();
+	
+	defaultVP_.Initialize();
+	Insert("Default", &defaultVP_);
+}
+
 void ViewProjectionManager::Clear()
 {
 	pVPs_.clear();

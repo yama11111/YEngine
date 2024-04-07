@@ -1,3 +1,10 @@
+/**
+ * @file ImGuiManager.h
+ * @brief ImGui管理クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "DescriptorHeap.h"
 #include <windows.h>
@@ -7,12 +14,10 @@
 
 class ImGuiManager
 {
-private:
-	// コマンドリストポインタ
-	ID3D12GraphicsCommandList* pCmdList_ = nullptr;
-	// デスクリプターヒープ
-	YDX::DescriptorHeap* pDescHeap_ = nullptr;
+
 public:
+	
+	// 初期化ステータス
 	struct InitStatus 
 	{
 		HWND hwnd_; // ウィンドウハンドル
@@ -21,16 +26,42 @@ public:
 		YDX::DescriptorHeap* pDescHeap_; // デスクリプターヒープ
 		size_t backBufferCount_; // バックバッファの数
 	};
+
 public:
-	// 初期化
+	
+	
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="state"> : 初期化ステータス</param>
 	void Initialize(const InitStatus& state);
-	// 終了処理
+	
+	/// <summary>
+	/// 終了処理
+	/// </summary>
 	void Finalize();
-	// 受付開始
+	
+	/// <summary>
+	/// 受付開始
+	/// </summary>
 	void Begin();
-	// 受付終了
+	
+	/// <summary>
+	/// 受付終了
+	/// </summary>
 	void End();
-	// 描画
+	
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
+
+private:
+	
+	// コマンドリストポインタ
+	ID3D12GraphicsCommandList* pCmdList_ = nullptr;
+	
+	// デスクリプターヒープ
+	YDX::DescriptorHeap* pDescHeap_ = nullptr;
 };
 

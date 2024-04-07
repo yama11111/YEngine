@@ -8,6 +8,7 @@
 
 #include "DustParticle.h"
 #include "DebriParticle.h"
+#include "AfterimageParticle.h"
 
 #include "Def.h"
 #include <cmath>
@@ -16,6 +17,7 @@ using YGame::PlayerDrawer;
 using YGame::Model;
 using YGame::ViewProjectionManager;
 using YMath::Vector3;
+using YMath::Vector4;
 using YMath::Timer;
 using AnimeTimer = YGame::BaseDrawer::AnimationTimer;
 
@@ -35,16 +37,20 @@ namespace
 	const uint32_t kHitIndex = static_cast<uint32_t>(PlayerDrawer::AnimationType::eHit);
 	const uint32_t kDeadIndex = static_cast<uint32_t>(PlayerDrawer::AnimationType::eDead);
 	const uint32_t kCircleShadowIndex = static_cast<uint32_t>(PlayerDrawer::AnimationType::eCircleShadow);
+	const uint32_t kNormalColorIndex = static_cast<uint32_t>(PlayerDrawer::AnimationType::eNormalColor);
+	const uint32_t kSingleColorIndex = static_cast<uint32_t>(PlayerDrawer::AnimationType::eSingleColor);
 
 	// アニメーションタイマー
 	const AnimeTimer kIdleTimer		 = { Timer(60), true };
 	const AnimeTimer kMoveTimer		 = { Timer( 8), true };
 	const AnimeTimer kJumpTimer		 = { Timer(20), false };
 	const AnimeTimer kLandingTimer	 = { Timer(20), false };
-	const AnimeTimer kAttackTimer	 = { Timer(10), false };
+	const AnimeTimer kAttackTimer	 = { Timer(1), false };
 	const AnimeTimer kHitTimer		 = { Timer( 4), false };
 	const AnimeTimer kDeadTimer		 = { Timer(10), false };
 	const AnimeTimer kCircleShadowTimer	 = { Timer( 1), true };
+	const AnimeTimer kNormalColorTimer	 = { Timer( 1), false };
+	const AnimeTimer kSingleColorTimer	 = { Timer( 1), false };
 
 	// アニメーション値
 	const std::vector<Vector3> kJumpWobbleScaleValues =
@@ -78,11 +84,15 @@ namespace
 	const size_t kDeadDebriNum = 16;
 }
 
-std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(const DrawerInitSet& init)
+std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(const DrawerInitSet& init, const SceneKey sceneKey)
 {
 	std::unique_ptr<PlayerDrawer> newDrawer = std::make_unique<PlayerDrawer>();
 
 	newDrawer->Initialize(init);
+	if (sceneKey == SceneKey::eTitleKey)
+	{
+		newDrawer->PlayAnimation(static_cast<uint32_t>(AnimationType::eSingleColor));
+	}
 
 	return std::move(newDrawer);
 }
@@ -100,6 +110,8 @@ void PlayerDrawer::Initialize(const DrawerInitSet& init)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(init);
 
+	cbColor_->data_.texColorRate = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.color = ColorConfig::skTurquoise[5];
 	cbOutline_->data_.range = 0.2f;
@@ -108,15 +120,15 @@ void PlayerDrawer::Initialize(const DrawerInitSet& init)
 	InsertConstBuffer("Leg_L", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_0));
 	InsertConstBuffer("Leg_R", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_0));
 	
-	InsertConstBuffer("Body_O", cbOutline_.get());
-	InsertConstBuffer("Leg_L_O", cbOutline_.get());
-	InsertConstBuffer("Leg_R_O", cbOutline_.get());
-
 	SetShaderTag("ModelToon");
-	
+
 	SetShaderTag("Body_O", "ModelOutline");
 	SetShaderTag("Leg_L_O", "ModelOutline");
 	SetShaderTag("Leg_R_O", "ModelOutline");
+
+	InsertConstBuffer("Body_O", cbOutline_.get());
+	InsertConstBuffer("Leg_L_O", cbOutline_.get());
+	InsertConstBuffer("Leg_R_O", cbOutline_.get());
 	
 	slimeActor_.Initialize(0, { {} }, 0);
 	hitActor_.Initialize();
@@ -144,6 +156,8 @@ void PlayerDrawer::InitializeTimers()
 	InsertAnimationTimer(kHitIndex, kHitTimer);
 	InsertAnimationTimer(kDeadIndex, kDeadTimer);
 	InsertAnimationTimer(kCircleShadowIndex, kCircleShadowTimer);
+	InsertAnimationTimer(kNormalColorIndex, kNormalColorTimer);
+	InsertAnimationTimer(kSingleColorIndex, kSingleColorTimer);
 }
 
 void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
@@ -212,6 +226,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 	// 攻撃
 	else if (index & static_cast<uint32_t>(AnimationType::eAttack))
 	{
+		isAttack_ = true;
 	}
 	// 被弾
 	else if (index & static_cast<uint32_t>(AnimationType::eHit))
@@ -223,6 +238,30 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 	{
 		DebriParticle::Emit(kDeadDebriNum, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 	}
+	// 死亡
+	else if (index & static_cast<uint32_t>(AnimationType::eNormalColor))
+	{
+		SetShaderTag("ModelToon");
+
+		SetShaderTag("Body_O", "ModelOutline");
+		SetShaderTag("Leg_L_O", "ModelOutline");
+		SetShaderTag("Leg_R_O", "ModelOutline");
+
+		cbColor_->data_.baseColor = { 1.0f,1.0f,1.0f,1.0f };
+		cbOutline_->data_.color = ColorConfig::skTurquoise[5];
+	}
+	// 死亡
+	else if (index & static_cast<uint32_t>(AnimationType::eSingleColor))
+	{
+		SetShaderTag("ModelSingleColor");
+
+		SetShaderTag("Body_O", "ModelOutline");
+		SetShaderTag("Leg_L_O", "ModelOutline");
+		SetShaderTag("Leg_R_O", "ModelOutline");
+
+		cbColor_->data_.baseColor = ColorConfig::skTurquoise[0];
+		cbOutline_->data_.color = ColorConfig::skTurquoise[2];
+	}
 }
 
 void PlayerDrawer::UpdateAnimation()
@@ -232,14 +271,30 @@ void PlayerDrawer::UpdateAnimation()
 	hitActor_.Update();
 
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
-
+	
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 
+	if(isAttack_)
+	{
+		if (animationTimers_[kAttackIndex].timer.IsEnd())
+		{
+			AfterimageParticle::Emit(*pParent_, YGame::ColorConfig::skTurquoise[1], 
+				pModels[0], pVPMan->ViewProjectionPtr(vpKey_));
+			AfterimageParticle::Emit(*pParent_, YGame::ColorConfig::skTurquoise[1],
+				pModels[1], pVPMan->ViewProjectionPtr(vpKey_));
+			AfterimageParticle::Emit(*pParent_, YGame::ColorConfig::skTurquoise[1],
+				pModels[2], pVPMan->ViewProjectionPtr(vpKey_));
+			
+			animationTimers_[kAttackIndex].timer.Reset(true);
+		}
+	}
+	isAttack_ = false;
+
 	CircleShadowManager::Key shadowKey1 = CircleShadowManager::Key::eWorld_0;
 	CircleShadowManager::Key shadowKey2 = CircleShadowManager::Key::eWorld_1;
 
-	CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey1, pParent_->pos_ - Vector3(0, kHeight, 0));
-	CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey2, pParent_->pos_ - Vector3(0, kHeight, 0));
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey1, pParent_->pos_ - Vector3(0, kHeight * 2.0f, 0));
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey2, pParent_->pos_ - Vector3(0, kHeight * 2.0f, 0));
 }

@@ -39,6 +39,11 @@ namespace YBase
 
 	private:
 
+		// デバッグ表示
+		bool isDrawDebug_ = false;
+	
+	private:
+
 		/// <summary>
 		/// パイプライン初期化
 		/// </summary>

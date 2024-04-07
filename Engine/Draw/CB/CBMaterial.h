@@ -1,3 +1,10 @@
+/**
+ * @file CBMaterial.h
+ * @brief マテリアル用定数バッファクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "Vector3.h"
 #include <string>

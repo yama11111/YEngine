@@ -41,7 +41,7 @@ namespace
 void SpeedLevelDrawer::LoadResource()
 {
 	pCounterSpr = Sprite3D::Create({ {"Texture0", Texture::Load("UI/play/speed_counter.png")} });
-	pLevelUpSpr = Sprite2D::Create({ {"Texture0", Texture::Load("UI/play/speed_up.png")} });
+	pLevelUpSpr = Sprite2D::Create({ {"Texture0", Texture::Load("UI/play/fever.png")} });
 }
 
 SpeedLevelDrawer* SpeedLevelDrawer::Create(YMath::Matrix4* pParent, ViewProjection* pVP)

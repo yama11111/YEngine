@@ -1,3 +1,10 @@
+/**
+ * @file YWindowsApp.h
+ * @brief ウィンドウズアプリケーションクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include <windows.h>
 

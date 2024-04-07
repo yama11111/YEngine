@@ -193,14 +193,14 @@ void StageStatusDrawer::Reset()
 			missions_[i].trfm.pos_ = titleTrfm_.pos_ + Vector3(0.0f, 160.0f + posY, 0.0f);
 			missions_[i].trfm.scale_ = { 0.75f,0.75f,0.0f };
 
-			Vector3 starPos = { -432.0f, 0.0f, 0.0f };
+			Vector3 starPos = { -484.0f, 0.0f, 0.0f };
 			missions_[i].star->transform_.Initialize();
 			missions_[i].star->transform_.pos_ = starPos;
 			missions_[i].starFrame->transform_.Initialize();
 			missions_[i].starFrame->transform_.pos_ = starPos;
 
 			missions_[i].scoreTrfm.Initialize();
-			missions_[i].scoreTrfm.pos_ = { -128.0f, 0.0f, 0.0f };
+			missions_[i].scoreTrfm.pos_ = { -160.0f, 0.0f, 0.0f };
 			missions_[i].scoreTrfm.scale_ = { 1.0f, 1.0f, 0.0f };
 
 			missions_[i].mission->transform_.Initialize();

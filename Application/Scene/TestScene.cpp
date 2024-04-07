@@ -1,8 +1,19 @@
 #include "TestScene.h"
 #include "SceneManager.h"
+#include "MathVector.h"
+#include "MathUtil.h"
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>
+
+#include "Player.h"
+
+#include "WorldManager.h"
+#include "ScoreManager.h"
+#include "StageStatusManager.h"
+#include "ViewProjectionManager.h"
+#include "ParticleManager.h"
+#include "CircleShadowManager.h"
 
 #pragma region 名前空間宣言
 
@@ -15,21 +26,12 @@ using namespace YGame;
 #pragma endregion 
 
 #pragma region Static関連
-namespace
-{
-	Sprite2D* pCircleSpr = nullptr;
-	Sprite2D* pBoxSpr = nullptr;
-	Sprite2D* pTriangleSpr = nullptr;
-}
 #pragma endregion 
 
 
 #pragma region 読み込み
 void TestScene::Load()
 {
-	pCircleSpr = Sprite2D::Create({ { "Texture0", Texture::Load("converted/circle.dds") } });
-	pBoxSpr = Sprite2D::Create({ { "Texture0", Texture::Load("converted/box.dds") } });
-	pTriangleSpr = Sprite2D::Create({ { "Texture0", Texture::Load("converted/triangle.dds") } });
 }
 #pragma endregion
 
@@ -37,13 +39,27 @@ void TestScene::Load()
 #pragma region 初期化
 void TestScene::Initialize()
 {
-	circle_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pCircleSpr));
-	box_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pBoxSpr));
-	triangle_.reset(DrawObjectForSprite2D::Create(Transform::Status::Default(), pTriangleSpr));
+	CircleShadowManager::GetInstance()->Intialize();
 
-	circle_->transform_.pos_	 = Vector3(+96.0f, WinSize.y / 2.0f, 0.0f);
-	box_->transform_.pos_		 = Vector3(WinSize.x / 2.0f, WinSize.y / 2.0f, 0.0f);
-	triangle_->transform_.pos_	 = Vector3(WinSize.x - 96.0f, WinSize.y / 2.0f, 0.0f);
+	WorldManager::GetInstance()->Initialize(WorldKey::eJourneyKey);
+
+	ScoreManager::GetInstance()->Initialize();
+	ScoreManager::GetInstance()->StartScoreMeasurement();
+
+	Level::LoadJson("journey.json", WorldKeyStr(WorldKey::eJourneyKey));
+
+	// UI
+	uiDra_.Initialize();
+
+	// 開始演出描画クラス
+	beginingDra_.Initialize();
+	beginingDra_.PlayAnimation();
+
+	isStart_ = false;
+
+	isStop_ = false;
+
+	pause_.Initialize();
 }
 #pragma endregion
 
@@ -58,9 +74,47 @@ void TestScene::Finalize()
 #pragma region 更新
 void TestScene::Update()
 {
-	circle_->Update();
-	box_->Update();
-	triangle_->Update();
+	bool isReset = false;
+
+	ImGui::Begin("Game");
+	ImGui::Checkbox("isStop", &isStop_);
+	isReset = ImGui::Button("Reset");
+	ImGui::End();
+
+	pause_.Update();
+
+	if (spKeys_->IsTrigger(DIK_K))
+	{
+		beginingDra_.PlayAnimation();
+	}
+
+	if (isStop_ == false &&
+		pause_.IsPause() == false)
+	{
+		beginingDra_.Update();
+
+		if (beginingDra_.IsAct() == false)
+		{
+			isStart_ = true;
+		}
+	}
+
+	uiDra_.Update();
+
+	CircleShadowManager::GetInstance()->Reset();
+
+	// 開始演出中更新しない
+	WorldManager::GetInstance()->Update(isStart_ && (isStop_ == false && pause_.IsPause() == false));
+
+	ParticleManager::GetInstance()->Update();
+
+	WorldManager::GetInstance()->DrawDebug();
+
+	// リセット
+	if (isReset || spKeys_->IsTrigger(DIK_R))
+	{
+		SceneManager::GetInstance()->Transition("TEST", "WAVE_REV");
+	}
 }
 #pragma endregion
 
@@ -68,8 +122,14 @@ void TestScene::Update()
 #pragma region 描画
 void TestScene::Draw()
 {
-	circle_->Draw("Sprite2DDefault", 1);
-	box_->Draw("Sprite2DDefault", 1);
-	triangle_->Draw("Sprite2DDefault", 1);
+	WorldManager::GetInstance()->Draw();
+
+	beginingDra_.Draw();
+
+	pause_.Draw();
+
+	uiDra_.Draw();
+
+	ParticleManager::GetInstance()->Draw();
 }
 #pragma endregion

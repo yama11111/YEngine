@@ -1,3 +1,10 @@
+/**
+ * @file GPUResource.h
+ * @brief GPUリソースクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include <d3d12.h>
 #include <wrl.h>

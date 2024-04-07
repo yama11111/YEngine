@@ -37,7 +37,7 @@ void IEnemy::OnCollision(const ICollisionInfomation& info)
 			status_.Damage(info.pStatus->Attack(), true);
 
 			// 被弾
-			Hit(info.pStatus->Attack(), true);
+			Hit(info.pStatus->Attack());
 		}
 	}
 	// 攻撃
@@ -50,7 +50,7 @@ void IEnemy::OnCollision(const ICollisionInfomation& info)
 		status_.Damage(info.pStatus->Attack(), true);
 
 		// 被弾
-		Hit(info.pStatus->Attack(), false);
+		Hit(info.pStatus->Attack());
 	}
 	// ブロック
 	else if (info.attribute == AttributeType::eBlock)

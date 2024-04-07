@@ -1,14 +1,18 @@
 #include "StarParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "DrawObjectForSprite3D.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
+
 #include "Speed.h"
 #include "ColorConfig.h"
+
+#include "SplineEase.h"
 #include "MathUtil.h"
 #include "MathVector.h"
-#include "SplineEase.h"
+
 #include "Def.h"
 #include <memory>
 #include <cmath>
@@ -39,6 +43,9 @@ namespace YGame
 		void Initialize(
 			const uint32_t aliveFrame,
 			const Vector3& pos,
+			const Vector3& direction,
+			const Vector3& accel,
+			const Vector3& maxSpeed,
 			const float exponent,
 			ViewProjection* pVP);
 
@@ -48,6 +55,9 @@ namespace YGame
 	private:
 
 		DrawObjectForSprite3D* pObj_ = nullptr;
+
+		YMath::Speed speed_;
+		Vector3 direction_;
 
 		// 色定数バッファ
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
@@ -81,6 +91,9 @@ namespace YGame
 	void impl_StarParticle::Initialize(
 		const uint32_t aliveFrame,
 		const Vector3& pos,
+		const Vector3& direction,
+		const Vector3& accel,
+		const Vector3& maxSpeed,
 		const float exponent,
 		ViewProjection* pVP)
 	{
@@ -88,6 +101,9 @@ namespace YGame
 		
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
+
+		speed_.Initialize(accel, maxSpeed, false);
+		direction_ = direction.Normalized();
 
 		scaleEas_.Initialize(
 			{
@@ -105,6 +121,11 @@ namespace YGame
 	void impl_StarParticle::Update()
 	{
 		if (isAlive_ == false) { return; }
+
+		speed_.Update(direction_);
+		obj_->transform_.pos_ += speed_.Velocity();
+
+		obj_->transform_.rota_.z += 0.1f * kPI;
 
 		// タイマーの割合
 		float aliveRatio = aliveTimer_.Ratio();
@@ -171,12 +192,20 @@ static YGame::impl_StarParticle* DeadParticlePtr()
 	return nullptr;
 }
 
-void StarParticle::Emit(const Vector3& pos, ViewProjection* pVP)
+void StarParticle::Emit(const Vector3& pos, const YMath::Vector3& direction, ViewProjection* pVP)
 {
 	// 固有設定
 	static const uint32_t kAliveFrame = 20;
 
 	static const float kExponent = 3.0f;
+
+	static const Vector3 kMaxSpeed = Vector3(2.0f, 2.0f, 2.0f);
+	
+	Vector3 accel = 
+		Vector3(
+			YMath::GetRand(0.1f, 0.3f, 10.0f),
+			YMath::GetRand(0.1f, 0.3f, 10.0f),
+			YMath::GetRand(0.1f, 0.3f, 10.0f));
 
 	// 死んでいるパーティクルを初期化 (無いなら弾く)
 	impl_StarParticle* pParticle = DeadParticlePtr();
@@ -185,5 +214,8 @@ void StarParticle::Emit(const Vector3& pos, ViewProjection* pVP)
 	pParticle->Initialize(
 		kAliveFrame,
 		pos,
+		direction,
+		accel,
+		kMaxSpeed,
 		kExponent, pVP);
 }

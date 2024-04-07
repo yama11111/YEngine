@@ -124,8 +124,12 @@
     <ClCompile Include="Application\Game\Object\Stage\Goal.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Magnet.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Gate.cpp" />
+    <ClCompile Include="Application\Game\Object\Stage\MeteorEmitter.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\Outside.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\OutsideDrawer.cpp" />
+    <ClCompile Include="Application\Game\Object\Stage\Skydome.cpp" />
+    <ClCompile Include="Application\Game\Object\Stage\SkydomeDrawer.cpp" />
+    <ClCompile Include="Application\Game\Particle\AfterimageParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\MeteorParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\StarParticle.cpp" />
     <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp" />
@@ -139,6 +143,7 @@
     <ClCompile Include="Application\Game\UI\StatusDrawer.cpp" />
     <ClCompile Include="Application\Game\WorldKey.cpp" />
     <ClCompile Include="Application\Game\WorldManager.cpp" />
+    <ClCompile Include="Application\Scene\SceneKey.cpp" />
     <ClCompile Include="Application\Scene\TestScene.cpp" />
     <ClCompile Include="Engine\Game\Camera\ViewProjectionManager.cpp" />
     <ClCompile Include="Engine\Math\Game\BitFrag.cpp" />
@@ -276,11 +281,16 @@
     <ClInclude Include="Application\Game\Object\BaseCharacterDrawer.h" />
     <ClInclude Include="Application\Game\Object\BaseStageDrawer.h" />
     <ClInclude Include="Application\Game\Object\CircleShadowManager.h" />
+    <ClInclude Include="Application\Game\Object\Stage\MeteorEmitter.h" />
     <ClInclude Include="Application\Game\Object\Stage\Outside.h" />
     <ClInclude Include="Application\Game\Object\Stage\OutsideDrawer.h" />
+    <ClInclude Include="Application\Game\Object\Stage\Skydome.h" />
+    <ClInclude Include="Application\Game\Object\Stage\SkydomeDrawer.h" />
+    <ClInclude Include="Application\Game\Particle\AfterimageParticle.h" />
     <ClInclude Include="Application\Game\Particle\MeteorParticle.h" />
     <ClInclude Include="Application\Game\Particle\StarParticle.h" />
     <ClInclude Include="Application\Game\WorldKey.h" />
+    <ClInclude Include="Application\Scene\SceneKey.h" />
     <ClInclude Include="Engine\Game\Object\Drawer\DrawerInitSet.h" />
     <ClInclude Include="Application\Game\Object\Item\Life.h" />
     <ClInclude Include="Application\Game\Object\BaseStageObject.h" />

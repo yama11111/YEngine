@@ -1,23 +1,23 @@
 #include "RecoveryParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "DrawObjectForSprite3D.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
-#include "MathUtil.h"
 #include "Speed.h"
+
+#include "MathUtil.h"
+
 #include <memory>
-#include "WorldManager.h"
 
 using YGame::RecoveryParticle;
-using YGame::WorldManager;
 using YMath::Vector3;
 using YMath::Vector4;
 
 namespace
 {
 	YGame::Sprite3D* pSpr = nullptr;
-	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
 namespace YGame

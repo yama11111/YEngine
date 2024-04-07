@@ -15,26 +15,8 @@ cbuffer cbColor : register(b1)
 	float4 texColorRate_; // 元の色の割合
 }
 
-// マテリアル
-cbuffer cbMaterial : register(b2)
-{
-	float3 ambient_  : packoffset(c0); // アンビエント係数
-	float3 diffuse_  : packoffset(c1); // ディフューズ係数
-	float3 specular_ : packoffset(c2); // スペキュラー係数
-	float  alpha_ : packoffset(c2.w); // アルファ
-}
-
-// 光
-cbuffer cbLightGroup : register(b3)
-{
-	float3 ambientColor_; // 環境光色
-	DireLight direLights_[DireLightNum]; // 平行光源
-	PointLight pointLights_[PointLightNum]; // 点光源
-	SpotLight spotLights_[SpotLightNum]; // スポットライト光源
-}
-
 // テクスチャ設定
-cbuffer cbTexConfig : register(b4)
+cbuffer cbTexConfig : register(b2)
 {
 	float2 texTiling_; // タイリング
 	float2 texOffset_; // オフセット

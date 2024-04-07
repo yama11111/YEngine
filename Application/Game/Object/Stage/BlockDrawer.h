@@ -7,6 +7,7 @@
 
 #pragma once
 #include "BaseStageDrawer.h"
+#include "SceneKey.h"
 
 namespace YGame
 {
@@ -33,7 +34,8 @@ namespace YGame
 		static std::unique_ptr<BlockDrawer> Create(
 			const DrawerInitSet& init, 
 			const Type type,
-			const bool isBackground);
+			const bool isBackground,
+			const SceneKey scene = SceneKey::ePlayKey);
 
 		/// <summary>
 		/// 静的初期化
@@ -61,6 +63,8 @@ namespace YGame
 
 		// 背景フラグ
 		bool isBackground_ = false;
+
+		SceneKey scene_ = SceneKey::ePlayKey;
 
 	private:
 

@@ -1,3 +1,10 @@
+/**
+ * @file ScreenDesc.h
+ * @brief スクリーン設定クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include <d3d12.h>
 #include "Vector2.h"

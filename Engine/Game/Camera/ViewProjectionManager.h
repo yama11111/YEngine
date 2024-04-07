@@ -19,6 +19,11 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 初期化
+		/// </summary>
+		void Initialize();
+		
+		/// <summary>
 		/// クリア
 		/// </summary>
 		void Clear();
@@ -46,6 +51,9 @@ namespace YGame
 
 		// ビュープロジェクション
 		std::unordered_map<std::string, ViewProjection*> pVPs_;
+
+		// デフォルトカメラ
+		ViewProjection defaultVP_;
 	
 	private:
 

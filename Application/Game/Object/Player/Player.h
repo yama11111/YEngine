@@ -1,3 +1,10 @@
+/**
+ * @file Player.h
+ * @brief プレイヤークラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseCharacter.h"
 #include "GameCamera.h"

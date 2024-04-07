@@ -1,3 +1,10 @@
+/**
+ * @file CBColor.h
+ * @brief 色用定数バッファクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "Vector4.h"
 #include <string>

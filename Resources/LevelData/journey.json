@@ -133,7 +133,7 @@
             "transform": {
                 "translation": [
                     0.0,
-                    44.0,
+                    80.0,
                     -7.0
                 ],
                 "rotation": [
@@ -142,30 +142,72 @@
                     0.0
                 ],
                 "scaling": [
-                    75.0,
+                    12.0,
                     2.0,
-                    75.0
+                    12.0
                 ]
             }
         },
         {
             "type": "MESH",
-            "name": "Outside.001",
+            "name": "_Player.001",
             "transform": {
                 "translation": [
                     0.0,
-                    100.0,
-                    0.0
+                    -44.0,
+                    -7.0
                 ],
                 "rotation": [
-                    -90.00000762939453,
                     0.0,
+                    -0.0,
                     0.0
                 ],
                 "scaling": [
-                    75.0,
-                    75.0,
-                    200.0
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Skydome.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    750.0,
+                    750.0,
+                    750.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Meteor.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    220.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    12.0,
+                    2.0,
+                    12.0
                 ]
             }
         }

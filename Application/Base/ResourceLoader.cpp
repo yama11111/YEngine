@@ -17,23 +17,28 @@
 #include "PauseDrawer.h"
 
 #include "DefaultDrawer.h"
+#include "AxisDrawer.h"
+#include "CollisionDrawer.h"
+
 #include "PlayerDrawer.h"
 #include "SlimeDrawer.h"
 #include "CoinDrawer.h"
 #include "LifeDrawer.h"
 #include "MagnetDrawer.h"
+
 #include "BlockDrawer.h"
 #include "GateDrawer.h"
-#include "OutsideDrawer.h"
 #include "GoalDrawer.h"
-#include "AxisDrawer.h"
-#include "CollisionDrawer.h"
+
+#include "OutsideDrawer.h"
+#include "SkydomeDrawer.h"
 
 #include "TitleDrawer.h"
 #include "SelectDrawer.h"
 #include "StageDrawer.h"
 #include "StageStatusDrawer.h"
 #include "BeginingDrawer.h"
+
 #include <imgui.h>
 
 using YGame::ResourceLoader;
@@ -68,17 +73,21 @@ void ResourceLoader::Load()
 	// Game
 	{
 		DefaultDrawer::LoadResource();
+		AxisDrawer::LoadResource();
+		CollisionDrawer::LoadResource();
+
 		PlayerDrawer::LoadResource();
 		SlimeDrawer::LoadResource();
 		CoinDrawer::LoadResource();
 		LifeDrawer::LoadResource();
 		MagnetDrawer::LoadResource();
+		
 		BlockDrawer::LoadResource();
 		GateDrawer::LoadResource();
-		OutsideDrawer::LoadResource();
 		GoalDrawer::LoadResource();
-		AxisDrawer::LoadResource();
-		CollisionDrawer::LoadResource();
+		
+		OutsideDrawer::LoadResource();
+		SkydomeDrawer::LoadResource();
 	}
 
 	// Scene

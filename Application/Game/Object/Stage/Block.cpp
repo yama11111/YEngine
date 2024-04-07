@@ -65,10 +65,6 @@ void Block::Initialize(const Transform::Status& status, const std::string& key, 
 	{
 		type = BlockDrawer::Type::ePurple;
 	}
-	else if (key == WorldKeyStr(WorldKey::eJourneyKey))
-	{
-		type = BlockDrawer::Type::eColorless;
-	}
 
 	SetDrawer(BlockDrawer::Create({ nullptr, nullptr, key, 2 }, type, isBackground));
 }

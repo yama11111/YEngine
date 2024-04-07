@@ -1,10 +1,17 @@
+/**
+ * @file CBSprite3DTransform.h
+ * @brief スプライト3D用トランスフォーム定数バッファクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "Matrix4.h"
 #include <string>
 
 namespace YGame
 {
-	// スプライト3D用定数バッファ
+	// スプライト3D用トランスフォーム定数バッファ
 	struct CBSprite3DTransform
 	{
 

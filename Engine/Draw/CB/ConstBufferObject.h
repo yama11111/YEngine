@@ -1,3 +1,10 @@
+/**
+ * @file ConstBufferObject.h
+ * @brief 定数バッファクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseConstBuffer.h"
 

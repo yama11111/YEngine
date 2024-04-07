@@ -16,7 +16,7 @@ static const float Threshold = 0.4f;
 float4 main(PSInput input) : SV_TARGET
 {
 	// 判定用
-	float4 decisionColor = tex0.Sample(smp, input.uv_ * texTiling_ + texOffset_) * texColorRate_;
+	float4 decisionColor = tex0.Sample(smp, input.uv_ * texTiling_ + texOffset_);
 
 	// ピクセルの明るさ
 	float bright = (decisionColor.r + decisionColor.g + decisionColor.b) / 3.0f;

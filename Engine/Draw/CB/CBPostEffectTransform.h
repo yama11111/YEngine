@@ -1,10 +1,17 @@
+/**
+ * @file CBPostEffectTransform.h
+ * @brief ポストエフェクト用トランスフォーム定数バッファクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "Matrix4.h"
 #include <string>
 
 namespace YGame
 {
-	// ポストエフェクト用定数バッファ
+	// ポストエフェクト用トランスフォーム定数バッファ
 	struct CBPostEffectTransform
 	{
 

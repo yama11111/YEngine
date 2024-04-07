@@ -1,10 +1,15 @@
 #include "TitleScene.h"
 #include "SceneManager.h"
 #include "MathVector.h"
+#include "GameObjectManager.h"
 #include "ViewProjectionManager.h"
+#include "Level.h"
+#include "WorldKey.h"
 #include "Def.h"
 #include <cassert>
 #include <imgui.h>
+
+#include "CircleShadowManager.h"
 
 #pragma region 名前空間宣言
 
@@ -22,7 +27,6 @@ using namespace YMath;
 #pragma region 読み込み
 void TitleScene::Load()
 {
-	// 描画クラス
 	ViewProjectionManager::GetInstance()->Insert("World", &transferVP_);
 
 	TitleDrawer::LoadResource();
@@ -33,10 +37,19 @@ void TitleScene::Load()
 #pragma region 初期化
 void TitleScene::Initialize()
 {
+	CircleShadowManager::GetInstance()->Intialize();
+
+	GameObjectManager::GetInstance()->Initialize();
+	Level::LoadJson("title.json", WorldKeyStr(WorldKey::eWorldKey));
+
 	titleDra_.Initialize();
 	titleDra_.OpeningAnimation();
 	
-	transferVP_.Initialize();
+	transferVP_.Initialize({ 
+		{ 0.0f, 4.0f, -20.0f },
+		{ 0.0f, 4.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f }
+	});
 }
 #pragma endregion
 
@@ -54,9 +67,13 @@ void TitleScene::Update()
 {
 	if (spKeys_->IsTrigger(DIK_O) || spPad_->IsTrigger(PadButton::XIP_Y))
 	{
-		//titleDra_.OpeningAnimation();
+		titleDra_.OpeningAnimation();
 	}
 	titleDra_.Update();
+
+	CircleShadowManager::GetInstance()->Reset();
+	GameObjectManager::GetInstance()->Prepare(true);
+	GameObjectManager::GetInstance()->Update({ WorldKeyStr(WorldKey::eWorldKey) });
 
 	transferVP_.UpdateMatrix();
 
@@ -81,6 +98,8 @@ void TitleScene::Update()
 #pragma region 描画
 void TitleScene::Draw()
 {
+	GameObjectManager::GetInstance()->Draw({ WorldKeyStr(WorldKey::eWorldKey) });
+
 	titleDra_.Draw();
 }
 #pragma endregion

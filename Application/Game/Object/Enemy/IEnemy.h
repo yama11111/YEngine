@@ -47,8 +47,7 @@ namespace YGame
 		/// 被弾
 		/// </summary>
 		/// <param name="damage"> : ダメージ</param>
-		/// <param name="isStepOn"> : 踏まれたか</param>
-		virtual void Hit(const uint32_t damage, const bool isStepOn) = 0;
+		virtual void Hit(const uint32_t damage) = 0;
 
     };
 }

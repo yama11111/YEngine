@@ -1,12 +1,44 @@
+/**
+ * @file TestScene.h
+ * @brief テストシーンクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseScene.h"
-#include "DrawObjectForSprite2D.h"
+#include "PauseManager.h"
+#include "ScoreManager.h"
+#include "UIDrawer.h"
+#include "BeginingDrawer.h"
+
+#include "Level.h"
 
 namespace YGame
 {
 	class TestScene :
 		public BaseScene
 	{
+
+	public:
+
+		// レベル
+		Level* pLevel_ = nullptr;
+
+		// UIマネージャー
+		UIDrawer uiDra_;
+
+		// 開始演出描画クラス
+		BeginingDrawer beginingDra_;
+
+		// 開始フラグ
+		bool isStart_ = false;
+
+		// 停止フラグ
+		bool isStop_ = false;
+
+		// ポーズ
+		PauseManager pause_;
 
 	public:
 

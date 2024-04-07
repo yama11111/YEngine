@@ -6,7 +6,7 @@ using YMath::Vector3;
 using YMath::Vector4;
 
 const YMath::Vector4 kDefColor = YMath::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-const YMath::Vector4 kHitColor = YMath::Vector4(1.0f, 0.0f, 0.0f, 0.5f);
+const YMath::Vector4 kHitColor = YMath::Vector4(0.6f, 0.0f, 0.0f, 1.0f);
 
 void HitActor::Initialize()
 {

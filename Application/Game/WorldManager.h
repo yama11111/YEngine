@@ -12,7 +12,6 @@
 #include <unordered_map>
 
 #include "WorldKey.h"
-#include "DrawObjectForSprite2D.h"
 #include "DrawObjectForPostEffect.h"
 #include "CBDiscardColor.h"
 #include "GameCamera.h"
@@ -136,6 +135,9 @@ namespace YGame
 
 		// 現在世界キー
 		WorldKey currentWorldKey_{};
+		
+		// 過去世界キー
+		WorldKey elderWorldKey_{};
 
 		// カメラ
 		std::unordered_map<WorldKey, CameraSet> cameraSets_;
@@ -148,10 +150,6 @@ namespace YGame
 
 		// 描画キー
 		std::vector<WorldKey> drawKeys_;
-
-
-		// オブジェクト
-		std::unique_ptr<DrawObjectForSprite2D> feverBack_;
 
 		// フィーバーパーティクル用タイマー
 		YMath::Timer feverEmitTimer_;

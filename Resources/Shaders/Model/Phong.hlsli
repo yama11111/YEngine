@@ -24,6 +24,15 @@ cbuffer cbMaterial : register(b2)
     float alpha_ : packoffset(c2.w); // アルファ
 }
 
+//// 光
+//cbuffer cbLightGroup : register(b3)
+//{
+//    float3 ambientColor_; // 環境光色
+//    DireLight direLights_[DireLightNum]; // 平行光源
+//    PointLight pointLights_[PointLightNum]; // 点光源
+//    SpotLight spotLights_[SpotLightNum]; // スポットライト光源
+//}
+
 // テクスチャ設定
 cbuffer cbTexConfig : register(b3)
 {

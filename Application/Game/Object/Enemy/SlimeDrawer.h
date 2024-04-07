@@ -64,8 +64,7 @@ namespace YGame
 		/// 被弾アニメーション
 		/// </summary>
 		/// <param name="damage"> : ダメージ</param>
-		/// <param name="isStepOn"> : 踏まれたか</param>
-		void PlayHitAnimation(const uint32_t damage, const bool isStepOn);
+		void PlayHitAnimation(const uint32_t damage);
 
 	public:
 

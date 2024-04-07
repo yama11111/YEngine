@@ -7,18 +7,27 @@
 #include <sstream>
 
 #include "GameObjectManager.h"
+
+#include "DefaultDrawer.h"
+
 #include "Player.h"
 #include "Slime.h"
 #include "Coin.h"
 #include "Life.h"
 #include "Magnet.h"
+
 #include "Block.h"
 #include "Gate.h"
-#include "Outside.h"
 #include "Goal.h"
 
+#include "Outside.h"
+#include "Skydome.h"
+
+#include "MeteorEmitter.h"
+//#include "FeverEmitter.h"
+
+#include "PlayerDrawer.h"
 #include "BlockDrawer.h"
-#include "DefaultDrawer.h"
 
 #include "WorldManager.h"
 
@@ -178,18 +187,16 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 		}
 		else if (name == "Gate_S." || name == "Gate.")
 		{
+			isUpdateSkip = false;
+
 			WorldManager::GetInstance()->SetGatePos(key, status.pos_);
 			newObj = Gate::Create(status, key);
 		}
 		else if (name == "Gate_E.")
 		{
-			newObj = Gate::Create(status, key);
-		}
-		else if (name == "Outside.")
-		{
 			isUpdateSkip = false;
 
-			newObj = Outside::Create(status, key);
+			newObj = Gate::Create(status, key);
 		}
 		else if (name == "Goal.")
 		{
@@ -200,19 +207,76 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 			isBackground = true;
 			newObj = Block::Create(status, key, true);
 		}
+		else if (name == "Outside.")
+		{
+			isUpdateSkip = false;
+
+			newObj = Outside::Create(status, key);
+		}
 		else if (name == "Skydome.")
 		{
-			isBackground = true;
+			isUpdateSkip = false;
+
+			newObj = Skydome::Create(status, key);
+		}
+		else if (name == "Meteor.")
+		{
+			isUpdateSkip = false;
+
+			newObj = MeteorEmitter::Create(status, key);
+		}
+		else if (name == "Player_T.")
+		{
+			isUpdateSkip = false;
+
 			newObj = std::make_unique<GameObject>();
-			newObj->Initialize(name, status, pParent);
-			//newObj->SetDrawer(SkydomeDrawer::Create({ nullptr, nullptr, key, 4 }));
+			newObj->Initialize(name, status);
 			newObj->SetUpdateKey(key);
 			newObj->SetDrawKeys({ key });
+			newObj->SetDrawer(PlayerDrawer::Create(
+				{
+					nullptr, nullptr, key, 0 
+				}, SceneKey::eTitleKey)
+			);
+		}
+		else if (name == "Block_T.")
+		{
+			isUpdateSkip = false;
+
+			newObj = std::make_unique<GameObject>();
+			newObj->Initialize(name, status);
+			newObj->SetUpdateKey(key);
+			newObj->SetDrawKeys({ key });
+			newObj->SetDrawer(BlockDrawer::Create(
+				{
+					nullptr, nullptr, key, 0 
+				}, 
+				BlockDrawer::Type::eGreen, 
+				false, SceneKey::eTitleKey)
+			);
+		}
+		else if (name == "Block_B_T.")
+		{
+			isUpdateSkip = false;
+
+			newObj = std::make_unique<GameObject>();
+			newObj->Initialize(name, status);
+			newObj->SetUpdateKey(key);
+			newObj->SetDrawKeys({ key });
+			newObj->SetDrawer(BlockDrawer::Create(
+				{
+					nullptr, nullptr, key, 0 
+				}, 
+				BlockDrawer::Type::eGreen, 
+				true, SceneKey::eTitleKey)
+			);
 		}
 		else
 		{
 			return;
 		}
+		
+		pParent;
 
 		// 子を読み込む
 		if (object.contains("children"))

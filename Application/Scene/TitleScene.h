@@ -1,3 +1,10 @@
+/**
+ * @file TitleScene.h
+ * @brief タイトルシーンクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseScene.h"
 #include "TitleDrawer.h"

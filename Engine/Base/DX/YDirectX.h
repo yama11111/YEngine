@@ -1,3 +1,10 @@
+/**
+ * @file YDirectX.h
+ * @brief DirectX12クラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "GPUResource.h"
 #include <dxgi1_6.h>

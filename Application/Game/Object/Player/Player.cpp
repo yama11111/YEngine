@@ -10,6 +10,7 @@
 
 #include "ScoreManager.h"
 #include "WorldManager.h"
+#include "Skydome.h"
 
 #include "MathVector.h"
 #include "MathUtil.h"
@@ -48,7 +49,7 @@ std::unique_ptr<Player> Player::Create(const Transform::Status& status, const st
 
 	newObj->Initialize(status, key);
 
-	newObj->SetDrawKeys(WorldKeyStrs());
+	newObj->SetDrawKeys({ key });
 
 	return std::move(newObj);
 }
@@ -163,6 +164,7 @@ void Player::UpdatePos()
 void Player::UpdateBeforeCollision()
 {
 	pCamera->SetPlayerPosPtr(&transform_->pos_);
+	Skydome::SetPlayerPos(transform_->pos_);
 
 	BaseCharacter::UpdateBeforeCollision();
 }
@@ -199,6 +201,7 @@ void Player::UpdateAfterCollision()
 	ScoreManager::GetInstance()->SetHP(status_.HP());
 	
 	SetWorldKey(WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()));
+	SetDrawKeys({ WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()) });
 }
 
 YGame::ICollisionInfomation Player::GetCollisionInfomation()
@@ -238,18 +241,15 @@ void Player::Jump(const bool isJumpCount)
 
 	// ジャンプアニメーション
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
-
-	pCamera->MoveOnJump();
 }
 
 void Player::Drop()
 {
 	moveDirection_.y = -1.0f;
 
-	// ジャンプアニメーション
+	// 攻撃アニメーション
+	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eAttack), false);
 	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eJump), true);
-
-	pCamera->MoveOnJump();
 }
 
 void Player::OffScreenProcess()
@@ -311,11 +311,23 @@ void Player::OnCollision(const ICollisionInfomation& info)
 		status_.ActivateInvincible();
 
 		//speed_.SetMax(speed_.Max() * 1.2f);
-
-		ScoreManager::GetInstance()->AddSpeedLevel();
-
+		
 		localPos_ = {};
 		initPos_ = WorldManager::GetInstance()->Pass();
+		
+		pCamera->ChangeType(GameCamera::Type::eNormal);
+		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eNormalColor));
+		
+		if (WorldKey::eJourneyKey == WorldManager::GetInstance()->CurrentWorldKey())
+		{
+			pCamera->ChangeType(GameCamera::Type::ePass);
+			drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eSingleColor));
+		}
+		if (WorldKey::eFeverKey == WorldManager::GetInstance()->CurrentWorldKey())
+		{
+			ScoreManager::GetInstance()->AddSpeedLevel();
+		}
+
 	}
 	// ゴール
 	else if (info.attribute == AttributeType::eGoal)

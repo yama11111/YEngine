@@ -32,13 +32,15 @@ namespace
 }
 
 std::unique_ptr<BlockDrawer> BlockDrawer::Create(
-	const DrawerInitSet& init, const Type type, const bool isBackground)
+	const DrawerInitSet& init, const Type type, const bool isBackground,
+	const SceneKey scene)
 {
 	std::unique_ptr<BlockDrawer> newDrawer = std::make_unique<BlockDrawer>();
 
-	newDrawer->Initialize(init);
-	newDrawer->type_ = type;
+	newDrawer->scene_ = scene;
 	newDrawer->isBackground_ = isBackground;
+	newDrawer->type_ = type;
+	newDrawer->Initialize(init);
 
 	return std::move(newDrawer);
 }
@@ -55,7 +57,8 @@ void BlockDrawer::Initialize(const DrawerInitSet& init)
 	
 	transform_.scale_ = Vector3(1.0f, 1.0f, 1.0f);
 
-	cbMaterial_->data_.ambient = Vector3(0.8f, 0.8f, 0.8f);
+	cbColor_->data_.texColorRate = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	cbMaterial_->data_.ambient = Vector3(0.4f, 0.4f, 0.4f);
 
 	cbOutline_.reset(ConstBufferObject<CBOutline>::Create());
 	cbOutline_->data_.range = 0.02f;
@@ -63,8 +66,27 @@ void BlockDrawer::Initialize(const DrawerInitSet& init)
 	InsertConstBuffer("Block", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_0));
 	InsertConstBuffer("Block_O", cbOutline_.get());
 	
-	SetShaderTag("Block", "ModelToon");
-	SetShaderTag("Block_O", "ModelOutline");
+	if (scene_ == SceneKey::eTitleKey)
+	{
+		SetShaderTag("ModelSingleColor");
+
+		if (isBackground_)
+		{
+			cbColor_->data_.baseColor = ColorConfig::skTurquoise[4];
+			cbColor_->data_.texColorRate.w = 0.5f;
+		}
+		else
+		{
+			SetShaderTag("Block_O", "ModelOutline");
+			cbColor_->data_.baseColor = kColorSet[static_cast<size_t>(Type::eGreen)].body;
+			cbOutline_->data_.color = kColorSet[static_cast<size_t>(Type::eGreen)].outline;
+		}
+	}
+	if (scene_ == SceneKey::ePlayKey)
+	{
+		SetShaderTag("Block", "ModelToon");
+		SetShaderTag("Block_O", "ModelOutline");
+	}
 }
 
 void BlockDrawer::InitializeObjects()
@@ -75,11 +97,15 @@ void BlockDrawer::InitializeObjects()
 
 void BlockDrawer::UpdateAnimation()
 {
-	cbColor_->data_.baseColor = kColorSet[static_cast<size_t>(type_)].body;
-	cbOutline_->data_.color = kColorSet[static_cast<size_t>(type_)].outline;
+	if (scene_ == SceneKey::ePlayKey)
+	{
+		cbColor_->data_.baseColor = kColorSet[static_cast<size_t>(type_)].body;
+		cbOutline_->data_.color = kColorSet[static_cast<size_t>(type_)].outline;
+	}
 
 	if (isBackground_)
 	{
-		cbOutline_->data_.color.w = 0.0f;
+		cbOutline_->data_.color = Vector4(1.0f, 1.0f, 1.0f, 0.5f);
+		cbColor_->data_.texColorRate.w = 0.5f;
 	}
 }
