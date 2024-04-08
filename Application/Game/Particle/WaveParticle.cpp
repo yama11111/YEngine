@@ -84,6 +84,7 @@ namespace YGame
 	{
 		BaseParticle::Initialize(aliveFrame, { pos, rota }, "Sprite3DDefault", 1);
 
+		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 

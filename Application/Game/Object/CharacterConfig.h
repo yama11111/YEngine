@@ -4,8 +4,6 @@
 
 namespace YGame
 {
-	static const YMath::Vector3 kMaxWorldSize = { 2000.0f, 150.0f, 150.0f };
-
 	namespace PlayerConfig
 	{
 		static const YMath::Vector2 kPhysicsRect = { 1.0f,1.0f };
@@ -35,7 +33,6 @@ namespace YGame
 		static const uint32_t kHP = 100;
 		static const uint32_t kAttack = 20;
 		static const uint32_t kInvincibleTime = 20;
-		static const uint32_t kBlowTime = 2;
 	}
 
 	namespace NeedleAttackConfig

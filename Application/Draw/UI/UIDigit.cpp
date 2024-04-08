@@ -57,7 +57,7 @@ namespace YGame
 			const bool isClearWhenTransition = true) override;
 
 		// トランスフォーム初期化
-		void InitializeTransform(const Transform::Status& status = {}) override;
+		void InitializeTransform(const Transform::Status& status, YMath::Matrix4* pParent = nullptr) override;
 
 		// 更新
 		void Update(const Transform::Status& status = {}) override;
@@ -203,9 +203,10 @@ namespace YGame
 		isClearWhenTransition_ = isClearWhenTransition;
 	}
 
-	void impl_UIDigit::InitializeTransform(const Transform::Status& status)
+	void impl_UIDigit::InitializeTransform(const Transform::Status& status, YMath::Matrix4* pParent)
 	{
 		objs_[type_]->Initialize(status);
+		objs_[type_]->SetParent(pParent);
 	}
 
 	void impl_UIDigit::Update(const Transform::Status& status)

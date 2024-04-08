@@ -18,6 +18,11 @@ using YMath::Vector2;
 using YMath::Vector3;
 using YMath::BitFrag;
 
+namespace 
+{
+	const uint32_t kBlowTime = 2;
+}
+
 std::unique_ptr<Slime> Slime::Create(const Transform::Status& status, const std::string& key)
 {
 	std::unique_ptr<Slime> newObj = std::make_unique<Slime>();
@@ -30,54 +35,57 @@ std::unique_ptr<Slime> Slime::Create(const Transform::Status& status, const std:
 void Slime::Initialize(const Transform::Status& status, const std::string& key)
 {
 	// ゲームキャラクター初期化
-	BaseCharacter::Initialize(
-		"Slime", key, 
-		status,
-		{ -1.0f, 0.0f, 0.0f }, // 左向き
-		SlimeConfig::kAcceleration, SlimeConfig::kMaxSpeed, true,
-		SlimeConfig::kHP, SlimeConfig::kAttack, SlimeConfig::kInvincibleTime);
+	BaseCharacter::Initialize("Slime", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::eEnemy);
+	// アタリ判定
+	{
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::eEnemy);
 
-	SetCollider(GameCollider::Create(attribute));
+		SetCollider(GameCollider::Create(attribute));
+
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::eBlock);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), true, false),
+				mask);
+		}
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::ePlayer);
+			mask.SetFragTrue(AttributeType::ePlayerAttack);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), false, false),
+				mask);
+		}
+
+		collider_->SetPriority(1);
+	}
 	
-	SetIsSaveColl(true);
-
+	// 描画
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::eBlock);
+		std::unique_ptr<SlimeDrawer> drawer = SlimeDrawer::Create({ nullptr, nullptr, key, 1 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), true, false),
-			mask);
+		// 立ちアニメーション
+		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
+
+		if (key == WorldKeyStr(WorldKey::eFeverKey))
+		{
+			drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever), true);
+		}
 	}
 
-	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePlayer);
-		mask.SetFragTrue(AttributeType::ePlayerAttack);
-
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, speed_.VelocityPtr(), SlimeConfig::kRectSize, Vector3(), false, false),
-			mask);
-	}
-
-	collider_->SetPriority(1);
-
-	SetDrawer(SlimeDrawer::Create({ nullptr, nullptr, key, 1 }));
-
-	blowTim_.Initialize(SlimeConfig::kBlowTime);
-
-	// 立ちアニメーション
-	drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
-
-	if (key == WorldKeyStr(WorldKey::eFeverKey))
-	{
-		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever), true);
-	}
+	blowTim_.Initialize(kBlowTime);
 }
 
 void Slime::UpdateBeforeCollision()

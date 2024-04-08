@@ -1,14 +1,15 @@
 #include "ExplosionParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "DrawObjectForModel.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
 #include "MathUtil.h"
-#include "Speed.h"
-#include <memory>
 
 #include "WorldManager.h"
+#include "Speed.h"
+#include <memory>
 
 using YGame::ExplosionParticle;
 using YGame::WorldManager;
@@ -95,6 +96,7 @@ namespace YGame
 	{
 		BaseParticle::Initialize(aliveFrame, { pos }, "ModelPhong", 1);
 
+		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 

@@ -6,6 +6,7 @@
 #include "ConstBufferObject.h"
 #include "CBColor.h"
 #include "Speed.h"
+#include "WorldManager.h"
 
 #include "MathUtil.h"
 
@@ -96,6 +97,7 @@ namespace YGame
 	{
 		BaseParticle::Initialize(aliveFrame, { pos }, "Sprite3DDefault", 1);
 
+		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 

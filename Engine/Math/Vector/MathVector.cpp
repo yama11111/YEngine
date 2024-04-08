@@ -104,6 +104,11 @@ Matrix4 YMath::MatTranslation(const Vector3& t)
 	return matMove;
 }
 
+Vector3 YMath::VecTranslation(const Matrix4& m)
+{
+	return Vector3(m.m[3][0], m.m[3][1], m.m[3][2]);
+}
+
 // ----- ビュープロジェクション変換 ----- //
 
 Matrix4 YMath::MatOrthoGraphic()

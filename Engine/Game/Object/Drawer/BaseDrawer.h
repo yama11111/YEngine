@@ -111,12 +111,6 @@ namespace YGame
 		/// <param name="isVisible"> : 描画するか</param>
 		void SetIsVisible(const bool isVisible);
 
-		/// <summary>
-		/// 描画更新するか
-		/// </summary>
-		/// <param name="isVisibleUpdate"> : 描画更新するか</param>
-		void SetIsVisibleUpdate(const bool isVisibleUpdate) { isVisibleUpdate_ = isVisibleUpdate; }
-
 	public:
 	
 		/// <summary>
@@ -167,9 +161,6 @@ namespace YGame
 
 		// マテリアル定数バッファ
 		std::unique_ptr<ConstBufferObject<CBMaterial>> cbMaterial_;
-		
-		// 描画更新フラグ
-		bool isVisibleUpdate_ = true;
 
 		// ビュープロジェクションキー
 		std::string vpKey_;
@@ -211,11 +202,6 @@ namespace YGame
 		/// アニメーション更新
 		/// </summary>
 		virtual void UpdateAnimation();
-
-		/// <summary>
-		/// 描画するか更新
-		/// </summary>
-		void VisibleUpdate();
 	
 	protected:
 

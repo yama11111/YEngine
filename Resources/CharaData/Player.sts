@@ -1,0 +1,7 @@
+direction +1.0 0.0 0.0
+accel 0.1 0.3 0.0
+maxSpeed 0.4 2.0 0.0
+isGravity 1
+hp 100
+attack 100
+invincibleTime 40

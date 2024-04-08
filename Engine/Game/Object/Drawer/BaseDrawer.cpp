@@ -1,8 +1,11 @@
 #include "BaseDrawer.h"
 #include "ViewProjectionManager.h"
+#include "MathVector.h"
 #include <cassert>
 
 using YGame::BaseDrawer;
+using YMath::Vector3;
+using YMath::Matrix4;
 
 void BaseDrawer::Initialize(const DrawerInitSet& init)
 {	
@@ -31,8 +34,6 @@ void BaseDrawer::Initialize(const DrawerInitSet& init)
 	InsertConstBuffer(cbMaterial_.get());
 
 	SetIsVisible(true);
-
-	isVisibleUpdate_ = true;
 
 	animationBitFlag_ = 0;
 
@@ -114,27 +115,6 @@ void BaseDrawer::UpdateAnimation()
 {
 }
 
-void BaseDrawer::VisibleUpdate()
-{
-	if (isVisibleUpdate_ == false) { return; }
-
-	// 視点との距離
-	float distance = YMath::Vector3(
-		ViewProjectionManager::GetInstance()->ViewProjectionPtr(vpKey_)->eye_ - pParent_->pos_).Length();
-
-	// 描画範囲
-	static const float kRange = 750.0f;
-
-	// 視点との距離の比率でアルファ値変化(遠いほど薄く)
-	float distanceRate = 1.0f - distance / kRange;
-	if (distanceRate >= 1.0f) { distanceRate = 1.0f; }
-
-	cbColor_->data_.texColorRate.w = distanceRate;
-
-	// 一定値以下は描画切る
-	SetIsVisible((distanceRate >= 0.01f));
-}
-
 void BaseDrawer::Update()
 {
 	animeStatus_ = {};
@@ -151,8 +131,6 @@ void BaseDrawer::Update()
 	{
 		itr->second->Update();
 	}
-
-	VisibleUpdate();
 }
 
 void BaseDrawer::Draw()

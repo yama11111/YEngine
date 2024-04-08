@@ -85,6 +85,9 @@ namespace YGame
 		bool isLanding_ = false;
 		bool isElderLanding_ = false;
 
+		// 基準のトランスフォーム
+		Transform baseTrfm_;
+
 	private:
 
 		/// <summary>

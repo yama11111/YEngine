@@ -40,9 +40,6 @@ void CollisionDrawer::Initialize(const DrawerInitSet& init)
 	// オブジェクト初期化
 	BaseDrawer::Initialize(init);
 
-
-	isVisibleUpdate_ = false;
-
 	cbColor_->data_.baseColor = { 1.0f,0.0f,1.0f,0.5f };
 
 	SetShaderTag("ModelPhong");

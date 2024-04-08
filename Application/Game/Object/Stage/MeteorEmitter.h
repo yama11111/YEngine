@@ -22,7 +22,9 @@ namespace YGame
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<MeteorEmitter> Create(const Transform::Status& status, const std::string& key);
+		static std::unique_ptr<MeteorEmitter> Create(
+			const Transform::Status& status, 
+			const std::string& key);
 
 	public:
 

@@ -34,6 +34,8 @@ namespace
 {
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 	GameCamera* pCamera = nullptr;
+
+	const YMath::Vector3 kMaxWorldSize = { 2000.0f, 150.0f, 150.0f };
 }
 
 void Player::StaticInitialize(GameCamera* pGameCamera)
@@ -56,69 +58,76 @@ std::unique_ptr<Player> Player::Create(const Transform::Status& status, const st
 
 void Player::Initialize(const Transform::Status& status, const std::string& key)
 {
-	BaseCharacter::Initialize(
-		"Player", key, status,
-		{ +1.0f, 0.0f, 0.0f }, // 右向き
-		PlayerConfig::kAcceleration, PlayerConfig::kMaxSpeed, true,
-		PlayerConfig::kHP, PlayerConfig::kAttack, PlayerConfig::kInvincibleTime);
+	BaseCharacter::Initialize("Player", key, status, nullptr);
 
 	ScoreManager::GetInstance()->SetMaxHP(PlayerConfig::kHP);
 	ScoreManager::GetInstance()->SetHP(PlayerConfig::kHP);
 
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::ePlayer);
+	// アタリ判定
+	{
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::ePlayer);
 
-	SetCollider(GameCollider::Create(attribute));
+		SetCollider(GameCollider::Create(attribute));
+
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::eBlock);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, speed_.VelocityPtr(), PlayerConfig::kPhysicsRect, Vector3(), true, false),
+				mask);
+		}
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::eGate);
+			mask.SetFragTrue(AttributeType::eGoal);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, PlayerConfig::kPhysicsRect),
+				mask);
+		}
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::eEnemy);
+			mask.SetFragTrue(AttributeType::eEnemyAttack);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, speed_.VelocityPtr(), PlayerConfig::kCollRect, Vector3(), false, false),
+				mask);
+		}
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::eCoin);
+			mask.SetFragTrue(AttributeType::eItem);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::SphereCollider>(
+					&worldPos_, PlayerConfig::kRadius),
+				mask);
+		}
+
+		collider_->SetPriority(1);
+	}
 	
-	SetIsSaveColl(true);
-
+	// 描画
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::eBlock);
+		std::unique_ptr<PlayerDrawer> drawer = PlayerDrawer::Create({ nullptr, nullptr, key, 0 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, speed_.VelocityPtr(), PlayerConfig::kPhysicsRect, Vector3(), true, false),
-			mask);
+		// 立ちアニメーション
+		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
+		drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eCircleShadow), true);
 	}
-
-	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::eGate);
-		mask.SetFragTrue(AttributeType::eGoal);
-
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, PlayerConfig::kPhysicsRect),
-			mask);
-	}
-
-	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::eEnemy);
-		mask.SetFragTrue(AttributeType::eEnemyAttack);
-
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, speed_.VelocityPtr(), PlayerConfig::kCollRect, Vector3(), false, false),
-			mask);
-	}
-
-	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::eCoin);
-		mask.SetFragTrue(AttributeType::eItem);
-
-		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&worldPos_, PlayerConfig::kRadius),
-			mask);
-	}
-
-	collider_->SetPriority(1);
-
-
-	SetDrawer(PlayerDrawer::Create({ nullptr, nullptr, key, 1 }));
 
 	jumpCounter_ = 0;
 
@@ -126,10 +135,17 @@ void Player::Initialize(const Transform::Status& status, const std::string& key)
 
 	isLanding_ = false;
 	isElderLanding_ = false;
+
+	GameObjectManager::GetInstance()->SetBasePoint(worldPos_);
 	
-	// 立ちアニメーション
-	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eIdle), true);
-	drawer_->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eCircleShadow), true);
+	baseTrfm_.Initialize({ -status.pos_, {}, {1.0f,1.0f,1.0f} });
+	baseTrfm_.UpdateMatrix();
+	pWorldMan->SetBaseMat(baseTrfm_.m);
+
+	posMat_ = YMath::MatTranslation(worldPos_) * pWorldMan->BasePosMat();
+
+	transform_->pos_ = {};
+	transform_->UpdateMatrix();
 }
 
 
@@ -158,7 +174,13 @@ void Player::UpdatePos()
 
 	worldPos_ = initPos_ + localPos_;
 	
-	transform_->pos_ = worldPos_;
+	GameObjectManager::GetInstance()->SetBasePoint(worldPos_);
+
+	baseTrfm_.pos_ -= speed_.Velocity();
+	baseTrfm_.UpdateMatrix();
+	pWorldMan->SetBaseMat(baseTrfm_.m);
+
+	posMat_ = YMath::MatTranslation(worldPos_) * pWorldMan->BasePosMat();
 }
 
 void Player::UpdateBeforeCollision()
@@ -255,7 +277,7 @@ void Player::Drop()
 void Player::OffScreenProcess()
 {
 	// 画面外なら死ぬ
-	if (YMath::InRange(initPos_ + localPos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
+	if (YMath::InRange(initPos_ + localPos_, -kMaxWorldSize, kMaxWorldSize) == false)
 	{
 		WorldManager::GetInstance()->GameOver();
 	}

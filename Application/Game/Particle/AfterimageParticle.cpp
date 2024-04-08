@@ -6,6 +6,7 @@
 #include "ConstBufferObject.h"
 #include "CBColor.h"
 
+#include "WorldManager.h"
 #include "ColorConfig.h"
 
 #include "Speed.h"
@@ -89,6 +90,8 @@ namespace YGame
 		BaseParticle::Initialize(aliveFrame, { trfm.pos_, trfm.rota_, trfm.scale_ }, "ModelSingleColor", 1);
 
 		scale_ = trfm.scale_;
+
+		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 
 		cbColor_->data_.baseColor = color;
 		pObj_->InsertConstBuffer(cbColor_.get());

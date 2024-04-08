@@ -12,6 +12,7 @@
 #include "WaveParticle.h"
 
 #include "Def.h"
+#include "MathVector.h"
 #include <cmath>
 
 using YGame::SlimeDrawer;
@@ -153,7 +154,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 		}
 
 		// 自分の足元に土煙を発生
-		Vector3 pos = pParent_->pos_ - Vector3(0.0f, kHeight, 0.0f);
+		Vector3 pos = *pParentWorldPos_ - Vector3(0.0f, kHeight, 0.0f);
 
 		// 自分の周囲 かつ 上方向
 		for (size_t i = 0; i < kLandingDirectionNum; i++)
@@ -164,7 +165,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);
 
-			DustParticle::Emit(kLandingDustNum, *pParentWorldPos_, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+			//DustParticle::Emit(kLandingDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 		}
 	}
 	// 被弾
@@ -212,8 +213,10 @@ void SlimeDrawer::UpdateAnimation()
 		CircleShadowManager::Key shadowKey1 = CircleShadowManager::Key::eWorld_0;
 		CircleShadowManager::Key shadowKey2 = CircleShadowManager::Key::eWorld_1;
 
-		CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey1, pParent_->pos_ - Vector3(0, 1.0f, 0));
-		CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey2, pParent_->pos_ - Vector3(0, 1.0f, 0));
+		CircleShadowManager::GetInstance()->ActivateCircleShadow(
+			shadowKey1, YMath::VecTranslation(*pParentPosMat_) - Vector3(0, 1.0f, 0));
+		CircleShadowManager::GetInstance()->ActivateCircleShadow(
+			shadowKey2, YMath::VecTranslation(*pParentPosMat_) - Vector3(0, 1.0f, 0));
 	}
 }
 

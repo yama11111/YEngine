@@ -3,6 +3,69 @@
     "objects": [
         {
             "type": "MESH",
+            "name": "Player.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    -44.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "_Player.002",
+            "transform": {
+                "translation": [
+                    0.0,
+                    308.6287536621094,
+                    -5.699104309082031
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "_Player.003",
+            "transform": {
+                "translation": [
+                    0.0,
+                    604.45703125,
+                    4.300895690917969
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
             "name": "Block.001",
             "transform": {
                 "translation": [
@@ -3558,69 +3621,6 @@
                     0.0,
                     483.0,
                     1.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "_Player.001",
-            "transform": {
-                "translation": [
-                    0.0,
-                    -44.0,
-                    -7.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "_Player.002",
-            "transform": {
-                "translation": [
-                    0.0,
-                    308.6287536621094,
-                    -5.699104309082031
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "MESH",
-            "name": "Player.003",
-            "transform": {
-                "translation": [
-                    0.0,
-                    604.45703125,
-                    4.300895690917969
                 ],
                 "rotation": [
                     0.0,

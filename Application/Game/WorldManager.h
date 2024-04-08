@@ -78,6 +78,12 @@ namespace YGame
 		/// </summary>
 		/// <param name="key"> : キー</param>
 		void SetWorldKey(const WorldKey& key);
+		
+		/// <summary>
+		/// 機銃行列設定
+		/// </summary>
+		/// <param name="mat"> ; 行列</param>
+		void SetBaseMat(const YMath::Matrix4& mat);
 
 		/// <summary>
 		/// ゲート位置設定
@@ -100,6 +106,18 @@ namespace YGame
 		/// </summary>
 		/// <returns>現在のキー</returns>
 		WorldKey CurrentWorldKey() const;
+		
+		/// <summary>
+		/// 基準の行列のポインタ取得
+		/// </summary>
+		/// <returns>基準の行列のポインタ</returns>
+		YMath::Matrix4 BasePosMat();
+
+		/// <summary>
+		/// 基準の行列のポインタ取得
+		/// </summary>
+		/// <returns>基準の行列のポインタ</returns>
+		YMath::Matrix4* BasePosMatPointer();
 	
 	private:
 
@@ -139,7 +157,10 @@ namespace YGame
 		// 過去世界キー
 		WorldKey elderWorldKey_{};
 
-		// カメラ
+		// 基準の行列
+		YMath::Matrix4 basePosMat_;
+
+		// カメラ位置
 		std::unordered_map<WorldKey, CameraSet> cameraSets_;
 		
 		// ゲート位置

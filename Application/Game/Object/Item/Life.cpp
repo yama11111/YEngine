@@ -21,33 +21,36 @@ std::unique_ptr<Life> Life::Create(const Transform::Status& status, const std::s
 
 void Life::Initialize(const Transform::Status& status, const std::string& key)
 {
-	BaseCharacter::Initialize(
-		"Coin", key,
-		status,
-		{ 0.0f, 0.0f, +1.0f }, // 右向き
-		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false,
-		1, 0, 0);
+	BaseCharacter::Initialize("Coin", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::eItem);
-
-	SetCollider(GameCollider::Create(attribute));
-
-	SetIsSaveColl(true);
-
+	// アタリ判定
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePlayer);
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::eItem);
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&worldPos_, CoinConfig::kRadius),
-			mask);
+		SetCollider(GameCollider::Create(attribute));
+
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::ePlayer);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::SphereCollider>(
+					&worldPos_, CoinConfig::kRadius),
+				mask);
+		}
 	}
 
-	SetDrawer(LifeDrawer::Create({ nullptr, nullptr, key, 1 }));
+	// 描画
+	{
+		std::unique_ptr<LifeDrawer> drawer = LifeDrawer::Create({ nullptr, nullptr, key, 1 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
 
-	drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle), true);
+		drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle), true);
+	}
 }
 
 void Life::UpdateBeforeCollision()

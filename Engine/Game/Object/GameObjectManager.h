@@ -70,6 +70,21 @@ namespace YGame
 	public:
 
 		/// <summary>
+		/// 基準位置設定
+		/// </summary>
+		/// <param name="basePoint"> : 基準位置</param>
+		void SetBasePoint(const YMath::Vector3& basePoint);
+
+		/// <summary>
+		/// 更新範囲設定
+		/// </summary>
+		/// <param name="updateRange"> : 更新範囲</param>
+		/// <param name="updateRangeForBack"> : 更新範囲(背景)</param>
+		void SetUpdateRagne(const float updateRange, const float updateRangeForBack);
+
+	public:
+
+		/// <summary>
 		/// シングルトン
 		/// </summary>
 		/// <returns></returns>
@@ -122,13 +137,23 @@ namespace YGame
 		std::list<GameObjectSetForBack> backObjects_;
 
 		// 更新処理用キューマップ
-		std::unordered_map<std::string, UpdateQueue> updateQueues_;
+		std::unordered_map<std::string, UpdateQueue> updateQueueMap_;
 		
 		// 判定リストマップ
-		std::unordered_map<std::string, std::list<CollSet>> collLists_;
+		std::unordered_map<std::string, std::list<CollSet>> collListMap_;
 
 		// 描画処理関数キューマップ
-		std::unordered_map<std::string, std::queue<std::function<void()>>> drawQueues_;
+		std::unordered_map<std::string, std::queue<std::function<void()>>> drawQueueMap_;
+
+
+		// 基準位置
+		YMath::Vector3 basePoint_;
+
+		// 更新範囲
+		float updateRange_ = 100.0f;
+
+		// 更新範囲(背景)
+		float updateRangeForBack_ = 500.0f;
 
 	private:
 
@@ -138,13 +163,11 @@ namespace YGame
 		/// <param name="pos"> : 座標</param>
 		/// <param name="scale"> : スケール</param>
 		/// <param name="range"> : 範囲</param>
-		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		/// <returns>更新範囲内か</returns>
 		bool InUpdateRange(
 			const YMath::Vector3& pos, 
 			const YMath::Vector3& scale, 
-			const float range, 
-			const ViewProjection* pVP);
+			const float range);
 
 		/// <summary>
 		/// アタリ判定全チェック

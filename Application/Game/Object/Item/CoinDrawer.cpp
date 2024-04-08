@@ -9,6 +9,7 @@
 
 #include "Lerp.h"
 #include "Def.h"
+#include "MathVector.h"
 
 using YGame::CoinDrawer;
 using YGame::Model;
@@ -155,6 +156,7 @@ void CoinDrawer::UpdateAnimation()
 	if (IsActAnimation(kCircleShadowIndex))
 	{
 		CircleShadowManager::Key shadowKey = CircleShadowManager::Key::eWorld_0;
-		CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey, pParent_->pos_ - Vector3(0, 1.0f, 0));
+		CircleShadowManager::GetInstance()->ActivateCircleShadow(
+			shadowKey, YMath::VecTranslation(*pParentPosMat_) - Vector3(0, 1.0f, 0));
 	}
 }

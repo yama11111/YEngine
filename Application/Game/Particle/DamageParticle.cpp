@@ -1,14 +1,17 @@
 #include "DamageParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "UINumber.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
+
+#include "WorldManager.h"
 #include "ColorConfig.h"
+
 #include "MathUtil.h"
 #include <memory>
 
-#include "WorldManager.h"
 
 using YGame::DamageParticle;
 using YMath::Vector3;
@@ -91,7 +94,8 @@ namespace YGame
 	{
 		BaseParticle::Initialize(0, {}, "", 0);
 		
-		uiNum_->InitializeTransform({ pos, {}, { kScaleValue, kScaleValue, kScaleValue } });
+		uiNum_->InitializeTransform({ pos, {}, { kScaleValue, kScaleValue, kScaleValue } }, 
+			WorldManager::GetInstance()->BasePosMatPointer());
 		uiNum_->InsertConstBuffer(cbColor_.get());
 		uiNum_->SetViewProjection(pVP);
 		

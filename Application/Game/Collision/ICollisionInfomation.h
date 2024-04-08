@@ -18,8 +18,11 @@ namespace YGame
 		// 半径
 		float radius = 0.0f;
 
+		// ワールド座標
+		YMath::Vector3* pWorldPos = nullptr;
+
 		// 移動方向
-		YMath::Vector3* pMoveDirection_ = nullptr;
+		YMath::Vector3* pMoveDirection = nullptr;
 
 		// キャラステータスポインタ
 		CharacterStatus* pStatus = nullptr;

@@ -51,7 +51,7 @@ namespace YGame
 		YMath::Timer actTimer_;
 
 		// プレイヤートランスフォームポインタ
-		Transform* pPlayerTrfm_ = nullptr;
+		YMath::Vector3* pPlayerPos_ = nullptr;
 
 	private:
 

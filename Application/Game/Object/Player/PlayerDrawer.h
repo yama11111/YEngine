@@ -59,8 +59,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="init"> : 初期化セット</param>
 		/// <returns>プレイヤー描画クラスポインタ (動的インスタンス)</returns>
-		static std::unique_ptr<PlayerDrawer> Create(const DrawerInitSet& init, 
-			const SceneKey sceneKey = SceneKey::ePlayKey);
+		static std::unique_ptr<PlayerDrawer> Create(const DrawerInitSet& init);
 
 		/// <summary>
 		/// 静的初期化

@@ -1,14 +1,17 @@
 #include "DustParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "DrawObjectForModel.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
-#include "MathUtil.h"
-#include "Speed.h"
-#include <memory>
 
 #include "WorldManager.h"
+#include "Speed.h"
+
+#include "MathUtil.h"
+#include <memory>
+
 
 using YGame::DustParticle;
 using YMath::Vector3;
@@ -95,6 +98,7 @@ namespace YGame
 	{
 		BaseParticle::Initialize(aliveFrame, { pos }, "ModelPhong", 1);
 		
+		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 

@@ -1,11 +1,14 @@
 #include "BaseCharacter.h"
 
+#include "WorldManager.h"
+
 #include "MathVector.h"
 #include "MathUtil.h"
 
-#include "CharacterConfig.h"
-#include "WorldManager.h"
-
+#include "FileUtil.h"
+#include <cassert>
+#include <fstream>
+#include <sstream>
 #include <imgui.h>
 
 using YGame::BaseCharacter;
@@ -14,6 +17,8 @@ using YMath::Vector3;
 
 namespace
 {
+	const YMath::Vector3 kMaxWorldSize = { 2000.0f, 150.0f, 150.0f };
+
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
@@ -21,19 +26,16 @@ void BaseCharacter::Initialize(
 	const std::string& name,
 	const std::string& worldKey,
 	const Transform::Status& status,
-	const Vector3& direction,
-	const Vector3& acceleration, const Vector3& maxSpeed, const bool isGravity,
-	const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime)
+	YMath::Matrix4* pParent)
 {
 	GameObject::Initialize(name, status);
+	
+	transform_->parent_ = pParent;
+	transform_->UpdateMatrix();
+
+	LoadStatus(name);
 
 	SetWorldKey(worldKey);
-
-	direction_ = direction;
-
-	speed_.Initialize(acceleration, maxSpeed, isGravity);
-
-	status_.Initialize(hp, attack, invincibleTime);
 }
 
 void BaseCharacter::UpdateBeforeCollision()
@@ -65,7 +67,8 @@ YGame::ICollisionInfomation BaseCharacter::GetCollisionInfomation()
 	ICollisionInfomation result;
 
 	result.pTrfm = transform_.get();
-	result.pMoveDirection_ = &moveDirection_;
+	result.pWorldPos = &worldPos_;
+	result.pMoveDirection = &moveDirection_;
 	result.pStatus = &status_;
 
 	return result;
@@ -86,6 +89,70 @@ void BaseCharacter::SetWorldKey(const std::string& worldKey)
 	if (drawer_) { drawer_->SetVPkey(worldKey); }
 }
 
+void BaseCharacter::LoadStatus(const std::string& name)
+{
+	// 読み込むデータ
+	Vector3 direction;
+	Vector3 accel; Vector3 maxSpeed; 
+	bool isGravity = false;
+	uint32_t hp = 0; uint32_t attack = 0; uint32_t invincibleTime = 0;
+
+	// ファイル読み込み
+	std::ifstream file;
+	file.open("Resources/CharaData/" + name + ".sts");
+	assert(file);
+
+	// 1行ずつ読み込み
+	std::string line;
+	while (std::getline(file, line))
+	{
+		std::istringstream lineStream(line);
+
+		std::string key;
+		std::getline(lineStream, key, ' ');
+
+		if (key == "direction")
+		{
+			lineStream >> direction.x;
+			lineStream >> direction.y;
+			lineStream >> direction.z;
+		}
+		else if (key == "accel")
+		{
+			lineStream >> accel.x;
+			lineStream >> accel.y;
+			lineStream >> accel.z;
+		}
+		else if (key == "maxSpeed")
+		{
+			lineStream >> maxSpeed.x;
+			lineStream >> maxSpeed.y;
+			lineStream >> maxSpeed.z;
+		}
+		else if (key == "isGravity")
+		{
+			lineStream >> isGravity;
+		}
+		else if (key == "hp")
+		{
+			lineStream >> hp;
+		}
+		else if (key == "attack")
+		{
+			lineStream >> attack;
+		}
+		else if (key == "invincibleTime")
+		{
+			lineStream >> invincibleTime;
+		}
+	}
+
+	// 初期化
+	direction_ = direction;
+	speed_.Initialize(accel, maxSpeed, isGravity);
+	status_.Initialize(hp, attack, invincibleTime);
+}
+
 void BaseCharacter::UpdatePos()
 {
 	localPos_ += speed_.Velocity();
@@ -93,12 +160,14 @@ void BaseCharacter::UpdatePos()
 	worldPos_ = initPos_ + localPos_;
 
 	transform_->pos_ = worldPos_;
+
+	posMat_ = YMath::MatTranslation(worldPos_) * pWorldMan->BasePosMat();
 }
 
 void BaseCharacter::OffScreenProcess()
 {
 	// 画面外なら死ぬ
-	if (YMath::InRange(transform_->pos_, -YGame::kMaxWorldSize, YGame::kMaxWorldSize) == false)
+	if (YMath::InRange(transform_->pos_, -kMaxWorldSize, kMaxWorldSize) == false)
 	{
 		status_.Damage(1000, false);
 	}

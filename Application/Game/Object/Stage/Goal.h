@@ -1,3 +1,10 @@
+/**
+ * @file Goal.h
+ * @brief ゴールクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseStageObject.h"
 

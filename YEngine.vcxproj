@@ -117,6 +117,8 @@
     <ClCompile Include="Application\Draw\Actor\HitActor.cpp" />
     <ClCompile Include="Application\Draw\UI\UIGauge.cpp" />
     <ClCompile Include="Application\Game\Camera\GameCamera.cpp" />
+    <ClCompile Include="Application\Game\Object\BaseCharacterDrawer.cpp" />
+    <ClCompile Include="Application\Game\Object\BaseStageDrawer.cpp" />
     <ClCompile Include="Application\Game\Object\CircleShadowManager.cpp" />
     <ClCompile Include="Application\Game\Object\Item\Life.cpp" />
     <ClCompile Include="Application\Game\Object\BaseStageObject.cpp" />

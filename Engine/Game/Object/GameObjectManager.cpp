@@ -6,12 +6,10 @@
 #include <imgui.h>
 
 using YGame::GameObjectManager;
+using YMath::Vector3;
 
 namespace 
 {
-	// 更新範囲
-	const float kUpdateRange = 100.0f;
-	const float kUpdateRangeForBack = 500.0f;
 }
 
 GameObjectManager* GameObjectManager::GetInstance()
@@ -26,9 +24,9 @@ void GameObjectManager::Clear()
 	objects_.clear();
 	backObjects_.clear();
 
-	updateQueues_.clear();
-	collLists_.clear();
-	drawQueues_.clear();
+	updateQueueMap_.clear();
+	collListMap_.clear();
+	drawQueueMap_.clear();
 }
 
 void GameObjectManager::Initialize()
@@ -54,6 +52,17 @@ void GameObjectManager::PushBackForBackObject(std::unique_ptr<GameObject>&& obje
 	backObjects_.push_back({ std::move(object) });
 }
 
+void GameObjectManager::SetBasePoint(const Vector3& basePoint)
+{
+	basePoint_ = basePoint;
+}
+
+void GameObjectManager::SetUpdateRagne(const float updateRange, const float updateRangeForBack)
+{
+	updateRange_ = updateRange;
+	updateRangeForBack_ = updateRangeForBack;
+}
+
 void GameObjectManager::Prepare(const bool isContorolUpdate)
 {
 	// オブジェクトが存在しないなら削除
@@ -61,17 +70,17 @@ void GameObjectManager::Prepare(const bool isContorolUpdate)
 	backObjects_.remove_if([](GameObjectSetForBack& object) { return object.obj->IsExist() == false; });
 	
 	// 更新キュー
-	for (auto itr = updateQueues_.begin(); itr != updateQueues_.end(); ++itr)
+	for (auto itr = updateQueueMap_.begin(); itr != updateQueueMap_.end(); ++itr)
 	{
 		itr->second = UpdateQueue();
 	}
 	// 判定リスト
-	for (auto itr = collLists_.begin(); itr != collLists_.end(); ++itr)
+	for (auto itr = collListMap_.begin(); itr != collListMap_.end(); ++itr)
 	{
 		itr->second = std::list<CollSet>();
 	}
 	// 描画キュー
-	for (auto itr = drawQueues_.begin(); itr != drawQueues_.end(); ++itr)
+	for (auto itr = drawQueueMap_.begin(); itr != drawQueueMap_.end(); ++itr)
 	{
 		itr->second = std::queue<std::function<void()>>();
 	}
@@ -83,40 +92,36 @@ void GameObjectManager::Prepare(const bool isContorolUpdate)
 
 		if (object.isUpdateSkip)
 		{
-			object.isSkip = !InUpdateRange(
-				object.obj->WorldPos(), object.obj->TransformPtr()->scale_, kUpdateRange,
-				ViewProjectionManager::GetInstance()->ViewProjectionPtr(object.obj->UpdateKey()));
+			object.isSkip = !InUpdateRange(object.obj->WorldPos(), object.obj->TransformPtr()->scale_, updateRange_);
 		}
 
 		if (object.isSkip) { continue; }
 
 		// キュー、リストに詰める
-		updateQueues_[object.obj->UpdateKey()].before.push([&]() { return object.obj->UpdateBeforeCollision(); });
-		updateQueues_[object.obj->UpdateKey()].after.push([&]() { return object.obj->UpdateAfterCollision(); });
+		updateQueueMap_[object.obj->UpdateKey()].before.push([&]() { return object.obj->UpdateBeforeCollision(); });
+		updateQueueMap_[object.obj->UpdateKey()].after.push([&]() { return object.obj->UpdateAfterCollision(); });
 		
-		collLists_[object.obj->UpdateKey()].push_back({ object.obj.get() });
+		collListMap_[object.obj->UpdateKey()].push_back({ object.obj.get() });
 		
 		for (size_t i = 0; i < object.obj->DrawKeys().size(); i++)
 		{
-			drawQueues_[object.obj->DrawKeys()[i]].push([&]() { return object.obj->Draw(); });
+			drawQueueMap_[object.obj->DrawKeys()[i]].push([&]() { return object.obj->Draw(); });
 		}
 	}
 
 	// 背景オブジェクト
 	for (GameObjectSetForBack& object : backObjects_)
 	{
-		object.isSkip = !InUpdateRange(
-			object.obj->WorldPos(), object.obj->TransformPtr()->scale_, kUpdateRangeForBack,
-			ViewProjectionManager::GetInstance()->ViewProjectionPtr(object.obj->UpdateKey()));
+		object.isSkip = !InUpdateRange(object.obj->WorldPos(), object.obj->TransformPtr()->scale_, updateRangeForBack_);
 
 		if (object.isSkip) { continue; }
 
 		// キューに詰める
-		updateQueues_[object.obj->UpdateKey()].before.push([&]() { return object.obj->UpdateBeforeCollision(); });
-		updateQueues_[object.obj->UpdateKey()].after.push([&]() { return object.obj->UpdateAfterCollision(); });
+		updateQueueMap_[object.obj->UpdateKey()].before.push([&]() { return object.obj->UpdateBeforeCollision(); });
+		updateQueueMap_[object.obj->UpdateKey()].after.push([&]() { return object.obj->UpdateAfterCollision(); });
 		for (size_t i = 0; i < object.obj->DrawKeys().size(); i++)
 		{
-			drawQueues_[object.obj->DrawKeys()[i]].push([&]() { return object.obj->Draw(); });
+			drawQueueMap_[object.obj->DrawKeys()[i]].push([&]() { return object.obj->Draw(); });
 		}
 	}
 }
@@ -125,16 +130,16 @@ void GameObjectManager::Update(const std::vector<std::string>& updateKeys)
 {
 	for (size_t i = 0; i < updateKeys.size(); i++)
 	{
-		if (updateQueues_.contains(updateKeys[i]) == false) { continue; }
+		if (updateQueueMap_.contains(updateKeys[i]) == false) { continue; }
 
 		while (true)
 		{
 			// 空になったら終了
-			if (updateQueues_[updateKeys[i]].before.empty()) { break; }
+			if (updateQueueMap_[updateKeys[i]].before.empty()) { break; }
 
 			// 上から順に更新
-			updateQueues_[updateKeys[i]].before.front()();
-			updateQueues_[updateKeys[i]].before.pop();
+			updateQueueMap_[updateKeys[i]].before.front()();
+			updateQueueMap_[updateKeys[i]].before.pop();
 		}
 
 		// 全キャラアタリ判定チェック
@@ -143,25 +148,24 @@ void GameObjectManager::Update(const std::vector<std::string>& updateKeys)
 		while (true)
 		{
 			// 空になったら終了
-			if (updateQueues_[updateKeys[i]].after.empty()) { break; }
+			if (updateQueueMap_[updateKeys[i]].after.empty()) { break; }
 
 			// 上から順に更新
-			updateQueues_[updateKeys[i]].after.front()();
-			updateQueues_[updateKeys[i]].after.pop();
+			updateQueueMap_[updateKeys[i]].after.front()();
+			updateQueueMap_[updateKeys[i]].after.pop();
 		}
 	}
 }
 
-bool GameObjectManager::InUpdateRange(
-	const YMath::Vector3& pos, const YMath::Vector3& scale, const float range, const ViewProjection* pVP)
+bool GameObjectManager::InUpdateRange(const Vector3& pos, const Vector3& scale, const float range)
 {
 	// カメラに近いオブジェクト端の位置を求める
 	float sign = -1.0f;
-	if (pos.x <= pVP->eye_.x) { sign = 1.0f; }
-	float basePos = pos.x + sign * (scale.x / 2.0f);
+	if (pos.x <= basePoint_.x) { sign = 1.0f; }
+	float edgePos = pos.x + sign * (scale.x / 2.0f);
 
 	// 視点との距離
-	float distance = std::abs(pVP->eye_.x - basePos);
+	float distance = std::abs(basePoint_.x - edgePos);
 
 	return distance <= range;
 }
@@ -169,10 +173,10 @@ bool GameObjectManager::InUpdateRange(
 void GameObjectManager::CheckAllCollision(const std::string& key)
 {
 	// Aの始めから
-	std::list<CollSet>::iterator itrA = collLists_[key].begin();
+	std::list<CollSet>::iterator itrA = collListMap_[key].begin();
 
 	// Aの終わりまで
-	for (; itrA != collLists_[key].end(); ++itrA)
+	for (; itrA != collListMap_[key].end(); ++itrA)
 	{
 		GameObject* pObjA = itrA->pObj;
 		bool isSaveA = itrA->pObj->IsSaveColl();
@@ -182,7 +186,7 @@ void GameObjectManager::CheckAllCollision(const std::string& key)
 		itrB++;
 
 		// Bの終わりまで
-		for (; itrB != collLists_[key].end(); ++itrB)
+		for (; itrB != collListMap_[key].end(); ++itrB)
 		{
 			GameObject* pObjB = itrB->pObj;
 			bool isSaveB = itrA->pObj->IsSaveColl();
@@ -226,15 +230,15 @@ void GameObjectManager::Draw(const std::vector<std::string>& drawKeys)
 {
 	for (size_t i = 0; i < drawKeys.size(); i++)
 	{
-		if (drawQueues_.contains(drawKeys[i]) == false) { continue; }
+		if (drawQueueMap_.contains(drawKeys[i]) == false) { continue; }
 
 		while (true)
 		{
 			// 空になったら終了
-			if (drawQueues_[drawKeys[i]].empty()) { break; }
+			if (drawQueueMap_[drawKeys[i]].empty()) { break; }
 
-			drawQueues_[drawKeys[i]].front()();
-			drawQueues_[drawKeys[i]].pop();
+			drawQueueMap_[drawKeys[i]].front()();
+			drawQueueMap_[drawKeys[i]].pop();
 		}
 	}
 }

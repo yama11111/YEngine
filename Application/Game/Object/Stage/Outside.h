@@ -6,12 +6,12 @@
  */
 
 #pragma once
-#include "GameObject.h"
+#include "BaseStageObject.h"
 
 namespace YGame
 {
 	class Outside final :
-		public GameObject
+		public BaseStageObject
 	{
 
 	public:

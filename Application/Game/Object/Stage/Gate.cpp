@@ -24,28 +24,34 @@ std::unique_ptr<Gate> Gate::Create(const Transform::Status& status, const std::s
 
 void Gate::Initialize(const Transform::Status& status, const std::string& key)
 {
-	GameObject::Initialize("Gate", status);
+	BaseStageObject::Initialize("Gate", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 
-	SetUpdateKey(key);
-	SetDrawKeys({ key });
-
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::eGate);
-
-	SetCollider(GameCollider::Create(attribute));
-	
-	SetIsSaveColl(true);
-	
+	// アタリ判定
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePlayer);
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::eGate);
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, YMath::ConvertToVector2(transform_->scale_)), mask);
+		SetCollider(GameCollider::Create(attribute));
+
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::ePlayer);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, YMath::ConvertToVector2(transform_->scale_)), 
+				mask);
+		}
 	}
 
-	SetDrawer(GateDrawer::Create({ nullptr, nullptr, key, 2 }));
+	// 描画
+	{
+		std::unique_ptr<GateDrawer> drawer = GateDrawer::Create({ nullptr, nullptr, key, 2 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
+	}
 }
 
 void Gate::UpdateBeforeCollision()

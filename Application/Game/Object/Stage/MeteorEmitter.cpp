@@ -4,7 +4,6 @@
 #include "ColorConfig.h"
 #include "Def.h"
 
-
 #include "WorldManager.h"
 
 #include <cmath>
@@ -34,6 +33,9 @@ std::unique_ptr<MeteorEmitter> MeteorEmitter::Create(const Transform::Status& st
 void MeteorEmitter::Initialize(const Transform::Status& status, const std::string& key)
 {
 	GameObject::Initialize("Skydome", status);
+	
+	transform_->parent_ = WorldManager::GetInstance()->BasePosMatPointer();
+	transform_->UpdateMatrix();
 
 	SetUpdateKey(key);
 

@@ -26,18 +26,16 @@ void Block::Initialize(const Transform::Status& status, const std::string& key, 
 {
 	if (isBackground == false)
 	{
-		GameObject::Initialize("Block", status, nullptr);
+		BaseStageObject::Initialize("Block", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 	}
 	else
 	{
-		GameObject::Initialize("Block_B", status, nullptr);
+		BaseStageObject::Initialize("Block_B", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 	}
-
-	SetUpdateKey(key);
 	
-	if (key != WorldKeyStr(WorldKey::eJourneyKey))
+	if (key == WorldKeyStr(WorldKey::eJourneyKey))
 	{
-		SetDrawKeys({ key });
+		SetDrawKeys({});
 	}
 	
 	if (isBackground == false)
@@ -60,13 +58,18 @@ void Block::Initialize(const Transform::Status& status, const std::string& key, 
 		}
 	}
 
-	BlockDrawer::Type type = BlockDrawer::Type::eGreen;
-	if (key == WorldKeyStr(WorldKey::eFeverKey))
+	// 描画
 	{
-		type = BlockDrawer::Type::ePurple;
+		BlockDrawer::Type type = BlockDrawer::Type::eGreen;
+		if (key == WorldKeyStr(WorldKey::eFeverKey))
+		{
+			type = BlockDrawer::Type::ePurple;
+		}
+		std::unique_ptr<BlockDrawer> drawer = 
+			BlockDrawer::Create({ nullptr, nullptr, key, 2 }, type, isBackground);
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
 	}
-
-	SetDrawer(BlockDrawer::Create({ nullptr, nullptr, key, 2 }, type, isBackground));
 }
 
 void Block::UpdateBeforeCollision()

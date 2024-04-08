@@ -19,6 +19,24 @@ namespace YGame
 
     public:
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        virtual void Update() override;
+
+        /// <summary>
+        /// 透ける
+        /// </summary>
+        void UpdateSeeThrough();
+
+        /// <summary>
+        /// 親位置行列ポインタ設定
+        /// </summary>
+        /// <param name="pParentPosMat"> : 親位置行列ポインタ</param>
+        void SetParentPosMatPointer(YMath::Matrix4* pParentPosMat);
+    
+    public:
+
         BaseCharacterDrawer() = default;
 
         ~BaseCharacterDrawer() = default;
@@ -33,5 +51,11 @@ namespace YGame
 
         // 被弾
         HitActor hitActor_;
+
+        // 親位置行列ポインタ
+        YMath::Matrix4* pParentPosMat_ = nullptr;
+
+        // 透ける
+        bool isSeeThrough_ = true;
     };
 }

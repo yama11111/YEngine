@@ -82,6 +82,8 @@ void WorldManager::Initialize(const WorldKey& key)
 
 	drawKeys_ = { WorldKey::eJourneyKey, WorldKey::eWorldKey };
 
+	basePosMat_ = YMath::Matrix4::Identity();
+
 	feverEmitTimer_.Initialize(kEmitFrame, true);
 }
 
@@ -192,6 +194,11 @@ void WorldManager::SetWorldKey(const WorldKey& key)
 	currentWorldKey_ = key;
 }
 
+void WorldManager::SetBaseMat(const YMath::Matrix4& mat)
+{
+	basePosMat_ = mat;
+}
+
 void WorldManager::SetGatePos(const WorldKey& key, const Vector3& pos)
 {
 	gatePoss_[static_cast<size_t>(key)] = pos;
@@ -212,6 +219,16 @@ void WorldManager::SetGatePos(const std::string& key, const YMath::Vector3& pos)
 YGame::WorldKey WorldManager::CurrentWorldKey() const
 {
 	return currentWorldKey_;
+}
+
+YMath::Matrix4 YGame::WorldManager::BasePosMat()
+{
+	return basePosMat_;
+}
+
+YMath::Matrix4* WorldManager::BasePosMatPointer()
+{
+	return &basePosMat_;
 }
 
 void WorldManager::UpdateFever()

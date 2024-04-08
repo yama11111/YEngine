@@ -22,34 +22,37 @@ std::unique_ptr<Coin> Coin::Create(const Transform::Status& status, const std::s
 
 void Coin::Initialize(const Transform::Status& status, const std::string& key)
 {
-	BaseCharacter::Initialize(
-		"Coin", key,
-		status,
-		{ 0.0f, 0.0f, +1.0f }, // 右向き
-		CoinConfig::kAcceleration, CoinConfig::kMaxSpeed, false, 
-		1, 0, 0);
+	BaseCharacter::Initialize("Coin", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::eCoin);
-
-	SetCollider(GameCollider::Create(attribute));
-	
-	SetIsSaveColl(true);
-
+	// アタリ判定
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePlayer);
-		mask.SetFragTrue(AttributeType::eItem);
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::eCoin);
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&worldPos_, CoinConfig::kRadius),
-			mask);
+		SetCollider(GameCollider::Create(attribute));
+
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::ePlayer);
+			mask.SetFragTrue(AttributeType::eItem);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::SphereCollider>(
+					&worldPos_, CoinConfig::kRadius),
+				mask);
+		}
 	}
 
-	SetDrawer(CoinDrawer::Create({ nullptr, nullptr, key, 1}));
-	
-	drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
+	// 描画
+	{
+		std::unique_ptr<CoinDrawer> drawer = CoinDrawer::Create({ nullptr, nullptr, key, 1 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
+
+		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
+	}
 }
 
 void Coin::UpdateBeforeCollision()

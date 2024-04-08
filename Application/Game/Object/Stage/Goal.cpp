@@ -25,29 +25,34 @@ std::unique_ptr<Goal> Goal::Create(const Transform::Status& status, const std::s
 
 void Goal::Initialize(const Transform::Status& status, const std::string& key)
 {
-	GameObject::Initialize("Goal", status, nullptr);
+	BaseStageObject::Initialize("Goal", key, status, WorldManager::GetInstance()->BasePosMatPointer());
 
-	SetUpdateKey(key);
-	SetDrawKeys({ key });
-
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::eGoal);
-
-	SetCollider(GameCollider::Create(attribute));
-	
-	SetIsSaveColl(true);
-
+	// アタリ判定
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePlayer);
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::eGoal);
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::Box2DCollider>(
-				&worldPos_, YMath::ConvertToVector2(transform_->scale_)),
-			mask);
+		SetCollider(GameCollider::Create(attribute));
+
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::ePlayer);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::Box2DCollider>(
+					&worldPos_, YMath::ConvertToVector2(transform_->scale_)),
+				mask);
+		}
 	}
 
-	SetDrawer(GoalDrawer::Create({ nullptr, nullptr, key, 2 }));
+	// 描画
+	{
+		std::unique_ptr<GoalDrawer> drawer = GoalDrawer::Create({ nullptr, nullptr, key, 2 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer)); 
+	}
 }
 
 void Goal::UpdateBeforeCollision()

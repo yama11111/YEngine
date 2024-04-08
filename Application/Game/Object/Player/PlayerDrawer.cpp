@@ -11,6 +11,7 @@
 #include "AfterimageParticle.h"
 
 #include "Def.h"
+#include "MathVector.h"
 #include <cmath>
 
 using YGame::PlayerDrawer;
@@ -84,15 +85,11 @@ namespace
 	const size_t kDeadDebriNum = 16;
 }
 
-std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(const DrawerInitSet& init, const SceneKey sceneKey)
+std::unique_ptr<PlayerDrawer> PlayerDrawer::Create(const DrawerInitSet& init)
 {
 	std::unique_ptr<PlayerDrawer> newDrawer = std::make_unique<PlayerDrawer>();
 
 	newDrawer->Initialize(init);
-	if (sceneKey == SceneKey::eTitleKey)
-	{
-		newDrawer->PlayAnimation(static_cast<uint32_t>(AnimationType::eSingleColor));
-	}
 
 	return std::move(newDrawer);
 }
@@ -132,6 +129,8 @@ void PlayerDrawer::Initialize(const DrawerInitSet& init)
 	
 	slimeActor_.Initialize(0, { {} }, 0);
 	hitActor_.Initialize();
+
+	isSeeThrough_ = false;
 }
 
 void PlayerDrawer::InitializeObjects()
@@ -175,14 +174,14 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		// 土煙を発生
 		// 自分の足元
 		float height = 0.5f;
-		Vector3 pos = pParent_->pos_ - Vector3(0.0f, height, 0.0f);
+		Vector3 pos = *pParentWorldPos_ - Vector3(0.0f, height, 0.0f);
 
 		// 正面と逆方向 かつ 上方向
 		float rad = pParent_->rota_.y;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
 
-		DustParticle::Emit(kMoveDustNum, *pParentWorldPos_, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+		DustParticle::Emit(kMoveDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 	}
 	// ジャンプ
 	else if (index & static_cast<uint32_t>(AnimationType::eJump))
@@ -192,14 +191,14 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		slimeActor_.Wobble();
 
 		// 自分の足元に土煙を発生
-		Vector3 pos = pParent_->pos_ - Vector3(0.0f, kHeight, 0.0f);
+		Vector3 pos = *pParentWorldPos_ - Vector3(0.0f, kHeight, 0.0f);
 
 		// 正面と逆方向 かつ 下方向
 		float rad = pParent_->rota_.y;
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
 
-		DustParticle::Emit(kJumpDustNum, *pParentWorldPos_, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+		DustParticle::Emit(kJumpDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 	}
 	// 着地
 	else if (index & static_cast<uint32_t>(AnimationType::eLanding))
@@ -209,7 +208,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		slimeActor_.Wobble();
 
 		// 自分の足元に土煙を発生
-		Vector3 pos = pParent_->pos_ - Vector3(0.0f, kHeight, 0.0f);
+		Vector3 pos = *pParentWorldPos_ - Vector3(0.0f, kHeight, 0.0f);
 
 		// 自分の周囲 かつ 上方向
 		for (size_t i = 0; i < kLandingDirectionNum; i++)
@@ -220,7 +219,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.1f, 0.0f);
 
-			DustParticle::Emit(kLandingDustNum, *pParentWorldPos_, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+			DustParticle::Emit(kLandingDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 		}
 	}
 	// 攻撃
@@ -280,11 +279,14 @@ void PlayerDrawer::UpdateAnimation()
 	{
 		if (animationTimers_[kAttackIndex].timer.IsEnd())
 		{
-			AfterimageParticle::Emit(*pParent_, YGame::ColorConfig::skTurquoise[1], 
+			Transform trfm;
+			trfm.Initialize({ *pParentWorldPos_, transform_.rota_, transform_.scale_ });
+			
+			AfterimageParticle::Emit(trfm, YGame::ColorConfig::skTurquoise[1],
 				pModels[0], pVPMan->ViewProjectionPtr(vpKey_));
-			AfterimageParticle::Emit(*pParent_, YGame::ColorConfig::skTurquoise[1],
+			AfterimageParticle::Emit(trfm, YGame::ColorConfig::skTurquoise[1],
 				pModels[1], pVPMan->ViewProjectionPtr(vpKey_));
-			AfterimageParticle::Emit(*pParent_, YGame::ColorConfig::skTurquoise[1],
+			AfterimageParticle::Emit(trfm, YGame::ColorConfig::skTurquoise[1],
 				pModels[2], pVPMan->ViewProjectionPtr(vpKey_));
 			
 			animationTimers_[kAttackIndex].timer.Reset(true);
@@ -295,6 +297,8 @@ void PlayerDrawer::UpdateAnimation()
 	CircleShadowManager::Key shadowKey1 = CircleShadowManager::Key::eWorld_0;
 	CircleShadowManager::Key shadowKey2 = CircleShadowManager::Key::eWorld_1;
 
-	CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey1, pParent_->pos_ - Vector3(0, kHeight * 2.0f, 0));
-	CircleShadowManager::GetInstance()->ActivateCircleShadow(shadowKey2, pParent_->pos_ - Vector3(0, kHeight * 2.0f, 0));
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(
+		shadowKey1, YMath::VecTranslation(*pParentPosMat_) - Vector3(0, kHeight * 2.0f, 0));
+	CircleShadowManager::GetInstance()->ActivateCircleShadow(
+		shadowKey2, YMath::VecTranslation(*pParentPosMat_) - Vector3(0, kHeight * 2.0f, 0));
 }

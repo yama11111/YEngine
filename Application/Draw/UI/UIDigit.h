@@ -80,7 +80,7 @@ namespace YGame
 		/// トランスフォーム初期化
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
-		virtual void InitializeTransform(const Transform::Status& status = {}) = 0;
+		virtual void InitializeTransform(const Transform::Status& status, YMath::Matrix4* pParent = nullptr) = 0;
 
 		/// <summary>
 		/// 更新

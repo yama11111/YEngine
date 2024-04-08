@@ -5,6 +5,7 @@
 #include "CharacterConfig.h"
 
 #include "SphereCollider.h"
+#include "MathVector.h"
 
 using YGame::Magnet;
 using YGame::WorldManager;
@@ -27,46 +28,49 @@ std::unique_ptr<Magnet> Magnet::Create(const Transform::Status& status, const st
 
 void Magnet::Initialize(const Transform::Status& status, const std::string& key)
 {
-	BaseCharacter::Initialize(
-		"Magnet", key,
-		status,
-		{ 0.0f, 0.0f, +1.0f }, // 右向き
-		{}, {}, false,
-		1, 0, 0);
+	BaseCharacter::Initialize("Magnet", key,status, WorldManager::GetInstance()->BasePosMatPointer());
 
-	BitFrag attribute{};
-	attribute.SetFragTrue(AttributeType::eItem);
-	
-	SetCollider(GameCollider::Create(attribute));
-
-	SetIsSaveColl(true);
-
+	// アタリ判定
 	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::ePlayer);
+		BitFrag attribute{};
+		attribute.SetFragTrue(AttributeType::eItem);
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&worldPos_, MagnetConfig::kCollRadius),
-			mask);
-	}
-	
-	{
-		BitFrag mask{};
-		mask.SetFragTrue(AttributeType::eCoin);
+		SetCollider(GameCollider::Create(attribute));
 
-		collider_->PushBackCollider(
-			std::make_unique<YMath::SphereCollider>(
-				&transform_->pos_, MagnetConfig::kSuctionRadius),
-			mask);
+		SetIsSaveColl(true);
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::ePlayer);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::SphereCollider>(
+					&worldPos_, MagnetConfig::kCollRadius),
+				mask);
+		}
+
+		{
+			BitFrag mask{};
+			mask.SetFragTrue(AttributeType::eCoin);
+
+			collider_->PushBackCollider(
+				std::make_unique<YMath::SphereCollider>(
+					&worldPos_, MagnetConfig::kSuctionRadius),
+				mask);
+		}
 	}
 
-	SetDrawer(MagnetDrawer::Create({ nullptr, nullptr, key, 1 }));
+	// 描画
+	{
+		std::unique_ptr<MagnetDrawer> drawer = MagnetDrawer::Create({ nullptr, nullptr, key, 1 });
+		drawer->SetParentPosMatPointer(&posMat_);
+		SetDrawer(std::move(drawer));
+		
+		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eIdle));
+	}
 
 	isAct_ = false;
 	actTimer_.Initialize(480);
-
-	drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eIdle));
 }
 
 void Magnet::UpdateBeforeCollision()
@@ -108,9 +112,13 @@ void Magnet::UpdateAfterCollision()
 
 void Magnet::UpdatePos()
 {
-	if (pPlayerTrfm_ && actTimer_.IsAct())
+	if (pPlayerPos_ && actTimer_.IsAct())
 	{
-		transform_->pos_ = pPlayerTrfm_->pos_ + Vector3(0, 2, 0);
+		worldPos_ = *pPlayerPos_ + Vector3(0, 2, 0);
+
+		transform_->pos_ = worldPos_;
+
+		posMat_ = YMath::MatTranslation(transform_->pos_) * pWorldMan->BasePosMat();
 	}
 	else
 	{
@@ -136,7 +144,7 @@ void Magnet::OnCollision(const ICollisionInfomation& info)
 		
 		isAct_ = true;
 		actTimer_.Reset(true);
-		pPlayerTrfm_ = info.pTrfm;
+		pPlayerPos_ = info.pWorldPos;
 		
 		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eEarn));
 		status_.SetInvincible(true);
@@ -145,8 +153,8 @@ void Magnet::OnCollision(const ICollisionInfomation& info)
 	{
 		if (isAct_ == false) { return; }
 
-		Vector3 direction = pPlayerTrfm_->pos_ - info.pTrfm->pos_;
+		Vector3 direction = *pPlayerPos_ - info.pTrfm->pos_;
 
-		*info.pMoveDirection_ = direction.Normalized();
+		*info.pMoveDirection = direction.Normalized();
 	}
 }

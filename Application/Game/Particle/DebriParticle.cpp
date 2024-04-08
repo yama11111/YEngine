@@ -1,11 +1,15 @@
 #include "DebriParticle.h"
 #include "BaseParticle.h"
 #include "ParticleManager.h"
+
 #include "DrawObjectForModel.h"
 #include "ConstBufferObject.h"
 #include "CBColor.h"
+
 #include "Speed.h"
+#include "WorldManager.h"
 #include "ColorConfig.h"
+
 #include "MathUtil.h"
 #include "MathVector.h"
 #include "SplineEase.h"
@@ -80,6 +84,7 @@ namespace YGame
 	{
 		BaseParticle::Initialize(aliveFrame, { pos[0] }, "ModelPhong", 1);
 
+		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		cbColor_->data_.baseColor = color;
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);

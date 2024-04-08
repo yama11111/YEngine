@@ -25,6 +25,11 @@ namespace YMath
 	// 座標変換
 	Matrix4 MatTranslation(const Vector3& t);
 	
+	// ----- ベクター変換 ----- //
+	
+	// 座標
+	Vector3 VecTranslation(const Matrix4& m);
+
 	// ----- ビュープロジェクション変換 ----- //
 	
 	// 平行投影変換行列

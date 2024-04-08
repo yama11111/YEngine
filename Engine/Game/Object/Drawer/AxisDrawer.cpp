@@ -49,8 +49,6 @@ void AxisDrawer::Initialize(const DrawerInitSet& init)
 	InsertConstBuffer("Z", cbColors_[2].get());
 
 	SetIsVisible(true);
-	
-	isVisibleUpdate_ = false;
 
 	SetShaderTag("ModelPhong");
 

@@ -233,11 +233,10 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 			newObj->Initialize(name, status);
 			newObj->SetUpdateKey(key);
 			newObj->SetDrawKeys({ key });
-			newObj->SetDrawer(PlayerDrawer::Create(
-				{
-					nullptr, nullptr, key, 0 
-				}, SceneKey::eTitleKey)
-			);
+			
+			std::unique_ptr<PlayerDrawer> drawer = PlayerDrawer::Create({ nullptr, nullptr, key, 0 });
+			drawer->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eSingleColor));
+			newObj->SetDrawer(std::move(drawer));
 		}
 		else if (name == "Block_T.")
 		{
@@ -248,9 +247,7 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 			newObj->SetUpdateKey(key);
 			newObj->SetDrawKeys({ key });
 			newObj->SetDrawer(BlockDrawer::Create(
-				{
-					nullptr, nullptr, key, 0 
-				}, 
+				{ nullptr, nullptr, key, 0 }, 
 				BlockDrawer::Type::eGreen, 
 				false, SceneKey::eTitleKey)
 			);
@@ -264,9 +261,7 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 			newObj->SetUpdateKey(key);
 			newObj->SetDrawKeys({ key });
 			newObj->SetDrawer(BlockDrawer::Create(
-				{
-					nullptr, nullptr, key, 0 
-				}, 
+				{ nullptr, nullptr, key, 0 }, 
 				BlockDrawer::Type::eGreen, 
 				true, SceneKey::eTitleKey)
 			);

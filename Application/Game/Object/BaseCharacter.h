@@ -17,23 +17,13 @@ namespace YGame
 		/// </summary>
 		/// <param name="name"> : 名前</param>
 		/// <param name="worldKey"> : 世界キー</param>
-		/// <param name="status"> : ステータス</param>
-		/// <param name="direction"> : 向き</param>
-		/// <param name="acceleration"> : 加速度</param>
-		/// <param name="maxSpeed"> : 最大速度</param>
-		/// <param name="isGravity"> : 重力フラグ</param>
-		/// <param name="hp"> : HP</param>
-		/// <param name="attack"> : 攻撃力</param>
-		/// <param name="invincibleTime"> : 無敵時間</param>
-		/// <param name="collider"> : コライダークラス</param>
-		/// <param name="drawer"> : 描画クラス</param>
+		/// <param name="trfmStatus"> : トランスフォームステータス</param>
+		/// <param name="pParent"> : 親行列ポインタ</param>
 		void Initialize(
 			const std::string& name,
 			const std::string& worldKey, 
-			const Transform::Status& status,
-			const YMath::Vector3& direction,
-			const YMath::Vector3& acceleration, const YMath::Vector3& maxSpeed, const bool isGravity, 
-			const uint32_t hp, const uint32_t attack, const uint32_t invincibleTime);
+			const Transform::Status& trfmStatus,
+			YMath::Matrix4* pParent);
 
 		/// <summary>
 		/// 衝突前更新
@@ -96,6 +86,9 @@ namespace YGame
 		// 今どの世界にいるか
 		std::string worldKey_;
 
+		// 位置行列
+		YMath::Matrix4 posMat_ = YMath::Matrix4::Identity();
+
 		// 向き
 		YMath::Vector3 direction_;
 
@@ -112,6 +105,11 @@ namespace YGame
 		AttributeType attributeType_ = AttributeType::eNone;
 
 	protected:
+
+		/// <summary>
+		/// ステータス読み込み
+		/// </summary>
+		void LoadStatus(const std::string& name);
 
 		/// <summary>
 		/// 位置更新
