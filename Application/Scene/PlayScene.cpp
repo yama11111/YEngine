@@ -50,14 +50,14 @@ void PlayScene::Initialize()
 	uint32_t stageIndex = StageStatusManager::GetInstance()->CurrentStageIndex();
 	if (stageIndex == 0)
 	{
-		Level::LoadJson("levelData_1.json", WorldKeyStr(WorldKey::eWorldKey));
+		Level::LoadJson("levelData_1.json", WorldKey::eWorldKey);
 	}
 	else if (stageIndex == 1)
 	{
-		Level::LoadJson("levelData_2.json", WorldKeyStr(WorldKey::eWorldKey));
+		Level::LoadJson("levelData_2.json", WorldKey::eWorldKey);
 	}
-	Level::LoadJson("journey.json", WorldKeyStr(WorldKey::eJourneyKey));
-	Level::LoadJson("fever.json", WorldKeyStr(WorldKey::eFeverKey));
+	Level::LoadJson("journey.json", WorldKey::eJourneyKey);
+	Level::LoadJson("fever.json", WorldKey::eFeverKey);
 
 	// UI
 	uiDra_.Initialize();

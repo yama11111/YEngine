@@ -34,7 +34,7 @@ void MeteorEmitter::Initialize(const Transform::Status& status, const std::strin
 {
 	GameObject::Initialize("Skydome", status);
 	
-	transform_->parent_ = WorldManager::GetInstance()->BasePosMatPointer();
+	transform_->parent_ = WorldManager::GetInstance()->BasePosMatPointer(WorldKeyEnum(key));
 	transform_->UpdateMatrix();
 
 	SetUpdateKey(key);
@@ -60,10 +60,11 @@ void MeteorEmitter::UpdateAfterCollision()
 		Vector3 angleVec = Vector3(0.0f, cosf(angle), sinf(angle));
 
 		MeteorParticle::Emit(
+			WorldKeyEnum(updateKey_),
 			transform_->pos_ + Vector3(30.0f * angleVec),
 			Vector3(-20.0f, 0.0f, 0.0f), 
 			kColor, 
-			pVPMan->ViewProjectionPtr(updateKey_));
+			pVPMan->ViewProjectionPtr("Game"));
 
 		emitCount_++;
 		if (36 < emitCount_) { emitCount_ = 0; }

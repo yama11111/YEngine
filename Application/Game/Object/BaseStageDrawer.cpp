@@ -43,3 +43,8 @@ void BaseStageDrawer::SetParentPosMatPointer(YMath::Matrix4* pParentPosMat)
 {
 	pParentPosMat_ = pParentPosMat;
 }
+
+void BaseStageDrawer::SetWorldKey(const WorldKey worldKey)
+{
+	worldKey_ = worldKey;
+}

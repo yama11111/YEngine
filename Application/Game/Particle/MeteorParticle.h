@@ -9,6 +9,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "ViewProjection.h"
+#include "WorldKey.h"
 
 namespace YGame
 {
@@ -25,11 +26,13 @@ namespace YGame
 		/// <summary>
 		/// 発生
 		/// </summary>
+		/// <param name="worldKey"> : 世界キー</param>
 		/// <param name="pos"> : 位置</param>
 		/// <param name="speed"> : 速さ</param>
 		/// <param name="color"> : 色</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
+			const WorldKey worldKey,
 			const YMath::Vector3& pos,
 			const YMath::Vector3& speed,
 			const YMath::Vector4& color,

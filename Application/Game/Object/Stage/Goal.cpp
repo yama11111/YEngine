@@ -14,7 +14,7 @@ namespace
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
-std::unique_ptr<Goal> Goal::Create(const Transform::Status& status, const std::string& key)
+std::unique_ptr<Goal> Goal::Create(const Transform::Status& status, const WorldKey key)
 {
 	std::unique_ptr<Goal> newObj = std::make_unique<Goal>();
 
@@ -23,9 +23,9 @@ std::unique_ptr<Goal> Goal::Create(const Transform::Status& status, const std::s
 	return std::move(newObj);
 }
 
-void Goal::Initialize(const Transform::Status& status, const std::string& key)
+void Goal::Initialize(const Transform::Status& status, const WorldKey key)
 {
-	BaseStageObject::Initialize("Goal", key, status, WorldManager::GetInstance()->BasePosMatPointer());
+	BaseStageObject::Initialize("Goal", key, status);
 
 	// アタリ判定
 	{
@@ -49,8 +49,9 @@ void Goal::Initialize(const Transform::Status& status, const std::string& key)
 
 	// 描画
 	{
-		std::unique_ptr<GoalDrawer> drawer = GoalDrawer::Create({ nullptr, nullptr, key, 2 });
+		std::unique_ptr<GoalDrawer> drawer = GoalDrawer::Create({ nullptr, nullptr, "Game", 2 });
 		drawer->SetParentPosMatPointer(&posMat_);
+		drawer->SetWorldKey(worldKey_);
 		SetDrawer(std::move(drawer)); 
 	}
 }
@@ -69,12 +70,10 @@ void Goal::UpdateAfterCollision()
 
 YGame::ICollisionInfomation Goal::GetCollisionInfomation()
 {
-	ICollisionInfomation result;
+	ICollisionInfomation result = BaseStageObject::GetCollisionInfomation();
 
 	result.attribute = AttributeType::eGoal;
-	result.pTrfm = transform_.get();
 	result.radius = 0.0f;
-	result.pStatus = nullptr;
 
 	return result;
 }

@@ -1,5 +1,5 @@
 #include "ExplosionParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 
 #include "DrawObjectForModel.h"
@@ -24,7 +24,7 @@ namespace YGame
 {
 	class impl_ExplosionParticle final :
 		public ExplosionParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -34,6 +34,7 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
+			const WorldKey worldKey,
 			const uint32_t aliveFrame,
 			const YMath::Vector3& pos,
 			const float endScale,
@@ -84,6 +85,7 @@ namespace YGame
 	}
 
 	void impl_ExplosionParticle::Initialize(
+		const WorldKey worldKey,
 		const uint32_t aliveFrame,
 		const YMath::Vector3& pos,
 		const float endScale,
@@ -94,9 +96,8 @@ namespace YGame
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos }, "ModelPhong", 1);
+		BaseGameParticle::Initialize(worldKey, aliveFrame, { pos }, "ModelPhong", 1);
 
-		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 
@@ -179,6 +180,7 @@ static YGame::impl_ExplosionParticle* DeadParticlePtr()
 }
 
 void ExplosionParticle::Emit(
+	const WorldKey worldKey,
 	const size_t num,
 	const Vector3& pos,
 	const Vector3& powerDirection,
@@ -209,6 +211,7 @@ void ExplosionParticle::Emit(
 
 		Vector3 maxSpeed = { kMaxSpeedVal, kMaxSpeedVal , kMaxSpeedVal };
 
-		pParticle->Initialize(kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, kEndAlpha, kExponent, pVP);
+		pParticle->Initialize(
+			worldKey, kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, kEndAlpha, kExponent, pVP);
 	}
 }

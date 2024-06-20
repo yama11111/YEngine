@@ -1,5 +1,5 @@
 #include "StarParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 
 #include "DrawObjectForSprite3D.h"
@@ -32,7 +32,7 @@ namespace YGame
 {
 	class impl_StarParticle final :
 		public StarParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -42,6 +42,7 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
+			const WorldKey worldKey,
 			const uint32_t aliveFrame,
 			const Vector3& pos,
 			const Vector3& direction,
@@ -62,7 +63,7 @@ namespace YGame
 
 		// 色定数バッファ
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
-		
+
 		// スケールイージング
 		YMath::SplineEase<Vector3> scaleEas_;
 
@@ -90,6 +91,7 @@ namespace YGame
 	}
 
 	void impl_StarParticle::Initialize(
+		const WorldKey worldKey,
 		const uint32_t aliveFrame,
 		const Vector3& pos,
 		const Vector3& direction,
@@ -98,9 +100,8 @@ namespace YGame
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos }, "Sprite3DBack", 1);
-		
-		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
+		BaseGameParticle::Initialize(worldKey, aliveFrame, { pos }, "Sprite3DBack", 1);
+
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 
@@ -137,7 +138,7 @@ namespace YGame
 		if (scalePow_.IsZero()) { scalePowSwitch_ = true; }
 		if (scalePow_.IsMax()) { scalePowSwitch_ = false; }
 		float scaleRatio = scalePow_.Ratio();
-		
+
 		obj_->transform_.scale_ = scaleEas_.InOut(scaleRatio);
 		obj_->Update();
 
@@ -194,7 +195,7 @@ static YGame::impl_StarParticle* DeadParticlePtr()
 	return nullptr;
 }
 
-void StarParticle::Emit(const Vector3& pos, const YMath::Vector3& direction, ViewProjection* pVP)
+void StarParticle::Emit(const WorldKey worldKey, const Vector3& pos, const YMath::Vector3& direction, ViewProjection* pVP)
 {
 	// 固有設定
 	static const uint32_t kAliveFrame = 20;
@@ -214,6 +215,7 @@ void StarParticle::Emit(const Vector3& pos, const YMath::Vector3& direction, Vie
 	if (pParticle == nullptr) { return; }
 
 	pParticle->Initialize(
+		worldKey,
 		kAliveFrame,
 		pos,
 		direction,

@@ -1,5 +1,5 @@
 #include "DamageParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 
 #include "UINumber.h"
@@ -34,7 +34,7 @@ namespace YGame
 {
 	class impl_DamageParticle final :
 		public DamageParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -44,7 +44,8 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
-			const uint32_t damageVal, 
+			const WorldKey worldKey,
+			const uint32_t damageVal,
 			const YMath::Vector3& pos,
 			ViewProjection* pVP);
 
@@ -78,7 +79,7 @@ namespace YGame
 	impl_DamageParticle* impl_DamageParticle::Create()
 	{
 		impl_DamageParticle* newParticle = new impl_DamageParticle();
-		
+
 		newParticle->uiNum_.reset(
 			UINumber::Create3D(0, kMaxDigitNum, kInterval, false, true, nullptr, true, true, nullptr, false));
 
@@ -88,17 +89,18 @@ namespace YGame
 	}
 
 	void impl_DamageParticle::Initialize(
-		const uint32_t damageVal, 
+		const WorldKey worldKey,
+		const uint32_t damageVal,
 		const YMath::Vector3& pos,
 		ViewProjection* pVP)
 	{
 		BaseParticle::Initialize(0, {}, "", 0);
-		
-		uiNum_->InitializeTransform({ pos, {}, { kScaleValue, kScaleValue, kScaleValue } }, 
-			WorldManager::GetInstance()->BasePosMatPointer());
+
+		uiNum_->InitializeTransform({ pos, {}, { kScaleValue, kScaleValue, kScaleValue } },
+			WorldManager::GetInstance()->BasePosMatPointer(worldKey));
 		uiNum_->InsertConstBuffer(cbColor_.get());
 		uiNum_->SetViewProjection(pVP);
-		
+
 		uiNum_->SetNumber(damageVal);
 
 		cbColor_->data_.baseColor = ColorConfig::skYellow;
@@ -119,9 +121,9 @@ namespace YGame
 		for (size_t i = 0; i < animeTims_.size(); i++)
 		{
 			animeTims_[i].Update();
-			
+
 			// 終了したら
-			if(animeTims_[i].IsEnd())
+			if (animeTims_[i].IsEnd())
 			{
 				// 次のタイマーを始める
 				if (i < animeTims_.size() - 1)
@@ -137,7 +139,7 @@ namespace YGame
 		}
 
 		Transform::Status animeStatus;
-		
+
 		animeStatus.pos_.y += upEas_.Out(animeTims_[kPopIdx].Ratio());
 
 		float sca = popScaEas_.Out(animeTims_[kPopIdx].Ratio());
@@ -204,6 +206,7 @@ static YGame::impl_DamageParticle* DeadParticlePtr()
 }
 
 void DamageParticle::Emit(
+	const WorldKey worldKey,
 	const uint32_t damageVal,
 	const YMath::Vector3& pos,
 	ViewProjection* pVP)
@@ -212,5 +215,5 @@ void DamageParticle::Emit(
 	impl_DamageParticle* pParticle = DeadParticlePtr();
 	if (pParticle == nullptr) { return; }
 
-	pParticle->Initialize(damageVal, pos, pVP);
+	pParticle->Initialize(worldKey, damageVal, pos, pVP);
 }

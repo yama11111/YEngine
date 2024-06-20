@@ -181,7 +181,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, +0.1f, 0.0f);
 
-		DustParticle::Emit(kMoveDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+		DustParticle::Emit(worldKey_, kMoveDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 	}
 	// ジャンプ
 	else if (index & static_cast<uint32_t>(AnimationType::eJump))
@@ -198,7 +198,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		Vector3 front = Vector3(std::sinf(rad), 0.0f, std::cosf(rad)).Normalized();
 		Vector3 powerDirection = -front + Vector3(0.0f, -0.5f, 0.0f);
 
-		DustParticle::Emit(kJumpDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+		DustParticle::Emit(worldKey_, kJumpDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 	}
 	// 着地
 	else if (index & static_cast<uint32_t>(AnimationType::eLanding))
@@ -219,7 +219,7 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.1f, 0.0f);
 
-			DustParticle::Emit(kLandingDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+			DustParticle::Emit(worldKey_, kLandingDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 		}
 	}
 	// 攻撃
@@ -235,9 +235,9 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 	// 死亡
 	else if (index & static_cast<uint32_t>(AnimationType::eDead))
 	{
-		DebriParticle::Emit(kDeadDebriNum, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
+		DebriParticle::Emit(worldKey_, kDeadDebriNum, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 	}
-	// 死亡
+	// 原色
 	else if (index & static_cast<uint32_t>(AnimationType::eNormalColor))
 	{
 		SetShaderTag("ModelToon");
@@ -249,10 +249,10 @@ void PlayerDrawer::GetReadyForAnimation(const uint32_t index)
 		cbColor_->data_.baseColor = { 1.0f,1.0f,1.0f,1.0f };
 		cbOutline_->data_.color = ColorConfig::skTurquoise[5];
 	}
-	// 死亡
+	// 単色
 	else if (index & static_cast<uint32_t>(AnimationType::eSingleColor))
 	{
-		SetShaderTag("ModelSingleColor");
+		SetShaderTag("ModelSingleColorFront");
 
 		SetShaderTag("Body_O", "ModelOutline");
 		SetShaderTag("Leg_L_O", "ModelOutline");
@@ -270,25 +270,25 @@ void PlayerDrawer::UpdateAnimation()
 	hitActor_.Update();
 
 	animeStatus_.pos_ += hitActor_.ShakePosValue();
-	
+
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 
 	cbColor_->data_.texColorRate = hitActor_.ColorValue();
 
-	if(isAttack_)
+	if (isAttack_)
 	{
 		if (animationTimers_[kAttackIndex].timer.IsEnd())
 		{
 			Transform trfm;
 			trfm.Initialize({ *pParentWorldPos_, transform_.rota_, transform_.scale_ });
-			
-			AfterimageParticle::Emit(trfm, YGame::ColorConfig::skTurquoise[1],
+
+			AfterimageParticle::Emit(worldKey_, trfm, YGame::ColorConfig::skTurquoise[1],
 				pModels[0], pVPMan->ViewProjectionPtr(vpKey_));
-			AfterimageParticle::Emit(trfm, YGame::ColorConfig::skTurquoise[1],
+			AfterimageParticle::Emit(worldKey_, trfm, YGame::ColorConfig::skTurquoise[1],
 				pModels[1], pVPMan->ViewProjectionPtr(vpKey_));
-			AfterimageParticle::Emit(trfm, YGame::ColorConfig::skTurquoise[1],
+			AfterimageParticle::Emit(worldKey_, trfm, YGame::ColorConfig::skTurquoise[1],
 				pModels[2], pVPMan->ViewProjectionPtr(vpKey_));
-			
+
 			animationTimers_[kAttackIndex].timer.Reset(true);
 		}
 	}

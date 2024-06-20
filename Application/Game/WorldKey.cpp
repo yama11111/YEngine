@@ -16,6 +16,15 @@ namespace
 		{ WorldKey::eGoalKey,	 "Goal" },
 	};
 
+	std::unordered_map<std::string, WorldKey> worldKeyMap =
+	{
+		{ "Start",		WorldKey::eStartKey, },
+		{ "World",		WorldKey::eWorldKey, },
+		{ "Journey",	WorldKey::eJourneyKey, },
+		{ "Fever",		WorldKey::eFeverKey, },
+		{ "Goal",		WorldKey::eGoalKey, },
+	};
+
 	std::vector<WorldKey> worldKeyVector =
 	{
 		WorldKey::eStartKey,
@@ -33,6 +42,12 @@ namespace
 		"Fever",
 		"Goal",
 	};
+}
+
+WorldKey YGame::WorldKeyEnum(const std::string& key)
+{
+	assert(worldKeyMap.contains(key));
+	return worldKeyMap[key];
 }
 
 std::string YGame::WorldKeyStr(const WorldKey key)

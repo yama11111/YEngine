@@ -80,10 +80,11 @@ namespace YGame
 		void SetWorldKey(const WorldKey& key);
 		
 		/// <summary>
-		/// 機銃行列設定
+		/// 基底行列設定
 		/// </summary>
+		/// <param name="key"> : キー</param>
 		/// <param name="mat"> ; 行列</param>
-		void SetBaseMat(const YMath::Matrix4& mat);
+		void SetBaseMat(const WorldKey& key, const YMath::Matrix4& mat);
 
 		/// <summary>
 		/// ゲート位置設定
@@ -110,14 +111,19 @@ namespace YGame
 		/// <summary>
 		/// 基準の行列のポインタ取得
 		/// </summary>
+		/// <param name="key"> : キー</param>
 		/// <returns>基準の行列のポインタ</returns>
-		YMath::Matrix4 BasePosMat();
+		YMath::Matrix4 BasePosMat(const WorldKey& key);
 
 		/// <summary>
 		/// 基準の行列のポインタ取得
 		/// </summary>
+		/// <param name="key"> : キー</param>
 		/// <returns>基準の行列のポインタ</returns>
-		YMath::Matrix4* BasePosMatPointer();
+		YMath::Matrix4* BasePosMatPointer(const WorldKey& key);
+
+		void SetIsPlayerLanding(const bool isLanding) { isPlayerLanding_ = isLanding; }
+		bool IsPlayerLanding()const { return isPlayerLanding_; }
 	
 	private:
 
@@ -158,11 +164,11 @@ namespace YGame
 		WorldKey elderWorldKey_{};
 
 		// 基準の行列
-		YMath::Matrix4 basePosMat_;
+		std::unordered_map<WorldKey, YMath::Matrix4> basePosMatMap_;
 
 		// カメラ位置
-		std::unordered_map<WorldKey, CameraSet> cameraSets_;
-		
+		CameraSet cameraSet_;
+
 		// ゲート位置
 		std::array<YMath::Vector3, kWorldKeyNum> gatePoss_{};
 
@@ -174,6 +180,8 @@ namespace YGame
 
 		// フィーバーパーティクル用タイマー
 		YMath::Timer feverEmitTimer_;
+
+		bool isPlayerLanding_ = false;
 
 	private:
 

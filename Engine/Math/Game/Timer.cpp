@@ -41,9 +41,14 @@ void Timer::Update(const float passRate)
 	if (current_ >= static_cast<float>(endFrame_))
 	{
 		// 終了処理
-		current_ = static_cast<float>(endFrame_);
-		isAct_ = false;
+		Finish();
 	}
+}
+
+void Timer::Finish()
+{
+	current_ = static_cast<float>(endFrame_);
+	isAct_ = false;
 }
 
 float Timer::Ratio() const

@@ -29,6 +29,11 @@ T Ease<T>::InOut(const float ratio, const float controlPoint) const { return Eas
 template<typename T>
 T Ease<T>::OutIn(const float ratio, const float controlPoint) const { return EaseOutIn<T>(start_, end_, ratio, exponent_, controlPoint); }
 
+template<typename T>
+Ease<T>::Ease(const T& start, const T& end, const float exponent) : 
+	start_(start), end_(end), exponent_(exponent)
+{}
+
 template class Ease<float>;
 template class Ease<double>;
 template class Ease<Vector2>;

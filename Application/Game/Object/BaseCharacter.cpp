@@ -1,4 +1,5 @@
 #include "BaseCharacter.h"
+#include "BaseCharacterDrawer.h"
 
 #include "WorldManager.h"
 
@@ -6,9 +7,9 @@
 #include "MathUtil.h"
 
 #include "FileUtil.h"
-#include <cassert>
 #include <fstream>
 #include <sstream>
+#include <cassert>
 #include <imgui.h>
 
 using YGame::BaseCharacter;
@@ -24,15 +25,11 @@ namespace
 
 void BaseCharacter::Initialize(
 	const std::string& name,
-	const std::string& worldKey,
-	const Transform::Status& status,
-	YMath::Matrix4* pParent)
+	const WorldKey worldKey,
+	const Transform::Status& status)
 {
 	GameObject::Initialize(name, status);
 	
-	transform_->parent_ = pParent;
-	transform_->UpdateMatrix();
-
 	LoadStatus(name);
 
 	SetWorldKey(worldKey);
@@ -79,14 +76,22 @@ Vector3 BaseCharacter::WorldPos() const
 	return worldPos_;
 }
 
-void BaseCharacter::SetWorldKey(const std::string& worldKey)
+void BaseCharacter::SetWorldKey(const WorldKey worldKey)
 {
 	worldKey_ = worldKey;
 
-	SetUpdateKey(worldKey);
-	SetDrawKeys({ worldKey });
+	transform_->parent_ = WorldManager::GetInstance()->BasePosMatPointer(worldKey);
+	transform_->UpdateMatrix();
 
-	if (drawer_) { drawer_->SetVPkey(worldKey); }
+	std::string key = WorldKeyStr(worldKey);
+
+	SetUpdateKey(key);
+	SetDrawKeys({ key });
+
+	if (drawer_)
+	{
+		static_cast<BaseCharacterDrawer*>(drawer_.get())->SetWorldKey(worldKey);
+	}
 }
 
 void BaseCharacter::LoadStatus(const std::string& name)
@@ -161,7 +166,7 @@ void BaseCharacter::UpdatePos()
 
 	transform_->pos_ = worldPos_;
 
-	posMat_ = YMath::MatTranslation(worldPos_) * pWorldMan->BasePosMat();
+	posMat_ = YMath::MatTranslation(worldPos_) * pWorldMan->BasePosMat(WorldKeyEnum(updateKey_));
 }
 
 void BaseCharacter::OffScreenProcess()

@@ -46,7 +46,7 @@ void TestScene::Initialize()
 	ScoreManager::GetInstance()->Initialize();
 	ScoreManager::GetInstance()->StartScoreMeasurement();
 
-	Level::LoadJson("journey.json", WorldKeyStr(WorldKey::eJourneyKey));
+	Level::LoadJson("journey.json", WorldKey::eJourneyKey);
 
 	// UI
 	uiDra_.Initialize();

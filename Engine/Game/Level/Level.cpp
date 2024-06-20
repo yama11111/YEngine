@@ -52,7 +52,7 @@ list<unique_ptr<Level>> Level::sLevelDatas_;
 #pragma endregion
 
 
-Level* Level::LoadJson(const std::string& fileName, const std::string& key)
+Level* Level::LoadJson(const std::string& fileName, const WorldKey key)
 {
 	// 動的レベルデータ生成
 	std::unique_ptr<Level> newLevel = std::make_unique<Level>();
@@ -104,7 +104,7 @@ Level* Level::LoadJson(const std::string& fileName, const std::string& key)
 	return pLevel;
 }
 
-void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject* pParent)
+void Level::LoadData(const WorldKey key, nlohmann::json& object, GameObject* pParent)
 {
 	// "type" 以外警告
 	assert(object.contains("type"));
@@ -151,6 +151,8 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 		std::unique_ptr<GameObject> newObj = nullptr;
 		bool isUpdateSkip = true;
 		bool isBackground = false;
+
+		std::string keyStr = WorldKeyStr(key);
 
 		// 初期化
 		if (name == "Player.")
@@ -217,13 +219,13 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 		{
 			isUpdateSkip = false;
 
-			newObj = Skydome::Create(status, key);
+			newObj = Skydome::Create(status, keyStr);
 		}
 		else if (name == "Meteor.")
 		{
 			isUpdateSkip = false;
 
-			newObj = MeteorEmitter::Create(status, key);
+			newObj = MeteorEmitter::Create(status, keyStr);
 		}
 		else if (name == "Player_T.")
 		{
@@ -231,10 +233,10 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 
 			newObj = std::make_unique<GameObject>();
 			newObj->Initialize(name, status);
-			newObj->SetUpdateKey(key);
-			newObj->SetDrawKeys({ key });
-			
-			std::unique_ptr<PlayerDrawer> drawer = PlayerDrawer::Create({ nullptr, nullptr, key, 0 });
+			newObj->SetUpdateKey(keyStr);
+			newObj->SetDrawKeys({ keyStr });
+
+			std::unique_ptr<PlayerDrawer> drawer = PlayerDrawer::Create({ nullptr, nullptr, "Game", 0 });
 			drawer->PlayAnimation(static_cast<uint32_t>(PlayerDrawer::AnimationType::eSingleColor));
 			newObj->SetDrawer(std::move(drawer));
 		}
@@ -244,11 +246,11 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 
 			newObj = std::make_unique<GameObject>();
 			newObj->Initialize(name, status);
-			newObj->SetUpdateKey(key);
-			newObj->SetDrawKeys({ key });
+			newObj->SetUpdateKey(keyStr);
+			newObj->SetDrawKeys({ keyStr });
 			newObj->SetDrawer(BlockDrawer::Create(
-				{ nullptr, nullptr, key, 0 }, 
-				BlockDrawer::Type::eGreen, 
+				{ nullptr, nullptr, "Game", 0 },
+				BlockDrawer::Type::eGreen,
 				false, SceneKey::eTitleKey)
 			);
 		}
@@ -258,10 +260,10 @@ void Level::LoadData(const std::string& key, nlohmann::json& object, GameObject*
 
 			newObj = std::make_unique<GameObject>();
 			newObj->Initialize(name, status);
-			newObj->SetUpdateKey(key);
-			newObj->SetDrawKeys({ key });
+			newObj->SetUpdateKey(keyStr);
+			newObj->SetDrawKeys({ keyStr });
 			newObj->SetDrawer(BlockDrawer::Create(
-				{ nullptr, nullptr, key, 0 }, 
+				{ nullptr, nullptr, "Game", 0 },
 				BlockDrawer::Type::eGreen, 
 				true, SceneKey::eTitleKey)
 			);

@@ -22,8 +22,8 @@ namespace YGame
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="keys"> : キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Slime>Create(const Transform::Status& status, const std::string& key);
-	
+		static std::unique_ptr<Slime>Create(const Transform::Status& status, const WorldKey key);
+
 	public:
 
 		/// <summary>
@@ -31,7 +31,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="keys"> : キー</param>
-		void Initialize(const Transform::Status& status, const std::string& key);
+		void Initialize(const Transform::Status& status, const WorldKey key);
 
 		/// <summary>
 		/// 衝突前更新

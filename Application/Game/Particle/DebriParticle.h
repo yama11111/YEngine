@@ -8,6 +8,7 @@
 #pragma once
 #include "Vector3.h"
 #include "ViewProjection.h"
+#include "WorldKey.h"
 
 namespace YGame
 {
@@ -24,10 +25,12 @@ namespace YGame
 		/// <summary>
 		/// 発生
 		/// </summary>
+		/// <param name="worldKey"> : 世界キー</param>
 		/// <param name="num"> : 数</param>
 		/// <param name="pos"> : 位置</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
+			const WorldKey worldKey,
 			const size_t num,
 			const YMath::Vector3& pos,
 			ViewProjection* pVP);

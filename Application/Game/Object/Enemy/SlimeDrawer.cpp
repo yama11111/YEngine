@@ -13,6 +13,7 @@
 
 #include "Def.h"
 #include "MathVector.h"
+#include "Lerp.h"
 #include <cmath>
 
 using YGame::SlimeDrawer;
@@ -27,6 +28,7 @@ namespace
 {
 	// モデルポインタ
 	Model* pModel = nullptr;
+	Model* pLineModel = nullptr;
 	
 	ViewProjectionManager* pVPMan = ViewProjectionManager::GetInstance();
 
@@ -37,14 +39,16 @@ namespace
 	const uint32_t kDeadIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead);
 	const uint32_t kFeverIndex	 = static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever);
 	const uint32_t kCircleShadowIndex = static_cast<uint32_t>(SlimeDrawer::AnimationType::eCircleShadow);
+	const uint32_t kShowLineIndex = static_cast<uint32_t>(SlimeDrawer::AnimationType::eShowLine);
 
 	// アニメーションタイマー
-	const AnimeTimer kIdleTimer		 = { Timer(60), true };
-	const AnimeTimer kLandingTimer	 = { Timer(20), false };
-	const AnimeTimer kHitTimer		 = { Timer(20), false };
-	const AnimeTimer kDeadTimer		 = { Timer(20), false };
-	const AnimeTimer kFeverTimer	 = { Timer(280), true };
+	const AnimeTimer kIdleTimer = { Timer(60), true };
+	const AnimeTimer kLandingTimer = { Timer(20), false };
+	const AnimeTimer kHitTimer = { Timer(20), false };
+	const AnimeTimer kDeadTimer = { Timer(20), false };
+	const AnimeTimer kFeverTimer = { Timer(280), true };
 	const AnimeTimer kCircleShadowTimer = { Timer(1), true };
+	const AnimeTimer kShowLineTimer = { Timer(1), true };
 
 	// アニメーション値
 	const std::vector<Vector3> kLandingWobbleScaleValues =
@@ -71,6 +75,7 @@ namespace
 	// 色
 	const YMath::Vector4 kBodyColor = YMath::GetColor(245, 24, 83, 255);
 	const YMath::Vector4 kOutlineColor = YMath::GetColor(143, 13, 48, 255);
+	const YMath::Vector4 kLineColor = YGame::ColorConfig::skTurquoise[3];
 
 	// パーティクル
 	const size_t kLandingDirectionNum = 4;
@@ -91,6 +96,7 @@ std::unique_ptr<SlimeDrawer> SlimeDrawer::Create(const DrawerInitSet& init)
 void SlimeDrawer::LoadResource()
 {
 	pModel = Model::LoadObj("slime", true);
+	pLineModel = Model::CreateCube({ {"Texture0", Texture::Load("white1x1.png")} });
 }
 
 void SlimeDrawer::Initialize(const DrawerInitSet& init)
@@ -104,23 +110,32 @@ void SlimeDrawer::Initialize(const DrawerInitSet& init)
 	cbOutline_->data_.color = kOutlineColor;
 	cbOutline_->data_.range = 0.2f;
 
+	cbLineColor_.reset(ConstBufferObject<CBColor>::Create());
+	cbLineColor_->data_.baseColor = kLineColor;
+	cbLineColor_->data_.baseColor.w = 0.75f;
+
 	InsertConstBuffer("Body", CircleShadowManager::GetInstance()->CBPtr(CircleShadowManager::Key::eWorld_0));
 	InsertConstBuffer("Body_O", cbOutline_.get());
+	InsertConstBuffer("Line", cbLineColor_.get());
 
 	SetShaderTag("ModelToon");
 	SetShaderTag("Body_O", "ModelOutline");
+	SetShaderTag("Line", "ModelSingleColor");
 
 	std::vector<YMath::Vector4> rainbow(std::begin(Color::skRainbow), std::end(Color::skRainbow));
 	rainbowEas_.Initialize(rainbow, 1.0f);
 
 	hitActor_.Initialize();
 	slimeActor_.Initialize(0, { {} }, 0);
+
+	lineScalePow_.Initialize(8);
 }
 
 void SlimeDrawer::InitializeObjects()
 {
 	InsertObject("Body", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 	InsertObject("Body_O", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
+	InsertObject("Line", DrawObjectForModel::Create({}, pVPMan->ViewProjectionPtr(vpKey_), pModel));
 }
 
 void SlimeDrawer::InitializeTimers()
@@ -132,6 +147,7 @@ void SlimeDrawer::InitializeTimers()
 	InsertAnimationTimer(kDeadIndex, kDeadTimer);
 	InsertAnimationTimer(kFeverIndex, kFeverTimer);
 	InsertAnimationTimer(kCircleShadowIndex, kCircleShadowTimer);
+	InsertAnimationTimer(kShowLineIndex, kShowLineTimer);
 }
 
 void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
@@ -165,7 +181,7 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 
 			Vector3 powerDirection = surrounding + Vector3(0.0f, +0.3f, 0.0f);
 
-			//DustParticle::Emit(kLandingDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
+			//DustParticle::Emit(worldKey_, kLandingDustNum, pos, powerDirection, pVPMan->ViewProjectionPtr(vpKey_));
 		}
 	}
 	// 被弾
@@ -180,7 +196,12 @@ void SlimeDrawer::GetReadyForAnimation(const uint32_t index)
 	// 死亡
 	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eDead))
 	{
-		DebriParticle::Emit(kDeadDebriNum, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
+		DebriParticle::Emit(worldKey_, kDeadDebriNum, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
+	}
+	// ライン
+	else if (index & static_cast<uint32_t>(SlimeDrawer::AnimationType::eShowLine))
+	{
+		
 	}
 }
 
@@ -195,6 +216,11 @@ void SlimeDrawer::UpdateAnimation()
 	animeStatus_.scale_ += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut);
 	animeStatus_.pos_.y += slimeActor_.WobbleScaleValue(SlimeActor::EaseType::eOut).y;
 
+	lineScalePow_.Update(IsActAnimation(kShowLineIndex));
+
+	objs_["Line"]->transform_.pos_ = YMath::EaseInOut(Vector3(), Vector3(0.0f, 200.0f, 0.0f), lineScalePow_.Ratio(), 3.0f);
+	objs_["Line"]->transform_.scale_ = YMath::EaseInOut(Vector3(), Vector3(0.3f, 200.0f, 0.3f), lineScalePow_.Ratio(), 3.0f);
+	
 	if (IsActAnimation(kFeverIndex))
 	{
 		cbColor_->data_.baseColor = rainbowEas_.In(animationTimers_[kFeverIndex].timer.Ratio());
@@ -224,9 +250,9 @@ void SlimeDrawer::PlayHitAnimation(const uint32_t damage)
 {
 	PlayAnimation(static_cast<uint32_t>(AnimationType::eHit), true);
 
-	DamageParticle::Emit(damage, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
+	DamageParticle::Emit(worldKey_, damage, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 
 	Vector3 pos = *pParentWorldPos_;
 	pos.y += pParent_->scale_.y;
-	WaveParticle::Emit(30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, pVPMan->ViewProjectionPtr(vpKey_));
+	WaveParticle::Emit(worldKey_, 30, pos, { kPI / 2.0f,0,0 }, 10.0f, ColorConfig::skYellow, pVPMan->ViewProjectionPtr(vpKey_));
 }

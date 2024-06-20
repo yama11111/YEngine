@@ -65,7 +65,7 @@ void GateDrawer::Initialize(const DrawerInitSet& init)
 	extendScaleEas_.Initialize(0.0f, 15.0f, 2.0f);
 	
 	shrinkRotaEas_.Initialize(0.0f, 4.0f * kPI, 3.0f);
-	shrinkScaleEas_.Initialize(0.0f, -15.0f, 2.0f);
+	shrinkScaleEas_.Initialize(0.0f, -1.0f, 2.0f);
 }
 
 void GateDrawer::InitializeObjects()
@@ -99,15 +99,10 @@ void GateDrawer::GetReadyForAnimation(const uint32_t index)
 
 void GateDrawer::UpdateAnimation()
 {
-	float ratioE = animationTimers_[kExtendIndex].timer.Ratio();
 	float ratioS = animationTimers_[kShrinkIndex].timer.Ratio();
 	
-	float rota = extendRotaEas_.Out(ratioE) + shrinkRotaEas_.In(ratioS);
-	float scale = extendScaleEas_.Out(ratioE) + shrinkScaleEas_.In(ratioS);
+	float scale = shrinkScaleEas_.In(ratioS);
 
-	animeStatus_.scale_.x += scale;
-	animeStatus_.scale_.y += scale;
-
-	objs_["Gate_Frame"]->transform_.rota_.z = rota;
-	objs_["Gate_Inside"]->transform_.rota_.z = rota;
+	animeStatus_.scale_.x = scale;
+	animeStatus_.scale_.y = scale;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Camera.h"
+#include "WorldKey.h"
 #include <json.hpp>
 
 namespace YGame
@@ -16,7 +17,7 @@ namespace YGame
 		/// <param name="fileName"> : ファイル名 (.json)</param>
 		/// <param name="key"> : キー</param>
 		/// <returns>レベルデータポインタ</returns>
-		static Level* LoadJson(const std::string& fileName, const std::string& key);
+		static Level* LoadJson(const std::string& fileName, const WorldKey key);
 
 		/// <summary>
 		/// 全データクリア
@@ -37,7 +38,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="object"> : オブジェクト(json)</param>
 		/// <param name="pParent"> : 親オブジェクトポインタ</param>
-		void LoadData(const std::string& key, nlohmann::json& object, GameObject* pParent = nullptr);
+		void LoadData(const WorldKey key, nlohmann::json& object, GameObject* pParent = nullptr);
 	
 	private:
 

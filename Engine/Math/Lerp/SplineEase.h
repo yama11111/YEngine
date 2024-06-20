@@ -81,6 +81,14 @@ namespace YMath
 		/// <returns>緩急</returns>
 		float Exponent() const { return exponent_; }
 
+	public:
+
+		SplineEase() = default;
+
+		SplineEase(const std::vector<T>& points, const float exponent);
+
+		~SplineEase() = default;
+	
 	private:
 
 		// 値

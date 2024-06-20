@@ -144,6 +144,7 @@ void CoinDrawer::UpdateAnimation()
 	if (emitTimer_.IsEnd())
 	{
 		WaveParticle::Emit(
+			worldKey_,
 			20,
 			*pParentWorldPos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
 			ColorConfig::skTurquoise[2], pVPMan->ViewProjectionPtr(vpKey_));

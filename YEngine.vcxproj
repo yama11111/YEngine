@@ -132,6 +132,7 @@
     <ClCompile Include="Application\Game\Object\Stage\Skydome.cpp" />
     <ClCompile Include="Application\Game\Object\Stage\SkydomeDrawer.cpp" />
     <ClCompile Include="Application\Game\Particle\AfterimageParticle.cpp" />
+    <ClCompile Include="Application\Game\Particle\BaseGameParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\MeteorParticle.cpp" />
     <ClCompile Include="Application\Game\Particle\StarParticle.cpp" />
     <ClCompile Include="Application\Game\UI\CoinCountDrawer.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="Application\Game\Object\Stage\Skydome.h" />
     <ClInclude Include="Application\Game\Object\Stage\SkydomeDrawer.h" />
     <ClInclude Include="Application\Game\Particle\AfterimageParticle.h" />
+    <ClInclude Include="Application\Game\Particle\BaseGameParticle.h" />
     <ClInclude Include="Application\Game\Particle\MeteorParticle.h" />
     <ClInclude Include="Application\Game\Particle\StarParticle.h" />
     <ClInclude Include="Application\Game\WorldKey.h" />

@@ -17,7 +17,7 @@ namespace
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
-std::unique_ptr<Magnet> Magnet::Create(const Transform::Status& status, const std::string& key)
+std::unique_ptr<Magnet> Magnet::Create(const Transform::Status& status, const WorldKey key)
 {
 	std::unique_ptr<Magnet> newObj = std::make_unique<Magnet>();
 
@@ -26,9 +26,9 @@ std::unique_ptr<Magnet> Magnet::Create(const Transform::Status& status, const st
 	return std::move(newObj);
 }
 
-void Magnet::Initialize(const Transform::Status& status, const std::string& key)
+void Magnet::Initialize(const Transform::Status& status, const WorldKey key)
 {
-	BaseCharacter::Initialize("Magnet", key,status, WorldManager::GetInstance()->BasePosMatPointer());
+	BaseCharacter::Initialize("Magnet", key, status);
 
 	// アタリ判定
 	{
@@ -62,8 +62,9 @@ void Magnet::Initialize(const Transform::Status& status, const std::string& key)
 
 	// 描画
 	{
-		std::unique_ptr<MagnetDrawer> drawer = MagnetDrawer::Create({ nullptr, nullptr, key, 1 });
+		std::unique_ptr<MagnetDrawer> drawer = MagnetDrawer::Create({ nullptr, nullptr, "Game", 1 });
 		drawer->SetParentPosMatPointer(&posMat_);
+		drawer->SetWorldKey(worldKey_);
 		SetDrawer(std::move(drawer));
 		
 		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eIdle));
@@ -95,7 +96,7 @@ void Magnet::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
 	
-	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	if (worldKey_ == WorldManager::GetInstance()->CurrentWorldKey())
 	{
 		drawer_->PlayAnimation(static_cast<uint32_t>(MagnetDrawer::AnimationType::eCircleShadow), true);
 	}
@@ -118,7 +119,7 @@ void Magnet::UpdatePos()
 
 		transform_->pos_ = worldPos_;
 
-		posMat_ = YMath::MatTranslation(transform_->pos_) * pWorldMan->BasePosMat();
+		posMat_ = YMath::MatTranslation(transform_->pos_) * pWorldMan->BasePosMat(WorldKeyEnum(updateKey_));
 	}
 	else
 	{

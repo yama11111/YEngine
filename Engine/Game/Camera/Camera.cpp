@@ -60,6 +60,7 @@ void Camera::UpdateTarget()
 		vp_.target_ = vp_.eye_ + forward;
 	}
 }
+
 void Camera::Update(const Transform::Status& status)
 {
 	status_ = status;

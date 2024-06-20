@@ -1,3 +1,10 @@
+/**
+ * @file BaseGameParticle.h
+ * @brief 基底パーティクルクラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "BaseDrawObject.h"
 #include "Ease.h"

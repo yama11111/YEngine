@@ -1,5 +1,5 @@
 #include "RecoveryParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 
 #include "DrawObjectForSprite3D.h"
@@ -25,7 +25,7 @@ namespace YGame
 {
 	class impl_RecoveryParticle final :
 		public RecoveryParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -35,6 +35,7 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
+			const WorldKey worldKey,
 			const uint32_t aliveFrame,
 			const YMath::Vector3& pos,
 			const float endScale,
@@ -54,7 +55,7 @@ namespace YGame
 
 		// 色定数バッファ
 		std::unique_ptr<ConstBufferObject<CBColor>> cbColor_;
-		
+
 		// スピード
 		YMath::Speed speed_;
 
@@ -85,6 +86,7 @@ namespace YGame
 	}
 
 	void impl_RecoveryParticle::Initialize(
+		const WorldKey worldKey,
 		const uint32_t aliveFrame,
 		const YMath::Vector3& pos,
 		const float endScale,
@@ -95,9 +97,8 @@ namespace YGame
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos }, "Sprite3DDefault", 1);
+		BaseGameParticle::Initialize(worldKey, aliveFrame, { pos }, "Sprite3DDefault", 1);
 
-		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 
@@ -188,6 +189,7 @@ static YGame::impl_RecoveryParticle* DeadParticlePtr()
 }
 
 void RecoveryParticle::Emit(
+	const WorldKey worldKey,
 	const size_t num,
 	const Vector3& pos,
 	ViewProjection* pVP)
@@ -220,7 +222,8 @@ void RecoveryParticle::Emit(
 
 		Vector3 maxSpeed = { kMaxSpeedVal, kMaxSpeedVal ,kMaxSpeedVal };
 
-		pParticle->Initialize(kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, 
+		pParticle->Initialize(
+			worldKey, kAliveFrame, pos, kScaleVal, powerDirection, accel, maxSpeed, 
 			{ 1.0f,1.0f,1.0f,1.0f }, kExponent, pVP);
 	}
 }

@@ -13,7 +13,7 @@ namespace
 	WorldManager* pWorldMan = WorldManager::GetInstance();
 }
 
-std::unique_ptr<Block> Block::Create(const Transform::Status& status, const std::string& key, const bool isBackground)
+std::unique_ptr<Block> Block::Create(const Transform::Status& status, const WorldKey key, const bool isBackground)
 {
 	std::unique_ptr<Block> newObj = std::make_unique<Block>();
 
@@ -22,18 +22,18 @@ std::unique_ptr<Block> Block::Create(const Transform::Status& status, const std:
 	return std::move(newObj);
 }
 
-void Block::Initialize(const Transform::Status& status, const std::string& key, const bool isBackground)
+void Block::Initialize(const Transform::Status& status, const WorldKey key, const bool isBackground)
 {
 	if (isBackground == false)
 	{
-		BaseStageObject::Initialize("Block", key, status, WorldManager::GetInstance()->BasePosMatPointer());
+		BaseStageObject::Initialize("Block", key, status);
 	}
 	else
 	{
-		BaseStageObject::Initialize("Block_B", key, status, WorldManager::GetInstance()->BasePosMatPointer());
+		BaseStageObject::Initialize("Block_B", key, status);
 	}
 	
-	if (key == WorldKeyStr(WorldKey::eJourneyKey))
+	if (key == WorldKey::eJourneyKey)
 	{
 		SetDrawKeys({});
 	}
@@ -61,13 +61,14 @@ void Block::Initialize(const Transform::Status& status, const std::string& key, 
 	// 描画
 	{
 		BlockDrawer::Type type = BlockDrawer::Type::eGreen;
-		if (key == WorldKeyStr(WorldKey::eFeverKey))
+		if (key == WorldKey::eFeverKey)
 		{
 			type = BlockDrawer::Type::ePurple;
 		}
 		std::unique_ptr<BlockDrawer> drawer = 
-			BlockDrawer::Create({ nullptr, nullptr, key, 2 }, type, isBackground);
+			BlockDrawer::Create({ nullptr, nullptr, "Game", 2 }, type, isBackground);
 		drawer->SetParentPosMatPointer(&posMat_);
+		drawer->SetWorldKey(worldKey_);
 		SetDrawer(std::move(drawer));
 	}
 }
@@ -86,12 +87,10 @@ void Block::UpdateAfterCollision()
 
 YGame::ICollisionInfomation Block::GetCollisionInfomation()
 {
-	ICollisionInfomation result;
+	ICollisionInfomation result = BaseStageObject::GetCollisionInfomation();
 
 	result.attribute = AttributeType::eBlock;
-	result.pTrfm = transform_.get();
 	result.radius = 0.0f;
-	result.pStatus = nullptr;
 
 	return result;
 }

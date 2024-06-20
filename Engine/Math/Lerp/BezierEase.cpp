@@ -32,6 +32,12 @@ T BezierEase<T>::InOut(const float ratio, const float controlPoint) const { retu
 template<typename T>
 T BezierEase<T>::OutIn(const float ratio, const float controlPoint) const { return BezierEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
 
+template<typename T>
+BezierEase<T>::BezierEase(const std::vector<T>& points, const float exponent)
+{
+	Initialize(points, exponent);
+}
+
 template class BezierEase<float>;
 template class BezierEase<double>;
 template class BezierEase<Vector2>;

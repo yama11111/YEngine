@@ -81,6 +81,14 @@ namespace YMath
 		/// <returns>緩急</returns>
 		float Exponent() const { return exponent_; }
 	
+	public:
+
+		BezierEase() = default;
+
+		BezierEase(const std::vector<T>& points, const float exponent);
+
+		~BezierEase() = default;
+	
 	private:
 
 		// 値

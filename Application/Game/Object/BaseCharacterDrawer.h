@@ -10,6 +10,7 @@
 #include "CBOutline.h"
 #include "HitActor.h"
 #include "SlimeActor.h"
+#include "WorldKey.h"
 
 namespace YGame
 {
@@ -35,6 +36,12 @@ namespace YGame
         /// <param name="pParentPosMat"> : 親位置行列ポインタ</param>
         void SetParentPosMatPointer(YMath::Matrix4* pParentPosMat);
     
+        /// <summary>
+        /// 世界キー設定
+        /// </summary>
+        /// <param name="worldKey"> : 世界キー</param>
+        virtual void SetWorldKey(const WorldKey worldKey);
+
     public:
 
         BaseCharacterDrawer() = default;
@@ -42,6 +49,9 @@ namespace YGame
         ~BaseCharacterDrawer() = default;
 
     protected:
+
+        // 今どの世界にいるか
+        WorldKey worldKey_{};
 
         // アウトライン定数バッファ
         std::unique_ptr<ConstBufferObject<CBOutline>> cbOutline_;

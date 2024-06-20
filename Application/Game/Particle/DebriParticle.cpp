@@ -1,5 +1,5 @@
 #include "DebriParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 
 #include "DrawObjectForModel.h"
@@ -25,7 +25,7 @@ namespace YGame
 {
 	class impl_DebriParticle final :
 		public DebriParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -35,6 +35,7 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
+			const WorldKey worldKey,
 			const uint32_t aliveFrame,
 			const std::vector<Vector3>& pos,
 			const float startScale, const float endScale,
@@ -75,6 +76,7 @@ namespace YGame
 	}
 
 	void impl_DebriParticle::Initialize(
+		const WorldKey worldKey,
 		const uint32_t aliveFrame,
 		const std::vector<Vector3>& pos,
 		const float startScale, const float endScale,
@@ -82,9 +84,8 @@ namespace YGame
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos[0] }, "ModelPhong", 1);
+		BaseGameParticle::Initialize(worldKey, aliveFrame, { pos[0] }, "ModelPhong", 1);
 
-		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		cbColor_->data_.baseColor = color;
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
@@ -159,6 +160,7 @@ static YGame::impl_DebriParticle* DeadParticlePtr()
 }
 
 void DebriParticle::Emit(
+	const WorldKey worldKey,
 	const size_t num,
 	const Vector3& pos,
 	ViewProjection* pVP)
@@ -195,6 +197,7 @@ void DebriParticle::Emit(
 
 
 		pParticle->Initialize(
+			worldKey,
 			kAliveFrame,
 			points,
 			kStartScale, kEndScale,

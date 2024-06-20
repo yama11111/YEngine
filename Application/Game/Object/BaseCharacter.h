@@ -1,8 +1,16 @@
+/**
+ * @file BaseCharacter.h
+ * @brief 基底キャラクタークラス
+ * @author Yamanaka Rui
+ * @date 2024/01/18
+ */
+
 #pragma once
 #include "GameObject.h"
 #include "CharacterStatus.h"
 #include "Speed.h"
 #include "MapChipCollider.h"
+#include "WorldKey.h"
 
 namespace YGame
 {
@@ -21,9 +29,8 @@ namespace YGame
 		/// <param name="pParent"> : 親行列ポインタ</param>
 		void Initialize(
 			const std::string& name,
-			const std::string& worldKey, 
-			const Transform::Status& trfmStatus,
-			YMath::Matrix4* pParent);
+			const WorldKey worldKey, 
+			const Transform::Status& trfmStatus);
 
 		/// <summary>
 		/// 衝突前更新
@@ -73,7 +80,7 @@ namespace YGame
 		/// 世界キー設定
 		/// </summary>
 		/// <param name="worldKey"> : 世界キー</param>
-		virtual void SetWorldKey(const std::string& worldKey);
+		virtual void SetWorldKey(const WorldKey worldKey);
 
 	public:
 
@@ -84,7 +91,7 @@ namespace YGame
 	protected:
 
 		// 今どの世界にいるか
-		std::string worldKey_;
+		WorldKey worldKey_{};
 
 		// 位置行列
 		YMath::Matrix4 posMat_ = YMath::Matrix4::Identity();

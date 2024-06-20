@@ -1,5 +1,5 @@
 #include "WaveParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 #include "DrawObjectForSprite3D.h"
 #include "ConstBufferObject.h"
@@ -23,7 +23,7 @@ namespace YGame
 {
 	class impl_WaveParticle final :
 		public WaveParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -33,6 +33,7 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
+			const WorldKey worldKey,
 			const uint32_t aliveFrame,
 			const YMath::Vector3& pos,
 			const YMath::Vector3& rota,
@@ -74,6 +75,7 @@ namespace YGame
 	}
 
 	void impl_WaveParticle::Initialize(
+		const WorldKey worldKey,
 		const uint32_t aliveFrame,
 		const YMath::Vector3& pos,
 		const YMath::Vector3& rota,
@@ -82,9 +84,8 @@ namespace YGame
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos, rota }, "Sprite3DDefault", 1);
+		BaseGameParticle::Initialize(worldKey, aliveFrame, { pos, rota }, "Sprite3DDefault", 1);
 
-		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
 
@@ -168,6 +169,7 @@ static YGame::impl_WaveParticle* DeadParticlePtr()
 }
 
 void WaveParticle::Emit(
+	const WorldKey worldKey,
 	const uint32_t aliveFrame,
 	const YMath::Vector3& pos,
 	const YMath::Vector3& rota,
@@ -179,5 +181,5 @@ void WaveParticle::Emit(
 	impl_WaveParticle* pParticle = DeadParticlePtr();
 	if (pParticle == nullptr) { return; }
 
-	pParticle->Initialize(aliveFrame, pos, rota, endScale, color, kExponent, pVP);
+	pParticle->Initialize(worldKey, aliveFrame, pos, rota, endScale, color, kExponent, pVP);
 }

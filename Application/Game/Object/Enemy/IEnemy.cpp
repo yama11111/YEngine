@@ -31,7 +31,7 @@ void IEnemy::OnCollision(const ICollisionInfomation& info)
 	if (info.attribute == AttributeType::ePlayer)
 	{
 		// 自分 が 下側 なら
-		if (self.pTrfm->pos_.y + (self.radius / 4.0f) < info.pTrfm->pos_.y - (info.radius / 4.0f))
+		if (worldPos_.y + (self.radius / 4.0f) < info.pWorldPos->y - (info.radius / 4.0f))
 		{
 			// ダメージを受ける
 			status_.Damage(info.pStatus->Attack(), true);
@@ -55,7 +55,7 @@ void IEnemy::OnCollision(const ICollisionInfomation& info)
 	// ブロック
 	else if (info.attribute == AttributeType::eBlock)
 	{
-		if (transform_->pos_.y <= info.pTrfm->pos_.y) { return; }
+		if (worldPos_.y <= info.pWorldPos->y) { return; }
 
 		// 着地
 		isLanding_ = true;

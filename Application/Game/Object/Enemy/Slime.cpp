@@ -23,7 +23,7 @@ namespace
 	const uint32_t kBlowTime = 2;
 }
 
-std::unique_ptr<Slime> Slime::Create(const Transform::Status& status, const std::string& key)
+std::unique_ptr<Slime> Slime::Create(const Transform::Status& status, const WorldKey key)
 {
 	std::unique_ptr<Slime> newObj = std::make_unique<Slime>();
 
@@ -32,10 +32,10 @@ std::unique_ptr<Slime> Slime::Create(const Transform::Status& status, const std:
 	return std::move(newObj);
 }
 
-void Slime::Initialize(const Transform::Status& status, const std::string& key)
+void Slime::Initialize(const Transform::Status& status, const WorldKey key)
 {
 	// ゲームキャラクター初期化
-	BaseCharacter::Initialize("Slime", key, status, WorldManager::GetInstance()->BasePosMatPointer());
+	BaseCharacter::Initialize("Slime", key, status);
 
 	// アタリ判定
 	{
@@ -72,14 +72,15 @@ void Slime::Initialize(const Transform::Status& status, const std::string& key)
 	
 	// 描画
 	{
-		std::unique_ptr<SlimeDrawer> drawer = SlimeDrawer::Create({ nullptr, nullptr, key, 1 });
+		std::unique_ptr<SlimeDrawer> drawer = SlimeDrawer::Create({ nullptr, nullptr, "Game", 1 });
 		drawer->SetParentPosMatPointer(&posMat_);
+		drawer->SetWorldKey(worldKey_);
 		SetDrawer(std::move(drawer));
 
 		// 立ちアニメーション
 		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eIdle), true);
 
-		if (key == WorldKeyStr(WorldKey::eFeverKey))
+		if (key == WorldKey::eFeverKey)
 		{
 			drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eFever), true);
 		}
@@ -105,19 +106,32 @@ void Slime::UpdateAfterCollision()
 		{
 			// 着地アニメーション
 			drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eLanding), true);
-
 		}
 	}
 	
 	isElderLanding_ = isLanding_;
 
-	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	if (WorldManager::GetInstance()->IsPlayerLanding())
+	{
+		drawer_->StopAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eShowLine));
+	}
+	else
+	{
+		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eShowLine), true);
+	}
+
+	if (worldKey_ == WorldManager::GetInstance()->CurrentWorldKey())
 	{
 		drawer_->PlayAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eCircleShadow), true);
 	}
 	else
 	{
 		drawer_->StopAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eCircleShadow));
+	}
+	
+	if (worldKey_ != WorldKey::eWorldKey || drawer_->IsActAnimation(static_cast<size_t>(SlimeDrawer::AnimationType::eDead)))
+	{
+		drawer_->StopAnimation(static_cast<uint32_t>(SlimeDrawer::AnimationType::eShowLine));
 	}
 
 	// 演出終了 → 消滅

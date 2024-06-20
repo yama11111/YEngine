@@ -61,9 +61,9 @@ bool MyGame::Initialize()
 
 	sceneMan_->SetSceneFactory(std::move(std::make_unique<YGameSceneFactory>()));
 
-	//sceneMan_->Initialize(YGameSceneFactory::Title_);
+	sceneMan_->Initialize(YGameSceneFactory::Title_);
 	//sceneMan_->Initialize(YGameSceneFactory::Select_);
-	sceneMan_->Initialize(YGameSceneFactory::Play_);
+	//sceneMan_->Initialize(YGameSceneFactory::Play_);
 	//sceneMan_->Initialize(YGameSceneFactory::Test_);
 
 	isDrawDebug_ = false;
@@ -254,6 +254,30 @@ void MyGame::InitializePipelines()
 				);
 
 		pPipelineMan_->Insert("ModelToon", newPipeline);
+	}
+
+	// ModelToonFront
+	{
+		ShaderSet shader;
+
+		shader.LoadShader("Model/SingleColorVS.hlsl", ShaderSet::ShaderType::eVertex);
+		shader.LoadShader("Model/SingleColorPS.hlsl", ShaderSet::ShaderType::ePixel);
+
+		Pipeline* newPipeline =
+			Pipeline::Create(
+				shader,
+				{
+					CBModelTransform::Tag(),
+					CBColor::Tag(),
+				},
+				{
+					"Texture0",
+				},
+				1, Model::GetPipelineSetting(),
+				Pipeline::BlendState::Alpha, 1
+				);
+
+		pPipelineMan_->Insert("ModelSingleColorFront", newPipeline);
 	}
 
 	// ModelBack
@@ -492,6 +516,10 @@ void MyGame::InitializePipelines()
 			
 			"Sprite3DDefault",
 			"Sprite3DUI",
+			
+			"ModelSingleColorFront",
+			
+			"ModelToonFront",
 
 			"Sprite2DDefault",
 		}

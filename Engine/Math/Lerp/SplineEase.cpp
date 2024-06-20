@@ -32,6 +32,12 @@ T SplineEase<T>::InOut(const float ratio, const float controlPoint) const { retu
 template<typename T>
 T SplineEase<T>::OutIn(const float ratio, const float controlPoint) const { return SplineEaseOutIn<T>(points_, ratio, exponent_, controlPoint); }
 
+template<typename T>
+SplineEase<T>::SplineEase(const std::vector<T>& points, const float exponent)
+{
+	Initialize(points, exponent);
+}
+
 template class SplineEase<float>;
 template class SplineEase<double>;
 template class SplineEase<Vector2>;

@@ -26,6 +26,13 @@ namespace YGame
 	static const size_t kWorldKeyNum = static_cast<size_t>(WorldKey::eKeyNum);
 
 	/// <summary>
+	/// キー取得
+	/// </summary>
+	/// <param name="key"></param>
+	/// <returns></returns>
+	WorldKey WorldKeyEnum(const std::string& key);
+	
+	/// <summary>
 	/// キー(string型)取得
 	/// </summary>
 	/// <param name="key"> : キー</param>

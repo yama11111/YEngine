@@ -1,5 +1,5 @@
 #include "MeteorParticle.h"
-#include "BaseParticle.h"
+#include "BaseGameParticle.h"
 #include "ParticleManager.h"
 
 #include "DrawObjectForModel.h"
@@ -25,7 +25,7 @@ namespace YGame
 {
 	class impl_MeteorParticle final :
 		public MeteorParticle,
-		public BaseParticle
+		public BaseGameParticle
 	{
 
 	public:
@@ -35,6 +35,7 @@ namespace YGame
 
 		// 初期化
 		void Initialize(
+			const WorldKey worldKey,
 			const uint32_t aliveFrame,
 			const Vector3& pos,
 			const Vector3& endSpeed,
@@ -76,6 +77,7 @@ namespace YGame
 	}
 
 	void impl_MeteorParticle::Initialize(
+		const WorldKey worldKey,
 		const uint32_t aliveFrame,
 		const Vector3& pos,
 		const Vector3& endSpeed,
@@ -84,9 +86,8 @@ namespace YGame
 		const float exponent,
 		ViewProjection* pVP)
 	{
-		BaseParticle::Initialize(aliveFrame, { pos }, "ModelSingleColor", 1);
+		BaseGameParticle::Initialize(worldKey, aliveFrame, { pos }, "ModelSingleColor", 1);
 
-		obj_->transform_.parent_ = WorldManager::GetInstance()->BasePosMatPointer();
 		cbColor_->data_.baseColor = color;
 		pObj_->InsertConstBuffer(cbColor_.get());
 		pObj_->SetViewProjection(pVP);
@@ -105,7 +106,7 @@ namespace YGame
 		obj_->transform_.pos_ += speedEas_.In(ratio);
 		obj_->transform_.scale_ = scaleEas_.In(ratio);
 		obj_->transform_.rota_ = YMath::AdjustAngle(speedEas_.End().Normalized());
-		
+
 		obj_->Update();
 
 		BaseParticle::UpdateLife();
@@ -160,6 +161,7 @@ static YGame::impl_MeteorParticle* DeadParticlePtr()
 }
 
 void MeteorParticle::Emit(
+	const WorldKey worldKey,
 	const Vector3& pos,
 	const Vector3& speed,
 	const Vector4& color,
@@ -180,6 +182,7 @@ void MeteorParticle::Emit(
 	scale.z = YMath::Lerp(kStartScale, 10.0f, ratio);
 
 	pParticle->Initialize(
+		worldKey,
 		kAliveFrame,
 		pos, speed, scale, color, 
 		kExponent, pVP);

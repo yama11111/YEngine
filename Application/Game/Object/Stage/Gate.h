@@ -22,7 +22,7 @@ namespace YGame
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Gate> Create(const Transform::Status& status, const std::string& key);
+		static std::unique_ptr<Gate> Create(const Transform::Status& status, const WorldKey key);
 
 	public:
 
@@ -32,7 +32,7 @@ namespace YGame
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
 		/// <param name="oppositeKey"> : 移動後のキー</param>
-		void Initialize(const Transform::Status& status, const std::string& key);
+		void Initialize(const Transform::Status& status, const WorldKey key);
 
 	public:
 

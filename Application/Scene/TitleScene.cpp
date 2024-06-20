@@ -40,7 +40,7 @@ void TitleScene::Initialize()
 	CircleShadowManager::GetInstance()->Intialize();
 
 	GameObjectManager::GetInstance()->Initialize();
-	Level::LoadJson("title.json", WorldKeyStr(WorldKey::eWorldKey));
+	//Level::LoadJson("title.json", WorldKey::eWorldKey);
 
 	titleDra_.Initialize();
 	titleDra_.OpeningAnimation();

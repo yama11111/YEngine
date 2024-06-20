@@ -11,7 +11,7 @@ using YGame::Coin;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Coin> Coin::Create(const Transform::Status& status, const std::string& key)
+std::unique_ptr<Coin> Coin::Create(const Transform::Status& status, const WorldKey key)
 {
 	std::unique_ptr<Coin> newObj = std::make_unique<Coin>();
 
@@ -20,9 +20,9 @@ std::unique_ptr<Coin> Coin::Create(const Transform::Status& status, const std::s
 	return std::move(newObj);
 }
 
-void Coin::Initialize(const Transform::Status& status, const std::string& key)
+void Coin::Initialize(const Transform::Status& status, const WorldKey key)
 {
-	BaseCharacter::Initialize("Coin", key, status, WorldManager::GetInstance()->BasePosMatPointer());
+	BaseCharacter::Initialize("Coin", key, status);
 
 	// アタリ判定
 	{
@@ -47,8 +47,9 @@ void Coin::Initialize(const Transform::Status& status, const std::string& key)
 
 	// 描画
 	{
-		std::unique_ptr<CoinDrawer> drawer = CoinDrawer::Create({ nullptr, nullptr, key, 1 });
+		std::unique_ptr<CoinDrawer> drawer = CoinDrawer::Create({ nullptr, nullptr, "Game", 1 });
 		drawer->SetParentPosMatPointer(&posMat_);
+		drawer->SetWorldKey(worldKey_);
 		SetDrawer(std::move(drawer));
 
 		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eIdle), true);
@@ -64,7 +65,7 @@ void Coin::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
 
-	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	if (worldKey_ == WorldManager::GetInstance()->CurrentWorldKey())
 	{
 		drawer_->PlayAnimation(static_cast<uint32_t>(CoinDrawer::AnimationType::eCircleShadow), true);
 	}

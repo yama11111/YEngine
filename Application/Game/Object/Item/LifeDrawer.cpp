@@ -142,12 +142,13 @@ void LifeDrawer::UpdateAnimation()
 void LifeDrawer::PlayRecoveryAnimation()
 {
 	WaveParticle::Emit(
+		worldKey_,
 		20,
 		*pParentWorldPos_ + Vector3(0.0f, earnPosEas_.End(), 0.0f), {}, 5.0f,
 		ColorConfig::skTurquoise[2], 
 		pVPMan->ViewProjectionPtr(vpKey_));
 
-	RecoveryParticle::Emit(5, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
+	RecoveryParticle::Emit(worldKey_, 5, *pParentWorldPos_, pVPMan->ViewProjectionPtr(vpKey_));
 
 	PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eEarn), true);
 }

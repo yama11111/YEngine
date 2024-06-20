@@ -7,6 +7,7 @@
 
 #pragma once
 #include "BaseCharacterDrawer.h"
+#include "Power.h"
 
 namespace YGame
 {
@@ -24,6 +25,7 @@ namespace YGame
 
 			// 着地
 			eLanding = 0b1 << 2,
+			
 
 			// 被弾
 			eHit	 = 0b1 << 3,
@@ -36,6 +38,9 @@ namespace YGame
 
 			// 丸影
 			eCircleShadow = 0b1 << 6,
+			
+			// ライン描画
+			eShowLine = 0b1 << 7,
 		};
 
 	public:
@@ -76,6 +81,9 @@ namespace YGame
 
 		// 虹
 		YMath::SplineEase<YMath::Vector4> rainbowEas_;
+
+		std::unique_ptr<ConstBufferObject<CBColor>> cbLineColor_;
+		YMath::Power lineScalePow_;
 
 	private:
 

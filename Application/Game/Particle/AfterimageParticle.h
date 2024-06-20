@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "ViewProjection.h"
+#include "WorldKey.h"
 
 namespace YGame
 {
@@ -25,11 +26,13 @@ namespace YGame
 		/// <summary>
 		/// 発生
 		/// </summary>
+		/// <param name="worldKey"> : 世界キー</param>
 		/// <param name="trfm"> : トランスフォーム</param>
 		/// <param name="color"> : 色</param>
 		/// <param name="pModel"> : モデルポインタ</param>
 		/// <param name="pVP"> : ビュープロジェクションポインタ</param>
 		static void Emit(
+			const WorldKey worldKey,
 			const Transform& trfm,
 			const YMath::Vector4& color,
 			Model* pModel,

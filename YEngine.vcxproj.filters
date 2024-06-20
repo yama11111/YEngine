@@ -283,6 +283,9 @@
     <Filter Include="Application\Game\Object\Base\Object">
       <UniqueIdentifier>{7a5af70c-7714-4d63-a6d4-69939c1c5196}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Game\Particle\Base">
+      <UniqueIdentifier>{9fb7720a-9084-4602-8688-71d202e72563}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Base\DX\ScreenDesc.cpp">
@@ -755,6 +758,9 @@
     </ClCompile>
     <ClCompile Include="Application\Game\Object\BaseStageDrawer.cpp">
       <Filter>Application\Game\Object\Base\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game\Particle\BaseGameParticle.cpp">
+      <Filter>Application\Game\Particle\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1315,6 +1321,9 @@
     </ClInclude>
     <ClInclude Include="Application\Game\Object\BaseCharacterDrawer.h">
       <Filter>Application\Game\Object\Base\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Particle\BaseGameParticle.h">
+      <Filter>Application\Game\Particle\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

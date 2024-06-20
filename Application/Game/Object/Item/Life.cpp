@@ -10,7 +10,7 @@ using YGame::Life;
 using YMath::Vector3;
 using YMath::BitFrag;
 
-std::unique_ptr<Life> Life::Create(const Transform::Status& status, const std::string& key)
+std::unique_ptr<Life> Life::Create(const Transform::Status& status, const WorldKey key)
 {
 	std::unique_ptr<Life> newObj = std::make_unique<Life>();
 
@@ -19,9 +19,9 @@ std::unique_ptr<Life> Life::Create(const Transform::Status& status, const std::s
 	return std::move(newObj);
 }
 
-void Life::Initialize(const Transform::Status& status, const std::string& key)
+void Life::Initialize(const Transform::Status& status, const WorldKey key)
 {
-	BaseCharacter::Initialize("Coin", key, status, WorldManager::GetInstance()->BasePosMatPointer());
+	BaseCharacter::Initialize("Coin", key, status);
 
 	// アタリ判定
 	{
@@ -45,8 +45,9 @@ void Life::Initialize(const Transform::Status& status, const std::string& key)
 
 	// 描画
 	{
-		std::unique_ptr<LifeDrawer> drawer = LifeDrawer::Create({ nullptr, nullptr, key, 1 });
+		std::unique_ptr<LifeDrawer> drawer = LifeDrawer::Create({ nullptr, nullptr, "Game", 1 });
 		drawer->SetParentPosMatPointer(&posMat_);
+		drawer->SetWorldKey(worldKey_);
 		SetDrawer(std::move(drawer));
 
 		drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eIdle), true);
@@ -62,7 +63,7 @@ void Life::UpdateAfterCollision()
 {
 	BaseCharacter::UpdateAfterCollision();
 
-	if (worldKey_ == WorldKeyStr(WorldManager::GetInstance()->CurrentWorldKey()))
+	if (worldKey_ == WorldManager::GetInstance()->CurrentWorldKey())
 	{
 		drawer_->PlayAnimation(static_cast<uint32_t>(LifeDrawer::AnimationType::eCircleShadow), true);
 	}

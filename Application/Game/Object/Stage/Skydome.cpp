@@ -39,7 +39,7 @@ void Skydome::Initialize(const Transform::Status& status, const std::string& key
 		type = SkydomeDrawer::Type::eGreen;
 	}
 
-	SetDrawer(SkydomeDrawer::Create({ nullptr, nullptr, key, 2 }, type));
+	SetDrawer(SkydomeDrawer::Create({ nullptr, nullptr, "Game", 2 }, type));
 }
 
 void Skydome::UpdateBeforeCollision()

@@ -43,3 +43,8 @@ void BaseCharacterDrawer::SetParentPosMatPointer(YMath::Matrix4* pParentPosMat)
 {
 	pParentPosMat_ = pParentPosMat;
 }
+
+void BaseCharacterDrawer::SetWorldKey(const WorldKey worldKey)
+{
+	worldKey_ = worldKey;
+}

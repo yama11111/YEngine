@@ -93,6 +93,14 @@ namespace YMath
 		/// <returns>緩急</returns>
 		float Exponent() const { return exponent_; }
 
+	public:
+
+		Ease() = default;
+		
+		Ease(const T& start, const T& end, const float exponent);
+		
+		~Ease() = default;
+	
 	private:
 
 		// 初期値

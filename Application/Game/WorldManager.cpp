@@ -15,6 +15,7 @@ using YGame::WorldManager;
 using YGame::GameObjectManager;
 using YGame::PipelineManager;
 using YMath::Vector3;
+using YMath::Matrix4;
 
 namespace
 {
@@ -38,24 +39,20 @@ void WorldManager::Initialize(const WorldKey& key)
 	elderWorldKey_ = key;
 	currentWorldKey_ = key;
 
-	cameraSets_.clear();
 	postEffects_.clear();
+	basePosMatMap_.clear();
 
 	std::vector<WorldKey> keys = WorldKeys();
 	for (size_t i = 0; i < keys.size(); i++)
 	{
-		cameraSets_.insert({ keys[i], CameraSet() });
 		postEffects_.insert({ keys[i], PostEffectSet() });
+		basePosMatMap_.insert({ keys[i], YMath::Matrix4::Identity() });
 	}
 
-	for (auto itr = cameraSets_.begin(); itr != cameraSets_.end(); ++itr)
-	{
-		itr->second.camera.Initialize();
-		itr->second.transferVP.Initialize();
-		
-		ViewProjectionManager::GetInstance()->
-			Insert(WorldKeyStr(itr->first), &itr->second.transferVP);
-	}
+	cameraSet_.camera.Initialize();
+	cameraSet_.transferVP.Initialize();
+	ViewProjectionManager::GetInstance()->Insert("Game", &cameraSet_.transferVP);
+	Player::StaticInitialize(&cameraSet_.camera);
 
 	for (auto itr = postEffects_.begin(); itr != postEffects_.end(); ++itr)
 	{
@@ -72,7 +69,7 @@ void WorldManager::Initialize(const WorldKey& key)
 		}
 	}
 	
-	Player::StaticInitialize(&cameraSets_[currentWorldKey_].camera);
+	Player::StaticInitialize(&cameraSet_.camera);
 	GameObjectManager::GetInstance()->Initialize();
 
 	for (size_t i = 0; i < gatePoss_.size(); i++)
@@ -82,8 +79,6 @@ void WorldManager::Initialize(const WorldKey& key)
 
 	drawKeys_ = { WorldKey::eJourneyKey, WorldKey::eWorldKey };
 
-	basePosMat_ = YMath::Matrix4::Identity();
-
 	feverEmitTimer_.Initialize(kEmitFrame, true);
 }
 
@@ -92,16 +87,10 @@ void WorldManager::Update(const bool isControlUpdate)
 	GameObjectManager::GetInstance()->Prepare(isControlUpdate);
 	GameObjectManager::GetInstance()->Update(WorldKeyStrs());
 
-	CameraSet& currentCam = cameraSets_[currentWorldKey_];
-	
-	Player::StaticInitialize(&currentCam.camera);
 	UpdateFever();
 	
-	for (auto itr = cameraSets_.begin(); itr != cameraSets_.end(); ++itr)
-	{
-		itr->second.camera.Update();
-		itr->second.transferVP = itr->second.camera.GetViewProjection();
-	}
+	cameraSet_.camera.Update();
+	cameraSet_.transferVP = cameraSet_.camera.GetViewProjection();
 
 	for (auto itr = postEffects_.begin(); itr != postEffects_.end(); ++itr)
 	{
@@ -132,10 +121,8 @@ void WorldManager::Draw()
 void WorldManager::DrawDebug()
 {
 	GameObjectManager::GetInstance()->DrawDebugText();
-	for (auto itr = cameraSets_.begin(); itr != cameraSets_.end(); ++itr)
-	{
-		itr->second.camera.DrawDebugText();
-	}
+	
+	cameraSet_.camera.DrawDebugText();
 }
 
 Vector3 WorldManager::Pass()
@@ -143,24 +130,24 @@ Vector3 WorldManager::Pass()
 	if (currentWorldKey_ == WorldKey::eWorldKey)
 	{
 		SetWorldKey(WorldKey::eJourneyKey);
-		drawKeys_ = { WorldKey::eFeverKey, WorldKey::eJourneyKey };
+		drawKeys_ = { WorldKey::eWorldKey, WorldKey::eFeverKey, WorldKey::eJourneyKey };
 	}
 	else if (currentWorldKey_ == WorldKey::eFeverKey)
 	{
 		SetWorldKey(WorldKey::eJourneyKey);
-		drawKeys_ = { WorldKey::eWorldKey, WorldKey::eJourneyKey };
+		drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey, WorldKey::eJourneyKey };
 	}
 	else if (currentWorldKey_ == WorldKey::eJourneyKey)
 	{
 		if (elderWorldKey_ == WorldKey::eWorldKey)
 		{
 			SetWorldKey(WorldKey::eFeverKey);
-			drawKeys_ = { WorldKey::eWorldKey, WorldKey::eFeverKey };
+			drawKeys_ = { WorldKey::eJourneyKey, WorldKey::eFeverKey };
 		}
 		else if (elderWorldKey_ == WorldKey::eFeverKey)
 		{
 			SetWorldKey(WorldKey::eWorldKey);
-			drawKeys_ = { WorldKey::eFeverKey, WorldKey::eWorldKey };
+			drawKeys_ = { WorldKey::eJourneyKey, WorldKey::eWorldKey };
 		}
 	}
 
@@ -194,9 +181,9 @@ void WorldManager::SetWorldKey(const WorldKey& key)
 	currentWorldKey_ = key;
 }
 
-void WorldManager::SetBaseMat(const YMath::Matrix4& mat)
+void WorldManager::SetBaseMat(const WorldKey& key, const YMath::Matrix4& mat)
 {
-	basePosMat_ = mat;
+	basePosMatMap_[key] = mat;
 }
 
 void WorldManager::SetGatePos(const WorldKey& key, const Vector3& pos)
@@ -221,14 +208,14 @@ YGame::WorldKey WorldManager::CurrentWorldKey() const
 	return currentWorldKey_;
 }
 
-YMath::Matrix4 YGame::WorldManager::BasePosMat()
+YMath::Matrix4 WorldManager::BasePosMat(const WorldKey& key)
 {
-	return basePosMat_;
+	return basePosMatMap_[key];
 }
 
-YMath::Matrix4* WorldManager::BasePosMatPointer()
+YMath::Matrix4* WorldManager::BasePosMatPointer(const WorldKey& key)
 {
-	return &basePosMat_;
+	return &basePosMatMap_[key];
 }
 
 void WorldManager::UpdateFever()
@@ -239,14 +226,13 @@ void WorldManager::UpdateFever()
 	if (feverEmitTimer_.IsEnd() == false) { return; }
 
 	feverEmitTimer_.Reset(true);
-	CameraSet& camSet = cameraSets_[WorldKey::eFeverKey];
-	Vector3 camPos = camSet.camera.Pos();
+	Vector3 camPos = cameraSet_.camera.Pos();
 	camPos.z += kDistance;
 
 	for (size_t i = 0; i < kStarIdx; i++)
 	{
 		Vector3 pos = YMath::GetRand(camPos + kMinRange, camPos + kMaxRange, 100.0f);
-		StarParticle::Emit(pos, Vector3(-1.0f, -1.0f, 0.0f), &camSet.transferVP);
+		StarParticle::Emit(currentWorldKey_, pos, Vector3(-1.0f, -1.0f, 0.0f), &cameraSet_.transferVP);
 	}
 }
 

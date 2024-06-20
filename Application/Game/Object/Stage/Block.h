@@ -17,8 +17,8 @@ namespace YGame
 		/// <param name="isBackground"> : 背景フラグ</param>
 		/// <returns>動的インスタンス</returns>
 		static std::unique_ptr<Block>Create(
-			const Transform::Status& status, const std::string& key, const bool isBackground);
-	
+			const Transform::Status& status, const WorldKey key, const bool isBackground);
+
 	public:
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace YGame
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
 		/// <param name="isBackground"> : 背景フラグ</param>
-		void Initialize(const Transform::Status& status, const std::string& key, const bool isBackground);
+		void Initialize(const Transform::Status& status, const WorldKey key, const bool isBackground);
 	
 	public:
 		

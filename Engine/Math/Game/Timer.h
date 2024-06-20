@@ -26,6 +26,11 @@ namespace YMath
 		/// </summary>
 		/// <param name="passRate"> : 時間の経過率</param>
 		void Update(const float passRate = 1.0f);
+
+		/// <summary>
+		/// 強制終了
+		/// </summary>
+		void Finish();
 	
 	public:
 		

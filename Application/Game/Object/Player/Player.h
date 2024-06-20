@@ -24,7 +24,7 @@ namespace YGame
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
 		/// <returns>動的インスタンス</returns>
-		static std::unique_ptr<Player> Create(const Transform::Status& status, const std::string& key);
+		static std::unique_ptr<Player> Create(const Transform::Status& status, const WorldKey key);
 
 	public:
 
@@ -33,7 +33,7 @@ namespace YGame
 		/// </summary>
 		/// <param name="status"> : トランスフォーム情報</param>
 		/// <param name="key"> : キー</param>
-		void Initialize(const Transform::Status& status, const std::string& key);
+		void Initialize(const Transform::Status& status, const WorldKey key);
 
 		/// <summary>
 		/// 衝突前更新
@@ -57,7 +57,7 @@ namespace YGame
 		/// 世界キー設定
 		/// </summary>
 		/// <param name="worldKey"> : 世界キー</param>
-		void SetWorldKey(const std::string& worldKey) override;
+		void SetWorldKey(const WorldKey worldKey) override;
 	
 	public:
 
@@ -81,6 +81,11 @@ namespace YGame
 		// 最大ジャンプ回数
 		uint16_t maxJumpCount_ = 0;
 
+		// アニメーションフラグ
+		bool isDrop_ = false;
+		bool isJumpMoment_ = false;
+		bool isLandingMoment_ = false;
+		
 		// 着地フラグ
 		bool isLanding_ = false;
 		bool isElderLanding_ = false;
